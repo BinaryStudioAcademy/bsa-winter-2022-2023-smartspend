@@ -1,0 +1,35 @@
+{
+    "name": "@types/swagger-jsdoc",
+    "version": "6.0.1",
+    "description": "TypeScript definitions for swagger-jsdoc",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/swagger-jsdoc",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Daniel Grove",
+            "url": "https://github.com/drGrove",
+            "githubUsername": "drGrove"
+        },
+        {
+            "name": "Neil Bryson Cargamento",
+            "url": "https://github.com/neilbryson",
+            "githubUsername": "neilbryson"
+        },
+        {
+            "name": "Preyansh Mitharwal",
+            "url": "https://github.com/preyansh07",
+            "githubUsername": "preyansh07"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/swagger-jsdoc"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "7bff38f66062facd343947e036e21477f9e5be48982365a54325efcfa8751437",
+    "typeScriptVersion": "3.6"
+}

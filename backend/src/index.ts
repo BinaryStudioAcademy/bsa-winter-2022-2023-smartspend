@@ -1,3 +1,3 @@
-import { serverApp } from '~/libs/packages/server-application/server-application.js';
+import { serverApp } from '~/common/server-application/server-application.js';
 
 await serverApp.init();

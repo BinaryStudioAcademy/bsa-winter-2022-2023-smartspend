@@ -30,7 +30,7 @@ This is the repository responsible for SmartSpend's apps.
 3. **`npx simple-git-hooks`** at the root
 4. **`cd backend && npm run migrate:dev`** then **`npm run start:dev`**
 5. **`cd frontend && npm run start:dev`**
-6. Enjoy <3
+6. Enjoy ❤️
 
 ## 🏗 Architecture
 

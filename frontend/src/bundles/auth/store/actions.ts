@@ -6,7 +6,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
 
-import { name as sliceName } from './auth.slice.js';
+import { name as sliceName } from './slice.js';
 
 const signUp = createAsyncThunk<
     UserSignUpResponseDto,

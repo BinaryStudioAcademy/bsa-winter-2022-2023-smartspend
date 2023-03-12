@@ -77,7 +77,7 @@ TBA
 
 ##### Example
 
--   `sl-5: Add Clinician Dashboard`
+-   `ss-5: Add Clinician Dashboard`
 
 #### 🌳 Branch flow
 
@@ -92,9 +92,9 @@ TBA
 
 ##### Examples
 
--   `task/sl-5-add-clinician-dashboard`
--   `task/sl-12-add-clinician-flow`
--   `fix/sl-16-fix-clinician-flow`
+-   `task/ss-5-add-clinician-dashboard`
+-   `task/ss-12-add-clinician-flow`
+-   `fix/ss-16-fix-clinician-flow`
 
 #### 🗂 Commit flow
 
@@ -110,9 +110,9 @@ TBA
 
 ##### Examples
 
--   `sl-5: + title for dashboard`
--   `sl-12: * dashboard title`
--   `sl-16: - dashboard title`
+-   `ss-5: + title for dashboard`
+-   `ss-12: * dashboard title`
+-   `ss-16: - dashboard title`
 
 ## 📦 CD
 

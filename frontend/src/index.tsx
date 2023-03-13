@@ -11,6 +11,7 @@ import {
 } from '~/bundles/common/components/components';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { store } from '~/framework/store/store';
+import { Base } from '~/bundles/common/pages/base';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -23,7 +24,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         children: [
                             {
                                 path: AppRoute.ROOT,
-                                element: 'Root',
+                                element: <Base />,
                             },
                             {
                                 path: AppRoute.SIGN_IN,

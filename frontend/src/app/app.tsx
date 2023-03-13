@@ -10,6 +10,7 @@ import {
 import { actions as userActions } from '~/bundles/users/store';
 
 const App: React.FC = () => {
+    // TODO:
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const { users, dataStatus } = useAppSelector(({ users }) => ({

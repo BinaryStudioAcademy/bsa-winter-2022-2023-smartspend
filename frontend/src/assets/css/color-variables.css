@@ -1,17 +1,17 @@
 :root {
-    /* Background colors */
+    /* Background */
     --background-blue-600: #163676;
     --background-blue-300: #98B2DE;
     --background-blue-200: #D7DFFE;
     --background-blue-100: #EFF3FF;
 
-    /* Font colors */
+    /* Font */
     --text-color-gray-400: #130138;
     --text-color-gray-300: #5A6474;
     --text-color-gray-200: #9AACBD;
     --text-color-white-100: #FFFFFF;
 
-    /* Brand colors */
+    /* Brand */
     --brand-color-turquoise: linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%);
     --brand-color-pink-100: #3242DF;
 

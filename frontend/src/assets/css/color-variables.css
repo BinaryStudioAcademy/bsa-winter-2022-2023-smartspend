@@ -10,4 +10,8 @@
     --text-color-gray-300: #5A6474;
     --text-color-gray-200: #9AACBD;
     --text-color-white-100: #FFFFFF;
+
+    /* Brand colors */
+    --brand-color-turquoise: linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%);
+    --brand-color-pink-100: #3242DF;
 }

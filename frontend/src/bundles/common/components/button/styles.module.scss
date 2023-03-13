@@ -1,0 +1,91 @@
+:root {
+    --main-color: green;
+    --hover-color: lightgreen;
+    --disabled-color: gray;
+    --primary-text-color: white;
+    --plain-text-color: blue;
+    --plain-hover-text-color: darkblue;
+    --round-button-color: lightblue;
+    --round-button-dimension: 1.75rem;
+    --transition-time: 0.3s;
+}
+
+.button {
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.medium {
+    padding: 1rem 1.5rem;
+}
+
+.small {
+    padding: 0.5rem 1.5rem;
+}
+
+.equalRounded {
+    height: var(--round-button-dimension);
+    width: var(--round-button-dimension);
+    border-radius: 50%;
+}
+
+.primary {
+    background-color: var(--main-color);
+    color: var(--primary-text-color);
+}
+
+.primary:hover {
+    background-color: var(--hover-color);
+    transition: all var(--transition-time);
+}
+
+.primaryDisabled {
+    background-color: var(--disabled-color);
+    color: var(--primary-text-color);
+    cursor: auto;
+}
+
+.secondary {
+    border: 1px solid var(--main-color);
+    background: none;
+    color: var(--main-color);
+}
+
+.secondary:hover {
+    border: 1px solid var(--hover-color);
+    color: var(--hover-color);
+    transition: all var(--transition-time);
+}
+
+.secondaryDisabled {
+    color: var(--disabled-color);
+    border: 1px solid var(--disabled-color);
+    cursor: auto;
+}
+
+.plain {
+    background: none;
+    color: var(--plain-text-color);
+}
+
+.plain:hover {
+    color: var(--plain-hover-text-color);
+    transition: all var(--transition-time);
+}
+
+.plainDisabled {
+    color: var(--disabled-color);
+    cursor: auto;
+}
+
+.round {
+    background-color: var(--round-button-color);
+    color: var(--primary-text-color);
+}

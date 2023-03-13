@@ -1,0 +1,97 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: rgba(0 0 0 / 40%);
+    transform: scale(0);
+}
+
+.modal.active {
+    transform: scale(1);
+}
+
+.popup__close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-weight: 300;
+    font-size: 28px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.popup {
+    position: relative;
+    min-width: 500px;
+    min-height: 200px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.modal-body {
+    padding: 10px 20px;
+    color: #5a6474;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: Rubik, sans-serif;
+    font-style: normal;
+}
+
+.modal-header {
+    display: flex;
+    width: 100%;
+    padding: 5px 20px;
+    font-size: 14px;
+    font-family: Rubik, sans-serif;
+    font-style: normal;
+    line-height: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: end;
+    padding: 10px 20px;
+}
+
+.modal-footer > * {
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+    .popup {
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .popup {
+        width: 88%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .popup {
+        width: 850px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .popup {
+        width: 900px;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .popup {
+        width: 950px;
+    }
+}

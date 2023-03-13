@@ -102,11 +102,6 @@ rules:
         - off
     '@typescript-eslint/no-unsafe-assignment':
         - off
-    indent:
-        - off
-    '@typescript-eslint/indent':
-        - error
-        - 4
     '@typescript-eslint/no-unsafe-call':
         - off
     '@typescript-eslint/no-unsafe-return':

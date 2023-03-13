@@ -38,19 +38,18 @@
 }
 
 .modal-body {
-    padding: 10px;
+    padding: 10px 20px;
     color: #5a6474;
     font-weight: 400;
     font-size: 16px;
     font-family: Rubik, sans-serif;
     font-style: normal;
-    border-bottom: 1px solid #d7dffe;
 }
 
 .modal-header {
     display: flex;
     width: 100%;
-    padding: 10px;
+    padding: 5px 20px;
     font-size: 14px;
     font-family: Rubik, sans-serif;
     font-style: normal;
@@ -60,7 +59,7 @@
 .modal-footer {
     display: flex;
     justify-content: end;
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .modal-footer > * {

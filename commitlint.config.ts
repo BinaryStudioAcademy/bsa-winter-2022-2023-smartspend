@@ -10,15 +10,15 @@ const COMMIT_MESSAGE_REGEXP = new RegExp(
 );
 const COMMIT_MESSAGE_MATCH_RULE_MESSAGE = `commit message doesn't match format requirements
 Commit message must have one of the following formats:
-  - <project-prefix>-<issue-number>: <modifier> <description>
-  - <environment>: <modifier> <description>
+    - <project-prefix>-<issue-number>: <modifier> <description>
+    - <environment>: <modifier> <description>
 Where:
-  - <project-prefix>: ${ProjectPrefix.APP}
-  - <modifier>: ${COMMIT_MODIFIERS.join(', ')}
-  - <environment>: ${ProjectPrefix.ENVIRONMENTS.join(', ')}
+    - <project-prefix>: ${ProjectPrefix.APP}
+    - <modifier>: ${COMMIT_MODIFIERS.join(', ')}
+    - <environment>: ${ProjectPrefix.ENVIRONMENTS.join(', ')}
 Examples:
-  - ss-5: + ui/ux lecture
-  - production: - comments in ui/ux homework`;
+    - ss-5: + ui/ux lecture
+    - production: - comments in ui/ux homework`;
 
 const configuration: UserConfig = {
     parserPreset: {

@@ -14,4 +14,7 @@
     /* Brand colors */
     --brand-color-turquoise: linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%);
     --brand-color-pink-100: #3242DF;
+
+    /* Hover */
+    --brand-color-hover-turquoise: linear-gradient(95.77deg, #09F2D6 -14.06%, #09E1FF 101.51%);
 }

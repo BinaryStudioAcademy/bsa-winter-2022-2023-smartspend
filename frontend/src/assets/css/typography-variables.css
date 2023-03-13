@@ -1,0 +1,88 @@
+:root {
+    /* Font Colors */
+    --font-color-deep-purple: #130138;
+    --font-color-slate-grey: #5a6474;
+    --font-family: 'Rubik', sans-serif;
+
+    /* Heading 1 */
+    --font-size-level-1-heading: 44px;
+    --font-weight-level-1-heading: 500;
+    --line-height-level-1-heading: 64px;
+
+    /* Heading 2 */
+    --font-size-level-2-heading: 30px;
+    --font-weight-level-2-heading: 500;
+    --line-height-level-2-heading: 48px;
+
+    /* Heading 3 */
+    --font-size-level-3-heading: 20px;
+    --font-weight-level-3-heading: 500;
+    --line-height-level-3-heading: 32px;
+
+    /* Heading 4 */
+    --font-size-level-4-heading: 18px;
+    --font-weight-level-4-heading: 500;
+    --line-height-level-4-heading: 24px;
+
+    /* Heading 5 */
+    --font-size-level-5-heading: 16px;
+    --font-weight-level-5-heading: 500;
+    --line-height-level-5-heading: 18.5px;
+
+    /* Heading 6 */
+    --font-size-level-6-heading: 14px;
+    --font-weight-level-6-heading: 500;
+    --letter-spacing-level-6-heading: 0.75px;
+    --line-height-level-6-heading: 24px;
+
+    /* Subheading 2 */
+    --font-size-sub-heading: 24px;
+    --font-weight-sub-heading: 500;
+    --line-height-sub-heading: 48px;
+
+    /* Body 1 */
+    --font-size-level-1-body: 16px;
+    --font-weight-level-1-body: 400;
+    --line-height-level-1-body: 27.5px;
+
+    /* Body 2 */
+    --font-size-level-2-body: 14px;
+    --font-weight-level-2-body: 400;
+    --line-height-level-2-body: 19.5px;
+    --font-weight-level-2-body-semi-bold: 500;
+    --line-height-level-2-body-semi-bold: 19px;
+
+    /* Caption */
+    --font-size-caption: 12px;
+    --font-weight-caption: 500;
+    --line-height-caption: 19.5px;
+
+    /* Quotation */
+    --font-size-quotation: 16px;
+    --font-weight-quotation: 400;
+    --font-style-quotation: italic;
+    --line-height-quotation: 24px;
+
+    /* Button 1 text */
+    --font-size-1-button-text: 18px;
+    --letter-spacing-1-button-text: 0.5px;
+    --font-weight-1-button-text: 500;
+    --line-height-1-button-text: 24px;
+
+    /* Button 2 text */
+    --font-size-2-button-text: 16px;
+    --letter-spacing-2-button-text: 0.5px;
+    --font-weight-2-button-text: 400;
+    --line-height-2-button-text: 16px;
+
+    /* Input label */
+    --font-size-input-label: 16px;
+    --font-weight-input-label: 400;
+    --line-height-input-label: 16px;
+
+    /* Input text */
+    --font-size-input: 15px;
+    --font-weight-input: 500;
+    --letter-spacing-input: -1%;
+    --line-height-input: 24px;
+}

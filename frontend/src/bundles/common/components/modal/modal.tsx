@@ -7,8 +7,8 @@ interface Properties {
     active: boolean;
     setActive: React.Dispatch<React.SetStateAction<boolean>>;
     onClose: () => void;
-    header?: ReactNode;
-    body?: ReactNode;
+    header: ReactNode;
+    body: ReactNode;
     children: ReactNode;
 }
 

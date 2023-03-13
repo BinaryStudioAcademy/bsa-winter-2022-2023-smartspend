@@ -66,3 +66,33 @@
 .modal-footer > * {
     margin-left: 10px;
 }
+
+@media only screen and (max-width: 767px) {
+    .popup {
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .popup {
+        width: 88%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .popup {
+        width: 850px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .popup {
+        width: 900px;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .popup {
+        width: 950px;
+    }
+}

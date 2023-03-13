@@ -1,5 +1,5 @@
 development:
-  base: development
+    base: development
 
 production:
-  base: production
+    base: production

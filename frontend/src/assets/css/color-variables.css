@@ -17,4 +17,13 @@
 
     /* Hover */
     --brand-color-hover-turquoise: linear-gradient(95.77deg, #09F2D6 -14.06%, #09E1FF 101.51%);
+
+    /* Support */
+    --support-color-1: linear-gradient(95.5deg, #284B9F 0%, #102E68 100%);
+    --support-color-2: linear-gradient(96.2deg, #FECC66 -30.03%, #F83062 95.13%);
+    --support-color-3: linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%);
+    --support-color-4: linear-gradient(91.64deg, #FCE302 -1.67%, #FE5C01 98.41%);
+    --support-color-5-warning: #DC2430;
+    --support-color-6-disable: #E5E7ED;
+
 }

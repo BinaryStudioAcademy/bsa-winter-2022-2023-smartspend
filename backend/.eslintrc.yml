@@ -15,7 +15,7 @@ overrides:
           'import/no-default-export':
               - off
     - files:
-          - src/migrations/**/*.ts
+          - src/migrations/*.ts
       rules:
           'unicorn/filename-case':
               - error

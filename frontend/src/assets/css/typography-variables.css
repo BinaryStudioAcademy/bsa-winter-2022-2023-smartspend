@@ -51,16 +51,6 @@
     --font-style-quotation: italic;
     --line-height-quotation: 24px;
 
-    /* Button 1 text */
-    --font-size-1-button-text: 18px;
-    --letter-spacing-1-button-text: 0.5px;
-    --line-height-1-button-text: 16px;
-
-    /* Button 2 text */
-    --font-size-2-button-text: 16px;
-    --letter-spacing-2-button-text: 0.5px;
-    --line-height-2-button-text: 16px;
-
     /* Input label */
     --font-size-input-label: 16px;
     --font-weight-input-label: 400;
@@ -70,4 +60,16 @@
     --font-size-input: 15px;
     --letter-spacing-input: -1%;
     --line-height-input: 24px;
+
+    /* Button 1, Button 2 text */
+    --letter-spacing-button-text: 0.5px;
+    --line-height-button-text: 16px;
+
+    /* Button 1 text */
+    --font-size-1-button-text: 18px;
+    --font-weight-1-button-text: 500;
+
+    /* Button 2 text */
+    --font-size-2-button-text: 16px;
+    --font-weight-2-button-text: 400;
 }

@@ -22,12 +22,15 @@ const { reducer, actions, name } = createSlice({
     extraReducers(builder) {
         builder.addCase(signUp.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
+            state.isLoggedIn = false;
         });
         builder.addCase(signUp.fulfilled, (state) => {
             state.dataStatus = DataStatus.FULFILLED;
+            state.isLoggedIn = true;
         });
         builder.addCase(signUp.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+            state.isLoggedIn = false;
         });
     },
 });

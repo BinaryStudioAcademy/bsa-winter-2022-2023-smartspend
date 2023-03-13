@@ -1,0 +1,13 @@
+:root {
+    /* Background colors */
+    --background-blue-600: #163676;
+    --background-blue-300: #98B2DE;
+    --background-blue-200: #D7DFFE;
+    --background-blue-100: #EFF3FF;
+
+    /* Font colors */
+    --text-color-gray-400: #130138;
+    --text-color-gray-300: #5A6474;
+    --text-color-gray-200: #9AACBD;
+    --text-color-white-100: #FFFFFF;
+}

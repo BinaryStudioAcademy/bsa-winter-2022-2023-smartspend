@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+.tabs {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    width: 508px;
+    height: 36px;
+    background-color: #98b2de;
+    border-radius: 8px;
+    margin: 0;
+    padding: 6px;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 25px;
+}
+
+.tabs li {
+    margin-right: 6px;
+}
+
+.tabs li:last-child {
+    margin-right: 0;
+}
+
+.tabs li a {
+    text-decoration: none;
+    color: #163676;
+}
+
+li .active a {
+    color: #4e73f8;
+    font-weight: 600;
+}
+
+.tabs .active {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.tabs button {
+    border: none;
+    background-color: transparent;
+}

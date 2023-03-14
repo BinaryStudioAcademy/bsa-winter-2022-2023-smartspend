@@ -19,13 +19,15 @@ function up(knex: Knex): Promise<void> {
         table
             .uuid(ColumnName.CATEGORY_ID)
             .notNullable()
-            .references('categories.id')
+            .references('id')
+            .inTable('categories')
             .onDelete('CASCADE');
         table.datetime(ColumnName.DATE).notNullable();
         table.text(ColumnName.NOTE);
         table
             .uuid(ColumnName.LABEL_ID)
-            .references('labels.id')
+            .references('id')
+            .inTable('labels')
             .onDelete('SET NULL');
         table.float(ColumnName.AMOUNT).notNullable();
         table

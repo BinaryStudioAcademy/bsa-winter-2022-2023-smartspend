@@ -4,69 +4,62 @@
     --font-family: 'Rubik', sans-serif;
 
     /* Heading 1 */
-    --font-size-level-1-heading: 44px;
-    --line-height-level-1-heading: 64px;
+    --font-size-level-1-heading: 2.75rem;
+    --line-height-level-1-heading: 4rem;
 
     /* Heading 2 */
-    --font-size-level-2-heading: 30px;
-    --line-height-level-2-heading: 48px;
+    --font-size-level-2-heading: 1.875rem;
+    --line-height-level-2-heading: 3rem;
 
     /* Heading 3 */
-    --font-size-level-3-heading: 20px;
-    --line-height-level-3-heading: 32px;
+    --font-size-level-3-heading: 1.25rem;
+    --line-height-level-3-heading: 2rem;
 
     /* Heading 4 */
-    --font-size-level-4-heading: 18px;
-    --line-height-level-4-heading: 24px;
+    --font-size-level-4-heading: 1.125rem;
+    --line-height-level-4-heading: 1.5rem;
 
     /* Heading 5 */
-    --font-size-level-5-heading: 16px;
-    --line-height-level-5-heading: 18.5px;
+    --line-height-level-5-heading: 1.156rem;
 
     /* Heading 6 */
-    --font-size-level-6-heading: 14px;
+    --font-size-level-6-heading: 0.875rem;
     --letter-spacing-level-6-heading: 0.75px;
-    --line-height-level-6-heading: 24px;
+    --line-height-level-6-heading: 1.5rem;
 
     /* Subheading 2 */
-    --font-size-sub-heading: 24px;
-    --line-height-sub-heading: 48px;
+    --font-size-sub-heading: 1.5rem;
+    --line-height-sub-heading: 3rem;
 
     /* Body 1 */
-    --font-size-level-1-body: 16px;
-    --line-height-level-1-body: 27.5px;
+    --line-height-level-1-body: 1.719rem;
 
     /* Body 2 */
-    --font-size-level-2-body: 14px;
-    --line-height-level-2-body: 19.5px;
-    --line-height-level-2-body-semi-bold: 19px;
+    --font-size-level-2-body: 0.875rem;
+    --line-height-level-2-body: 1.219rem;
+    --line-height-level-2-body-semi-bold: 1.188rem;
 
     /* Caption */
-    --font-size-caption: 12px;
-    --line-height-caption: 19.5px;
+    --font-size-caption: 0.75rem;
+    --line-height-caption: 1.219rem;
 
     /* Quotation */
-    --font-size-quotation: 16px;
     --font-style-quotation: italic;
-    --line-height-quotation: 24px;
+    --line-height-quotation: 1.5rem;
 
     /* Input label */
-    --font-size-input-label: 16px;
     --font-weight-input-label: 400;
-    --line-height-input-label: 16px;
 
     /* Input text */
-    --line-height-input: 24px;
+    --line-height-input: 1.5rem;
 
     /* Button 1, Button 2 text */
     --letter-spacing-button-text: 0.5px;
-    --line-height-button-text: 16px;
 
     /* Button 1 text */
-    --font-size-1-button-text: 18px;
+    --font-size-1-button-text: 1.125rem;
     --font-weight-1-button-text: 500;
 
     /* Button 2 text */
-    --font-size-2-button-text: 16px;
     --font-weight-2-button-text: 400;
 }

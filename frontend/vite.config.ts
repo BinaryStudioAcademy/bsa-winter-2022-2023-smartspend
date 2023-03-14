@@ -1,5 +1,6 @@
 import reactPlugin from '@vitejs/plugin-react';
 import { type ConfigEnv, defineConfig, loadEnv } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 import tsconfigPathsPlugin from 'vite-tsconfig-paths';
 
 const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
@@ -13,7 +14,57 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
         build: {
             outDir: 'build',
         },
-        plugins: [tsconfigPathsPlugin(), reactPlugin()],
+        plugins: [
+            tsconfigPathsPlugin(),
+            reactPlugin(),
+            VitePWA({
+                registerType: 'autoUpdate',
+                injectRegister: 'auto',
+                includeAssets: [
+                    'favicon.ico',
+                    'apple-touch-icon.png',
+                    'masked-icon.svg',
+                ],
+                manifest: {
+                    icons: [
+                        {
+                            src: 'src/assets/img/icons/android-chrome-192x192.png',
+                            sizes: '192x192',
+                            type: 'image/png',
+                            purpose: 'any maskable',
+                        },
+                        {
+                            src: 'src/assets/img/icons/android-chrome-512x512.png',
+                            sizes: '512x512',
+                            type: 'image/png',
+                            purpose: 'any maskable',
+                        },
+                    ],
+                },
+                workbox: {
+                    globPatterns: [
+                        '**/*.{js,jsx,ts,tsx,css,scss,html,ico,png,svg}',
+                    ],
+                    runtimeCaching: [
+                        {
+                            urlPattern: ({ url }) =>
+                                url.pathname.startsWith('/api'),
+                            handler: 'CacheFirst',
+                            options: {
+                                cacheName: 'api-cache',
+                                cacheableResponse: {
+                                    statuses: [0, 200],
+                                },
+                            },
+                        },
+                    ],
+                },
+                injectManifest: {
+                    swSrc: './src/service-worker.js',
+                    swDest: 'sw.js',
+                },
+            }),
+        ],
         server: {
             port: Number(VITE_APP_DEVELOPMENT_PORT),
             proxy: {

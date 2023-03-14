@@ -10,8 +10,8 @@ import {
     StoreProvider,
 } from '~/bundles/common/components/components';
 import { AppRoute } from '~/bundles/common/enums/enums';
-import { store } from '~/framework/store/store';
 import { Base } from '~/bundles/common/pages/base';
+import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>

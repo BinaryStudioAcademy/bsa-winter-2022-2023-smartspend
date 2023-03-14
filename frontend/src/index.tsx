@@ -9,7 +9,7 @@ import {
     RouterProvider,
     StoreProvider,
 } from '~/bundles/common/components/components';
-import { AppRoute } from '~/bundles/common/enums/enums';
+import { AppRoute, StyleGuide } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { store } from '~/framework/store/store';
 
@@ -24,7 +24,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         children: [
                             {
                                 path: AppRoute.ROOT,
-                                element: <Base />,
+                                element: 'Root',
                             },
                             {
                                 path: AppRoute.SIGN_IN,
@@ -35,6 +35,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 element: <Auth />,
                             },
                         ],
+                    },
+                    {
+                        path: StyleGuide.UI,
+                        element: <Base />,
                     },
                 ]}
             />

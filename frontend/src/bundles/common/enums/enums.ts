@@ -6,3 +6,4 @@ export {
     ContentType,
     ServerErrorType,
 } from 'shared/build/index.js';
+export { StyleGuide } from './styleguide-route.enum.js';

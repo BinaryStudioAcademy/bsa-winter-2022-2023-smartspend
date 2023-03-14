@@ -42,11 +42,14 @@ class Store {
                 users: usersReducer,
             },
             middleware: (getDefaultMiddleware) => {
-                return [...getDefaultMiddleware({
-                    thunk: {
-                        extraArgument: this.extraArguments,
-                    },
-                }), handleError];
+                return [
+                    ...getDefaultMiddleware({
+                        thunk: {
+                            extraArgument: this.extraArguments,
+                        },
+                    }),
+                    handleError,
+                ];
             },
         });
     }

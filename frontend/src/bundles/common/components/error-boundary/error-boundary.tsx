@@ -13,11 +13,14 @@ interface ErrorBoundaryState {
     hasError: boolean;
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryProperties, ErrorBoundaryState> {
+class ErrorBoundary extends Component<
+    ErrorBoundaryProperties,
+    ErrorBoundaryState
+> {
     public state: ErrorBoundaryState = {
-        hasError: false
+        hasError: false,
     };
-    private message='An error has occurred';
+    private message = 'An error has occurred';
     public static getDerivedStateFromError(): ErrorBoundaryState {
         return { hasError: true };
     }
@@ -28,7 +31,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProperties, ErrorBoundaryStat
 
     public render(): ReactNode {
         if (this.state.hasError) {
-            return  <Toast/>;
+            return <Toast />;
         }
         return this.props.children;
     }

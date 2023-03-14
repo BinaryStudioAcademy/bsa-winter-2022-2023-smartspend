@@ -1,6 +1,6 @@
 import { type Knex } from 'knex';
 
-import { PageName } from '~/common/database/enums/migration-page-name-enum';
+import { PageName } from '~/common/database/enums/migration-page-name-enum.js';
 
 const TABLE_NAME = 'widgets_layout';
 

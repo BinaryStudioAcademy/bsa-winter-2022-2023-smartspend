@@ -28,7 +28,7 @@ const App: React.FC = () => {
     return (
         <>
             <img src={reactLogo} className="App-logo" width="30" alt="logo" />
-            <Tabs />            
+            <Tabs />
             <ul className="App-navigation-list">
                 <li>
                     <Link to={AppRoute.ROOT}>Root</Link>

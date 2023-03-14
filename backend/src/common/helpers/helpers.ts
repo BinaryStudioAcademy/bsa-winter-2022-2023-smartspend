@@ -1,1 +1,1 @@
-export { compareSyncPassword, encryptSync } from './crypt/crypt';
+export { compareSyncPassword, createSaltSync, encryptSync } from './crypt/crypt';

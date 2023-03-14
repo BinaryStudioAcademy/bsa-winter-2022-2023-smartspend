@@ -28,6 +28,7 @@
     "dependencies": {
         "@fastify/swagger": "8.3.1",
         "@fastify/swagger-ui": "1.4.0",
+        "classnames": "2.3.2",
         "convict": "6.2.4",
         "dotenv": "16.0.3",
         "fastify": "4.11.0",

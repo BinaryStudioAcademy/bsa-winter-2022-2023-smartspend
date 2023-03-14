@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import {
@@ -27,12 +28,12 @@ const Button: React.FC<Properties> = ({
     disabled = false,
     onClick,
 }) => {
-    const buttonClasses = [
+    const buttonClasses = classNames(
         styles.button,
         variant === 'round' ? styles.equalRounded : styles[size],
         styles[variant + (disabled ? 'Disabled' : '')],
         className,
-    ].join(' ');
+    );
 
     return (
         <button

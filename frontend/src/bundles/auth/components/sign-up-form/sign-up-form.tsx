@@ -1,4 +1,5 @@
 import { Button, Input } from '~/bundles/common/components/components';
+import { ButtonType } from '~/bundles/common/enums/button.enum';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,
@@ -48,7 +49,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors={errors}
                     />
                 </p>
-                <Button type="submit" label="Sign up" />
+                <Button type={ButtonType.SUBMIT}>Sign up</Button>
             </form>
         </>
     );

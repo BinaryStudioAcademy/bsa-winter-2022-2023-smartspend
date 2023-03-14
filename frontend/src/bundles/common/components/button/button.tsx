@@ -1,20 +1,26 @@
 import React from 'react';
 
+import {
+    type ButtonSize,
+    type ButtonType,
+    type ButtonVariant,
+} from '~/bundles/common/enums/enums.js';
+
 import styles from './styles.module.scss';
 
 type Properties = {
     children: React.ReactNode;
-    type?: 'button' | 'submit';
+    type?: ButtonType;
     className?: string;
-    variant?: 'primary' | 'secondary' | 'plain' | 'round';
-    size?: 'medium' | 'small';
+    variant?: ButtonVariant;
+    size?: ButtonSize;
     disabled?: boolean;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Button: React.FC<Properties> = ({
     children,
-    type = 'button',
+    type,
     className = '',
     variant = 'primary',
     size = 'medium',
@@ -23,7 +29,6 @@ const Button: React.FC<Properties> = ({
 }) => {
     const buttonClasses = [
         styles.button,
-        // styles[variant],
         variant === 'round' ? styles.equalRounded : styles[size],
         styles[variant + (disabled ? 'Disabled' : '')],
         className,

@@ -66,6 +66,29 @@
     margin-left: 10px;
 }
 
+.cancel {
+    width: 80px;
+    height: 40px;
+    color: #5a6474;
+    background: #ffffff;
+    border: 1px solid #5a6474;
+    border-radius: 2px;
+}
+
+.green {
+    width: 50px;
+    height: 40px;
+    color: #ffffff;
+    font-size: 16px;
+    background: linear-gradient(95.77deg, #00d7bd -14.06%, #03bfd9 101.51%);
+    border: none;
+    border-radius: 2px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 767px) {
     .popup {
         width: 95%;

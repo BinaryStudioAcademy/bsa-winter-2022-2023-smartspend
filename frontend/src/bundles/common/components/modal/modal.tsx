@@ -1,45 +1,70 @@
 import './modal.scss';
 
-import { type ReactNode } from 'react';
+import { type MouseEventHandler, type ReactNode } from 'react';
 import React, { useCallback } from 'react';
 
+import { Portal } from '~/bundles/common/components/portal/portal';
+
 interface Properties {
-    active: boolean;
-    setActive: React.Dispatch<React.SetStateAction<boolean>>;
+    isShown: boolean;
     onClose: () => void;
-    header: ReactNode;
-    body: ReactNode;
-    children: ReactNode;
+    onSubmit: () => void;
+    Header: ReactNode;
+    Body: ReactNode;
+    children?: ReactNode;
 }
 
 const Modal: React.FC<Properties> = ({
-    header,
-    body,
+    Header,
+    Body,
     onClose,
     children,
-    active,
-    setActive,
+    isShown,
+    onSubmit,
 }) => {
     const handleClose = useCallback(() => {
-        setActive(false);
         onClose();
-    }, [setActive, onClose]);
-
+    }, [onClose]);
+    const handleDisableContentContainerClick: MouseEventHandler<HTMLDivElement> =
+        useCallback((event_) => {
+            event_.stopPropagation();
+        }, []);
+    if (!isShown) {
+        return null;
+    }
     return (
-        <div className={active ? 'modal active' : 'modal'}>
-            <div className="popup">
-                <button
-                    data-test-id="book-trip-popup-close"
-                    className="popup__close"
-                    onClick={handleClose}
+        <Portal>
+            <div
+                className="modal active"
+                onClick={handleClose}
+                role="presentation"
+            >
+                <div
+                    className="popup"
+                    onClick={handleDisableContentContainerClick}
+                    role="presentation"
                 >
-                    ×
-                </button>
-                <div className="modal-header">{header}</div>
-                <div className="modal-body">{body}</div>
-                <div className="modal-footer">{children}</div>
+                    <button
+                        data-test-id="book-trip-popup-close"
+                        className="popup__close"
+                        onClick={handleClose}
+                    >
+                        ×
+                    </button>
+                    <div className="modal-header">{Header}</div>
+                    <div className="modal-body">{Body}</div>
+                    <div className="modal-footer">
+                        {children}
+                        <button className="cancel" onClick={handleClose}>
+                            Cancel
+                        </button>
+                        <button className="green" onClick={onSubmit}>
+                            OK
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </Portal>
     );
 };
 

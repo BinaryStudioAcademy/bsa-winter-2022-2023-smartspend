@@ -2,7 +2,7 @@ import { hashSync } from 'bcrypt';
 
 import { createSaltSync } from '../salt-sync/salt-sync.helper';
 
-type EncryptSyncReturnType = { 
+type EncryptSyncReturnType = {
     salt: string;
     hash: string;
 };

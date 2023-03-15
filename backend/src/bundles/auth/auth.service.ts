@@ -5,11 +5,12 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
+import { ExceptionMessage } from '~/common/enums/enums.js';
 import { HttpError } from '~/common/exceptions/exceptions.js';
 import { HttpCode } from '~/common/http/enums/enums.js';
 import { type CryptService } from '~/common/services/crypt/crypt.service.js';
 import { tokenService } from '~/common/services/services.js';
-
+ 
 type User = {
     id: number;
     email: string;
@@ -46,7 +47,7 @@ class AuthService {
         const user = await this.userService.find(requestUser);
         if (!user) {
             throw new HttpError({
-                message: 'Invalid email',
+                message: ExceptionMessage.INVALID_EMAIL,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
@@ -58,7 +59,7 @@ class AuthService {
         );
         if (!isEqualPassword) {
             throw new HttpError({
-                message: 'Invalid Password',
+                message: ExceptionMessage.INVALID_PASSWORD,
                 status: HttpCode.UNAUTHORIZED,
             });
         }

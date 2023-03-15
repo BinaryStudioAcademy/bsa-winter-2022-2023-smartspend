@@ -1,6 +1,6 @@
 import { type Knex } from 'knex';
 
-import { CategoryType } from '~/common/database/enums/migration-category-type-enum.js';
+import { CategoryType } from '~/common/database/enums/migration-category-type.enum.js';
 
 const TABLE_NAME = 'categories';
 

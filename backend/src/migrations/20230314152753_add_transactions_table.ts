@@ -11,6 +11,8 @@ const ColumnName = {
     AMOUNT: 'amount',
     CURRENCY_ID: 'currency_id',
     IMAGE: 'image',
+    CREATED_AT: 'created_at',
+    UPDATED_AT: 'updated_at',
 };
 
 function up(knex: Knex): Promise<void> {
@@ -36,6 +38,14 @@ function up(knex: Knex): Promise<void> {
             .references('currencies.id')
             .onDelete('CASCADE');
         table.string(ColumnName.IMAGE);
+        table
+            .dateTime(ColumnName.CREATED_AT)
+            .notNullable()
+            .defaultTo(knex.fn.now());
+        table
+            .dateTime(ColumnName.UPDATED_AT)
+            .notNullable()
+            .defaultTo(knex.fn.now());
     });
 }
 

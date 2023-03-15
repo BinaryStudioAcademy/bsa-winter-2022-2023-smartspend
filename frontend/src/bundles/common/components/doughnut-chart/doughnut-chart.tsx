@@ -29,7 +29,7 @@ const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({ categories }) => 
         },
     };
 
-    const textCenter: ItextCenter = { //test task
+    const textCenter: ItextCenter = { //test features
         id: 'textCenter',
         afterDatasetsDraw(chart) {
             const { ctx, data } = chart;

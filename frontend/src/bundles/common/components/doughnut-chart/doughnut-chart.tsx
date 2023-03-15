@@ -1,4 +1,4 @@
-import { ArcElement, Chart as ChartJS } from 'chart.js';
+import { type BubbleDataPoint, type ChartData, type Point, ArcElement, Chart as ChartJS } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 import { DoughnutData } from '../../enums/doughnut-data.enum.js';
@@ -11,7 +11,7 @@ ChartJS.register(ArcElement);
 const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({ categories }) => {
     const colors = categories.map(object => getGradientColors(object.color));
 
-    const data: any = {
+    const data: any = { // type issues - ChartData<'doughnut', (number | [number, number] | Point | BubbleDataPoint | null)[]>
         datasets: [{
             data: categories.map(object => object.total),
             backgroundColor: (context: ScriptableContext<'doughnut'>) => createGradients(context, colors),
@@ -40,7 +40,7 @@ const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({ categories }) => 
             const y = chart.getDatasetMeta(0).data[0].y;
 
             ctx.save();
-            ctx.font = '700 18px sans-serif';
+            ctx.font = '700 12px sans-serif';
             ctx.fillStyle = '#163676';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';

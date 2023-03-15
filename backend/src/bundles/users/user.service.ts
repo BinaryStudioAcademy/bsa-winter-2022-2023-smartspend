@@ -1,6 +1,7 @@
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type IService } from '~/common/interfaces/interfaces.js';
+import { cryptService } from '~/common/services/services.js';
 
 import {
     type UserGetAllResponseDto,
@@ -30,11 +31,12 @@ class UserService implements IService {
     public async create(
         payload: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
+        const { hash, salt } = cryptService.encryptSync(payload.password);
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: 'SALT', // TODO
-                passwordHash: 'HASH', // TODO
+                passwordSalt: salt, // TODO
+                passwordHash: hash, // TODO
             }),
         );
 

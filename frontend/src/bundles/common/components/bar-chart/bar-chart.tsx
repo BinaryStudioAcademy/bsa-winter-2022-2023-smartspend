@@ -9,7 +9,7 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import { dateHelper } from '../../helpers/helpers';
-import { BarData } from './bar.enum';
+import { BarColor, BarLabel } from './bar.enum';
 import styles from './bar.module.css';
 import { type ChartProperties } from './bar.type';
 import { options } from './config-bar';
@@ -20,14 +20,14 @@ const Chart: React.FC<ChartProperties> = ({ income, outcome }) => {
     const data = {
         datasets: [
             {
-                label: BarData.OUTCOME_LABEL,
+                label: BarLabel.OUTCOME_LABEL,
                 data: dateHelper(outcome),
-                backgroundColor: BarData.OUTCOME_COLOR,
+                backgroundColor: BarColor.OUTCOME_COLOR,
             },
             {
-                label: BarData.INCOME_LABEL,
+                label: BarLabel.INCOME_LABEL,
                 data: dateHelper(income),
-                backgroundColor: BarData.INCOME_COLOR,
+                backgroundColor: BarColor.INCOME_COLOR,
             },
         ],
     };

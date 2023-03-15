@@ -11,25 +11,25 @@ interface Parameters {
 class Notification {
     public error(message = DEFAULT_MESSAGE): void {
         this.show(message, {
-            type: NotificationType.ERROR
+            type: NotificationType.ERROR,
         });
     }
     public success(message = DEFAULT_MESSAGE): void {
         this.show(message, {
-            type: NotificationType.SUCCESS
+            type: NotificationType.SUCCESS,
         });
     }
     public info(message = DEFAULT_MESSAGE): void {
         this.show(message, {
-            type: NotificationType.INFO
+            type: NotificationType.INFO,
         });
     }
     public warning(message = DEFAULT_MESSAGE): void {
         this.show(message, {
-            type: NotificationType.WARNING
+            type: NotificationType.WARNING,
         });
     }
-    private show(message: string, parameters :Parameters): void {
+    private show(message: string, parameters: Parameters): void {
         toast(message, parameters);
     }
 }

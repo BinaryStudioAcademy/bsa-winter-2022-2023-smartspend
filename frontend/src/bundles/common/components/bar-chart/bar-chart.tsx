@@ -9,9 +9,10 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import { dateHelper } from '../../helpers/helpers';
-import { BarColor, BarLabel } from './bar.enum';
 import styles from './bar.module.css';
 import { type ChartProperties } from './bar.type';
+import { BarColor } from './bar-color.enum';
+import { BarLabel } from './bar-label.enum';
 import { options } from './config-bar';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);

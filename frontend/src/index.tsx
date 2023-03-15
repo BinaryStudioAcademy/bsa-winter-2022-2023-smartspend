@@ -13,8 +13,6 @@ import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { store } from '~/framework/store/store';
 
-import { CreateInput } from './bundles/common/components/input/app-input';
-
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
         <StoreProvider store={store.instance}>
@@ -44,7 +42,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     },
                 ]}
             />
-            <CreateInput />
         </StoreProvider>
     </StrictMode>,
 );

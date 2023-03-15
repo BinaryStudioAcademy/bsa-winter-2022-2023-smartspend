@@ -23,7 +23,7 @@ function up(knex: Knex): Promise<void> {
             .notNullable();
         table.float(ColumnName.BALANCE).notNullable();
         table
-            .integer(ColumnName.OWNER_ID)
+            .uuid(ColumnName.OWNER_ID)
             .references('id')
             .inTable('users')
             .onDelete('CASCADE')

@@ -11,7 +11,7 @@ const ColumnName = {
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
         table.uuid(ColumnName.ID).primary();
-        table.integer(ColumnName.USER_ID).references('id').inTable('users');
+        table.uuid(ColumnName.USER_ID).references('id').inTable('users');
         table.uuid(ColumnName.WALLET_ID).references('id').inTable('wallets');
     });
 }

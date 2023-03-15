@@ -13,7 +13,7 @@ const ColumnName = {
 
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.increments(ColumnName.ID).primary();
+        table.uuid(ColumnName.ID).primary().notNullable();
         table.string(ColumnName.EMAIL).unique().notNullable();
         table.text(ColumnName.PASSWORD_HASH).notNullable();
         table.text(ColumnName.PASSWORD_SALT).notNullable();

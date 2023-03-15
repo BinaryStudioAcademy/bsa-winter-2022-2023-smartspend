@@ -1,6 +1,9 @@
 import { type ChartOptions } from 'chart.js';
 
-import { GRID_COLOR, TEXT_COLOR } from '~/bundles/common/components/charts/line-chart/constants';
+import {
+    GRID_COLOR,
+    TEXT_COLOR,
+} from '~/bundles/common/components/charts/line-chart/constants';
 import { convertDate } from '~/bundles/common/helpers/chart-data-helper';
 
 const options: ChartOptions<'line'> = {
@@ -11,7 +14,7 @@ const options: ChartOptions<'line'> = {
         },
     },
     layout: {
-        padding: 20
+        padding: 20,
     },
     scales: {
         x: {
@@ -22,22 +25,27 @@ const options: ChartOptions<'line'> = {
             },
             type: 'time',
             time: {
-                unit: 'day'
+                unit: 'day',
             },
             ticks: {
                 font: {
-                    size: 10
+                    size: 10,
                 },
                 maxRotation: 0,
                 align: 'inner',
                 color: TEXT_COLOR,
                 callback: function (value, index, ticks) {
-                    if (index === 0 || index === ticks.length - 1 || (new Date(value).getDate() === 11) || (new Date(value).getDate() === 23)) {
+                    if (
+                        index === 0 ||
+                        index === ticks.length - 1 ||
+                        new Date(value).getDate() === 11 ||
+                        new Date(value).getDate() === 23
+                    ) {
                         return convertDate(value);
                     }
                     return '';
                 },
-            }
+            },
         },
         y: {
             grid: {
@@ -50,11 +58,16 @@ const options: ChartOptions<'line'> = {
                 color: TEXT_COLOR,
                 maxTicksLimit: 6,
                 callback: function (value, index, ticks) {
-                    const newValue = index == ticks.length - 1 ? ticks[ticks.length - 2].value * 2 : +value;
-                    return newValue > 0 ? `+ ${newValue.toFixed(2)}$` : `${newValue.toFixed(2)}$`;
+                    const newValue =
+                        index == ticks.length - 1
+                            ? ticks[ticks.length - 2].value * 2
+                            : +value;
+                    return newValue > 0
+                        ? `+ ${newValue.toFixed(2)}$`
+                        : `${newValue.toFixed(2)}$`;
                 },
-            }
-        }
+            },
+        },
     },
 };
 

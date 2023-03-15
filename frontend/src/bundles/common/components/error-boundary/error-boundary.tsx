@@ -20,18 +20,17 @@ class ErrorBoundary extends Component<
     public state: ErrorBoundaryState = {
         hasError: false,
     };
-    private message = 'An error has occurred';
     public static getDerivedStateFromError(): ErrorBoundaryState {
         return { hasError: true };
     }
 
     public componentDidCatch(error: Error): void {
-        toast.error(error.message);
+            toast.error(error.message);
     }
 
     public render(): ReactNode {
         if (this.state.hasError) {
-            return <Toast />;
+            return <Toast/>;
         }
         return this.props.children;
     }

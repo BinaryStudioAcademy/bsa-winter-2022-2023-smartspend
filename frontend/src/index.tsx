@@ -16,6 +16,7 @@ import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
+        <Toast />
         <StoreProvider store={store.instance}>
             <RouterProvider
                 routes={[
@@ -43,7 +44,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     },
                 ]}
             />
-            <Toast />
         </StoreProvider>
     </StrictMode>,
 );

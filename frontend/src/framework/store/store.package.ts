@@ -12,6 +12,7 @@ import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { type IConfig } from '~/framework/config/config.js';
 import { handleError } from '~/framework/store/middlewares/handle-error.middleware';
+import { notification } from '~/services/notification/notification.service';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -21,6 +22,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    notification: typeof notification;
 };
 
 class Store {
@@ -58,6 +60,7 @@ class Store {
         return {
             authApi,
             userApi,
+            notification
         };
     }
 }

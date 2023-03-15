@@ -34,7 +34,7 @@ label {
 .input:focus {
     border-color: #3242df;
     outline: none;
-    box-shadow: rgb(50 66 223 / 2%) 0 0 0 4px;
+    box-shadow: rgb(50 66 223 / 25%) 0 0 0 4px;
 }
 
 .inputError {
@@ -53,7 +53,7 @@ label {
     letter-spacing: -1px;
     border: 1px solid #dc2430;
     border-radius: 8px;
-    box-shadow: rgb(220 36 48 / 2%) 0 0 0 4px;
+    box-shadow: rgb(220 36 48 / 25%) 0 0 0 4px;
 }
 
 .inputError:focus {

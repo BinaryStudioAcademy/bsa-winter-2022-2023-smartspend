@@ -19,7 +19,7 @@ const PrivatRoute: React.FC<{ children: React.ReactElement }> = ({
 
     useEffect(() => {
         void dispatch(userActions.loadAll());
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     if (!isAuth) {
         return <Navigate to={AppRoute.SIGN_IN} />;

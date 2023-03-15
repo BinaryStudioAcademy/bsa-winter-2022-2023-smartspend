@@ -1,5 +1,5 @@
 type UserSignInResponseDto = {
-    hash: string;
+    token: string;
 };
 
 export { type UserSignInResponseDto };

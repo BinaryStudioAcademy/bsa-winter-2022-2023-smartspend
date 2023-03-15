@@ -1,4 +1,4 @@
-import { type ScriptableContext } from 'chart.js';
+import { type Color, type ScriptableContext } from 'chart.js';
 
 const createGradientItem = (
     cxt: CanvasRenderingContext2D,
@@ -15,9 +15,9 @@ const createGradientItem = (
 const createGradients = (
     context: ScriptableContext<'doughnut'>,
     colors: string[][],
-): CanvasGradient[] => {
+): Color => {
     const context_ = context.chart.ctx;
-    return colors.map((color) => createGradientItem(context_, color));
+    return colors.map((color) => createGradientItem(context_, color)) as unknown as Color;
 };
 
 export { createGradients };

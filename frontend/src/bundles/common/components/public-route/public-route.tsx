@@ -1,14 +1,31 @@
 import { Navigate } from 'react-router-dom';
 
+import { actions as userActions } from '~/bundles/users/store';
+
 import { AppRoute } from '../../enums/enums';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector, useEffect } from '../../hooks/hooks';
 
-const PublicRoute: React.FC<{ component: React.FC }> = ({
-    component: Component,
+const PublicRoute: React.FC<{ children: React.ReactElement }> = ({
+    children,
 }) => {
-    const { isLoggedIn } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+    const { users } = useAppSelector(({ users }) => ({
+        users: users.users,
+    }));
+    const { user } = useAppSelector(({ auth }) => ({
+        user: auth.user,
+    }));
+    const isAuth = users.some((user_) => user_.id === user?.id);
 
-    return isLoggedIn ? <Navigate to={AppRoute.ROOT} replace /> : <Component />;
+    useEffect(() => {
+        void dispatch(userActions.loadAll());
+    }, [dispatch, user]);
+
+    if (isAuth) {
+        return <Navigate to={AppRoute.DASHBOARD} />;
+    }
+
+    return children;
 };
 
 export { PublicRoute };

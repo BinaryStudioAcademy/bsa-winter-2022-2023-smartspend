@@ -31,6 +31,8 @@ const Button: React.FC<Properties> = ({
     const buttonClasses = classNames(
         styles.button,
         variant === 'round' ? styles.equalRounded : styles[size],
+        variant === 'primary' && size === 'small' ? styles.primarySmall : '',
+        variant === 'primary' && size === 'medium' ? styles.primaryMedium : '',
         styles[variant + (disabled ? 'Disabled' : '')],
         className,
     );

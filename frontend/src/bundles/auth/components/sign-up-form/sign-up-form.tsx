@@ -1,5 +1,5 @@
 import { Button, Input } from '~/bundles/common/components/components';
-import { ButtonType } from '~/bundles/common/enums/button.enum';
+import { ButtonType } from '~/bundles/common/enums/enums';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,

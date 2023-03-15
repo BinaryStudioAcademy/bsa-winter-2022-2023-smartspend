@@ -1,5 +1,11 @@
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
-import { userSignUpValidationSchema } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users.js';
+import {
+    userSignInValidationSchema,
+    userSignUpValidationSchema,
+} from '~/bundles/users/users.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -30,6 +36,20 @@ class AuthController extends Controller {
                 this.signUp(
                     options as ApiHandlerOptions<{
                         body: UserSignUpRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: AuthApiPath.SIGN_IN,
+            method: 'POST',
+            validation: {
+                body: userSignInValidationSchema,
+            },
+            handler: (options) =>
+                this.signIn(
+                    options as ApiHandlerOptions<{
+                        body: UserSignInRequestDto;
                     }>,
                 ),
         });
@@ -73,6 +93,24 @@ class AuthController extends Controller {
         return {
             status: HttpCode.CREATED,
             payload: await this.authService.signUp(options.body),
+        };
+    }
+
+    private async signIn(
+        options: ApiHandlerOptions<{
+            body: UserSignUpRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const user = await this.authService.signIn(options.body);
+        if(!user) {
+            return {
+                status: HttpCode.NOT_FOUND,
+                payload: 'User not found'
+            };
+        }
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }

@@ -96,21 +96,45 @@ class AuthController extends Controller {
         };
     }
 
+    /**
+     * @swagger
+     * /auth/sign-in:
+     *    post:
+     *      description: Sign in user into the system
+     *      requestBody:
+     *        description: User auth data
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                email:
+     *                  type: string
+     *                  format: email
+     *                password:
+     *                  type: string
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  message:
+     *                    type: object
+     *                    $ref: '#/components/schemas/User'
+     */
     private async signIn(
         options: ApiHandlerOptions<{
-            body: UserSignUpRequestDto;
+            body: UserSignInRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const user = await this.authService.signIn(options.body);
-        if(!user) {
-            return {
-                status: HttpCode.NOT_FOUND,
-                payload: 'User not found'
-            };
-        }
+        const token = await this.authService.signIn(options.body);
         return {
             status: HttpCode.OK,
-            payload: user,
+            payload: token,
         };
     }
 }

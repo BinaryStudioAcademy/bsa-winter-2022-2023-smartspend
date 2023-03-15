@@ -8,10 +8,10 @@ const Tabs: React.FC = () => {
         <nav>
             <ul className={styles.tabs}>
                 {[
-                    { title: 'Transaction', to: '/' },
-                    { title: 'Overview', to: '/overview' },
-                    { title: 'Budget', to: '/budget' },
-                    { title: 'Wallet Settings', to: '/wallet-settings' },
+                    { title: 'Transaction', to: '/ui/' },
+                    { title: 'Overview', to: '/ui/overview' },
+                    { title: 'Budget', to: '/ui/budget' },
+                    { title: 'Wallet Settings', to: '/ui/wallet-settings' },
                 ].map((item, index) => (
                     <Tab key={index} title={item.title} to={item.to} />
                 ))}

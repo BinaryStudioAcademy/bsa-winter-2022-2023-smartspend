@@ -20,7 +20,7 @@
     --line-height-level-4-heading: 1.5rem;
 
     /* Heading 5 */
-    --line-height-level-5-heading: 1.156rem;
+    --line-height-level-5-heading: 1.16rem;
 
     /* Heading 6 */
     --font-size-level-6-heading: 0.875rem;
@@ -32,16 +32,16 @@
     --line-height-sub-heading: 3rem;
 
     /* Body 1 */
-    --line-height-level-1-body: 1.719rem;
+    --line-height-level-1-body: 1.725rem;
 
     /* Body 2 */
     --font-size-level-2-body: 0.875rem;
-    --line-height-level-2-body: 1.219rem;
-    --line-height-level-2-body-semi-bold: 1.188rem;
+    --line-height-level-2-body: 1.225rem;
+    --line-height-level-2-body-semi-bold: 1.2rem;
 
     /* Caption */
     --font-size-caption: 0.75rem;
-    --line-height-caption: 1.219rem;
+    --line-height-caption: 1.225rem;
 
     /* Quotation */
     --font-style-quotation: italic;

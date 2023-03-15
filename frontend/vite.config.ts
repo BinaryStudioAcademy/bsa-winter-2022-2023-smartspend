@@ -25,6 +25,9 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
                     'apple-touch-icon.png',
                     'masked-icon.svg',
                 ],
+                devOptions: {
+                    enabled: true,
+                },
                 manifest: {
                     icons: [
                         {

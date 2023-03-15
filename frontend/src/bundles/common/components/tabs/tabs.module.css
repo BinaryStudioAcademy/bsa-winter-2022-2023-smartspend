@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
 
+@import '../../../../assets/css/variables.css';
+
 .tabs {
     font-family: 'Rubik';
     font-style: normal;
@@ -11,7 +13,7 @@
     list-style: none;
     width: 508px;
     height: 36px;
-    background-color: #98b2de;
+    background-color: var(--color-blue-300);
     border-radius: 8px;
     margin: 0;
     padding: 6px;
@@ -34,16 +36,16 @@
 
 .tabs li a {
     text-decoration: none;
-    color: #163676;
+    color: var(--color-blue-600);
 }
 
 li .active a {
-    color: #4e73f8;
+    color: var(--color-pink-100);
     font-weight: 600;
 }
 
 .tabs .active {
-    background-color: #fff;
+    background-color: var(--color-white-100);
     border-radius: 8px;
 }
 

@@ -1,6 +1,7 @@
 :root {
     --font-weight-400: 400;
     --font-weight-500: 500;
+    --font-weight-600: 600;
     --font-family: 'Rubik', sans-serif;
 
     /* Heading 1 */
@@ -58,8 +59,4 @@
 
     /* Button 1 text */
     --font-size-1-button-text: 1.125rem;
-    --font-weight-1-button-text: 500;
-
-    /* Button 2 text */
-    --font-weight-2-button-text: 400;
 }

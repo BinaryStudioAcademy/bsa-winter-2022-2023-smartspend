@@ -17,7 +17,9 @@ class UserService implements IService {
         this.userRepository = userRepository;
     }
 
-    public async find(payload: UserSignInRequestDto): Promise<UserEntity | undefined> {
+    public async find(
+        payload: UserSignInRequestDto,
+    ): Promise<UserEntity | undefined> {
         return await this.userRepository.find(payload.email);
     }
 

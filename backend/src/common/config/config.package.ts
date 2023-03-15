@@ -42,6 +42,18 @@ class Config implements IConfig {
                     env: 'PORT',
                     default: null,
                 },
+                SECRET: {
+                    doc: 'Secret for jsonwebtoken',
+                    format: String,
+                    env: 'SECRET',
+                    default: null,
+                },
+                EXPIRES_IN: {
+                    doc: 'jsonwebtoken option specifies the time duration after which the generated token will expire',
+                    format: String,
+                    env: 'EXPIRES_IN',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {

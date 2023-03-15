@@ -5,6 +5,8 @@ type EnvironmentSchema = {
     APP: {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
+        SECRET: string;
+        EXPIRES_IN: string;
     };
     DB: {
         CONNECTION_STRING: string;

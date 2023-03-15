@@ -23,9 +23,11 @@ function up(knex: Knex): Promise<void> {
             .notNullable();
         table.float(ColumnName.BALANCE).notNullable();
         table
-            .uuid(ColumnName.OWNER_ID)
+            .integer(ColumnName.OWNER_ID)
             .references('id')
             .inTable('users')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE')
             .notNullable();
         table.dateTime(ColumnName.CREATED_AT).defaultTo(knex.fn.now());
         table.dateTime(ColumnName.UPDATED_AT).defaultTo(knex.fn.now());

@@ -22,7 +22,7 @@ function up(knex: Knex): Promise<void> {
         table.uuid(ColumnName.ID).primary();
         table.enum(ColumnName.NAME, Object.values(PageName)).notNullable();
         table
-            .uuid(ColumnName.USER_ID)
+            .integer(ColumnName.USER_ID)
             .references('id')
             .inTable('users')
             .notNullable();

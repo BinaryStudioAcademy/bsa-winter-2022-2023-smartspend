@@ -4,6 +4,7 @@ import { type IService } from '~/common/interfaces/interfaces.js';
 
 import {
     type UserGetAllResponseDto,
+    type UserSignInRequestDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types.js';
@@ -15,8 +16,8 @@ class UserService implements IService {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<IService['find']> {
-        return Promise.resolve(null);
+    public async find(payload: UserSignInRequestDto): Promise<UserEntity | undefined> {
+        return await this.userRepository.find(payload.email);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {

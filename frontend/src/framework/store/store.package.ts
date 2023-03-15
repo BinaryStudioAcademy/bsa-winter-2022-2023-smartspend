@@ -60,7 +60,7 @@ class Store {
         return {
             authApi,
             userApi,
-            notification
+            notification,
         };
     }
 }

@@ -25,12 +25,12 @@ class ErrorBoundary extends Component<
     }
 
     public componentDidCatch(error: Error): void {
-            toast.error(error.message);
+        toast.error(error.message);
     }
 
     public render(): ReactNode {
         if (this.state.hasError) {
-            return <Toast/>;
+            return <Toast />;
         }
         return this.props.children;
     }

@@ -10,7 +10,7 @@ import { HttpError } from '~/common/exceptions/exceptions.js';
 import { HttpCode } from '~/common/http/enums/enums.js';
 import { type CryptService } from '~/common/services/crypt/crypt.service.js';
 import { tokenService } from '~/common/services/services.js';
- 
+
 type User = {
     id: number;
     email: string;

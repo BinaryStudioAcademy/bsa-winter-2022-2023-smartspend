@@ -1,29 +1,12 @@
-import './tabs.css';
+import React from 'react';
 
-import { Link, useMatch, useResolvedPath } from 'react-router-dom';
-
-interface TabProperties {
-    title: string;
-    to: string;
-}
-
-const Tab: React.FC<TabProperties> = ({ title, to }) => {
-    const resolvedPath = useResolvedPath(to);
-    const isActive = useMatch({ path: resolvedPath.pathname, end: true });
-
-    return (
-        <li>
-            <button className={`tab ${isActive ? 'active' : ''}`}>
-                <Link to={to}>{title}</Link>
-            </button>
-        </li>
-    );
-};
+import { Tab } from './tab';
+import styles from './tabs.module.css';
 
 const Tabs: React.FC = () => {
     return (
         <nav>
-            <ul className="tabs">
+            <ul className={styles.tabs}>
                 {[
                     { title: 'Transaction', to: '/' },
                     { title: 'Overview', to: '/overview' },

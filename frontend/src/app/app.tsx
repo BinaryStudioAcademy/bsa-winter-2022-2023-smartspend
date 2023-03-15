@@ -1,5 +1,8 @@
 import reactLogo from '~/assets/img/react.svg';
-import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
+import {
+    Link,
+    RouterOutlet,
+} from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -28,6 +31,7 @@ const App: React.FC = () => {
     return (
         <>
             <img src={reactLogo} className="App-logo" width="30" alt="logo" />
+
             <ul className="App-navigation-list">
                 <li>
                     <Link to={AppRoute.ROOT}>Root</Link>

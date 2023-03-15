@@ -1,3 +1,5 @@
+@import url("../../../../assets/css/variables.css");
+
 .modal {
     position: fixed;
     top: 0;
@@ -20,8 +22,8 @@
     position: absolute;
     top: 15px;
     right: 20px;
-    font-weight: 300;
-    font-size: 28px;
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-sub-heading);
     background-color: transparent;
     border: none;
     outline: none;
@@ -33,51 +35,54 @@
     position: relative;
     min-width: 500px;
     min-height: 200px;
-    background-color: #ffffff;
+    background-color: var(--color-white-100);
     border-radius: 5px;
 }
 
 .modal-body {
-    padding: 10px 20px;
-    color: #5a6474;
-    font-weight: 400;
-    font-size: 16px;
+    padding: var(--p-1) var(--p-3);
+    color: var(--color-gray-300);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
     font-style: normal;
 }
 
 .modal-header {
     display: flex;
     width: 100%;
-    padding: 5px 20px;
-    font-size: 14px;
+    padding: var(--p-1) var(--p-3);
+    font-size: var(--font-size-level-6-heading);
     font-style: normal;
-    line-height: 20px;
+    line-height: var(--line-height-level-4-heading);
 }
 
 .modal-footer {
     display: flex;
     justify-content: end;
-    padding: 10px 20px;
+    padding: var(--p-3) var(--p-3);
 }
 
 .modal-footer > * {
-    margin-left: 10px;
+    margin-left: var(--m-2);
 }
 
 .cancel {
     width: 80px;
     height: 40px;
-    color: #5a6474;
-    background: #ffffff;
-    border: 1px solid #5a6474;
+    color: var(--color-gray-300);
+    font-size: var(--font-size-1-button-text);
+    letter-spacing: var(--letter-spacing-button-text);
+    background: var(--color-white-100);
+    border: 1px solid var(--color-gray-300);
     border-radius: 2px;
 }
 
 .green {
     width: 50px;
     height: 40px;
-    color: #ffffff;
-    font-size: 16px;
+    color: var(--color-white-100);
+    font-size: var(--font-size-1-button-text);
+    letter-spacing: var(--letter-spacing-button-text);
     background: linear-gradient(95.77deg, #00d7bd -14.06%, #03bfd9 101.51%);
     border: none;
     border-radius: 2px;

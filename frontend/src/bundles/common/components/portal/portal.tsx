@@ -1,6 +1,5 @@
 import './portal.scss';
 
-import PropTypes from 'prop-types';
 import { useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -29,10 +28,6 @@ const Portal: React.FC<PortalProperties> = ({ children }) => {
     }, [portalContainer]);
 
     return ReactDOM.createPortal(children, portalContainer);
-};
-
-Portal.propTypes = {
-    children: PropTypes.element.isRequired,
 };
 
 export { Portal };

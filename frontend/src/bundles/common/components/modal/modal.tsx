@@ -31,7 +31,7 @@ const Modal: React.FC<Properties> = ({
             event_.stopPropagation();
         }, []);
 
-    const handleKeyDown = (event_: KeyboardEvent):void => {
+    const handleKeyDown = (event_: KeyboardEvent): void => {
         if (event_.key === 'Escape') {
             onClose();
         }

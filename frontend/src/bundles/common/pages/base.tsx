@@ -24,6 +24,7 @@ const Base: React.FC = () => {
                     onSubmit={handleCancel}
                     Header={<h1>Simple Modal</h1>}
                     Body={<p>Simple modal</p>}
+                    submitButtonName={'Save changes'}
                 >
                     <button>Any button</button>
                 </Modal>

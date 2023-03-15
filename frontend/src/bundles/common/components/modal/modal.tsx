@@ -13,6 +13,7 @@ interface Properties {
     Header: ReactNode;
     Body: ReactNode;
     children?: ReactNode;
+    submitButtonName:string;
 }
 
 const Modal: React.FC<Properties> = ({
@@ -22,6 +23,7 @@ const Modal: React.FC<Properties> = ({
     children,
     isShown,
     onSubmit,
+    submitButtonName
 }) => {
     const handleClose = useCallback(() => {
         onClose();
@@ -72,7 +74,7 @@ const Modal: React.FC<Properties> = ({
                             Cancel
                         </button>
                         <button className="green" onClick={onSubmit}>
-                            OK
+                            {submitButtonName}
                         </button>
                     </div>
                 </div>

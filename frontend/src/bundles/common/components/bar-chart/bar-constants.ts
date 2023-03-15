@@ -1,6 +1,0 @@
-const OUTCOME_COLOR = '#3242DF';
-const INCOME_COLOR = '#DC2430';
-const OUTCOME_LABEL = 'Outcome';
-const INCOME_LABEL = 'Income';
-
-export { INCOME_COLOR, INCOME_LABEL, OUTCOME_COLOR, OUTCOME_LABEL };

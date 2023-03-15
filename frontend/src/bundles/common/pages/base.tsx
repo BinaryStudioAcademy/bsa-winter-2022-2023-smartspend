@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { Button } from '../components/components';
-// import { ButtonSize, ButtonVariant } from '../enums/enums';
 import { ButtonSize } from '../enums/button-size.enum';
-// import { ButtonType } from '../enums/button-type.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
 
 const Base: React.FC = () => {

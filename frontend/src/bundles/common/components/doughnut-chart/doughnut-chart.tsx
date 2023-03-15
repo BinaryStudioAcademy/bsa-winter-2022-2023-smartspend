@@ -22,7 +22,10 @@ const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({
 }) => {
     const colors = categories.map((object) => getGradientColors(object.color));
 
-    const data: ChartData<'doughnut', (number | [number, number] | Point | BubbleDataPoint | null)[]> = {
+    const data: ChartData<
+        'doughnut',
+        (number | [number, number] | Point | BubbleDataPoint | null)[]
+    > = {
         datasets: [
             {
                 data: categories.map((object) => object.total),

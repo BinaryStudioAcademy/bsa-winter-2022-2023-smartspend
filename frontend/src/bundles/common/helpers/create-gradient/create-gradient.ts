@@ -17,7 +17,9 @@ const createGradients = (
     colors: string[][],
 ): Color => {
     const context_ = context.chart.ctx;
-    return colors.map((color) => createGradientItem(context_, color)) as unknown as Color;
+    return colors.map((color) =>
+        createGradientItem(context_, color),
+    ) as unknown as Color;
 };
 
 export { createGradients };

@@ -14,12 +14,14 @@ function up(knex: Knex): Promise<void> {
         table
             .uuid(ColumnName.LABEL_ID)
             .notNullable()
-            .references('labels.id')
+            .references('id')
+            .inTable('labels')
             .onDelete('CASCADE');
         table
             .uuid(ColumnName.TRANSACTION_ID)
             .notNullable()
-            .references('transactions.id')
+            .references('id')
+            .inTable('transactions')
             .onDelete('CASCADE');
     });
 }

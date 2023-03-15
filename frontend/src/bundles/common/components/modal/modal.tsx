@@ -4,6 +4,7 @@ import { type MouseEventHandler, type ReactNode } from 'react';
 import React, { useCallback } from 'react';
 
 import { Portal } from '~/bundles/common/components/portal/portal';
+import { useEffect } from '~/bundles/common/hooks/hooks';
 
 interface Properties {
     isShown: boolean;
@@ -29,6 +30,18 @@ const Modal: React.FC<Properties> = ({
         useCallback((event_) => {
             event_.stopPropagation();
         }, []);
+
+    const handleKeyDown = (event_: KeyboardEvent):void => {
+        if (event_.key === 'Escape') {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    });
+
     if (!isShown) {
         return null;
     }

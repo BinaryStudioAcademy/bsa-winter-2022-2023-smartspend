@@ -1,0 +1,5 @@
+const CHART_COLOR = '#3242DF';
+const GRID_COLOR = '#EFF3FF';
+const TEXT_COLOR = '#9AACBD';
+
+export { CHART_COLOR, GRID_COLOR, TEXT_COLOR };

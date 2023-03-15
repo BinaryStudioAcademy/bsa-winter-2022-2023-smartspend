@@ -4,21 +4,33 @@ import { NotificationType } from '~/bundles/common/enums/notification-type.enum'
 
 const DEFAULT_MESSAGE = 'Unexpected error';
 
+interface Parameters {
+    type: NotificationType;
+}
+
 class Notification {
-    public [NotificationType.ERROR](message = DEFAULT_MESSAGE): void {
-        toast.error(message);
+    public error(message = DEFAULT_MESSAGE): void {
+        this.show(message, {
+            type: NotificationType.ERROR
+        });
     }
-
-    public [NotificationType.SUCCESS](message = DEFAULT_MESSAGE): void {
-        toast.success(message);
+    public success(message = DEFAULT_MESSAGE): void {
+        this.show(message, {
+            type: NotificationType.SUCCESS
+        });
     }
-
-    public [NotificationType.WARNING](message = DEFAULT_MESSAGE): void {
-        toast.warn(message);
+    public info(message = DEFAULT_MESSAGE): void {
+        this.show(message, {
+            type: NotificationType.INFO
+        });
     }
-
-    public [NotificationType.INFO](message = DEFAULT_MESSAGE): void {
-        toast.info(message);
+    public warning(message = DEFAULT_MESSAGE): void {
+        this.show(message, {
+            type: NotificationType.WARNING
+        });
+    }
+    private show(message: string, parameters :Parameters): void {
+        toast(message, parameters);
     }
 }
 

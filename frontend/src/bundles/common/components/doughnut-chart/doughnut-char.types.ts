@@ -7,16 +7,19 @@ import {
 
 interface ItextCenter {
     id: string;
-    afterDatasetsDraw: (chart: Chart<
-        keyof ChartTypeRegistry,
-        (number | [number, number] | Point | BubbleDataPoint)[]
-    >) => void;
+    afterDatasetsDraw: (
+        chart: Chart<
+            keyof ChartTypeRegistry,
+            (number | [number, number] | Point | BubbleDataPoint)[]
+        >,
+    ) => void;
 }
 
-type ItemType = { // example type
+type ItemType = {
+    // example type
     total: number;
     color: string;
 };
 
-export { type ItemType, type ItextCenter, };
+export { type ItemType, type ItextCenter };
 export { type ScriptableContext } from 'chart.js';

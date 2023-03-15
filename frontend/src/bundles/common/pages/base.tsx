@@ -2,7 +2,8 @@ import React from 'react';
 
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 
-const categories = [ // props to Doughnut Chart
+const categories = [
+    // props to Doughnut Chart
     {
         total: 1150,
         color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',

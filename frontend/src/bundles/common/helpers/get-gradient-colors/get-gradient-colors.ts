@@ -1,5 +1,7 @@
 const getGradientColors = (gradientString: string): string[] => {
-    const colorStrings: string[] = gradientString.split(',').map((part: string) => part.trim());
+    const colorStrings: string[] = gradientString
+        .split(',')
+        .map((part: string) => part.trim());
     const colors: string[] = [];
 
     for (let index = 1; index < colorStrings.length; index++) {

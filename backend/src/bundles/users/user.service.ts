@@ -36,8 +36,8 @@ class UserService implements IService {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: salt, // TODO
-                passwordHash: hash, // TODO
+                passwordSalt: salt,
+                passwordHash: hash,
             }),
         );
 

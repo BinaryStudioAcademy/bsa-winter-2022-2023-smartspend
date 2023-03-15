@@ -1,0 +1,62 @@
+:root {
+    --font-weight-400: 400;
+    --font-weight-500: 500;
+    --font-weight-600: 600;
+    --font-family: 'Rubik', sans-serif;
+
+    /* Heading 1 */
+    --font-size-level-1-heading: 2.75rem;
+    --line-height-level-1-heading: 4rem;
+
+    /* Heading 2 */
+    --font-size-level-2-heading: 1.875rem;
+    --line-height-level-2-heading: 3rem;
+
+    /* Heading 3 */
+    --font-size-level-3-heading: 1.25rem;
+    --line-height-level-3-heading: 2rem;
+
+    /* Heading 4 */
+    --font-size-level-4-heading: 1.125rem;
+    --line-height-level-4-heading: 1.5rem;
+
+    /* Heading 5 */
+    --line-height-level-5-heading: 1.16rem;
+
+    /* Heading 6 */
+    --font-size-level-6-heading: 0.875rem;
+    --letter-spacing-level-6-heading: 0.75px;
+    --line-height-level-6-heading: 1.5rem;
+
+    /* Subheading 2 */
+    --font-size-sub-heading: 1.5rem;
+    --line-height-sub-heading: 3rem;
+
+    /* Body 1 */
+    --line-height-level-1-body: 1.725rem;
+
+    /* Body 2 */
+    --font-size-level-2-body: 0.875rem;
+    --line-height-level-2-body: 1.225rem;
+    --line-height-level-2-body-semi-bold: 1.2rem;
+
+    /* Caption */
+    --font-size-caption: 0.75rem;
+    --line-height-caption: 1.225rem;
+
+    /* Quotation */
+    --font-style-quotation: italic;
+    --line-height-quotation: 1.5rem;
+
+    /* Input label */
+    --font-weight-input-label: 400;
+
+    /* Input text */
+    --line-height-input: 1.5rem;
+
+    /* Button 1, Button 2 text */
+    --letter-spacing-button-text: 0.5px;
+
+    /* Button 1 text */
+    --font-size-1-button-text: 1.125rem;
+}

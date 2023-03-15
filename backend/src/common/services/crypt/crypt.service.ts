@@ -25,10 +25,9 @@ class CryptService {
         return { salt, hash };
     }
 
-    public compareSyncPassword (password: string, hash: string): boolean {
+    public compareSyncPassword(password: string, hash: string): boolean {
         return this.bcrypt.compareSync(password, hash);
     }
-
 }
 
 export { CryptService };

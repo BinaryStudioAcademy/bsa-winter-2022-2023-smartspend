@@ -1,5 +1,5 @@
 const DoughnutData = {
-    CUTOUT: 48.5,
+    CUTOUT: 46,
     RADIUS: 58.5,
 } as const;
 

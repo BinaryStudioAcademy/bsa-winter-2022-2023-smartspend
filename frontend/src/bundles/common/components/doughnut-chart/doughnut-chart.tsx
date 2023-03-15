@@ -1,4 +1,4 @@
-import { type BubbleDataPoint, type ChartData, type Point, ArcElement, Chart as ChartJS } from 'chart.js';
+import { ArcElement, Chart as ChartJS } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 import { DoughnutData } from '../../enums/doughnut-data.enum.js';
@@ -35,7 +35,7 @@ const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({ categories }) => 
             const { ctx, data } = chart;
 
             const sum = sumArray(data.datasets[0].data as number[]);
-            const text = (data.datasets[0].data[2] as number) * 100 / sum;
+            const text = (data.datasets[0].data[1] as number) * 100 / sum;
             const x = chart.getDatasetMeta(0).data[0].x;
             const y = chart.getDatasetMeta(0).data[0].y;
 

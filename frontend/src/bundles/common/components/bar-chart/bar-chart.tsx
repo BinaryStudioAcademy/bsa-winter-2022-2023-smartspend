@@ -5,7 +5,6 @@ import {
     LinearScale,
     Tooltip,
 } from 'chart.js';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
@@ -39,11 +38,6 @@ const Chart: React.FC<ChartProperties> = ({ income, outcome }) => {
     };
 
     return <Bar options={options} data={data} className={styles.chart} />;
-};
-
-Chart.propTypes = {
-    income: PropTypes.array.isRequired,
-    outcome: PropTypes.array.isRequired,
 };
 
 export { Chart };

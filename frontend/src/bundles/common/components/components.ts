@@ -1,4 +1,5 @@
 export { App } from '../../../app/app.js';
+export { Chart } from './bar-chart/bar-chart';
 export { Button } from './button/button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';

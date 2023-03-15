@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
+import { dateHelper } from '../../helpers/helpers';
 import styles from './bar.module.css';
 import {
     INCOME_COLOR,
@@ -16,7 +17,6 @@ import {
     OUTCOME_LABEL,
 } from './bar-constants';
 import { options } from './config-bar';
-import { dateHelper } from './datebar-helper';
 import { type ChartProperties } from './types-bar';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);

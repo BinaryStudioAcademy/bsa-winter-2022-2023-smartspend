@@ -1,22 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
-
-@import '../../../../assets/css/variables.css';
+@import url("../../../../assets/css/variables.css");
 
 .tabs {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-size: 14px;
-    line-height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    list-style: none;
     width: 508px;
     height: 36px;
-    background-color: var(--color-blue-300);
-    border-radius: 8px;
     margin: 0;
     padding: 6px;
+    font-family: var(--font-family);
+    line-height: 20px;
+    list-style: none;
+    background-color: var(--color-blue-300);
+    border-radius: 8px;
 }
 
 .tab {
@@ -35,13 +31,13 @@
 }
 
 .tabs li a {
-    text-decoration: none;
     color: var(--color-blue-600);
+    text-decoration: none;
 }
 
 li .active a {
     color: var(--color-pink-100);
-    font-weight: 600;
+    font-weight: var(--font-weight-600);
 }
 
 .tabs .active {
@@ -50,6 +46,6 @@ li .active a {
 }
 
 .tabs button {
-    border: none;
     background-color: transparent;
+    border: none;
 }

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { Link, useMatch, useResolvedPath } from 'react-router-dom';
 
-import styles from './tabs.module.css';
+import styles from './tabs.module.scss';
 
 interface TabProperties {
     title: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Tab } from './tab';
-import styles from './tabs.module.css';
+import styles from './tabs.module.scss';
 
 interface TabsData {
     title: string;

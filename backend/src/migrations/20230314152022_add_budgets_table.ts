@@ -14,7 +14,14 @@ const ColumnName = {
 };
 
 const CurrencyEnum = ['USD', 'EUR', 'JPY', 'GBP', 'AUD'];
-const RecurrenceEnum = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
+const RecurrenceEnum = [
+    'ONCE',
+    'DAILY',
+    'WEEKLY',
+    'BIWEEKLY',
+    'MONTHLY',
+    'YEARLY',
+];
 
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {

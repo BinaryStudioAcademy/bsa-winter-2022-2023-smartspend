@@ -33,10 +33,11 @@
 
 .popup {
     position: relative;
-    min-width: 500px;
+    width: 800px;
+    min-width: 400px;
     min-height: 200px;
     background-color: var(--color-white-100);
-    border-radius: 5px;
+    border-radius: var(--px-1);
 }
 
 .modal-body {
@@ -92,32 +93,32 @@ button:hover {
     cursor: pointer;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: var(--sm)) {
     .popup {
         width: 95%;
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: var(--md)) {
     .popup {
         width: 88%;
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: var(--lg)) {
     .popup {
-        width: 850px;
+        width: 550px;
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: var(--xl)) {
     .popup {
-        width: 900px;
+        width: 700px;
     }
 }
 
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: var(--xxl)) {
     .popup {
-        width: 950px;
+        width: 750px;
     }
 }

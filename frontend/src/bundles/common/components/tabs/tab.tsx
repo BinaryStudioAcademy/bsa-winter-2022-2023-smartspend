@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { NavLink, useMatch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 
@@ -9,16 +9,15 @@ interface TabProperties {
     to: string;
 }
 
-const Tab: React.FC<TabProperties> = ({ title, to }) => {
-    const isActive = useMatch({ path: to, end: true });
+const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
+    return classNames(styles.tab, {
+        [styles.active]: isActive,
+    });
+};
 
+const Tab: React.FC<TabProperties> = ({ title, to }) => {
     return (
-        <NavLink
-            to={to}
-            className={classNames(styles.tab, {
-                [styles.active]: isActive,
-            })}
-        >
+        <NavLink to={to} className={getNavLinkClassName}>
             {title}
         </NavLink>
     );

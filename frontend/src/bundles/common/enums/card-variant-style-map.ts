@@ -9,4 +9,3 @@ const variantStyleMap: Record<string, string> = {
 };
 
 export { variantStyleMap };
-

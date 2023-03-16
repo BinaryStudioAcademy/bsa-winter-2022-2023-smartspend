@@ -19,7 +19,6 @@ function up(knex: Knex): Promise<void> {
             table.string(ColumnName.EMAIL).unique().notNullable();
             table.text(ColumnName.PASSWORD_HASH).notNullable();
             table.text(ColumnName.PASSWORD_SALT).notNullable();
-            table.text('test').notNullable();
             table
                 .dateTime(ColumnName.CREATED_AT)
                 .notNullable()

@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 type Properties = {
     title: string;
-    sum: number;
+    sum: number | string;
     variant: string;
 };
 

@@ -4,12 +4,17 @@ import 'chartjs-adapter-date-fns';
 import { type ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-import styles from './chart.module.css';
-import { CHART_COLOR } from './constants';
-import { type ChartProperties } from './line.type';
-import { options } from './options';
+import { CHART_COLOR } from '~/bundles/common/components/charts/line-chart/constants/constants';
 
-const LineChart: React.FC<ChartProperties> = ({ dataArr }) => {
+import { type DataObject } from './line.type';
+import { options } from './options';
+import styles from './styles.module.scss';
+
+type Properties = {
+    dataArr: DataObject[];
+};
+
+const LineChart: React.FC<Properties> = ({ dataArr }) => {
     const data: ChartData<'line'> = {
         datasets: [
             {

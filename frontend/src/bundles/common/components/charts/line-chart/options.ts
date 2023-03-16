@@ -3,7 +3,7 @@ import { type ChartOptions } from 'chart.js';
 import {
     GRID_COLOR,
     TEXT_COLOR,
-} from '~/bundles/common/components/charts/line-chart/constants';
+} from '~/bundles/common/components/charts/line-chart/constants/constants';
 import { convertDate } from '~/bundles/common/helpers/chart-data-helper';
 
 const options: ChartOptions<'line'> = {

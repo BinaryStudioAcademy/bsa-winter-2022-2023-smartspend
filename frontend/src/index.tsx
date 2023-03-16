@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
-    PrivatRoute,
+    PrivateRoute,
     PublicRoute,
     RouterProvider,
     StoreProvider,
@@ -50,9 +50,9 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                             {
                                 path: AppRoute.DASHBOARD,
                                 element: (
-                                    <PrivatRoute>
+                                    <PrivateRoute>
                                         <Dashboard />
-                                    </PrivatRoute>
+                                    </PrivateRoute>
                                 ),
                             },
                         ],

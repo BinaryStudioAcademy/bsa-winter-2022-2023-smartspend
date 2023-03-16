@@ -9,7 +9,7 @@ import { ExceptionMessage } from '~/common/enums/enums.js';
 import { HttpError } from '~/common/exceptions/exceptions.js';
 import { HttpCode } from '~/common/http/enums/enums.js';
 import { type CryptService } from '~/common/services/crypt/crypt.service.js';
-import { tokenService } from '~/common/services/services.js';
+import { type TokenService } from '~/common/services/token/token.service.js';
 
 type User = {
     id: number;
@@ -19,10 +19,16 @@ type User = {
 class AuthService {
     private userService: UserService;
     private cryptService: CryptService;
+    private tokenService: TokenService;
 
-    public constructor(userService: UserService, cryptService: CryptService) {
+    public constructor(
+        userService: UserService,
+        cryptService: CryptService,
+        tokenService: TokenService,
+    ) {
         this.userService = userService;
         this.cryptService = cryptService;
+        this.tokenService = tokenService;
     }
 
     public signUp(
@@ -35,7 +41,7 @@ class AuthService {
         userRequestDto: UserSignInRequestDto,
     ): Promise<UserSignInResponseDto | undefined> {
         const user = await this.verifySignInCredentials(userRequestDto);
-        const token = tokenService.createToken(user);
+        const token = this.tokenService.createToken(user);
         return {
             token,
         };

@@ -1,15 +1,25 @@
-import { type Middleware } from '@reduxjs/toolkit';
+import {
+    type AnyAction,
+    type Dispatch,
+    type Middleware,
+    isRejected,
+} from '@reduxjs/toolkit';
 
 import { notification } from '~/services/notification/notification.service';
 
 const handleError: Middleware = () => {
-    return (next) => {
-        return (action): void => {
-            if (action.error) {
-                const { message } = action.error;
-                notification.error(message);
+    return (next: Dispatch) => {
+        return (action: AnyAction): AnyAction => {
+            const result = next(action);
+
+            if (isRejected(result) && !result.meta.rejectedWithValue) {
+                const error =
+                    result.error.message ??
+                    'Something went wrong. Please try again later.';
+                notification.error(error);
             }
-            return next(action);
+
+            return result;
         };
     };
 };

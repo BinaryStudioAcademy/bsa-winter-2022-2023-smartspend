@@ -4,16 +4,18 @@ import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetAllItemResponseDto } from '~/bundles/users/users.js';
 
-import { signUp } from './actions.js';
+import { signIn, signUp } from './actions.js';
 
 type State = {
     user: UserGetAllItemResponseDto | null;
     dataStatus: ValueOf<typeof DataStatus>;
+    token: string;
 };
 
 const initialState: State = {
     user: null,
     dataStatus: DataStatus.IDLE,
+    token: '',
 };
 
 const { reducer, actions, name } = createSlice({
@@ -32,6 +34,21 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(signUp.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
             state.user = null;
+        });
+
+        builder.addCase(signIn.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+            state.user = null;
+        });
+
+        builder.addCase(signIn.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            const { token } = action.payload;
+            state.token = token;
+        });
+        builder.addCase(signIn.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.token = '';
         });
     },
 });

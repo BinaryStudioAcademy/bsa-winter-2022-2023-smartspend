@@ -69,6 +69,20 @@ class Config implements IConfig {
                     default: null,
                 },
             },
+            JWT: {
+                SECRET: {
+                    doc: 'Secret for jsonwebtoken',
+                    format: String,
+                    env: 'SECRET',
+                    default: null,
+                },
+                EXPIRES_IN: {
+                    doc: 'jsonwebtoken option specifies the time duration after which the generated token will expire',
+                    format: String,
+                    env: 'EXPIRES_IN',
+                    default: null,
+                },
+            },
         });
     }
 }

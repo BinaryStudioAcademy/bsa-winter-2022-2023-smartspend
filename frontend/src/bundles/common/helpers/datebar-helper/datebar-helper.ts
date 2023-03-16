@@ -1,4 +1,4 @@
-import { type DataObject } from '../../components/bar-chart/bar.type';
+import { type DataObject } from '../../types/types';
 
 const dateHelper = (array: DataObject[]): DataObject[] => {
     return array.map((object) => {

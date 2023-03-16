@@ -3,7 +3,7 @@ import '~/assets/css/styles.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Auth } from '~/bundles/auth/pages/auth';
+import { Auth } from '~/bundles/auth/pages/auth/auth';
 import {
     App,
     PrivatRoute,

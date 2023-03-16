@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button } from '../components/components';
+import { useCallback } from '~/bundles/common/hooks/hooks';
+
+import { Button, Modal } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
@@ -34,6 +36,15 @@ const categories = [
 ];
 
 const Base: React.FC = () => {
+    const [active, setActive] = useState(false);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
     return (
         <div>
             Base Page
@@ -183,6 +194,19 @@ const Base: React.FC = () => {
                         <Button variant={ButtonVariant.ROUND}>+</Button>
                     </div>
                 </div>
+            </div>
+            <div>
+                <button onClick={handleModal}>Open modal window</button>
+                <Modal
+                    isShown={active}
+                    onClose={handleCancel}
+                    onSubmit={handleCancel}
+                    Header={<h1>Simple Modal</h1>}
+                    Body={<p>Simple modal</p>}
+                    submitButtonName={'Save changes'}
+                >
+                    <button>Any button</button>
+                </Modal>
             </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>

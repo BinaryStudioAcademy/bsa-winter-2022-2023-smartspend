@@ -149,16 +149,21 @@ const Base: React.FC = () => {
                 >
                     <Button variant={ButtonVariant.ROUND}>+</Button>
                 </div>
-            </div> {/*------------------------------------ /end Buttons */}
-
-            <div style={{ marginTop: '40px', marginBottom: '40px' }}> {/* Cards */}
-                <p style={{ textAlign: 'center', marginBottom: '20px' }}>Card Total</p>
+            </div>{' '}
+            {/*------------------------------------ /end Buttons */}
+            <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                {' '}
+                {/* Cards */}
+                <p style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    Card Total
+                </p>
                 <div
                     style={{
                         display: 'flex',
                         gap: '20px',
                         justifyContent: 'space-around',
-                    }}>
+                    }}
+                >
                     <CardTotal
                         title="Total Balance"
                         sum={40.45}
@@ -180,8 +185,8 @@ const Base: React.FC = () => {
                         variant={CardVariant.VIOLET}
                     />
                 </div>
-            </div> {/*---------------------------- /end Cards */}
-
+            </div>{' '}
+            {/*---------------------------- /end Cards */}
         </div>
     );
 };

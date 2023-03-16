@@ -23,7 +23,9 @@
         "lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
         "lint": "npm run lint:editor && npm run lint:fs && npm run lint:prettify && npm run lint:type && npm run lint:js && npm run lint:css",
         "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
-        "reinstall": "rm -rf node_modules && npm install"
+        "remove:node_modules:backend": "npm run remove:node_modules -w backend",
+        "remove:node_modules:frontend": "npm run remove:node_modules -w frontend",
+        "reinstall": "npm run remove:node_modules:backend && npm run remove:node_modules:frontend && rm -rf node_modules && npm install"
     },
     "devDependencies": {
         "@commitlint/cli": "17.4.4",

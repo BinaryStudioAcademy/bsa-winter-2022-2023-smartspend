@@ -18,6 +18,7 @@ type FormValues = {
     wallet: string;
 };
 
+// mock
 const Total = ({ title, cash, type }: any): any => {
     return (
         <div className={classNames(styles.total, styles[type])}>
@@ -28,8 +29,19 @@ const Total = ({ title, cash, type }: any): any => {
         </div>
     );
 };
+type ChartBoxProperties = {
+    children: JSX.Element | JSX.Element[] | string;
+    title: string;
+    date: string;
+    controls?: JSX.Element | JSX.Element[] | string;
+};
 
-const ChartBox = ({ children, title, date, controls }: any): any => {
+const ChartBox = ({
+    children,
+    title,
+    date,
+    controls,
+}: ChartBoxProperties): JSX.Element => {
     return (
         <div className={classNames(styles.chart)}>
             <div className={styles.totals}>
@@ -157,7 +169,7 @@ const Dashboard: React.FC = () => {
                                 Chart Bar
                             </ChartBox>
                             <ChartBox title={'Chart 3'} date={'Dec 01-23'}>
-                            <DoughnutChart
+                                <DoughnutChart
                                     categories={[
                                         {
                                             total: 1150,

@@ -16,7 +16,6 @@ ls:
         .woff: regex:([.A-Za-z0-9]*)([-.][A-Za-z0-9]+)*
         .woff2: regex:([.A-Za-z0-9]*)([-.][A-Za-z0-9]+)*
         .eot: regex:([.A-Za-z0-9]*)([-.][A-Za-z0-9]+)*
-        .svg: regex:([.A-Za-z0-9]*)([-.][A-Za-z0-9]+)*
 
 ignore:
     - .git

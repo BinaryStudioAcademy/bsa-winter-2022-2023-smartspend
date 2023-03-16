@@ -17,27 +17,22 @@
     align-items: center;
     height: 24px;
     padding: 0 var(--p-4);
-}
-
-.tabs li {
-    margin-right: var(--m-1);
-}
-
-.tabs li:last-child {
-    margin-right: 0;
-}
-
-.tabs li a {
-    color: var(--color-blue-600);
+    white-space: nowrap;
     text-decoration: none;
 }
 
-li .active a {
-    color: var(--color-pink-100);
-    font-weight: var(--font-weight-600);
+.tabs .tab {
+    margin-right: var(--m-1);
+    color: var(--color-blue-600);
+}
+
+.tabs .tab:last-child {
+    margin-right: 0;
 }
 
 .tabs .active {
+    color: var(--color-blue-500);
+    font-weight: var(--font-weight-600);
     background-color: var(--color-white-100);
     border-radius: 8px;
 }

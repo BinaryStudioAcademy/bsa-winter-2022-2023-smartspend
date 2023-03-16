@@ -1,7 +1,7 @@
 import React from 'react';
 
+import styles from './styles.module.scss';
 import { Tab } from './tab';
-import styles from './tabs.module.scss';
 
 interface TabsData {
     title: string;
@@ -14,12 +14,10 @@ interface TabsProperties {
 
 const Tabs: React.FC<TabsProperties> = ({ tabsData }) => {
     return (
-        <nav>
-            <ul className={styles.tabs}>
-                {tabsData.map((item, index) => (
-                    <Tab key={index} title={item.title} to={item.to} />
-                ))}
-            </ul>
+        <nav className={styles.tabs}>
+            {tabsData.map((item, index) => (
+                <Tab key={index} title={item.title} to={item.to} />
+            ))}
         </nav>
     );
 };

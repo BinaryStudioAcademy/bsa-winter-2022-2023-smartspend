@@ -13,7 +13,6 @@ const Base: React.FC = () => {
             {/* Buttons */}
             <div
                 style={{
-                    height: '100vh',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -152,8 +151,8 @@ const Base: React.FC = () => {
                 </div>
             </div> {/*------------------------------------ /end Buttons */}
 
-            <div> {/* Cards */}
-                <p style={{ textAlign: 'center' }}>Card Total</p>
+            <div style={{ marginTop: '40px', marginBottom: '40px' }}> {/* Cards */}
+                <p style={{ textAlign: 'center', marginBottom: '20px' }}>Card Total</p>
                 <div
                     style={{
                         display: 'flex',

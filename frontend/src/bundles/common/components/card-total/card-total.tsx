@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
-import { variantStyleMap } from '../../enums/enums';
-import styles from './card-total.module.scss';
+import { variantStyleMap } from '../../enums/enums.js';
+import styles from './styles.module.scss';
 
 type Properties = {
     title: string;

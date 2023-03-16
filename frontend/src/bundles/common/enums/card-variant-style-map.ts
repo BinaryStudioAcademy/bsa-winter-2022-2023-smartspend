@@ -1,4 +1,4 @@
-import styles from '../components/card-total/card-total.module.scss';
+import styles from '../components/card-total/styles.module.scss';
 import { CardVariant } from './enums';
 
 const variantStyleMap: Record<string, string> = {

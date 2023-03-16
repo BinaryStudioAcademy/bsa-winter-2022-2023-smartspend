@@ -1,9 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 
 import { Button } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
+import { RangeSlider } from '../components/range-slider/range-slider';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
+import { useCallback } from '../hooks/hooks';
 
 const categories = [
     // props to Doughnut Chart
@@ -33,7 +36,31 @@ const categories = [
     },
 ];
 
+// mock data for range slider
+
+const mockData = [
+    { amount: -50 },
+    { amount: 100 },
+    { amount: 350 },
+    { amount: 600 },
+    { amount: 900 },
+];
+
 const Base: React.FC = () => {
+    // Range Slider -------------------------------------
+    const [filteredData, setFilteredData] = useState(mockData);
+
+    const handleSliderChange = useCallback(
+        (range: { min: number; max: number }): void => {
+            const newFilteredData = mockData.filter(
+                (item) => item.amount >= range.min && item.amount <= range.max,
+            );
+            setFilteredData(newFilteredData);
+        },
+        [],
+    );
+    // end-Range Slider ----------------------------------
+
     return (
         <div>
             Base Page
@@ -190,6 +217,17 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
+            {/* Range Slider------------------------------------- */}
+            <RangeSlider
+                onChange={handleSliderChange}
+                rangeLimits={{ min: -100, max: 1000 }}
+            />
+            <ul>
+                {filteredData.map((operation, index) => (
+                    <li key={index}>{operation.amount}</li>
+                ))}
+            </ul>
+            {/* end-Range Slider----------------------------------- */}
         </div>
     );
 };

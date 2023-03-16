@@ -1,45 +1,50 @@
 import 'rc-slider/assets/index.css';
+import '../../../../assets/css/variables/color-variables.css';
 
 import Slider from 'rc-slider';
 import React, { useCallback, useState } from 'react';
 
-import styles from './range-slider.module.scss';
-
-interface FinanceOperation {
-    amount: number;
-}
+import styles from './styles.module.scss';
 
 interface RangeSliderProperties {
-    data: FinanceOperation[];
-    onChange?: (filteredData: FinanceOperation[]) => void;
+    onChange?: (range: { min: number; max: number }) => void;
+    rangeLimits?: { min: number; max: number };
 }
 
-const RangeSlider: React.FC<RangeSliderProperties> = ({ data, onChange }) => {
-    const [range, setRange] = useState([0, 500]);
+const RangeSlider: React.FC<RangeSliderProperties> = ({
+    onChange,
+    rangeLimits = { min: -100, max: 1000 },
+}) => {
+    const [range, setRange] = useState([rangeLimits.min, rangeLimits.max]);
 
     const handleSliderChange = useCallback(
         (value: number[]): void => {
-            const newRange = value;
+            const newRange = value as [number, number];
             setRange(newRange);
             if (onChange) {
-                const filteredData = data.filter(
-                    (item) =>
-                        item.amount >= newRange[0] &&
-                        item.amount <= newRange[1],
-                );
-                onChange(filteredData);
+                onChange({ min: newRange[0], max: newRange[1] });
             }
         },
-        [data, onChange],
+        [onChange],
     );
+
+    const trackStyle = {
+        backgroundColor: 'var(--color-pink-100)',
+    };
+
+    const handleStyle = {
+        borderColor: 'var(--color-pink-100)',
+    };
 
     return (
         <div className={styles.sliderWrapper}>
             <Slider
+                trackStyle={trackStyle}
+                handleStyle={[handleStyle, handleStyle]}
                 range
-                min={-100}
-                max={1000}
-                defaultValue={[0, 500]}
+                min={rangeLimits.min}
+                max={rangeLimits.max}
+                defaultValue={[rangeLimits.min, rangeLimits.max]}
                 onChange={
                     handleSliderChange as (value: number | number[]) => void
                 }

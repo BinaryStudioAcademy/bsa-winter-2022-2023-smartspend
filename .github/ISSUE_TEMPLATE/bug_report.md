@@ -13,9 +13,9 @@ A clear and concise description of what the bug is.
 **Preconditions:**
 
 **Environment:**
-- OS:
-- Browser
-- Version
+OS
+Browser
+Version
 
 **Steps to reproduce:**
 1.

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Button, Input } from '../../components/components';
+import { DoughnutChart } from '../../components/doughnut-chart/doughnut-chart';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { useAppForm } from '../../hooks/hooks';
 import styles from './styles.module.scss';
@@ -38,7 +39,14 @@ const ChartBox = ({ children, title, date, controls }: any): any => {
                 </div>
                 <div>{controls}</div>
             </div>
-            <div style={{ border: '1px solid grey', height: '170px' }}>
+            <div
+                style={{
+                    height: '170px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
                 {children}
             </div>
         </div>
@@ -149,10 +157,32 @@ const Dashboard: React.FC = () => {
                                 Chart Bar
                             </ChartBox>
                             <ChartBox title={'Chart 3'} date={'Dec 01-23'}>
-                                Chart Bar
+                            <DoughnutChart
+                                    categories={[
+                                        {
+                                            total: 1150,
+                                            color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
+                                        },
+                                        {
+                                            total: 9225,
+                                            color: 'linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%)',
+                                        },
+                                    ]}
+                                />
                             </ChartBox>
                             <ChartBox title={'Chart 4'} date={'Dec 01-23'}>
-                                Chart Bar
+                                <DoughnutChart
+                                    categories={[
+                                        {
+                                            total: 1150,
+                                            color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
+                                        },
+                                        {
+                                            total: 2225,
+                                            color: 'linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%)',
+                                        },
+                                    ]}
+                                />
                             </ChartBox>
                         </div>
                     </div>

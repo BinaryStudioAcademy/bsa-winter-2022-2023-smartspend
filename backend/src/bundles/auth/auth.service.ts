@@ -47,7 +47,7 @@ class AuthService {
         const user = await this.userService.find(requestUser);
         if (!user) {
             throw new HttpError({
-                message: ExceptionMessage.INVALID_EMAIL,
+                message: ExceptionMessage.INVALID_CREDENTIALS,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
@@ -59,7 +59,7 @@ class AuthService {
         );
         if (!isEqualPassword) {
             throw new HttpError({
-                message: ExceptionMessage.INVALID_PASSWORD,
+                message: ExceptionMessage.INVALID_CREDENTIALS,
                 status: HttpCode.UNAUTHORIZED,
             });
         }

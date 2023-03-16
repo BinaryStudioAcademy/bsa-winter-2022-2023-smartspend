@@ -81,8 +81,8 @@ class Config implements IConfig {
                     format: String,
                     env: 'EXPIRES_IN',
                     default: null,
-                }
-            }
+                },
+            },
         });
     }
 }

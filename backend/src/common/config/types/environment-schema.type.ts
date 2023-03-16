@@ -15,7 +15,7 @@ type EnvironmentSchema = {
     JWT: {
         SECRET: string;
         EXPIRES_IN: string;
-    }
+    };
 };
 
 export { type EnvironmentSchema };

@@ -1,6 +1,5 @@
 enum ExceptionMessage {
-    INVALID_EMAIL = 'Invalid email',
-    INVALID_PASSWORD = 'Invalid Password',
+    INVALID_CREDENTIALS = 'Invalid credentials',
 }
 
 export { ExceptionMessage };

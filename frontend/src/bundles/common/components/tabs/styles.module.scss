@@ -9,7 +9,7 @@
     font-family: var(--font-family);
     list-style: none;
     background-color: var(--color-blue-300);
-    border-radius: 8px;
+    border-radius: var(--b-2);
 }
 
 .tab {
@@ -34,5 +34,5 @@
     color: var(--color-blue-500);
     font-weight: var(--font-weight-600);
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--b-2);
 }

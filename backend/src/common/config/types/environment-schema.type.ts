@@ -5,8 +5,6 @@ type EnvironmentSchema = {
     APP: {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
-        SECRET: string;
-        EXPIRES_IN: string;
     };
     DB: {
         CONNECTION_STRING: string;
@@ -14,6 +12,10 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
+    JWT: {
+        SECRET: string;
+        EXPIRES_IN: string;
+    }
 };
 
 export { type EnvironmentSchema };

@@ -13,16 +13,16 @@ class TokenService {
         this.jwt = jwt;
         this.config = config;
         this.options = {
-            expiresIn: this.config.ENV.APP.EXPIRES_IN,
+            expiresIn: this.config.ENV.JWT.EXPIRES_IN,
         };
     }
 
     public createToken(data: string | object | Buffer): string {
-        return this.jwt.sign(data, this.config.ENV.APP.SECRET, this.options);
+        return this.jwt.sign(data, this.config.ENV.JWT.SECRET, this.options);
     }
 
     public verifyToken(token: string): string | JwtPayload {
-        return this.jwt.verify(token, this.config.ENV.APP.SECRET);
+        return this.jwt.verify(token, this.config.ENV.JWT.SECRET);
     }
 }
 

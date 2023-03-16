@@ -39,6 +39,12 @@ const App: React.FC = () => {
                 <li>
                     <Link to={AppRoute.SIGN_UP}>Sign up</Link>
                 </li>
+                <li>
+                    <Link to={AppRoute.UI}>Base page</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
+                </li>
             </ul>
             <p>Current path: {pathname}</p>
 

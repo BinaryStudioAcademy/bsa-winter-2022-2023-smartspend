@@ -1,8 +1,10 @@
+@import url("../../../../assets/css/variables.css");
+
 .tabs {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 508px;
+    width: fit-content;
     height: 36px;
     margin: 0;
     padding: var(--p-1);
@@ -15,12 +17,12 @@
 .tab {
     display: flex;
     align-items: center;
-    height: var(--p-4);
+    height: 24px;
     padding: 0 var(--p-4);
 }
 
 .tabs li {
-    margin-right: var(--m-2);
+    margin-right: var(--m-1);
 }
 
 .tabs li:last-child {
@@ -42,7 +44,3 @@ li .active a {
     border-radius: 8px;
 }
 
-.tabs button {
-    background-color: transparent;
-    border: none;
-}

@@ -14,14 +14,12 @@ const Tab: React.FC<TabProperties> = ({ title, to }) => {
     const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
     return (
-        <li>
-            <button
-                className={classNames(styles.tab, {
-                    [styles.active]: isActive,
-                })}
-            >
-                <Link to={to}>{title}</Link>
-            </button>
+        <li
+            className={classNames(styles.tab, {
+                [styles.active]: isActive,
+            })}
+        >
+            <Link to={to}>{title}</Link>
         </li>
     );
 };

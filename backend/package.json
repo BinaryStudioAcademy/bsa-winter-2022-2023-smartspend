@@ -15,7 +15,8 @@
         "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
         "migrate:dev:down": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:down",
         "migrate:dev:rollback": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:rollback --all",
-        "build": "tsc && tsc-alias"
+        "build": "tsc && tsc-alias",
+        "remove:node_modules": "rm -rf node_modules"
     },
     "devDependencies": {
         "@types/bcrypt": "5.0.0",

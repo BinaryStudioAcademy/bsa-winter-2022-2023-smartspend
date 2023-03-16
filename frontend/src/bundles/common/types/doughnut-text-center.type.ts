@@ -15,11 +15,4 @@ interface ItextCenter {
     ) => void;
 }
 
-type ItemType = {
-    // example type
-    total: number;
-    color: string;
-};
-
-export { type ItemType, type ItextCenter };
-export { type ScriptableContext } from 'chart.js';
+export { type ItextCenter };

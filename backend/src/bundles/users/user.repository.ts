@@ -29,7 +29,6 @@ class UserRepository implements IRepository {
 
     public async create(entity: UserEntity): Promise<UserEntity> {
         const { email, passwordSalt, passwordHash } = entity.toNewObject();
-
         const item = await this.userModel
             .query()
             .insert({
@@ -39,7 +38,6 @@ class UserRepository implements IRepository {
             })
             .returning('*')
             .execute();
-
         return UserEntity.initialize(item);
     }
 

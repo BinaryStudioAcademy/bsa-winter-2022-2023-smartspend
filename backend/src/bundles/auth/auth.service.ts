@@ -31,10 +31,17 @@ class AuthService {
         this.tokenService = tokenService;
     }
 
-    public signUp(
+    public async signUp(
         userRequestDto: UserSignUpRequestDto,
-    ): Promise<UserSignUpResponseDto> {
-        return this.userService.create(userRequestDto);
+    ): Promise<UserSignUpResponseDto | undefined> {
+        const isVerifyUser = await this.verifySignUpCredentials(userRequestDto);
+        if (isVerifyUser) {
+            const newUser = await this.userService.create(userRequestDto);
+            const token = this.tokenService.createToken(newUser.toObject());
+            return {
+                token,
+            };
+        }
     }
 
     public async signIn(
@@ -45,6 +52,25 @@ class AuthService {
         return {
             token,
         };
+    }
+
+    /**
+     * Verification of input data for creating a new user.
+     * Returns true if the user can be registered
+     *
+     * @param requestUser UserSignUpRequestDto User model
+     */
+    private async verifySignUpCredentials(
+        requestUser: UserSignUpRequestDto,
+    ): Promise<boolean> {
+        const user = await this.userService.find(requestUser);
+        if (user) {
+            throw new HttpError({
+                message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
+                status: HttpCode.UNPROCESSED_ENTITY,
+            });
+        }
+        return true;
     }
 
     private async verifySignInCredentials(

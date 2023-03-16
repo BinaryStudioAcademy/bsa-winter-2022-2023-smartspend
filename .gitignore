@@ -6,4 +6,6 @@ build
 
 # misc
 .DS_Store
+.vscode
 .env
+frontend/dev-dist

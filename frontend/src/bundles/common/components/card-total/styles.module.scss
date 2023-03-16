@@ -1,7 +1,7 @@
 :root {
-    --border-radius: 1px;
-    --border-radius-16: 16px;
-    --gap-8: 8px;
+    --border-1: 1px;
+    --g-8: 8px;
+    --drop-shadow: drop-shadow(0 2px 12px #386dff1f);
 }
 
 .card {
@@ -10,8 +10,8 @@
     overflow: hidden;
     font-family: var(--font-family);
     font-style: normal;
-    border-radius: calc(var(--border-radius) * 16);
-    filter: drop-shadow(0 2px 12px #386dff1f);
+    border-radius: calc(var(--border-1) * 16);
+    filter: var(--drop-shadow);
 }
 
 .content {
@@ -19,7 +19,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: var(--gap-8);
+    gap: var(--g-8);
     height: 100%;
     padding: var(--p-4);
     color: var(--color-white-100);
@@ -40,7 +40,7 @@ p {
 
 .white {
     background: var(--color-white-100);
-    border: var(--border-radius-1) solid var(--color-warning);
+    border: var(--border-1) solid var(--color-warning);
 }
 
 .white h4 {

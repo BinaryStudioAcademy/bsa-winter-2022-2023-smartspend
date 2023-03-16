@@ -5,6 +5,7 @@ import { cryptService } from '~/common/services/services.js';
 
 import {
     type UserGetAllResponseDto,
+    type UserSignInRequestDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types.js';
@@ -16,8 +17,10 @@ class UserService implements IService {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<IService['find']> {
-        return Promise.resolve(null);
+    public async find(
+        payload: UserSignInRequestDto,
+    ): Promise<UserEntity | undefined> {
+        return await this.userRepository.find(payload.email);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
@@ -35,8 +38,8 @@ class UserService implements IService {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                passwordSalt: salt, // TODO
-                passwordHash: hash, // TODO
+                passwordSalt: salt,
+                passwordHash: hash,
             }),
         );
 

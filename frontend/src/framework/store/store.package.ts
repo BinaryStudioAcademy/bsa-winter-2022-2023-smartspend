@@ -11,7 +11,7 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { type IConfig } from '~/framework/config/config.js';
-import { handleError } from '~/framework/store/middlewares/handle-error.middleware';
+import { handleError } from '~/framework/store/middlewares/middlewares.js';
 import { notification } from '~/services/notification/notification.service';
 
 type RootReducer = {
@@ -45,12 +45,12 @@ class Store {
             },
             middleware: (getDefaultMiddleware) => {
                 return [
+                    handleError,
                     ...getDefaultMiddleware({
                         thunk: {
                             extraArgument: this.extraArguments,
                         },
                     }),
-                    handleError,
                 ];
             },
         });

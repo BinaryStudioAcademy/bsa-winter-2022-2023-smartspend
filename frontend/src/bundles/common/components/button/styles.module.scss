@@ -1,0 +1,106 @@
+:root {
+    --border: 2px;
+    --transition-time: 0.3s;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--px-2);
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    letter-spacing: var(--letter-spacing-button-text);
+    border: none;
+    border-radius: var(--px-2);
+    cursor: pointer;
+}
+
+.medium {
+    padding: var(--p-2) var(--p-4);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-1-button-text);
+}
+
+.small {
+    padding: var(--p-1) var(--p-3);
+    font-weight: var(--font-weight-400);
+    font-size: 16px;
+}
+
+.equalRounded {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.primary {
+    color: var(--color-white-100);
+    background: var(--gradient-6);
+}
+
+.primary:hover {
+    background: var(--gradient-5);
+    transition: all var(--transition-time);
+}
+
+.primaryDisabled {
+    color: var(--color-white-100);
+    background: var(--color-disable);
+    cursor: auto;
+}
+
+.primaryMedium {
+    padding: calc(var(--p-2) + var(--border)) calc(var(--p-4) + var(--border));
+}
+
+.primarySmall {
+    padding: calc(var(--p-1) + var(--border)) calc(var(--p-3) + var(--border));
+}
+
+.secondary {
+    color: #01cacc;
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-6);
+    border: var(--border) solid transparent;
+}
+
+.secondary:hover {
+    color: #0be9ee;
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-5);
+    border: var(--border) solid transparent;
+    transition: all var(--transition-time);
+}
+
+.secondaryDisabled {
+    color: var(--color-disable);
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--color-disable);
+    border: var(--border) solid transparent;
+    cursor: auto;
+}
+
+.plain {
+    color: var(--color-pink-100);
+    background: none;
+}
+
+.plain:hover {
+    color: var(--color-blue-600);
+    transition: all var(--transition-time);
+}
+
+.plainDisabled {
+    color: var(--color-disable);
+    background: none;
+    cursor: auto;
+}
+
+.round {
+    color: var(--color-white-100);
+    background-color: var(--color-pink-100);
+}

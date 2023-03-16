@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { CardTotal } from '../components/card-total/card-total';
-import { Button } from '../components/components';
-import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
-import { ButtonSize } from '../enums/button-size.enum';
-import { ButtonVariant } from '../enums/button-variant.enum';
+import { Button, CardTotal, DoughnutChart } from '../components/components.js';
+import { ButtonSize } from '../enums/button-size.enum.js';
+import { ButtonVariant } from '../enums/button-variant.enum.js';
 
 const categories = [
     // props to Doughnut Chart

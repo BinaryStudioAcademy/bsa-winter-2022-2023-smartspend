@@ -1,0 +1,60 @@
+@import url("../../../../assets/css/variables.css");
+
+.card {
+    width: 229px;
+    height: 106px;
+    overflow: hidden;
+    font-family: var(--font-family);
+    font-style: normal;
+    border-radius: 16px;
+    filter: drop-shadow(0 2px 12px #386dff1f);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 7px;
+    height: 100%;
+    padding: var(--p-4);
+    color: var(--color-white-100);
+}
+
+h4 {
+    margin: 0;
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-level-5-heading);
+}
+
+p {
+    margin: 0;
+    font-weight: var(--font-weight-600);
+    font-size: var(--font-size-sub-heading);
+    line-height: var(--line-height-level-1-body);
+}
+
+.white {
+    background: var(--color-white-100);
+    border: 1px solid var(--color-warning);
+}
+
+.white h4 {
+    color: var(--color-blue-600);
+}
+
+.white p {
+    color: var(--color-warning);
+}
+
+.orange {
+    background: var(--gradient-4);
+}
+
+.blue {
+    background: var(--gradient-6);
+}
+
+.violet {
+    background: var(--gradient-3);
+}

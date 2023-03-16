@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Button } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
+import { CreateInputNote } from '../components/input/app-input';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
 
@@ -190,6 +191,9 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
+            <div>
+                <CreateInputNote />
+            </div>
         </div>
     );
 };

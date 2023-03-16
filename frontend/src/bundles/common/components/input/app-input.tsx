@@ -1,4 +1,3 @@
-// /* eslint-disable */
 import React from 'react';
 
 import { Input } from '~/bundles/common/components/components';

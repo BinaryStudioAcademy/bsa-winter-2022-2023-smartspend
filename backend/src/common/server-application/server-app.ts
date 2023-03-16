@@ -134,7 +134,7 @@ class ServerApp implements IServerApp {
 
                 if (error instanceof HttpError) {
                     this.logger.error(
-                        `[Http Error]: ${error.status.toString()} – ${
+                        `[Http Error]: ${error.status.toString()} - ${
                             error.message
                         }`,
                     );

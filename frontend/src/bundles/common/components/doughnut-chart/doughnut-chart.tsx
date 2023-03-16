@@ -1,25 +1,31 @@
-import { type BubbleDataPoint, type ChartData, type Point } from 'chart.js';
+import {
+    type BubbleDataPoint,
+    type ChartData,
+    type Point,
+    type ScriptableContext,
+} from 'chart.js';
 import { ArcElement, Chart as ChartJS } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-import { DoughnutData } from '../../enums/doughnut-data.enum.js';
+import { DoughnutData } from '../../enums/enums.js';
 import {
     createGradients,
     getGradientColors,
     sumArray,
 } from '../../helpers/helpers.js';
-import {
-    type ItemType,
-    type ItextCenter,
-    type ScriptableContext,
-} from './doughnut-char.types.js';
-import styles from './doughnut-chart.module.scss';
+import { type ItextCenter } from '../../types/types.js';
+import styles from './styles.module.scss';
+
+type Properties = {
+    categories: {
+        total: number;
+        color: string;
+    }[];
+};
 
 ChartJS.register(ArcElement);
 
-const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({
-    categories,
-}) => {
+const DoughnutChart: React.FC<Properties> = ({ categories }) => {
     const colors = categories.map((object) => getGradientColors(object.color));
 
     const data: ChartData<
@@ -46,7 +52,7 @@ const DoughnutChart: React.FC<{ categories: ItemType[] }> = ({
         },
     };
 
-    //test features
+    //test in center - features
     const textCenter: ItextCenter = {
         id: 'textCenter',
         afterDatasetsDraw(chart) {

@@ -34,10 +34,12 @@ const Base: React.FC = () => {
     return (
         <div>
             Base Page
+            {/* Doughnut Chart----------------------------------- */}
             <div>
                 <p>Doughnut Chart</p>
                 <DoughnutChart categories={categories} />
             </div>
+            {/* end-Doughnut Chart------------------------------- */}
         </div>
     );
 };

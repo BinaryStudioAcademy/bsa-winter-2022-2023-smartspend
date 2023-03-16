@@ -15,6 +15,7 @@ import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { Dashboard } from '~/bundles/common/pages/dashboard';
+import { Landing } from '~/bundles/common/pages/landing';
 import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -29,7 +30,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         children: [
                             {
                                 path: AppRoute.ROOT,
-                                element: 'Root',
+                                element: (
+                                    <PublicRoute>
+                                        <Landing />
+                                    </PublicRoute>
+                                ),
                             },
                             {
                                 path: AppRoute.SIGN_IN,

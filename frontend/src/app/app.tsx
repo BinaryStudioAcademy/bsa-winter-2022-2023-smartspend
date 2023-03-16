@@ -1,6 +1,5 @@
 import reactLogo from '~/assets/img/react.svg';
 import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
-import { ErrorBoundary } from '~/bundles/common/components/error-boundary/error-boundary';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -27,7 +26,7 @@ const App: React.FC = () => {
     }, [isRoot, dispatch]);
 
     return (
-        <ErrorBoundary>
+        <>
             <img src={reactLogo} className="App-logo" width="30" alt="logo" />
 
             <ul className="App-navigation-list">
@@ -39,6 +38,12 @@ const App: React.FC = () => {
                 </li>
                 <li>
                     <Link to={AppRoute.SIGN_UP}>Sign up</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.UI}>Base page</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
                 </li>
             </ul>
             <p>Current path: {pathname}</p>
@@ -57,7 +62,7 @@ const App: React.FC = () => {
                     </ul>
                 </>
             )}
-        </ErrorBoundary>
+        </>
     );
 };
 

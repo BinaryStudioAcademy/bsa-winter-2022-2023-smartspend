@@ -1,5 +1,6 @@
 export { type DataObject } from '../components/bar-chart/bar-chart';
 export { type AsyncThunkConfig } from './async-thunk-config.type.js';
+export { type ItextCenter } from './doughnut-text-center.type.js';
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,

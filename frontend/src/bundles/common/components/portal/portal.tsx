@@ -1,28 +1,29 @@
-import './portal.scss';
-
 import { useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 
-interface PortalProperties {
-    children: React.ReactNode;
-}
+import styles from './styles.module.scss';
 
-const Portal: React.FC<PortalProperties> = ({ children }) => {
+type Properties = {
+    children: React.ReactNode;
+};
+
+const Portal: React.FC<Properties> = ({ children }) => {
     const portalContainer = useMemo(() => {
         const element = document.createElement('div');
-        element.classList.add('portal');
+        element.classList.add(styles.portal);
         return element;
     }, []);
 
     useEffect(() => {
-        const wasOverflowHidden =
-            document.body.classList.contains('noOverflow');
+        const wasOverflowHidden = document.body.classList.contains(
+            styles.noOverflow,
+        );
         document.body.append(portalContainer);
-        document.body.classList.add('noOverflow');
+        document.body.classList.add(styles.noOverflow);
         return () => {
             portalContainer.remove();
             if (!wasOverflowHidden) {
-                document.body.classList.remove('noOverflow');
+                document.body.classList.remove(styles.noOverflow);
             }
         };
     }, [portalContainer]);

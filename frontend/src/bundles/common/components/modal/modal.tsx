@@ -1,12 +1,13 @@
-import './modal.scss';
-
+import classNames from 'classnames';
 import { type MouseEventHandler, type ReactNode } from 'react';
 import React, { useCallback } from 'react';
 
 import { Portal } from '~/bundles/common/components/portal/portal';
 import { useEffect } from '~/bundles/common/hooks/hooks';
 
-interface Properties {
+import styles from './styles.module.scss';
+
+type Properties = {
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
@@ -14,7 +15,7 @@ interface Properties {
     Body: ReactNode;
     children?: ReactNode;
     submitButtonName: string;
-}
+};
 
 const Modal: React.FC<Properties> = ({
     Header,
@@ -50,30 +51,30 @@ const Modal: React.FC<Properties> = ({
     return (
         <Portal>
             <div
-                className="modal active"
+                className={classNames(styles.modal, styles.active)}
                 onClick={handleClose}
                 role="presentation"
             >
                 <div
-                    className="popup"
+                    className={styles.popup}
                     onClick={handleDisableContentContainerClick}
                     role="presentation"
                 >
                     <button
                         data-test-id="book-trip-popup-close"
-                        className="popup__close"
+                        className={styles.popup__close}
                         onClick={handleClose}
                     >
                         ×
                     </button>
-                    <div className="modal-header">{Header}</div>
-                    <div className="modal-body">{Body}</div>
-                    <div className="modal-footer">
+                    <div className={styles.modalHeader}>{Header}</div>
+                    <div className={styles.modalBody}>{Body}</div>
+                    <div className={styles.modalFooter}>
                         {children}
-                        <button className="cancel" onClick={handleClose}>
+                        <button className={styles.cancel} onClick={handleClose}>
                             Cancel
                         </button>
-                        <button className="green" onClick={onSubmit}>
+                        <button className={styles.green} onClick={onSubmit}>
                             {submitButtonName}
                         </button>
                     </div>

@@ -7,7 +7,12 @@ import { ButtonVariant } from '../../enums/button-variant.enum';
 import { useAppForm } from '../../hooks/hooks';
 import styles from './styles.module.scss';
 
-const wallets: any = [
+type Wallet = {
+    id: string;
+    title: string;
+};
+
+const wallets: Wallet[] = [
     { id: '1', title: 'wallet 1' },
     { id: '2', title: 'wallet 2' },
 ];
@@ -19,7 +24,15 @@ type FormValues = {
 };
 
 // mock
-const Total = ({ title, cash, type }: any): any => {
+const Total = ({
+    title,
+    cash,
+    type,
+}: {
+    title: string;
+    cash: number;
+    type: string;
+}): JSX.Element => {
     return (
         <div className={classNames(styles.total, styles[type])}>
             <h4>{title}</h4>
@@ -77,7 +90,7 @@ const Dashboard: React.FC = () => {
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
                         {/* Wallets */}
-                        {wallets.map((wallet: any) => (
+                        {wallets.map((wallet: Wallet) => (
                             <div key={wallet.id} className={styles.wallet}>
                                 {wallet.title}
                             </div>

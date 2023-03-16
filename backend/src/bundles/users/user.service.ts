@@ -29,9 +29,7 @@ class UserService implements IService {
         };
     }
 
-    public async create(
-        payload: UserSignUpRequestDto,
-    ): Promise<UserEntity> {
+    public async create(payload: UserSignUpRequestDto): Promise<UserEntity> {
         const { hash, salt } = cryptService.encryptSync(payload.password);
         return await this.userRepository.create(
             UserEntity.initializeNew({

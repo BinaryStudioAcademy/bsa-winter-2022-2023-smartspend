@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '../components/components';
+import { Button, LineChart } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
@@ -183,6 +183,18 @@ const Base: React.FC = () => {
                         <Button variant={ButtonVariant.ROUND}>+</Button>
                     </div>
                 </div>
+            </div>
+            <div style={{ width: 600, height: 400 }}>
+                <LineChart
+                    dataArr={[
+                        { date: 'Mar 03,2023', value: 0 },
+                        { date: 'Mar 5,2023', value: 600 },
+                        { date: 'Mar 8,2023', value: 750 },
+                        { date: 'Mar 12,2023', value: 750 },
+                        { date: 'Mar 21,2023', value: 650 },
+                        { date: 'Mar 31,2023', value: 500 },
+                    ]}
+                />
             </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>

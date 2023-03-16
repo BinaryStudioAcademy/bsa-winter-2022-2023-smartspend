@@ -182,7 +182,6 @@ const Base: React.FC = () => {
             {/*------------------------------------ /end Buttons */}
             {/*------------------------------------------- Cards */}
             <div style={{ marginTop: '40px', marginBottom: '40px' }}>
-
                 <p style={{ textAlign: 'center', marginBottom: '20px' }}>
                     Card Total
                 </p>

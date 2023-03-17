@@ -4,6 +4,7 @@ import { Button } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
+import { Dashboard } from './dashboard/dashboard';
 
 const categories = [
     // props to Doughnut Chart
@@ -190,6 +191,8 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
+            <h2>Dashboard</h2>
+            <Dashboard />
         </div>
     );
 };

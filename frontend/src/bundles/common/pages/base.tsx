@@ -17,7 +17,7 @@ const tabsData = [
 ];
 
 const userSettingsData = [
-    { title: 'Account', to: '/account/' },
+    { title: 'Account', to: '/ui/' },
     { title: 'All Categories', to: '/ui/categories' },
     { title: 'Connected bank accounts', to: '/ui/accounts' },
     { title: 'Support', to: '/ui/support' },

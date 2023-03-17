@@ -4,3 +4,4 @@ export { NavLink } from './nav-link/nav-link';
 export { QuestionPart } from './question-part/question-part';
 export { SecondStep } from './second-step/second-step';
 export { StoreButton } from './store-button/store-button';
+export { ThirdStep } from './third-step/third-step';

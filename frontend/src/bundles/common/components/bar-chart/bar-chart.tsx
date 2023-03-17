@@ -23,7 +23,7 @@ const Chart: React.FC<ChartProperties> = ({ array }) => {
     const colors = Object.values(BarColors);
 
     const data = {
-        datasets: array?.map((object: DataObject[], index) => {
+        datasets: array.map((object: DataObject[], index) => {
             return {
                 label: object[0].label,
                 data: dateToShortStringHelper(object[0].data),

@@ -35,11 +35,11 @@ const RangeSlider: React.FC<RangeSliderProperties> = ({
     // use prop styles because css modules doesn't work with Slider lib
 
     const trackStyle = {
-        backgroundColor: 'var(--color-pink-100)',
+        backgroundColor: 'var(--color-blue-500)',
     };
 
     const handleStyle = {
-        borderColor: 'var(--color-pink-100)',
+        borderColor: 'var(--color-blue-500)',
     };
 
     return (

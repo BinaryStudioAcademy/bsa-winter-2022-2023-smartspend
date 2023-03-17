@@ -1,19 +1,11 @@
-const options = {
+import { numberToStringCurrencyHelper } from '../../helpers/helpers';
+import { type ConfigBar } from '../../types/types';
+
+const options: ConfigBar = {
     scales: {
         y: {
             ticks: {
-                callback: (value: {
-                    toLocaleString: (
-                        argument0: string,
-                        argument1: { style: string; currency: string },
-                    ) => string;
-                }): string =>
-                    `+${value
-                        .toLocaleString('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                        })
-                        .slice(1)} $`,
+                callback: (value) => numberToStringCurrencyHelper(value),
                 stepSize: 250_000,
             },
         },

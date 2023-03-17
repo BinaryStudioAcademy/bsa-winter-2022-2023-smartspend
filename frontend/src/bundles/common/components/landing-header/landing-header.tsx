@@ -1,5 +1,5 @@
+import { NavLink } from '../../pages/landing/components/components';
 import { type LinkProperties } from '../../types/nav-link.type';
-import { NavLink } from './components/components';
 import styles from './styles.module.scss';
 
 interface LandingHeaderProperties {

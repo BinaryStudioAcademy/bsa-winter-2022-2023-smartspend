@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Button, LineChart } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
+import { CreateInputNote } from '../components/input/app-input';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum';
@@ -243,18 +244,24 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
-            {/* Range Slider------------------------------------- */}
-            <RangeSlider
-                currentRange={currentRange}
-                rangeLimits={rangeLimits}
-                onChange={handleSliderChange}
-            />
-            <ul>
-                {filteredData.map((operation, index) => (
-                    <li key={index}>{operation.amount}</li>
-                ))}
-            </ul>
-            {/* end-Range Slider----------------------------------- */}
+            <div>
+                <CreateInputNote />
+            </div>
+            <div>
+                <RangeSlider
+                    rangeLimits={rangeLimits}
+                    currentRange={currentRange}
+                    onChange={handleSliderChange}
+                />
+                <div>
+                    <h3>Filtered Data:</h3>
+                    <ul>
+                        {filteredData.map((item, index) => (
+                            <li key={index}>{item.amount}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };

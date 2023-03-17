@@ -5,7 +5,7 @@ import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
-    useAppSelector,
+    // useAppSelector,
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';

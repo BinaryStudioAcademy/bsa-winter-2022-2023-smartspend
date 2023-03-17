@@ -217,9 +217,9 @@ const Base: React.FC = () => {
             </div>
             {/* end-Doughnut Chart------------------------------- */}
             <div>
-            <h2>Dashboard</h2>
+                <h2>Dashboard</h2>
                 <Dashboard />
-                </div>
+            </div>
             <div>
                 <CreateInputNote />
             </div>

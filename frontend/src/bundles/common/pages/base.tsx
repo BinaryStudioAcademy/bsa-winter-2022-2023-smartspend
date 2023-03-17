@@ -188,16 +188,17 @@ const Base: React.FC = () => {
                         display: 'flex',
                         gap: '20px',
                         justifyContent: 'space-around',
+                        alignItems: 'flex-start',
                     }}
                 >
                     <CardTotal
-                        title="Total Balance"
+                        title="Total Balance Total Balance Total Balance Total Balance Total Balance"
                         sum={40.45}
                         variant={CardVariant.ORANGE}
                     />
                     <CardTotal
                         title="Total Period Change"
-                        sum={5040.54}
+                        sum={504_000_000_000.549}
                         variant={CardVariant.BLUE}
                     />
                     <CardTotal

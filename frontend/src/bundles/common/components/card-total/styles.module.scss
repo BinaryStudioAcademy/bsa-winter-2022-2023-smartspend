@@ -1,16 +1,16 @@
 :root {
     --border-1: 1px;
+    --border-16: 16px;
     --g-8: 8px;
     --drop-shadow: drop-shadow(0 2px 12px #386dff1f);
 }
 
 .card {
     width: 230px;
-    height: 106px;
     overflow: hidden;
     font-family: var(--font-family);
     font-style: normal;
-    border-radius: calc(var(--border-1) * 16);
+    border-radius: var(--border-16);
     filter: var(--drop-shadow);
 }
 
@@ -20,22 +20,28 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: var(--g-8);
-    height: 100%;
     padding: var(--p-4);
     color: var(--color-white-100);
 }
 
-h4 {
+.title {
     margin: 0;
     font-weight: var(--font-weight-400);
     line-height: var(--line-height-level-5-heading);
+    text-align: left;
+    word-wrap: break-word;
 }
 
-p {
+.sum {
+    width: 100%;
     margin: 0;
+    overflow: hidden;
     font-weight: var(--font-weight-600);
     font-size: var(--font-size-sub-heading);
     line-height: var(--line-height-level-1-body);
+    white-space: nowrap;
+    text-align: left;
+    text-overflow: ellipsis;
 }
 
 .white {
@@ -43,11 +49,11 @@ p {
     border: var(--border-1) solid var(--color-warning);
 }
 
-.white h4 {
+.white .title {
     color: var(--color-blue-600);
 }
 
-.white p {
+.white .sum {
     color: var(--color-warning);
 }
 

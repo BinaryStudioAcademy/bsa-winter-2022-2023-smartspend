@@ -2,6 +2,7 @@ import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
 import { Link } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -46,29 +47,6 @@ const Auth: React.FC = () => {
         return null;
     };
 
-    const getText = (pathname: string, type: string): string => {
-        if (type === 'header') {
-            switch (pathname) {
-                case AppRoute.SIGN_IN: {
-                    return 'Log In';
-                }
-                case AppRoute.SIGN_UP: {
-                    return 'Sign Up';
-                }
-            }
-        } else if (type === 'footer') {
-            switch (pathname) {
-                case AppRoute.SIGN_IN: {
-                    return 'No account? Sign Up';
-                }
-                case AppRoute.SIGN_UP: {
-                    return 'Have an account? Log in';
-                }
-            }
-        }
-        return '';
-    };
-
     return (
         <div className={styles.auth__container}>
             <div className={styles.auth__wrap}>
@@ -83,7 +61,7 @@ const Auth: React.FC = () => {
                         <div className={styles.auth__content}>
                             <div className={styles.auth__header}>
                                 <h2 className={styles.header__text}>
-                                    {getText(pathname, 'header')}
+                                    {getText(pathname, 'title')}
                                 </h2>
                                 <Link
                                     to={
@@ -92,10 +70,7 @@ const Auth: React.FC = () => {
                                             : AuthApiPath.SIGN_IN
                                     }
                                 >
-                                    {pathname === AppRoute.SIGN_IN
-                                        ? 'No account? Sign Up'
-                                        : pathname === AppRoute.SIGN_UP &&
-                                        'Have an account? Log in'}
+                                    {getText(pathname, 'header')}
                                 </Link>
                             </div>
                             <div className={styles.auth__body}>
@@ -103,10 +78,7 @@ const Auth: React.FC = () => {
                             </div>
                             <div className={styles.auth__footer}>
                                 <p className={styles.footer__text}>
-                                    {pathname === AppRoute.SIGN_IN
-                                        ? 'Or Log In with'
-                                        : pathname === AppRoute.SIGN_UP &&
-                                        'Or Sign Up with'}
+                                    {getText(pathname, 'footer')}
                                 </p>
                                 <div className={styles.auth__social}>
                                     <img src={googleIcon} alt="googleIcon" />

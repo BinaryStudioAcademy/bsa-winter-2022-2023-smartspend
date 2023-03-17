@@ -8,13 +8,6 @@ const ThirdStep: React.FC = () => {
         'Save money for your future dreams.',
     ];
 
-    const firstDoughnutCategories = [
-        {
-            total: 100,
-            color: 'background: linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%)',
-        },
-    ];
-
     return (
         <div className={styles.container}>
             <StepInfoPanel
@@ -22,14 +15,26 @@ const ThirdStep: React.FC = () => {
                 listItems={itemsList}
                 title={'Make your spending stress-free'}
             />
-            <div>
-                <DoughnutChartCard
-                    type={'Salary'}
-                    transaction={1}
-                    categories={firstDoughnutCategories}
-                    title={'Period income'}
-                    date={'Mar 01-31'}
-                />
+            <div className={styles.chart_cards_container}>
+                <div className={styles.chart_card_top}>
+                    <DoughnutChartCard
+                        transaction_type={'Salary'}
+                        transaction_num={1}
+                        transaction_sum={'+$4,365.00'}
+                        title={'Period income'}
+                        date={'Mar 01-31'}
+                    />
+                </div>
+                <div className={styles.chart_card_bottom}>
+                    <DoughnutChartCard
+                        variant={''}
+                        transaction_type={'Food & Drink'}
+                        transaction_num={2}
+                        transaction_sum={'-$200'}
+                        title={'Period income'}
+                        date={'Mar 01-31'}
+                    />
+                </div>
             </div>
         </div>
     );

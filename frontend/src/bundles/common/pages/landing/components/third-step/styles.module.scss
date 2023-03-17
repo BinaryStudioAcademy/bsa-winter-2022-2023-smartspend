@@ -8,3 +8,20 @@
     padding: 0 140px;
     background-color: var(--color-blue-200);
 }
+
+.chart_cards_container {
+    position: relative;
+    width: auto;
+}
+
+.chart_card_top {
+    position: absolute;
+    right: 150px;
+    bottom: -20px;
+}
+
+.chart_card_bottom {
+    position: absolute;
+    top: 0;
+    right: -40px;
+}

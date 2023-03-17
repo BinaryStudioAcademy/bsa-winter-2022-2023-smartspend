@@ -1,9 +1,31 @@
 import { type Knex } from 'knex';
 
-import { CategoryType } from '~/common/database/enums/migration-category-type.enum.js';
-import { Currency } from '~/common/database/enums/migration-currency.enum.js';
-import { PageName } from '~/common/database/enums/migration-page-name.enum.js';
-import { Recurrence } from '~/common/database/enums/migration-recurrence.enum.js';
+enum CategoryType {
+    Income = 'income',
+    Expense = 'expense',
+    Transfer = 'transfer',
+}
+
+enum Currency {
+    Usd = 'USD',
+    Eur = 'EUR',
+    Jpy = 'JPY',
+    Gbp = 'GBP',
+    Aud = 'AUD',
+}
+
+enum PageName {
+    Overview = 'overview',
+}
+
+enum Recurrence {
+    Once = 'ONCE',
+    Daily = 'DAILY',
+    Weekly = 'WEEKLY',
+    Biweekly = 'BIWEEKLY',
+    Monthly = 'MONTHLY',
+    Yearly = 'YEARLY',
+}
 
 const CATEGORIES_TABLE_NAME = 'categories';
 const USERS_TABLE_NAME = 'users';

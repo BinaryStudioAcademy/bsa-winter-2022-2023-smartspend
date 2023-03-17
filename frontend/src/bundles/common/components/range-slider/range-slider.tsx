@@ -2,25 +2,27 @@ import 'rc-slider/assets/index.css';
 import '../../../../assets/css/variables/color-variables.css';
 
 import Slider from 'rc-slider';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import styles from './styles.module.scss';
 
+interface RangeLimits {
+    min: number;
+    max: number;
+}
+
 interface RangeSliderProperties {
-    onChange?: (range: { min: number; max: number }) => void;
-    rangeLimits?: { min: number; max: number };
+    onChange?: (range: RangeLimits) => void;
+    currentRange: RangeLimits;
 }
 
 const RangeSlider: React.FC<RangeSliderProperties> = ({
     onChange,
-    rangeLimits = { min: -100, max: 1000 },
+    currentRange,
 }) => {
-    const [range, setRange] = useState([rangeLimits.min, rangeLimits.max]);
-
     const handleSliderChange = useCallback(
         (value: number[]): void => {
             const newRange = value as [number, number];
-            setRange(newRange);
             if (onChange) {
                 onChange({ min: newRange[0], max: newRange[1] });
             }
@@ -42,16 +44,16 @@ const RangeSlider: React.FC<RangeSliderProperties> = ({
                 trackStyle={trackStyle}
                 handleStyle={[handleStyle, handleStyle]}
                 range
-                min={rangeLimits.min}
-                max={rangeLimits.max}
-                defaultValue={[rangeLimits.min, rangeLimits.max]}
+                // min={currentRange.min}
+                // max={currentRange.max}
+                value={[currentRange.min, currentRange.max]}
                 onChange={
                     handleSliderChange as (value: number | number[]) => void
                 }
             />
             <div className={styles.rangeValues}>
-                <span>{range[0]}</span>
-                <span>{range[1]}</span>
+                <span>{currentRange.min}</span>
+                <span>{currentRange.max}</span>
             </div>
         </div>
     );

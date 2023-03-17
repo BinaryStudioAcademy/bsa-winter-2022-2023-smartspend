@@ -47,10 +47,13 @@ const mockData = [
 
 const Base: React.FC = () => {
     // Range Slider -------------------------------------
+    const [currentRange, setCurrentRange] = useState({ min: -100, max: 1000 });
     const [filteredData, setFilteredData] = useState(mockData);
 
     const handleSliderChange = useCallback(
         (range: { min: number; max: number }): void => {
+            setCurrentRange(range);
+
             const newFilteredData = mockData.filter(
                 (item) => item.amount >= range.min && item.amount <= range.max,
             );
@@ -218,8 +221,8 @@ const Base: React.FC = () => {
             {/* end-Doughnut Chart------------------------------- */}
             {/* Range Slider------------------------------------- */}
             <RangeSlider
+                currentRange={currentRange}
                 onChange={handleSliderChange}
-                rangeLimits={{ min: -100, max: 1000 }}
             />
             <ul>
                 {filteredData.map((operation, index) => (

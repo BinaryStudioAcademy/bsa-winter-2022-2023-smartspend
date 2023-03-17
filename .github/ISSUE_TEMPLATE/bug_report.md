@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Summary
-title: "[BUG]"
+title: '[BUG]'
 labels: bug
 assignees: ''
-
 ---
 
 **Description:**
@@ -18,6 +17,7 @@ Browser
 Version
 
 **Steps to reproduce:**
+
 1.
 
 **Actual Result:**

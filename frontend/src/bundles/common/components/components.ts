@@ -1,6 +1,7 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
 export { Input } from './input/input.js';
+export { LandingHeader } from './landing-header/landing-header';
 export { Link } from './link/link.js';
 export { PrivateRoute } from './private-route/private-route';
 export { PublicRoute } from './public-route/public-route';

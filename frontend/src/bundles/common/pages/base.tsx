@@ -5,6 +5,7 @@ import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 import { CreateInputNote } from '../components/input/app-input';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
+import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
 
@@ -13,6 +14,14 @@ const tabsData = [
     { title: 'Overview', to: '/ui/overview' },
     { title: 'Budget', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
+];
+
+const userSettingsData = [
+    { title: 'Account', to: '/account/' },
+    { title: 'All Categories', to: '/ui/categories' },
+    { title: 'Connected bank accounts', to: '/ui/accounts' },
+    { title: 'Support', to: '/ui/support' },
+    { title: 'Terms and Policies', to: '/ui/terms' },
 ];
 
 const categories = [
@@ -76,6 +85,8 @@ const Base: React.FC = () => {
         <div>
             Base Page
             <Tabs tabsData={tabsData} />
+            <br></br>
+            <UserSettingsTabs tabsData={userSettingsData} />
             <div
                 style={{
                     height: '100vh',

@@ -1,0 +1,32 @@
+.tabs {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: var(--p-3) 0 var(--p-3) var(--p-3);
+    font-family: var(--font-family);
+    background-color: var(--color-blue-100);
+    border-radius: var(--b-2);
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    height: 55px;
+    color: var(--color-gray-300);
+    text-decoration: none;
+    transition: color 0.1s, background-color 0.3s;
+}
+
+.tab .title {
+    padding: 0 var(--p-4) 0 var(--p-2);
+}
+
+.tab:hover {
+    color: var(--color-green-100);
+    background-color: var(--color-white-100);
+}
+
+.tabs .active {
+    color: var(--color-green-100);
+    background-color: var(--color-white-100);
+}

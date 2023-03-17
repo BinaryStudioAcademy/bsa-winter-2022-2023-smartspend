@@ -1,6 +1,5 @@
 export { AppRoute } from './app-route.enum.js';
-export { BarColor } from './bar-color.enum';
-export { BarLabel } from './bar-label.enum';
+export { BarColors } from './bar-color.enum';
 export { ButtonSize } from './button-size.enum.js';
 export { ButtonType } from './button-type.enum.js';
 export { ButtonVariant } from './button-variant.enum.js';

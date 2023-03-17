@@ -3,5 +3,6 @@ export { HighlightBanner } from './highlight-banner/highlight-banner';
 export { NavLink } from './nav-link/nav-link';
 export { QuestionPart } from './question-part/question-part';
 export { SecondStep } from './second-step/second-step';
+export { StepInfoPanel } from './step-info-panel/step-info-panel';
 export { StoreButton } from './store-button/store-button';
 export { ThirdStep } from './third-step/third-step';

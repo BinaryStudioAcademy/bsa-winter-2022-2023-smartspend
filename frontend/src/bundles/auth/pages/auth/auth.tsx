@@ -46,6 +46,29 @@ const Auth: React.FC = () => {
         return null;
     };
 
+    const getText = (pathname: string, type: string): string => {
+        if (type === 'header') {
+            switch (pathname) {
+                case AppRoute.SIGN_IN: {
+                    return 'Log In';
+                }
+                case AppRoute.SIGN_UP: {
+                    return 'Sign Up';
+                }
+            }
+        } else if (type === 'footer') {
+            switch (pathname) {
+                case AppRoute.SIGN_IN: {
+                    return 'No account? Sign Up';
+                }
+                case AppRoute.SIGN_UP: {
+                    return 'Have an account? Log in';
+                }
+            }
+        }
+        return '';
+    };
+
     return (
         <div className={styles.auth__container}>
             <div className={styles.auth__wrap}>
@@ -60,10 +83,7 @@ const Auth: React.FC = () => {
                         <div className={styles.auth__content}>
                             <div className={styles.auth__header}>
                                 <h2 className={styles.header__text}>
-                                    {pathname === AppRoute.SIGN_IN
-                                        ? 'Log In'
-                                        : pathname === AppRoute.SIGN_UP &&
-                                        'Sign Up'}
+                                    {getText(pathname, 'header')}
                                 </h2>
                                 <Link
                                     to={

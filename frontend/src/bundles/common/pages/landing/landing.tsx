@@ -1,6 +1,6 @@
 import { LandingHeader } from '../../components/components';
 import { type LinkProperties } from '../../types/nav-link.type';
-import { HighlightBanner } from './components/components';
+import { HighlightBanner, QuestionPart } from './components/components';
 
 const Landing: React.FC = () => {
     const links: LinkProperties[] = [
@@ -15,6 +15,7 @@ const Landing: React.FC = () => {
         <>
             <LandingHeader links={links} />
             <HighlightBanner />
+            <QuestionPart question={'How to get your money into shape?'} />
         </>
     );
 };

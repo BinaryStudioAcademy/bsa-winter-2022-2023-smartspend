@@ -63,7 +63,7 @@ const Auth: React.FC = () => {
                                     {pathname === AppRoute.SIGN_IN
                                         ? 'Log In'
                                         : pathname === AppRoute.SIGN_UP &&
-                                          'Sign Up'}
+                                        'Sign Up'}
                                 </h2>
                                 <Link
                                     to={
@@ -75,7 +75,7 @@ const Auth: React.FC = () => {
                                     {pathname === AppRoute.SIGN_IN
                                         ? 'No account? Sign Up'
                                         : pathname === AppRoute.SIGN_UP &&
-                                          'Have an account? Log in'}
+                                        'Have an account? Log in'}
                                 </Link>
                             </div>
                             <div className={styles.auth__body}>
@@ -86,7 +86,7 @@ const Auth: React.FC = () => {
                                     {pathname === AppRoute.SIGN_IN
                                         ? 'Or Log In with'
                                         : pathname === AppRoute.SIGN_UP &&
-                                          'Or Sign Up with'}
+                                        'Or Sign Up with'}
                                 </p>
                                 <div className={styles.auth__social}>
                                     <img src={googleIcon} alt="googleIcon" />

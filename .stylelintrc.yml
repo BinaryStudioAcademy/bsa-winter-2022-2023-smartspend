@@ -11,9 +11,6 @@ rules:
     max-nesting-depth: 0
     no-descending-specificity: true
     scss/at-import-partial-extension: always
-    unit-disallowed-list:
-        - em
-        - rem
 
     order/order:
         - custom-properties

@@ -54,7 +54,8 @@ const mockData = [
 
 const Base: React.FC = () => {
     // Range Slider -------------------------------------
-    const [currentRange, setCurrentRange] = useState({ min: -100, max: 1000 });
+    const rangeLimits = { min: -100, max: 1000 };
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [filteredData, setFilteredData] = useState(mockData);
 
     const handleSliderChange = useCallback(
@@ -245,6 +246,7 @@ const Base: React.FC = () => {
             {/* Range Slider------------------------------------- */}
             <RangeSlider
                 currentRange={currentRange}
+                rangeLimits={rangeLimits}
                 onChange={handleSliderChange}
             />
             <ul>

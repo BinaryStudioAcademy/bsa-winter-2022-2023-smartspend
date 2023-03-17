@@ -13,11 +13,13 @@ interface RangeLimits {
 
 interface RangeSliderProperties {
     onChange?: (range: RangeLimits) => void;
+    rangeLimits: RangeLimits;
     currentRange: RangeLimits;
 }
 
 const RangeSlider: React.FC<RangeSliderProperties> = ({
     onChange,
+    rangeLimits,
     currentRange,
 }) => {
     const handleSliderChange = useCallback(
@@ -44,8 +46,8 @@ const RangeSlider: React.FC<RangeSliderProperties> = ({
                 trackStyle={trackStyle}
                 handleStyle={[handleStyle, handleStyle]}
                 range
-                // min={currentRange.min}
-                // max={currentRange.max}
+                min={rangeLimits.min}
+                max={rangeLimits.max}
                 value={[currentRange.min, currentRange.max]}
                 onChange={
                     handleSliderChange as (value: number | number[]) => void

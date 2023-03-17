@@ -1,12 +1,6 @@
-.signup__wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 630px;
-    height: 600px;
-    padding: calc(var(--p-5) + var(--p-4)) calc(var(--p-4) * 5);
-    overflow: hidden;
-    background: var(--gradient-1);
-    border-radius: 26px;
-    transform: translate(-50%, -50%);
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

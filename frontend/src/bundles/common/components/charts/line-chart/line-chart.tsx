@@ -5,8 +5,9 @@ import { type ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 import { CHART_COLOR } from '~/bundles/common/components/charts/line-chart/constants/constants';
+import { getData, getLabels } from '~/bundles/common/helpers/chart-helper';
+import { type DataObject } from '~/bundles/common/types/chart-data.type';
 
-import { type DataObject } from './line.type';
 import { options } from './options';
 import styles from './styles.module.scss';
 
@@ -16,11 +17,11 @@ type Properties = {
 
 const LineChart: React.FC<Properties> = ({ dataArr }) => {
     const data: ChartData<'line'> = {
+        labels: getLabels(dataArr),
         datasets: [
             {
-                data: dataArr.map(({ date, value }) => {
-                    return { x: new Date(date).getTime(), y: value };
-                }),
+                label: 'line chart',
+                data: getData(dataArr),
                 borderColor: CHART_COLOR,
                 backgroundColor: CHART_COLOR,
             },

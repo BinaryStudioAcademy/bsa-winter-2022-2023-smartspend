@@ -187,12 +187,15 @@ const Base: React.FC = () => {
             <div style={{ width: 600, height: 400 }}>
                 <LineChart
                     dataArr={[
-                        { date: 'Mar 03,2023', value: 0 },
-                        { date: 'Mar 5,2023', value: 600 },
-                        { date: 'Mar 8,2023', value: 750 },
-                        { date: 'Mar 12,2023', value: 750 },
-                        { date: 'Mar 21,2023', value: 650 },
-                        { date: 'Mar 31,2023', value: 500 },
+                        { date: 'Mar 01,2023', value: 0 },
+                        { date: 'Mar 04,2023', value: 4500 },
+                        { date: 'Mar 07,2023', value: 6000 },
+                        { date: 'Mar 12,2023', value: 7000 },
+                        { date: 'Mar 14,2023', value: 7000 },
+                        { date: 'Mar 16,2023', value: 7500 },
+                        { date: 'Mar 19,2023', value: 5000 },
+                        { date: 'Mar 27,2023', value: 6500 },
+                        { date: 'Mar 30,2023', value: 5000 },
                     ]}
                 />
             </div>

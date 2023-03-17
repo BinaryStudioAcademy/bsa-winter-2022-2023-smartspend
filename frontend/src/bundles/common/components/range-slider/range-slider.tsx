@@ -32,6 +32,8 @@ const RangeSlider: React.FC<RangeSliderProperties> = ({
         [onChange],
     );
 
+    // use prop styles because css modules doesn't work with Slider lib
+
     const trackStyle = {
         backgroundColor: 'var(--color-pink-100)',
     };

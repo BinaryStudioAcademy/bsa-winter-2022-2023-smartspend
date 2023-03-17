@@ -1,6 +1,5 @@
 import {
     type UserGetAllResponseDto,
-    type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/types/types.js';
 import { UserEntity } from '~/bundles/users/user.entity.js';
@@ -15,10 +14,12 @@ class UserService implements IService {
         this.userRepository = userRepository;
     }
 
-    public async find(
-        payload: UserSignInRequestDto | UserSignUpRequestDto,
-    ): Promise<UserEntity | undefined> {
-        return await this.userRepository.find(payload.email);
+    private async find(payload: object): Promise<UserEntity | undefined> {
+        return await this.userRepository.find(payload);
+    }
+
+    public async findByEmail(email: string): Promise<UserEntity | undefined> {
+        return await this.find({ email });
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {

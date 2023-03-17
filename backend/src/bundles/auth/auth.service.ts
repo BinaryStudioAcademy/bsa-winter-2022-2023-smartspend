@@ -63,7 +63,8 @@ class AuthService {
     private async verifySignUpCredentials(
         requestUser: UserSignUpRequestDto,
     ): Promise<boolean> {
-        const user = await this.userService.find(requestUser);
+        const { email } = requestUser;
+        const user = await this.userService.findByEmail(email);
         if (user) {
             throw new HttpError({
                 message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
@@ -76,7 +77,8 @@ class AuthService {
     private async verifySignInCredentials(
         requestUser: UserSignInRequestDto,
     ): Promise<User> {
-        const user = await this.userService.find(requestUser);
+        const { email, password } = requestUser;
+        const user = await this.userService.findByEmail(email);
         if (!user) {
             throw new HttpError({
                 message: ExceptionMessage.INVALID_CREDENTIALS,
@@ -86,7 +88,7 @@ class AuthService {
         const userNewObject = user.toNewObject();
         const userObject = user.toObject();
         const isEqualPassword = this.cryptService.compareSyncPassword(
-            requestUser.password,
+            password,
             userNewObject.passwordHash,
         );
         if (!isEqualPassword) {

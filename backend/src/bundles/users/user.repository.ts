@@ -9,12 +9,8 @@ class UserRepository implements IRepository {
         this.userModel = userModel;
     }
 
-    public async find(email: string): Promise<UserEntity | undefined> {
-        const user = await this.userModel
-            .query()
-            .select()
-            .where({ email })
-            .first();
+    public async find(data: object): Promise<UserEntity | undefined> {
+        const user = await this.userModel.query().select().where(data).first();
         if (!user) {
             return undefined;
         }

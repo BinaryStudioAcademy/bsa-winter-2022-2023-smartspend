@@ -1,0 +1,31 @@
+.store_button {
+    width: 180px;
+    color: var(--color-white-100);
+    background-color: #163676;
+    border-radius: 7px;
+}
+
+.store_button:hover {
+    color: var(--color-white-100);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.details_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-size: 11px;
+}
+
+.body {
+    font-size: 18px;
+}

@@ -1,6 +1,12 @@
-import { LandingHeader } from '../../components/components';
 import { type LinkProperties } from '../../types/nav-link.type';
-import { FirstStep, HighlightBanner, QuestionPart, SecondStep, ThirdStep } from './components/components';
+import {
+    FirstStep,
+    HighlightBanner,
+    LandingHeader,
+    QuestionPart,
+    SecondStep,
+    ThirdStep,
+} from './components/components';
 
 const Landing: React.FC = () => {
     const links: LinkProperties[] = [

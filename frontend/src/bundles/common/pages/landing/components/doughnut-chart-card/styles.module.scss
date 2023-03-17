@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 420px;
+    height: 275px;
+    padding: 20px;
+    background-color: var(--color-white-100);
+    border-radius: 10px;
+}
+
+.top_part {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.chart_part {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom_part {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

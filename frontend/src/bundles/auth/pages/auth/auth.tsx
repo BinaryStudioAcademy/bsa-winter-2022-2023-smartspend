@@ -18,9 +18,9 @@ import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
+    // const { dataStatus } = useAppSelector(({ auth }) => ({
+    //     dataStatus: auth.dataStatus,
+    // }));
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback((): void => {

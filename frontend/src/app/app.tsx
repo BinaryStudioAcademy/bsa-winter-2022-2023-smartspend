@@ -43,6 +43,11 @@ const App: React.FC = () => {
                     <Link to={AppRoute.UI}>Base page</Link>
                 </li>
                 <li>
+                    <Link to={AppRoute.WALLET_DETAILS}>
+                        Wallet details page
+                    </Link>
+                </li>
+                <li>
                     <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
                 </li>
             </ul>

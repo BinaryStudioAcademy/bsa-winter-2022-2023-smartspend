@@ -53,7 +53,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     type="text"
                     label="Confirm password"
                     placeholder="Confirm your password"
-                    name="password"
+                    name="confirm"
                     control={control}
                     errors={errors}
                 />

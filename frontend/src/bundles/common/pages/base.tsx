@@ -1,9 +1,18 @@
 import React from 'react';
 
-import { Button } from '../components/components';
+import { Button, LineChart } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
+import { CreateInputNote } from '../components/input/app-input';
+import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
+
+const tabsData = [
+    { title: 'Transaction', to: '/ui/' },
+    { title: 'Overview', to: '/ui/overview' },
+    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Wallet Settings', to: '/ui/wallet-settings' },
+];
 
 const categories = [
     // props to Doughnut Chart
@@ -37,6 +46,7 @@ const Base: React.FC = () => {
     return (
         <div>
             Base Page
+            <Tabs tabsData={tabsData} />
             <div
                 style={{
                     height: '100vh',
@@ -184,12 +194,30 @@ const Base: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <div style={{ width: 600, height: 400 }}>
+                <LineChart
+                    dataArr={[
+                        { date: 'Mar 01,2023', value: 0 },
+                        { date: 'Mar 04,2023', value: 4500 },
+                        { date: 'Mar 07,2023', value: 6000 },
+                        { date: 'Mar 12,2023', value: 7000 },
+                        { date: 'Mar 14,2023', value: 7000 },
+                        { date: 'Mar 16,2023', value: 7500 },
+                        { date: 'Mar 19,2023', value: 5000 },
+                        { date: 'Mar 27,2023', value: 6500 },
+                        { date: 'Mar 30,2023', value: 5000 },
+                    ]}
+                />
+            </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>
                 <p>Doughnut Chart</p>
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
+            <div>
+                <CreateInputNote />
+            </div>
         </div>
     );
 };

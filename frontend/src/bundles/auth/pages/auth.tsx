@@ -5,22 +5,18 @@ import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
-    // useAppSelector,
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
 import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
 
-import { SignInForm, SignUpForm } from '../../components/components.js';
-import { AuthApiPath } from '../../enums/enums.js';
-import { actions as authActions } from '../../store';
+import { SignInForm, SignUpForm } from '../components/components.js';
+import { AuthApiPath } from '../enums/enums.js';
+import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
-    // const { dataStatus } = useAppSelector(({ auth }) => ({
-    //     dataStatus: auth.dataStatus,
-    // }));
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback((): void => {

@@ -150,7 +150,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 992px) {
+@media (max-width: var(--lg)) {
     .auth__inside {
         width: 520px;
     }
@@ -160,7 +160,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--md)) {
     .auth__roundsmall {
         right: -25px;
     }
@@ -170,7 +170,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: var(--sm)) {
     .auth__inside {
         width: 100%;
         padding-right: var(--p-2);
@@ -190,13 +190,13 @@
     }
 }
 
-@media (max-height: 768px) {
+@media (max-height: var(--md)) {
     .auth__logo {
         margin: var(--m-6) auto var(--m-3);
     }
 }
 
-@media (max-height: 576px) {
+@media (max-height: var(--sm)) {
     .auth__logo {
         margin: var(--m-5) auto var(--m-2);
     }

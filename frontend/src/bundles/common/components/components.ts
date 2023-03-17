@@ -1,8 +1,10 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
 export { LineChart } from './charts/line-chart/line-chart';
+export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Menu } from './menu/menu.js';
 export { PrivatRoute } from './privat-route/privat-route';
 export { PublicRoute } from './public-route/public-route';
 export { RouterProvider } from './router-provider/router-provider.js';

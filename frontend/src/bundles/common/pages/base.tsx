@@ -2,8 +2,16 @@ import React from 'react';
 
 import { Button, LineChart } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
+import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
+
+const tabsData = [
+    { title: 'Transaction', to: '/ui/' },
+    { title: 'Overview', to: '/ui/overview' },
+    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Wallet Settings', to: '/ui/wallet-settings' },
+];
 
 const categories = [
     // props to Doughnut Chart
@@ -37,6 +45,7 @@ const Base: React.FC = () => {
     return (
         <div>
             Base Page
+            <Tabs tabsData={tabsData} />
             <div
                 style={{
                     height: '100vh',

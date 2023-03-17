@@ -1,5 +1,6 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
+export { LineChart } from './charts/line-chart/line-chart';
 export { Input } from './input/input.js';
 export { LandingHeader } from './landing-header/landing-header';
 export { Link } from './link/link.js';

@@ -22,7 +22,11 @@
         "lint:css": "npm run lint:css --workspaces --if-present",
         "lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
         "lint": "npm run lint:editor && npm run lint:fs && npm run lint:prettify && npm run lint:type && npm run lint:js && npm run lint:css",
-        "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html,yml}\""
+        "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
+        "clear:backend": "cd backend && rm -rf node_modules",
+        "clear:frontend": "cd frontend && rm -rf node_modules",
+        "clear:root": "rm -rf node_modules",
+        "reinstall": "npm run clear:backend && npm run clear:frontend && npm run clear:root && npm install"
     },
     "devDependencies": {
         "@commitlint/cli": "17.4.4",
@@ -48,5 +52,8 @@
     "simple-git-hooks": {
         "pre-commit": "npx lint-staged",
         "commit-msg": "npx commitlint --edit $1"
+    },
+    "dependencies": {
+        "rc-slider": "10.1.1"
     }
 }

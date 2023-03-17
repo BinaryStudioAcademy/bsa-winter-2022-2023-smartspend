@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { Button, CardTotal, DoughnutChart, LineChart } from '../components/components.js';
+import {
+    Button,
+    CardTotal,
+    DoughnutChart,
+    LineChart,
+} from '../components/components.js';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum.js';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
@@ -246,7 +251,7 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
-        </div >
+        </div>
     );
 };
 

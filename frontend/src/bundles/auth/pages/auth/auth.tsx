@@ -48,48 +48,50 @@ const Auth: React.FC = () => {
 
     return (
         <div className={styles.auth__container}>
-            <div className={styles.auth__inside}>
-                <span className={styles.auth__roundlarge}></span>
-                <span className={styles.auth__roundsmall}></span>
-                <span className={styles.auth__ring}></span>
-                <div className={styles.auth__wrapper}>
-                    <div className={styles.auth__logo}>
-                        <img src="" alt="logo" />
-                    </div>
-                    <div className={styles.auth__content}>
-                        <div className={styles.auth__header}>
-                            <h2>
-                                {pathname === AppRoute.SIGN_IN
-                                    ? 'Log In'
-                                    : pathname === AppRoute.SIGN_UP &&
-                                    'Sign Up'}
-                            </h2>
-                            <Link
-                                to={
-                                    pathname === AppRoute.SIGN_IN
-                                        ? AuthApiPath.SIGN_UP
-                                        : AuthApiPath.SIGN_IN
-                                }
-                            >
-                                {pathname === AppRoute.SIGN_IN
-                                    ? 'No account? Sign Up'
-                                    : pathname === AppRoute.SIGN_UP &&
-                                    'Have an account? Log in'}
-                            </Link>
-                        </div>
-                        <div className={styles.auth__body}>
-                            {getScreen(pathname)}
-                        </div>
-                        <div className={styles.auth__footer}>
-                            <p>
-                                {pathname === AppRoute.SIGN_IN
-                                    ? 'Or Log In with'
-                                    : pathname === AppRoute.SIGN_UP &&
-                                    'Or Sign Up with'}
-                            </p>
-                            <div className={styles.auth__social}>
-                                <img src={googleIcon} alt="googleIcon" />
-                                <img src={fbIcon} alt="facebookIcon" />
+            <div className={styles.auth__wrap}>
+                <div className={styles.auth__logo}>
+                    <img src="" alt="logo" />
+                </div>
+                <div className={styles.auth__inside}>
+                    <span className={styles.auth__roundlarge}></span>
+                    <span className={styles.auth__roundsmall}></span>
+                    <span className={styles.auth__ring}></span>
+                    <div className={styles.auth__wrapper}>
+                        <div className={styles.auth__content}>
+                            <div className={styles.auth__header}>
+                                <h2 className={styles.header__text}>
+                                    {pathname === AppRoute.SIGN_IN
+                                        ? 'Log In'
+                                        : pathname === AppRoute.SIGN_UP &&
+                                          'Sign Up'}
+                                </h2>
+                                <Link
+                                    to={
+                                        pathname === AppRoute.SIGN_IN
+                                            ? AuthApiPath.SIGN_UP
+                                            : AuthApiPath.SIGN_IN
+                                    }
+                                >
+                                    {pathname === AppRoute.SIGN_IN
+                                        ? 'No account? Sign Up'
+                                        : pathname === AppRoute.SIGN_UP &&
+                                          'Have an account? Log in'}
+                                </Link>
+                            </div>
+                            <div className={styles.auth__body}>
+                                {getScreen(pathname)}
+                            </div>
+                            <div className={styles.auth__footer}>
+                                <p className={styles.footer__text}>
+                                    {pathname === AppRoute.SIGN_IN
+                                        ? 'Or Log In with'
+                                        : pathname === AppRoute.SIGN_UP &&
+                                          'Or Sign Up with'}
+                                </p>
+                                <div className={styles.auth__social}>
+                                    <img src={googleIcon} alt="googleIcon" />
+                                    <img src={fbIcon} alt="facebookIcon" />
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 export { App } from '../../../app/app.js';
 export { Chart } from './bar-chart/bar-chart';
 export { Button } from './button/button.js';
+export { LineChart } from './charts/line-chart/line-chart';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { PrivatRoute } from './privat-route/privat-route';

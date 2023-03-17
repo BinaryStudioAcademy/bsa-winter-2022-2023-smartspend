@@ -1,19 +1,5 @@
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    overflow-y: auto;
-    background-color: rgba(0 0 0 / 40%);
-    transform: scale(0);
-}
-
-.modal.active {
-    transform: scale(1);
+.popup div {
+    border-radius: 25px;
 }
 
 .popup__close {
@@ -30,21 +16,14 @@
     opacity: 0.7;
 }
 
-.popup {
-    position: relative;
-    width: 967px;
-    min-width: 400px;
-    min-height: 300px;
-    background-color: var(--color-white-100);
-    border-radius: 25px;
-}
-
 .modalBody {
+    width: 967px;
     padding: var(--p-2) var(--p-3) var(--p-5) var(--p-3);
     color: var(--color-gray-300);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
     font-style: normal;
+    border: none;
 }
 
 .modalHeader {
@@ -54,12 +33,14 @@
     font-size: var(--font-size-level-6-heading);
     font-style: normal;
     line-height: var(--line-height-level-4-heading);
+    border: none;
 }
 
 .modalFooter {
     display: flex;
     justify-content: end;
-    padding: var(--p-5) var(--p-5);
+    margin-bottom: 83px;
+    border: none;
 }
 
 .modalFooter > * {
@@ -71,7 +52,6 @@
     gap: var(--radius-1);
     width: 127px;
     height: 32px;
-    padding: var(--p-1) 12px;
     color: var(--color-cancel);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-1-button-text);
@@ -86,7 +66,6 @@
     width: fit-content;
     min-width: 40px;
     height: 32px;
-    padding: var(--p-1) 12px;
     color: var(--color-white-100);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-1-button-text);
@@ -102,7 +81,7 @@ button:hover {
 
 @media only screen and (max-width: var(--sm)) {
     .popup {
-        width: 95%;
+        width: 70%;
     }
 }
 

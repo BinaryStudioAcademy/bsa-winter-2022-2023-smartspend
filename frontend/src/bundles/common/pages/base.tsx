@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
-import { Button, Modal } from '../components/components';
+import { BaseModal,Button } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
@@ -197,16 +197,13 @@ const Base: React.FC = () => {
             </div>
             <div>
                 <button onClick={handleModal}>Open modal window</button>
-                <Modal
-                    isShown={active}
-                    onClose={handleCancel}
-                    onSubmit={handleCancel}
-                    Header={<h1>Simple Modal</h1>}
-                    Body={<p>Simple modal</p>}
-                    submitButtonName={'Save changes'}
-                >
-                    <button>Any button</button>
-                </Modal>
+                <BaseModal isShown={active}
+                           onClose={handleCancel}
+                           onSubmit={handleCancel}
+                           Header={<h1>Simple Modal</h1>}
+                           Body={<p>Simple modal</p>}
+                           submitButtonName={'Save changes'}>
+                </BaseModal>
             </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>

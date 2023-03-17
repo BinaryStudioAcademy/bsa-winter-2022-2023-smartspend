@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
-import { BaseModal,Button, LineChart } from '../components/components';
+import { BaseModal, Button, LineChart } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum';

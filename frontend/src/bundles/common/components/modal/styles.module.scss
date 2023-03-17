@@ -49,16 +49,17 @@
 }
 
 .cancel {
-    gap: var(--radius-1);
+    gap: var(--b-1);
     width: 127px;
     height: 32px;
     color: var(--color-cancel);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-1-button-text);
+    font-style: var(--font-family);
     letter-spacing: var(--letter-spacing-button-text);
     background: var(--color-white-100);
     border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-2);
+    border-radius: var(--b-2);
 }
 
 .green {
@@ -69,10 +70,11 @@
     color: var(--color-white-100);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-1-button-text);
+    font-style: var(--font-family);
     letter-spacing: var(--letter-spacing-button-text);
     background: linear-gradient(95.77deg, #00d7bd -14.06%, #03bfd9 101.51%);
     border: none;
-    border-radius: var(--radius-2);
+    border-radius: var(--b-2);
 }
 
 button:hover {

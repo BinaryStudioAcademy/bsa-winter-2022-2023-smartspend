@@ -8,33 +8,28 @@ import {
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-import { BarColor, BarLabel } from '../../enums/enums';
-import { dateHelper } from '../../helpers/helpers';
+import { BarColors } from '../../enums/enums';
+import { dateToShortStringHelper } from '../../helpers/helpers';
 import styles from './bar.module.scss';
 import { options } from './config-bar';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
-type DataObject = { date: string; value: number };
-type ChartProperties = {
-    income: DataObject[];
-    outcome: DataObject[];
-};
+type OneData = { date: string; value: number };
+type DataObject = { data: OneData[]; label: string };
+type ChartProperties = { array: DataObject[][] };
 
-const Chart: React.FC<ChartProperties> = ({ income, outcome }) => {
+const Chart: React.FC<ChartProperties> = ({ array }) => {
+    const colors = Object.values(BarColors);
+
     const data = {
-        datasets: [
-            {
-                label: BarLabel.OUTCOME_LABEL,
-                data: dateHelper(outcome),
-                backgroundColor: BarColor.OUTCOME_COLOR,
-            },
-            {
-                label: BarLabel.INCOME_LABEL,
-                data: dateHelper(income),
-                backgroundColor: BarColor.INCOME_COLOR,
-            },
-        ],
+        datasets: array?.map((object: DataObject[], index) => {
+            return {
+                label: object[0].label,
+                data: dateToShortStringHelper(object[0].data),
+                backgroundColor: colors[index],
+            };
+        }),
     };
 
     return <Bar options={options} data={data} className={styles.chart} />;

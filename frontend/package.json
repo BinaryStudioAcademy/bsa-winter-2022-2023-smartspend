@@ -13,8 +13,7 @@
         "lint": "npm run lint:type && npm run lint:js",
         "start:dev": "vite",
         "build": "tsc --build --clean && vite build",
-        "preview": "vite preview",
-        "remove:node_modules": "rm -rf node_modules"
+        "preview": "vite preview"
     },
     "dependencies": {
         "@hookform/resolvers": "2.9.11",

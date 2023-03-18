@@ -65,7 +65,7 @@ const WalletDetails: React.FC = () => {
                                 </button>
                             </div>
                             <div className={styles.applyFilters}>
-                                <div>
+                                <div className={styles.filter}>
                                     <div className={styles.categoryText}>
                                         By category
                                     </div>
@@ -73,7 +73,7 @@ const WalletDetails: React.FC = () => {
                                         Dropdown
                                     </div>
                                 </div>
-                                <div>
+                                <div className={styles.filter}>
                                     <div className={styles.categoryText}>
                                         By people
                                     </div>
@@ -81,11 +81,11 @@ const WalletDetails: React.FC = () => {
                                         Dropdown
                                     </div>
                                 </div>
-                                <div>
+                                <div className={styles.filter}>
                                     {/*<div className={styles.categoryText}>By note</div>*/}
                                     <CreateInputNote />
                                 </div>
-                                <div>
+                                <div className={styles.filter}>
                                     <div className={styles.categoryText}>
                                         By amount
                                     </div>

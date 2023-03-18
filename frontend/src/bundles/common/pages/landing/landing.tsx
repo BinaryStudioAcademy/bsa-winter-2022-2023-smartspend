@@ -1,9 +1,9 @@
 import {
-    FirstStep,
+    FirstStepPart,
     HighlightBanner,
     QuestionPart,
-    SecondStep,
-    ThirdStep
+    SecondStepPart,
+    ThirdStepPart
 } from './components/components';
 
 const Landing: React.FC = () => {
@@ -11,9 +11,9 @@ const Landing: React.FC = () => {
         <>
             <HighlightBanner />
             <QuestionPart question={'How to get your money into shape?'} />
-            <FirstStep />
-            <SecondStep />
-            <ThirdStep />
+            <FirstStepPart />
+            <SecondStepPart />
+            <ThirdStepPart />
         </>
     );
 };

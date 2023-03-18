@@ -1,7 +1,7 @@
 import { DoughnutChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
 
-const ThirdStep: React.FC = () => {
+const ThirdStepPart: React.FC = () => {
     const itemsList = [
         'Set smart budgets to help you not to overspend in chosen category.',
         'Know how much you can spend daily in order to stick to your budget.',
@@ -40,4 +40,4 @@ const ThirdStep: React.FC = () => {
     );
 };
 
-export { ThirdStep };
+export { ThirdStepPart };

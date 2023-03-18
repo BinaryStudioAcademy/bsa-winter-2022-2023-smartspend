@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 
-const SecondStep: React.FC = () => {
+const SecondStepPart: React.FC = () => {
     return <div className={styles.container}></div>;
 };
 
-export { SecondStep };
+export { SecondStepPart };

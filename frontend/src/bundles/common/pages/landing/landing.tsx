@@ -1,6 +1,7 @@
 import {
     FeedbacksPart,
     FirstStepPart,
+    Footer,
     HighlightBanner,
     QuestionPart,
     SecondStepPart,
@@ -25,6 +26,7 @@ const Landing: React.FC = () => {
             <SubscriptionPart
                 title={'Get monthly money tips and stay on top of your finance'}
             />
+            <Footer/>
         </>
     );
 };

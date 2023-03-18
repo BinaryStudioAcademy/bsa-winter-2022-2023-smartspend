@@ -1,3 +1,4 @@
+import { DoughnutChartCartVariant } from '../../enums/enums';
 import { DoughnutChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
 
@@ -18,6 +19,7 @@ const ThirdStepPart: React.FC = () => {
             <div className={styles.chart_cards_container}>
                 <div className={styles.chart_card_top}>
                     <DoughnutChartCard
+                        variant={DoughnutChartCartVariant.PRIMARY}
                         transaction_type={'Salary'}
                         transaction_num={1}
                         transaction_sum={'+$4,365.00'}
@@ -27,7 +29,7 @@ const ThirdStepPart: React.FC = () => {
                 </div>
                 <div className={styles.chart_card_bottom}>
                     <DoughnutChartCard
-                        variant={''}
+                        variant={DoughnutChartCartVariant.SECONDARY}
                         transaction_type={'Food & Drink'}
                         transaction_num={2}
                         transaction_sum={'-$200'}

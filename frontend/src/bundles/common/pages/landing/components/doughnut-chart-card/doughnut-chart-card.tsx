@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 
-import { DoughnutChart } from '~/bundles/common/components/doughnut-chart/doughnut-chart';
-
 import BlueMurseIcon from '../../../../../../assets/img/blue-murse-icon.svg';
 import OrangeMurseIcon from '../../../../../../assets/img/orange-murse-icon.svg';
+import { DoughnutChartCartVariant } from '../../enums/enums';
+import { DoughnutChart } from '../components';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -12,7 +12,7 @@ type Properties = {
     transaction_num: number;
     transaction_type: string;
     transaction_sum: string;
-    variant?: string;
+    variant?: DoughnutChartCartVariant;
 };
 
 const DoughnutChartCard: React.FC<Properties> = ({
@@ -21,7 +21,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
     transaction_num,
     transaction_sum,
     transaction_type,
-    variant = 'primary',
+    variant = DoughnutChartCartVariant.PRIMARY,
 }) => {
     const transactionSumClass = classNames(
         styles.transaction_sum,
@@ -36,7 +36,10 @@ const DoughnutChartCard: React.FC<Properties> = ({
     const categories = [
         {
             total: 100,
-            color: variant ? blueGradient : orangeGradient,
+            color:
+                variant === DoughnutChartCartVariant.PRIMARY
+                    ? blueGradient
+                    : orangeGradient,
         },
     ];
 

@@ -1,4 +1,4 @@
-import { DoughnutChartCartVariant } from '../../enums/enums';
+import { DoughnutChartCartVariant, StepInfoPanelVariant } from '../../enums/enums';
 import { DoughnutChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
 
@@ -15,6 +15,7 @@ const ThirdStepPart: React.FC = () => {
                 step={3}
                 listItems={itemsList}
                 title={'Make your spending stress-free'}
+                variant={StepInfoPanelVariant.SECONDARY}
             />
             <div className={styles.chart_cards_container}>
                 <div className={styles.chart_card_top}>

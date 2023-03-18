@@ -1,3 +1,4 @@
+import { StepInfoPanelVariant } from '../../enums/enums';
 import { type DataObject } from '../../types/types';
 import { LineChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
@@ -28,6 +29,7 @@ const SecondStepPart: React.FC = () => {
                 title={'Track your cash flow'}
                 listItems={listItems}
                 step={2}
+                variant={StepInfoPanelVariant.PRIMARY}
             />
         </div>
     );

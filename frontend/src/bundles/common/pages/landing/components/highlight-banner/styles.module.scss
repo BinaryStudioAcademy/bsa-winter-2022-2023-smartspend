@@ -10,16 +10,20 @@
 
 .title {
     width: 440px;
+    margin: 0; 
+    padding: 0;
     color: var(--color-white-100);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-1-heading);
-    line-height: var(--line-height-level-1-heading);
+    line-height: var(--line-height-level-2-heading);
 }
 
 .details {
     width: 360px;
+    margin: 0;
+    padding: 0;
     color: var(--color-white-100);
-    font-size: 19px;
+    font-size: 15px;
     line-height: 25px;
 }
 

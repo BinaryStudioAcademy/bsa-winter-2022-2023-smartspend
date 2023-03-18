@@ -11,7 +11,7 @@ const FirstStepPart: React.FC = () => {
     return (
         <div className={styles.container}>
             <StepInfoPanel
-                variant={StepInfoPanelVariant.PRIMARY}
+                variant={StepInfoPanelVariant.SECONDARY}
                 title={'Track your cash flow'}
                 listItems={listItems}
                 step={1}

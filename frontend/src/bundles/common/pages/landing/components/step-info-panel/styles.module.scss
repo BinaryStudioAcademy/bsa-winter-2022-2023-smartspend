@@ -35,6 +35,11 @@
     color: #697484;
 }
 
+.list {
+    margin: 0;
+    padding: 0;
+}
+
 .list_item::before {
     content: "";
     display: inline-block;
@@ -52,7 +57,3 @@
     background-image: linear-gradient(96.2deg, #fe66e6 -30.03%, #6933dd 95.13%);
 }
 
-.step_button {
-    border: 2px solid #fe66e6;
-    border-radius: 25px;
-}

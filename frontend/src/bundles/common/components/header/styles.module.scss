@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    padding: 20px 140px;
+    padding: 1.25rem 8.75rem;
     background-color: var(--color-blue-600);
 }
 
@@ -11,7 +11,7 @@
     display: flex;
     flex: 1 1 auto;
     justify-content: center;
-    margin: 0 74px;
+    margin: 0 4.5rem;
 }
 
 .header a {
@@ -54,9 +54,9 @@
     border-radius: 50%;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: var(--xl)) {
     .header {
-        padding: var(--p-3) 70px;
+        padding: var(--p-3) 4.25rem;
     }
 
     .header__body {
@@ -64,13 +64,13 @@
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: var(--lg)) {
     .header {
         padding: var(--p-3) var(--p-5);
     }
 
     .header__body {
-        margin: 0 20px;
+        margin: 0 1.25rem;
     }
 
     .header__logo span {

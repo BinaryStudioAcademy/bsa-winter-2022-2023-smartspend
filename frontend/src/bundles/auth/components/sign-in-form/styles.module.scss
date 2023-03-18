@@ -18,6 +18,10 @@
     border-radius: var(--border-radius-login);
 }
 
+p {
+    position: relative;
+}
+
 .wrapper_login form > p {
     margin: 0;
 }
@@ -57,68 +61,52 @@
     text-decoration: underline;
 }
 
-.input {
-    display: block;
+input[name="email"] {
     width: 390px;
     min-height: 48px;
-    margin: var(--m-1) 0;
-    padding-left: var(--p-3);
-    color: var(--color-gray-400);
-    font-weight: var(--font-weight-500);
-    font-size: var(--font-size-label-input);
-    font-family: var(--font-family);
-    font-style: normal;
-    line-height: var(--line-height-input);
-    letter-spacing: var(--letter-spacing);
-    border-radius: var(--border-radius);
-}
-
-p span {
-    color: var(--color-white-100);
-    font-weight: var(--font-weight-500);
-    font-size: var(--font-size-level-6-heading);
-    font-family: var(--font-family);
-    font-style: normal;
-    line-height: var(--line-height-login);
-}
-
-p span:last-child {
-    color: red;
-    letter-spacing: var(--letter-spacing-login);
-}
-
-.first .input {
     background: linear-gradient(var(--color-white-100), var(--color-white-100))
             padding-box,
         var(--gradient-5);
     border: var(--border) solid transparent;
 }
 
-.last .input {
+input[name="email"]:focus {
+    outline: none;
+    box-shadow: rgb(0 215 189 / 50%) 0 0 10px 0, rgb(3 191 217 / 20%) 0 0 0 4px;
+}
+
+input[name="password"] {
+    width: 390px;
+    min-height: 48px;
     background: linear-gradient(var(--color-white-100), var(--color-white-100))
             padding-box,
         var(--gradient-7);
     border: var(--border) solid transparent;
 }
 
-.first .input:focus {
-    outline: none;
-    box-shadow: rgb(0 215 189 / 50%) 0 0 10px 0, rgb(3 191 217 / 20%) 0 0 0 4px;
-}
-
-.last .input:focus {
+input[name="password"]:focus {
     outline: none;
     box-shadow: rgb(105 137 254 / 50%) 0 0 10px 0,
         rgb(60 100 244 / 20%) 0 0 0 4px;
 }
 
-input[type="text"] {
-    color: var(--color-gray-300);
-    font-weight: var(--font-weight-400);
-    font-size: var(--font-size-1-button-text);
-    font-family: var(--font-family);
-    font-style: normal;
-    line-height: var(--line-height-input);
+.eye {
+    position: absolute;
+    right: 20px;
+    bottom: 47px;
+    display: block;
+    width: 17px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.eye img {
+    position: absolute;
+}
+
+.hide1 {
+    display: none;
+    margin-top: 1px;
 }
 
 .button {

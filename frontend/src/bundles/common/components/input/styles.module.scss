@@ -19,6 +19,31 @@ label {
     line-height: var(--line-height-input);
 }
 
+label span {
+    color: var(--color-white-100);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-6-heading);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-login);
+}
+
+label span:last-child {
+    color: red;
+    letter-spacing: var(--letter-spacing-login);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    color: var(--color-gray-300);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-1-button-text);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-input);
+}
+
 .input {
     display: block;
     width: 290px;
@@ -32,15 +57,18 @@ label {
     font-style: normal;
     line-height: var(--line-height-input);
     letter-spacing: var(--letter-spacing);
-    border: var(--border-input) solid var(--color-blue-100);
+
+    // border: var(--border-input) solid var(--color-blue-100);
     border-radius: var(--border-radius);
-    box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
+
+    // box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
 }
 
 .input:focus {
-    border-color: var(--color-pink-100);
+    // border-color: var(--color-pink-100);
     outline: none;
-    box-shadow: rgb(50 66 223 / 25%) 0 0 0 4px;
+
+    // box-shadow: rgb(50 66 223 / 25%) 0 0 0 4px;
 }
 
 .inputError {

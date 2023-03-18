@@ -7,14 +7,17 @@ import {
 
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
+import styles from './styles.module.scss';
+
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
     label: string;
     name: FieldPath<T>;
     placeholder?: string;
-    type?: 'text' | 'email';
+    type?: 'text' | 'email' | 'password';
     className?: string;
+    id?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -24,7 +27,8 @@ const Input = <T extends FieldValues>({
     name,
     placeholder = '',
     type = 'text',
-    className = '',
+    className,
+    id = '',
 }: Properties<T>): JSX.Element => {
     const { field } = useFormController({ name, control });
 
@@ -38,7 +42,8 @@ const Input = <T extends FieldValues>({
                 {...field}
                 type={type}
                 placeholder={placeholder}
-                className={className}
+                className={styles.input}
+                id={id}
             />
             {hasError && <span>{error as string}</span>}
         </label>

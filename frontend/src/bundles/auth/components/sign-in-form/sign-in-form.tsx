@@ -1,3 +1,5 @@
+import eye from '~/assets/img/eye.svg';
+import eye_slash from '~/assets/img/eye-slash.svg';
 import facebookLogo from '~/assets/img/facebook_icon.svg';
 import googleLogo from '~/assets/img/google_icon.svg';
 import { Button, Input } from '~/bundles/common/components/components';
@@ -13,6 +15,22 @@ import styles from './styles.module.scss';
 
 type Properties = {
     onSubmit: (payload: UserSignInRequestDto) => void;
+};
+
+const showPassword = (): void => {
+    const eyeSlash = document.querySelector('#eye_slash') as HTMLInputElement;
+    const eyeVisible = document.querySelector('#eye') as HTMLInputElement;
+    const inputType = document.querySelector('#input') as HTMLInputElement;
+
+    if (inputType.type === 'password') {
+        inputType.type = 'text';
+        eyeVisible.style.display = 'block';
+        eyeSlash.style.display = 'none';
+    } else {
+        inputType.type = 'password';
+        eyeVisible.style.display = 'none';
+        eyeSlash.style.display = 'block';
+    }
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
@@ -35,7 +53,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 No account? <a href="/sign-up">Sign Up</a>
             </span>
             <form onSubmit={handleFormSubmit}>
-                <p className={styles.first}>
+                <p>
                     <Input
                         type="text"
                         label="E-Mail"
@@ -43,19 +61,36 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="email"
                         control={control}
                         errors={errors}
-                        className={styles.input}
                     />
                 </p>
-                <p className={styles.last}>
+                <p>
                     <Input
-                        type="text"
+                        id="input"
+                        type="password"
                         label="Password"
                         placeholder="Enter your password"
                         name="password"
                         control={control}
                         errors={errors}
-                        className={styles.input}
                     />
+                    <span className={styles.eye} onClickCapture={showPassword}>
+                        <img
+                            id="eye"
+                            src={eye}
+                            alt="eye"
+                            width="16"
+                            height="14"
+                            className={styles.hide1}
+                        />
+                        <img
+                            id="eye_slash"
+                            src={eye_slash}
+                            alt="eye-slash"
+                            width="17"
+                            height="15"
+                            className={styles.hide2}
+                        />
+                    </span>
                 </p>
                 <Button className={styles.button} type={ButtonType.SUBMIT}>
                     Log in

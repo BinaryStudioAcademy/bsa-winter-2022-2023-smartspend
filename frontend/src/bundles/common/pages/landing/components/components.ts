@@ -4,6 +4,7 @@ export { HighlightBanner } from './highlight-banner/highlight-banner';
 export { LineChartCard } from './line-chart-card/line-chart-card';
 export { QuestionPart } from './question-part/question-part';
 export { SecondStepPart } from './second-step-part/second-step-part';
+export { StepInfoButton } from './step-info-button/step-info-button';
 export { StepInfoPanel } from './step-info-panel/step-info-panel';
 export { StoreButton } from './store-button/store-button';
 export { ThirdStepPart } from './third-step-part/third-step-part';

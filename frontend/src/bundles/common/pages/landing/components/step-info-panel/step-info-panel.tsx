@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
-import { ButtonVariant, StepInfoPanelVariant } from '../../enums/enums';
-import { Button } from '../components';
+import { StepInfoButtonVariant, StepInfoPanelVariant } from '../../enums/enums';
+import { StepInfoButton } from '../components';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -17,35 +17,25 @@ const StepInfoPanel: React.FC<Properties> = ({
     step,
     variant = StepInfoPanelVariant.PRIMARY,
 }) => {
-    const titleClass = classNames(
-        styles.title,
-        variant === StepInfoPanelVariant.PRIMARY
-            ? styles.primary
-            : styles.secondary,
-    );
+    const titleClass = classNames(styles.title, styles[variant]);
 
-    const listItemClass = classNames(
-        styles.list_item,
+    const listItemClass = classNames(styles.list_item, styles[variant]);
+
+    const stepButtonVariant =
         variant === StepInfoPanelVariant.PRIMARY
-        ? styles.primary
-        : styles.secondary,
-    );
+            ? StepInfoButtonVariant.PRIMARY
+            : StepInfoButtonVariant.SECONDARY;
 
     return (
         <div className={styles.container}>
             <div>
-                <Button
-                    className={styles.step_button}
-                    variant={ButtonVariant.PLAIN}
-                >
-                    Step {step}
-                </Button>
+                <StepInfoButton variant={stepButtonVariant} step={step} />
             </div>
             <h1 className={titleClass}>{title}</h1>
-            <ul>
+            <ul className={styles.list} >
                 {listItems.map((item, index) => (
                     <li className={listItemClass} key={index}>
-                        {item}
+                        <span style={{ paddingLeft: 10 }} >{item}</span>
                     </li>
                 ))}
             </ul>

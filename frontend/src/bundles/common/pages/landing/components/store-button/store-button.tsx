@@ -1,6 +1,5 @@
-import { Button } from '~/bundles/common/components/components';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-
+import { ButtonVariant } from '../../enums/enums';
+import { Button } from '../components';
 import styles from './styles.module.scss';
 
 type Properties = {

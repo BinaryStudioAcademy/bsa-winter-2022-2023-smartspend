@@ -6,3 +6,6 @@ export { SecondStepPart } from './second-step-part/second-step-part';
 export { StepInfoPanel } from './step-info-panel/step-info-panel';
 export { StoreButton } from './store-button/store-button';
 export { ThirdStepPart } from './third-step-part/third-step-part';
+export { Button } from '~/bundles/common/components/components';
+export { DoughnutChart } from '~/bundles/common/components/doughnut-chart/doughnut-chart';
+

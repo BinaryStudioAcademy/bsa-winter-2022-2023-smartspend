@@ -9,7 +9,10 @@ import {
 const Landing: React.FC = () => {
     return (
         <>
-            <HighlightBanner />
+            <HighlightBanner
+                title={'The only app that gets your money into shape'} 
+                details={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'} 
+            />
             <QuestionPart question={'How to get your money into shape?'} />
             <FirstStepPart />
             <SecondStepPart />

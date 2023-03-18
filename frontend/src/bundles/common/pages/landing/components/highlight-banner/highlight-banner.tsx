@@ -4,16 +4,20 @@ import LaptopPreview from '../../../../../../assets/img/laptop-preview.svg';
 import { StoreButton } from '../components';
 import styles from './styles.module.scss';
 
-const HighlightBanner: React.FC = () => {
+type Properties = {
+    title: string;
+    details: string;
+};
+
+const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
     return (
         <div className={styles.container}>
             <div className={styles.details_container}>
                 <h1 className={styles.title}>
-                    The only app that gets your money into shape
+                    {title}
                 </h1>
                 <p className={styles.details}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor
+                    {details}
                 </p>
                 <div className={styles.buttons_container}>
                     <StoreButton

@@ -57,18 +57,18 @@
     line-height: 15px;
 }
 
-/* stylelint-disable */
 .transaction_sum.blue {
     background-image: var(--gradient-6);
     background-repeat: repeat;
     background-size: 100%;
+    /* stylelint-disable */
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-background-clip: text;
+    /* stylelint-enable */
     -moz-text-fill-color: transparent;
 }
-/* stylelint-enable */
 
 .transaction_sum.red {
     color: var(--color-warning);

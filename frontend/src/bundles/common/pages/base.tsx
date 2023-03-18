@@ -6,6 +6,7 @@ import {
     DoughnutChart,
     LineChart,
 } from '../components/components.js';
+import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum.js';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
@@ -251,6 +252,9 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
+            <div>
+                <CreateInputNote />
+            </div>
         </div>
     );
 };

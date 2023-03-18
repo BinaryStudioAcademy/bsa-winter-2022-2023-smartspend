@@ -123,14 +123,14 @@
     padding-top: 10px;
 }
 
-.applyFilters{
+.applyFilters {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     width: 100%;
 }
 
-.filter{
+.filter {
     width: 293px;
     padding-top: var(--p-1);
 }
@@ -263,37 +263,37 @@
 }
 
 @media only screen and (max-width: 1200px) {
-    .headerContainer{
+    .headerContainer {
         max-width: 773px;
     }
 
-    .walletTransactionsContainer{
+    .walletTransactionsContainer {
         max-width: 773px;
     }
 
-    .filtersContainer{
+    .filtersContainer {
         max-width: 773px;
     }
 
-    .buttonsDate{
+    .buttonsDate {
         max-width: 773px;
     }
 }
 
 @media only screen and (min-width: 1201px) and (max-width: 1500px) {
-    .headerContainer{
+    .headerContainer {
         max-width: 967px;
     }
 
-    .walletTransactionsContainer{
+    .walletTransactionsContainer {
         max-width: 967px;
     }
 
-    .filtersContainer{
+    .filtersContainer {
         max-width: 967px;
     }
 
-    .buttonsDate{
+    .buttonsDate {
         max-width: 967px;
     }
 }

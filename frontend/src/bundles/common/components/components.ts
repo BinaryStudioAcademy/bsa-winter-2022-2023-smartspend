@@ -1,9 +1,11 @@
 export { App } from '../../../app/app.js';
 export { Button } from './button/button.js';
 export { LineChart } from './charts/line-chart/line-chart';
+export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { LandingHeader } from './landing-header/landing-header';
 export { Link } from './link/link.js';
+export { Menu } from './menu/menu.js';
 export { PrivateRoute } from './private-route/private-route';
 export { PublicRoute } from './public-route/public-route';
 export { RouterProvider } from './router-provider/router-provider.js';

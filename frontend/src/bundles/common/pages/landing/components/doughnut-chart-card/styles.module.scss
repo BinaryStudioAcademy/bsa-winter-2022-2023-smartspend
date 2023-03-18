@@ -58,7 +58,7 @@
 }
 
 /* stylelint-disable */
-.blue {
+.transaction_sum.blue {
     background-image: var(--gradient-6);
     background-repeat: repeat;
     background-size: 100%;
@@ -70,6 +70,6 @@
 }
 /* stylelint-enable */
 
-.red {
+.transaction_sum.red {
     color: var(--color-warning);
 }

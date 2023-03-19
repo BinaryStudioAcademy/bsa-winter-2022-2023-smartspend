@@ -34,7 +34,7 @@ const Header: React.FC<Properties> = ({ userName }) => {
     );
 
     return (
-        <div className={styles.header}>
+        <header className={styles.header}>
             <div className={styles.header__logo}>
                 <div className={styles.logo__img}>
                     <img src="" alt="logo" />
@@ -70,7 +70,7 @@ const Header: React.FC<Properties> = ({ userName }) => {
                     </div>
                 </Link>
             )}
-        </div>
+        </header>
     );
 };
 

@@ -102,7 +102,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     }
                     label="Confirm password"
                     placeholder="Confirm your password"
-                    name="confirm"
+                    name="repeatPassword"
                     control={control}
                     errors={errors}
                     className={styles.input}

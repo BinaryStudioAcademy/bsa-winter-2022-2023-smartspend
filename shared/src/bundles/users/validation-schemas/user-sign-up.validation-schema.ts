@@ -18,6 +18,7 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
             'string.empty': UserValidationMessage.EMAIL_REQUIRE,
         }),
     password: joi.string().trim().required(),
+    repeatPassword: joi.string().valid(joi.ref('password')).required(),
 });
 
 export { userSignUp };

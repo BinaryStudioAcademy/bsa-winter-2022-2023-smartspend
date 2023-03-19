@@ -1,5 +1,3 @@
-import { type UserSignInRequestDto } from 'shared/build/index.js';
-
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -7,7 +5,10 @@ import {
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users.js';
 
 import { SignInForm, SignUpForm } from '../components/components.js';
 import { actions as authActions } from '../store/';
@@ -21,7 +22,7 @@ const Auth: React.FC = () => {
 
     const handleSignInSubmit = useCallback((): void => {
         (payload: UserSignInRequestDto): void => {
-            void dispatch(authActions.signUp(payload));
+            void dispatch(authActions.signIn(payload));
         };
     }, [dispatch]);
 

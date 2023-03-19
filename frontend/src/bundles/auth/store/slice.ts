@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetAllItemResponseDto } from '~/bundles/users/users.js';
 
-import { signUp } from './actions.js';
+import { signIn, signUp } from './actions.js';
 
 type State = {
     user: UserGetAllItemResponseDto | null;
@@ -21,6 +21,9 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
+        builder.addCase(signIn.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
         builder.addCase(signUp.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
             state.user = null;

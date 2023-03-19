@@ -1,6 +1,6 @@
 enum DropdownType {
-    SIMPLE = 'simple',
-    MULTISELECT = 'multiselect',
+    SINGLE = 'single',
+    MULTI = 'multi',
 }
 
 export { DropdownType };

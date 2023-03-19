@@ -2,7 +2,7 @@ enum WalletCardVariant {
     PRIMARY = 'primary',
     SECONDARY = 'secondary',
     TERTIARY = 'tertiary',
-    QUATERNARY = 'quaternary'
+    QUATERNARY = 'quaternary',
 }
 
 export { WalletCardVariant };

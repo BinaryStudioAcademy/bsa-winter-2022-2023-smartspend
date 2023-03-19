@@ -10,7 +10,7 @@ const ThirdStepPart: React.FC = () => {
     ];
 
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
             <StepInfoPanel
                 step={3}
                 listItems={itemsList}
@@ -39,7 +39,7 @@ const ThirdStepPart: React.FC = () => {
                     />
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

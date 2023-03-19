@@ -11,7 +11,11 @@ type Properties = {
 
 const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
+            <span className={styles.pink_circle} ></span>
+            <span className={styles.violet_circle} ></span>
+            <span className={styles.blue_circle} ></span>
+            
             <div className={styles.details_container}>
                 <h1 className={styles.title}>
                     {title}
@@ -21,12 +25,14 @@ const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
                 </p>
                 <div className={styles.buttons_container}>
                     <StoreButton
+                        url={'https://www.apple.com/app-store/'}
                         title={'Download on the'}
                         body={'App Store'}
                         iconPath={AppStoreIcon}
                         storeAlt={'app store'}
                     />
                     <StoreButton
+                        url={'https://play.google.com/'}
                         title={'Download on the'}
                         body={'Google Play'}
                         iconPath={GooglePlayIcon}
@@ -39,8 +45,9 @@ const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
                 alt="laptop"
                 width={'608'}
                 height={'327'}
+                className={styles.laptop_img}
             />
-        </div>
+        </section>
     );
 };
 

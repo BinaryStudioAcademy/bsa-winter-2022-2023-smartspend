@@ -6,9 +6,9 @@ type Properties = {
 
 const QuestionPart: React.FC<Properties> = ({ question }) => {
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
             <h1 className={styles.title}>{question}</h1>
-        </div>
+        </section>
     );
 };
 

@@ -9,15 +9,17 @@ const FirstStepPart: React.FC = () => {
         'Add your cash expenses manually.'
     ];
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
             <StepInfoPanel
                 variant={StepInfoPanelVariant.SECONDARY}
                 title={'Track your cash flow'}
                 listItems={listItems}
                 step={1}
             />
-            <div></div>
-        </div>
+            <div>
+                {/* add there cards */}
+            </div>
+        </section>
     );
 };
 

@@ -19,7 +19,12 @@ const SecondStepPart: React.FC = () => {
     ];
 
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
+            <span className={styles.big_blue_border_circle} ></span>
+            <span className={styles.small_blue_border_circle} ></span>
+            <span className={styles.big_blue_circle} ></span>
+            <span className={styles.light_blue_circle} ></span>
+
             <LineChartCard
                 dataArr={dataArray}
                 title={'Account Balance'}
@@ -31,7 +36,7 @@ const SecondStepPart: React.FC = () => {
                 step={2}
                 variant={StepInfoPanelVariant.PRIMARY}
             />
-        </div>
+        </section>
     );
 };
 

@@ -7,13 +7,13 @@ type Properties = {
 
 const SubscriptionPart: React.FC<Properties> = ({ title }) => {
     return (
-        <div className={styles.container} >
+        <section className={styles.container} >
             <h1 className={styles.title} >{title}</h1>
             <form className={styles.form} >
                 <CreateInputNote/>
                 <Button>Subscribe</Button>
             </form>
-        </div>
+        </section>
     );
 };
 

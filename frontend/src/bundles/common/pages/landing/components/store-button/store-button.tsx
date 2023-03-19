@@ -1,3 +1,4 @@
+import { useCallback } from '../../../../hooks/hooks';
 import { ButtonVariant } from '../../enums/enums';
 import { Button } from '../components';
 import styles from './styles.module.scss';
@@ -7,6 +8,7 @@ type Properties = {
     body: string;
     iconPath: string;
     storeAlt: string;
+    url: string;
 };
 
 const StoreButton: React.FC<Properties> = ({
@@ -14,9 +16,15 @@ const StoreButton: React.FC<Properties> = ({
     body,
     iconPath,
     storeAlt,
+    url
 }) => {
+
+    const onClick = useCallback(() => {
+        window.open(url, '_blank');
+    }, [url]);
+ 
     return (
-        <Button variant={ButtonVariant.PLAIN} className={styles.store_button}>
+        <Button variant={ButtonVariant.PLAIN} onClick={onClick} className={styles.store_button}>
             <div className={styles.container}>
                 <img src={iconPath} alt={storeAlt} />
                 <div className={styles.details_container}>

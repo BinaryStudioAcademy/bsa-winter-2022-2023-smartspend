@@ -1,5 +1,5 @@
-import { StepInfoPanelVariant } from '../../enums/enums';
-import { StepInfoPanel } from '../components';
+import { StepInfoPanelVariant, WalletCardVariant } from '../../enums/enums';
+import { StepInfoPanel, WalletCard } from '../components';
 import styles from './styles.module.scss';
 
 const FirstStepPart: React.FC = () => {
@@ -8,6 +8,34 @@ const FirstStepPart: React.FC = () => {
         'Connect your crypto wallet and E-Wallet for complete overview of your cash flow.',
         'Add your cash expenses manually.',
     ];
+
+    const walletCardsArray = [
+        {
+            title: 'Cash Walletss',
+            wallet_type: 'Balance',
+            balance_value: '+900.00$',
+            variant: WalletCardVariant.PRIMARY,
+        },
+        {
+            title: 'Cash Walletss',
+            wallet_type: 'Balance',
+            balance_value: '+900.00$',
+            variant: WalletCardVariant.SECONDARY,
+        },
+        {
+            title: 'Cash Wallets',
+            wallet_type: 'Balance',
+            balance_value: '+900.00$',
+            variant: WalletCardVariant.TERTIARY,
+        },
+        {
+            title: 'Cash Wallets',
+            wallet_type: 'Balance',
+            balance_value: '+900.00$',
+            variant: WalletCardVariant.QUATERNARY,
+        },
+    ];
+
     return (
         <section className={styles.container}>
             <StepInfoPanel
@@ -16,7 +44,17 @@ const FirstStepPart: React.FC = () => {
                 listItems={listItems}
                 step={1}
             />
-            <div>{/* add there cards */}</div>
+            <div className={styles.cards_container}>
+                {walletCardsArray.map((card, index) => (
+                    <WalletCard
+                        key={index}
+                        title={card.title}
+                        wallet_type={card.wallet_type}
+                        balance_value={card.balance_value}
+                        variant={card.variant}
+                    />
+                ))}
+            </div>
         </section>
     );
 };

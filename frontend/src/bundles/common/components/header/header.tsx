@@ -33,48 +33,56 @@ const Header: React.FC<Properties> = ({ userName }) => {
         [navigate],
     );
 
+    if (pathname === AppRoute.SIGN_IN || pathname === AppRoute.SIGN_UP) {
+        return null;
+    }
+
     return (
         <header className={styles.header}>
-            <div className={styles.header__logo}>
-                <div className={styles.logo__img}>
-                    <img src="" alt="logo" />
+            <div className={styles.header__container}>
+                <div className={styles.header__logo}>
+                    <div className={styles.logo__img}>
+                        <img src="" alt="logo" />
+                    </div>
+                    <span className={styles.logo__text}>SmarpSpend</span>
                 </div>
-                <span className={styles.logo__text}>SmarpSpend</span>
-            </div>
-            <div className={styles.header__body}>
-                {userName ? (
-                    <>
-                        {pathname === AppRoute.DASHBOARD && (
-                            <Tabs tabsData={tabsDashboard} />
-                        )}
-                        {pathname === AppRoute.WALLETS && (
-                            <Tabs tabsData={tabsWallet} />
-                        )}
-                    </>
+                <div className={styles.header__body}>
+                    {userName ? (
+                        <>
+                            {pathname === AppRoute.DASHBOARD && (
+                                <Tabs tabsData={tabsDashboard} />
+                            )}
+                            {pathname === AppRoute.WALLETS && (
+                                <Tabs tabsData={tabsWallet} />
+                            )}
+                        </>
+                    ) : (
+                        <Menu />
+                    )}
+                </div>
+
+                {pathname === AppRoute.ROOT ? (
+                    <Button
+                        type={ButtonType.BUTTON}
+                        size={ButtonSize.SMALL}
+                        className={styles.header__btn}
+                        onClick={loginHandler}
+                    >
+                        Login
+                    </Button>
                 ) : (
-                    <Menu />
+                    <Link to={AppRoute.USER}>
+                        <div className={styles.header__logo}>
+                            <div className={styles.user__logo}>
+                                <img src={userLogo} alt="user" />
+                            </div>
+                            <span className={styles.logo__text}>
+                                {userName}
+                            </span>
+                        </div>
+                    </Link>
                 )}
             </div>
-
-            {pathname === AppRoute.ROOT ? (
-                <Button
-                    type={ButtonType.BUTTON}
-                    size={ButtonSize.SMALL}
-                    className={styles.header__btn}
-                    onClick={loginHandler}
-                >
-                    Login
-                </Button>
-            ) : (
-                <Link to={AppRoute.USER}>
-                    <div className={styles.header__logo}>
-                        <div className={styles.user__logo}>
-                            <img src={userLogo} alt="user" />
-                        </div>
-                        <span className={styles.logo__text}>{userName}</span>
-                    </div>
-                </Link>
-            )}
         </header>
     );
 };

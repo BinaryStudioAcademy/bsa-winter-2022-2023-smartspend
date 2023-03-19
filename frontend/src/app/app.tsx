@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header userName="Empty User" />
+            <Header userName={null} />
 
             <ul className="App-navigation-list">
                 <li>

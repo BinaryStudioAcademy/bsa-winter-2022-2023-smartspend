@@ -1,10 +1,19 @@
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 80px;
-    padding: 1.25rem 8.75rem;
     background-color: var(--color-blue-600);
+}
+
+.header__container {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1192px;
+    height: 100%;
+    padding: 0 var(--p-3);
 }
 
 .header__body {

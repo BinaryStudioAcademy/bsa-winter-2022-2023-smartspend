@@ -7,10 +7,10 @@ type Properties = {
 
 const SubscriptionPart: React.FC<Properties> = ({ title }) => {
     return (
-        <section className={styles.container} >
-            <h1 className={styles.title} >{title}</h1>
-            <form className={styles.form} >
-                <CreateInputNote/>
+        <section className={styles.container}>
+            <h1 className={styles.title}>{title}</h1>
+            <form className={styles.form}>
+                <CreateInputNote />
                 <Button>Subscribe</Button>
             </form>
         </section>

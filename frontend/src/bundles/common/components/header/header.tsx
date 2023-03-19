@@ -44,10 +44,16 @@ const Header: React.FC<Properties> = ({ userName }) => {
             <div className={styles.header__body}>
                 {userName ? (
                     <>
-                        {pathname === AppRoute.DASHBOARD && <Tabs tabsData={tabsDashboard} />}
-                        {pathname === AppRoute.WALLETS && <Tabs tabsData={tabsWallet} />}
+                        {pathname === AppRoute.DASHBOARD && (
+                            <Tabs tabsData={tabsDashboard} />
+                        )}
+                        {pathname === AppRoute.WALLETS && (
+                            <Tabs tabsData={tabsWallet} />
+                        )}
                     </>
-                ) : <Menu />}
+                ) : (
+                    <Menu />
+                )}
             </div>
 
             {pathname === AppRoute.ROOT ? (

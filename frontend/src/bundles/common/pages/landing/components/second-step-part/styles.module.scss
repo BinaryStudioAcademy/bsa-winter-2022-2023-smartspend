@@ -1,9 +1,51 @@
 .container {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 730px;
     padding: 0 var(--p-6);
+    overflow: hidden;
     background-color: var(--color-blue-600);
+}
+
+.big_blue_border_circle {
+    position: absolute;
+    bottom: 90px;
+    left: 30px;
+    width: 270px;
+    height: 270px;
+    border: solid 4px var(--color-pink-100);
+    border-radius: 50%;
+}
+
+.small_blue_border_circle {
+    position: absolute;
+    right: -35px;
+    bottom: 140px;
+    width: 140px;
+    height: 140px;
+    border: solid 4px var(--color-pink-100);
+    border-radius: 50%;
+}
+
+.big_blue_circle {
+    position: absolute;
+    top: 120px;
+    left: 400px;
+    width: 160px;
+    height: 160px;
+    background-color: var(--color-pink-100);
+    border-radius: 50%;
+}
+
+.light_blue_circle {
+    position: absolute;
+    top: 100px;
+    left: 650px;
+    width: 27px;
+    height: 27px;
+    background-image: var(--gradient-8);
+    border-radius: 50%;
 }

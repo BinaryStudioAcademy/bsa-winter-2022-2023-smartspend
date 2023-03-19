@@ -56,7 +56,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                 <div className={styles.transaction_type_container}>
                     <img
                         src={
-                            variant === 'primary'
+                            variant === DoughnutChartCartVariant.PRIMARY
                                 ? BlueMurseIcon
                                 : OrangeMurseIcon
                         }

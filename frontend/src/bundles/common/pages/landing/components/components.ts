@@ -1,4 +1,5 @@
 export { DoughnutChartCard } from './doughnut-chart-card/doughnut-chart-card';
+export { FeedbackCard } from './feedback-card/feedback-card';
 export { FeedbacksPart } from './feedbacks-part/feedbacks-part';
 export { FirstStepPart } from './first-step-part/first-step-part';
 export { Footer } from './footer/footer';

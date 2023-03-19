@@ -1,4 +1,7 @@
-import { DoughnutChartCartVariant, StepInfoPanelVariant } from '../../enums/enums';
+import {
+    DoughnutChartCartVariant,
+    StepInfoPanelVariant,
+} from '../../enums/enums';
 import { DoughnutChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
 

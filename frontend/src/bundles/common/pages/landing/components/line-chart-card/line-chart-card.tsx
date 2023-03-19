@@ -16,9 +16,7 @@ const LineChartCard: React.FC<Properties> = ({ dataArr, title, date }) => {
                     <p className={styles.title}>{title}</p>
                     <span className={styles.date}>{date}</span>
                 </div>
-                <div>
-                    Button tabs
-                </div>
+                <div>Button tabs</div>
             </div>
             <div className={styles.container_line_chart}>
                 <LineChart dataArr={dataArr} />

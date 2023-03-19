@@ -16,15 +16,18 @@ const StoreButton: React.FC<Properties> = ({
     body,
     iconPath,
     storeAlt,
-    url
+    url,
 }) => {
-
     const onClick = useCallback(() => {
         window.open(url, '_blank');
     }, [url]);
- 
+
     return (
-        <Button variant={ButtonVariant.PLAIN} onClick={onClick} className={styles.store_button}>
+        <Button
+            variant={ButtonVariant.PLAIN}
+            onClick={onClick}
+            className={styles.store_button}
+        >
             <div className={styles.container}>
                 <img src={iconPath} alt={storeAlt} />
                 <div className={styles.details_container}>

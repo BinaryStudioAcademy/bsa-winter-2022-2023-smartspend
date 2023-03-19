@@ -1,7 +1,7 @@
 import FacebookIcon from '../../../../../../assets/img/facebook-icon.svg';
 import TwitterIcon from '../../../../../../assets/img/twitter-icon.svg';
 import { AppRoute } from '../../enums/enums';
-import { FooterLinks,FooterMediaIcons } from '../components';
+import { FooterLinks, FooterMediaIcons } from '../components';
 import styles from './styles.module.scss';
 
 const Footer: React.FC = () => {
@@ -16,7 +16,11 @@ const Footer: React.FC = () => {
 
     const iconsArray = [
         { src: TwitterIcon, alt: 'twitter', href: 'https://twitter.com/' },
-        { src: FacebookIcon, alt: 'facebook', href: 'https://www.facebook.com/' }
+        {
+            src: FacebookIcon,
+            alt: 'facebook',
+            href: 'https://www.facebook.com/',
+        },
     ];
     return (
         <footer className={styles.container}>

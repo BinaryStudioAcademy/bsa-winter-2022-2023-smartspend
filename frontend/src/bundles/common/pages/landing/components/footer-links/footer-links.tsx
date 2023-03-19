@@ -8,7 +8,7 @@ type Properties = {
     links: {
         to: ValueOf<typeof AppRoute>;
         value: string;
-    }[]
+    }[];
 };
 
 const FooterLinks: React.FC<Properties> = ({ links }) => {

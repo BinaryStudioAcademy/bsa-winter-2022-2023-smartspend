@@ -9,22 +9,19 @@ type Properties = {
     variant?: StepInfoButtonVariant;
 };
 
-const StepInfoButton: React.FC<Properties> = ({ step, variant = StepInfoButtonVariant.PRIMARY }) => {
-    const buttonClass = classNames(
-        styles.step_button,
-        styles[variant]
-    );
+const StepInfoButton: React.FC<Properties> = ({
+    step,
+    variant = StepInfoButtonVariant.PRIMARY,
+}) => {
+    const buttonClass = classNames(styles.step_button, styles[variant]);
 
     const buttonTextClass = classNames(
         styles.step_button_text,
-        styles[variant]
+        styles[variant],
     );
     return (
-        <Button
-            className={buttonClass}
-            variant={ButtonVariant.PLAIN}
-        >
-            <span className={buttonTextClass} >Step {step}</span>
+        <Button className={buttonClass} variant={ButtonVariant.PLAIN}>
+            <span className={buttonTextClass}>Step {step}</span>
         </Button>
     );
 };

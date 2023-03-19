@@ -12,6 +12,13 @@ export { SecondStepPart } from './second-step-part/second-step-part';
 export { StepInfoButton } from './step-info-button/step-info-button';
 export { StepInfoPanel } from './step-info-panel/step-info-panel';
 export { StoreButton } from './store-button/store-button';
-export { SubscriptionPart }  from './subscription-part/subscription-part';
+export { SubscriptionPart } from './subscription-part/subscription-part';
 export { ThirdStepPart } from './third-step-part/third-step-part';
-export { Button, CreateInputNote, DoughnutChart, Input, LineChart, Link } from '~/bundles/common/components/components';
+export {
+    Button,
+    CreateInputNote,
+    DoughnutChart,
+    Input,
+    LineChart,
+    Link,
+} from '~/bundles/common/components/components';

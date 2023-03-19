@@ -6,20 +6,12 @@
 }
 
 .step_button.primary {
-    background-image: linear-gradient(
-            #ffffff00,
-            #ffffff00
-        ),
-        var(--gradient-8);
+    background-image: linear-gradient(#ffffff00, #ffffff00), var(--gradient-8);
     box-shadow: 2px 1000px 1px var(--color-blue-600) inset;
 }
 
 .step_button.secondary {
-    background-image: linear-gradient(
-            #ffffff00,
-            #ffffff00
-        ),
-        var(--gradient-3);
+    background-image: linear-gradient(#ffffff00, #ffffff00), var(--gradient-3);
     box-shadow: 2px 1000px 1px var(--color-blue-100) inset;
 }
 

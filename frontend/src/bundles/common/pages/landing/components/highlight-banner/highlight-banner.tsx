@@ -12,17 +12,13 @@ type Properties = {
 const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
     return (
         <section className={styles.container}>
-            <span className={styles.pink_circle} ></span>
-            <span className={styles.violet_circle} ></span>
-            <span className={styles.blue_circle} ></span>
-            
+            <span className={styles.pink_circle}></span>
+            <span className={styles.violet_circle}></span>
+            <span className={styles.blue_circle}></span>
+
             <div className={styles.details_container}>
-                <h1 className={styles.title}>
-                    {title}
-                </h1>
-                <p className={styles.details}>
-                    {details}
-                </p>
+                <h1 className={styles.title}>{title}</h1>
+                <p className={styles.details}>{details}</p>
                 <div className={styles.buttons_container}>
                     <StoreButton
                         url={'https://www.apple.com/app-store/'}

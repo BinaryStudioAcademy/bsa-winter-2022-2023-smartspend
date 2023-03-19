@@ -32,10 +32,10 @@ const StepInfoPanel: React.FC<Properties> = ({
                 <StepInfoButton variant={stepButtonVariant} step={step} />
             </div>
             <h1 className={titleClass}>{title}</h1>
-            <ul className={styles.list} >
+            <ul className={styles.list}>
                 {listItems.map((item, index) => (
                     <li className={listItemClass} key={index}>
-                        <span style={{ paddingLeft: 10 }} >{item}</span>
+                        <span style={{ paddingLeft: 10 }}>{item}</span>
                     </li>
                 ))}
             </ul>

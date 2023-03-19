@@ -9,7 +9,7 @@ import { Tabs } from '../tabs/tabs';
 import styles from './styles.module.scss';
 
 type Properties = {
-    userName?: string;
+    userName: string | null;
 };
 
 const tabsDashboard = [
@@ -42,13 +42,12 @@ const Header: React.FC<Properties> = ({ userName }) => {
                 <span className={styles.logo__text}>SmarpSpend</span>
             </div>
             <div className={styles.header__body}>
-                {pathname === AppRoute.ROOT && <Menu />}
-                {pathname === AppRoute.DASHBOARD && (
-                    <Tabs tabsData={tabsDashboard} />
-                )}
-                {pathname === AppRoute.WALLETS && (
-                    <Tabs tabsData={tabsWallet} />
-                )}
+                {userName ? (
+                    <>
+                        {pathname === AppRoute.DASHBOARD && <Tabs tabsData={tabsDashboard} />}
+                        {pathname === AppRoute.WALLETS && <Tabs tabsData={tabsWallet} />}
+                    </>
+                ) : <Menu />}
             </div>
 
             {pathname === AppRoute.ROOT ? (

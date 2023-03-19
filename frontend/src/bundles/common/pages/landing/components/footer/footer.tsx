@@ -15,8 +15,8 @@ const Footer: React.FC = () => {
     ];
 
     const iconsArray = [
-        { src: TwitterIcon, alt: 'twitter' },
-        { src: FacebookIcon, alt: 'facebook' }
+        { src: TwitterIcon, alt: 'twitter', href: 'https://twitter.com/' },
+        { src: FacebookIcon, alt: 'facebook', href: 'https://www.facebook.com/' }
     ];
     return (
         <footer className={styles.container}>
@@ -29,13 +29,6 @@ const Footer: React.FC = () => {
                 </div>
             </div>
             <div className={styles.links_container}>
-                {/* <div className={styles.links}>
-                    {linksArray.map((link, index) => (
-                        <li key={index}>
-                            <Link to={link.to}>{link.value}</Link>
-                        </li>
-                    ))}
-                </div> */}
                 <FooterLinks links={linksArray} />
             </div>
         </footer>

@@ -6,7 +6,7 @@
     width: 100%;
     height: 530px;
     padding: 0 var(--p-6);
-    background: linear-gradient(90deg, #f27a54 -21.05%, #a154f2 121.05%);
+    background: var(--gradient-9);
 }
 
 .title {
@@ -46,7 +46,7 @@
     right: 105px;
     width: 30px;
     height: 30px;
-    background-color: #561ccb;
+    background-color: var(--color-indigo-700);
     border-radius: 50%;
 }
 
@@ -56,7 +56,7 @@
     right: 600px;
     width: 100px;
     height: 100px;
-    background-color: #cf56e3;
+    background-color: var(--color-orchid-600);
     border-radius: 50%;
 }
 

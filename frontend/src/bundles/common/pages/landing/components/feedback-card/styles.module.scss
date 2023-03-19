@@ -8,12 +8,12 @@
     padding: var(--p-4);
     background-color: var(--color-white-100);
     border-radius: 10px;
-    box-shadow: 0 2px 10px #386df61f;
+    box-shadow: 0 2px 10px var(--color-blue-transparent);
     cursor: pointer;
 }
 
 .container:hover {
-    box-shadow: 0 8px 16px #386df61f;
+    box-shadow: 0 8px 16px var(--color-blue-transparent);
 }
 
 .container::before {
@@ -41,7 +41,7 @@
 
 .feedback {
     margin: 0;
-    color: #556070;
+    color: var(--color-gray-300);
     font-weight: var(--font-weight-400);
     line-height: var(--line-height-quotation);
 }

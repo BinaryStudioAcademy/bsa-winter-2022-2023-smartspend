@@ -4,9 +4,9 @@
     flex-direction: column;
     justify-content: space-between;
     height: 330px;
-    padding: 20px;
+    padding: var(--p-4);
     background-color: var(--color-white-100);
-    border-radius: 10px;
+    border-radius: var(--b-4);
 }
 
 .top_container {

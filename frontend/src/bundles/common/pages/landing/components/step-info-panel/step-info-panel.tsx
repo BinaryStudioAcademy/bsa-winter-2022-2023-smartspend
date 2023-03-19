@@ -35,7 +35,7 @@ const StepInfoPanel: React.FC<Properties> = ({
             <ul className={styles.list}>
                 {listItems.map((item, index) => (
                     <li className={listItemClass} key={index}>
-                        <span style={{ paddingLeft: 10 }}>{item}</span>
+                        {item}
                     </li>
                 ))}
             </ul>

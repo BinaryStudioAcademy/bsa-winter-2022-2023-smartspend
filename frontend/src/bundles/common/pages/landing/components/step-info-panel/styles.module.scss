@@ -23,7 +23,7 @@
     margin: var(--m-3) 0;
     color: var(--color-slate-500);
     font-size: var(--font-size-level-1-body);
-    line-height: var(--line-height-caption);
+    line-height: var(--line-height-level-1-body);
     list-style: none;
 }
 
@@ -36,17 +36,19 @@
 }
 
 .list {
-    margin: 0;
+    position: relative;
+    margin: var(--m-4);
     padding: 0;
 }
 
 .list_item::before {
-    content: "";
-    display: inline-block;
+    position: absolute;
+    left: -20px;
     width: 6px;
     height: 6px;
-    margin: 4px 10px;
+    margin: 11px 0;
     border-radius: 50%;
+    content: "";
 }
 
 .list_item.primary::before {

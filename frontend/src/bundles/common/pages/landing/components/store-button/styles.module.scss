@@ -2,7 +2,7 @@
     width: 190px;
     color: var(--color-white-100);
     background-color: var(--color-blue-600);
-    border-radius: 7px;
+    border-radius: var(--b-2);
 }
 
 .store_button:hover {
@@ -27,5 +27,5 @@
 
 .body {
     margin: 0;
-    font-size: 18px;
+    font-size: var(--font-size-1-button-text);
 }

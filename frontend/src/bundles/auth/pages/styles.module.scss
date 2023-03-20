@@ -112,13 +112,13 @@
     line-height: var(--line-height-sub-heading);
 }
 
-a {
+.headerLink {
     color: var(--color-white-100);
     font-size: var(--font-size-level-6-heading);
     text-decoration: none;
 }
 
-a:hover {
+.headerLink:hover {
     text-decoration: underline;
 }
 

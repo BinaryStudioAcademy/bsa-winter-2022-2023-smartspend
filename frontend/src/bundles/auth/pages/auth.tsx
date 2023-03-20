@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
+
 import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
-import { Link } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -60,6 +61,7 @@ const Auth: React.FC = () => {
                                     {getText(pathname, 'title')}
                                 </h2>
                                 <Link
+                                    className={styles.headerLink}
                                     to={
                                         pathname === AppRoute.SIGN_IN
                                             ? AuthApiPath.SIGN_UP

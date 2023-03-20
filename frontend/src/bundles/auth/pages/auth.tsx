@@ -79,8 +79,16 @@ const Auth: React.FC = () => {
                                     {getText(pathname, 'footer')}
                                 </p>
                                 <div className={styles.authSocial}>
-                                    <img className={styles.socialImg} src={googleIcon} alt="googleIcon" />
-                                    <img className={styles.socialImg} src={fbIcon} alt="facebookIcon" />
+                                    <img
+                                        className={styles.socialImg}
+                                        src={googleIcon}
+                                        alt="googleIcon"
+                                    />
+                                    <img
+                                        className={styles.socialImg}
+                                        src={fbIcon}
+                                        alt="facebookIcon"
+                                    />
                                 </div>
                             </div>
                         </div>

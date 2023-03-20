@@ -10,7 +10,6 @@ import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
-import { Dashboard } from './dashboard/dashboard';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -253,10 +252,6 @@ const Base: React.FC = () => {
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
-            <div>
-                <h2>Dashboard</h2>
-                <Dashboard />
-            </div>
             <div>
                 <CreateInputNote />
             </div>

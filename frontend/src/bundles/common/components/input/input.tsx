@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
     type Control,
     type FieldErrors,
@@ -5,6 +6,12 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
+import {
+    type InputLabel,
+    type InputPlaceholder,
+    type InputSize,
+    type InputType,
+} from '~/bundles/common/enums/enums.js';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -12,12 +19,12 @@ import styles from './styles.module.scss';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
-    label: string;
+    label?: InputLabel;
     name: FieldPath<T>;
-    placeholder?: string;
-    type?: 'text' | 'email' | 'password';
+    placeholder?: InputPlaceholder;
+    type?: InputType;
     className?: string;
-    id?: string;
+    size?: InputSize;
 };
 
 const Input = <T extends FieldValues>({
@@ -25,11 +32,21 @@ const Input = <T extends FieldValues>({
     errors,
     label,
     name,
-    placeholder = '',
-    type = 'text',
-    className,
-    id = '',
+    placeholder,
+    type,
+    className = '',
+    size,
 }: Properties<T>): JSX.Element => {
+    const inputClasses = classNames(
+        styles.input,
+        label === 'E-mail' && size === 'medium' ? styles.emailMedium : '',
+        label === 'E-mail' && size === 'small' ? styles.emailSmall : '',
+        label === 'Password' ? styles.password : '',
+        label === 'By note' && size === 'medium' ? styles.noteMedium : '',
+        label === 'By note' && size === 'small' ? styles.noteSmall : '',
+        label === 'Amount' ? styles.amount : '',
+        className,
+    );
     const { field } = useFormController({ name, control });
 
     const error = errors[name]?.message;
@@ -42,8 +59,7 @@ const Input = <T extends FieldValues>({
                 {...field}
                 type={type}
                 placeholder={placeholder}
-                className={styles.input}
-                id={id}
+                className={inputClasses}
             />
             {hasError && <span>{error as string}</span>}
         </label>

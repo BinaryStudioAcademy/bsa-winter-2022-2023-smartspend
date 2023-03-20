@@ -344,61 +344,59 @@ const Base: React.FC = () => {
             </div>
             {/* end-Doughnut Chart------------------------------- */}
             <div>
-                <form>
-                    <div>
-                        <Input
-                            name="email"
-                            type={InputType.EMAIL}
-                            label={InputLabel.EMAIL}
-                            size={InputSize.MEDIUM}
-                            placeholder={InputPlaceholder.EMAIL}
-                            control={control}
-                            errors={errors}
-                        />
-                        <Input
-                            name="email"
-                            type={InputType.EMAIL}
-                            label={InputLabel.EMAIL}
-                            size={InputSize.SMALL}
-                            placeholder={InputPlaceholder.EMAILSMALL}
-                            control={control}
-                            errors={errors}
-                        />
-                        <Input
-                            name="password"
-                            type={InputType.PASSWORD}
-                            label={InputLabel.PASSWORD}
-                            placeholder={InputPlaceholder.PASSWORD}
-                            control={control}
-                            errors={errors}
-                        />
-                        <Input
-                            name="email"
-                            type={InputType.TEXT}
-                            label={InputLabel.NOTE}
-                            size={InputSize.MEDIUM}
-                            placeholder={InputPlaceholder.NOTE}
-                            control={control}
-                            errors={errors}
-                        />
-                        <Input
-                            name="email"
-                            type={InputType.TEXT}
-                            label={InputLabel.NOTE}
-                            size={InputSize.SMALL}
-                            placeholder={InputPlaceholder.NOTESMALL}
-                            control={control}
-                            errors={errors}
-                        />
-                        <Input
-                            name="email"
-                            type={InputType.TEXT}
-                            label={InputLabel.AMOUNT}
-                            placeholder={InputPlaceholder.AMOUNT}
-                            control={control}
-                            errors={errors}
-                        />
-                    </div>
+                <form style={{ textAlign: 'left' }}>
+                    <Input
+                        name="email"
+                        type={InputType.EMAIL}
+                        label={InputLabel.EMAIL}
+                        size={InputSize.MEDIUM}
+                        placeholder={InputPlaceholder.EMAIL}
+                        control={control}
+                        errors={errors}
+                    />
+                    <Input
+                        name="email"
+                        type={InputType.EMAIL}
+                        label={InputLabel.EMAIL}
+                        size={InputSize.SMALL}
+                        placeholder={InputPlaceholder.EMAILSMALL}
+                        control={control}
+                        errors={errors}
+                    />
+                    <Input
+                        name="password"
+                        type={InputType.PASSWORD}
+                        label={InputLabel.PASSWORD}
+                        placeholder={InputPlaceholder.PASSWORD}
+                        control={control}
+                        errors={errors}
+                    />
+                    <Input
+                        name="email" // треба замінити defaultValues: DEFAULT_SIGN_IN_PAYLOAD
+                        type={InputType.TEXT}
+                        label={InputLabel.NOTE}
+                        size={InputSize.MEDIUM}
+                        placeholder={InputPlaceholder.NOTE}
+                        control={control}
+                        errors={errors}
+                    />
+                    <Input
+                        name="email" // треба замінити defaultValues: DEFAULT_SIGN_IN_PAYLOAD
+                        type={InputType.TEXT}
+                        label={InputLabel.NOTE}
+                        size={InputSize.SMALL}
+                        placeholder={InputPlaceholder.NOTESMALL}
+                        control={control}
+                        errors={errors}
+                    />
+                    <Input
+                        name="email" // треба замінити defaultValues: DEFAULT_SIGN_IN_PAYLOAD
+                        type={InputType.TEXT}
+                        label={InputLabel.AMOUNT}
+                        placeholder={InputPlaceholder.AMOUNT}
+                        control={control}
+                        errors={errors}
+                    />
                 </form>
             </div>
         </div>

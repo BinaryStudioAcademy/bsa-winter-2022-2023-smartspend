@@ -2,8 +2,9 @@
     --border-input: 1px;
     --border-radius: 0.5rem;
     --font-size-label: 1rem;
-    --font-size-label-input: 0.9375rem;
-    --letter-spacing: -1px;
+    --font-size-label-input: 1.125rem;
+    --line-height-input-small-email: 1rem;
+    --line-height-label-span: 1.25rem;
 }
 
 label {
@@ -19,48 +20,104 @@ label {
     line-height: var(--line-height-input);
 }
 
+label span {
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-label);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-label-span);
+}
+
+label span:last-child {
+    color: var(--color-warning);
+}
+
 .input {
     display: block;
-    width: 290px;
     height: 48px;
-    margin: var(--m-1) 0;
+    margin: 2px 0;
     padding-left: var(--p-3);
-    color: var(--color-gray-400);
+    color: var(--color-gray-300);
     font-weight: var(--font-weight-500);
-    font-size: var(--font-size-label-input);
+    font-size: var(--font-size-label);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-input);
-    letter-spacing: var(--letter-spacing);
-    border: var(--border-input) solid var(--color-blue-100);
+    border: var(--border-input) solid var(--color-blue-200);
     border-radius: var(--border-radius);
+    transition: box-shadow 0.2s linear;
+}
+
+.input::placeholder {
+    color: var(--color-gray-200);
+}
+
+.input:hover {
     box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
 }
 
 .input:focus {
-    border-color: var(--color-pink-100);
     outline: none;
-    box-shadow: rgb(50 66 223 / 25%) 0 0 0 4px;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
 }
 
-.inputError {
-    display: block;
-    width: 290px;
-    height: 48px;
-    margin: var(--m-1) 0;
-    padding-left: var(--p-3);
-    color: var(--color-gray-400);
-    font-weight: var(--font-weight-500);
+.emailMedium {
+    width: 390px;
+}
+
+.emailSmall {
+    width: 296px;
+    line-height: var(--line-height-input-small-email);
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-3);
+    border: var(--border) solid transparent;
+}
+
+.password {
+    width: 390px;
+    color: var(--color-blue-600);
+}
+
+.emailMedium,
+.password {
     font-size: var(--font-size-label-input);
-    font-family: var(--font-family);
-    font-style: normal;
-    line-height: var(--line-height-input);
-    letter-spacing: var(--letter-spacing);
-    border: var(--border-input) solid --color-warning;
-    border-radius: var(--border-radius);
-    box-shadow: rgb(220 36 48 / 25%) 0 0 0 4px;
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-7);
+    border: var(--border) solid transparent;
 }
 
-.inputError:focus {
-    outline: none;
+.emailMedium:hover,
+.password:hover {
+    box-shadow: rgb(105 137 254 / 50%) 0 0 10px 0,
+        rgb(60 100 244 / 20%) 0 0 0 4px;
+}
+
+.emailMedium:focus,
+.password:focus {
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-5);
+    border: var(--border) solid transparent;
+    box-shadow: rgb(0 215 189 / 50%) 0 0 10px 0, rgb(3 191 217 / 20%) 0 0 0 4px;
+}
+
+.emailSmall:hover,
+.emailSmall:focus {
+    border: var(--border) solid transparent;
+    box-shadow: rgb(254 102 230 / 50%) 0 0 10px 0,
+        rgb(105 51 221 / 20%) 0 0 0 4px;
+}
+
+.noteMedium {
+    width: 229px;
+}
+
+.noteSmall {
+    width: 177px;
+}
+
+.amount {
+    width: 87px;
 }

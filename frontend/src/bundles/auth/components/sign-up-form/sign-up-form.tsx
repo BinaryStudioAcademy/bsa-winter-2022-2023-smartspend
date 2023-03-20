@@ -1,5 +1,11 @@
 import { Button, Input } from '~/bundles/common/components/components';
 import { ButtonType } from '~/bundles/common/enums/enums';
+import {
+    InputLabel,
+    InputPlaceholder,
+    InputSize,
+    InputType,
+} from '~/bundles/common/enums/enums.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,
@@ -31,9 +37,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
             <form onSubmit={handleFormSubmit}>
                 <p>
                     <Input
-                        type="text"
-                        label="Email"
-                        placeholder="Enter your email"
+                        type={InputType.EMAIL}
+                        label={InputLabel.EMAIL}
+                        placeholder={InputPlaceholder.EMAIL}
+                        size={InputSize.MEDIUM}
                         name="email"
                         control={control}
                         errors={errors}
@@ -41,9 +48,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 </p>
                 <p>
                     <Input
-                        type="text"
-                        label="Password"
-                        placeholder="Enter your password"
+                        type={InputType.PASSWORD}
+                        label={InputLabel.PASSWORD}
+                        placeholder={InputPlaceholder.PASSWORD}
+                        size={InputSize.MEDIUM}
                         name="password"
                         control={control}
                         errors={errors}

@@ -1,8 +1,19 @@
 import React from 'react';
 
-import { Button, LineChart } from '../components/components';
+import {
+    InputLabel,
+    InputPlaceholder,
+    InputSize,
+    InputType,
+} from '~/bundles/common/enums/enums.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks';
+import {
+    type UserSignInRequestDto,
+    userSignInValidationSchema,
+} from '~/bundles/users/users';
+
+import { Button, Input, LineChart } from '../components/components';
 import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
-import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum';
@@ -13,6 +24,11 @@ const tabsData = [
     { title: 'Budget', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
 ];
+
+const DEFAULT_SIGN_IN_PAYLOAD: UserSignInRequestDto = {
+    email: '',
+    password: '',
+};
 
 const categories = [
     // props to Doughnut Chart
@@ -43,6 +59,11 @@ const categories = [
 ];
 
 const Base: React.FC = () => {
+    const { control, errors } = useAppForm<UserSignInRequestDto>({
+        defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
+        validationSchema: userSignInValidationSchema,
+    });
+
     return (
         <div>
             Base Page
@@ -216,7 +237,62 @@ const Base: React.FC = () => {
             </div>
             {/* end-Doughnut Chart------------------------------- */}
             <div>
-                <CreateInputNote />
+                <form>
+                    <div>
+                        <Input
+                            name="email"
+                            type={InputType.EMAIL}
+                            label={InputLabel.EMAIL}
+                            size={InputSize.MEDIUM}
+                            placeholder={InputPlaceholder.EMAIL}
+                            control={control}
+                            errors={errors}
+                        />
+                        <Input
+                            name="email"
+                            type={InputType.EMAIL}
+                            label={InputLabel.EMAIL}
+                            size={InputSize.SMALL}
+                            placeholder={InputPlaceholder.EMAILSMALL}
+                            control={control}
+                            errors={errors}
+                        />
+                        <Input
+                            name="password"
+                            type={InputType.PASSWORD}
+                            label={InputLabel.PASSWORD}
+                            placeholder={InputPlaceholder.PASSWORD}
+                            control={control}
+                            errors={errors}
+                        />
+                        <Input
+                            name="email"
+                            type={InputType.TEXT}
+                            label={InputLabel.NOTE}
+                            size={InputSize.MEDIUM}
+                            placeholder={InputPlaceholder.NOTE}
+                            control={control}
+                            errors={errors}
+                        />
+                        <Input
+                            name="email"
+                            type={InputType.TEXT}
+                            label={InputLabel.NOTE}
+                            size={InputSize.SMALL}
+                            placeholder={InputPlaceholder.NOTESMALL}
+                            control={control}
+                            errors={errors}
+                        />
+                        <Input
+                            name="email"
+                            type={InputType.TEXT}
+                            label={InputLabel.AMOUNT}
+                            placeholder={InputPlaceholder.AMOUNT}
+                            control={control}
+                            errors={errors}
+                        />
+                    </div>
+                </form>
             </div>
         </div>
     );

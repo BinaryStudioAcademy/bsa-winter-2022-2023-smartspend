@@ -1,12 +1,13 @@
-import { AppRoute } from './enums.js';
+import { type ValueOf } from '../types/types.js';
+import { type AppRoute } from './enums.js';
 
 const menuLinks = [
-    { to: AppRoute.PRICING, title: 'Pricing' },
-    { to: AppRoute.BANKS, title: 'Bank connect' },
-    { to: AppRoute.HELP, title: 'Help' },
-    { to: AppRoute.ABOUT, title: 'About us' },
-    { to: AppRoute.BLOG, title: 'Blog' },
-    { to: AppRoute.CONTACT, title: 'Contact' },
-];
+    { to: '/ui', title: 'Pricing' },
+    { to: '/banks', title: 'Bank connect' },
+    { to: '/help', title: 'Help' },
+    { to: '/about', title: 'About us' },
+    { to: '/blog', title: 'Blog' },
+    { to: '/contact', title: 'Contact' },
+] as unknown as { to: ValueOf<typeof AppRoute>; title: string }[];
 
 export { menuLinks };

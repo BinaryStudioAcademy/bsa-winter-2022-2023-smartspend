@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 const Menu: React.FC = () => {
     return (
         <nav className={styles.menu}>
-            <ul className={styles.menu__list}>
+            <ul className={styles.menuList}>
                 {menuLinks.map((link, index) => (
                     <li key={index}>
                         <Link to={link.to}>{link.title}</Link>

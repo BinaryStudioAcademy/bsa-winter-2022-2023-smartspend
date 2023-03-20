@@ -1,8 +1,4 @@
-import {
-    Header,
-    Link,
-    RouterOutlet,
-} from '~/bundles/common/components/components.js';
+import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -30,8 +26,6 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header userName={null} />
-
             <ul className="App-navigation-list">
                 <li>
                     <Link to={AppRoute.ROOT}>Root</Link>

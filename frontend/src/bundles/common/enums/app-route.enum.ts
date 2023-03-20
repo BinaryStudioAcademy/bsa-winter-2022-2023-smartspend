@@ -4,7 +4,7 @@ const AppRoute = {
     SIGN_UP: '/sign-up',
     DASHBOARD: '/dashboard',
     UI: '/ui',
-    WALLET_DETAILS: '/wallet-details',
+    WALLET_DETAILS: '/wallet/:id',
 } as const;
 
 export { AppRoute };

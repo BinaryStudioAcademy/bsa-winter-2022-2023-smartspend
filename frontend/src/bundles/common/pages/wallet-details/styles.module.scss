@@ -263,36 +263,18 @@
 }
 
 @media only screen and (max-width: 1200px) {
-    .headerContainer {
-        max-width: 773px;
-    }
-
-    .walletTransactionsContainer {
-        max-width: 773px;
-    }
-
-    .filtersContainer {
-        max-width: 773px;
-    }
-
+    .headerContainer,
+    .walletTransactionsContainer,
+    .filtersContainer,
     .buttonsDate {
         max-width: 773px;
     }
 }
 
 @media only screen and (min-width: 1201px) and (max-width: 1500px) {
-    .headerContainer {
-        max-width: 967px;
-    }
-
-    .walletTransactionsContainer {
-        max-width: 967px;
-    }
-
-    .filtersContainer {
-        max-width: 967px;
-    }
-
+    .headerContainer,
+    .walletTransactionsContainer,
+    .filtersContainer,
     .buttonsDate {
         max-width: 967px;
     }

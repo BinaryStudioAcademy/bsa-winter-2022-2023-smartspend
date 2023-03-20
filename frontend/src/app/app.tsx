@@ -43,7 +43,7 @@ const App: React.FC = () => {
                     <Link to={AppRoute.SIGN_UP}>Sign up</Link>
                 </li>
                 <li>
-                    <Link to={AppRoute.UI}>Base page</Link>
+                    <Link to={AppRoute.UI}>Style Guide</Link>
                 </li>
                 <li>
                     <Link to={AppRoute.DASHBOARD}>Dashboard</Link>

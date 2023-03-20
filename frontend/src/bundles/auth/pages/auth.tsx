@@ -12,6 +12,7 @@ import {
 
 import { SignInForm, SignUpForm } from '../components/components.js';
 import { actions as authActions } from '../store/';
+import { actions as UserState } from '../store/login-users/';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const Auth: React.FC = () => {
 
     const handleSignInSubmit = useCallback((): void => {
         (payload: UserSignInRequestDto): void => {
-            void dispatch(authActions.signIn(payload));
+            void dispatch(UserState.signIn(payload));
         };
     }, [dispatch]);
 

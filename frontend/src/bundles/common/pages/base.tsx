@@ -3,6 +3,7 @@ import React from 'react';
 import {
     Button,
     CardTotal,
+    Chart,
     DoughnutChart,
     LineChart,
 } from '../components/components.js';
@@ -50,7 +51,7 @@ import { CardVariant } from '../enums/card-variant.enum';
 const Base: React.FC = () => {
     return (
         <div style={{ textAlign: 'center' }}>
-            <b>Base UI</b>
+            <b>Style Guide</b>
             <div>
                 <Tabs tabsData={tabsData} />
             </div>
@@ -227,6 +228,74 @@ const Base: React.FC = () => {
                         title="Total Balance"
                         sum={7600.34}
                         variant={CardVariant.VIOLET}
+                    />
+                </div>
+                <div style={{ width: '500px' }}>
+                    <h3>Bar Chart</h3>
+                    <Chart
+                        array={[
+                            [
+                                {
+                                    label: 'income',
+                                    data: [
+                                        {
+                                            date: '01 Jan 2022 00:00:00 GMT',
+                                            value: 200_000,
+                                        },
+                                        {
+                                            date: '03 Jan 2022 00:00:00 GMT',
+                                            value: 250_000,
+                                        },
+                                        {
+                                            date: '03 Feb 2023 00:00:00 GMT',
+                                            value: 750_000,
+                                        },
+                                    ],
+                                },
+                            ],
+                            [
+                                {
+                                    label: 'outcome',
+                                    data: [
+                                        {
+                                            date: '01 Jan 2022 00:00:00 GMT',
+                                            value: 100_000,
+                                        },
+                                        {
+                                            date: '03 Jan 2022 00:00:00 GMT',
+                                            value: 150_000,
+                                        },
+                                        {
+                                            date: '01 Feb 2023 00:00:00 GMT',
+                                            value: 350_000,
+                                        },
+                                        {
+                                            date: '05 Feb 2023 00:00:00 GMT',
+                                            value: 250_000,
+                                        },
+                                    ],
+                                },
+                            ],
+                            [
+                                {
+                                    label: 'test',
+                                    data: [
+                                        {
+                                            date: '02 Jan 2022 00:00:00 GMT',
+                                            value: 200_000,
+                                        },
+                                        {
+                                            date: '03 Jan 2023 00:00:00 GMT',
+                                            value: 250_000,
+                                        },
+                                        {
+                                            date: '05 Feb 2023 00:00:00 GMT',
+                                            value: 750_000,
+                                        },
+                                    ],
+                                },
+                            ],
+                        ]}
                     />
                 </div>
             </div>

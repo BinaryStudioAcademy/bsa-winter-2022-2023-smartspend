@@ -10,7 +10,7 @@ type Properties = {
 
 const FooterMediaIcons: React.FC<Properties> = ({ icons }) => {
     return (
-        <div className={styles.social_media_icons}>
+        <div className={styles.icons}>
             {icons.map((icon, index) => (
                 <a
                     href={icon.href}
@@ -19,7 +19,7 @@ const FooterMediaIcons: React.FC<Properties> = ({ icons }) => {
                     key={index}
                 >
                     <img
-                        className={styles.social_media_icon}
+                        className={styles.icon}
                         src={icon.src}
                         alt={icon.alt}
                     />

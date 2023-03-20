@@ -25,11 +25,11 @@ const Footer: React.FC = () => {
     ];
     return (
         <footer className={styles.container}>
-            <div className={styles.social_media_icons_container}>
+            <div className={styles.socialMediaIconsContainer}>
                 <FooterMediaIcons icons={iconsArray} />
             </div>
-            <div className={styles.logo_container}>
-                <div className={styles.logo__img}>
+            <div className={styles.logoContainer}>
+                <div className={styles.logoImg}>
                     <img src="" alt="logo" />
                 </div>
             </div>

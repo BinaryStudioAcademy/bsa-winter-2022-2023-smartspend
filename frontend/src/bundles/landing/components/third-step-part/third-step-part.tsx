@@ -20,8 +20,8 @@ const ThirdStepPart: React.FC = () => {
                 title={'Make your spending stress-free'}
                 variant={StepInfoPanelVariant.SECONDARY}
             />
-            <div className={styles.chart_cards_container}>
-                <div className={styles.chart_card_top}>
+            <div className={styles.chartCardsContainer}>
+                <div className={styles.chartCardTop}>
                     <DoughnutChartCard
                         variant={DoughnutChartCartVariant.PRIMARY}
                         transaction_type={'Salary'}
@@ -31,7 +31,7 @@ const ThirdStepPart: React.FC = () => {
                         date={'Mar 01-31'}
                     />
                 </div>
-                <div className={styles.chart_card_bottom}>
+                <div className={styles.chartCardBottom}>
                     <DoughnutChartCard
                         variant={DoughnutChartCartVariant.SECONDARY}
                         transaction_type={'Food & Drink'}

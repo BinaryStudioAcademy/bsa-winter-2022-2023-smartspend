@@ -44,7 +44,7 @@ const FirstStepPart: React.FC = () => {
                 listItems={listItems}
                 step={1}
             />
-            <div className={styles.cards_container}>
+            <div className={styles.cardsContainer}>
                 {walletCardsArray.map((card, index) => (
                     <WalletCard
                         key={index}

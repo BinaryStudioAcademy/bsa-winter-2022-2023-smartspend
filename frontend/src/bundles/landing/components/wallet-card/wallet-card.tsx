@@ -21,7 +21,7 @@ const WalletCard: React.FC<Properties> = ({
         <div className={cardContainerClass}>
             <h1 className={styles.title}>{title}</h1>
             <div>
-                <p className={styles.wallet_type}>{wallet_type}</p>
+                <p className={styles.walletType}>{wallet_type}</p>
                 <p className={styles.balance}>{balance_value}</p>
             </div>
         </div>

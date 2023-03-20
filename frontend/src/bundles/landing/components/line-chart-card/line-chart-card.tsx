@@ -11,14 +11,14 @@ type Properties = {
 const LineChartCard: React.FC<Properties> = ({ dataArr, title, date }) => {
     return (
         <div className={styles.container}>
-            <div className={styles.top_container}>
-                <div className={styles.title_container}>
+            <div className={styles.topContainer}>
+                <div className={styles.titleContainer}>
                     <p className={styles.title}>{title}</p>
                     <span className={styles.date}>{date}</span>
                 </div>
                 <div>Button tabs</div>
             </div>
-            <div className={styles.container_line_chart}>
+            <div className={styles.containerLineChart}>
                 <LineChart dataArr={dataArr} />
             </div>
         </div>

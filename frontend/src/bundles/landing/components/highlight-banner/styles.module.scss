@@ -28,19 +28,19 @@
     line-height: var(--line-height-level-6-heading);
 }
 
-.details_container {
+.detailsContainer {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
 }
 
-.buttons_container {
+.buttonsContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.violet_circle {
+.violetCircle {
     position: absolute;
     top: 120px;
     right: 105px;
@@ -50,7 +50,7 @@
     border-radius: 50%;
 }
 
-.pink_circle {
+.pinkCircle {
     position: absolute;
     top: 60px;
     right: 600px;
@@ -60,7 +60,7 @@
     border-radius: 50%;
 }
 
-.blue_circle {
+.blueCircle {
     position: absolute;
     right: 70px;
     bottom: 30px;
@@ -70,6 +70,6 @@
     border-radius: 50%;
 }
 
-.laptop_img {
+.laptopImg {
     z-index: 1;
 }

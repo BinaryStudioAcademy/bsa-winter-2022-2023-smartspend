@@ -9,13 +9,13 @@
     border-radius: var(--b-4);
 }
 
-.top_container {
+.topContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.title_container {
+.titleContainer {
     display: flex;
     flex-direction: column;
 }
@@ -29,7 +29,7 @@
     font-size: 10px;
 }
 
-.container_line_chart {
+.containerLineChart {
     width: 450px;
     height: 200px;
 }

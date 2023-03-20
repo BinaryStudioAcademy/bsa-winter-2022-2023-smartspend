@@ -14,7 +14,7 @@ const FeedbacksPart: React.FC<Properties> = ({ title, feedbacks }) => {
     return (
         <section className={styles.container}>
             <h1 className={styles.title}>{title}</h1>
-            <div className={styles.carousel_container}>
+            <div className={styles.carouselContainer}>
                 {feedbacks.map((feedback, index) => (
                     <FeedbackCard
                         name={feedback.name}

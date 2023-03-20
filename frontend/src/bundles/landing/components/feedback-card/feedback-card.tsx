@@ -22,9 +22,9 @@ const FeedbackCard: React.FC<Properties> = ({
     return (
         <div className={containerClass}>
             <p className={styles.feedback}>{feedback}</p>
-            <div className={styles.user_container}>
+            <div className={styles.userContainer}>
                 <img src={avatar_src} alt={name} />
-                <span className={styles.user_name}>{name}</span>
+                <span className={styles.userName}>{name}</span>
             </div>
         </div>
     );

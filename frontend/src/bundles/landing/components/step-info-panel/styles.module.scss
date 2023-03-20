@@ -19,7 +19,7 @@
     color: var(--color-gray-400);
 }
 
-.list_item {
+.listItem {
     margin: var(--m-3) 0;
     color: var(--color-slate-500);
     font-size: var(--font-size-level-1-body);
@@ -27,11 +27,11 @@
     list-style: none;
 }
 
-.list_item.primary {
+.listItem.primary {
     color: var(--color-white-100);
 }
 
-.list_item.secondary {
+.listItem.secondary {
     color: var(--color-slate-500);
 }
 
@@ -41,7 +41,7 @@
     padding: 0;
 }
 
-.list_item::before {
+.listItem::before {
     position: absolute;
     left: -20px;
     width: 6px;
@@ -51,10 +51,10 @@
     content: "";
 }
 
-.list_item.primary::before {
+.listItem.primary::before {
     background: var(--gradient-8);
 }
 
-.list_item.secondary::before {
+.listItem.secondary::before {
     background-image: var(--gradient-3);
 }

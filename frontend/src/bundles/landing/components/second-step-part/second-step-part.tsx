@@ -20,10 +20,10 @@ const SecondStepPart: React.FC = () => {
 
     return (
         <section className={styles.container}>
-            <span className={styles.big_blue_border_circle}></span>
-            <span className={styles.small_blue_border_circle}></span>
-            <span className={styles.big_blue_circle}></span>
-            <span className={styles.light_blue_circle}></span>
+            <span className={styles.bigBlueBorderCircle}></span>
+            <span className={styles.smallBlueBorderCircle}></span>
+            <span className={styles.bigBlueCircle}></span>
+            <span className={styles.lightBlueCircle}></span>
 
             <LineChartCard
                 dataArr={dataArray}

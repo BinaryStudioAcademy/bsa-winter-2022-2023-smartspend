@@ -13,10 +13,10 @@ const StepInfoButton: React.FC<Properties> = ({
     step,
     variant = StepInfoButtonVariant.PRIMARY,
 }) => {
-    const buttonClass = classNames(styles.step_button, styles[variant]);
+    const buttonClass = classNames(styles.button, styles[variant]);
 
     const buttonTextClass = classNames(
-        styles.step_button_text,
+        styles.buttonText,
         styles[variant],
     );
     return (

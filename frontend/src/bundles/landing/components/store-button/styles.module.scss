@@ -1,11 +1,11 @@
-.store_button {
+.button {
     width: 190px;
     color: var(--color-white-100);
     background-color: var(--color-blue-600);
     border-radius: var(--b-2);
 }
 
-.store_button:hover {
+.button:hover {
     color: var(--color-white-100);
 }
 
@@ -20,7 +20,7 @@
     font-size: 11px;
 }
 
-.details_container {
+.detailsContainer {
     display: flex;
     flex-direction: column;
 }

@@ -25,7 +25,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
     variant = DoughnutChartCartVariant.PRIMARY,
 }) => {
     const transactionSumClass = classNames(
-        styles.transaction_sum,
+        styles.transactionSum,
         transaction_sum.includes('+') ? styles.blue : styles.red,
     );
 
@@ -46,15 +46,15 @@ const DoughnutChartCard: React.FC<Properties> = ({
 
     return (
         <div className={styles.container}>
-            <div className={styles.top_part}>
+            <div className={styles.topPart}>
                 <p className={styles.title}>{title}</p>
                 <span className={styles.date}>{date}</span>
             </div>
-            <div className={styles.chart_part}>
+            <div className={styles.chartPart}>
                 <DoughnutChart categories={categories} />
             </div>
-            <div className={styles.bottom_part}>
-                <div className={styles.transaction_type_container}>
+            <div className={styles.bottomPart}>
+                <div className={styles.transactionTypeContainer}>
                     <img
                         src={
                             variant === DoughnutChartCartVariant.PRIMARY
@@ -65,7 +65,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                     />
                     <p>{transaction_type}</p>
                 </div>
-                <p className={styles.transaction_num}>
+                <p className={styles.transactionNum}>
                     {transaction_num} transaction
                 </p>
                 <p className={transactionSumClass}>{transaction_sum}</p>

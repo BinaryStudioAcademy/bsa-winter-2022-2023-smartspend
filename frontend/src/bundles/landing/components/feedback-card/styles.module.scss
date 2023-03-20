@@ -46,7 +46,7 @@
     line-height: var(--line-height-quotation);
 }
 
-.user_container {
+.userContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -54,7 +54,7 @@
     column-gap: 20px;
 }
 
-.user_name {
+.userName {
     font-weight: var(--font-weight-600);
     font-size: var(--font-size-level-3-heading);
     line-height: var(--line-height-level-3-heading);

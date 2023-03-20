@@ -26,11 +26,11 @@ const StoreButton: React.FC<Properties> = ({
         <Button
             variant={ButtonVariant.PLAIN}
             onClick={onClick}
-            className={styles.store_button}
+            className={styles.button}
         >
             <div className={styles.container}>
                 <img src={iconPath} alt={storeAlt} />
-                <div className={styles.details_container}>
+                <div className={styles.detailsContainer}>
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.body}>{body}</p>
                 </div>

@@ -10,7 +10,7 @@
     filter: drop-shadow(0 2px 10px var(--color-blue-transparent));
 }
 
-.top_part {
+.topPart {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -27,37 +27,37 @@
     font-size: var(--font-size-caption);
 }
 
-.chart_part {
+.chartPart {
     display: flex;
     justify-content: center;
 }
 
-.bottom_part {
+.bottomPart {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.transaction_type_container {
+.transactionTypeContainer {
     display: flex;
     flex-direction: row;
     column-gap: 10px;
 }
 
-.transaction_num {
+.transactionNum {
     color: var(--color-blue-300);
     font-weight: var(--font-weight-400);
     font-size: 15px;
 }
 
-.transaction_sum {
+.transactionSum {
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-caption);
     line-height: 15px;
 }
 
-.transaction_sum.blue {
+.transactionSum.blue {
     background-image: var(--gradient-6);
     background-repeat: repeat;
     background-size: 100%;
@@ -70,6 +70,6 @@
     -moz-text-fill-color: transparent;
 }
 
-.transaction_sum.red {
+.transactionSum.red {
     color: var(--color-warning);
 }

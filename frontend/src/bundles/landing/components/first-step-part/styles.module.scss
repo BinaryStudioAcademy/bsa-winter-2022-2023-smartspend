@@ -11,7 +11,7 @@
     background-color: var(--color-blue-100);
 }
 
-.cards_container {
+.cardsContainer {
     position: absolute;
     right: -40px;
     display: grid;
@@ -19,6 +19,6 @@
     grid-gap: 30px;
 }
 
-.cards_container > :nth-child(2n) {
+.cardsContainer > :nth-child(2n) {
     margin-top: 30px;
 }

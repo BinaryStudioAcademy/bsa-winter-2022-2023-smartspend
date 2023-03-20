@@ -19,7 +19,7 @@ const StepInfoPanel: React.FC<Properties> = ({
 }) => {
     const titleClass = classNames(styles.title, styles[variant]);
 
-    const listItemClass = classNames(styles.list_item, styles[variant]);
+    const listItemClass = classNames(styles.listItem, styles[variant]);
 
     const stepButtonVariant =
         variant === StepInfoPanelVariant.PRIMARY

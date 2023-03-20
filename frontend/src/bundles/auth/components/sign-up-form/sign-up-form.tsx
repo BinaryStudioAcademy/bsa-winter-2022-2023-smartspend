@@ -62,7 +62,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <form className={styles.form} onSubmit={handleFormSubmit}>
-            <p>
+            <p className={styles.inputWrapper}>
                 <Input
                     type={InputTypeValue.EMAIL}
                     label="E-mail"
@@ -73,7 +73,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     className={styles.input}
                 />
             </p>
-            <p>
+            <p className={styles.inputWrapper}>
                 <Input
                     type={
                         eye.password
@@ -87,13 +87,16 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     errors={errors}
                     className={styles.input}
                 />
-                <img
-                    src={eyeIcons.password}
-                    onClickCapture={handleClickEye('password')}
-                    alt="eye"
-                />
+                <span className={styles.imgWrapper}>
+                    <img
+                        className={styles.eye}
+                        src={eyeIcons.password}
+                        onClickCapture={handleClickEye('password')}
+                        alt="eye"
+                    />
+                </span>
             </p>
-            <p>
+            <p className={styles.inputWrapper}>
                 <Input
                     type={
                         eye.confirm
@@ -102,16 +105,19 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     }
                     label="Confirm password"
                     placeholder="Confirm your password"
-                    name="password"
+                    name="repeatPassword"
                     control={control}
                     errors={errors}
                     className={styles.input}
                 />
-                <img
-                    src={eyeIcons.confirm}
-                    onClickCapture={handleClickEye('confirm')}
-                    alt="eye"
-                />
+                <span className={styles.imgWrapper}>
+                    <img
+                        className={styles.eye}
+                        src={eyeIcons.confirm}
+                        onClickCapture={handleClickEye('confirm')}
+                        alt="eye"
+                    />
+                </span>
             </p>
             <Button type={ButtonType.SUBMIT}>Sign up</Button>
         </form>

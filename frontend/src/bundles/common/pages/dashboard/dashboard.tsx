@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Button, Input } from '../../components/components';
-import { DoughnutChart } from '../../components/doughnut-chart/doughnut-chart';
+import { Button, DoughnutChart, Input } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { useAppForm } from '../../hooks/hooks';
 import styles from './styles.module.scss';

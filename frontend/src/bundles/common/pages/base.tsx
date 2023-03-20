@@ -6,7 +6,8 @@ import {
     CardTotal,
     Chart,
     DoughnutChart,
-    LineChart } from '../components/components.js';
+    LineChart,
+} from '../components/components.js';
 import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
 import { ButtonSize } from '../enums/button-size.enum.js';
@@ -51,7 +52,6 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { CardVariant } from '../enums/card-variant.enum';
 
 const Base: React.FC = () => {
-
     const [active, setActive] = useState(false);
 
     const handleCancel = useCallback(() => {
@@ -329,13 +329,14 @@ const Base: React.FC = () => {
             </div>
             <div>
                 <button onClick={handleModal}>Open modal window</button>
-                <BaseModal isShown={active}
-                           onClose={handleCancel}
-                           onSubmit={handleCancel}
-                           Header={<h1>Simple Modal</h1>}
-                           Body={<p>Simple modal</p>}
-                           submitButtonName={'Save changes'}>
-                </BaseModal>
+                <BaseModal
+                    isShown={active}
+                    onClose={handleCancel}
+                    onSubmit={handleCancel}
+                    Header={<h1>Simple Modal</h1>}
+                    Body={<p>Simple modal</p>}
+                    submitButtonName={'Save changes'}
+                ></BaseModal>
             </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>

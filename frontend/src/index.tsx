@@ -15,7 +15,7 @@ import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { Dashboard } from '~/bundles/common/pages/dashboard';
-import { Landing } from '~/bundles/common/pages/landing/landing';
+import { Landing } from '~/bundles/landing/landing';
 import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(

@@ -44,19 +44,19 @@ const Auth: React.FC = () => {
     };
 
     return (
-        <div className={styles.auth__container}>
-            <div className={styles.auth__wrap}>
-                <div className={styles.auth__logo}>
-                    <img src="" alt="logo" />
+        <div className={styles.authContainer}>
+            <div className={styles.authWrap}>
+                <div className={styles.authLogo}>
+                    <img className={styles.logoImg} src="" alt="logo" />
                 </div>
-                <div className={styles.auth__inside}>
-                    <span className={styles.auth__roundlarge}></span>
-                    <span className={styles.auth__roundsmall}></span>
-                    <span className={styles.auth__ring}></span>
-                    <div className={styles.auth__wrapper}>
-                        <div className={styles.auth__content}>
-                            <div className={styles.auth__header}>
-                                <h2 className={styles.header__text}>
+                <div className={styles.authInside}>
+                    <span className={styles.authRoundlarge}></span>
+                    <span className={styles.authRoundsmall}></span>
+                    <span className={styles.authRing}></span>
+                    <div className={styles.authWrapper}>
+                        <div className={styles.authContent}>
+                            <div className={styles.authHeader}>
+                                <h2 className={styles.headerText}>
                                     {getText(pathname, 'title')}
                                 </h2>
                                 <Link
@@ -69,16 +69,16 @@ const Auth: React.FC = () => {
                                     {getText(pathname, 'header')}
                                 </Link>
                             </div>
-                            <div className={styles.auth__body}>
+                            <div className={styles.authBody}>
                                 {getScreen(pathname)}
                             </div>
-                            <div className={styles.auth__footer}>
-                                <p className={styles.footer__text}>
+                            <div className={styles.authFooter}>
+                                <p className={styles.footerText}>
                                     {getText(pathname, 'footer')}
                                 </p>
-                                <div className={styles.auth__social}>
-                                    <img src={googleIcon} alt="googleIcon" />
-                                    <img src={fbIcon} alt="facebookIcon" />
+                                <div className={styles.authSocial}>
+                                    <img className={styles.socialImg} src={googleIcon} alt="googleIcon" />
+                                    <img className={styles.socialImg} src={fbIcon} alt="facebookIcon" />
                                 </div>
                             </div>
                         </div>

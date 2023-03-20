@@ -15,10 +15,7 @@ const StepInfoButton: React.FC<Properties> = ({
 }) => {
     const buttonClass = classNames(styles.button, styles[variant]);
 
-    const buttonTextClass = classNames(
-        styles.buttonText,
-        styles[variant],
-    );
+    const buttonTextClass = classNames(styles.buttonText, styles[variant]);
     return (
         <Button className={buttonClass} variant={ButtonVariant.PLAIN}>
             <span className={buttonTextClass}>Step {step}</span>

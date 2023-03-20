@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
-
-import { BaseModal, Button, LineChart } from '../components/components';
-import { DoughnutChart } from '../components/doughnut-chart/doughnut-chart';
+import {
+    BaseModal,
+    Button,
+    CardTotal,
+    DoughnutChart,
+    LineChart } from '../components/components.js';
+import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
-import { ButtonSize } from '../enums/button-size.enum';
-import { ButtonVariant } from '../enums/button-variant.enum';
+import { ButtonSize } from '../enums/button-size.enum.js';
+import { ButtonVariant } from '../enums/button-variant.enum.js';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -42,8 +45,12 @@ const categories = [
         color: 'linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%)',
     },
 ];
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+
+import { CardVariant } from '../enums/card-variant.enum';
 
 const Base: React.FC = () => {
+
     const [active, setActive] = useState(false);
 
     const handleCancel = useCallback(() => {
@@ -54,12 +61,14 @@ const Base: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            Base Page
-            <Tabs tabsData={tabsData} />
+        <div style={{ textAlign: 'center' }}>
+            <b>Base UI</b>
+            <div>
+                <Tabs tabsData={tabsData} />
+            </div>
+            {/* Buttons */}
             <div
                 style={{
-                    height: '100vh',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -74,147 +83,166 @@ const Base: React.FC = () => {
                         gap: '20px',
                     }}
                 >
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '20px',
-                        }}
+                    <Button
+                        variant={ButtonVariant.PRIMARY}
+                        size={ButtonSize.MEDIUM}
                     >
-                        <Button
-                            variant={ButtonVariant.PRIMARY}
-                            size={ButtonSize.MEDIUM}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                        <Button
-                            variant={ButtonVariant.PRIMARY}
-                            size={ButtonSize.MEDIUM}
-                            disabled={true}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '20px',
-                        }}
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                    <Button
+                        variant={ButtonVariant.PRIMARY}
+                        size={ButtonSize.MEDIUM}
+                        disabled={true}
                     >
-                        <Button
-                            variant={ButtonVariant.SECONDARY}
-                            size={ButtonSize.MEDIUM}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                        <Button
-                            variant={ButtonVariant.SECONDARY}
-                            size={ButtonSize.MEDIUM}
-                            disabled={true}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '20px',
-                        }}
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '20px',
+                    }}
+                >
+                    <Button
+                        variant={ButtonVariant.SECONDARY}
+                        size={ButtonSize.MEDIUM}
                     >
-                        <Button
-                            variant={ButtonVariant.PRIMARY}
-                            size={ButtonSize.SMALL}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                        <Button
-                            variant={ButtonVariant.PRIMARY}
-                            size={ButtonSize.SMALL}
-                            disabled={true}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '20px',
-                        }}
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                    <Button
+                        variant={ButtonVariant.SECONDARY}
+                        size={ButtonSize.MEDIUM}
+                        disabled={true}
                     >
-                        <Button
-                            variant={ButtonVariant.SECONDARY}
-                            size={ButtonSize.SMALL}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                        <Button
-                            variant={ButtonVariant.SECONDARY}
-                            size={ButtonSize.SMALL}
-                            disabled={true}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '20px',
-                        }}
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '20px',
+                    }}
+                >
+                    <Button
+                        variant={ButtonVariant.PRIMARY}
+                        size={ButtonSize.SMALL}
                     >
-                        <Button
-                            variant={ButtonVariant.PLAIN}
-                            size={ButtonSize.SMALL}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                        <Button
-                            variant={ButtonVariant.PLAIN}
-                            size={ButtonSize.SMALL}
-                            disabled={true}
-                        >
-                            <span>+</span>
-                            <span>Button</span>
-                            <span>˅</span>
-                        </Button>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '20px',
-                        }}
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                    <Button
+                        variant={ButtonVariant.PRIMARY}
+                        size={ButtonSize.SMALL}
+                        disabled={true}
                     >
-                        <Button variant={ButtonVariant.ROUND}>+</Button>
-                    </div>
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '20px',
+                    }}
+                >
+                    <Button
+                        variant={ButtonVariant.SECONDARY}
+                        size={ButtonSize.SMALL}
+                    >
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                    <Button
+                        variant={ButtonVariant.SECONDARY}
+                        size={ButtonSize.SMALL}
+                        disabled={true}
+                    >
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '20px',
+                    }}
+                >
+                    <Button
+                        variant={ButtonVariant.PLAIN}
+                        size={ButtonSize.SMALL}
+                    >
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                    <Button
+                        variant={ButtonVariant.PLAIN}
+                        size={ButtonSize.SMALL}
+                        disabled={true}
+                    >
+                        <span>+</span>
+                        <span>Button</span>
+                        <span>˅</span>
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '20px',
+                    }}
+                >
+                    <Button variant={ButtonVariant.ROUND}>+</Button>
                 </div>
             </div>
-            <div>
-                <button onClick={handleModal}>Open modal window</button>
-                <BaseModal
-                    isShown={active}
-                    onClose={handleCancel}
-                    onSubmit={handleCancel}
-                    Header={<h1>Simple Modal</h1>}
-                    Body={<p>Simple modal</p>}
-                    submitButtonName={'Save changes'}
-                ></BaseModal>
+            {/*------------------------------------ /end Buttons */}
+            {/*------------------------------------------- Cards */}
+            <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                <p style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    Card Total
+                </p>
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '20px',
+                        justifyContent: 'space-around',
+                        alignItems: 'flex-start',
+                    }}
+                >
+                    <CardTotal
+                        title="Total Balance Total Balance Total Balance Total Balance Total Balance"
+                        sum={40.45}
+                        variant={CardVariant.ORANGE}
+                    />
+                    <CardTotal
+                        title="Total Period Change"
+                        sum={504_000_000_000.549}
+                        variant={CardVariant.BLUE}
+                    />
+                    <CardTotal
+                        title="Total Period Expenses"
+                        sum={-9700.34}
+                        variant={CardVariant.WHITE}
+                    />
+                    <CardTotal
+                        title="Total Balance"
+                        sum={7600.34}
+                        variant={CardVariant.VIOLET}
+                    />
+                </div>
             </div>
+            {/*--------------------------------------- /end Cards */}
             <div style={{ width: 600, height: 400 }}>
                 <LineChart
                     dataArr={[
@@ -230,12 +258,25 @@ const Base: React.FC = () => {
                     ]}
                 />
             </div>
+            <div>
+                <button onClick={handleModal}>Open modal window</button>
+                <BaseModal isShown={active}
+                           onClose={handleCancel}
+                           onSubmit={handleCancel}
+                           Header={<h1>Simple Modal</h1>}
+                           Body={<p>Simple modal</p>}
+                           submitButtonName={'Save changes'}>
+                </BaseModal>
+            </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>
                 <p>Doughnut Chart</p>
                 <DoughnutChart categories={categories} />
             </div>
             {/* end-Doughnut Chart------------------------------- */}
+            <div>
+                <CreateInputNote />
+            </div>
         </div>
     );
 };

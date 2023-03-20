@@ -18,7 +18,7 @@
 
 .modalBody {
     width: 967px;
-    padding: var(--p-2) var(--p-3) var(--p-5) var(--p-3);
+    padding: var(--p-2) var(--p-3);
     color: var(--color-gray-300);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
@@ -29,7 +29,7 @@
 .modalHeader {
     display: flex;
     width: 100%;
-    padding: var(--p-2) var(--p-3) 0 var(--p-3);
+    padding: var(--p-2) var(--p-3);
     font-size: var(--font-size-level-6-heading);
     font-style: normal;
     line-height: var(--line-height-level-4-heading);
@@ -39,7 +39,6 @@
 .modalFooter {
     display: flex;
     justify-content: end;
-    margin-bottom: 83px;
     border: none;
 }
 
@@ -81,32 +80,3 @@ button:hover {
     cursor: pointer;
 }
 
-@media only screen and (max-width: var(--sm)) {
-    .popup {
-        width: 70%;
-    }
-}
-
-@media only screen and (min-width: var(--md)) {
-    .popup {
-        width: 88%;
-    }
-}
-
-@media only screen and (min-width: var(--lg)) {
-    .popup {
-        width: 550px;
-    }
-}
-
-@media only screen and (min-width: var(--xl)) {
-    .popup {
-        width: 700px;
-    }
-}
-
-@media only screen and (min-width: var(--xxl)) {
-    .popup {
-        width: 750px;
-    }
-}

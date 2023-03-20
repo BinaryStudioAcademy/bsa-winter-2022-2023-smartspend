@@ -13,7 +13,7 @@
     list-style: none;
 }
 
-a {
+.menuLink {
     position: relative;
     color: var(--color-gray-100);
     font-size: var(--font-size-caption);
@@ -21,7 +21,7 @@ a {
     text-decoration: none;
 }
 
-a::after {
+.menuLink::after {
     content: "";
     position: absolute;
     bottom: -2px;
@@ -33,17 +33,17 @@ a::after {
     transition: transform 0.2s ease-in-out;
 }
 
-a:hover {
+.menuLink:hover {
     color: var(--color-white-100);
     transition: color 0.2s ease-in-out;
 }
 
-a:hover::after,
-a[aria-current="page"]::after {
+.menuLink:hover::after,
+.menuLink[aria-current="page"]::after {
     transform: scaleX(1);
 }
 
-a[aria-current="page"] {
+.menuLink[aria-current="page"] {
     color: var(--color-white-100);
     transition: transform 0.2s ease-in-out;
 }

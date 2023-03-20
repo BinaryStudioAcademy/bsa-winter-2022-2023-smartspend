@@ -8,7 +8,7 @@ const Menu: React.FC = () => {
             <ul className={styles.menuList}>
                 {menuLinks.map((link, index) => (
                     <li key={index}>
-                        <Link to={link.to}>{link.title}</Link>
+                        <Link className={styles.menuLink} to={link.to}>{link.title}</Link>
                     </li>
                 ))}
             </ul>

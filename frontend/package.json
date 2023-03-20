@@ -18,6 +18,7 @@
     "dependencies": {
         "@hookform/resolvers": "2.9.11",
         "@reduxjs/toolkit": "1.9.3",
+        "chart.js": "4.2.1",
         "classnames": "2.3.2",
         "chart.js": "4.2.1",
         "chartjs-adapter-date-fns": "3.0.0",
@@ -30,6 +31,7 @@
         "react-toastify": "9.1.1"
     },
     "devDependencies": {
+        "@types/chart.js": "2.9.37",
         "@types/react": "18.0.26",
         "@types/react-dom": "18.0.9",
         "@vitejs/plugin-react": "3.0.0",

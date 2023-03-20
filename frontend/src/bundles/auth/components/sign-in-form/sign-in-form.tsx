@@ -1,7 +1,5 @@
 import passwordShown from '~/assets/img/eye.svg';
 import passwordHidden from '~/assets/img/eye-slash.svg';
-// import facebookLogo from '~/assets/img/facebook_icon.svg';
-// import googleLogo from '~/assets/img/google_icon.svg';
 import { Button, Input } from '~/bundles/common/components/components';
 import { ButtonType } from '~/bundles/common/enums/enums';
 import {
@@ -26,22 +24,6 @@ import styles from './styles.module.scss';
 type Properties = {
     onSubmit: (payload: UserSignInRequestDto) => void;
 };
-
-// const showPassword = (): void => {
-//     const eyeSlash = document.querySelector('#eye_slash') as HTMLInputElement;
-//     const eyeVisible = document.querySelector('#eye') as HTMLInputElement;
-//     const inputType = document.querySelector('#input') as HTMLInputElement;
-
-//     if (inputType.type === 'password') {
-//         inputType.type = 'text';
-//         eyeVisible.style.display = 'block';
-//         eyeSlash.style.display = 'none';
-//     } else {
-//         inputType.type = 'password';
-//         eyeVisible.style.display = 'none';
-//         eyeSlash.style.display = 'block';
-//     }
-// };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({

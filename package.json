@@ -52,8 +52,5 @@
     "simple-git-hooks": {
         "pre-commit": "npx lint-staged",
         "commit-msg": "npx commitlint --edit $1"
-    },
-    "dependencies": {
-        "rc-slider": "10.1.1"
     }
 }

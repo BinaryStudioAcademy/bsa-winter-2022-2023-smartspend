@@ -360,12 +360,11 @@ const Base: React.FC = () => {
                     onChange={handleSliderChange}
                 />
                 <div>
-                    <h3>Filtered Data:</h3>
-                    <ul>
+                    <h3>Filtered Data:</h3>                   
                         {filteredData.map((item, index) => (
-                            <li key={index}>{item.amount}</li>
+                            <p key={index}>{item.amount}</p>
                         ))}
-                    </ul>
+                   
                 </div>
             </div>
         </div>

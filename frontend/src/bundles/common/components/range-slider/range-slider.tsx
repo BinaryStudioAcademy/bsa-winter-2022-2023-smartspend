@@ -1,5 +1,5 @@
 import 'rc-slider/assets/index.css';
-import '../../../../assets/css/variables/color-variables.css';
+import '../../../../assets/css/variables/color-variables.scss';
 
 import Slider from 'rc-slider';
 import React, { useCallback } from 'react';

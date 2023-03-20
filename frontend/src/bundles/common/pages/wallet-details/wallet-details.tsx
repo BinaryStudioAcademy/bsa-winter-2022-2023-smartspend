@@ -3,10 +3,11 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
-import { Button } from '~/bundles/common/components/components';
+import { Button, CardTotal } from '~/bundles/common/components/components';
 import { CreateInputNote } from '~/bundles/common/components/input/app-input';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
+import { CardVariant } from '~/bundles/common/enums/card-variant.enum';
 
 import styles from './styles.module.scss';
 
@@ -99,10 +100,26 @@ const WalletDetails: React.FC = () => {
                     <div className={styles.walletTransactions}>
                         <div className={styles.walletTransactionsContainer}>
                             <div className={styles.cards}>
-                                <div className={styles.card}>Card 1</div>
-                                <div className={styles.card}>Card 2</div>
-                                <div className={styles.card}>Card 3</div>
-                                <div className={styles.card}>Card 4</div>
+                                <CardTotal
+                                    title="Total Balance"
+                                    sum={40.45}
+                                    variant={CardVariant.ORANGE}
+                                />
+                                <CardTotal
+                                    title="Total Period Change"
+                                    sum={504_000_000_000.549}
+                                    variant={CardVariant.BLUE}
+                                />
+                                <CardTotal
+                                    title="Total Period Expenses"
+                                    sum={-9700.34}
+                                    variant={CardVariant.WHITE}
+                                />
+                                <CardTotal
+                                    title="Total Balance"
+                                    sum={7600.34}
+                                    variant={CardVariant.VIOLET}
+                                />
                             </div>
                             <div className={styles.futureTransactions}>
                                 <h1 className={styles.futureHeader}>

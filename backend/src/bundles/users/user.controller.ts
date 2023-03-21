@@ -8,6 +8,22 @@ import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
+import { type Gender } from './user.entity.js';
+
+type UserUpdateRequestDto = {
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    sex?: Gender;
+    dateOfBirth?: string;
+    language?: string;
+    currency?: string;
+};
+
+type UpdateRequest = {
+    params: { id: string };
+    body: UserUpdateRequestDto;
+};
 
 /**
  * @swagger
@@ -37,6 +53,12 @@ class UserController extends Controller {
             method: 'GET',
             handler: () => this.findAll(),
         });
+
+        this.addRoute({
+            path: `${UsersApiPath.ROOT}:id`,
+            method: 'PUT',
+            handler: (options) => this.update(options as UpdateRequest),
+        });
     }
 
     /**
@@ -58,6 +80,54 @@ class UserController extends Controller {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+
+    /**
+     * @swagger
+     * /users:
+     *    put:
+     *      description: Updates a user
+     *      parameters:
+     *        - name: payload
+     *          in: body
+     *          required: true
+     *          schema:
+     *            type: object
+     *            properties:
+     *              email:
+     *                type: string
+     *                format: email
+     *              firstName:
+     *                type: string
+     *              lastName:
+     *                type: string
+     *              sex:
+     *                type: string
+     *                enum: [male, female]
+     *              dateOfBirth:
+     *                type: string
+     *                format: date
+     *              language:
+     *                type: string
+     *              currency:
+     *                type: string
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/User'
+     */
+    private async update(request: UpdateRequest): Promise<ApiHandlerResponse> {
+        const updatedUser = await this.userService.update(
+            request.params.id,
+            request.body,
+        );
+        return {
+            status: HttpCode.OK,
+            payload: updatedUser,
         };
     }
 }

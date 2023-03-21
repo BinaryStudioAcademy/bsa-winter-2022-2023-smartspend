@@ -1,8 +1,12 @@
+import { type PartialModelObject } from 'objection';
+
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-class UserRepository implements IRepository {
+import { UserProfileModel } from './user-profile.model.js';
+
+class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     private userModel: typeof UserModel;
 
     public constructor(userModel: typeof UserModel) {
@@ -37,8 +41,32 @@ class UserRepository implements IRepository {
         return UserEntity.initialize(item);
     }
 
-    public update(): ReturnType<IRepository['update']> {
-        return Promise.resolve(null);
+    public async updateUserProfile(
+        id: string,
+        data: PartialModelObject<
+            UserModel & { userProfile?: PartialModelObject<UserProfileModel> }
+        >,
+    ): Promise<UserEntity | undefined> {
+        const email = data.email;
+        delete data.email;
+        await UserProfileModel.query()
+            .where({ userId: id })
+            .update(data)
+            .returning('*')
+            .execute();
+
+        const user = await this.userModel
+            .query()
+            .select()
+            .where({ email })
+            .returning('*')
+            .first();
+
+        if (!user) {
+            return undefined;
+        }
+
+        return UserEntity.initialize(user);
     }
 
     public delete(): ReturnType<IRepository['delete']> {

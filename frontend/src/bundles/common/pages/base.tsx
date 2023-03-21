@@ -10,7 +10,7 @@ import {
 import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
-import { ButtonSize } from '../enums/button-size.enum.js';
+import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
 
 const tabsData = [

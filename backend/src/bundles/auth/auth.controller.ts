@@ -73,6 +73,8 @@ class AuthController extends Controller {
      *                  format: email
      *                password:
      *                  type: string
+     *                repeatPassword:
+     *                  type: string
      *      responses:
      *        201:
      *          description: Successful operation
@@ -90,9 +92,10 @@ class AuthController extends Controller {
             body: UserSignUpRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const token = await this.authService.signUp(options.body);
         return {
             status: HttpCode.CREATED,
-            payload: await this.authService.signUp(options.body),
+            payload: token,
         };
     }
 

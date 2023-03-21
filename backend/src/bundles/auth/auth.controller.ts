@@ -158,6 +158,11 @@ class AuthController extends Controller {
      * /auth/authenticated-user:
      *    get:
      *      description: Load authenticated user data
+     *      parameters:
+     *        - in: query
+     *          name: token
+     *          schema:
+     *            type: integer
      *      responses:
      *        200:
      *          description: Successful operation

@@ -10,7 +10,7 @@ import {
 import { CreateInputNote } from '../components/input/app-input';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
-import { ButtonSize } from '../enums/button-size.enum.js';
+import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
 
 const tabsData = [

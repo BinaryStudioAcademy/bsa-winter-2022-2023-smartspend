@@ -36,7 +36,7 @@ const options: ChartOptions<'line'> = {
                 },
                 autoSkip: true,
                 maxRotation: 25,
-                minRotation: 25,             
+                minRotation: 25,
                 align: 'inner',
                 color: TEXT_COLOR,
                 maxTicksLimit: 8,

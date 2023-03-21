@@ -15,6 +15,7 @@ import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
+import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
 import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -60,6 +61,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     {
                         path: AppRoute.UI,
                         element: <Base />,
+                    },
+                    {
+                        path: AppRoute.WALLET_DETAILS,
+                        element: (
+                            <PrivatRoute>
+                                <WalletDetails />
+                            </PrivatRoute>
+                        ),
                     },
                 ]}
             />

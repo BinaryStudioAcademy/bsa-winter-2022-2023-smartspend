@@ -73,6 +73,8 @@ class AuthController extends Controller {
      *                  format: email
      *                password:
      *                  type: string
+     *                repeatPassword:
+     *                  type: string
      *      responses:
      *        201:
      *          description: Successful operation

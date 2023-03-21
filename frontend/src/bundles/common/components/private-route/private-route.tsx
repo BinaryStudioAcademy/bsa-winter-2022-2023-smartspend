@@ -5,7 +5,7 @@ import { actions as authActions } from '../../../auth/store';
 import { AppRoute } from '../../enums/enums';
 import { useAppDispatch, useAppSelector, useEffect } from '../../hooks/hooks';
 
-const PrivatRoute: React.FC<{ children: React.ReactElement }> = ({
+const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     children,
 }) => {
     const dispatch = useAppDispatch();
@@ -23,4 +23,4 @@ const PrivatRoute: React.FC<{ children: React.ReactElement }> = ({
     return children;
 };
 
-export { PrivatRoute };
+export { PrivateRoute };

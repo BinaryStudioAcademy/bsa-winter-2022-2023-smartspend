@@ -1,0 +1,29 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 200px;
+    padding: var(--p-4);
+    background-color: var(--color-blue-600);
+}
+
+.socialMediaIconsContainer {
+    position: absolute;
+    right: var(--p-4);
+}
+
+.logoContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.logoImg {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    background: var(--gradient-6);
+    border-radius: 50%;
+}

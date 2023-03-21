@@ -58,8 +58,12 @@ const DoughnutChart: React.FC<Properties> = ({ categories }) => {
         afterDatasetsDraw(chart) {
             const { ctx, data } = chart;
 
-            const sum = sumArray(data.datasets[0].data as number[]);
-            const text = ((data.datasets[0].data[1] as number) * 100) / sum;
+            let text: number;
+            if (data.datasets.length > 1) {
+                const sum = sumArray(data.datasets[0].data as number[]);
+                text = ((data.datasets[0].data[1] as number) * 100) / sum;
+            }
+            text = 100;
             const x = chart.getDatasetMeta(0).data[0].x;
             const y = chart.getDatasetMeta(0).data[0].y;
 

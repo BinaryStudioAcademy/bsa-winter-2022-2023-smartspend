@@ -7,13 +7,13 @@ import React, { useCallback } from 'react';
 import { type RangeLimits } from '../../types/range-slider.type';
 import styles from './styles.module.scss';
 
-interface RangeSliderProperties {
+interface Properties {
     onChange?: (range: RangeLimits) => void;
     rangeLimits: RangeLimits;
     currentRange: RangeLimits;
 }
 
-const RangeSlider: React.FC<RangeSliderProperties> = ({
+const RangeSlider: React.FC<Properties> = ({
     onChange,
     rangeLimits,
     currentRange,

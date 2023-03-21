@@ -1,5 +1,4 @@
 interface IService<T = unknown> {
-    find(payload: unknown): Promise<T>;
     findAll(): Promise<{
         items: T[];
     }>;

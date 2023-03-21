@@ -1,7 +1,4 @@
-import {
-    Link,
-    RouterOutlet,
-} from '~/bundles/common/components/components.js';
+import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -36,6 +33,11 @@ const App: React.FC = () => {
                 </li>
                 <li>
                     <Link to={AppRoute.UI}>Style Guide</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.WALLET_DETAILS}>
+                        Wallet details page
+                    </Link>
                 </li>
                 <li>
                     <Link to={AppRoute.DASHBOARD}>Dashboard</Link>

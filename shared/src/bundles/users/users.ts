@@ -2,6 +2,8 @@ export { UsersApiPath, UserValidationMessage } from './enums/enums.js';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserLoadRequestDto,
+    type UserLoadResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

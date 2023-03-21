@@ -1,5 +1,5 @@
 import {
-    Header,
+    Link,
     RouterOutlet,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -24,7 +24,25 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header userName="Empty User" />
+            <ul className="App-navigation-list">
+                <li>
+                    <Link to={AppRoute.ROOT}>Root</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.SIGN_IN}>Sign in</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.SIGN_UP}>Sign up</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.UI}>Style Guide</Link>
+                </li>
+                <li>
+                    <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
+                </li>
+            </ul>
+            <p>Current path: {pathname}</p>
+
             <div>
                 <RouterOutlet />
             </div>

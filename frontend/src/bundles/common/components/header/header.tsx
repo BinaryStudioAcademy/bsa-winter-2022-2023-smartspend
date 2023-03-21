@@ -1,30 +1,26 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-
-import userLogo from '~/assets/img/user.jpg';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { AppRoute, ButtonSize, ButtonType } from '../../enums/enums';
 import { useCallback } from '../../hooks/hooks';
-import { Button, Link, Menu } from '../components';
+import { Button, Menu } from '../components';
 import { Tabs } from '../tabs/tabs';
 import styles from './styles.module.scss';
 
-type Properties = {
-    userName?: string;
+type TabsData = {
+    title: string;
+    to: string;
 };
 
-const tabsDashboard = [
-    { title: 'Dashboard', to: AppRoute.DASHBOARD },
-    { title: 'Budget', to: AppRoute.BUDGETS },
-];
+type Properties = {
+    name?: string | null;
+    avatar?: string;
+    dataTabs: {
+        dashboard: TabsData[];
+        wallets: TabsData[];
+    };
+};
 
-const tabsWallet = [
-    { title: 'Transaction', to: '/ui/' },
-    { title: 'Overview', to: '/ui/overview' },
-    { title: 'Budget', to: '/ui/budget' },
-    { title: 'Wallet Settings', to: '/ui/wallet-settings' },
-];
-
-const Header: React.FC<Properties> = ({ userName }) => {
+const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -33,44 +29,54 @@ const Header: React.FC<Properties> = ({ userName }) => {
         [navigate],
     );
 
-    return (
-        <div className={styles.header}>
-            <div className={styles.header__logo}>
-                <div className={styles.logo__img}>
-                    <img src="" alt="logo" />
-                </div>
-                <span className={styles.logo__text}>SmarpSpend</span>
-            </div>
-            <div className={styles.header__body}>
-                {pathname === AppRoute.ROOT && <Menu />}
-                {pathname === AppRoute.DASHBOARD && (
-                    <Tabs tabsData={tabsDashboard} />
-                )}
-                {pathname === AppRoute.WALLETS && (
-                    <Tabs tabsData={tabsWallet} />
-                )}
-            </div>
+    if (pathname === AppRoute.SIGN_IN || pathname === AppRoute.SIGN_UP) {
+        return null;
+    }
 
-            {pathname === AppRoute.ROOT ? (
-                <Button
-                    type={ButtonType.BUTTON}
-                    size={ButtonSize.SMALL}
-                    className={styles.header__btn}
-                    onClick={loginHandler}
-                >
-                    Login
-                </Button>
-            ) : (
-                <Link to={AppRoute.USER}>
-                    <div className={styles.header__logo}>
-                        <div className={styles.user__logo}>
-                            <img src={userLogo} alt="user" />
-                        </div>
-                        <span className={styles.logo__text}>{userName}</span>
+    return (
+        <header className={styles.header}>
+            <div className={styles.headerContainer}>
+                <div className={styles.headerLogo}>
+                    <div className={styles.logoImg}>
+                        <img className={styles.imgLogo} src="" alt="logo" />
                     </div>
-                </Link>
-            )}
-        </div>
+                    <span className={styles.logoText}>SmarpSpend</span>
+                </div>
+                <div className={styles.headerBody}>
+                    {name ? (
+                        <>
+                            {pathname === AppRoute.DASHBOARD && (
+                                <Tabs tabsData={dataTabs.dashboard} />
+                            )}
+                            {pathname === AppRoute.WALLETS && (
+                                <Tabs tabsData={dataTabs.wallets} />
+                            )}
+                        </>
+                    ) : (
+                        <Menu />
+                    )}
+                </div>
+                {name ? (
+                    <Link className={styles.userLink} to={AppRoute.USER}>
+                        <div className={styles.headerLogo}>
+                            <div className={styles.userLogo}>
+                                {avatar && <img src={avatar} alt="user" />}
+                            </div>
+                            <span className={styles.logoText}>{name}</span>
+                        </div>
+                    </Link>
+                ) : (
+                    <Button
+                        type={ButtonType.BUTTON}
+                        size={ButtonSize.SMALL}
+                        className={styles.headerBtn}
+                        onClick={loginHandler}
+                    >
+                        Login
+                    </Button>
+                )}
+            </div>
+        </header>
     );
 };
 

@@ -34,7 +34,9 @@ const options: ChartOptions<'line'> = {
                 font: {
                     size: FONT_SIZE,
                 },
-                maxRotation: 0,
+                autoSkip: true,
+                maxRotation: 25,
+                minRotation: 25,
                 align: 'inner',
                 color: TEXT_COLOR,
                 maxTicksLimit: 8,

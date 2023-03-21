@@ -345,8 +345,7 @@ const Base: React.FC = () => {
                     Header={<h1>Simple Modal</h1>}
                     Body={<p>Simple modal</p>}
                     submitButtonName={'Save changes'}
-                >
-                </BaseModal>
+                ></BaseModal>
             </div>
             {/* Doughnut Chart----------------------------------- */}
             <div>

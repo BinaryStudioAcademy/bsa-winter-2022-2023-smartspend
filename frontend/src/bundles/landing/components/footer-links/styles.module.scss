@@ -1,0 +1,21 @@
+.links_container {
+    display: flex;
+    justify-content: center;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--m-5);
+    padding-left: 0;
+    list-style: none;
+}
+
+.links a {
+    position: relative;
+    color: var(--color-disable);
+    font-size: var(--font-size-caption);
+    text-transform: uppercase;
+    text-decoration: none;
+}

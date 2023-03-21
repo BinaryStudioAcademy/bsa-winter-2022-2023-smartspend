@@ -1,0 +1,88 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: var(--color-blue-600);
+}
+
+.headerContainer {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1192px;
+    height: 100%;
+    padding: 0 var(--p-3);
+}
+
+.headerBody {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    margin: 0 4.5rem;
+}
+
+.userLink {
+    color: var(--color-white-100);
+    text-decoration: none;
+}
+
+.headerLogo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--m-2);
+}
+
+.logoImg {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    background: var(--gradient-6);
+    border-radius: 50%;
+}
+
+.imgLogo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logoText {
+    color: var(--color-white-100);
+    line-height: var(--line-height-level-1-heading);
+}
+
+.userLogo {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+@media (max-width: var(--xl)) {
+    .header {
+        padding: var(--p-3) 4.25rem;
+    }
+
+    .headerBody {
+        margin: 0 var(--m-4);
+    }
+}
+
+@media (max-width: var(--lg)) {
+    .header {
+        padding: var(--p-3) var(--p-5);
+    }
+
+    .headerBody {
+        margin: 0 1.25rem;
+    }
+
+    .logoText {
+        display: none;
+    }
+}

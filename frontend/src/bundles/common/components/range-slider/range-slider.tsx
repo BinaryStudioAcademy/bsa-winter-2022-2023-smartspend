@@ -4,18 +4,8 @@ import '~/assets/css/variables/color-variables.scss';
 import Slider from 'rc-slider';
 import React, { useCallback } from 'react';
 
+import { type RangeSliderProperties } from '../../types/range-slider.type';
 import styles from './styles.module.scss';
-
-interface RangeLimits {
-    min: number;
-    max: number;
-}
-
-interface RangeSliderProperties {
-    onChange?: (range: RangeLimits) => void;
-    rangeLimits: RangeLimits;
-    currentRange: RangeLimits;
-}
 
 const RangeSlider: React.FC<RangeSliderProperties> = ({
     onChange,

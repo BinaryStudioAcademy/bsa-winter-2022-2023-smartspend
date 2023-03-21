@@ -36,11 +36,11 @@ class ServerAppApi implements IServerAppApi {
             definition: {
                 openapi: '3.0.0',
                 info: {
-                    title: 'Hello World',
+                    title: 'Simple Spend API',
                     version: `${this.version}.0.0`,
                 },
             },
-            apis: [`src/packages/**/*.controller.${controllerExtension}`],
+            apis: [`src/**/*.controller.${controllerExtension}`],
         });
     }
 }

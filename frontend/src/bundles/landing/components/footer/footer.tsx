@@ -7,12 +7,12 @@ import styles from './styles.module.scss';
 
 const Footer: React.FC = () => {
     const linksArray = [
-        { to: AppRoute.PRICING, value: 'PRICING' },
-        { to: AppRoute.BANKS, value: 'Bank connect' },
-        { to: AppRoute.HELP, value: 'Help' },
-        { to: AppRoute.ABOUT, value: 'About Us' },
-        { to: AppRoute.BLOG, value: 'Blog' },
-        { to: AppRoute.CONTACT, value: 'Contact' },
+        { to: AppRoute.UI, value: 'PRICING' },
+        { to: AppRoute.UI, value: 'Bank connect' },
+        { to: AppRoute.UI, value: 'Help' },
+        { to: AppRoute.UI, value: 'About Us' },
+        { to: AppRoute.UI, value: 'Blog' },
+        { to: AppRoute.UI, value: 'Contact' },
     ];
 
     const iconsArray = [

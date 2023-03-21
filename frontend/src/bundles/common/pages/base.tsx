@@ -10,6 +10,7 @@ import {
 } from '../components/components.js';
 import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
+import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
 
@@ -18,6 +19,14 @@ const tabsData = [
     { title: 'Overview', to: '/ui/overview' },
     { title: 'Budget', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
+];
+
+const userSettingsData = [
+    { title: 'Account', to: '/ui/' },
+    { title: 'All Categories', to: '/ui/categories' },
+    { title: 'Connected bank accounts', to: '/ui/accounts' },
+    { title: 'Support', to: '/ui/support' },
+    { title: 'Terms and Policies', to: '/ui/terms' },
 ];
 
 const categories = [
@@ -348,6 +357,7 @@ const Base: React.FC = () => {
             <div>
                 <CreateInputNote />
             </div>
+            <UserSettingsTabs tabsData={userSettingsData} />
         </div>
     );
 };

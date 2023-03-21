@@ -1,5 +1,5 @@
-import FacebookIcon from '~/assets/img/facebook-icon.svg';
-import TwitterIcon from '~/assets/img/twitter-icon.svg';
+import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
+import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
 
 import { AppRoute } from '../../enums/enums';
 import { FooterLinks, FooterMediaIcons } from '../components';

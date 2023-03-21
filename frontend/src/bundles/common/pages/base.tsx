@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-    InputLabel,
-    InputPlaceholder,
-    InputSize,
-    InputType,
-} from '~/bundles/common/enums/enums.js';
+import { InputType } from '~/bundles/common/enums/enums.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignInRequestDto,
@@ -348,54 +343,30 @@ const Base: React.FC = () => {
                     <Input
                         name="email"
                         type={InputType.EMAIL}
-                        label={InputLabel.EMAIL}
-                        size={InputSize.MEDIUM}
-                        placeholder={InputPlaceholder.EMAIL}
+                        label="Email"
+                        placeholder="Email"
                         control={control}
                         errors={errors}
                     />
-                    <Input
-                        name="email"
-                        type={InputType.EMAIL}
-                        label={InputLabel.EMAIL}
-                        size={InputSize.SMALL}
-                        placeholder={InputPlaceholder.EMAILSMALL}
-                        control={control}
-                        errors={errors}
-                    />
+
                     <Input
                         name="password"
                         type={InputType.PASSWORD}
-                        label={InputLabel.PASSWORD}
-                        placeholder={InputPlaceholder.PASSWORD}
+                        label="Password"
+                        placeholder="Password"
                         control={control}
                         errors={errors}
+                        eyeHidden
                     />
+
                     <Input
-                        name="email" // треба замінити defaultValues: DEFAULT_SIGN_IN_PAYLOAD
-                        type={InputType.TEXT}
-                        label={InputLabel.NOTE}
-                        size={InputSize.MEDIUM}
-                        placeholder={InputPlaceholder.NOTE}
+                        name="email"
+                        type={InputType.PASSWORD}
+                        label="Text"
+                        placeholder="Password"
                         control={control}
                         errors={errors}
-                    />
-                    <Input
-                        name="email" // треба замінити defaultValues: DEFAULT_SIGN_IN_PAYLOAD
-                        type={InputType.TEXT}
-                        label={InputLabel.NOTE}
-                        size={InputSize.SMALL}
-                        placeholder={InputPlaceholder.NOTESMALL}
-                        control={control}
-                        errors={errors}
-                    />
-                    <Input
-                        name="email" // треба замінити defaultValues: DEFAULT_SIGN_IN_PAYLOAD
-                        type={InputType.TEXT}
-                        label={InputLabel.AMOUNT}
-                        placeholder={InputPlaceholder.AMOUNT}
-                        control={control}
-                        errors={errors}
+                        isDisabled={true}
                     />
                 </form>
             </div>

@@ -1,11 +1,6 @@
 import { Button, Input } from '~/bundles/common/components/components';
 import { ButtonType } from '~/bundles/common/enums/enums';
-import {
-    InputLabel,
-    InputPlaceholder,
-    InputSize,
-    InputType,
-} from '~/bundles/common/enums/enums.js';
+import { InputType } from '~/bundles/common/enums/enums.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignUpRequestDto,
@@ -38,9 +33,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <p>
                     <Input
                         type={InputType.EMAIL}
-                        label={InputLabel.EMAIL}
-                        placeholder={InputPlaceholder.EMAIL}
-                        size={InputSize.MEDIUM}
+                        label="Emil"
+                        // placeholder={InputPlaceholder.EMAIL}
                         name="email"
                         control={control}
                         errors={errors}
@@ -49,12 +43,21 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <p>
                     <Input
                         type={InputType.PASSWORD}
-                        label={InputLabel.PASSWORD}
-                        placeholder={InputPlaceholder.PASSWORD}
-                        size={InputSize.MEDIUM}
+                        label="Password"
+                        // placeholder={InputPlaceholder.PASSWORD}
                         name="password"
                         control={control}
                         errors={errors}
+                        eyeHidden
+                    />
+                    <Input
+                        type={InputType.PASSWORD}
+                        label="Password"
+                        // placeholder={InputPlaceholder.PASSWORD}
+                        name="password"
+                        control={control}
+                        errors={errors}
+                        eyeHidden
                     />
                 </p>
                 <Button type={ButtonType.SUBMIT}>Sign up</Button>

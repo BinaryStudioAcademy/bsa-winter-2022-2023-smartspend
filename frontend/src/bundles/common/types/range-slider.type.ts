@@ -3,10 +3,4 @@ interface RangeLimits {
     max: number;
 }
 
-interface RangeSliderProperties {
-    onChange?: (range: RangeLimits) => void;
-    rangeLimits: RangeLimits;
-    currentRange: RangeLimits;
-}
-
-export { type RangeSliderProperties };
+export { type RangeLimits };

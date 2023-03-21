@@ -176,7 +176,7 @@ class ServerApp implements IServerApp {
         this.database.connect();
 
         await this.app.register(cors, {
-            origin: true
+            origin: true,
         });
 
         await this.app

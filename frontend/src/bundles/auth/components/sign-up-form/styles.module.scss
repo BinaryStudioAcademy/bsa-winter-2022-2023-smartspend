@@ -1,16 +1,8 @@
-:root {
-    --margin-bottom-signup: 1.875rem;
-    --margin-top-login: 0.875rem;
-    --margin-top-login-title: 3.625rem;
-    --line-height-login: 1.25rem;
-    --letter-spacing-login: 1px;
-}
-
 .form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: var(--m-3);
     max-width: 400px;
     margin: 0 auto;
 }

@@ -6,7 +6,7 @@ import {
 import { Button, Input } from '~/bundles/common/components/components.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 
-import { DEFAULT_SIGN_UP_PAYLOAD } from '../sign-up-form/constants/constants';
+import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
 
 type Properties = {
     onSubmit: (event: UserSignInRequestDto) => void;
@@ -14,7 +14,7 @@ type Properties = {
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+        defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
         validationSchema: userSignInValidationSchema,
     });
     const submit = useCallback(

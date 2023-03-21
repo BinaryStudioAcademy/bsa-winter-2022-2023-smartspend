@@ -49,6 +49,16 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         errors={errors}
                     />
                 </p>
+                <p>
+                    <Input
+                        type="text"
+                        label="repPassword"
+                        placeholder="Enter your password"
+                        name="repeatPassword"
+                        control={control}
+                        errors={errors}
+                    />
+                </p>
                 <Button type={ButtonType.SUBMIT}>Sign up</Button>
             </form>
         </>

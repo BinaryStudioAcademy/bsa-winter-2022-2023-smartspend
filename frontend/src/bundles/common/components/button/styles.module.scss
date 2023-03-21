@@ -12,7 +12,7 @@
     font-family: var(--font-family);
     letter-spacing: var(--letter-spacing-button-text);
     border: none;
-    border-radius: var(--px-2);
+    border-radius: var(--b-2);
     cursor: pointer;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .plain {
-    color: var(--color-pink-100);
+    color: var(--color-blue-500);
     background: none;
 }
 
@@ -102,5 +102,5 @@
 
 .round {
     color: var(--color-white-100);
-    background-color: var(--color-pink-100);
+    background-color: var(--color-blue-500);
 }

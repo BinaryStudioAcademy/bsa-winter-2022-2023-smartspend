@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 
 import eye from '~/assets/img/eye.svg';
-import eyeSlash from '~/assets/img/eye-hidden.svg';
+import eyeSlash from '~/assets/img/eye-slash.svg';
 import { InputType } from '~/bundles/common/enums/enums.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';

@@ -9,12 +9,8 @@ class UserRepository implements IRepository {
         this.userModel = userModel;
     }
 
-    public async find(email: string): Promise<UserEntity | undefined> {
-        const user = await this.userModel
-            .query()
-            .select()
-            .where({ email })
-            .first();
+    public async find(data: object): Promise<UserEntity | undefined> {
+        const user = await this.userModel.query().select().where(data).first();
         if (!user) {
             return undefined;
         }
@@ -29,7 +25,6 @@ class UserRepository implements IRepository {
 
     public async create(entity: UserEntity): Promise<UserEntity> {
         const { email, passwordSalt, passwordHash } = entity.toNewObject();
-
         const item = await this.userModel
             .query()
             .insert({
@@ -39,7 +34,6 @@ class UserRepository implements IRepository {
             })
             .returning('*')
             .execute();
-
         return UserEntity.initialize(item);
     }
 

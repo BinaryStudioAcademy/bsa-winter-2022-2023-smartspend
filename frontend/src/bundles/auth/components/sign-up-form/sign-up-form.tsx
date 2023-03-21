@@ -8,6 +8,7 @@ import {
 } from '~/bundles/users/users';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants';
+import styles from './styles.module.scss';
 
 type Properties = {
     onSubmit: (payload: UserSignUpRequestDto) => void;
@@ -17,6 +18,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
+        mode: 'onBlur',
     });
 
     const handleFormSubmit = useCallback(
@@ -27,42 +29,44 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     );
 
     return (
-        <>
-            <h3>Sign Up</h3>
-            <form onSubmit={handleFormSubmit}>
-                <p>
-                    <Input
-                        type={InputType.EMAIL}
-                        label="Emil"
-                        // placeholder={InputPlaceholder.EMAIL}
-                        name="email"
-                        control={control}
-                        errors={errors}
-                    />
-                </p>
-                <p>
-                    <Input
-                        type={InputType.PASSWORD}
-                        label="Password"
-                        // placeholder={InputPlaceholder.PASSWORD}
-                        name="password"
-                        control={control}
-                        errors={errors}
-                        eyeHidden
-                    />
-                    <Input
-                        type={InputType.PASSWORD}
-                        label="Password"
-                        // placeholder={InputPlaceholder.PASSWORD}
-                        name="password"
-                        control={control}
-                        errors={errors}
-                        eyeHidden
-                    />
-                </p>
-                <Button type={ButtonType.SUBMIT}>Sign up</Button>
-            </form>
-        </>
+        <form className={styles.form} onSubmit={handleFormSubmit}>
+            <p className={styles.inputWrapper}>
+                <Input
+                    type={InputType.EMAIL}
+                    label="E-mail"
+                    placeholder="Enter your email"
+                    name="email"
+                    control={control}
+                    errors={errors}
+                    className={styles.input}
+                />
+            </p>
+            <p className={styles.inputWrapper}>
+                <Input
+                    type={InputType.PASSWORD}
+                    label="Password"
+                    placeholder="Enter your password"
+                    name="password"
+                    control={control}
+                    errors={errors}
+                    className={styles.input}
+                    eyeHidden
+                />
+            </p>
+            <p className={styles.inputWrapper}>
+                <Input
+                    type={InputType.PASSWORD}
+                    label="Confirm password"
+                    placeholder="Confirm your password"
+                    name="repeatPassword"
+                    control={control}
+                    errors={errors}
+                    className={styles.input}
+                    eyeHidden
+                />
+            </p>
+            <Button type={ButtonType.SUBMIT}>Sign up</Button>
+        </form>
     );
 };
 

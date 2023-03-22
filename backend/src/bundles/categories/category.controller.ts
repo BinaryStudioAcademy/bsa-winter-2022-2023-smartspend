@@ -16,6 +16,27 @@ import { type ILogger } from '~/common/logger/logger.js';
 
 import { type CategoryService } from './category.service.js';
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      Category:
+ *        type: object
+ *        properties:
+ *          id:
+ *              type: number
+ *              format: uuid
+ *              minimum: 1
+ *          name:
+ *            type: string
+ *            format: string
+ *          icon:
+ *            type: string
+ *          color:
+ *            type: string
+ *          type:
+ *            type: string
+ */
 class CategoryController extends Controller {
     private categoryService: CategoryService;
 
@@ -79,6 +100,22 @@ class CategoryController extends Controller {
         });
     }
 
+    /**
+     * @swagger
+     * /categories:
+     *    get:
+     *      tags: [Categories]
+     *      description: Returns an array of categories
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: array
+     *                items:
+     *                  $ref: '#/components/schemas/Categories'
+     */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
@@ -86,6 +123,22 @@ class CategoryController extends Controller {
         };
     }
 
+    /**
+     * @swagger
+     * /categories:
+     *    get:
+     *      tags: [Categories]
+     *      description: Returns an array of categories
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: array
+     *                items:
+     *                  $ref: '#/components/schemas/Categories'
+     */
     private async findById(
         options: ApiHandlerOptions<{
             params: CategoryIdRequestDto;

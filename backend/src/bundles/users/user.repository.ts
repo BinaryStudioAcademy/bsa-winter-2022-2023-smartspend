@@ -4,7 +4,7 @@ import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-import { UserProfileModel } from './user-profile.model.js';
+import { type UserProfileModel } from './user-profile.model.js';
 
 class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     private userModel: typeof UserModel;
@@ -47,24 +47,21 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
             UserModel & { userProfile?: PartialModelObject<UserProfileModel> }
         >,
     ): Promise<UserEntity | undefined> {
-        const email = data.email;
-        delete data.email;
-        await UserProfileModel.query()
-            .where({ userId: id })
-            .update(data)
-            .returning('*')
-            .execute();
-
         const user = await this.userModel
             .query()
-            .select()
-            .where({ email })
-            .returning('*')
-            .first();
+            .findById(id)
+            .withGraphFetched('userProfile');
 
         if (!user) {
             return undefined;
         }
+        await user.$query().update(data).returning('*').execute();
+
+        await user
+            .$relatedQuery('userProfile')
+            .update({ ...data.userProfile })
+            .returning('*')
+            .execute();
 
         return UserEntity.initialize(user);
     }

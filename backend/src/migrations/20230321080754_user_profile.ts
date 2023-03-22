@@ -20,14 +20,21 @@ const ColumnName = {
     CREATED_AT: 'createdAt',
     UPDATED_AT: 'updatedAt',
 };
+const RelationRule = {
+    CASCADE: 'CASCADE',
+    SET_NULL: 'SET NULL',
+};
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.increments(ColumnName.ID).primary();
+        table.uuid(ColumnName.ID).primary();
         table
             .uuid(ColumnName.USER_ID)
+            .unique()
             .unsigned()
             .references(ColumnName.ID)
-            .inTable(FOREIGN_TABLE_NAME);
+            .inTable(FOREIGN_TABLE_NAME)
+            .onUpdate(RelationRule.CASCADE)
+            .onDelete(RelationRule.SET_NULL);
         table.string(ColumnName.FIRST_NAME).nullable();
         table.string(ColumnName.LAST_NAME).nullable();
         table.string(ColumnName.LANGUAGE).nullable();

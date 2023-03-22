@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -11,8 +10,9 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
 
+import { getAuthEndpointName } from '../../common/helpers/helpers';
 import { SignInForm, SignUpForm } from '../components/components.js';
-import { AuthApiPath } from '../enums/enums.js';
+import { AppRoute, AuthApiPath, AuthEndpointName } from '../enums/enums.js';
 import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
@@ -32,16 +32,18 @@ const Auth: React.FC = () => {
     );
 
     const getScreen = (screen: string): React.ReactNode => {
-        switch (screen) {
-            case AppRoute.SIGN_IN: {
+        const path = getAuthEndpointName(screen);
+        switch (path) {
+            case AuthEndpointName.SIGN_IN: {
                 return <SignInForm onSubmit={handleSignInSubmit} />;
             }
-            case AppRoute.SIGN_UP: {
+            case AuthEndpointName.SIGN_UP: {
                 return <SignUpForm onSubmit={handleSignUpSubmit} />;
             }
+            default: {
+                return null;
+            }
         }
-
-        return null;
     };
 
     return (

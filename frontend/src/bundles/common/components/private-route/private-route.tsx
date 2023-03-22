@@ -1,13 +1,18 @@
 import { Navigate } from 'react-router-dom';
 
-import { storage, StorageKey } from '../../../../framework/storage/storage';
 import { actions as authActions } from '../../../auth/store';
 import { AppRoute } from '../../enums/enums';
-import { useAppDispatch, useAppSelector, useEffect } from '../../hooks/hooks';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useAuth,
+    useEffect,
+} from '../../hooks/hooks';
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     children,
 }) => {
+    const auth = useAuth();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.auth);
     useEffect(() => {
@@ -15,11 +20,10 @@ const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
             void dispatch(authActions.loadUser());
         }
     }, [dispatch, user]);
-    const token = storage.getSync(StorageKey.TOKEN);
-    if (!token) {
+
+    if (!auth) {
         return <Navigate to={AppRoute.SIGN_IN} />;
     }
-
     return children;
 };
 

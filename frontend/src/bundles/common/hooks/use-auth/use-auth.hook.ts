@@ -1,5 +1,8 @@
+import { storage, StorageKey } from '~/framework/storage/storage';
+
 const useAuth = (): boolean => {
-    return false;
+    const token = storage.getSync(StorageKey.TOKEN);
+    return Boolean(token);
 };
 
 export { useAuth };

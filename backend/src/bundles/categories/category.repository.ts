@@ -2,6 +2,8 @@ import { CategoryEntity } from '~/bundles/categories/category.entity.js';
 import { type CategoryModel } from '~/bundles/categories/category.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
+import { type CategoryUpdateRequestDto } from './types/types';
+
 class CategoryRepository implements IRepository {
     private categoryModel: typeof CategoryModel;
 
@@ -28,17 +30,27 @@ class CategoryRepository implements IRepository {
     }
 
     public async create(entity: CategoryEntity): Promise<CategoryEntity> {
-        const { icon, color, type } = entity.toNewObject();
+        const { name, icon, color, type } = entity.toNewObject();
         const item = await this.categoryModel
             .query()
-            .insert({ icon, color, type })
+            .insert({ name, icon, color, type })
             .returning('*')
             .execute();
         return CategoryEntity.initialize(item);
     }
 
-    public update(): ReturnType<IRepository['update']> {
-        return Promise.resolve(true);
+    public async update(
+        categoriId: string,
+        data: CategoryUpdateRequestDto,
+    ): Promise<CategoryEntity | undefined> {
+        const updatedCategory = await this.categoryModel
+            .query()
+            .where({ id: categoriId })
+            .update(data)
+            .returning('*')
+            .execute();
+
+        return CategoryEntity.initialize(updatedCategory[0]);
     }
 
     public delete(): ReturnType<IRepository['delete']> {

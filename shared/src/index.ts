@@ -1,5 +1,13 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type CategoryGetAllItemResponseDto,
+    type CategoryGetAllResponseDto,
+    type CategoryRequestDto,
+    type CategoryUpdateRequestDto,
+    CategoriesApiPath,
+    categoryValidationSchema,
+} from './bundles/categories/categories.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserSignInRequestDto,

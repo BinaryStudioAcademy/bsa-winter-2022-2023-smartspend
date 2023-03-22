@@ -1,1 +1,1 @@
-/* eslint-disable unicorn/no-empty-file */
+export { categoryValidationSchema } from 'shared/build/index.js';

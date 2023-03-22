@@ -1,4 +1,5 @@
 import { authController } from '~/bundles/auth/auth.js';
+import { categoryController } from '~/bundles/categories/categories.js';
 import { userController } from '~/bundles/users/users.js';
 import { config } from '~/common/config/config.js';
 import { database } from '~/common/database/database.js';
@@ -12,6 +13,7 @@ const apiV1 = new ServerAppApi(
     config,
     ...authController.routes,
     ...userController.routes,
+    ...categoryController.routes,
 );
 const serverApp = new ServerApp({
     config,

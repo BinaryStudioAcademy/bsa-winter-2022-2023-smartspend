@@ -1,7 +1,5 @@
 export { type Gender } from './user-gender.js';
-export  {
-    type UserUpdateRequestDto
-} from './user-update-request-dto.js';
+export { type UserUpdateRequestDto } from './user-update-request-dto.js';
 export { type UserUpdateResponseDto } from './user-update-response-dto.js';
 export {
     type UserGetAllItemResponseDto,

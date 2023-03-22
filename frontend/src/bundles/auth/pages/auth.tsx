@@ -8,7 +8,10 @@ import {
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users.js';
 
 import { useNavigate } from '../../common/hooks/hooks';
 import { SignInForm, SignUpForm } from '../components/components.js';
@@ -21,9 +24,12 @@ const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
 
-    const handleSignInSubmit = useCallback((): void => {
-        // handle sign in
-    }, []);
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
+        },
+        [dispatch],
+    );
 
     const handleSignUpSubmit = useCallback(
         async (payload: UserSignUpRequestDto): Promise<void> => {

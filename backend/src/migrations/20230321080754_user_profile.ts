@@ -1,5 +1,7 @@
 import { type Knex } from 'knex';
 
+const uuid = 'uuid_generate_v4()';
+
 enum Gender {
     Male = 'male',
     Female = 'female',
@@ -26,7 +28,9 @@ const RelationRule = {
 };
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.uuid(ColumnName.ID).primary();
+        table.uuid(ColumnName.ID).primary()
+        .defaultTo(knex.raw(uuid))
+        .notNullable();
         table
             .uuid(ColumnName.USER_ID)
             .unique()

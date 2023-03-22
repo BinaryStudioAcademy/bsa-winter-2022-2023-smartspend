@@ -18,7 +18,8 @@ export { WalletCard } from './wallet-card/wallet-card';
 export {
     Button,
     DoughnutChart,
+    Header,
     Input,
     LineChart,
-    Link,
+    Link
 } from '~/bundles/common/components/components';

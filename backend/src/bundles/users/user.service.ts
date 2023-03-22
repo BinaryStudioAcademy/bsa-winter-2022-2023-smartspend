@@ -54,9 +54,7 @@ class UserService implements IService {
         );
 
         if (!updatedUser) {
-            throw new Error(
-                'Something went wrong.',
-            );
+            throw new Error('Something went wrong.');
         }
         return updatedUser.toObject();
     }

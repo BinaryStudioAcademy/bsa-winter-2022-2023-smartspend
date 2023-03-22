@@ -74,61 +74,61 @@ class UserController extends Controller {
     }
 
     /**
- * @swagger
- * /users:
- *   put:
- *     tags:
- *       - Users
- *     description: Updates a user profile
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 nullable: true
- *               userProfile:
- *                 type: object
- *                 properties:
- *                   firstName:
- *                     type: string
- *                     nullable: true
- *                   lastName:
- *                     type: string
- *                     nullable: true
- *                   sex:
- *                     type: string
- *                     enum: [male, female]
- *                     nullable: true
- *                   dateOfBirth:
- *                     type: string
- *                     format: date
- *                     nullable: true
- *                   language:
- *                     type: string
- *                     nullable: true
- *                   currency:
- *                     type: string
- *                     nullable: true
- *     responses:
- *       '200':
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *   components:
- *     securitySchemes:
- *       bearerAuth:
- *         type: http
- *         scheme: bearer
- */
+     * @swagger
+     * /users:
+     *   put:
+     *     tags:
+     *       - Users
+     *     description: Updates a user profile
+     *     security:
+     *       - bearerAuth: []
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               email:
+     *                 type: string
+     *                 format: email
+     *                 nullable: true
+     *               userProfile:
+     *                 type: object
+     *                 properties:
+     *                   firstName:
+     *                     type: string
+     *                     nullable: true
+     *                   lastName:
+     *                     type: string
+     *                     nullable: true
+     *                   sex:
+     *                     type: string
+     *                     enum: [male, female]
+     *                     nullable: true
+     *                   dateOfBirth:
+     *                     type: string
+     *                     format: date
+     *                     nullable: true
+     *                   language:
+     *                     type: string
+     *                     nullable: true
+     *                   currency:
+     *                     type: string
+     *                     nullable: true
+     *     responses:
+     *       '200':
+     *         description: Successful operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/User'
+     *   components:
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     */
 
     private async update(
         request: UpdateRequestDto,

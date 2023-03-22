@@ -55,7 +55,7 @@ class Controller implements IController {
             body,
             query,
             params,
-            token: headers.authorization
+            token: headers.authorization,
         };
     }
 }

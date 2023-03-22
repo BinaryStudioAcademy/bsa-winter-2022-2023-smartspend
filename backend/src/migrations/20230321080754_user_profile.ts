@@ -28,9 +28,11 @@ const RelationRule = {
 };
 function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(TABLE_NAME, (table) => {
-        table.uuid(ColumnName.ID).primary()
-        .defaultTo(knex.raw(uuid))
-        .notNullable();
+        table
+            .uuid(ColumnName.ID)
+            .primary()
+            .defaultTo(knex.raw(uuid))
+            .notNullable();
         table
             .uuid(ColumnName.USER_ID)
             .unique()

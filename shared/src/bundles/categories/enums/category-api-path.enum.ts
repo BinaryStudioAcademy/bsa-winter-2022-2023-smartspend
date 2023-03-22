@@ -1,5 +1,5 @@
 enum CategoriesApiPath {
-    ROOT = '/',
+    ROOT = '',
     ID = '/:id',
 }
 

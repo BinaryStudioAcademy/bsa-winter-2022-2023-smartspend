@@ -22,20 +22,37 @@ import { type CategoryService } from './category.service.js';
  *    schemas:
  *      Category:
  *        type: object
+ *        required:
+ *          - name
+ *          - icon
+ *          - color
+ *          - type
  *        properties:
  *          id:
- *              type: number
- *              format: uuid
- *              minimum: 1
+ *            type: string
+ *            format: uuid
+ *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
  *          name:
  *            type: string
- *            format: string
+ *            format: text
  *          icon:
  *            type: string
+ *            format: text
  *          color:
  *            type: string
+ *            format: text
  *          type:
  *            type: string
+ *            enum:
+ *              - income
+ *              - expense
+ *              - transfer
+ *            desctiption: type of category expense, income or transfer
+ *      Categories:
+ *        type: array
+ *        items:
+ *          $ref: '#/components/schemas/Category'
+ *
  */
 class CategoryController extends Controller {
     private categoryService: CategoryService;
@@ -108,13 +125,11 @@ class CategoryController extends Controller {
      *      description: Returns an array of categories
      *      responses:
      *        200:
-     *          description: Successful operation
+     *          description: Successful operation with an array of categories
      *          content:
      *            application/json:
      *              schema:
-     *                type: array
-     *                items:
-     *                  $ref: '#/components/schemas/Categories'
+     *                $ref: '#/components/schemas/Categories'
      */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {
@@ -125,19 +140,25 @@ class CategoryController extends Controller {
 
     /**
      * @swagger
-     * /categories:
+     * /categories/{id}:
      *    get:
      *      tags: [Categories]
-     *      description: Returns an array of categories
+     *      description: Returns one category by id
+     *      parameters:
+     *        - name: id
+     *          in: path
+     *          required: true
+     *          description: Category ID
+     *          schema:
+     *            type: string
+     *          example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
      *      responses:
      *        200:
-     *          description: Successful operation
+     *          description: Successful operation of getting category by id
      *          content:
      *            application/json:
      *              schema:
-     *                type: array
-     *                items:
-     *                  $ref: '#/components/schemas/Categories'
+     *                $ref: '#/components/schemas/Category'
      */
     private async findById(
         options: ApiHandlerOptions<{
@@ -150,6 +171,26 @@ class CategoryController extends Controller {
         };
     }
 
+    /**
+     * @swagger
+     * /categories:
+     *    post:
+     *      tags: [Categories]
+     *      description: Create category
+     *      requesBody:
+     *        required: true
+     *        content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     *      responses:
+     *        201:
+     *          description: Successful category creation operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     */
     private async create(
         options: ApiHandlerOptions<{
             body: CategoryRequestDto;
@@ -161,6 +202,28 @@ class CategoryController extends Controller {
         };
     }
 
+    /**
+     * @swagger
+     * /categories/{id}:
+     *    put:
+     *      tags: [Categories]
+     *      parameters:
+     *        - name: id
+     *          in: path
+     *          required: true
+     *          description: Category ID
+     *          schema:
+     *            type: string
+     *          example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *      description: Update category
+     *      responses:
+     *        200:
+     *          description: Successful category update operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     */
     private async update(
         options: ApiHandlerOptions<{
             body: CategoryUpdateRequestDto;
@@ -177,6 +240,28 @@ class CategoryController extends Controller {
         };
     }
 
+    /**
+     * @swagger
+     * /categories/{id}:
+     *    delete:
+     *      tags: [Categories]
+     *      parameters:
+     *        - name: id
+     *          in: path
+     *          required: true
+     *          description: Category ID
+     *          schema:
+     *            type: string
+     *          example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *      description: Delete category
+     *      responses:
+     *        200:
+     *          description: Successful delete category operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     */
     private async delete(
         options: ApiHandlerOptions<{
             params: CategoryIdRequestDto;

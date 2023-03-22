@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -11,12 +10,14 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
 
+import { useNavigate } from '../../common/hooks/hooks';
 import { SignInForm, SignUpForm } from '../components/components.js';
-import { AuthApiPath } from '../enums/enums.js';
+import { AppRoute, AuthApiPath } from '../enums/enums.js';
 import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
 
@@ -25,10 +26,13 @@ const Auth: React.FC = () => {
     }, []);
 
     const handleSignUpSubmit = useCallback(
-        (payload: UserSignUpRequestDto): void => {
-            void dispatch(authActions.signUp(payload));
+        async (payload: UserSignUpRequestDto): Promise<void> => {
+            const user = await dispatch(authActions.signUp(payload)).unwrap();
+            if (user.token) {
+                navigate(AppRoute.DASHBOARD);
+            }
         },
-        [dispatch],
+        [dispatch, navigate],
     );
 
     const getScreen = (screen: string): React.ReactNode => {

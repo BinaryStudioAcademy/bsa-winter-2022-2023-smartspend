@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 const SecondStepPart: React.FC = () => {
     const listItems = [
-        'Connect your bank accounts and all your transactions will get automatically imported to Spendee.',
+        'Connect your bank accounts and all your transactions will get automatically imported to SmartSpend.',
         'Connect your crypto wallet and E-Wallet for complete overview of your cash flow.',
         'Add your cash expenses manually.',
     ];

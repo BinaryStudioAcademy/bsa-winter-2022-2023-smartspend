@@ -1,5 +1,8 @@
 import React from 'react';
+import { type UserSignInRequestDto } from 'shared/build/index.js';
+import { userSignInValidationSchema } from 'shared/build/index.js';
 
+import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import {
@@ -9,15 +12,16 @@ import {
     Chart,
     DoughnutChart,
     Header,
+    Input,
     LineChart,
 } from '../components/components.js';
-import { CreateInputNote } from '../components/input/app-input';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
 import { ButtonSize } from '../enums/button-size.enum';
 import { ButtonVariant } from '../enums/button-variant.enum.js';
 import { CardVariant } from '../enums/card-variant.enum';
-import { AppRoute } from '../enums/enums.js';
+import { AppRoute, InputType } from '../enums/enums.js';
+import { useAppForm } from '../hooks/hooks.js';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -82,6 +86,11 @@ const Base: React.FC = () => {
         setActive(true);
     }, []);
 
+    const { control, errors } = useAppForm<UserSignInRequestDto>({
+        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+        validationSchema: userSignInValidationSchema,
+        mode: 'onBlur',
+    });
     return (
         <>
             <Header dataTabs={allTabsData} />
@@ -385,7 +394,6 @@ const Base: React.FC = () => {
             </div>
             {/* end-Doughnut Chart------------------------------- */}
             <div>
-                <CreateInputNote />
                 {/* Doughnut Chart----------------------------------- */}
                 <div>
                     <p>Doughnut Chart</p>
@@ -393,9 +401,38 @@ const Base: React.FC = () => {
                 </div>
                 {/* end-Doughnut Chart------------------------------- */}
                 <div>
-                    <CreateInputNote />
+                    <form style={{ textAlign: 'left' }}>
+                        <Input
+                            name="email"
+                            type={InputType.EMAIL}
+                            label="Email"
+                            placeholder="Email"
+                            control={control}
+                            errors={errors}
+                        />
+
+                        <Input
+                            name="password"
+                            type={InputType.PASSWORD}
+                            label="Password"
+                            placeholder="Password"
+                            control={control}
+                            errors={errors}
+                        />
+
+                        <Input
+                            name="email"
+                            type={InputType.PASSWORD}
+                            label="Text"
+                            placeholder="Password"
+                            control={control}
+                            errors={errors}
+                            isDisabled={true}
+                        />
+                    </form>
                 </div>
             </div>
+
             <UserSettingsTabs tabsData={userSettingsData} />
         </>
     );

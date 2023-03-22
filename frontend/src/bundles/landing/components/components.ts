@@ -21,5 +21,5 @@ export {
     Header,
     Input,
     LineChart,
-    Link
+    Link,
 } from '~/bundles/common/components/components';

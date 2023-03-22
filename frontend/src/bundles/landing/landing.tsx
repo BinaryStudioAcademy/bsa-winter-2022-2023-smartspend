@@ -9,12 +9,11 @@ import {
     QuestionPart,
     SecondStepPart,
     SubscriptionPart,
-    ThirdStepPart
+    ThirdStepPart,
 } from './components/components';
 import { AppRoute } from './enums/enums';
 
 const Landing: React.FC = () => {
-
     const tabsData = [
         { title: 'Transaction', to: '/ui/' },
         { title: 'Overview', to: '/ui/overview' },
@@ -26,7 +25,7 @@ const Landing: React.FC = () => {
         { title: 'Dashboard', to: AppRoute.DASHBOARD },
         { title: 'Budget', to: AppRoute.BUDGETS },
     ];
-    
+
     const allTabsData = {
         dashboard: tabsDashboard,
         wallets: tabsData,
@@ -55,7 +54,7 @@ const Landing: React.FC = () => {
 
     return (
         <>
-            <Header dataTabs={allTabsData}/>
+            <Header dataTabs={allTabsData} />
             <HighlightBanner
                 title={'The only app that gets your money into shape'}
                 details={

@@ -3,8 +3,10 @@ import { type UserSignInRequestDto } from 'shared/build/index.js';
 import { userSignInValidationSchema } from 'shared/build/index.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import {
+    BaseModal,
     Button,
     CardTotal,
     Chart,
@@ -75,6 +77,15 @@ const allTabsData = {
 };
 
 const Base: React.FC = () => {
+    const [active, setActive] = useState(false);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
     const { control, errors } = useAppForm<UserSignInRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignInValidationSchema,
@@ -348,6 +359,41 @@ const Base: React.FC = () => {
                         ]}
                     />
                 </div>
+            </div>
+            {/*--------------------------------------- /end Cards */}
+            <div style={{ width: 600, height: 400 }}>
+                <LineChart
+                    dataArr={[
+                        { date: 'Mar 01,2023', value: 0 },
+                        { date: 'Mar 04,2023', value: 4500 },
+                        { date: 'Mar 07,2023', value: 6000 },
+                        { date: 'Mar 12,2023', value: 7000 },
+                        { date: 'Mar 14,2023', value: 7000 },
+                        { date: 'Mar 16,2023', value: 7500 },
+                        { date: 'Mar 19,2023', value: 5000 },
+                        { date: 'Mar 27,2023', value: 6500 },
+                        { date: 'Mar 30,2023', value: 5000 },
+                    ]}
+                />
+            </div>
+            <div>
+                <button onClick={handleModal}>Open modal window</button>
+                <BaseModal
+                    isShown={active}
+                    onClose={handleCancel}
+                    onSubmit={handleCancel}
+                    Header={<h1>Simple Modal</h1>}
+                    Body={<p>Simple modal</p>}
+                    submitButtonName={'Save changes'}
+                ></BaseModal>
+            </div>
+            {/* Doughnut Chart----------------------------------- */}
+            <div>
+                <p>Doughnut Chart</p>
+                <DoughnutChart categories={categories} />
+            </div>
+            {/* end-Doughnut Chart------------------------------- */}
+            <div>
                 {/* Doughnut Chart----------------------------------- */}
                 <div>
                     <p>Doughnut Chart</p>

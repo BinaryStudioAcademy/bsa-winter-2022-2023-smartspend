@@ -159,6 +159,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/authenticated-user:
      *    get:
+     *      tags: [Auth]
      *      description: Load authenticated user data
      *      parameters:
      *        - in: query

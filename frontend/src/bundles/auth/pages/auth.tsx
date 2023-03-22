@@ -25,10 +25,13 @@ const Auth: React.FC = () => {
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback(
-        (payload: UserSignInRequestDto): void => {
-            void dispatch(authActions.signIn(payload));
+        async (payload: UserSignInRequestDto): Promise<void> => {
+            const user = await dispatch(authActions.signIn(payload)).unwrap();
+            if (user.token) {
+                navigate(AppRoute.DASHBOARD);
+            }
         },
-        [dispatch],
+        [dispatch, navigate],
     );
 
     const handleSignUpSubmit = useCallback(

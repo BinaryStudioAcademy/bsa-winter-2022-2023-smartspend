@@ -10,7 +10,7 @@ import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
 
 type Properties = {
-    onSubmit: (event: UserSignInRequestDto) => void;
+    onSubmit: (event: UserSignInRequestDto) => Promise<void>;
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {

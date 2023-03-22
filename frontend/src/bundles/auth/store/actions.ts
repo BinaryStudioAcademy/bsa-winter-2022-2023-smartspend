@@ -4,14 +4,16 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type UserLoadResponseDto,
     type UserSignInRequestDto,
+    type UserSignInResponseDto,
     type UserSignUpRequestDto,
+    type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
 import { StorageKey } from '~/framework/storage/storage.js';
 
 import { name as sliceName } from './slice.js';
 
 const signUp = createAsyncThunk<
-    Promise<void>,
+    Promise<UserSignUpResponseDto>,
     UserSignUpRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-up`, async (registerPayload, { extra, dispatch }) => {
@@ -22,10 +24,11 @@ const signUp = createAsyncThunk<
     void storage.set(StorageKey.TOKEN, token);
 
     await dispatch(loadUser());
+    return { token };
 });
 
 const signIn = createAsyncThunk<
-    Promise<void>,
+    Promise<UserSignInResponseDto>,
     UserSignInRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/sign-in`, async (registerPayload, { extra, dispatch }) => {
@@ -36,6 +39,7 @@ const signIn = createAsyncThunk<
     void storage.set(StorageKey.TOKEN, token);
 
     await dispatch(loadUser());
+    return { token };
 });
 
 const loadUser = createAsyncThunk<

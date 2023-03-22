@@ -142,6 +142,17 @@ const BudgetCategoriesColumnName = {
 function up(knex: Knex): Promise<void> {
     return knex.schema
         .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+        .dropTableIfExists(WALLETS_USERS_TABLE_NAME)
+        .dropTableIfExists(USER_CATEGORIES_TABLE_NAME)
+        .dropTableIfExists(TRANSACTIONS_LABELS_TABLE_NAME)
+        .dropTableIfExists(TRANSACTIONS_TABLE_NAME)
+        .dropTableIfExists(WIDGETS_LAYOUT_TABLE_NAME)
+        .dropTableIfExists(WALLETS_TABLE_NAME)
+        .dropTableIfExists(LABELS_TABLE_NAME)
+        .dropTableIfExists(CURRENCIES_TABLE_NAME)
+        .dropTableIfExists(BUDGET_CATEGORIES_TABLE_NAME)
+        .dropTableIfExists(CATEGORIES_TABLE_NAME)
+        .dropTableIfExists(BUDGETS_TABLE_NAME)
         .dropTableIfExists(USERS_TABLE_NAME)
         .createTable(USERS_TABLE_NAME, (table) => {
             table
@@ -161,7 +172,6 @@ function up(knex: Knex): Promise<void> {
                 .notNullable()
                 .defaultTo(knex.fn.now());
         })
-        .dropTableIfExists(BUDGETS_TABLE_NAME)
         .createTable(BUDGETS_TABLE_NAME, (table) => {
             table
                 .uuid(BudgetsColumnName.ID)
@@ -186,7 +196,6 @@ function up(knex: Knex): Promise<void> {
                 .notNullable()
                 .defaultTo(knex.fn.now());
         })
-        .dropTableIfExists(CATEGORIES_TABLE_NAME)
         .createTable(CATEGORIES_TABLE_NAME, (table) => {
             table
                 .uuid(CategoriesColumnName.ID)
@@ -198,7 +207,6 @@ function up(knex: Knex): Promise<void> {
                 .enum(CategoriesColumnName.TYPE, Object.values(CategoryType))
                 .notNullable();
         })
-        .dropTableIfExists(BUDGET_CATEGORIES_TABLE_NAME)
         .createTable(BUDGET_CATEGORIES_TABLE_NAME, (table) => {
             table
                 .uuid(BudgetCategoriesColumnName.ID)
@@ -219,7 +227,6 @@ function up(knex: Knex): Promise<void> {
                 .onUpdate('CASCADE')
                 .notNullable();
         })
-        .dropTableIfExists(CURRENCIES_TABLE_NAME)
         .createTable(CURRENCIES_TABLE_NAME, (table) => {
             table
                 .uuid(CurrenciesColumnName.ID)
@@ -227,13 +234,11 @@ function up(knex: Knex): Promise<void> {
                 .defaultTo(knex.raw(uuid));
             table.string(CurrenciesColumnName.NAME).notNullable();
         })
-        .dropTableIfExists(LABELS_TABLE_NAME)
         .createTable(LABELS_TABLE_NAME, (table) => {
             table.uuid(LabelsColumnName.ID).primary().defaultTo(knex.raw(uuid));
             table.string(LabelsColumnName.LABEL).notNullable();
             table.string(LabelsColumnName.ICON);
         })
-        .dropTableIfExists(WALLETS_TABLE_NAME)
         .createTable(WALLETS_TABLE_NAME, (table) => {
             table
                 .uuid(WalletsColumnName.ID)
@@ -261,7 +266,6 @@ function up(knex: Knex): Promise<void> {
                 .dateTime(WalletsColumnName.UPDATED_AT)
                 .defaultTo(knex.fn.now());
         })
-        .dropTableIfExists(WIDGETS_LAYOUT_TABLE_NAME)
         .createTable(WIDGETS_LAYOUT_TABLE_NAME, (table) => {
             table
                 .uuid(WidgetsLayoutColumnName.ID)
@@ -289,7 +293,6 @@ function up(knex: Knex): Promise<void> {
                 .notNullable()
                 .defaultTo(knex.fn.now());
         })
-        .dropTableIfExists(TRANSACTIONS_TABLE_NAME)
         .createTable(TRANSACTIONS_TABLE_NAME, (table) => {
             table
                 .uuid(TransactionsColumnName.ID)
@@ -324,7 +327,6 @@ function up(knex: Knex): Promise<void> {
                 .notNullable()
                 .defaultTo(knex.fn.now());
         })
-        .dropTableIfExists(TRANSACTIONS_LABELS_TABLE_NAME)
         .createTable(TRANSACTIONS_LABELS_TABLE_NAME, (table) => {
             table
                 .uuid(TransactionsLabelsColumnName.ID)
@@ -343,7 +345,6 @@ function up(knex: Knex): Promise<void> {
                 .inTable('transactions')
                 .onDelete('CASCADE');
         })
-        .dropTableIfExists(USER_CATEGORIES_TABLE_NAME)
         .createTable(USER_CATEGORIES_TABLE_NAME, (table) => {
             table
                 .uuid(UsersCategoriesColumnName.ID)
@@ -358,7 +359,6 @@ function up(knex: Knex): Promise<void> {
                 .references('id')
                 .inTable('categories');
         })
-        .dropTableIfExists(WALLETS_USERS_TABLE_NAME)
         .createTable(WALLETS_USERS_TABLE_NAME, (table) => {
             table
                 .uuid(WalletsUsersColumnName.ID)

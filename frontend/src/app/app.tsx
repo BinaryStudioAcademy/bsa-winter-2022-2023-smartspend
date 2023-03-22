@@ -1,4 +1,4 @@
-import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
+import { RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,

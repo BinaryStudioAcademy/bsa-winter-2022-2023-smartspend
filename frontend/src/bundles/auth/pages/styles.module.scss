@@ -1,3 +1,5 @@
+@import "@assets/utils"; /* stylelint-disable-line scss/at-import-partial-extension, import-notation */
+
 .authContainer {
     position: absolute;
     top: 0;
@@ -150,7 +152,7 @@
     cursor: pointer;
 }
 
-@media (max-width: var(--lg)) {
+@media (max-width: $lg) {
     .authInside {
         width: 520px;
     }
@@ -160,7 +162,7 @@
     }
 }
 
-@media (max-width: var(--md)) {
+@media (max-width: $md) {
     .authRoundsmall {
         right: -25px;
     }
@@ -170,7 +172,7 @@
     }
 }
 
-@media (max-width: var(--sm)) {
+@media (max-width: $sm) {
     .authInside {
         width: 100%;
         padding-right: var(--p-2);
@@ -190,13 +192,13 @@
     }
 }
 
-@media (max-height: var(--md)) {
+@media (max-height: $md) {
     .authLogo {
         margin: var(--m-6) auto var(--m-3);
     }
 }
 
-@media (max-height: var(--sm)) {
+@media (max-height: $sm) {
     .authLogo {
         margin: var(--m-5) auto var(--m-2);
     }

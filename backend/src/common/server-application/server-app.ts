@@ -1,3 +1,4 @@
+import cors from '@fastify/cors';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
@@ -173,6 +174,10 @@ class ServerApp implements IServerApp {
         this.initRoutes();
 
         this.database.connect();
+
+        await this.app.register(cors, {
+            origin: true,
+        });
 
         await this.app
             .listen({

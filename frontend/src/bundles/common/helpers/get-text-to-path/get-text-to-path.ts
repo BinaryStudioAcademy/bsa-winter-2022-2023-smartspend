@@ -10,7 +10,7 @@ const getText = (pathname: string, type: string): string => {
 
     const headers: Propertys = {
         [AppRoute.SIGN_IN]: 'No account? Sign Up',
-        [AppRoute.SIGN_UP]: 'Have an account? Log in',
+        [AppRoute.SIGN_UP]: 'Have an account? Log In',
     };
 
     const footers: Propertys = {

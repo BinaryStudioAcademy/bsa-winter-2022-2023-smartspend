@@ -184,7 +184,7 @@ class AuthController extends Controller {
         }>,
     ): Promise<ApiHandlerResponse> {
         const { token } = options.query;
-        const user = await this.authService.getUserById(token);
+        const user = await this.authService.getUserByToken(token);
         return {
             status: HttpCode.OK,
             payload: user,

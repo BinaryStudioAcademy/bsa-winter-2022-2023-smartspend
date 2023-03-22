@@ -45,7 +45,7 @@ class AuthService {
         }
     }
 
-    public async getUserById(token: string): Promise<User | undefined> {
+    public async getUserByToken(token: string): Promise<User | undefined> {
         const { id } = this.tokenService.verifyToken(token) as User;
         if (!id) {
             throw new HttpError({

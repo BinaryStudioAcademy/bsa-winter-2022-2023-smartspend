@@ -9,7 +9,7 @@ import { type Gender } from './types/types.js';
 import { UserModel } from './user.model.js';
 
 class UserProfileModel extends AbstractModel {
-    public 'userId': number;
+    public 'userId': string;
 
     public 'firstName': string;
 

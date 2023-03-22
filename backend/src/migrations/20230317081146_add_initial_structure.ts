@@ -140,13 +140,8 @@ const BudgetCategoriesColumnName = {
 function up(knex: Knex): Promise<void> {
     return knex.schema
         .dropTableIfExists(USERS_TABLE_NAME)
-        .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
         .createTable(USERS_TABLE_NAME, (table) => {
-            table
-                .uuid(UsersColumnName.ID)
-                .defaultTo(knex.raw('uuid_generate_v4()'))
-                .primary()
-                .notNullable();
+            table.uuid(UsersColumnName.ID).primary().notNullable();
             table.string(UsersColumnName.EMAIL).unique().notNullable();
             table.text(UsersColumnName.PASSWORD_HASH).notNullable();
             table.text(UsersColumnName.PASSWORD_SALT).notNullable();

@@ -3,17 +3,32 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
-import { Button, CardTotal } from '~/bundles/common/components/components';
-import { CreateInputNote } from '~/bundles/common/components/input/app-input';
+import {
+    Button,
+    CardTotal,
+    Input,
+} from '~/bundles/common/components/components';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 import { CardVariant } from '~/bundles/common/enums/card-variant.enum';
 
+import { InputType } from '../../enums/input-type.enum';
+import { useAppForm } from '../../hooks/hooks';
 import styles from './styles.module.scss';
 
 const icon: IconProp = faChevronDown;
 
+const DEFAULT_INPUT: { note: string } = {
+    //It needs to change
+    note: '',
+};
+
 const WalletDetails: React.FC = () => {
+    const { control, errors } = useAppForm<{ note: string }>({
+        //It needs to change
+        defaultValues: DEFAULT_INPUT,
+    });
+
     return (
         <div className={styles.app}>
             <div className={styles.header}>
@@ -84,7 +99,15 @@ const WalletDetails: React.FC = () => {
                                 </div>
                                 <div className={styles.filter}>
                                     {/*<div className={styles.categoryText}>By note</div>*/}
-                                    <CreateInputNote />
+                                    <Input
+                                        type={InputType.TEXT}
+                                        label="E-mail"
+                                        placeholder="Enter your email"
+                                        name="note"
+                                        control={control}
+                                        errors={errors}
+                                        className={styles.input}
+                                    />
                                 </div>
                                 <div className={styles.filter}>
                                     <div className={styles.categoryText}>

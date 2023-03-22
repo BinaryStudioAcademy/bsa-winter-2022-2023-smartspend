@@ -4,26 +4,12 @@ import {
     Controller,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
+import { getUserIdFromToken } from '~/common/helpers/get-id-from-token.helper.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
-import { type Gender } from './user.entity.js';
-
-type UserUpdateRequestDto = {
-    email: string;
-    firstName?: string;
-    lastName?: string;
-    sex?: Gender;
-    dateOfBirth?: string;
-    language?: string;
-    currency?: string;
-};
-
-type UpdateRequest = {
-    params: { id: string };
-    body: UserUpdateRequestDto;
-};
+import { type UpdateRequestDto } from './types/update-request-dto.js';
 
 /**
  * @swagger
@@ -40,6 +26,7 @@ type UpdateRequest = {
  *            type: string
  *            format: email
  */
+
 class UserController extends Controller {
     private userService: UserService;
 
@@ -55,9 +42,11 @@ class UserController extends Controller {
         });
 
         this.addRoute({
-            path: `${UsersApiPath.ROOT}:id`,
+            path: `${UsersApiPath.ROOT}`,
             method: 'PUT',
-            handler: (options) => this.update(options as UpdateRequest),
+            handler: (options) => {
+                return this.update(options as UpdateRequestDto);
+            },
         });
     }
 
@@ -86,6 +75,7 @@ class UserController extends Controller {
     /**
      * @swagger
      * /users:
+     * [tag]                              {* todo add correct tag swagger *}
      *    put:
      *      description: Updates a user
      *      parameters:
@@ -120,11 +110,11 @@ class UserController extends Controller {
      *              schema:
      *                $ref: '#/components/schemas/User'
      */
-    private async update(request: UpdateRequest): Promise<ApiHandlerResponse> {
-        const updatedUser = await this.userService.update(
-            request.params.id,
-            request.body,
-        );
+    private async update(
+        request: UpdateRequestDto,
+    ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(request.token);
+        const updatedUser = await this.userService.update(userId, request.body);
         return {
             status: HttpCode.OK,
             payload: updatedUser,

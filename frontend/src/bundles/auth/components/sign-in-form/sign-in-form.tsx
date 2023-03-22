@@ -1,18 +1,7 @@
-import passwordShown from '~/assets/img/eye.svg';
-import passwordHidden from '~/assets/img/eye-slash.svg';
 import { Button, Input } from '~/bundles/common/components/components';
 import { ButtonType } from '~/bundles/common/enums/enums';
-import {
-    InputLabel,
-    InputPlaceholder,
-    InputSize,
-    InputType,
-} from '~/bundles/common/enums/enums.js';
-import {
-    useAppForm,
-    useCallback,
-    useState,
-} from '~/bundles/common/hooks/hooks';
+import { InputType } from '~/bundles/common/enums/enums.js';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
@@ -31,17 +20,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         validationSchema: userSignInValidationSchema,
     });
 
-    const [eye, setEye] = useState({ password: false });
-    const eyeIcons = {
-        password: eye.password ? passwordShown : passwordHidden,
-    };
-    const togglePasswordVisibility = useCallback(() => {
-        setEye((previous) => ({
-            ...previous,
-            password: !previous.password,
-        }));
-    }, []);
-
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             void handleSubmit(onSubmit)(event_);
@@ -50,37 +28,31 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     );
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form className={styles.form} onSubmit={handleFormSubmit}>
             <p className={styles.inputWrapper}>
                 <Input
                     type={InputType.EMAIL}
-                    label={InputLabel.EMAIL}
-                    placeholder={InputPlaceholder.EMAIL}
+                    label="E-mail"
+                    placeholder="Enter your email"
                     name="email"
-                    size={InputSize.MEDIUM}
                     control={control}
                     errors={errors}
+                    className={styles.inputPages}
                 />
             </p>
             <p className={styles.inputWrapper}>
                 <Input
-                    type={eye.password ? InputType.TEXT : InputType.PASSWORD}
-                    label={InputLabel.PASSWORD}
-                    placeholder={InputPlaceholder.PASSWORD}
+                    type={InputType.PASSWORD}
+                    label="Password"
+                    placeholder="Enter your password"
                     name="password"
-                    size={InputSize.MEDIUM}
                     control={control}
                     errors={errors}
-                />
-                <img
-                    className={styles.eye}
-                    src={eyeIcons.password}
-                    onClickCapture={togglePasswordVisibility}
-                    alt="eye"
+                    className={styles.inputPages}
+                    eyeHidden
                 />
             </p>
-            <Button type={ButtonType.SUBMIT}>Log in</Button>
-            <span>Or Log In With</span>
+            <Button type={ButtonType.SUBMIT}>Log In</Button>
         </form>
     );
 };

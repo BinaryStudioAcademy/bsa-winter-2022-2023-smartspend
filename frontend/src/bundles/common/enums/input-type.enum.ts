@@ -1,7 +1,7 @@
 enum InputType {
-    EMAIL = 'Email',
-    PASSWORD = 'Password',
-    TEXT = 'Text',
+    EMAIL = 'email',
+    PASSWORD = 'password',
+    TEXT = 'text',
 }
 
 export { InputType };

@@ -59,6 +59,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/sign-up:
      *    post:
+     *      tags: [Auth]
      *      description: Sign up user into the system
      *      requestBody:
      *        description: User auth data
@@ -72,6 +73,8 @@ class AuthController extends Controller {
      *                  type: string
      *                  format: email
      *                password:
+     *                  type: string
+     *                repeatPassword:
      *                  type: string
      *      responses:
      *        201:
@@ -90,9 +93,10 @@ class AuthController extends Controller {
             body: UserSignUpRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const token = await this.authService.signUp(options.body);
         return {
             status: HttpCode.CREATED,
-            payload: await this.authService.signUp(options.body),
+            payload: token,
         };
     }
 
@@ -100,6 +104,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/sign-in:
      *    post:
+     *      tags: [Auth]
      *      description: Sign in user into the system
      *      requestBody:
      *        description: User auth data

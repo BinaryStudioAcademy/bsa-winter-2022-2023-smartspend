@@ -1,13 +1,10 @@
 :root {
-    --border-input: 1px;
     --border-radius: 0.5rem;
-    --font-size-label: 1rem;
-    --font-size-label-input: 1.125rem;
-    --line-height-input-small-email: 1rem;
     --line-height-label-span: 1.25rem;
 }
 
-label {
+.label {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100px;
@@ -20,15 +17,16 @@ label {
     line-height: var(--line-height-input);
 }
 
-label span {
+.inputLabel,
+.inputError {
     font-weight: var(--font-weight-400);
-    font-size: var(--font-size-label);
+    font-size: var(--font-size-level-6-heading);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-label-span);
 }
 
-label span:last-child {
+.inputError {
     color: var(--color-warning);
 }
 
@@ -37,7 +35,7 @@ label span:last-child {
     height: 48px;
     margin: 2px 0;
     padding-left: var(--p-3);
-    color: var(--color-gray-300);
+    color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-label);
     font-family: var(--font-family);
@@ -45,79 +43,38 @@ label span:last-child {
     line-height: var(--line-height-input);
     border: var(--border-input) solid var(--color-blue-200);
     border-radius: var(--border-radius);
+    outline: none;
     transition: box-shadow 0.2s linear;
+}
+
+.input:focus {
+    border-color: var(--color-blue-500);
+    box-shadow: #3242df33 0 0 0 4px;
+}
+
+.hasError,
+.hasError:focus {
+    border-color: var(--color-warning);
+    box-shadow: #dc243033 0 0 0 4px;
 }
 
 .input::placeholder {
     color: var(--color-gray-200);
 }
 
-.input:hover {
-    box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
+.disabled {
+    border-color: var(--color-disable);
 }
 
-.input:focus {
-    outline: none;
-    box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
+.disabled::placeholder {
+    color: var(--color-disable);
 }
 
-.emailMedium {
-    width: 390px;
-}
-
-.emailSmall {
-    width: 296px;
-    line-height: var(--line-height-input-small-email);
-    background: linear-gradient(var(--color-white-100), var(--color-white-100))
-            padding-box,
-        var(--gradient-3);
-    border: var(--border) solid transparent;
-}
-
-.password {
-    width: 390px;
-    color: var(--color-blue-600);
-}
-
-.emailMedium,
-.password {
-    font-size: var(--font-size-label-input);
-    background: linear-gradient(var(--color-white-100), var(--color-white-100))
-            padding-box,
-        var(--gradient-7);
-    border: var(--border) solid transparent;
-}
-
-.emailMedium:hover,
-.password:hover {
-    box-shadow: rgb(105 137 254 / 50%) 0 0 10px 0,
-        rgb(60 100 244 / 20%) 0 0 0 4px;
-}
-
-.emailMedium:focus,
-.password:focus {
-    background: linear-gradient(var(--color-white-100), var(--color-white-100))
-            padding-box,
-        var(--gradient-5);
-    border: var(--border) solid transparent;
-    box-shadow: rgb(0 215 189 / 50%) 0 0 10px 0, rgb(3 191 217 / 20%) 0 0 0 4px;
-}
-
-.emailSmall:hover,
-.emailSmall:focus {
-    border: var(--border) solid transparent;
-    box-shadow: rgb(254 102 230 / 50%) 0 0 10px 0,
-        rgb(105 51 221 / 20%) 0 0 0 4px;
-}
-
-.noteMedium {
-    width: 229px;
-}
-
-.noteSmall {
-    width: 177px;
-}
-
-.amount {
-    width: 87px;
+.inputIcon {
+    position: absolute;
+    top: 36px;
+    right: 20px;
+    width: 15px;
+    height: 16px;
+    cursor: pointer;
 }

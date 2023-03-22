@@ -6,12 +6,10 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import {
-    type InputLabel,
-    type InputPlaceholder,
-    type InputSize,
-    type InputType,
-} from '~/bundles/common/enums/enums.js';
+import eye from '~/assets/img/eye.svg';
+import eyeSlash from '~/assets/img/eye-slash.svg';
+import { InputType } from '~/bundles/common/enums/enums.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -19,12 +17,13 @@ import styles from './styles.module.scss';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
-    label?: InputLabel;
+    label: string;
+    placeholder?: string;
     name: FieldPath<T>;
-    placeholder?: InputPlaceholder;
     type?: InputType;
     className?: string;
-    size?: InputSize;
+    isDisabled?: boolean;
+    eyeHidden?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -32,36 +31,72 @@ const Input = <T extends FieldValues>({
     errors,
     label,
     name,
-    placeholder,
+    placeholder = '',
     type,
     className = '',
-    size,
+    isDisabled = false,
+    eyeHidden = false,
 }: Properties<T>): JSX.Element => {
-    const inputClasses = classNames(
-        styles.input,
-        label === 'E-mail' && size === 'medium' ? styles.emailMedium : '',
-        label === 'E-mail' && size === 'small' ? styles.emailSmall : '',
-        label === 'Password' ? styles.password : '',
-        label === 'By note' && size === 'medium' ? styles.noteMedium : '',
-        label === 'By note' && size === 'small' ? styles.noteSmall : '',
-        label === 'Amount' ? styles.amount : '',
-        className,
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePasswordVisibility = useCallback(() => {
+        setPasswordShown((previousState) => !previousState);
+    }, []);
+
+    const handleClickEye = useCallback(() => {
+        togglePasswordVisibility();
+    }, [togglePasswordVisibility]);
+    const show = passwordShown ? eye : eyeSlash;
+
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLSpanElement>): void => {
+            if (event.key === 'Enter') {
+                handleClickEye();
+            }
+        },
+        [handleClickEye],
     );
+
     const { field } = useFormController({ name, control });
 
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
+    const inputClasses = classNames(
+        styles.input,
+        hasError && styles.hasError,
+        styles[isDisabled ? 'disabled' : ''],
+        className,
+    );
+
     return (
-        <label>
-            <span>{label}</span>
+        <label className={styles.label}>
+            <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}
-                type={type}
+                type={passwordShown ? InputType.TEXT : type}
                 placeholder={placeholder}
+                disabled={isDisabled}
                 className={inputClasses}
             />
-            {hasError && <span>{error as string}</span>}
+            {eyeHidden && (
+                <span
+                    className={styles.inputIcon}
+                    role="button"
+                    tabIndex={0}
+                    onClick={handleClickEye}
+                    onKeyDown={handleKeyDown}
+                >
+                    <img
+                        src={show}
+                        alt={passwordShown ? 'Hide password' : 'Show password'}
+                    />
+                </span>
+            )}
+
+            {hasError && (
+                <span className={styles.inputError}>{error as string}</span>
+            )}
         </label>
     );
 };

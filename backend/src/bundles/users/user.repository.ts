@@ -57,8 +57,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
             return undefined;
         }
 
-        const userProfile = user.userProfile;
-        if (!userProfile) {
+        if (!user.userProfile) {
             await user
                 .$relatedQuery('userProfile')
                 .insert({ ...data.userProfile })

@@ -38,6 +38,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
             })
             .returning('*')
             .execute();
+
         return UserEntity.initialize(item);
     }
 
@@ -55,6 +56,16 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         if (!user) {
             return undefined;
         }
+
+        const userProfile = user.userProfile;
+        if (!userProfile) {
+            await user
+                .$relatedQuery('userProfile')
+                .insert({ ...data.userProfile })
+                .returning('*')
+                .execute();
+        }
+
         await user.$query().update(data).returning('*').execute();
 
         await user

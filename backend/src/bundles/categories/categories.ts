@@ -11,10 +11,16 @@ const categoryController = new CategoryController(logger, categoryService);
 
 export { categoryController };
 export { CategoryModel } from './category.model.js';
-export { CategoryType } from './enums/enums.js';
+export {
+    CategoriesApiPath,
+    CategoryErrorMessage,
+    CategoryType,
+} from './enums/enums.js';
 export {
     type CategoryGetAllItemResponseDto,
     type CategoryGetAllResponseDto,
+    type CategoryIdRequestDto,
     type CategoryRequestDto,
+    type CategoryUpdateRequestDto,
 } from './types/types.js';
 export { categoryValidationSchema } from './validation-schemas/validation-schemas.js';

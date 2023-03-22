@@ -1,6 +1,8 @@
 import {
     type CategoryGetAllResponseDto,
     type CategoryRequestDto,
+    type CategoryUpdateRequestDto,
+    CategoryErrorMessage,
 } from '~/bundles/categories/categories.js';
 import { CategoryEntity } from '~/bundles/categories/category.entity.js';
 import { type CategoryRepository } from '~/bundles/categories/category.repository.js';
@@ -18,7 +20,13 @@ class CategoryService implements IService {
     }
 
     public async findById(id: number): Promise<CategoryEntity | undefined> {
-        return await this.find({ id });
+        const category = await this.find({ id });
+
+        if (!category) {
+            throw new Error(CategoryErrorMessage.NOT_FOUND);
+        }
+
+        return category;
     }
 
     public async findAll(): Promise<CategoryGetAllResponseDto> {
@@ -40,12 +48,32 @@ class CategoryService implements IService {
         );
     }
 
-    public update(): ReturnType<IService['update']> {
-        return Promise.resolve(null);
+    public async update(
+        id: number,
+        payload: CategoryUpdateRequestDto,
+    ): Promise<CategoryUpdateRequestDto | undefined> {
+        const updatedCategory = await this.categoryRepository.update(
+            id,
+            payload,
+        );
+
+        if (!updatedCategory) {
+            throw new Error(CategoryErrorMessage.NOT_FOUND);
+        }
+
+        return updatedCategory.toObject();
     }
 
-    public delete(): ReturnType<IService['delete']> {
-        return Promise.resolve(true);
+    public async delete(
+        id: number,
+    ): Promise<CategoryGetAllResponseDto | undefined> {
+        const deletedCategory = await this.categoryRepository.delete(id);
+
+        if (!deletedCategory) {
+            throw new Error(CategoryErrorMessage.NOT_FOUND);
+        }
+
+        return await this.findAll();
     }
 }
 

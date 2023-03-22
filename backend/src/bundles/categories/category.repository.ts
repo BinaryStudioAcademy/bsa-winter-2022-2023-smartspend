@@ -2,7 +2,7 @@ import { CategoryEntity } from '~/bundles/categories/category.entity.js';
 import { type CategoryModel } from '~/bundles/categories/category.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-import { type CategoryUpdateRequestDto } from './types/types';
+import { type CategoryUpdateRequestDto } from './categories.js';
 
 class CategoryRepository implements IRepository {
     private categoryModel: typeof CategoryModel;
@@ -11,16 +11,16 @@ class CategoryRepository implements IRepository {
         this.categoryModel = categoryModel;
     }
 
-    public async find(data: object): Promise<CategoryEntity | undefined> {
-        const category = await this.categoryModel
+    public async find(payload: object): Promise<CategoryEntity | undefined> {
+        const data = await this.categoryModel
             .query()
             .select()
-            .where(data)
+            .where(payload)
             .first();
-        if (!category) {
+        if (!data) {
             return undefined;
         }
-        return CategoryEntity.initialize(category);
+        return CategoryEntity.initialize(data);
     }
 
     public async findAll(): Promise<CategoryEntity[]> {
@@ -40,12 +40,12 @@ class CategoryRepository implements IRepository {
     }
 
     public async update(
-        categoriId: string,
+        id: number,
         data: CategoryUpdateRequestDto,
     ): Promise<CategoryEntity | undefined> {
         const updatedCategory = await this.categoryModel
             .query()
-            .where({ id: categoriId })
+            .where({ id })
             .update(data)
             .returning('*')
             .execute();
@@ -53,8 +53,15 @@ class CategoryRepository implements IRepository {
         return CategoryEntity.initialize(updatedCategory[0]);
     }
 
-    public delete(): ReturnType<IRepository['delete']> {
-        return Promise.resolve(true);
+    public async delete(id: number): Promise<CategoryEntity | undefined> {
+        const item = await this.categoryModel
+            .query()
+            .where({ id })
+            .del()
+            .returning('id')
+            .execute();
+
+        return CategoryEntity.initialize(item[0]);
     }
 }
 

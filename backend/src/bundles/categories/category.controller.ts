@@ -1,6 +1,10 @@
-import { type CategoryRequestDto } from 'shared/build/index.js';
-
-import { categoryValidationSchema } from '~/bundles/categories/categories.js';
+import {
+    type CategoryIdRequestDto,
+    type CategoryRequestDto,
+    type CategoryUpdateRequestDto,
+    CategoriesApiPath,
+    categoryValidationSchema,
+} from '~/bundles/categories/categories.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -11,7 +15,6 @@ import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { type CategoryService } from './category.service.js';
-import { CategoriesApiPath } from './enums/enums.js';
 
 class CategoryController extends Controller {
     private categoryService: CategoryService;
@@ -28,6 +31,17 @@ class CategoryController extends Controller {
         });
 
         this.addRoute({
+            path: CategoriesApiPath.ID,
+            method: 'GET',
+            handler: (options) =>
+                this.findById(
+                    options as ApiHandlerOptions<{
+                        params: CategoryIdRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
             path: CategoriesApiPath.ROOT,
             method: 'POST',
             validation: {
@@ -40,6 +54,29 @@ class CategoryController extends Controller {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: CategoriesApiPath.ID,
+            method: 'PUT',
+            handler: (options) =>
+                this.update(
+                    options as ApiHandlerOptions<{
+                        body: CategoryUpdateRequestDto;
+                        params: CategoryIdRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: CategoriesApiPath.ID,
+            method: 'DELETE',
+            handler: (options) =>
+                this.delete(
+                    options as ApiHandlerOptions<{
+                        params: CategoryIdRequestDto;
+                    }>,
+                ),
+        });
     }
 
     private async findAll(): Promise<ApiHandlerResponse> {
@@ -49,15 +86,52 @@ class CategoryController extends Controller {
         };
     }
 
+    private async findById(
+        options: ApiHandlerOptions<{
+            params: CategoryIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.categoryService.findById(options.params.id),
+        };
+    }
+
     private async create(
         options: ApiHandlerOptions<{
             body: CategoryRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const newCategory = await this.categoryService.create(options.body);
         return {
             status: HttpCode.CREATED,
-            payload: newCategory,
+            payload: await this.categoryService.create(options.body),
+        };
+    }
+
+    private async update(
+        options: ApiHandlerOptions<{
+            body: CategoryUpdateRequestDto;
+            params: CategoryIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const updatedCategory = await this.categoryService.update(
+            options.params.id,
+            options.body,
+        );
+        return {
+            status: HttpCode.OK,
+            payload: updatedCategory,
+        };
+    }
+
+    private async delete(
+        options: ApiHandlerOptions<{
+            params: CategoryIdRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.categoryService.delete(options.params.id),
         };
     }
 }

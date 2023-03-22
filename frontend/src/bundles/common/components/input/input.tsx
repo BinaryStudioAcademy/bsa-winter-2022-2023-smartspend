@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
     type Control,
     type FieldErrors,
@@ -5,15 +6,24 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
+import eye from '~/assets/img/eye.svg';
+import eyeSlash from '~/assets/img/eye-slash.svg';
+import { InputType } from '~/bundles/common/enums/enums.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
+
+import styles from './styles.module.scss';
 
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
     label: string;
-    name: FieldPath<T>;
     placeholder?: string;
-    type?: 'text' | 'email';
+    name: FieldPath<T>;
+    type?: InputType;
+    className?: string;
+    isDisabled?: boolean;
+    eyeHidden?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -22,18 +32,71 @@ const Input = <T extends FieldValues>({
     label,
     name,
     placeholder = '',
-    type = 'text',
+    type,
+    className = '',
+    isDisabled = false,
+    eyeHidden = false,
 }: Properties<T>): JSX.Element => {
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePasswordVisibility = useCallback(() => {
+        setPasswordShown((previousState) => !previousState);
+    }, []);
+
+    const handleClickEye = useCallback(() => {
+        togglePasswordVisibility();
+    }, [togglePasswordVisibility]);
+    const show = passwordShown ? eye : eyeSlash;
+
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLSpanElement>): void => {
+            if (event.key === 'Enter') {
+                handleClickEye();
+            }
+        },
+        [handleClickEye],
+    );
+
     const { field } = useFormController({ name, control });
 
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
+    const inputClasses = classNames(
+        styles.input,
+        hasError && styles.hasError,
+        styles[isDisabled ? 'disabled' : ''],
+        className,
+    );
+
     return (
-        <label>
-            <span>{label}</span>
-            <input {...field} type={type} placeholder={placeholder} />
-            {hasError && <span>{error as string}</span>}
+        <label className={styles.label}>
+            <span className={styles.inputLabel}>{label}</span>
+            <input
+                {...field}
+                type={passwordShown ? InputType.TEXT : type}
+                placeholder={placeholder}
+                disabled={isDisabled}
+                className={inputClasses}
+            />
+            {eyeHidden && (
+                <span
+                    className={styles.inputIcon}
+                    role="button"
+                    tabIndex={0}
+                    onClick={handleClickEye}
+                    onKeyDown={handleKeyDown}
+                >
+                    <img
+                        src={show}
+                        alt={passwordShown ? 'Hide password' : 'Show password'}
+                    />
+                </span>
+            )}
+
+            {hasError && (
+                <span className={styles.inputError}>{error as string}</span>
+            )}
         </label>
     );
 };

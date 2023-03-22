@@ -1,5 +1,5 @@
 import Knex, { type Knex as TKnex } from 'knex';
-import { knexSnakeCaseMappers, Model } from 'objection';
+import { Model } from 'objection';
 
 import { type IConfig } from '~/common/config/config.js';
 import { AppEnvironment } from '~/common/enums/enums.js';
@@ -44,9 +44,6 @@ class Database implements IDatabase {
                 tableName: DatabaseTableName.MIGRATIONS,
             },
             debug: false,
-            ...knexSnakeCaseMappers({
-                underscoreBetweenUppercaseLetters: true,
-            }),
         };
     }
 

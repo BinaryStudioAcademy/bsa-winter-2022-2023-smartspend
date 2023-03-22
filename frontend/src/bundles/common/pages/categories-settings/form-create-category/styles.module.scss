@@ -1,0 +1,55 @@
+.nameOne {
+    position: relative;
+    z-index: 1;
+    transition: z-index 0.35s step-end;
+}
+
+.nameTwo {
+    position: relative;
+    margin: 0 -15px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+}
+
+.nameTree {
+    width: 100%;
+}
+
+.nameFour {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mob {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+    .customIcon{
+        flex-basis: 25%;
+        max-width: 25%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .categoryName {
+        flex-basis: 33.3%;
+        max-width: 33.3%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .selectType {
+        flex-basis: 16.6%;
+        max-width: 16.6%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .createCategoryBtn {
+        flex-basis: 25%;
+        max-width: 25%;
+    }
+}

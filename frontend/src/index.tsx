@@ -14,6 +14,7 @@ import {
 import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
+import { CategoriesSettings } from '~/bundles/common/pages/categories-settings/categories-settings';
 import { Dashboard } from '~/bundles/common/pages/dashboard';
 import { store } from '~/framework/store/store';
 
@@ -60,6 +61,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     {
                         path: AppRoute.UI,
                         element: <Base />,
+                    },
+                    {
+                        path: AppRoute.CATSET,
+                        element: <CategoriesSettings />,
                     },
                 ]}
             />

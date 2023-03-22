@@ -1,0 +1,72 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 800;
+    width: 100vw;
+    pointer-events: none;
+    background: rgb(0 0 0 60%);
+    opacity: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .overlay {
+        transition: opacity 0.3s;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .section {
+        display: flex;
+        max-width: 75%;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    background-color: var(--color-white-100);
+    border-radius: var(--b-2);
+}
+
+@media screen and (min-width: 768px) {
+    .wrapper{
+        padding: var(--p-2) 0;
+    }
+}
+
+.content {
+    padding: var(--p-2) var(--p-2) var(--p-3);
+}
+
+@media screen and (min-width: 768px) {
+    .content {
+        padding: 12px 80px 20px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .content {
+        padding: 24px 120px 40px;
+    }
+}
+
+
+.manageWrapper {
+    margin: 20px 0;
+    padding: 12px 0;
+}
+
+.title {
+    color: var(--color-gray-300);
+    font-weight: var(--font-weight-600);
+    font-size: 14px;
+}
+
+.btnWrapper {
+    display: flex;
+    flex: 0 1 auto;
+    flex-flow: wrap;
+    margin: 0 -0.5rem;
+}

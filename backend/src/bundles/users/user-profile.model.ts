@@ -5,9 +5,8 @@ import {
     DatabaseTableName,
 } from '~/common/database/database.js';
 
+import { type Gender } from './types/types.js';
 import { UserModel } from './user.model.js';
-
-type Gender = 'male' | 'female';
 
 class UserProfileModel extends AbstractModel {
     public 'userId': number;

@@ -1,6 +1,7 @@
 import { type IEntity } from '~/common/interfaces/interfaces.js';
 
-type Gender = 'male' | 'female';
+import { type Gender } from './types/user-gender';
+
 class UserEntity implements IEntity {
     private 'id': number | null;
 
@@ -176,4 +177,4 @@ class UserEntity implements IEntity {
     }
 }
 
-export { type Gender, UserEntity };
+export { UserEntity };

@@ -17,7 +17,6 @@ export { ThirdStepPart } from './third-step-part/third-step-part';
 export { WalletCard } from './wallet-card/wallet-card';
 export {
     Button,
-    CreateInputNote,
     DoughnutChart,
     Input,
     LineChart,

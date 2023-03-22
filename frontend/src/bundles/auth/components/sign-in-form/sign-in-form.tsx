@@ -4,6 +4,7 @@ import {
 } from 'shared/build';
 
 import { Button, Input } from '~/bundles/common/components/components.js';
+import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 
 import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
@@ -29,7 +30,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
             <form onSubmit={submit}>
                 <p>
                     <Input
-                        type="text"
+                        type={InputType.TEXT}
                         label="Email"
                         placeholder="Enter your email"
                         name="email"
@@ -39,7 +40,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 </p>
                 <p>
                     <Input
-                        type="text"
+                        type={InputType.TEXT}
                         label="Password"
                         placeholder="Enter your password"
                         name="password"

@@ -2,11 +2,11 @@
     --border-input: 1px;
     --border-radius: 0.5rem;
     --font-size-label: 1rem;
-    --font-size-label-input: 0.9375rem;
-    --letter-spacing: -1px;
+    --line-height-label-span: 1.25rem;
 }
 
-label {
+.label {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100px;
@@ -19,48 +19,64 @@ label {
     line-height: var(--line-height-input);
 }
 
-.input {
-    display: block;
-    width: 290px;
-    height: 48px;
-    margin: var(--m-1) 0;
-    padding-left: var(--p-3);
-    color: var(--color-gray-400);
-    font-weight: var(--font-weight-500);
-    font-size: var(--font-size-label-input);
+.inputLabel,
+.inputError {
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-label);
     font-family: var(--font-family);
     font-style: normal;
-    line-height: var(--line-height-input);
-    letter-spacing: var(--letter-spacing);
-    border: var(--border-input) solid var(--color-blue-100);
-    border-radius: var(--border-radius);
-    box-shadow: rgb(0 0 0 / 5%) 0 0 1px 0, rgb(0 0 0 / 8%) 0 0 0 1px;
-}
-
-.input:focus {
-    border-color: var(--color-pink-100);
-    outline: none;
-    box-shadow: rgb(50 66 223 / 25%) 0 0 0 4px;
+    line-height: var(--line-height-label-span);
 }
 
 .inputError {
+    color: var(--color-warning);
+}
+
+.input {
     display: block;
-    width: 290px;
     height: 48px;
-    margin: var(--m-1) 0;
+    margin: 2px 0;
     padding-left: var(--p-3);
-    color: var(--color-gray-400);
+    color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
-    font-size: var(--font-size-label-input);
+    font-size: var(--font-size-label);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-input);
-    letter-spacing: var(--letter-spacing);
-    border: var(--border-input) solid --color-warning;
+    border: var(--border-input) solid var(--color-blue-200);
     border-radius: var(--border-radius);
-    box-shadow: rgb(220 36 48 / 25%) 0 0 0 4px;
+    outline: none;
+    transition: box-shadow 0.2s linear;
 }
 
-.inputError:focus {
-    outline: none;
+.input:focus {
+    border-color: var(--color-blue-500);
+    box-shadow: #3242df33 0 0 0 4px;
+}
+
+.hasError,
+.hasError:focus {
+    border-color: var(--color-warning);
+    box-shadow: #dc243033 0 0 0 4px;
+}
+
+.input::placeholder {
+    color: var(--color-gray-200);
+}
+
+.disabled {
+    border-color: var(--color-disable);
+}
+
+.disabled::placeholder {
+    color: var(--color-disable);
+}
+
+.inputIcon {
+    position: absolute;
+    top: 36px;
+    right: 20px;
+    width: 15px;
+    height: 16px;
+    cursor: pointer;
 }

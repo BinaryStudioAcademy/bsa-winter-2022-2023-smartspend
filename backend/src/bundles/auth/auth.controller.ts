@@ -71,6 +71,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/sign-up:
      *    post:
+     *      tags: [Auth]
      *      description: Sign up user into the system
      *      requestBody:
      *        description: User auth data
@@ -115,6 +116,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/sign-in:
      *    post:
+     *      tags: [Auth]
      *      description: Sign in user into the system
      *      requestBody:
      *        description: User auth data

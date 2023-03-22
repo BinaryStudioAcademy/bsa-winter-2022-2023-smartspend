@@ -1,4 +1,5 @@
 export { AppRoute } from './app-route.enum.js';
+export { AuthEndpointName } from './auth-endpoint-name.enum.js';
 export { BarColors } from './bar-color.enum';
 export { ButtonSize } from './button-size.enum.js';
 export { ButtonType } from './button-type.enum.js';
@@ -12,6 +13,7 @@ export { menuLinks } from './menu-links.enum.js';
 export {
     ApiPath,
     AppEnvironment,
+    AuthApiPath,
     ContentType,
     ServerErrorType,
 } from 'shared/build/index.js';

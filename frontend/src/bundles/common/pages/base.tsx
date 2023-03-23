@@ -15,6 +15,7 @@ import {
     Input,
     LineChart,
 } from '../components/components.js';
+import { Dropdown } from '../components/dropdown/dropdown.js';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
 import { ButtonSize } from '../enums/button-size.enum';
@@ -22,6 +23,7 @@ import { ButtonVariant } from '../enums/button-variant.enum.js';
 import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
+import { type dataTypes } from '../types/dropdown.type';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -71,6 +73,38 @@ const tabsDashboard = [
     { title: 'Budget', to: AppRoute.BUDGETS },
 ];
 
+// DROPDOWN data
+
+const people = [
+    {
+        value: 1,
+        name: 'John Doe',
+        image: 'https://placekitten.com/50/50',
+    },
+    {
+        value: 2,
+        name: 'Jane Smith',
+        image: 'https://placekitten.com/51/51',
+    },
+    {
+        value: 3,
+        name: 'Alice Johnson',
+        image: 'https://placekitten.com/52/52',
+    },
+    {
+        value: 4,
+        name: 'Bob Brown',
+        image: 'https://placekitten.com/53/53',
+    },
+    {
+        value: 5,
+        name: 'Charlie Green',
+        image: 'https://placekitten.com/54/54',
+    },
+];
+
+// DROPDOWN data
+
 const allTabsData = {
     dashboard: tabsDashboard,
     wallets: tabsData,
@@ -91,9 +125,22 @@ const Base: React.FC = () => {
         validationSchema: userSignInValidationSchema,
         mode: 'onBlur',
     });
+
+    const [selected, setSelected] = useState(people[0]);
+
+    const handleDropdownChange = useCallback((selectedOption: dataTypes) => {
+        setSelected(selectedOption);
+    }, []);
+
     return (
         <>
             <Header dataTabs={allTabsData} />
+            <br></br>
+            <Dropdown
+                data={people}
+                selectedOption={selected}
+                handleChange={handleDropdownChange}
+            />
             <div style={{ textAlign: 'center' }}>
                 <b>Style Guide</b>
                 <div>
@@ -432,7 +479,6 @@ const Base: React.FC = () => {
                     </form>
                 </div>
             </div>
-
             <UserSettingsTabs tabsData={userSettingsData} />
         </>
     );

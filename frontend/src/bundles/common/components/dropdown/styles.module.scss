@@ -1,0 +1,21 @@
+.select {
+    width: 299px;
+    height: 48px;
+}
+
+.logo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+// .name {
+//     overflow: hidden;
+//     white-space: nowrap;
+//     text-overflow: ellipsis;
+// }
+
+.option {
+    display: flex;
+    align-items: center;
+}

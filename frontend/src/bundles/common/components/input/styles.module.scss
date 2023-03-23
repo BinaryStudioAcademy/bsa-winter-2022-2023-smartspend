@@ -1,7 +1,5 @@
 :root {
-    --border-input: 1px;
     --border-radius: 0.5rem;
-    --font-size-label: 1rem;
     --line-height-label-span: 1.25rem;
 }
 
@@ -23,7 +21,7 @@
 .inputLabel,
 .inputError {
     font-weight: var(--font-weight-400);
-    font-size: var(--font-size-label);
+    font-size: var(--font-size-level-6-heading);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-label-span);
@@ -31,6 +29,7 @@
 
 .inputError {
     color: var(--color-warning);
+    font-size: var(--font-size-level-6-heading);
 }
 
 .input {
@@ -80,4 +79,8 @@
     width: 15px;
     height: 16px;
     cursor: pointer;
+}
+
+.inputIcon:focus-visible {
+    outline: none;
 }

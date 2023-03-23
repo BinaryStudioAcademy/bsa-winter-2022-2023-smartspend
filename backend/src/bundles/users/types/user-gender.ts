@@ -1,3 +1,6 @@
-type Gender = 'male' | 'female';
+enum Gender {
+    MALE = 'male',
+    FEMALE = 'female',
+}
 
-export { type Gender };
+export { Gender };

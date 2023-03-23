@@ -1,4 +1,5 @@
 import {
+    type UserLoadRequestDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
@@ -53,12 +54,24 @@ class AuthController extends Controller {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: AuthApiPath.AUTHENTICATED_USER,
+            method: 'GET',
+            handler: (options) =>
+                this.loadUser(
+                    options as ApiHandlerOptions<{
+                        query: UserLoadRequestDto;
+                    }>,
+                ),
+        });
     }
 
     /**
      * @swagger
      * /auth/sign-up:
      *    post:
+     *      tags: [Auth]
      *      description: Sign up user into the system
      *      requestBody:
      *        description: User auth data
@@ -103,6 +116,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/sign-in:
      *    post:
+     *      tags: [Auth]
      *      description: Sign in user into the system
      *      requestBody:
      *        description: User auth data
@@ -138,6 +152,43 @@ class AuthController extends Controller {
         return {
             status: HttpCode.OK,
             payload: token,
+        };
+    }
+
+    /**
+     * @swagger
+     * /auth/authenticated-user:
+     *    get:
+     *      tags: [Auth]
+     *      description: Load authenticated user data
+     *      parameters:
+     *        - in: query
+     *          name: token
+     *          schema:
+     *            type: integer
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  message:
+     *                    type: object
+     *                    $ref: '#/components/schemas/User'
+     */
+
+    private async loadUser(
+        options: ApiHandlerOptions<{
+            query: UserLoadRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { token } = options.query;
+        const user = await this.authService.getUserByToken(token);
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }

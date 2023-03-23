@@ -46,7 +46,7 @@ const Landing: React.FC = () => {
             <SecondStepPart />
             <ThirdStepPart />
             <FeedbacksPart
-                title={'Why people use Spendee'}
+                title={'Why people use SmartSpend'}
                 feedbacks={feedbacksArray}
             />
             <SubscriptionPart

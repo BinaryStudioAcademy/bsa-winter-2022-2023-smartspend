@@ -1,3 +1,6 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
 import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
@@ -6,6 +9,8 @@ import {
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as userActions } from '~/bundles/users/store';
+
+library.add(faChevronDown);
 
 const App: React.FC = () => {
     const { pathname } = useLocation();

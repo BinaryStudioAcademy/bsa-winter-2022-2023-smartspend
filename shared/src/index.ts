@@ -4,7 +4,7 @@ export {
     type CategoryGetAllResponseDto,
     type CategoryIdRequestDto,
     type CategoryRequestDto,
-    type CategoryUpdateRequestDto,
+    type CategoryUpdatePayloadDto,
     CategoriesApiPath,
     CategoryErrorMessage,
     CategoryType,

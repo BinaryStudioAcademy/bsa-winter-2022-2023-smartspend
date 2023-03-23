@@ -1,14 +1,14 @@
 import {
     type CategoryGetAllResponseDto,
     type CategoryRequestDto,
-    type CategoryUpdateRequestDto,
+    type CategoryUpdatePayloadDto,
     CategoryErrorMessage,
 } from '~/bundles/categories/categories.js';
 import { CategoryEntity } from '~/bundles/categories/category.entity.js';
 import { type CategoryRepository } from '~/bundles/categories/category.repository.js';
 import { type IService } from '~/common/interfaces/interfaces.js';
 
-class CategoryService implements IService {
+class CategoryService implements Partial<IService> {
     private categoryRepository: CategoryRepository;
 
     public constructor(categoryRepository: CategoryRepository) {
@@ -48,11 +48,11 @@ class CategoryService implements IService {
         );
     }
 
-    public async update(
+    public async updateCategory(
         id: string,
-        payload: CategoryUpdateRequestDto,
-    ): Promise<CategoryUpdateRequestDto | undefined> {
-        const updatedCategory = await this.categoryRepository.update(
+        payload: CategoryUpdatePayloadDto,
+    ): Promise<CategoryUpdatePayloadDto | undefined> {
+        const updatedCategory = await this.categoryRepository.updateCategory(
             id,
             payload,
         );
@@ -64,10 +64,10 @@ class CategoryService implements IService {
         return updatedCategory.toObject();
     }
 
-    public async delete(
+    public async deleteCategory(
         id: string,
     ): Promise<CategoryGetAllResponseDto | undefined> {
-        const deletedCategory = await this.categoryRepository.delete(id);
+        const deletedCategory = await this.categoryRepository.deleteCategory(id);
 
         if (!deletedCategory) {
             throw new Error(CategoryErrorMessage.NOT_FOUND);

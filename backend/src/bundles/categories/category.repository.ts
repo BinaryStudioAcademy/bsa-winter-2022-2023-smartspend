@@ -2,9 +2,9 @@ import { CategoryEntity } from '~/bundles/categories/category.entity.js';
 import { type CategoryModel } from '~/bundles/categories/category.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-import { type CategoryUpdateRequestDto } from './categories.js';
+import { type CategoryUpdatePayloadDto } from './categories.js';
 
-class CategoryRepository implements IRepository {
+class CategoryRepository implements Partial<IRepository> {
     private categoryModel: typeof CategoryModel;
 
     public constructor(categoryModel: typeof CategoryModel) {
@@ -39,21 +39,21 @@ class CategoryRepository implements IRepository {
         return CategoryEntity.initialize(item);
     }
 
-    public async update(
+    public async updateCategory(
         id: string,
-        data: CategoryUpdateRequestDto,
+        payload: CategoryUpdatePayloadDto,
     ): Promise<CategoryEntity | undefined> {
         const updatedCategory = await this.categoryModel
             .query()
             .where({ id })
-            .update(data)
+            .update(payload)
             .returning('*')
             .execute();
 
         return CategoryEntity.initialize(updatedCategory[0]);
     }
 
-    public async delete(id: string): Promise<CategoryEntity | undefined> {
+    public async deleteCategory(id: string): Promise<CategoryEntity | undefined> {
         const item = await this.categoryModel
             .query()
             .where({ id })

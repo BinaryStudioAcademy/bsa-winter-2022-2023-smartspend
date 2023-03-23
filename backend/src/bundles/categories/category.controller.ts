@@ -1,7 +1,7 @@
 import {
     type CategoryIdRequestDto,
     type CategoryRequestDto,
-    type CategoryUpdateRequestDto,
+    type CategoryUpdatePayloadDto,
     CategoriesApiPath,
     categoryValidationSchema,
 } from '~/bundles/categories/categories.js';
@@ -99,7 +99,7 @@ class CategoryController extends Controller {
             handler: (options) =>
                 this.update(
                     options as ApiHandlerOptions<{
-                        body: CategoryUpdateRequestDto;
+                        body: CategoryUpdatePayloadDto;
                         params: CategoryIdRequestDto;
                     }>,
                 ),
@@ -226,11 +226,11 @@ class CategoryController extends Controller {
      */
     private async update(
         options: ApiHandlerOptions<{
-            body: CategoryUpdateRequestDto;
+            body: CategoryUpdatePayloadDto;
             params: CategoryIdRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const updatedCategory = await this.categoryService.update(
+        const updatedCategory = await this.categoryService.updateCategory(
             options.params.id,
             options.body,
         );
@@ -269,7 +269,7 @@ class CategoryController extends Controller {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.categoryService.delete(options.params.id),
+            payload: await this.categoryService.deleteCategory(options.params.id),
         };
     }
 }

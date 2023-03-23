@@ -21,6 +21,6 @@ export {
     type CategoryGetAllResponseDto,
     type CategoryIdRequestDto,
     type CategoryRequestDto,
-    type CategoryUpdateRequestDto,
+    type CategoryUpdatePayloadDto,
 } from './types/types.js';
 export { categoryValidationSchema } from './validation-schemas/validation-schemas.js';

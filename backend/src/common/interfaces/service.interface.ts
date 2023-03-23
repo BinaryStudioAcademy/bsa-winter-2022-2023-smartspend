@@ -3,8 +3,8 @@ interface IService<T = unknown> {
         items: T[];
     }>;
     create(payload: unknown): Promise<T>;
-    update(id: number | string, payload: unknown): Promise<T>;
-    delete(id: number | string): Promise<T>;
+    update(): Promise<T>;
+    delete(): Promise<T>;
 }
 
 export { type IService };

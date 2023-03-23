@@ -50,7 +50,7 @@ class UserService implements IService {
 
     public async update(
         id: string,
-        payload: UserUpdateRequestDto,
+        payload: Partial<UserUpdateRequestDto>,
     ): Promise<UserUpdateResponseDto | undefined> {
         const updatedUser = await this.userRepository.updateUserProfile(
             id,

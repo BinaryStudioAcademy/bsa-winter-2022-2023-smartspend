@@ -1,7 +1,7 @@
 import { type UserUpdateRequestDto } from './types.js';
 
 type UpdateRequestDto = {
-    body: UserUpdateRequestDto;
+    body: Partial<UserUpdateRequestDto>;
     token: string;
 };
 

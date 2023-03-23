@@ -8,12 +8,14 @@ interface Properties {
     data: dataTypes[];
     selectedOption: dataTypes;
     handleChange?: (option: dataTypes | null) => void;
+    width?: string | number;
 }
 
 const Dropdown: React.FC<Properties> = ({
     data,
     selectedOption,
     handleChange,
+    width = '229px',
 }) => {
     const options = data.map((item) => ({
         value: item.value,
@@ -48,6 +50,12 @@ const Dropdown: React.FC<Properties> = ({
             onChange={handleChange}
             options={options}
             formatOptionLabel={formatOptionLabel}
+            styles={{
+                container: (provided) => ({
+                    ...provided,
+                    width: typeof width === 'number' ? `${width}px` : width,
+                }),
+            }}
         />
     );
 };

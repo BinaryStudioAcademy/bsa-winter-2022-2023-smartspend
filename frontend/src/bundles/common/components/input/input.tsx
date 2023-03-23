@@ -17,11 +17,12 @@ import styles from './styles.module.scss';
 type Properties<T extends FieldValues> = {
     control: Control<T, null>;
     errors: FieldErrors<T>;
-    label: string;
+    label?: string;
     placeholder?: string;
     name: FieldPath<T>;
     type?: InputType;
-    className?: string;
+    input_className?: string;
+    label_className?: string;
     isDisabled?: boolean;
     eyeHidden?: boolean;
 };
@@ -33,7 +34,8 @@ const Input = <T extends FieldValues>({
     name,
     placeholder = '',
     type,
-    className = '',
+    input_className = '',
+    label_className = '',
     isDisabled = false,
     eyeHidden = false,
 }: Properties<T>): JSX.Element => {
@@ -62,15 +64,17 @@ const Input = <T extends FieldValues>({
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
+    const labelClasses = classNames(styles.label, label_className);
+
     const inputClasses = classNames(
         styles.input,
         hasError && styles.hasError,
         styles[isDisabled ? 'disabled' : ''],
-        className,
+        input_className,
     );
 
     return (
-        <label className={styles.label}>
+        <label className={labelClasses}>
             <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}

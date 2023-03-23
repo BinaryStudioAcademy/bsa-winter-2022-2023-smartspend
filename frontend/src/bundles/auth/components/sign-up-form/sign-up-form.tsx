@@ -38,7 +38,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="email"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    input_className={styles.input}
                 />
             </p>
             <p className={styles.inputWrapper}>
@@ -49,7 +49,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="password"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    input_className={styles.input}
                     eyeHidden
                 />
             </p>
@@ -61,7 +61,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="repeatPassword"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    input_className={styles.input}
                     eyeHidden
                 />
             </p>

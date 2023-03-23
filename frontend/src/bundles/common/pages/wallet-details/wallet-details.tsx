@@ -106,7 +106,7 @@ const WalletDetails: React.FC = () => {
                                         name="note"
                                         control={control}
                                         errors={errors}
-                                        className={styles.input}
+                                        input_className={styles.input}
                                     />
                                 </div>
                                 <div className={styles.filter}>

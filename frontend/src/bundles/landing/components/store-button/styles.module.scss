@@ -17,12 +17,16 @@
 }
 
 .title {
+    width: 90px;
     font-size: 11px;
 }
 
 .detailsContainer {
     display: flex;
     flex-direction: column;
+
+    // justify-content: center;
+    align-items: center;
 }
 
 .body {

@@ -169,17 +169,18 @@ const Base: React.FC = () => {
     return (
         <>
             <Header dataTabs={allTabsData} />
-            <br></br>
-            <Dropdown
-                data={people}
-                selectedOption={selectedSingle}
-                handleChange={handleDropdownChange}
-            />
+
             <div style={{ textAlign: 'center' }}>
                 <b>Style Guide</b>
                 <div>
                     <Tabs tabsData={tabsData} />
                 </div>
+                <br></br>
+                <Dropdown
+                    data={people}
+                    selectedOption={selectedSingle}
+                    handleChange={handleDropdownChange}
+                />
                 {/* Buttons */}
                 <div
                     style={{

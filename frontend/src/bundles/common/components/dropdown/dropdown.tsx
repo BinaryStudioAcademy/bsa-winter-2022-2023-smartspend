@@ -26,7 +26,7 @@ const Dropdown: React.FC<Properties> = ({
             <div className={styles.item}>
                 {data.image && (
                     <img
-                        className={styles.logo}
+                        className={styles.image}
                         src={data.image}
                         alt={data.name ?? ''}
                     />

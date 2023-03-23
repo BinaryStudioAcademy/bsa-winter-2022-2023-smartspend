@@ -1,5 +1,1 @@
-export {
-    AppRoute,
-    AuthApiPath,
-    AuthEndpointName,
-} from '~/bundles/common/enums/enums.js';
+export { AppRoute, AuthApiPath } from '~/bundles/common/enums/enums.js';

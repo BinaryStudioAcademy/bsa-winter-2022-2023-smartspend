@@ -1,5 +1,4 @@
 export { AppRoute } from './app-route.enum.js';
-export { AuthEndpointName } from './auth-endpoint-name.enum.js';
 export { BarColors } from './bar-color.enum';
 export { ButtonSize } from './button-size.enum.js';
 export { ButtonType } from './button-type.enum.js';

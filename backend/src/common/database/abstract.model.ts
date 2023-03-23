@@ -3,19 +3,19 @@ import { Model } from 'objection';
 class Abstract extends Model {
     public 'id': string;
 
-    public 'created_at': string;
+    public 'createdAt': string;
 
-    public 'updated_at': string;
+    public 'updatedAt': string;
 
     public override $beforeInsert(): void {
         const insertDate = new Date().toISOString();
 
-        this.created_at = insertDate;
-        this.updated_at = insertDate;
+        this.createdAt = insertDate;
+        this.updatedAt = insertDate;
     }
 
     public override $beforeUpdate(): void {
-        this.updated_at = new Date().toISOString();
+        this.updatedAt = new Date().toISOString();
     }
 }
 

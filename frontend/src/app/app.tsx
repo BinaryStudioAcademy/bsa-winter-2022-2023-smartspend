@@ -8,13 +8,11 @@ import {
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as userActions } from '~/bundles/users/store';
-import { storage, StorageKey } from '~/framework/storage/storage';
 
 const App: React.FC = () => {
     const { pathname } = useLocation();
     const { user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
-    const token = storage.getSync(StorageKey.TOKEN);
 
     const isRoot = pathname === AppRoute.ROOT;
 
@@ -25,10 +23,10 @@ const App: React.FC = () => {
     }, [dispatch, isRoot]);
 
     useEffect(() => {
-        if (!user && token) {
+        if (!user) {
             void dispatch(authActions.loadUser());
         }
-    }, [dispatch, token, user]);
+    }, [dispatch, user]);
 
     return (
         <>

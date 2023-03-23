@@ -7,11 +7,11 @@ import {
     userSignInValidationSchema,
 } from '~/bundles/users/users';
 
-import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
+import { DEFAULT_SIGN_IN_PAYLOAD } from './constans/constans';
 import styles from './styles.module.scss';
 
 type Properties = {
-    onSubmit: (payload: UserSignInRequestDto) => void;
+    onSubmit: (event: UserSignInRequestDto) => void;
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
@@ -33,7 +33,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     type={InputType.EMAIL}
                     label="E-mail"
-                    placeholder="Enter your email"
+                    placeholder="E-mail address"
                     name="email"
                     control={control}
                     errors={errors}
@@ -44,7 +44,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     type={InputType.PASSWORD}
                     label="Password"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     name="password"
                     control={control}
                     errors={errors}

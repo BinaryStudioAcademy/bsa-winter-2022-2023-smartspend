@@ -1,5 +1,7 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import {
+    type UserLoadRequestDto,
+    type UserLoadResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -16,10 +18,24 @@ type Constructor = {
     http: IHttp;
     storage: IStorage;
 };
-
 class AuthApi extends HttpApi {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.AUTH, baseUrl, http, storage });
+    }
+    public async signUp(
+        payload: UserSignUpRequestDto,
+    ): Promise<UserSignUpResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(AuthApiPath.SIGN_UP, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: false,
+            },
+        );
+
+        return await response.json<UserSignUpResponseDto>();
     }
 
     public async signIn(
@@ -38,20 +54,22 @@ class AuthApi extends HttpApi {
         return await response.json<UserSignInResponseDto>();
     }
 
-    public async signUp(
-        payload: UserSignUpRequestDto,
-    ): Promise<UserSignUpResponseDto> {
+    public async loadUser(
+        payload: UserLoadRequestDto,
+    ): Promise<UserLoadResponseDto> {
+        const queryString = new URLSearchParams(payload).toString();
         const response = await this.load(
-            this.getFullEndpoint(AuthApiPath.SIGN_UP, {}),
+            this.getFullEndpoint(
+                `${AuthApiPath.AUTHENTICATED_USER}?${queryString}`,
+                {},
+            ),
             {
-                method: 'POST',
+                method: 'GET',
                 contentType: ContentType.JSON,
-                payload: JSON.stringify(payload),
-                hasAuth: false,
+                hasAuth: true,
             },
         );
-
-        return await response.json<UserSignUpResponseDto>();
+        return await response.json<UserLoadResponseDto>();
     }
 }
 

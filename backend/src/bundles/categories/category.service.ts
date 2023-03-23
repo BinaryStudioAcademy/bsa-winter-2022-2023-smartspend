@@ -67,7 +67,9 @@ class CategoryService implements Partial<IService> {
     public async deleteCategory(
         id: string,
     ): Promise<CategoryGetAllResponseDto | undefined> {
-        const deletedCategory = await this.categoryRepository.deleteCategory(id);
+        const deletedCategory = await this.categoryRepository.deleteCategory(
+            id,
+        );
 
         if (!deletedCategory) {
             throw new Error(CategoryErrorMessage.NOT_FOUND);

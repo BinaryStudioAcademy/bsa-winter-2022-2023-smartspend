@@ -269,7 +269,9 @@ class CategoryController extends Controller {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.categoryService.deleteCategory(options.params.id),
+            payload: await this.categoryService.deleteCategory(
+                options.params.id,
+            ),
         };
     }
 }

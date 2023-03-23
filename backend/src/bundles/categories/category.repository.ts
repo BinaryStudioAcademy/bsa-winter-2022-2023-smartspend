@@ -53,7 +53,9 @@ class CategoryRepository implements Partial<IRepository> {
         return CategoryEntity.initialize(updatedCategory[0]);
     }
 
-    public async deleteCategory(id: string): Promise<CategoryEntity | undefined> {
+    public async deleteCategory(
+        id: string,
+    ): Promise<CategoryEntity | undefined> {
         const item = await this.categoryModel
             .query()
             .where({ id })

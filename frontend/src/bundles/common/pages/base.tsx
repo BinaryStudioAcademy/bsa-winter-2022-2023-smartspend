@@ -5,6 +5,7 @@ import {
 } from 'shared/build/index.js';
 import { type MultiValue, type SingleValue } from 'react-select';
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
+import { UserProfile } from '~/bundles/common/components/settings/user-profile';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import { Calendar } from '../components/calendar/calendar';
@@ -545,6 +546,7 @@ const Base: React.FC = () => {
                 </div>
             </div>
             <UserSettingsTabs tabsData={userSettingsData} />
+            <UserProfile />
             <div>
                 <RangeSlider
                     rangeLimits={rangeLimits}

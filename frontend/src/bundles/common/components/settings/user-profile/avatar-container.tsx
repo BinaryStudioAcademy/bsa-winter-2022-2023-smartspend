@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
 import { useState } from 'react';
 
 import { Avatar } from '~/bundles/common/components/settings/user-profile/avatar';
@@ -28,7 +27,10 @@ const AvatarContainer: React.FC = () => {
                 <UploadAvatarButton handleFileChange={handleFileChange} />
 
                 <DeleteAvatarButton
-                    deleteFile={(): void => setSelectedFile(null)}
+                    deleteFile={useCallback(
+                        (): void => setSelectedFile(null),
+                        [],
+                    )}
                 />
             </div>
         </div>

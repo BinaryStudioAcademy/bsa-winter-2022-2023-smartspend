@@ -20,7 +20,6 @@ const UploadAvatarButton: React.FC<Properties> = ({ handleFileChange }) => {
     }, []);
 
     return (
-        // eslint-disable-next-line react/jsx-no-bind
         <button className={styles.uploadAvatar} onClick={handleClick}>
             <FontAwesomeIcon icon={faArrowUpFromBracket} />
             <span className={styles.uploadAvatarText}>Upload avatar</span>

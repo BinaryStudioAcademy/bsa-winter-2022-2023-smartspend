@@ -1,7 +1,7 @@
 import { type Gender } from './types.js';
 
 type UserUpdateRequestDto = Partial<{
-    email: string;
+    email?: string;
     firstName?: string;
     lastName?: string;
     sex?: Gender;

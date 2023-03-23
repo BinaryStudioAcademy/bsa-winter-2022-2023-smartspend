@@ -57,8 +57,8 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
             return undefined;
         }
 
-        const userProfile = user.userProfile || {};
-        if (Object.keys(userProfile).length === 0) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!user.userProfile) {
             await user
                 .$relatedQuery('userProfile')
                 .insert({ ...data.userProfile })

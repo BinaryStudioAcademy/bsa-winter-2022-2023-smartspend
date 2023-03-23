@@ -2,17 +2,19 @@ import { Link } from 'react-router-dom';
 
 import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+} from '~/bundles/users/users.js';
 
 import { SignInForm, SignUpForm } from '../components/components.js';
-import { AuthApiPath } from '../enums/enums.js';
+import { AppRoute, AuthApiPath } from '../enums/enums.js';
 import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
@@ -20,9 +22,12 @@ const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
 
-    const handleSignInSubmit = useCallback((): void => {
-        // handle sign in
-    }, []);
+    const handleSignInSubmit = useCallback(
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
+        },
+        [dispatch],
+    );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {

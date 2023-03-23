@@ -40,7 +40,7 @@ const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
                     <div className={styles.logoImg}>
                         <img className={styles.imgLogo} src="" alt="logo" />
                     </div>
-                    <span className={styles.logoText}>SmarpSpend</span>
+                    <span className={styles.logoText}>SmartSpend</span>
                 </div>
                 <div className={styles.headerBody}>
                     {name ? (

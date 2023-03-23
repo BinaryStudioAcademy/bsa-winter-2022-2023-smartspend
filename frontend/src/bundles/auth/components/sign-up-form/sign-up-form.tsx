@@ -15,17 +15,21 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
-        validationSchema: userSignUpValidationSchema,
-        mode: 'onBlur',
-    });
+    const { control, errors, handleSubmit, reset } =
+        useAppForm<UserSignUpRequestDto>({
+            defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+            validationSchema: userSignUpValidationSchema,
+            mode: 'onBlur',
+        });
+
+    const inputReset = reset;
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             void handleSubmit(onSubmit)(event_);
+            inputReset && reset();
         },
-        [handleSubmit, onSubmit],
+        [handleSubmit, inputReset, onSubmit, reset],
     );
 
     return (
@@ -65,7 +69,9 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     eyeHidden
                 />
             </p>
-            <Button type={ButtonType.SUBMIT}>Sign up</Button>
+            <Button className={styles.formButton} type={ButtonType.SUBMIT}>
+                Sign Up
+            </Button>
         </form>
     );
 };

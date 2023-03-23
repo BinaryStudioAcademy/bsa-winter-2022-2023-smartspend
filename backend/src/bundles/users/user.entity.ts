@@ -3,7 +3,7 @@ import { type IEntity } from '~/common/interfaces/interfaces.js';
 import { type Gender } from './types/types.js';
 
 class UserEntity implements IEntity {
-    private 'id': number | null;
+    private 'id': string | null;
 
     private 'email': string;
 
@@ -35,7 +35,7 @@ class UserEntity implements IEntity {
         language,
         currency,
     }: {
-        id: number | null;
+        id: string | null;
         email: string;
         passwordHash: string;
         passwordSalt: string;
@@ -70,7 +70,7 @@ class UserEntity implements IEntity {
         language,
         currency,
     }: {
-        id: number;
+        id: string;
         email: string;
         passwordHash: string;
         passwordSalt: string;
@@ -131,7 +131,7 @@ class UserEntity implements IEntity {
     }
 
     public toObject(): {
-        id: number;
+        id: string;
         email: string;
         firstName?: string;
         lastName?: string;
@@ -141,7 +141,7 @@ class UserEntity implements IEntity {
         currency?: string;
     } {
         return {
-            id: this.id as number,
+            id: this.id as string,
             email: this.email,
             firstName: this.firstName,
             lastName: this.lastName,

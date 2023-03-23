@@ -5,7 +5,7 @@ import {
     isRejected,
 } from '@reduxjs/toolkit';
 
-import { notification } from '~/services/notification/notification.service';
+import { notification } from '~/services/services.js';
 
 const handleError: Middleware = () => {
     return (next: Dispatch) => {

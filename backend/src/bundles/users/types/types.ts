@@ -4,6 +4,8 @@ export { type UserUpdateResponseDto } from './user-update-response-dto.js';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserLoadRequestDto,
+    type UserLoadResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

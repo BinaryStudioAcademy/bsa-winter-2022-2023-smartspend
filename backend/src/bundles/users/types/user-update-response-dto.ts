@@ -1,7 +1,7 @@
 import { type Gender } from './types.js';
 
 type UserUpdateResponseDto = {
-    id: number;
+    id: string;
     email: string;
     firstName?: string;
     lastName?: string;

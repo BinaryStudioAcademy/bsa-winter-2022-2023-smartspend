@@ -78,27 +78,27 @@ const tabsDashboard = [
 
 const people = [
     {
-        value: 1,
+        value: 'John Doe',
         name: 'John Doe',
         image: 'https://placekitten.com/50/50',
     },
     {
-        value: 2,
+        value: 'Jane Smith',
         name: 'Jane Smith',
         image: 'https://placekitten.com/51/51',
     },
     {
-        value: 3,
+        value: 'Alice Johnson',
         name: 'Alice Johnson',
         image: 'https://placekitten.com/52/52',
     },
     {
-        value: 4,
+        value: 'Bob Brown',
         name: 'Bob Brown',
         image: 'https://placekitten.com/53/53',
     },
     {
-        value: 5,
+        value: 'Charlie Green',
         name: 'Charlie Green',
         image: 'https://placekitten.com/54/54',
     },
@@ -155,7 +155,7 @@ const Base: React.FC = () => {
         mode: 'onBlur',
     });
 
-    const [selected, setSelected] = useState(people[0]);
+    const [selected, setSelected] = useState<dataTypes>(people[0]);
 
     const handleDropdownChange = useCallback((selectedOption: dataTypes) => {
         setSelected(selectedOption);

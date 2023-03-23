@@ -23,13 +23,15 @@ const Dropdown: React.FC<Properties> = ({
 
     const formatOptionLabel = useCallback(
         (data: dataTypes): JSX.Element => (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img
-                    src={data.image}
-                    alt={data.name}
-                    style={{ width: '25px', marginRight: '10px' }}
-                />
-                <span>{data.name}</span>
+            <div className={styles.item}>
+                {data.image && (
+                    <img
+                        className={styles.logo}
+                        src={data.image}
+                        alt={data.name ?? ''}
+                    />
+                )}
+                {data.name && <span className={styles.name}>{data.name}</span>}
             </div>
         ),
         [],

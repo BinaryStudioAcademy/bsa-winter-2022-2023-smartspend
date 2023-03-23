@@ -1,21 +1,24 @@
 .select {
-    width: 299px;
+    width: 229px;
     height: 48px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
 }
 
 .logo {
     width: 25px;
     height: 25px;
+    margin: 0 var(--m-1);
     border-radius: 50%;
 }
 
-// .name {
-//     overflow: hidden;
-//     white-space: nowrap;
-//     text-overflow: ellipsis;
-// }
-
-.option {
-    display: flex;
-    align-items: center;
+.name {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

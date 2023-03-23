@@ -13,6 +13,7 @@ export { menuLinks } from './menu-links.enum.js';
 export {
     ApiPath,
     AppEnvironment,
+    AuthApiPath,
     ContentType,
     ServerErrorType,
 } from 'shared/build/index.js';

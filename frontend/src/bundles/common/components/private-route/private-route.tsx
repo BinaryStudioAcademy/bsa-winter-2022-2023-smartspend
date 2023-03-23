@@ -1,27 +1,13 @@
 import { Navigate } from 'react-router-dom';
 
-import { actions as authActions } from '../../../auth/store';
 import { AppRoute } from '../../enums/enums';
-import {
-    useAppDispatch,
-    useAppSelector,
-    useAuth,
-    useEffect,
-} from '../../hooks/hooks';
+import { useAppSelector } from '../../hooks/hooks';
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     children,
 }) => {
-    const auth = useAuth();
-    const dispatch = useAppDispatch();
-    const { user } = useAppSelector((state) => state.auth);
-    useEffect(() => {
-        if (!user) {
-            void dispatch(authActions.loadUser());
-        }
-    }, [dispatch, user]);
-
-    if (!auth) {
+    const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
+    if (!user) {
         return <Navigate to={AppRoute.SIGN_IN} />;
     }
     return children;

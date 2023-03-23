@@ -42,7 +42,7 @@ class UserController extends Controller {
         });
 
         this.addRoute({
-            path: `${UsersApiPath.ROOT}`,
+            path: UsersApiPath.ROOT,
             method: 'PUT',
             handler: (options) => {
                 return this.update(options as UpdateRequestDto);

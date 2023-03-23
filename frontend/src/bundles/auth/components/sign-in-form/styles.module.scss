@@ -38,6 +38,11 @@
     box-shadow: rgb(0 215 189 / 50%) 0 0 10px 0, rgb(3 191 217 / 20%) 0 0 0 4px;
 }
 
+.inputPages[type="password"],
+.inputPages[type="text"] {
+    padding-right: var(--p-9);
+}
+
 .imgWrapper {
     position: absolute;
     top: 50%;

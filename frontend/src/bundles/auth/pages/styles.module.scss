@@ -105,12 +105,20 @@
     align-items: center;
 }
 
-.headerText {
+.headerTitle {
     margin: 0;
     color: var(--color-white-100);
     font-weight: 500;
     font-size: var(--font-size-level-2-heading);
     line-height: var(--line-height-sub-heading);
+}
+
+.headerText {
+    display: flex;
+    align-items: center;
+    gap: var(--m-2);
+    color: var(--color-white-100);
+    font-size: var(--font-size-level-6-heading);
 }
 
 .headerLink {

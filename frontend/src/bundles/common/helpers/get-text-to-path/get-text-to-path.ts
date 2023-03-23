@@ -8,9 +8,14 @@ const getText = (pathname: string, type: string): string => {
         [AppRoute.SIGN_UP]: 'Sign Up',
     };
 
+    const headerText: Propertys = {
+        [AppRoute.SIGN_IN]: 'No account?',
+        [AppRoute.SIGN_UP]: 'Have an account?',
+    };
+
     const headers: Propertys = {
-        [AppRoute.SIGN_IN]: 'No account? Sign Up',
-        [AppRoute.SIGN_UP]: 'Have an account? Log In',
+        [AppRoute.SIGN_IN]: 'Sign Up',
+        [AppRoute.SIGN_UP]: 'Log In',
     };
 
     const footers: Propertys = {
@@ -24,6 +29,9 @@ const getText = (pathname: string, type: string): string => {
         }
         case 'header': {
             return headers[pathname] || '';
+        }
+        case 'headerText': {
+            return headerText[pathname] || '';
         }
         case 'footer': {
             return footers[pathname] || '';

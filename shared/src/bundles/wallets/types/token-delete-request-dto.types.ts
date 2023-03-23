@@ -1,6 +1,4 @@
-import {
-    type WalletFindRequestDto,
-} from './types.js';
+import { type WalletFindRequestDto } from './types.js';
 
 type TokenDeleteRequestDto = {
     params: WalletFindRequestDto;

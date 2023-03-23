@@ -22,3 +22,23 @@
     align-items: center;
     column-gap: 20px;
 }
+
+@media (max-width: 768px) {
+    .title {
+        width: auto;
+        font-size: var(--font-size-level-4-heading);
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .title {
+        font-size: var(--font-size-level-3-heading);
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1300px) {
+    .title {
+        font-size: var(--font-size-level-2-heading);
+    }
+}

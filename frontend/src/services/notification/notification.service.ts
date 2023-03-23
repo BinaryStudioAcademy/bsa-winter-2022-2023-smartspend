@@ -34,6 +34,4 @@ class Notification {
     }
 }
 
-const notification = new Notification();
-
-export { notification };
+export { Notification };

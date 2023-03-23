@@ -22,7 +22,7 @@ type Properties = {
 const Button: React.FC<Properties> = ({
     children,
     type,
-    className = '',
+    className,
     variant = 'primary',
     size = 'medium',
     disabled = false,

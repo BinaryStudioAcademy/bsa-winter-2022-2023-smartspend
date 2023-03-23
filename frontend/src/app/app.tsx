@@ -1,5 +1,5 @@
 import { actions as authActions } from '~/bundles/auth/store';
-import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
+import { RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -28,37 +28,7 @@ const App: React.FC = () => {
         }
     }, [dispatch, user]);
 
-    return (
-        <>
-            <ul className="App-navigation-list">
-                <li>
-                    <Link to={AppRoute.ROOT}>Root</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.SIGN_IN}>Sign in</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.SIGN_UP}>Sign up</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.UI}>Style Guide</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.WALLET_DETAILS}>
-                        Wallet details page
-                    </Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
-                </li>
-            </ul>
-            <p>Current path: {pathname}</p>
-
-            <div>
-                <RouterOutlet />
-            </div>
-        </>
-    );
+    return <RouterOutlet />;
 };
 
 export { App };

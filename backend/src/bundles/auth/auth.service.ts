@@ -12,7 +12,7 @@ import { type CryptService } from '~/common/services/crypt/crypt.service.js';
 import { type TokenService } from '~/common/services/token/token.service.js';
 
 type User = {
-    id: number;
+    id: string;
     email: string;
 };
 
@@ -37,11 +37,24 @@ class AuthService {
         const isVerifyUser = await this.verifySignUpCredentials(userRequestDto);
         if (isVerifyUser) {
             const newUser = await this.userService.create(userRequestDto);
-            const token = this.tokenService.createToken(newUser.toObject());
+            const { id } = newUser.toObject();
+            const token = this.tokenService.createToken({ id });
             return {
                 token,
             };
         }
+    }
+
+    public async getUserByToken(token: string): Promise<User | undefined> {
+        const { id } = this.tokenService.verifyToken(token) as User;
+        if (!id) {
+            throw new HttpError({
+                message: ExceptionMessage.INVALID_CREDENTIALS,
+                status: HttpCode.UNAUTHORIZED,
+            });
+        }
+        const user = await this.userService.findById(id);
+        return user?.toObject();
     }
 
     public async signIn(

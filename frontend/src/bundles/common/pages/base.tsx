@@ -16,6 +16,7 @@ import {
     LineChart,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
+import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
 import { ButtonSize } from '../enums/button-size.enum';
@@ -110,6 +111,16 @@ const allTabsData = {
     wallets: tabsData,
 };
 
+// mock data for range slider
+
+const mockData = [
+    { amount: -50 },
+    { amount: 100 },
+    { amount: 350 },
+    { amount: 600 },
+    { amount: 900 },
+];
+
 const Base: React.FC = () => {
     const [active, setActive] = useState(false);
 
@@ -119,6 +130,24 @@ const Base: React.FC = () => {
     const handleModal = useCallback(() => {
         setActive(true);
     }, []);
+
+    // Range Slider -------------------------------------
+    const rangeLimits = { min: -100, max: 1000 };
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
+    const [filteredData, setFilteredData] = useState(mockData);
+
+    const handleSliderChange = useCallback(
+        (range: { min: number; max: number }): void => {
+            setCurrentRange(range);
+
+            const newFilteredData = mockData.filter(
+                (item) => item.amount >= range.min && item.amount <= range.max,
+            );
+            setFilteredData(newFilteredData);
+        },
+        [],
+    );
+    // end-Range Slider ----------------------------------
 
     const { control, errors } = useAppForm<UserSignInRequestDto>({
         defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
@@ -480,6 +509,19 @@ const Base: React.FC = () => {
                 </div>
             </div>
             <UserSettingsTabs tabsData={userSettingsData} />
+            <div>
+                <RangeSlider
+                    rangeLimits={rangeLimits}
+                    currentRange={currentRange}
+                    onChange={handleSliderChange}
+                />
+                <div>
+                    <h3>Filtered Data:</h3>
+                    {filteredData.map((item, index) => (
+                        <p key={index}>{item.amount}</p>
+                    ))}
+                </div>
+            </div>
         </>
     );
 };

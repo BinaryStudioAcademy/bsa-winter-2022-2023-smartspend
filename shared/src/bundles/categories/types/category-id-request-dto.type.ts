@@ -1,5 +1,5 @@
 type CategoryIdRequestDto = {
-    id: number;
+    id: string;
 };
 
 export { type CategoryIdRequestDto };

@@ -1,10 +1,6 @@
 {
     "extends": "../tsconfig.json",
-    "include": [
-        "src",
-        "knexfile.ts",
-        "../shared/src/bundles/categories/enums/category-type.enums.ts"
-    ],
+    "include": ["src", "knexfile.ts"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "target": "ESNext",

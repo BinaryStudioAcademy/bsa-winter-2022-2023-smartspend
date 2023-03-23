@@ -3,7 +3,7 @@ import { type IEntity } from '~/common/interfaces/interfaces.js';
 import { type CategoryType } from './categories.js';
 
 class CategoryEntity implements IEntity {
-    private 'id': number | null;
+    private 'id': string | null;
 
     private 'name': string;
 
@@ -20,7 +20,7 @@ class CategoryEntity implements IEntity {
         color,
         type,
     }: {
-        id: number | null;
+        id: string | null;
         name: string;
         icon: string;
         color: string;
@@ -40,7 +40,7 @@ class CategoryEntity implements IEntity {
         color,
         type,
     }: {
-        id: number;
+        id: string;
         name: string;
         icon: string;
         color: string;
@@ -76,14 +76,14 @@ class CategoryEntity implements IEntity {
     }
 
     public toObject(): {
-        id: number;
+        id: string;
         name: string;
         icon: string;
         color: string;
         type: CategoryType;
     } {
         return {
-            id: this.id as number,
+            id: this.id as string,
             name: this.name,
             icon: this.icon,
             color: this.color,

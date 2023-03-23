@@ -19,7 +19,7 @@ class CategoryService implements IService {
         return await this.categoryRepository.find(payload);
     }
 
-    public async findById(id: number): Promise<CategoryEntity | undefined> {
+    public async findById(id: string): Promise<CategoryEntity | undefined> {
         const category = await this.find({ id });
 
         if (!category) {
@@ -49,7 +49,7 @@ class CategoryService implements IService {
     }
 
     public async update(
-        id: number,
+        id: string,
         payload: CategoryUpdateRequestDto,
     ): Promise<CategoryUpdateRequestDto | undefined> {
         const updatedCategory = await this.categoryRepository.update(
@@ -65,7 +65,7 @@ class CategoryService implements IService {
     }
 
     public async delete(
-        id: number,
+        id: string,
     ): Promise<CategoryGetAllResponseDto | undefined> {
         const deletedCategory = await this.categoryRepository.delete(id);
 

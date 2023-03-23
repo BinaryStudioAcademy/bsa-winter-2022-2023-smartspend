@@ -40,7 +40,7 @@ class CategoryRepository implements IRepository {
     }
 
     public async update(
-        id: number,
+        id: string,
         data: CategoryUpdateRequestDto,
     ): Promise<CategoryEntity | undefined> {
         const updatedCategory = await this.categoryModel
@@ -53,7 +53,7 @@ class CategoryRepository implements IRepository {
         return CategoryEntity.initialize(updatedCategory[0]);
     }
 
-    public async delete(id: number): Promise<CategoryEntity | undefined> {
+    public async delete(id: string): Promise<CategoryEntity | undefined> {
         const item = await this.categoryModel
             .query()
             .where({ id })

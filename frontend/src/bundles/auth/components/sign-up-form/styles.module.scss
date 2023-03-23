@@ -19,6 +19,11 @@
     font-size: var(--font-size-level-6-heading);
 }
 
+.inputWrapper input[type="password"],
+.inputWrapper input[type="text"] {
+    padding-right: var(--p-9);
+}
+
 .imgWrapper {
     position: absolute;
     top: 50%;

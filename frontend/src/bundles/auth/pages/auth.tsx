@@ -13,9 +13,8 @@ import {
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
 
-import { getAuthEndpointName } from '../../common/helpers/helpers';
 import { SignInForm, SignUpForm } from '../components/components.js';
-import { AppRoute, AuthApiPath, AuthEndpointName } from '../enums/enums.js';
+import { AppRoute, AuthApiPath } from '../enums/enums.js';
 import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
@@ -38,18 +37,13 @@ const Auth: React.FC = () => {
     );
 
     const getScreen = (screen: string): React.ReactNode => {
-        const path = getAuthEndpointName(screen);
-        switch (path) {
-            case AuthEndpointName.SIGN_IN: {
-                return <SignInForm onSubmit={handleSignInSubmit} />;
-            }
-            case AuthEndpointName.SIGN_UP: {
-                return <SignUpForm onSubmit={handleSignUpSubmit} />;
-            }
-            default: {
-                return null;
-            }
+        if (screen.includes(AppRoute.SIGN_IN)) {
+            return <SignInForm onSubmit={handleSignInSubmit} />;
         }
+        if (screen.includes(AppRoute.SIGN_UP)) {
+            return <SignUpForm onSubmit={handleSignUpSubmit} />;
+        }
+        return null;
     };
 
     return (

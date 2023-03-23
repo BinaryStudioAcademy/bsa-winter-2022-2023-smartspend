@@ -1,21 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { type UserGetAllItemResponseDto } from '~/bundles/users/users.js';
+import { type UserLoadResponseDto } from '~/bundles/users/users.js';
 
-import { signUp } from './actions.js';
+import { loadUser, signIn, signUp } from './actions.js';
 
 type State = {
-    user: UserGetAllItemResponseDto | null;
+    user: UserLoadResponseDto | null;
     dataStatus: ValueOf<typeof DataStatus>;
-    token: string | null;
 };
 
 const initialState: State = {
     user: null,
     dataStatus: DataStatus.IDLE,
-    token: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -23,17 +21,27 @@ const { reducer, actions, name } = createSlice({
     name: 'auth',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(signUp.pending, (state) => {
+        builder.addCase(loadUser.fulfilled, (state, action) => {
+            state.user = action.payload;
+        });
+
+        builder.addMatcher(
+            isAnyOf(signUp.fulfilled, signIn.fulfilled),
+            (state) => {
+                state.dataStatus = DataStatus.FULFILLED;
+            },
+        );
+
+        builder.addMatcher(
+            isAnyOf(signUp.rejected, signIn.rejected),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+                state.user = null;
+            },
+        );
+
+        builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
             state.dataStatus = DataStatus.PENDING;
-            state.user = null;
-        });
-        builder.addCase(signUp.fulfilled, (state, action) => {
-            state.dataStatus = DataStatus.FULFILLED;
-            const { token } = action.payload;
-            state.token = token;
-        });
-        builder.addCase(signUp.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
             state.user = null;
         });
     },

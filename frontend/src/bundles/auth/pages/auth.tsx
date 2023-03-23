@@ -13,35 +13,27 @@ import {
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
 
-import { useNavigate } from '../../common/hooks/hooks';
 import { SignInForm, SignUpForm } from '../components/components.js';
 import { AppRoute, AuthApiPath } from '../enums/enums.js';
 import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
 const Auth: React.FC = () => {
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback(
-        async (payload: UserSignInRequestDto): Promise<void> => {
-            const user = await dispatch(authActions.signIn(payload)).unwrap();
-            if (user.token) {
-                navigate(AppRoute.DASHBOARD);
-            }
+        (payload: UserSignInRequestDto): void => {
+            void dispatch(authActions.signIn(payload));
         },
-        [dispatch, navigate],
+        [dispatch],
     );
 
     const handleSignUpSubmit = useCallback(
-        async (payload: UserSignUpRequestDto): Promise<void> => {
-            const user = await dispatch(authActions.signUp(payload)).unwrap();
-            if (user.token) {
-                navigate(AppRoute.DASHBOARD);
-            }
+        (payload: UserSignUpRequestDto): void => {
+            void dispatch(authActions.signUp(payload));
         },
-        [dispatch, navigate],
+        [dispatch],
     );
 
     const getScreen = (screen: string): React.ReactNode => {

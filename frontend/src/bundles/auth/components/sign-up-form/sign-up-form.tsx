@@ -11,7 +11,7 @@ import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants';
 import styles from './styles.module.scss';
 
 type Properties = {
-    onSubmit: (payload: UserSignUpRequestDto) => Promise<void>;
+    onSubmit: (payload: UserSignUpRequestDto) => void;
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {

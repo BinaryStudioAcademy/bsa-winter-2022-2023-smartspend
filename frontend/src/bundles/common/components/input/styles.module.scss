@@ -30,6 +30,7 @@
 
 .inputError {
     color: var(--color-warning);
+    font-size: var(--font-size-level-6-heading);
 }
 
 .input {
@@ -79,4 +80,8 @@
     width: 15px;
     height: 16px;
     cursor: pointer;
+}
+
+.inputIcon:focus-visible {
+    outline: none;
 }

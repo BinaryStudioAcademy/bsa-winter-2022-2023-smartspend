@@ -155,11 +155,16 @@ const Base: React.FC = () => {
         mode: 'onBlur',
     });
 
-    const [selected, setSelected] = useState<dataTypes>(people[0]);
+    const [selectedSingle, setSelectedSingle] = useState<dataTypes>(people[0]);
 
-    const handleDropdownChange = useCallback((selectedOption: dataTypes) => {
-        setSelected(selectedOption);
-    }, []);
+    const handleDropdownChange = useCallback(
+        (selectedOption: dataTypes | null) => {
+            if (selectedOption !== null) {
+                setSelectedSingle(selectedOption);
+            }
+        },
+        [],
+    );
 
     return (
         <>
@@ -167,7 +172,7 @@ const Base: React.FC = () => {
             <br></br>
             <Dropdown
                 data={people}
-                selectedOption={selected}
+                selectedOption={selectedSingle}
                 handleChange={handleDropdownChange}
             />
             <div style={{ textAlign: 'center' }}>

@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 interface Properties {
     data: dataTypes[];
     selectedOption: dataTypes;
-    handleChange?: (option: dataTypes) => void;
+    handleChange?: (option: dataTypes | null) => void;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -37,19 +37,6 @@ const Dropdown: React.FC<Properties> = ({
         [],
     );
 
-    const handleSelectChange = useCallback(
-        (selectedOption: dataTypes | null): void => {
-            if (handleChange && selectedOption) {
-                handleChange({
-                    value: selectedOption.value,
-                    name: selectedOption.name,
-                    image: selectedOption.image,
-                });
-            }
-        },
-        [handleChange],
-    );
-
     return (
         <div className={styles.App}>
             <Select
@@ -59,7 +46,7 @@ const Dropdown: React.FC<Properties> = ({
                     name: selectedOption.name,
                     image: selectedOption.image,
                 }}
-                onChange={handleSelectChange}
+                onChange={handleChange}
                 options={options}
                 formatOptionLabel={formatOptionLabel}
             />

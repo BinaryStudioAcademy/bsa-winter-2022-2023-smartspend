@@ -7,7 +7,7 @@
     z-index: 800;
     width: 100vw;
     pointer-events: none;
-    background: rgb(0 0 0 60%);
+    background: #00000099;
     opacity: 0;
 }
 
@@ -31,7 +31,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .wrapper{
+    .wrapper {
         padding: var(--p-2) 0;
     }
 }
@@ -51,7 +51,6 @@
         padding: 24px 120px 40px;
     }
 }
-
 
 .manageWrapper {
     margin: 20px 0;

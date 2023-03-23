@@ -1,77 +1,68 @@
 import { faEnvelope, faGasPump } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { Button } from '~/bundles/common/components/components';
+import { Input } from '~/bundles/common/components/input/input';
+import { ButtonSize,ButtonVariant } from '~/bundles/common/enums/enums';
+import { InputType } from '~/bundles/common/enums/input-type.enum';
+import { useAppForm } from '~/bundles/common/hooks/hooks';
+
 import styles from './styles.module.scss';
 
+const DEFAULT_INPUT: { note: string } = {
+    note: '',
+};
+
 const FormCreateCategory: React.FC = () => {
+    const { control, errors } = useAppForm<{ note: string }>({
+        defaultValues: DEFAULT_INPUT,
+    });
     return (
-        <fieldset>
-            <legend>
+        <div>
+            <div>
                 <span>Create a new category</span>
-            </legend>
+            </div>
             {/* <button></button> //mobile */}
             <div>
                 <div className={styles.overlay}></div>
                 <div className={styles.nameOne}>
-                    <div className={styles.nameTwo}>
+                    <div className={styles.form}>
                         <form name="categoryNewForm" autoComplete="off">
                             <div className={styles.nameTree}>
                                 <div className={styles.nameFour}>
                                     <div
-                                        className={`${styles.customIcon} ${styles.mob}`}
-                                    >
-                                        <div className={styles.selectIcon}>
-                                            <label htmlFor="icon">Icon</label>
-                                            <select name="icon" id="icon">
-                                                <FontAwesomeIcon
-                                                    icon={faEnvelope}
-                                                />
-                                                <FontAwesomeIcon
-                                                    icon={faGasPump}
-                                                />
-                                            </select>
-                                        </div>
-                                        <div className={styles.selectColorIcon}>
-                                            <label htmlFor="colorIcon">
-                                                Color
-                                            </label>
-                                            <select
-                                                name="colorIcon"
-                                                id="colorIcon"
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faEnvelope}
-                                                />
-                                                <FontAwesomeIcon
-                                                    icon={faGasPump}
-                                                />
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={`${styles.categoryName} ${styles.mob}`}
-                                    >
-                                        <label htmlFor="name">Name</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            placeholder="New name category"
+                                        className={styles.wrapperIconSettings}
+                                    ></div>
+                                    <div className={styles.categoryName}>
+                                        <Input
+                                            control={control}
+                                            errors={errors}
+                                            label="Name"
+                                            name="note"
+                                            placeholder="New category name"
+                                            type={InputType.TEXT}
+                                            className={`${styles.customInput} ${styles.inputLabel} ${styles.label}`}
+                                            isDisabled={false}
+                                            eyeHidden={false}
                                         />
                                     </div>
-                                    <div
-                                        className={`${styles.selectType} ${styles.mob}`}
-                                    ></div>
-                                    <div
-                                        className={`${styles.createCategoryBtn} ${styles.mob}`}
-                                    ></div>
+                                    <div className={styles.wrapperType}></div>
+                                    <div className={styles.wrapperBtn}>
+                                        <Button
+                                            variant={ButtonVariant.PRIMARY}
+                                            size={ButtonSize.MEDIUM}
+                                            disabled={true}
+                                        >
+                                            <span>Create category</span>
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </fieldset>
+        </div>
     );
 };
 

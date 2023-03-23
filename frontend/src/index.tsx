@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
-    PrivatRoute,
+    PrivateRoute,
     PublicRoute,
     RouterProvider,
     StoreProvider,
@@ -15,7 +15,9 @@ import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { CategoriesSettings } from '~/bundles/common/pages/categories-settings/categories-settings';
-import { Dashboard } from '~/bundles/common/pages/dashboard';
+import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
+import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
+import { Landing } from '~/bundles/landing/landing';
 import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -30,7 +32,11 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         children: [
                             {
                                 path: AppRoute.ROOT,
-                                element: 'Root',
+                                element: (
+                                    <PublicRoute>
+                                        <Landing />
+                                    </PublicRoute>
+                                ),
                             },
                             {
                                 path: AppRoute.SIGN_IN,
@@ -51,9 +57,9 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                             {
                                 path: AppRoute.DASHBOARD,
                                 element: (
-                                    <PrivatRoute>
+                                    <PrivateRoute>
                                         <Dashboard />
-                                    </PrivatRoute>
+                                    </PrivateRoute>
                                 ),
                             },
                         ],
@@ -61,6 +67,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     {
                         path: AppRoute.UI,
                         element: <Base />,
+                    },
+                    {
+                        path: AppRoute.WALLET_DETAILS,
+                        element: (
+                            <PrivateRoute>
+                                <WalletDetails />
+                            </PrivateRoute>
+                        ),
                     },
                     {
                         path: AppRoute.CATSET,

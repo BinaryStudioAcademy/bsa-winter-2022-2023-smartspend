@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import styles from './styles.module.scss';
 
 interface CheckboxProperties {
@@ -18,11 +20,14 @@ const Checkbox: React.FC<CheckboxProperties> = ({
     //     onChange(newValue);
     //     // console.log(id);
     // };
-    // const onKeyDown = (event: { key: string; }): void => {
-    //     if (event.key === 'Enter') {
-    //         handleClick(id);
-    //     }
-    // }
+    // const onKeyDown = useCallback(
+    //     (event: React.KeyboardEvent<HTMLSpanElement>): void => {
+    //         if (event.key === 'Enter') {
+    //             handleClick(id);
+    //         }
+    //     },
+    //     [handleClick],
+    // );
 
     return (
         <div className={styles.checkbox}>
@@ -30,7 +35,7 @@ const Checkbox: React.FC<CheckboxProperties> = ({
                 className={`${styles.box} ${
                     isChecked ? styles.boxСhecked : ''
                 }`}
-                // onClick={():void => handleClick(id)}
+                // onClick={(): void => handleClick(id)}
                 role="checkbox"
                 aria-checked={isChecked}
                 tabIndex={0}

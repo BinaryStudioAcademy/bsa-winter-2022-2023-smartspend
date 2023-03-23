@@ -26,7 +26,7 @@ const CategoryItem: React.FC<Properties> = ({
 
     const icon = findIcon(iconKey);
 
-    const handleCheckboxChange = useCallback((isChecked: boolean):void => {
+    const handleCheckboxChange = useCallback((isChecked: boolean): void => {
         setIsChecked(isChecked);
     }, []);
     // const handelClickSettings = (id: string): void => {

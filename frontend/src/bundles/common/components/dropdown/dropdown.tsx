@@ -38,19 +38,17 @@ const Dropdown: React.FC<Properties> = ({
     );
 
     return (
-        <div className={styles.App}>
-            <Select
-                className={styles.select}
-                value={{
-                    value: selectedOption.value,
-                    name: selectedOption.name,
-                    image: selectedOption.image,
-                }}
-                onChange={handleChange}
-                options={options}
-                formatOptionLabel={formatOptionLabel}
-            />
-        </div>
+        <Select
+            className={styles.select}
+            value={{
+                value: selectedOption.value,
+                name: selectedOption.name,
+                image: selectedOption.image,
+            }}
+            onChange={handleChange}
+            options={options}
+            formatOptionLabel={formatOptionLabel}
+        />
     );
 };
 

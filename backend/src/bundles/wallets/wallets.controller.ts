@@ -77,7 +77,7 @@ class WalletController extends Controller {
         this.addRoute({
             path: WalletsApiPath.ROOT,
             method: 'GET',
-            handler: () => this.findAll(),
+            handler: (options) => this.findAll(options.token as string),
         });
         this.addRoute({
             path: WalletsApiPath.ID,
@@ -111,6 +111,8 @@ class WalletController extends Controller {
      *    get:
      *      tags: [Wallets]
      *      description: Returns an array of Wallets
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation with an array of wallet
@@ -119,10 +121,14 @@ class WalletController extends Controller {
      *              schema:
      *                $ref: '#/components/schemas/Wallets'
      */
-    private async findAll(): Promise<ApiHandlerResponse> {
+    private async findAll(token: string): Promise<ApiHandlerResponse> {
+        if (!token) {
+            throw new Error(WalletValidationMessage.TOKEN_REQUIRE);
+        }
+        const userId = getUserIdFromToken(token);
         return {
             status: HttpCode.OK,
-            payload: await this.walletService.findAll(),
+            payload: await this.walletService.findAllWallets(userId),
         };
     }
 

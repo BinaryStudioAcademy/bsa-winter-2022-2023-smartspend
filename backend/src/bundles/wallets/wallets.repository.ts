@@ -23,8 +23,12 @@ class WalletRepository implements Partial<IRepository> {
         return WalletEntity.initialize(wallet);
     }
 
-    public async findAll(): Promise<WalletEntity[]> {
-        const users = await this.walletModel.query().select('*').execute();
+    public async findAllWallets(ownerId: string): Promise<WalletEntity[]> {
+        const users = await this.walletModel
+            .query()
+            .select('*')
+            .where({ ownerId })
+            .execute();
 
         return users.map((it) => WalletEntity.initialize(it));
     }

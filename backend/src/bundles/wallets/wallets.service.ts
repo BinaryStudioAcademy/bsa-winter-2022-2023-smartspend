@@ -10,7 +10,7 @@ import {
     type WalletGetAllResponseDto,
 } from './types/types.js';
 
-class WalletService implements Partial<IService> {
+class WalletService {
     private walletRepository: WalletRepository;
 
     public constructor(walletRepository: WalletRepository) {
@@ -23,8 +23,10 @@ class WalletService implements Partial<IService> {
         return await this.walletRepository.find(payload.id);
     }
 
-    public async findAll(): Promise<WalletGetAllResponseDto> {
-        const items = await this.walletRepository.findAll();
+    public async findAllWallets(
+        ownerId: string,
+    ): Promise<WalletGetAllResponseDto> {
+        const items = await this.walletRepository.findAllWallets(ownerId);
 
         return {
             items: items.map((it) => it.toObject()),
@@ -77,7 +79,7 @@ class WalletService implements Partial<IService> {
         if (!deletedWallet) {
             throw new Error(WalletValidationMessage.WALLET_NOT_FOUND);
         }
-        return await this.findAll();
+        return await this.findAllWallets(ownerId);
     }
 }
 

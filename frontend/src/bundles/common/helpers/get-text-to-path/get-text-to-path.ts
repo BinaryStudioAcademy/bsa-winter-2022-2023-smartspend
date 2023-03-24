@@ -1,24 +1,24 @@
 import { AppRoute } from '../../enums/enums.js';
 
 const getText = (pathname: string, type: string): string => {
-    type Propertys = Record<string, string>;
+    type Properties = Record<string, string>;
 
-    const titles: Propertys = {
+    const titles: Properties = {
         [AppRoute.SIGN_IN]: 'Log In',
         [AppRoute.SIGN_UP]: 'Sign Up',
     };
 
-    const authText: Propertys = {
+    const authText: Properties = {
         [AppRoute.SIGN_IN]: 'No account?',
         [AppRoute.SIGN_UP]: 'Have an account?',
     };
 
-    const authLink: Propertys = {
+    const authLink: Properties = {
         [AppRoute.SIGN_IN]: 'Sign Up',
         [AppRoute.SIGN_UP]: 'Log In',
     };
 
-    const footers: Propertys = {
+    const footers: Properties = {
         [AppRoute.SIGN_IN]: 'Or Log In with',
         [AppRoute.SIGN_UP]: 'Or Sign Up with',
     };

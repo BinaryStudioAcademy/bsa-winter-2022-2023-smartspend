@@ -68,7 +68,6 @@ const Input = <T extends FieldValues>({
 
     const inputClasses = classNames(
         styles.input,
-        hasError && styles.hasError,
         styles[isDisabled ? 'disabled' : ''],
         inputClassName,
     );
@@ -81,7 +80,7 @@ const Input = <T extends FieldValues>({
                 type={passwordShown ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
-                className={inputClasses}
+                className={`${hasError ? styles.hasError : inputClasses}`}
             />
             {eyeHidden && (
                 <span

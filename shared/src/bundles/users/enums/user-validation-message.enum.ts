@@ -1,6 +1,9 @@
 enum UserValidationMessage {
     EMAIL_REQUIRE = 'Email is required',
-    EMAIL_WRONG = 'Email is wrong',
+    EMAIL_WRONG = 'Invalid e-mail address',
+    PASSWORD_REQUIRE = 'Password is required',
+    PASSWORD_MIN = 'Minimum length is 8 characters',
+    PASSWORD_MAX = 'Maximum length is 30 characters',
 }
 
 export { UserValidationMessage };

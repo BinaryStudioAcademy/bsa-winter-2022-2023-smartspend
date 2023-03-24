@@ -63,26 +63,31 @@
     border-radius: 50%;
 }
 
-@media (max-width: var(--xl)) {
+@media (max-width: 768px) {
     .header {
         padding: var(--p-3) 4.25rem;
     }
 
     .headerBody {
+        display: none;
         margin: 0 var(--m-4);
-    }
-}
-
-@media (max-width: var(--lg)) {
-    .header {
-        padding: var(--p-3) var(--p-5);
-    }
-
-    .headerBody {
-        margin: 0 1.25rem;
     }
 
     .logoText {
         display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .header {
+        padding: var(--p-3) var(--p-5);
+    }
+
+    .logoText {
+        display: none;
+    }
+
+    .headerBody {
+        margin: 0 1.25rem;
     }
 }

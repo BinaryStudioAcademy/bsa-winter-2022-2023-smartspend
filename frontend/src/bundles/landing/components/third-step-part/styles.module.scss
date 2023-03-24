@@ -25,3 +25,71 @@
     top: 0;
     right: -40px;
 }
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .chartCardsContainer {
+        position: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .chartCardTop {
+        position: inherit;
+    }
+
+    .chartCardBottom {
+        position: inherit;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .chartCardsContainer {
+        position: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .chartCardTop {
+        position: inherit;
+    }
+
+    .chartCardBottom {
+        position: inherit;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1300px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .chartCardsContainer {
+        position: inherit;
+        display: flex;
+        gap: 20px;
+    }
+
+    .chartCardTop {
+        position: inherit;
+    }
+
+    .chartCardBottom {
+        position: inherit;
+    }
+}

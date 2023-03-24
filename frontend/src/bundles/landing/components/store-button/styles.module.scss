@@ -18,14 +18,13 @@
 
 .title {
     width: 90px;
+    margin-top: 0;
     font-size: 11px;
 }
 
 .detailsContainer {
     display: flex;
     flex-direction: column;
-
-    // justify-content: center;
     align-items: center;
 }
 

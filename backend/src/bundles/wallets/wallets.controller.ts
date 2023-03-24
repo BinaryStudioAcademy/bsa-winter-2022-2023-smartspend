@@ -203,7 +203,10 @@ class WalletController extends Controller {
             throw new Error(WalletValidationMessage.TOKEN_REQUIRE);
         }
         const userId = getUserIdFromToken(request.token);
-        const wallet = await this.walletService.newCreate(request.body, userId);
+        const wallet = await this.walletService.createWallet(
+            request.body,
+            userId,
+        );
         return {
             status: HttpCode.OK,
             payload: wallet,
@@ -282,14 +285,14 @@ class WalletController extends Controller {
             throw new Error(WalletValidationMessage.TOKEN_REQUIRE);
         }
         const userId = getUserIdFromToken(request.token);
-        const newWallet = await this.walletService.newUpdate(
+        const updatedWallet = await this.walletService.updateWallet(
             request.params.id,
             request.body,
             userId,
         );
         return {
             status: HttpCode.OK,
-            payload: newWallet,
+            payload: updatedWallet,
         };
     }
 
@@ -327,7 +330,7 @@ class WalletController extends Controller {
         const userId = getUserIdFromToken(request.token);
         return {
             status: HttpCode.OK,
-            payload: await this.walletService.newDelete(
+            payload: await this.walletService.deleteWallet(
                 request.params.id,
                 userId,
             ),

@@ -1,6 +1,7 @@
 import { type Knex } from 'knex';
 
-const WALLETS_TABLE = 'wallet';
+const WALLETS_TABLE = 'wallets';
+const WALLETS_TABLE_OLD_NAME = 'wallet';
 const WALLETS_USERS_TABLE = 'wallets_users';
 const FOREIGN_TABLE_NAME = 'users';
 
@@ -30,7 +31,7 @@ function up(knex: Knex): Promise<void> {
     return knex.schema
         .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
         .dropTableIfExists(WALLETS_USERS_TABLE)
-        .dropTableIfExists(WALLETS_TABLE)
+        .dropTableIfExists(WALLETS_TABLE_OLD_NAME)
         .createTable(WALLETS_TABLE, (table) => {
             table
                 .uuid(WalletsColumnName.ID)
@@ -72,7 +73,7 @@ function up(knex: Knex): Promise<void> {
             table
                 .uuid(WalletsUsersColumnName.WALLET_ID)
                 .references('id')
-                .inTable('wallet');
+                .inTable('wallets');
         });
 }
 

@@ -29,7 +29,7 @@ class WalletRepository implements Partial<IRepository> {
         return users.map((it) => WalletEntity.initialize(it));
     }
 
-    public async newCreate(entity: WalletEntity): Promise<WalletEntity> {
+    public async createWallet(entity: WalletEntity): Promise<WalletEntity> {
         const { name, currencyId, balance, ownerId } = entity.toNewObject();
 
         const item = await this.walletModel
@@ -45,7 +45,7 @@ class WalletRepository implements Partial<IRepository> {
         return WalletEntity.initialize(item);
     }
 
-    public async newUpdate(
+    public async updateWallet(
         id: string,
         entity: WalletCreateRequestDto,
         ownerId: string,
@@ -60,7 +60,7 @@ class WalletRepository implements Partial<IRepository> {
         return WalletEntity.initialize(item[0]);
     }
 
-    public async newDelete(
+    public async deleteWallet(
         id: string,
         ownerId: string,
     ): Promise<WalletEntity | undefined> {

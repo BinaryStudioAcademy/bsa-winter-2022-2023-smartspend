@@ -31,11 +31,11 @@ class WalletService implements Partial<IService> {
         };
     }
 
-    public async newCreate(
+    public async createWallet(
         payload: WalletCreateRequestDto,
         userId: string,
     ): Promise<WalletGetAllItemResponseDto> {
-        const wallet = await this.walletRepository.newCreate(
+        const wallet = await this.walletRepository.createWallet(
             WalletEntity.initializeNew({
                 name: payload.name,
                 currencyId: payload.currencyId,
@@ -47,29 +47,29 @@ class WalletService implements Partial<IService> {
         return wallet.toObject();
     }
 
-    public async newUpdate(
+    public async updateWallet(
         id: string,
         payload: WalletCreateRequestDto,
         userId: string,
     ): Promise<WalletGetAllItemResponseDto | undefined> {
-        const newWallet = await this.walletRepository.newUpdate(
+        const updatedWallet = await this.walletRepository.updateWallet(
             id,
             payload,
             userId,
         );
 
-        if (!newWallet) {
+        if (!updatedWallet) {
             throw new Error(WalletValidationMessage.WALLET_NOT_FOUND);
         }
 
-        return newWallet.toObject();
+        return updatedWallet.toObject();
     }
 
-    public async newDelete(
+    public async deleteWallet(
         id: string,
         ownerId: string,
     ): Promise<WalletGetAllResponseDto | undefined> {
-        const deletedWallet = await this.walletRepository.newDelete(
+        const deletedWallet = await this.walletRepository.deleteWallet(
             id,
             ownerId,
         );

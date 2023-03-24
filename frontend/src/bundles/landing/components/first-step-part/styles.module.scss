@@ -22,3 +22,57 @@
 .cardsContainer > :nth-child(2n) {
     margin-top: 30px;
 }
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .cardsContainer {
+        position: static;
+        grid-template-columns: 1fr;
+        margin-top: 30px;
+    }
+
+    .cardsContainer > :nth-child(2n) {
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .cardsContainer {
+        position: static;
+        grid-template-columns: 2fr;
+        margin-top: 30px;
+    }
+
+    .cardsContainer > :nth-child(2n) {
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1250px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .cardsContainer {
+        position: static;
+        grid-template-columns: 2fr 2fr;
+        margin-top: 30px;
+    }
+
+    .cardsContainer > :nth-child(2n) {
+        margin-top: 0;
+    }
+}

@@ -1,6 +1,6 @@
-interface dataTypes {
+interface DataTypes {
     value: string;
     name?: string;
     image?: string;
 }
-export { type dataTypes };
+export { type DataTypes };

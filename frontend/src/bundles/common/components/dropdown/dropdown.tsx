@@ -1,14 +1,22 @@
 import React, { useCallback } from 'react';
-import Select from 'react-select';
+import Select, {
+    type ActionMeta,
+    type MultiValue,
+    type SingleValue,
+    type StylesConfig,
+} from 'react-select';
 
-import { type dataTypes } from '../../types/dropdown.type';
+import { type DataTypes } from '../../types/dropdown.type';
 import styles from './styles.module.scss';
 
 interface Properties {
-    data: dataTypes[];
-    selectedOption: dataTypes;
-    handleChange?: (option: dataTypes | null) => void;
-    width?: string | number;
+    data: DataTypes[];
+    selectedOption: DataTypes;
+    handleChange?: (
+        selectedOption: SingleValue<DataTypes>,
+        actionMeta: ActionMeta<DataTypes>,
+    ) => void;
+    width?: string;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -23,8 +31,23 @@ const Dropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
+    const customStyles: StylesConfig<DataTypes> = {
+        dropdownIndicator: (base, state) => ({
+            ...base,
+            cursor: 'pointer',
+            padding: '0 8px',
+            transform: state.selectProps.menuIsOpen
+                ? 'rotate(180deg)'
+                : 'rotate(0deg)',
+        }),
+        container: (provided) => ({
+            ...provided,
+            width,
+        }),
+    };
+
     const formatOptionLabel = useCallback(
-        (data: dataTypes): JSX.Element => (
+        (data: DataTypes): JSX.Element => (
             <div className={styles.item}>
                 {data.image && (
                     <img
@@ -47,15 +70,15 @@ const Dropdown: React.FC<Properties> = ({
                 name: selectedOption.name,
                 image: selectedOption.image,
             }}
-            onChange={handleChange}
+            onChange={
+                handleChange as unknown as (
+                    newValue: SingleValue<DataTypes> | MultiValue<DataTypes>,
+                    actionMeta: ActionMeta<DataTypes>,
+                ) => void
+            }
             options={options}
             formatOptionLabel={formatOptionLabel}
-            styles={{
-                container: (provided) => ({
-                    ...provided,
-                    width: typeof width === 'number' ? `${width}px` : width,
-                }),
-            }}
+            styles={customStyles}
         />
     );
 };

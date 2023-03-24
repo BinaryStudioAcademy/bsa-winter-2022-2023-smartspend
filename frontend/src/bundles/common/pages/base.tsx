@@ -24,7 +24,7 @@ import { ButtonVariant } from '../enums/button-variant.enum.js';
 import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
-import { type dataTypes } from '../types/dropdown.type';
+import { type DataTypes } from '../types/dropdown.type';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -155,10 +155,10 @@ const Base: React.FC = () => {
         mode: 'onBlur',
     });
 
-    const [selectedSingle, setSelectedSingle] = useState<dataTypes>(people[0]);
+    const [selectedSingle, setSelectedSingle] = useState<DataTypes>(people[0]);
 
     const handleDropdownChange = useCallback(
-        (selectedOption: dataTypes | null) => {
+        (selectedOption: DataTypes | null) => {
             if (selectedOption !== null) {
                 setSelectedSingle(selectedOption);
             }

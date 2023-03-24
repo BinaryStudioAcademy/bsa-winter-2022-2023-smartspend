@@ -5,17 +5,27 @@ import { type ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 import { CHART_COLOR } from '~/bundles/common/components/charts/line-chart/constants/constants';
-import { getData, getLabels } from '~/bundles/common/helpers/chart-helper';
+import {
+    createLineChartOptions,
+    getData,
+    getLabels,
+} from '~/bundles/common/helpers/chart-helper';
 import { type DataObject } from '~/bundles/common/types/chart-data.type';
 
-import { options } from './options';
 import styles from './styles.module.scss';
 
 type Properties = {
     dataArr: DataObject[];
+    tooltipDisplay?: boolean;
+    pointHoverRadius?: number;
 };
 
-const LineChart: React.FC<Properties> = ({ dataArr }) => {
+const LineChart: React.FC<Properties> = ({
+    dataArr,
+    tooltipDisplay = false,
+    pointHoverRadius = 4,
+}) => {
+    const options = createLineChartOptions(tooltipDisplay);
     const data: ChartData<'line'> = {
         labels: getLabels(dataArr),
         datasets: [
@@ -24,6 +34,7 @@ const LineChart: React.FC<Properties> = ({ dataArr }) => {
                 data: getData(dataArr),
                 borderColor: CHART_COLOR,
                 backgroundColor: CHART_COLOR,
+                pointHoverRadius: pointHoverRadius,
             },
         ],
     };

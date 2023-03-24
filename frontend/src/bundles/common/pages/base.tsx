@@ -1,4 +1,5 @@
 import React from 'react';
+import { type MultiValue } from 'react-select';
 import { type UserSignInRequestDto } from 'shared/build/index.js';
 import { userSignInValidationSchema } from 'shared/build/index.js';
 
@@ -16,6 +17,7 @@ import {
     LineChart,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
+import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
@@ -166,6 +168,23 @@ const Base: React.FC = () => {
         [],
     );
 
+    ///////////
+
+    const [selectedMulti, setSelectedMulti] = useState<MultiValue<DataTypes>>(
+        [],
+    );
+
+    const handleMultiDropdownChange = useCallback(
+        (selectedOption: MultiValue<DataTypes> | null) => {
+            if (selectedOption === null) {
+                setSelectedMulti([]);
+            } else {
+                setSelectedMulti(selectedOption);
+            }
+        },
+        [],
+    );
+
     return (
         <>
             <Header dataTabs={allTabsData} />
@@ -175,13 +194,24 @@ const Base: React.FC = () => {
                 <div>
                     <Tabs tabsData={tabsData} />
                 </div>
-                <br></br>
-                <Dropdown
-                    data={people}
-                    selectedOption={selectedSingle}
-                    handleChange={handleDropdownChange}
-                    width="229px"
-                />
+                <div style={{ margin: '15px' }}>
+                    <Dropdown
+                        data={people}
+                        selectedOption={selectedSingle}
+                        handleChange={handleDropdownChange}
+                        width="229px"
+                    />
+                </div>
+
+                <div style={{ margin: '15px' }}>
+                    <MultiDropdown
+                        data={people}
+                        selectedOption={selectedMulti}
+                        handleChange={handleMultiDropdownChange}
+                        width="229px"
+                    />
+                </div>
+
                 {/* Buttons */}
                 <div
                     style={{

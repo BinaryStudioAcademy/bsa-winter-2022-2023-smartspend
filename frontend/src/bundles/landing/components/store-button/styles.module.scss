@@ -14,11 +14,11 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    padding: 5px;
+    padding: var(--p-1);
 }
 
 .title {
-    margin: 0 0 5px;
+    margin: 0 0 var(--m-1);
     font-weight: 400;
     font-size: 11px;
 }

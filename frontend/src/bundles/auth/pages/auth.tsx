@@ -46,6 +46,8 @@ const Auth: React.FC = () => {
         return null;
     };
 
+    const authPath = pathname === AppRoute.SIGN_IN ? AuthApiPath.SIGN_UP : AuthApiPath.SIGN_IN;
+
     return (
         <div className={styles.authContainer}>
             <div className={styles.authWrap}>
@@ -64,17 +66,13 @@ const Auth: React.FC = () => {
                                 </h2>
                                 <div className={styles.headerText}>
                                     <span>
-                                        {getText(pathname, 'headerText')}
+                                        {getText(pathname, 'authText')}
                                     </span>
                                     <Link
                                         className={styles.headerLink}
-                                        to={
-                                            pathname === AppRoute.SIGN_IN
-                                                ? AuthApiPath.SIGN_UP
-                                                : AuthApiPath.SIGN_IN
-                                        }
+                                        to={authPath}
                                     >
-                                        {getText(pathname, 'header')}
+                                        {getText(pathname, 'authLink')}
                                     </Link>
                                 </div>
                             </div>
@@ -83,7 +81,7 @@ const Auth: React.FC = () => {
                             </div>
                             <div className={styles.authFooter}>
                                 <p className={styles.footerText}>
-                                    {getText(pathname, 'footer')}
+                                    {getText(pathname, 'footers')}
                                 </p>
                                 <div className={styles.authSocial}>
                                     <img

@@ -1,3 +1,7 @@
+:root {
+    --pr-40: 2.5rem;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -41,7 +45,7 @@
 
 .inputPages[type="password"],
 .inputPages[type="text"] {
-    padding-right: var(--p-9);
+    padding-right: var(--pr-40);
 }
 
 .imgWrapper {

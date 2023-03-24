@@ -61,6 +61,7 @@
 .cardFooter {
     display: flex;
     flex-direction: column;
+    gap: var(--m-1);
     width: 100%;
 }
 

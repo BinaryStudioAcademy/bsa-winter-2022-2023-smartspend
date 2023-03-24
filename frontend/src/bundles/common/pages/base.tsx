@@ -7,6 +7,7 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import {
     BaseModal,
+    BudgetCard,
     Button,
     CardTotal,
     Chart,
@@ -474,6 +475,42 @@ const Base: React.FC = () => {
                     {filteredData.map((item, index) => (
                         <p key={index}>{item.amount}</p>
                     ))}
+                </div>
+            </div>
+            <div style={{ backgroundColor: '#EFF3FF', padding: '0 1rem 1rem' }}>
+                <h1
+                    style={{
+                        fontSize: '24px',
+                        lineHeight: '3rem',
+                        margin: '0',
+                    }}
+                >
+                    Budgets
+                </h1>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns:
+                            'repeat(auto-fill, minmax(370px, 1fr))',
+                        gap: '20px',
+                    }}
+                >
+                    <BudgetCard
+                        title={'One'}
+                        total={12_301.25}
+                        moneyLeft={824.56}
+                    />
+                    <BudgetCard title={'Two'} total={1301} moneyLeft={135.45} />
+                    <BudgetCard
+                        title={'Three'}
+                        total={15_381}
+                        moneyLeft={1025.26}
+                    />
+                    <BudgetCard
+                        title={'Four'}
+                        total={75_471}
+                        moneyLeft={20_456}
+                    />
                 </div>
             </div>
         </>

@@ -2,6 +2,7 @@ type DefaultApiHandlerOptions = {
     body?: unknown;
     query?: unknown;
     params?: unknown;
+    headers?: unknown;
 };
 
 type ApiHandlerOptions<
@@ -10,6 +11,7 @@ type ApiHandlerOptions<
     body: T['body'];
     query: T['query'];
     params: T['params'];
+    headers: T['headers'];
 };
 
 export { type ApiHandlerOptions };

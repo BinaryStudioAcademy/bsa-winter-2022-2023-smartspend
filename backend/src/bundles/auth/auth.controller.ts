@@ -16,6 +16,7 @@ import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
+import { getToken } from '../../common/helpers/helpers.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
@@ -61,7 +62,7 @@ class AuthController extends Controller {
             handler: (options) =>
                 this.loadUser(
                     options as ApiHandlerOptions<{
-                        query: UserLoadRequestDto;
+                        headers: UserLoadRequestDto;
                     }>,
                 ),
         });
@@ -181,10 +182,11 @@ class AuthController extends Controller {
 
     private async loadUser(
         options: ApiHandlerOptions<{
-            query: UserLoadRequestDto;
+            headers: UserLoadRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const { token } = options.query;
+        const { authorization } = options.headers;
+        const token = getToken(authorization);
         const user = await this.authService.getUserByToken(token);
         return {
             status: HttpCode.OK,

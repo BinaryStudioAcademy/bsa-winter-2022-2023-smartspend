@@ -61,6 +61,11 @@ const Input = <T extends FieldValues>({
 
     const { field } = useFormController({ name, control });
 
+    const bigDisc =
+        type === InputType.PASSWORD && !passwordShown && field.value
+            ? { fontSize: '34px' }
+            : {};
+
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
@@ -77,6 +82,7 @@ const Input = <T extends FieldValues>({
             <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}
+                style={bigDisc}
                 type={passwordShown ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}

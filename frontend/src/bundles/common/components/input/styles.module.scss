@@ -10,7 +10,7 @@
     margin: var(--m-1);
     color: var(--color-gray-400);
     font-weight: var(--font-weight-input-label);
-    font-size: var(--font-size-label);
+    font-size: var(--font-size-1-button-text);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-input);
@@ -40,8 +40,8 @@
     margin: 2px 0;
     padding: 0 var(--p-3);
     color: var(--color-blue-600);
-    font-weight: var(--font-weight-500);
-    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-1-button-text);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-input);
@@ -75,9 +75,9 @@
 
 .inputIcon {
     position: absolute;
-    top: 36px;
+    top: 38px;
     right: 20px;
-    width: 15px;
+    width: 20px;
     height: 16px;
     cursor: pointer;
 }

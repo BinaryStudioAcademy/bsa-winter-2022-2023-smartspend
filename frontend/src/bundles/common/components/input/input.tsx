@@ -21,8 +21,8 @@ type Properties<T extends FieldValues> = {
     placeholder?: string;
     name: FieldPath<T>;
     type?: InputType;
-    input_className?: string;
-    label_className?: string;
+    inputClassName?: string;
+    labelClassName?: string;
     isDisabled?: boolean;
     eyeHidden?: boolean;
 };
@@ -34,8 +34,8 @@ const Input = <T extends FieldValues>({
     name,
     placeholder = '',
     type,
-    input_className = '',
-    label_className = '',
+    inputClassName = '',
+    labelClassName = '',
     isDisabled = false,
     eyeHidden = false,
 }: Properties<T>): JSX.Element => {
@@ -64,13 +64,13 @@ const Input = <T extends FieldValues>({
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
-    const labelClasses = classNames(styles.label, label_className);
+    const labelClasses = classNames(styles.label, labelClassName);
 
     const inputClasses = classNames(
         styles.input,
         hasError && styles.hasError,
         styles[isDisabled ? 'disabled' : ''],
-        input_className,
+        inputClassName,
     );
 
     return (

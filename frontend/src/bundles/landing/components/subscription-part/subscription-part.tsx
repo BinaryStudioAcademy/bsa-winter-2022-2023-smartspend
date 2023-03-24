@@ -28,8 +28,8 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
                         name="email"
                         control={control}
                         errors={errors}
-                        label_className={styles.inputLabel}
-                        input_className={styles.input}
+                        labelClassName={styles.inputLabel}
+                        inputClassName={styles.input}
                     />
                     <Button>Subscribe</Button>
                 </div>

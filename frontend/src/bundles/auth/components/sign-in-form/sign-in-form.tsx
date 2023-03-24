@@ -37,7 +37,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="email"
                     control={control}
                     errors={errors}
-                    input_className={styles.inputPages}
+                    inputClassName={styles.inputPages}
                 />
             </p>
             <p className={styles.inputWrapper}>
@@ -48,7 +48,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     name="password"
                     control={control}
                     errors={errors}
-                    input_className={styles.inputPages}
+                    inputClassName={styles.inputPages}
                     eyeHidden
                 />
             </p>

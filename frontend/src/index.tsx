@@ -14,6 +14,7 @@ import {
 import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
+import { Budgets } from '~/bundles/common/pages/budgets/budgets';
 import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
 import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
 import { Landing } from '~/bundles/landing/landing';
@@ -59,6 +60,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     <PrivateRoute>
                                         <Dashboard />
                                     </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.BUDGETS,
+                                element: (
+                                    <PublicRoute>
+                                        <Budgets />
+                                    </PublicRoute>
                                 ),
                             },
                         ],

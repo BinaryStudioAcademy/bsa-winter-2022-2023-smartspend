@@ -1,6 +1,5 @@
 import { WalletEntity } from '~/bundles/wallets/wallets.entity.js';
 import { type WalletRepository } from '~/bundles/wallets/wallets.repository.js';
-import { type IService } from '~/common/interfaces/interfaces.js';
 
 import { WalletValidationMessage } from './enums/enums.js';
 import {

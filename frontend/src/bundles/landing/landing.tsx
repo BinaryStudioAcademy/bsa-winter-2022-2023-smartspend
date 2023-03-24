@@ -58,11 +58,11 @@ const Landing: React.FC = () => {
             <Header dataTabs={allTabsData} />
             <div className={styles.wrapper}>
                 <HighlightBanner
-                title={'The only app that gets your money into shape'}
-                details={
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
-                }
-            />
+                    title={'The only app that gets your money into shape'}
+                    details={
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
+                    }
+                />
                 <QuestionPart question={'How to get your money into shape?'} />
                 <FirstStepPart />
                 <SecondStepPart />
@@ -72,7 +72,9 @@ const Landing: React.FC = () => {
                     feedbacks={feedbacksArray}
                 />
                 <SubscriptionPart
-                    title={'Get monthly money tips and stay on top of your finance'}
+                    title={
+                        'Get monthly money tips and stay on top of your finance'
+                    }
                 />
             </div>
             <Footer />

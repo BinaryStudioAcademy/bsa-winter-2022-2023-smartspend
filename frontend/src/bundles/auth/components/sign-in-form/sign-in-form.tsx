@@ -52,7 +52,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     eyeHidden
                 />
             </p>
-            <Button type={ButtonType.SUBMIT}>Log In</Button>
+            <Button className={styles.button} type={ButtonType.SUBMIT}>
+                Log In
+            </Button>
         </form>
     );
 };

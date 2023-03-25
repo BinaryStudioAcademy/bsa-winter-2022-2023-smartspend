@@ -6,16 +6,6 @@
     background: var(--gradient-9);
 }
 
-// .container {
-//     display: flex;
-//     flex: 1 1 auto;
-//     justify-content: space-between;
-//     align-items: center;
-//     max-width: 1192px;
-//     height: 530px;
-//     padding: 0 var(--p-3);
-// }
-
 .container {
     display: grid;
     flex: 1 1 auto;
@@ -94,7 +84,7 @@
 
 .laptopImgWrapper {
     z-index: 1;
-    grid-row: 1 3;
+    grid-row: span 2;
     grid-column-start: 2;
 }
 

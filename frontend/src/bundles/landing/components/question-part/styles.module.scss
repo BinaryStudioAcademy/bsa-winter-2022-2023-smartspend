@@ -8,7 +8,8 @@
 }
 
 .title {
-    width: 1192px;
+    max-width: 1192px;
+    padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-1-heading);
@@ -25,6 +26,6 @@
 
 @media (max-width: 576px) {
     .title {
-        margin: var(--m-2) 0;
+        margin: var(--m-4) 0;
     }
 }

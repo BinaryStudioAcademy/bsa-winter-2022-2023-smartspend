@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
     type MultiValue,
+    type SingleValue,
     type StylesConfig,
+    type ValueContainerProps,
 } from 'react-select';
 import { components } from 'react-select';
 
@@ -11,9 +13,9 @@ import styles from './styles.module.scss';
 
 interface Properties {
     data: DataTypes[];
-    selectedOption: MultiValue<DataTypes>;
-    handleChange?: (
-        selectedOption: MultiValue<DataTypes>,
+    selectedOption: MultiValue<DataTypes> | SingleValue<DataTypes>;
+    handleChange: (
+        selectedOption: MultiValue<DataTypes> | SingleValue<DataTypes>,
         actionMeta: ActionMeta<DataTypes>,
     ) => void;
     width?: string;
@@ -46,8 +48,9 @@ const MultiDropdown: React.FC<Properties> = ({
         }),
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const ValueContainer = (properties: any): JSX.Element => {
+    const ValueContainer = (
+        properties: ValueContainerProps<DataTypes>,
+    ): JSX.Element => {
         const { getValue } = properties;
         const selectedCount = getValue().length;
         const labelText =

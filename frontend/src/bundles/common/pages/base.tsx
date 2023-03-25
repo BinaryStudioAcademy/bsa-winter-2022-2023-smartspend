@@ -1,5 +1,5 @@
 import React from 'react';
-import { type MultiValue } from 'react-select';
+import { type MultiValue, type SingleValue } from 'react-select';
 import { type UserSignInRequestDto } from 'shared/build/index.js';
 import { userSignInValidationSchema } from 'shared/build/index.js';
 
@@ -76,7 +76,7 @@ const tabsDashboard = [
     { title: 'Budget', to: AppRoute.BUDGETS },
 ];
 
-// DROPDOWN data
+//////////////// DROPDOWNs data
 
 const people = [
     {
@@ -106,7 +106,7 @@ const people = [
     },
 ];
 
-// DROPDOWN data
+//////////////// DROPDOWNs data end
 
 const allTabsData = {
     dashboard: tabsDashboard,
@@ -157,6 +157,8 @@ const Base: React.FC = () => {
         mode: 'onBlur',
     });
 
+    //////////////// Single Dropdown
+
     const [selectedSingle, setSelectedSingle] = useState<DataTypes>(people[0]);
 
     const handleDropdownChange = useCallback(
@@ -168,14 +170,14 @@ const Base: React.FC = () => {
         [],
     );
 
-    ///////////
+    //////////////// Multiselect Dropdown
 
-    const [selectedMulti, setSelectedMulti] = useState<MultiValue<DataTypes>>(
-        [],
-    );
+    const [selectedMulti, setSelectedMulti] = useState<
+        MultiValue<DataTypes> | SingleValue<DataTypes>
+    >([]);
 
     const handleMultiDropdownChange = useCallback(
-        (selectedOption: MultiValue<DataTypes> | null) => {
+        (selectedOption: MultiValue<DataTypes> | SingleValue<DataTypes>) => {
             if (selectedOption === null) {
                 setSelectedMulti([]);
             } else {

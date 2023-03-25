@@ -1,95 +1,73 @@
+.body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-blue-100);
+}
+
 .container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 1192px;
     height: 680px;
-    padding: 0 var(--p-8);
-    background-color: var(--color-blue-100);
+    margin: 0 auto;
+    padding: 0 var(--p-3);
 }
 
 .chartCardsContainer {
     position: relative;
-    width: auto;
+}
+
+.chartCardTop,
+.chartCardBottom {
+    position: absolute;
+    display: block;
+    max-width: 420px;
 }
 
 .chartCardTop {
-    position: absolute;
     right: 150px;
     bottom: -20px;
 }
 
 .chartCardBottom {
-    position: absolute;
     top: 0;
     right: -40px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .container {
         flex-direction: column;
         height: auto;
-        padding: var(--p-4) 0;
+        padding: var(--p-5) var(--p-3);
     }
 
     .chartCardsContainer {
         position: inherit;
         display: flex;
-        flex-direction: column;
         gap: 20px;
     }
 
-    .chartCardTop {
-        position: inherit;
-    }
-
+    .chartCardTop,
     .chartCardBottom {
         position: inherit;
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        padding: var(--p-4) 0;
-    }
-
+@media (max-width: 992px) {
     .chartCardsContainer {
-        position: inherit;
-        display: flex;
         flex-direction: column;
-        gap: 20px;
-    }
-
-    .chartCardTop {
-        position: inherit;
-    }
-
-    .chartCardBottom {
-        position: inherit;
     }
 }
 
-@media (min-width: 993px) and (max-width: 1300px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        padding: var(--p-4) 0;
-    }
-
+@media (max-width: 576px) {
     .chartCardsContainer {
-        position: inherit;
-        display: flex;
-        gap: 20px;
-    }
-
-    .chartCardTop {
-        position: inherit;
-    }
-
-    .chartCardBottom {
-        position: inherit;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: minmax(288px, 420px);
     }
 }

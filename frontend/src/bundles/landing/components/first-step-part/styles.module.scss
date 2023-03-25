@@ -1,5 +1,4 @@
 .body {
-    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -10,6 +9,7 @@
 }
 
 .container {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -22,7 +22,7 @@
 
 .cardsContainer {
     position: absolute;
-    right: -40px;
+    right: -180px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 30px;
@@ -32,11 +32,11 @@
     margin-top: 30px;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1200px) {
     .container {
         flex-direction: column;
         height: auto;
-        padding: var(--p-4) var(--p-3);
+        padding: var(--p-6) var(--p-3);
     }
 
     .cardsContainer {
@@ -51,8 +51,8 @@
 }
 
 @media (max-width: 992px) {
-    .cardsContainer {
-        grid-template-columns: 2fr;
+    .container {
+        padding: var(--p-5) var(--p-3);
     }
 }
 

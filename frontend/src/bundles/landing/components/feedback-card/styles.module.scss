@@ -59,3 +59,9 @@
     font-size: var(--font-size-level-3-heading);
     line-height: var(--line-height-level-3-heading);
 }
+
+@media (max-width: 576px) {
+    .container {
+        width: 100%;
+    }
+}

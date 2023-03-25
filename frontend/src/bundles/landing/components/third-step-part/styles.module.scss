@@ -64,10 +64,10 @@
     }
 }
 
-// @media (max-width: 576px) {
-//     .chartCardsContainer {
-//         display: grid;
-//         grid-template-rows: 1fr 1fr;
-//         grid-template-columns: minmax(288px, 420px);
-//     }
-// }
+@media (max-width: 576px) {
+    .chartCardsContainer {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: minmax(288px, 420px);
+    }
+}

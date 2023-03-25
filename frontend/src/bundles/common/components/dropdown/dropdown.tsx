@@ -6,15 +6,15 @@ import Select, {
     type StylesConfig,
 } from 'react-select';
 
-import { type DataTypes } from '../../types/dropdown.type';
+import { type DataType } from '../../types/dropdown.type';
 import styles from './styles.module.scss';
 
 interface Properties {
-    data: DataTypes[];
-    selectedOption: DataTypes;
+    data: DataType[];
+    selectedOption: DataType;
     handleChange?: (
-        selectedOption: SingleValue<DataTypes>,
-        actionMeta: ActionMeta<DataTypes>,
+        selectedOption: SingleValue<DataType>,
+        actionMeta: ActionMeta<DataType>,
     ) => void;
     width?: string;
 }
@@ -31,13 +31,13 @@ const Dropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
-    const customStyles: StylesConfig<DataTypes> = {
+    const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
             transform: state.selectProps.menuIsOpen
-                ? 'rotate(180deg)'
+                ? 'rotate(1801deg)'
                 : 'rotate(0deg)',
         }),
         container: (provided) => ({
@@ -47,7 +47,7 @@ const Dropdown: React.FC<Properties> = ({
     };
 
     const formatOptionLabel = useCallback(
-        (data: DataTypes): JSX.Element => (
+        (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 {data.image && (
                     <img
@@ -72,8 +72,8 @@ const Dropdown: React.FC<Properties> = ({
             }}
             onChange={
                 handleChange as unknown as (
-                    newValue: SingleValue<DataTypes> | MultiValue<DataTypes>,
-                    actionMeta: ActionMeta<DataTypes>,
+                    newValue: SingleValue<DataType> | MultiValue<DataType>,
+                    actionMeta: ActionMeta<DataType>,
                 ) => void
             }
             options={options}

@@ -26,7 +26,7 @@ import { ButtonVariant } from '../enums/button-variant.enum.js';
 import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
-import { type DataTypes } from '../types/dropdown.type';
+import { type DataType } from '../types/dropdown.type';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -159,10 +159,10 @@ const Base: React.FC = () => {
 
     //////////////// Single Dropdown
 
-    const [selectedSingle, setSelectedSingle] = useState<DataTypes>(people[0]);
+    const [selectedSingle, setSelectedSingle] = useState<DataType>(people[0]);
 
     const handleDropdownChange = useCallback(
-        (selectedOption: DataTypes | null) => {
+        (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setSelectedSingle(selectedOption);
             }
@@ -173,11 +173,11 @@ const Base: React.FC = () => {
     //////////////// Multiselect Dropdown
 
     const [selectedMulti, setSelectedMulti] = useState<
-        MultiValue<DataTypes> | SingleValue<DataTypes>
+        MultiValue<DataType> | SingleValue<DataType>
     >([]);
 
     const handleMultiDropdownChange = useCallback(
-        (selectedOption: MultiValue<DataTypes> | SingleValue<DataTypes>) => {
+        (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
             if (selectedOption === null) {
                 setSelectedMulti([]);
             } else {

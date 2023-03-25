@@ -8,15 +8,15 @@ import Select, {
 } from 'react-select';
 import { components } from 'react-select';
 
-import { type DataTypes } from '../../types/dropdown.type';
+import { type DataType } from '../../types/dropdown.type';
 import styles from './styles.module.scss';
 
 interface Properties {
-    data: DataTypes[];
-    selectedOption: MultiValue<DataTypes> | SingleValue<DataTypes>;
+    data: DataType[];
+    selectedOption: MultiValue<DataType> | SingleValue<DataType>;
     handleChange: (
-        selectedOption: MultiValue<DataTypes> | SingleValue<DataTypes>,
-        actionMeta: ActionMeta<DataTypes>,
+        selectedOption: MultiValue<DataType> | SingleValue<DataType>,
+        actionMeta: ActionMeta<DataType>,
     ) => void;
     width?: string;
 }
@@ -33,7 +33,7 @@ const MultiDropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
-    const customStyles: StylesConfig<DataTypes> = {
+    const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
@@ -49,7 +49,7 @@ const MultiDropdown: React.FC<Properties> = ({
     };
 
     const ValueContainer = (
-        properties: ValueContainerProps<DataTypes>,
+        properties: ValueContainerProps<DataType>,
     ): JSX.Element => {
         const { getValue } = properties;
         const selectedCount = getValue().length;
@@ -64,19 +64,27 @@ const MultiDropdown: React.FC<Properties> = ({
     };
 
     const formatOptionLabel = useCallback(
-        (data: DataTypes): JSX.Element => (
+        (data: DataType): JSX.Element => (
             <div className={styles.item}>
-                {data.image && (
-                    <img
-                        className={styles.image}
-                        src={data.image}
-                        alt={data.name ?? ''}
-                    />
-                )}
-                {data.name && <span className={styles.name}>{data.name}</span>}
+                <input
+                    type="checkbox"
+                    checked={(selectedOption as MultiValue<DataType>).some(
+                        (option) => option.value === data.value,
+                    )}
+                    readOnly
+                    className={styles.checkbox}
+                />
+
+                <img
+                    className={styles.image}
+                    src={data.image}
+                    alt={data.name ?? ''}
+                />
+
+                <span className={styles.name}>{data.name}</span>
             </div>
         ),
-        [],
+        [selectedOption],
     );
 
     return (
@@ -91,6 +99,8 @@ const MultiDropdown: React.FC<Properties> = ({
             components={{
                 ValueContainer,
             }}
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
         />
     );
 };

@@ -6,17 +6,30 @@
     background: var(--gradient-9);
 }
 
+// .container {
+//     display: flex;
+//     flex: 1 1 auto;
+//     justify-content: space-between;
+//     align-items: center;
+//     max-width: 1192px;
+//     height: 530px;
+//     padding: 0 var(--p-3);
+// }
+
 .container {
-    display: flex;
+    display: grid;
     flex: 1 1 auto;
     justify-content: space-between;
+    align-content: center;
     align-items: center;
+    gap: var(--m-3);
     max-width: 1192px;
     height: 530px;
     padding: 0 var(--p-3);
 }
 
 .title {
+    z-index: 1;
     width: 440px;
     margin: 0;
     padding: 0;
@@ -81,8 +94,8 @@
 
 .laptopImgWrapper {
     z-index: 1;
-    width: 580px;
-    height: 320px;
+    grid-row: 1 3;
+    grid-column-start: 2;
 }
 
 .laptopImg {
@@ -92,39 +105,44 @@
     object-fit: contain;
 }
 
-@media (max-width: 1250px) {
-    .title {
-        z-index: 1;
-    }
-
-    .laptopImgWrapper {
-        width: 520px;
-    }
-}
-
 @media (max-width: 992px) {
     .container {
-        flex-direction: column;
+        grid-template-columns: repeat(2, 1fr);
         height: auto;
         padding: var(--p-4) var(--p-3);
+        column-gap: var(--m-2);
     }
 
     .title {
         width: auto;
+        font-size: var(--font-size-level-2-heading);
+        line-height: var(--line-height-level-3-heading);
     }
 
     .buttonsContainer {
+        z-index: 1;
         justify-content: center;
         gap: var(--m-4);
-        margin-bottom: var(--m-3);
     }
 
     .laptopImgWrapper {
-        padding: var(--p-4) 0 0;
+        margin: 0 auto;
     }
 }
 
 @media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: var(--m-4);
+    }
+
+    .laptopImgWrapper {
+        grid-row-start: 2;
+        grid-column-start: 1;
+        padding: 0;
+    }
+
     .blueCircle {
         width: 150px;
         height: 150px;
@@ -133,23 +151,16 @@
     .pinkCircle {
         display: none;
     }
+
+    .buttonsContainer {
+        display: flex;
+        flex-wrap: nowrap;
+    }
 }
 
 @media (max-width: 576px) {
-    .title {
-        font-size: var(--font-size-level-2-heading);
-        line-height: var(--line-height-level-3-heading);
-    }
-
-    .laptopImgWrapper {
-        width: 100%;
-        height: auto;
-        padding-top: var(--p-2);
-    }
-
     .buttonsContainer {
-        flex-direction: column;
-        align-items: center;
+        gap: var(--m-2);
     }
 
     .details {

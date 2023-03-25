@@ -18,6 +18,8 @@ const AvatarContainer: React.FC = () => {
         [],
     );
 
+    const deleteFIle = useCallback((): void => setSelectedFile(null), []);
+
     return (
         <div className={styles.avatarContainer}>
             <span className={styles.label}>Profile photo</span>
@@ -26,12 +28,7 @@ const AvatarContainer: React.FC = () => {
                 <Avatar selectedFile={selectedFile} />
                 <UploadAvatarButton handleFileChange={handleFileChange} />
 
-                <DeleteAvatarButton
-                    deleteFile={useCallback(
-                        (): void => setSelectedFile(null),
-                        [],
-                    )}
-                />
+                <DeleteAvatarButton deleteFile={deleteFIle} />
             </div>
         </div>
     );

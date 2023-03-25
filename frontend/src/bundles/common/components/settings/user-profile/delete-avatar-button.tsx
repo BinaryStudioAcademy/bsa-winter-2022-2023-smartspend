@@ -9,7 +9,11 @@ type Properties = {
 
 const DeleteAvatarButton: React.FC<Properties> = ({ deleteFile }) => {
     return (
-        <button className={styles.deleteAvatar} onClick={deleteFile}>
+        <button
+            type="button"
+            className={styles.deleteAvatar}
+            onClick={deleteFile}
+        >
             <FontAwesomeIcon icon={faTrash} />
         </button>
     );

@@ -23,7 +23,6 @@ const SettingsForm: React.FC = () => {
                 name="name"
                 control={control}
                 errors={errors}
-                className={styles.input}
             />
             <Input
                 type={InputType.TEXT}
@@ -32,7 +31,6 @@ const SettingsForm: React.FC = () => {
                 name="surname"
                 control={control}
                 errors={errors}
-                className={styles.input}
             />
             <Input
                 type={InputType.EMAIL}
@@ -41,7 +39,6 @@ const SettingsForm: React.FC = () => {
                 name="email"
                 control={control}
                 errors={errors}
-                className={styles.input}
             />
             <Title>Localization settings</Title>
             <SubmitButton>Update my settings</SubmitButton>

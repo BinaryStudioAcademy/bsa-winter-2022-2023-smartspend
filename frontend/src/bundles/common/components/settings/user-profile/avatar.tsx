@@ -13,7 +13,7 @@ const Avatar: React.FC<Properties> = ({ selectedFile }) => {
                     alt="Selected file"
                 />
             ) : (
-                <span>Upload image here</span>
+                <span className={styles.noImage}>Upload image here</span>
             )}
         </div>
     );

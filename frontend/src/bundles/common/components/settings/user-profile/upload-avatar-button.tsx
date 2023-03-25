@@ -20,7 +20,11 @@ const UploadAvatarButton: React.FC<Properties> = ({ handleFileChange }) => {
     }, []);
 
     return (
-        <button className={styles.uploadAvatar} onClick={handleClick}>
+        <button
+            type="button"
+            className={styles.uploadAvatar}
+            onClick={handleClick}
+        >
             <FontAwesomeIcon icon={faArrowUpFromBracket} />
             <span className={styles.uploadAvatarText}>Upload avatar</span>
             <input

@@ -10,8 +10,9 @@
 }
 
 .contentWrapper {
-    max-width: var(--lg);
+    max-width: 1192px;
     margin: 0 auto;
+    padding: 0 var(--p-3);
 }
 
 .wallets {

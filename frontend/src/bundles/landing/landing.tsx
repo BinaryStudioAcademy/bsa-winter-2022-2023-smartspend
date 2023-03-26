@@ -54,7 +54,6 @@ const Landing: React.FC = () => {
 
     return (
         <>
-            <Header dataTabs={allTabsData} />
             <HighlightBanner
                 title={'The only app that gets your money into shape'}
                 details={

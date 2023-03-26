@@ -65,9 +65,9 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                             {
                                 path: AppRoute.BUDGETS,
                                 element: (
-                                    <PublicRoute>
+                                    <PrivateRoute>
                                         <Budgets />
-                                    </PublicRoute>
+                                    </PrivateRoute>
                                 ),
                             },
                         ],

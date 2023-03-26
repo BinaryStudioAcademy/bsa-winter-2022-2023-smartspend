@@ -1,6 +1,9 @@
 import { actions as authActions } from '~/bundles/auth/store';
-import { RouterOutlet } from '~/bundles/common/components/components.js';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
+import {
+    Header,
+    RouterOutlet,
+} from '~/bundles/common/components/components.js';
+import { AppRoute, dataTabs } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -30,7 +33,18 @@ const App: React.FC = () => {
         }
     }, [dispatch, token, user]);
 
-    return <RouterOutlet />;
+    return (
+        <>
+            <Header
+                name={user?.email}
+                avatar={
+                    'https://ideastest.org.uk/wp-content/uploads/2019/04/default-avatar-1.jpg'
+                }
+                dataTabs={dataTabs}
+            />
+            <RouterOutlet />
+        </>
+    );
 };
 
 export { App };

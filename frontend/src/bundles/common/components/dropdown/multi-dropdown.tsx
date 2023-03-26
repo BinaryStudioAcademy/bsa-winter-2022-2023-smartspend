@@ -33,7 +33,7 @@ const MultiDropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
-    const customStyles: StylesConfig<DataType> = {
+    const customStyles: StylesConfig<DataType, true> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
@@ -46,6 +46,22 @@ const MultiDropdown: React.FC<Properties> = ({
             ...provided,
             width,
         }),
+        option: (base, { isSelected }) => {
+            const backgroundColor = base.color;
+            const fontWeight = isSelected ? 'bold' : 'normal';
+
+            return {
+                ...base,
+                backgroundColor,
+                ':hover': {
+                    backgroundColor: 'var(--color-blue-100)',
+                },
+                fontWeight,
+                ':active': {
+                    backgroundColor: base.color,
+                },
+            };
+        },
     };
 
     const ValueContainer = (

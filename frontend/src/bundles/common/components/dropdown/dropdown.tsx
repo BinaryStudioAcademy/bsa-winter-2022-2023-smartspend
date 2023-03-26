@@ -1,3 +1,5 @@
+import '~/assets/css/variables/color-variables.scss';
+
 import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
@@ -16,6 +18,7 @@ interface Properties {
         selectedOption: SingleValue<DataType>,
         actionMeta: ActionMeta<DataType>,
     ) => void;
+    handleFocus?: () => boolean;
     width?: string;
 }
 
@@ -23,6 +26,7 @@ const Dropdown: React.FC<Properties> = ({
     data,
     selectedOption,
     handleChange,
+    handleFocus,
     width = '229px',
 }) => {
     const options = data.map((item) => ({
@@ -43,6 +47,32 @@ const Dropdown: React.FC<Properties> = ({
         container: (provided) => ({
             ...provided,
             width,
+        }),
+        control: (provided, state) => ({
+            ...provided,
+            borderColor: provided.borderColor,
+            boxShadow: state.isFocused ? 'none' : provided.boxShadow,
+        }),
+
+        option: (base, { isSelected }) => {
+            const backgroundColor = base.color;
+            const fontWeight = isSelected ? 'bold' : 'normal';
+
+            return {
+                ...base,
+                backgroundColor,
+                ':hover': {
+                    backgroundColor: 'var(--color-blue-100)',
+                },
+                fontWeight,
+                ':active': {
+                    backgroundColor: base.color,
+                },
+            };
+        },
+        menu: (provided) => ({
+            ...provided,
+            width: 'fit-content',
         }),
     };
 
@@ -79,6 +109,7 @@ const Dropdown: React.FC<Properties> = ({
             options={options}
             formatOptionLabel={formatOptionLabel}
             styles={customStyles}
+            onFocus={handleFocus}
         />
     );
 };

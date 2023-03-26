@@ -116,6 +116,7 @@
     border: none;
     border-radius: var(--b-1);
     outline: none;
+    transition: 0.4s;
 }
 
 .submitBtnActive {
@@ -127,6 +128,7 @@
     border-radius: var(--b-1);
     outline: none;
     cursor: pointer;
+    transition: 0.4s;
 }
 
 .divider {

@@ -3,6 +3,7 @@ import { Title } from '~/bundles/common/components/settings/title';
 import { AvatarContainer } from '~/bundles/common/components/settings/user-profile/avatar-container';
 import { SubmitButton } from '~/bundles/common/components/settings/user-profile/submit-button';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
+import { useFormController } from '~/bundles/common/hooks/hooks.js';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
 
 import styles from '../styles.module.scss';
@@ -12,6 +13,15 @@ const SettingsForm: React.FC = () => {
     const { control, errors } = useAppForm({
         defaultValues: mockData,
     });
+
+    const newName = useFormController({ name: 'name', control }).field.value;
+    const newSurname = useFormController({ name: 'surname', control }).field
+        .value;
+    const newEmail = useFormController({ name: 'email', control }).field.value;
+    const isChange = (): boolean => {
+        const { name, surname, email } = mockData;
+        return newName !== name || newSurname !== surname || newEmail !== email;
+    };
 
     return (
         <form className={styles.form}>
@@ -41,7 +51,9 @@ const SettingsForm: React.FC = () => {
                 errors={errors}
             />
             <Title>Localization settings</Title>
-            <SubmitButton>Update my settings</SubmitButton>
+            <SubmitButton isChange={isChange()}>
+                Update my settings
+            </SubmitButton>
         </form>
     );
 };

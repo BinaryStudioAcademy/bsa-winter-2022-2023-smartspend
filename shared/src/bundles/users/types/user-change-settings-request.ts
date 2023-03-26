@@ -8,8 +8,8 @@ type UserChangeSettingsRequestDto = {
         year: string | number;
     };
     email: string;
-    currency: string;
-    language: string;
+    currency?: string;
+    language?: string;
 };
 
 export { type UserChangeSettingsRequestDto };

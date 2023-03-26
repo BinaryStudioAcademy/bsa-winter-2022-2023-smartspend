@@ -3,12 +3,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 0 auto;
     background-color: var(--color-white-100);
 }
 
 .title {
-    max-width: 1192px;
+    max-width: var(--container);
     padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-500);

@@ -11,7 +11,7 @@
     flex: 1 1 auto;
     justify-content: space-between;
     align-items: center;
-    max-width: 1192px;
+    max-width: var(--container);
     height: 100%;
     padding: 0 var(--p-3);
 }

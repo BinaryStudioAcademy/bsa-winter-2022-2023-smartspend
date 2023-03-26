@@ -1,7 +1,6 @@
 .body {
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 100%;
     background-color: var(--color-blue-100);
 }
@@ -11,8 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 1192px;
-    margin: 0 auto;
+    width: var(--container);
     padding: 90px var(--p-3);
 }
 

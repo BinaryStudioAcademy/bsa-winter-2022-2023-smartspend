@@ -1,8 +1,6 @@
 .body {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     width: 100%;
     overflow: hidden;
     background-color: var(--color-blue-100);
@@ -14,9 +12,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 1192px;
+    width: var(--container);
     height: 700px;
-    margin: 0 auto;
     padding: 0 var(--p-3);
 }
 

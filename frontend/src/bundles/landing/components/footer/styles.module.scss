@@ -1,7 +1,7 @@
 .body {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     background-color: var(--color-blue-600);
 }
@@ -10,9 +10,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 1192px;
+    width: var(--container);
     height: 200px;
-    margin: 0 auto;
     padding: var(--p-4) var(--p-3);
 }
 

@@ -1,8 +1,7 @@
 .body {
     position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     width: 100%;
     overflow: hidden;
     background-color: var(--color-blue-600);
@@ -13,9 +12,8 @@
     justify-content: space-between;
     align-items: center;
     gap: var(--m-5);
-    width: 1192px;
+    width: var(--container);
     height: 730px;
-    margin: 0 auto;
     padding: 0 var(--p-3);
 }
 

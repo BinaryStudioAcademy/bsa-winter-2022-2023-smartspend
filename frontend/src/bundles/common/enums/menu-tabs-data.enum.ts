@@ -2,7 +2,7 @@ import { AppRoute } from './enums.js';
 
 const tabsDashboard = [
     { title: 'Dashboard', to: AppRoute.DASHBOARD },
-    { title: 'Budget', to: AppRoute.BUDGETS },
+    { title: 'Budgets', to: AppRoute.BUDGETS },
 ];
 
 const tabsData = [

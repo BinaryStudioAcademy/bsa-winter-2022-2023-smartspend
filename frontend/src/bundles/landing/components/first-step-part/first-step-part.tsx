@@ -9,27 +9,29 @@ const FirstStepPart: React.FC = () => {
         'Add your cash expenses manually.',
     ];
 
+    const CashWallets = 'Cash Wallets';
+
     const walletCardsArray = [
         {
-            title: 'Cash Walletss',
+            title: CashWallets,
             wallet_type: 'Balance',
             balance_value: '+900.00$',
             variant: WalletCardVariant.PRIMARY,
         },
         {
-            title: 'Cash Walletss',
+            title: CashWallets,
             wallet_type: 'Balance',
             balance_value: '+900.00$',
             variant: WalletCardVariant.SECONDARY,
         },
         {
-            title: 'Cash Wallets',
+            title: CashWallets,
             wallet_type: 'Balance',
             balance_value: '+900.00$',
             variant: WalletCardVariant.TERTIARY,
         },
         {
-            title: 'Cash Wallets',
+            title: CashWallets,
             wallet_type: 'Balance',
             balance_value: '+900.00$',
             variant: WalletCardVariant.QUATERNARY,

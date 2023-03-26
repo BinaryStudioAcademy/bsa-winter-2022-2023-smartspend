@@ -46,6 +46,11 @@ const Auth: React.FC = () => {
         return null;
     };
 
+    const authPath =
+        pathname === AppRoute.SIGN_IN
+            ? AuthApiPath.SIGN_UP
+            : AuthApiPath.SIGN_IN;
+
     return (
         <div className={styles.authContainer}>
             <div className={styles.authWrap}>
@@ -59,26 +64,25 @@ const Auth: React.FC = () => {
                     <div className={styles.authWrapper}>
                         <div className={styles.authContent}>
                             <div className={styles.authHeader}>
-                                <h2 className={styles.headerText}>
+                                <h2 className={styles.headerTitle}>
                                     {getText(pathname, 'title')}
                                 </h2>
-                                <Link
-                                    className={styles.headerLink}
-                                    to={
-                                        pathname === AppRoute.SIGN_IN
-                                            ? AuthApiPath.SIGN_UP
-                                            : AuthApiPath.SIGN_IN
-                                    }
-                                >
-                                    {getText(pathname, 'header')}
-                                </Link>
+                                <div className={styles.headerText}>
+                                    <span>{getText(pathname, 'authText')}</span>
+                                    <Link
+                                        className={styles.headerLink}
+                                        to={authPath}
+                                    >
+                                        {getText(pathname, 'authLink')}
+                                    </Link>
+                                </div>
                             </div>
                             <div className={styles.authBody}>
                                 {getScreen(pathname)}
                             </div>
                             <div className={styles.authFooter}>
                                 <p className={styles.footerText}>
-                                    {getText(pathname, 'footer')}
+                                    {getText(pathname, 'footers')}
                                 </p>
                                 <div className={styles.authSocial}>
                                     <img

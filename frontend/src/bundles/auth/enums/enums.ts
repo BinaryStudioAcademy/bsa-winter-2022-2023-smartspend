@@ -1,1 +1,2 @@
-export { AuthApiPath } from 'shared/build/index.js';
+export { AppRoute } from '../../common/enums/enums';
+export { AuthApiPath } from '~/bundles/common/enums/enums.js';

@@ -77,7 +77,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         ),
                     },
                     {
-                        path: AppRoute.CATSET,
+                        path: AppRoute.CATEGORIES,
                         element: <CategoriesSettings />,
                     },
                 ]}

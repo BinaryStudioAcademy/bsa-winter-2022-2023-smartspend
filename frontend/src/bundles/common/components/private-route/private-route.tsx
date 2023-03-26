@@ -6,10 +6,7 @@ import { useAppSelector } from '../../hooks/hooks';
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     children,
 }) => {
-    const { user } = useAppSelector(({ auth }) => ({
-        user: auth.user,
-    }));
-
+    const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
     if (!user) {
         return <Navigate to={AppRoute.SIGN_IN} />;
     }

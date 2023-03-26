@@ -2,10 +2,34 @@
     --font-height-input: 2.25rem;
 }
 
-.nameOne {
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 800;
+    width: 100vw;
+    pointer-events: none;
+    background: #00000099;
+    opacity: 0;
+}
+
+.active{
+opacity: .6;
+pointer-events: all;
+}
+
+.formWrapper {
     position: relative;
     z-index: 1;
     transition: z-index 0.35s step-end;
+}
+
+.formActive {
+    position: relative;
+    z-index: 950;
+    transition: z-index 0.35s step-start;
 }
 
 .form {
@@ -87,14 +111,21 @@
     box-shadow: none;
 }
 
+.btn {
+    width: 100%;
+}
+
+.btnName{
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
+}
+
 @media screen and (min-width: 992px) {
     .wrapperType {
         flex-basis: 16.6%;
         max-width: 16.6%;
     }
-}
 
-@media screen and (min-width: 992px) {
     .wrapperBtn {
         flex-basis: 25%;
         max-width: 25%;

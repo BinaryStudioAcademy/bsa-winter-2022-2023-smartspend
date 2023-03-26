@@ -20,6 +20,10 @@ class Storage implements IStorage {
         return Promise.resolve(this.store.getItem(key as string) as R);
     }
 
+    public getSync<R = string>(key: ValueOf<typeof StorageKey>): R | null {
+        return this.store.getItem(key as string) as R;
+    }
+
     public drop(key: ValueOf<typeof StorageKey>): Promise<void> {
         this.store.removeItem(key as string);
 

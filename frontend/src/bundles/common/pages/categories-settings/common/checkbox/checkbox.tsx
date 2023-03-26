@@ -15,19 +15,20 @@ const Checkbox: React.FC<CheckboxProperties> = ({
     isChecked,
     onChange,
 }) => {
-    // const handleClick = (id: string): void => {
-    //     const newValue = !isChecked;
-    //     onChange(newValue);
-    //     // console.log(id);
-    // };
-    // const onKeyDown = useCallback(
-    //     (event: React.KeyboardEvent<HTMLSpanElement>): void => {
-    //         if (event.key === 'Enter') {
-    //             handleClick(id);
-    //         }
-    //     },
-    //     [handleClick],
-    // );
+    
+    const handleClick = useCallback((): void => {
+        const newValue = !isChecked;
+        onChange(newValue);
+    }, [onChange, isChecked]);
+    
+    const onKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLSpanElement>): void => {
+            if (event.key === 'Enter') {
+                handleClick();
+            }
+        },
+        [handleClick],
+    );
 
     return (
         <div className={styles.checkbox}>
@@ -35,11 +36,11 @@ const Checkbox: React.FC<CheckboxProperties> = ({
                 className={`${styles.box} ${
                     isChecked ? styles.boxСhecked : ''
                 }`}
-                // onClick={(): void => handleClick(id)}
+                onClick={handleClick}
                 role="checkbox"
                 aria-checked={isChecked}
                 tabIndex={0}
-                // onKeyDown={onKeyDown}
+                onKeyDown={onKeyDown}
             >
                 <div className={styles.checkboxСheck}></div>
             </div>

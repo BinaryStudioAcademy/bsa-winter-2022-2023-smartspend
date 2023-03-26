@@ -1,26 +1,22 @@
-.overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 800;
-    width: 100vw;
-    pointer-events: none;
-    background: #00000099;
-    opacity: 0;
-}
+
 
 @media screen and (min-width: 768px) {
     .overlay {
         transition: opacity 0.3s;
     }
-}
 
-@media screen and (min-width: 768px) {
     .section {
         display: flex;
+        flex-basis: 75%;
         max-width: 75%;
+    }
+
+    .wrapper {
+        padding: var(--p-2) 0;
+    }
+
+    .content {
+        padding: 12px 80px 20px;
     }
 }
 
@@ -28,22 +24,10 @@
     width: 100%;
     background-color: var(--color-white-100);
     border-radius: var(--b-2);
-}
-
-@media screen and (min-width: 768px) {
-    .wrapper {
-        padding: var(--p-2) 0;
-    }
-}
+}   
 
 .content {
     padding: var(--p-2) var(--p-2) var(--p-3);
-}
-
-@media screen and (min-width: 768px) {
-    .content {
-        padding: 12px 80px 20px;
-    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -63,9 +47,24 @@
     font-size: 14px;
 }
 
-.btnWrapper {
+.wrapperAllBtn {
     display: flex;
     flex: 0 1 auto;
     flex-flow: wrap;
     margin: 0 -0.5rem;
+}
+
+.wrapperBtn{
+    flex-basis: 33.3%;
+    max-width: 33.3%;
+    padding: var(--p-2);
+}
+
+.btn{
+    width: 100%;
+}
+
+.btnName {
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
 }

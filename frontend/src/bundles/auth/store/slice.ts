@@ -9,11 +9,13 @@ import { loadUser, signIn, signUp } from './actions.js';
 type State = {
     user: UserLoadResponseDto | null;
     dataStatus: ValueOf<typeof DataStatus>;
+    isLoaded: boolean;
 };
 
 const initialState: State = {
     user: null,
     dataStatus: DataStatus.IDLE,
+    isLoaded: false,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -23,6 +25,8 @@ const { reducer, actions, name } = createSlice({
     extraReducers(builder) {
         builder.addCase(loadUser.fulfilled, (state, action) => {
             state.user = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
+            state.isLoaded = true;
         });
 
         builder.addMatcher(
@@ -37,12 +41,14 @@ const { reducer, actions, name } = createSlice({
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
                 state.user = null;
+                state.isLoaded = false;
             },
         );
 
         builder.addMatcher(isAnyOf(signUp.pending, signIn.pending), (state) => {
             state.dataStatus = DataStatus.PENDING;
             state.user = null;
+            state.isLoaded = false;
         });
     },
 });

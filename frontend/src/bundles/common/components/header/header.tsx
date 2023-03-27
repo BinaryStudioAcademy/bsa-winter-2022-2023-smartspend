@@ -40,7 +40,11 @@ const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
             <div className={styles.headerContainer}>
                 <Link to={AppRoute.ROOT} className={styles.headerLogo}>
                     <div className={styles.logoImg}>
-                        <img className={styles.imgLogo} src={logoSmartSpend} alt="logo" />
+                        <img
+                            className={styles.imgLogo}
+                            src={logoSmartSpend}
+                            alt="logo"
+                        />
                     </div>
                     <span className={styles.logoText}>SmartSpend</span>
                 </Link>

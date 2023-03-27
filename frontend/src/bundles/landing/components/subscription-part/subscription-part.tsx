@@ -24,7 +24,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
                 <div className={styles.formContainer}>
                     <Input
                         type={InputType.TEXT}
-                        placeholder="Enter your email"
+                        placeholder="E-mail address"
                         name="email"
                         control={control}
                         errors={errors}

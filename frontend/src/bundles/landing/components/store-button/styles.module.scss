@@ -18,9 +18,11 @@
 }
 
 .title {
+    width: 100%;
     margin: 0 0 var(--m-1);
     font-weight: 400;
     font-size: 11px;
+    text-align: start;
 }
 
 .detailsContainer {

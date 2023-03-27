@@ -9,7 +9,7 @@ const FirstStepPart: React.FC = () => {
         'Add your cash expenses manually.',
     ];
 
-    const CashWallets = 'Cash Wallets';
+    const CashWallets = 'Cash Wallet';
 
     const walletCardsArray = [
         {

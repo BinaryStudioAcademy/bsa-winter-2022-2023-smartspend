@@ -1,3 +1,5 @@
+import EmmaAvatar from '~/assets/img/emma-avatar.svg';
+import JoanAvatar from '~/assets/img/joan-avatar.svg';
 import JoyAvatar from '~/assets/img/joy-avatar.svg';
 
 import {
@@ -36,19 +38,19 @@ const Landing: React.FC = () => {
             name: 'Roy',
             src: JoyAvatar,
             feedback:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed dui sagittis, scelerisque lectus at, porttitor lectus. Sed libero est, tincidunt eget purus nec, dignissim consequat mauris',
+                'Easy to use, great design, sync option and has a very simple and nice-looking widget that makes it even easier to use.',
         },
         {
             name: 'Emma',
-            src: JoyAvatar,
+            src: EmmaAvatar,
             feedback:
-                'Nulla et nulla pulvinar, congue justo id, cursus ligula. Nunc pharetra sapien libero, vel blandit orci rhoncus ut. Sed aliquam efficitur semper.',
+                'Really loved this app. It helps me to analyse my expenses and income. The best thing is it indexes everything based on hash which helps to see the expenses at once.',
         },
         {
             name: 'Joan',
-            src: JoyAvatar,
+            src: JoanAvatar,
             feedback:
-                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Cras in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
+                'The fact that it is cross-platform has made my life easier. I am always in control of my finances.',
         },
     ];
 
@@ -58,7 +60,7 @@ const Landing: React.FC = () => {
             <HighlightBanner
                 title={'The only app that gets your money into shape'}
                 details={
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
+                    'Use SmartSpend to plan your budget and take control of finances'
                 }
             />
             <QuestionPart question={'How to get your money into shape?'} />

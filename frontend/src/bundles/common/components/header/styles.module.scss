@@ -63,6 +63,10 @@
     border-radius: 50%;
 }
 
+.headerBtn {
+    color: var(--color-blue-600);
+}
+
 @media (max-width: 768px) {
     .header {
         padding: var(--p-3) 4.25rem;

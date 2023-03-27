@@ -1,8 +1,9 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    row-gap: 20px;
     width: 100%;
     height: 620px;
     padding: var(--p-5) 0;

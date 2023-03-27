@@ -1,8 +1,9 @@
 import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
+import SmartSpendLogo from '~/assets/img/logo-smartspend.svg';
 import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
 
 import { AppRoute } from '../../enums/enums';
-import { FooterLinks, FooterMediaIcons } from '../components';
+import { FooterLinks, FooterMediaIcons, Link } from '../components';
 import styles from './styles.module.scss';
 
 const Footer: React.FC = () => {
@@ -28,11 +29,16 @@ const Footer: React.FC = () => {
             <div className={styles.socialMediaIconsContainer}>
                 <FooterMediaIcons icons={iconsArray} />
             </div>
-            <div className={styles.logoContainer}>
+            <Link to={AppRoute.ROOT} className={styles.logoContainer}>
                 <div className={styles.logoImg}>
-                    <img src="" alt="logo" />
+                    <img
+                        className={styles.imgLogo}
+                        src={SmartSpendLogo}
+                        alt="logo"
+                    />
                 </div>
-            </div>
+                <span className={styles.logoText}>SmartSpend</span>
+            </Link>
             <div className={styles.links_container}>
                 <FooterLinks links={linksArray} />
             </div>

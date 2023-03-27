@@ -1,4 +1,4 @@
-import { type ChartOptions } from 'chart.js';
+import { type ChartOptions, type Tick } from 'chart.js';
 
 import {
     BORDER_WIDTH,
@@ -23,6 +23,17 @@ const getLabels = (data: DataObject[]): Date[] => {
 
 const getData = (data: DataObject[]): number[] => {
     return data.map(({ value }) => value);
+};
+
+const getRoundValue = (
+    value: string | number,
+    index: number,
+    ticks: Tick[],
+): string => {
+    const ticksValue = ticks[ticks.length - 2].value * 2;
+    const newValue = index == ticks.length - 1 ? ticksValue : Number(value);
+    const roundedValue = newValue.toFixed(2);
+    return newValue > 0 ? `+ ${roundedValue}$` : `${roundedValue}$`;
 };
 
 const createLineChartOptions = (
@@ -61,9 +72,7 @@ const createLineChartOptions = (
                 align: 'inner',
                 color: TEXT_COLOR,
                 maxTicksLimit: 8,
-                callback: function (value): string {
-                    return convertDate(value);
-                },
+                callback: convertDate,
             },
         },
         y: {
@@ -76,16 +85,7 @@ const createLineChartOptions = (
             ticks: {
                 color: TEXT_COLOR,
                 maxTicksLimit: 6,
-                callback: function (value, index, ticks): string {
-                    const newValue =
-                        index == ticks.length - 1
-                            ? ticks[ticks.length - 2].value * 2
-                            : +value;
-                    const roundedValue = newValue.toFixed(2);
-                    return newValue > 0
-                        ? `+ ${roundedValue}$`
-                        : `${roundedValue}$`;
-                },
+                callback: getRoundValue,
             },
         },
     },

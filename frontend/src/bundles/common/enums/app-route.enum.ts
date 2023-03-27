@@ -8,6 +8,7 @@ const AppRoute = {
     WALLETS: '/wallets',
     UI: '/ui',
     WALLET_DETAILS: '/wallet/:id',
+    NOT_FOUND: '*',
 } as const;
 
 export { AppRoute };

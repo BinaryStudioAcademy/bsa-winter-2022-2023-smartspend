@@ -30,20 +30,13 @@
 .input {
     width: 290px;
     padding: 0.5rem;
-    background-image: linear-gradient(
-            var(--color-white-100),
-            var(--color-white-100)
-        ),
-        var(--gradient-3);
-    background-clip: padding-box, border-box;
-    background-origin: border-box;
-    border: double 3px transparent;
+    border: double 2px var(--color-turquoise-500);
     border-radius: 6px;
 }
 
 .input:focus {
     background-image: none;
-    border-color: var(--color-blue-500);
+    border-color: var(--color-turquoise-600);
 }
 
 .formContainer {

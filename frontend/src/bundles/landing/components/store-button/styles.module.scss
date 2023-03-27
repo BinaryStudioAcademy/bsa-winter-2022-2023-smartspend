@@ -1,5 +1,5 @@
 .button {
-    width: 190px;
+    width: 200px;
     color: var(--color-white-100);
     background-color: var(--color-blue-600);
     border-radius: var(--b-2);
@@ -14,15 +14,19 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    padding: var(--p-1);
 }
 
 .title {
+    margin: 0 0 var(--m-1);
+    font-weight: 400;
     font-size: 11px;
 }
 
 .detailsContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .body {

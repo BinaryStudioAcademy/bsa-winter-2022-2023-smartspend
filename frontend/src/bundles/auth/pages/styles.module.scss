@@ -2,7 +2,7 @@
     position: absolute;
     top: 0;
     display: flex;
-    width: 100%;
+    width: 100vw;
     overflow: auto;
     background-color: var(--color-blue-600);
 }
@@ -50,6 +50,7 @@
 .authWrapper {
     position: relative;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: center;
     min-width: 100%;
@@ -104,12 +105,20 @@
     align-items: center;
 }
 
-.headerText {
+.headerTitle {
     margin: 0;
     color: var(--color-white-100);
     font-weight: 500;
     font-size: var(--font-size-level-2-heading);
     line-height: var(--line-height-sub-heading);
+}
+
+.headerText {
+    display: flex;
+    align-items: center;
+    gap: var(--m-2);
+    color: var(--color-white-100);
+    font-size: var(--font-size-level-6-heading);
 }
 
 .headerLink {
@@ -123,6 +132,7 @@
 }
 
 .authBody {
+    width: 100%;
     margin-top: var(--m-4);
     margin-bottom: var(--m-5);
 }
@@ -150,7 +160,7 @@
     cursor: pointer;
 }
 
-@media (max-width: var(--lg)) {
+@media (max-width: 992px) {
     .authInside {
         width: 520px;
     }
@@ -160,7 +170,7 @@
     }
 }
 
-@media (max-width: var(--md)) {
+@media (max-width: 768px) {
     .authRoundsmall {
         right: -25px;
     }
@@ -170,7 +180,7 @@
     }
 }
 
-@media (max-width: var(--sm)) {
+@media (max-width: 576px) {
     .authInside {
         width: 100%;
         padding-right: var(--p-2);
@@ -190,13 +200,13 @@
     }
 }
 
-@media (max-height: var(--md)) {
+@media (max-height: 768px) {
     .authLogo {
         margin: var(--m-6) auto var(--m-3);
     }
 }
 
-@media (max-height: var(--sm)) {
+@media (max-height: 576px) {
     .authLogo {
         margin: var(--m-5) auto var(--m-2);
     }

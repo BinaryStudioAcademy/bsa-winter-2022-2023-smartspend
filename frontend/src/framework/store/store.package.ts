@@ -11,8 +11,9 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { type IConfig } from '~/framework/config/config.js';
+import { storage } from '~/framework/storage/storage.js';
 import { handleError } from '~/framework/store/middlewares/middlewares.js';
-import { notification } from '~/services/notification/notification.service';
+import { notification } from '~/services/services.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -23,6 +24,7 @@ type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     notification: typeof notification;
+    storage: typeof storage;
 };
 
 class Store {
@@ -61,6 +63,7 @@ class Store {
             authApi,
             userApi,
             notification,
+            storage,
         };
     }
 }

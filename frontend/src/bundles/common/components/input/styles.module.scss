@@ -1,7 +1,5 @@
 :root {
-    --border-input: 1px;
     --border-radius: 0.5rem;
-    --font-size-label: 1rem;
     --line-height-label-span: 1.25rem;
 }
 
@@ -9,7 +7,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100px;
     margin: var(--m-1);
     color: var(--color-gray-400);
     font-weight: var(--font-weight-input-label);
@@ -22,21 +19,26 @@
 .inputLabel,
 .inputError {
     font-weight: var(--font-weight-400);
-    font-size: var(--font-size-label);
+    font-size: var(--font-size-level-6-heading);
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-label-span);
 }
 
 .inputError {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
     color: var(--color-warning);
+    font-size: var(--font-size-level-6-heading);
 }
 
-.input {
+.input,
+.hasError {
     display: block;
     height: 48px;
     margin: 2px 0;
-    padding-left: var(--p-3);
+    padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-label);
@@ -54,9 +56,8 @@
     box-shadow: #3242df33 0 0 0 4px;
 }
 
-.hasError,
-.hasError:focus {
-    border-color: var(--color-warning);
+.hasError {
+    border: var(--border) solid var(--color-warning);
     box-shadow: #dc243033 0 0 0 4px;
 }
 
@@ -79,4 +80,8 @@
     width: 15px;
     height: 16px;
     cursor: pointer;
+}
+
+.inputIcon:focus-visible {
+    outline: none;
 }

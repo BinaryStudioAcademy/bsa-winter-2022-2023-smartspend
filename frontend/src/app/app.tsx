@@ -1,14 +1,25 @@
-import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+import { actions as authActions } from '~/bundles/auth/store';
+import { RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useEffect,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as userActions } from '~/bundles/users/store';
+import { storage, StorageKey } from '~/framework/storage/storage';
+
+import { iconProvider } from '../bundles/common/icon-provider';
+
+library.add(iconProvider);
 
 const App: React.FC = () => {
     const { pathname } = useLocation();
+    const token = storage.getSync(StorageKey.TOKEN);
+    const { user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
     const isRoot = pathname === AppRoute.ROOT;
@@ -17,39 +28,15 @@ const App: React.FC = () => {
         if (isRoot) {
             void dispatch(userActions.loadAll());
         }
-    }, [isRoot, dispatch]);
+    }, [dispatch, isRoot]);
 
-    return (
-        <>
-            <ul className="App-navigation-list">
-                <li>
-                    <Link to={AppRoute.ROOT}>Root</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.SIGN_IN}>Sign in</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.SIGN_UP}>Sign up</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.UI}>Style Guide</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.WALLET_DETAILS}>
-                        Wallet details page
-                    </Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
-                </li>
-            </ul>
-            <p>Current path: {pathname}</p>
+    useEffect(() => {
+        if (!user && token) {
+            void dispatch(authActions.loadUser());
+        }
+    }, [dispatch, token, user]);
 
-            <div>
-                <RouterOutlet />
-            </div>
-        </>
-    );
+    return <RouterOutlet />;
 };
 
 export { App };

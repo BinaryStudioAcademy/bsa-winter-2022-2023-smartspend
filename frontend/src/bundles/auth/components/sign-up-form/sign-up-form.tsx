@@ -38,22 +38,22 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     type={InputType.EMAIL}
                     label="E-mail"
-                    placeholder="Enter your email"
+                    placeholder="E-mail address"
                     name="email"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    inputClassName={styles.inputPages}
                 />
             </p>
             <p className={styles.inputWrapper}>
                 <Input
                     type={InputType.PASSWORD}
                     label="Password"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     name="password"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    inputClassName={styles.inputPages}
                     eyeHidden
                 />
             </p>
@@ -61,11 +61,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     type={InputType.PASSWORD}
                     label="Confirm password"
-                    placeholder="Confirm your password"
+                    placeholder="Confirm password"
                     name="repeatPassword"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    inputClassName={styles.inputPages}
                     eyeHidden
                 />
             </p>

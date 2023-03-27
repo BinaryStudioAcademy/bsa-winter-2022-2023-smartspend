@@ -8,14 +8,12 @@ type Properties = {
     title: string;
 };
 
-const DEFAULT_INPUT: { note: string } = {
-    //It needs to change
-    note: '',
+const DEFAULT_INPUT: { email: string } = {
+    email: '',
 };
 
 const SubscriptionPart: React.FC<Properties> = ({ title }) => {
-    const { control, errors } = useAppForm<{ note: string }>({
-        //It needs to change
+    const { control, errors } = useAppForm<{ email: string }>({
         defaultValues: DEFAULT_INPUT,
     });
 
@@ -23,16 +21,18 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
         <section className={styles.container}>
             <h1 className={styles.title}>{title}</h1>
             <form className={styles.form}>
-                <Input
-                    type={InputType.TEXT}
-                    label="E-mail"
-                    placeholder="Enter your email"
-                    name="note"
-                    control={control}
-                    errors={errors}
-                    className={styles.input}
-                />
-                <Button>Subscribe</Button>
+                <div className={styles.formContainer}>
+                    <Input
+                        type={InputType.TEXT}
+                        placeholder="E-mail address"
+                        name="email"
+                        control={control}
+                        errors={errors}
+                        labelClassName={styles.inputLabel}
+                        inputClassName={styles.input}
+                    />
+                    <Button>Subscribe</Button>
+                </div>
             </form>
         </section>
     );

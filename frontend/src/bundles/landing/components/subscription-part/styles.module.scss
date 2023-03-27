@@ -18,7 +18,50 @@
 
 .form {
     display: flex;
-    flex-direction: row;
-    align-items: center;
     column-gap: 20px;
+}
+
+.inputLabel {
+    height: 100%;
+    height: calc(100% + 4px);
+    margin: 0;
+}
+
+.input {
+    width: 290px;
+    padding: 0.5rem;
+    border: double 2px var(--color-turquoise-500);
+    border-radius: 6px;
+}
+
+.input:focus {
+    background-image: none;
+    border-color: var(--color-turquoise-600);
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    column-gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .title {
+        width: auto;
+        font-size: var(--font-size-level-4-heading);
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .title {
+        font-size: var(--font-size-level-3-heading);
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1300px) {
+    .title {
+        font-size: var(--font-size-level-2-heading);
+    }
 }

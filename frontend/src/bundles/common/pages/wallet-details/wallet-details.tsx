@@ -1,5 +1,3 @@
-import { type IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
@@ -12,11 +10,10 @@ import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 import { CardVariant } from '~/bundles/common/enums/card-variant.enum';
 
+import { FaIcons } from '../../enums/enums';
 import { InputType } from '../../enums/input-type.enum';
 import { useAppForm } from '../../hooks/hooks';
 import styles from './styles.module.scss';
-
-const icon: IconProp = faChevronDown;
 
 const DEFAULT_INPUT: { note: string } = {
     //It needs to change
@@ -106,7 +103,7 @@ const WalletDetails: React.FC = () => {
                                         name="note"
                                         control={control}
                                         errors={errors}
-                                        className={styles.input}
+                                        inputClassName={styles.input}
                                     />
                                 </div>
                                 <div className={styles.filter}>
@@ -150,7 +147,9 @@ const WalletDetails: React.FC = () => {
                                 </h1>
                                 <div className={styles.futureBody}>
                                     {/*there should be another button or dropdown*/}
-                                    <FontAwesomeIcon icon={icon} />
+                                    <FontAwesomeIcon
+                                        icon={FaIcons.CHEVRON_DOWN}
+                                    />
                                     <p className={styles.futureScheduled}>
                                         Scheduled
                                     </p>

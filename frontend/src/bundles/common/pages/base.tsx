@@ -5,6 +5,7 @@ import { userSignInValidationSchema } from 'shared/build/index.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
+import { Calendar } from '../components/calendar/calendar';
 import {
     BaseModal,
     Button,
@@ -100,7 +101,7 @@ const Base: React.FC = () => {
 
     // WALLET MODAL
 
-    const [walletModalActive, setWalletModalActive] = useState(true);
+    const [walletModalActive, setWalletModalActive] = useState(false);
 
     const handleWalletModalCancel = useCallback(() => {
         setWalletModalActive(false);
@@ -141,6 +142,20 @@ const Base: React.FC = () => {
                 <b>Style Guide</b>
                 <div>
                     <Tabs tabsData={tabsData} />
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                        alignItems: 'start',
+                        backgroundColor: '#f6f8f9',
+                    }}
+                >
+                    {/* Calendar */}
+                    <Calendar isRangeCalendar={true} />
+                    <Calendar isRangeCalendar={false} />
+                    {/* Calendar */}
                 </div>
 
                 {/* Buttons */}

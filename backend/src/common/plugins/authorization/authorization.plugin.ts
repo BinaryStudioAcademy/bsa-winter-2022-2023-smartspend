@@ -7,7 +7,6 @@ import {
     HttpError,
 } from '../../enums/enums.js';
 
-// eslint-disable-next-line @typescript-eslint/require-await
 const authorization = fp(async (fastify, { routesWhiteList, services }) => {
     fastify.decorateRequest('user', null);
 
@@ -33,6 +32,7 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
             void reply.code(HttpCode.UNAUTHORIZED).send(error);
         }
     });
+    return await Promise.resolve();
 });
-
+    
 export { authorization };

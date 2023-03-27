@@ -17,9 +17,29 @@
 }
 
 .carouselContainer {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, minmax(288px, 360px));
     gap: var(--m-5);
+    padding-bottom: 60px;
+}
+
+.bulletClass {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gray-100);
+    border-radius: 50%;
+}
+
+.bulletActive {
+    background-color: var(--color-turquoise-500);
+}
+
+.horizontalClass {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .carouselContainer > div {
@@ -47,11 +67,7 @@
     }
 
     .carouselContainer {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: minmax(288px, 500px);
-        gap: var(--m-4);
-        padding: var(--p-4) 0 0;
+        grid-template-columns: repeat(2, minmax(288px, 414px));
     }
 
     .title {
@@ -63,5 +79,9 @@
 @media (max-width: 768px) {
     .title {
         text-align: center;
+    }
+
+    .carouselContainer {
+        grid-template-columns: minmax(288px, 414px);
     }
 }

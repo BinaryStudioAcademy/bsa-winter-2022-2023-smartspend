@@ -1,5 +1,3 @@
-@import "@assets/utils";
-
 .app {
     display: flex;
     flex-grow: 1;
@@ -261,22 +259,4 @@
     width: 17px;
     height: 17px;
     color: var(--color-gray-200);
-}
-
-@media only screen and (max-width: $xl) {
-    .headerContainer,
-    .walletTransactionsContainer,
-    .filtersContainer,
-    .buttonsDate {
-        max-width: 773px;
-    }
-}
-
-@media only screen and (min-width: calc($xl + 1px)) and (max-width: calc($xxl + 100px)) {
-    .headerContainer,
-    .walletTransactionsContainer,
-    .filtersContainer,
-    .buttonsDate {
-        max-width: 967px;
-    }
 }

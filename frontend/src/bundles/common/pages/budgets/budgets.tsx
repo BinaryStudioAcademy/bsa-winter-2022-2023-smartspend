@@ -1,13 +1,18 @@
-import { BudgetCard, Button } from '~/bundles/common/components/components';
-import { ButtonVariant } from '~/bundles/common/enums/enums';
+import { BaseModal, BudgetCard, Button } from '~/bundles/common/components/components.js';
+import { ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
-import { useCallback } from '../../hooks/hooks';
 import styles from './styles.module.scss';
 
 type CardType = {
+    id: string
     title: string;
     total: number;
     moneyLeft: number;
+    date: {
+        start: string;
+        end: string;
+    }
 };
 
 type Properties = {
@@ -15,8 +20,14 @@ type Properties = {
 };
 
 const Budgets: React.FC<Properties> = ({ budgetCards }) => {
-    const handleClickCreate = useCallback((): void => {
-        // handle create budget
+    const [active, setActive] = useState(false);
+
+    const handleClickOpen = useCallback((): void => {
+        setActive(true);
+    }, []);
+
+    const handleClickClose = useCallback((): void => {
+        setActive(false);
     }, []);
 
     return (
@@ -28,14 +39,16 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                         {budgetCards?.map((card, index) => (
                             <BudgetCard
                                 key={index}
+                                id={card.id}
                                 title={card.title}
                                 total={card.total}
                                 moneyLeft={card.moneyLeft}
+                                date={card.date}
                             />
                         ))}
-                        <div
+                        <Button
                             className={styles.cardCreate}
-                            onClickCapture={handleClickCreate}
+                            onClick={handleClickOpen}
                         >
                             <div className={styles.cardWrapper}>
                                 <Button variant={ButtonVariant.ROUND}>+</Button>
@@ -43,10 +56,18 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                                     Create a New Budget
                                 </p>
                             </div>
-                        </div>
+                        </Button>
                     </div>
                 </div>
             </div>
+            <BaseModal
+                isShown={active}
+                onClose={handleClickClose}
+                onSubmit={handleClickClose}
+                submitButtonName={'Create budget'}
+            >
+                There should be a component of budget creation ...
+            </BaseModal>
         </div>
     );
 };

@@ -25,6 +25,11 @@ import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
 
+const budgetDate = {
+    start: 'March 02, 2023',
+    end: 'March 02, 2023'
+};
+
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
     { title: 'Overview', to: '/ui/overview' },
@@ -424,12 +429,6 @@ const Base: React.FC = () => {
             </div>
             {/* end-Doughnut Chart------------------------------- */}
             <div>
-                {/* Doughnut Chart----------------------------------- */}
-                <div>
-                    <p>Doughnut Chart</p>
-                    <DoughnutChart categories={categories} />
-                </div>
-                {/* end-Doughnut Chart------------------------------- */}
                 <div>
                     <form style={{ textAlign: 'left' }}>
                         <Input
@@ -496,20 +495,32 @@ const Base: React.FC = () => {
                     }}
                 >
                     <BudgetCard
+                        id={'12345'}
                         title={'One'}
                         total={12_301.25}
                         moneyLeft={824.56}
+                        date={budgetDate}
                     />
-                    <BudgetCard title={'Two'} total={1301} moneyLeft={135.45} />
                     <BudgetCard
+                        id={'12345'}
+                        title={'Two'}
+                        total={1301}
+                        moneyLeft={135.45}
+                        date={budgetDate}
+                    />
+                    <BudgetCard
+                        id={'12345'}
                         title={'Three'}
                         total={15_381}
                         moneyLeft={1025.26}
+                        date={budgetDate}
                     />
                     <BudgetCard
+                        id={'12345'}
                         title={'Four'}
                         total={75_471}
                         moneyLeft={20_456}
+                        date={budgetDate}
                     />
                 </div>
             </div>

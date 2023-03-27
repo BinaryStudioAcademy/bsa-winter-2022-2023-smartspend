@@ -1,23 +1,26 @@
+import { Link } from 'react-router-dom';
+
 import { toCustomLocaleString } from '~/bundles/common/helpers/helpers.js';
 
-import { useCallback } from '../../hooks/hooks';
+import { AppRoute } from '../../enums/app-route.enum';
 import styles from './styles.module.scss';
 
 type Properties = {
+    id: string;
     title: string;
     total: number;
     moneyLeft: number;
+    date: {
+        start: string;
+        end: string;
+    };
 };
 
-const BudgetCard: React.FC<Properties> = ({ title, total, moneyLeft }) => {
-    const handleClickBudget = useCallback((): void => {
-        // handle open budget
-    }, []);
-
+const BudgetCard: React.FC<Properties> = ({ id, title, total, moneyLeft, date }) => {
     const value = Math.round((100 * moneyLeft) / total);
 
     return (
-        <div className={styles.card} onClickCapture={handleClickBudget}>
+        <Link className={styles.card} to={`${AppRoute.BUDGETS}/${id}`}>
             <div className={styles.cardWrapper}>
                 <div className={styles.cardHeader}>
                     <h2 className={styles.headerTitle}>{title}</h2>
@@ -40,12 +43,12 @@ const BudgetCard: React.FC<Properties> = ({ title, total, moneyLeft }) => {
                         value={value}
                     ></progress>
                     <div className={styles.footerText}>
-                        <span className={styles.footerSpan}>March 02,2023</span>
-                        <span className={styles.footerSpan}>March 02,2023</span>
+                        <span className={styles.footerSpan}>{date.start}</span>
+                        <span className={styles.footerSpan}>{date.end}</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

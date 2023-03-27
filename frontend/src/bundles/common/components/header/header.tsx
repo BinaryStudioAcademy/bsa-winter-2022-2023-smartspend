@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import defaultAvatar from '~/assets/img/default-avatar.jpg';
 import {
     AppRoute,
     ButtonSize,
@@ -25,7 +26,11 @@ type Properties = {
     };
 };
 
-const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
+const Header: React.FC<Properties> = ({
+    name,
+    avatar = defaultAvatar,
+    dataTabs,
+}) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const token = storage.getSync(StorageKey.TOKEN);

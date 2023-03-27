@@ -35,13 +35,7 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header
-                name={user?.email}
-                avatar={
-                    'https://ideastest.org.uk/wp-content/uploads/2019/04/default-avatar-1.jpg'
-                }
-                dataTabs={dataTabs}
-            />
+            <Header name={user?.email} dataTabs={dataTabs} />
             <RouterOutlet />
         </>
     );

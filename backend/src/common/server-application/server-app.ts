@@ -72,8 +72,8 @@ class ServerApp implements IServerApp {
         }
     }
 
-    public registerPlugins(): void {
-        void this.app.register(authorization, {
+    public async initPlugins(): Promise<void> {
+        await this.app.register(authorization, {
             services: { auth: authService },
             routesWhiteList: WHITE_ROUTES,
         });
@@ -183,7 +183,7 @@ class ServerApp implements IServerApp {
 
         this.initRoutes();
 
-        this.registerPlugins();
+        await this.initPlugins();
 
         this.database.connect();
 

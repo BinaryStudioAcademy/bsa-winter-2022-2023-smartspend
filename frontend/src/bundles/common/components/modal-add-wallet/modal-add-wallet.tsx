@@ -18,6 +18,8 @@ interface Properties {
 
 const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
     const [walletName, setWalletName] = useState('');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [currency, setCurrency] = useState('');
 
     const handleWalletNameChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,11 +28,28 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
         [],
     );
 
+    const handleCurrencyChange = useCallback(
+        (event: React.ChangeEvent<HTMLSelectElement>) => {
+            setCurrency(event.target.value);
+        },
+        [],
+    );
+
+    //   in progress, don't review this part please =)
+
+    // const handleSubmit = useCallback(
+    //     // async (event: React.FormEvent) => {
+    //     //     event.preventDefault();
+    //
+    //     // },
+    //     [walletName, currency, onClose],
+    // );
+
     const handleClose = useCallback(() => {
         onClose();
     }, [onClose]);
 
-    const handleDisableContentContainerClick: MouseEventHandler<HTMLDivElement> =
+    const handleDisableContentContainerClick: MouseEventHandler<HTMLFormElement> =
         useCallback((event_) => {
             event_.stopPropagation();
         }, []);
@@ -60,7 +79,7 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
                 onClick={handleClose}
                 role="presentation"
             >
-                <div
+                <form
                     className={styles.modal}
                     onClick={handleDisableContentContainerClick}
                     role="presentation"
@@ -89,7 +108,11 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
 
                         {/* Dropdown starts here */}
 
-                        <select id="walletCurrency" required>
+                        <select
+                            id="walletCurrency"
+                            required
+                            onChange={handleCurrencyChange}
+                        >
                             <option value="USD">USD</option>
                             <option value="EUR">EUR</option>
                             <option value="GBP">GBP</option>
@@ -123,7 +146,7 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
                     >
                         Create
                     </button>
-                </div>
+                </form>
             </div>
         </Portal>
     );

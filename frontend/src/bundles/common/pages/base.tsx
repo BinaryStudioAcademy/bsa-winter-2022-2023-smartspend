@@ -15,6 +15,7 @@ import {
     Input,
     LineChart,
 } from '../components/components.js';
+import { ModalAddWallet } from '../components/modal-add-wallet/modal-add-wallet.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
@@ -97,6 +98,18 @@ const Base: React.FC = () => {
         setActive(true);
     }, []);
 
+    // WALLET MODAL
+
+    const [walletModalActive, setWalletModalActive] = useState(true);
+
+    const handleWalletModalCancel = useCallback(() => {
+        setWalletModalActive(false);
+    }, []);
+
+    const handleWalletModalOpen = useCallback(() => {
+        setWalletModalActive(true);
+    }, []);
+
     // Range Slider -------------------------------------
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
@@ -123,11 +136,13 @@ const Base: React.FC = () => {
     return (
         <>
             <Header dataTabs={allTabsData} />
+
             <div style={{ textAlign: 'center' }}>
                 <b>Style Guide</b>
                 <div>
                     <Tabs tabsData={tabsData} />
                 </div>
+
                 {/* Buttons */}
                 <div
                     style={{
@@ -416,6 +431,17 @@ const Base: React.FC = () => {
                     submitButtonName={'Save changes'}
                 ></BaseModal>
             </div>
+            <br />
+            <div>
+                <button onClick={handleWalletModalOpen}>Add New Wallet</button>
+                <ModalAddWallet
+                    isShown={walletModalActive}
+                    onClose={handleWalletModalCancel}
+                    onSubmit={handleWalletModalCancel}
+                />
+            </div>
+            <br></br>
+
             {/* Doughnut Chart----------------------------------- */}
             <div>
                 <p>Doughnut Chart</p>

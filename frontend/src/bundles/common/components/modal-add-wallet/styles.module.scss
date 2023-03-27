@@ -1,0 +1,81 @@
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0 0 0 / 40%);
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 352px;
+    height: 310px;
+    padding: var(--p-3);
+    background-color: var(--color-white-100);
+    border-radius: var(--b-2);
+}
+
+.title {
+    margin-top: var(--m-2);
+    color: var(--color-blue-600);
+    font-size: 1.25rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+// "select" will be removed after dropdown replacement
+.input,
+select {
+    height: 36px;
+    padding-left: var(--p-2);
+    border: 1px solid var(--color-blue-200);
+    border-radius: var(--b-1);
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input::placeholder {
+    color: var(--color-blue-300);
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-appearance: none;
+}
+
+.label {
+    margin-bottom: var(--m-1);
+    color: var(--color-blue-300);
+    font-size: 0.9rem;
+}
+
+.label:hover {
+    cursor: pointer;
+}
+
+.button {
+    height: 34px;
+    color: var(--color-blue-300);
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: var(--color-disable);
+    border: none;
+    border-radius: var(--b-1);
+}
+
+.active {
+    color: var(--color-white-100);
+    background: var(--gradient-10);
+}

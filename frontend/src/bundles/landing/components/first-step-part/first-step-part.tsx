@@ -39,23 +39,25 @@ const FirstStepPart: React.FC = () => {
     ];
 
     return (
-        <section className={styles.container}>
-            <StepInfoPanel
-                variant={StepInfoPanelVariant.SECONDARY}
-                title={'Track your cash flow'}
-                listItems={listItems}
-                step={1}
-            />
-            <div className={styles.cardsContainer}>
-                {walletCardsArray.map((card, index) => (
-                    <WalletCard
-                        key={index}
-                        title={card.title}
-                        wallet_type={card.wallet_type}
-                        balance_value={card.balance_value}
-                        variant={card.variant}
-                    />
-                ))}
+        <section className={styles.body}>
+            <div className={styles.container}>
+                <StepInfoPanel
+                    variant={StepInfoPanelVariant.SECONDARY}
+                    title={'Track your cash flow'}
+                    listItems={listItems}
+                    step={1}
+                />
+                <div className={styles.cardsContainer}>
+                    {walletCardsArray.map((card, index) => (
+                        <WalletCard
+                            key={index}
+                            title={card.title}
+                            wallet_type={card.wallet_type}
+                            balance_value={card.balance_value}
+                            variant={card.variant}
+                        />
+                    ))}
+                </div>
             </div>
         </section>
     );

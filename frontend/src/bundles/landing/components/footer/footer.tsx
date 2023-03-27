@@ -24,17 +24,19 @@ const Footer: React.FC = () => {
         },
     ];
     return (
-        <footer className={styles.container}>
-            <div className={styles.socialMediaIconsContainer}>
-                <FooterMediaIcons icons={iconsArray} />
-            </div>
-            <div className={styles.logoContainer}>
-                <div className={styles.logoImg}>
-                    <img src="" alt="logo" />
+        <footer className={styles.body}>
+            <div className={styles.container}>
+                <div className={styles.socialMediaIconsContainer}>
+                    <FooterMediaIcons icons={iconsArray} />
                 </div>
-            </div>
-            <div className={styles.links_container}>
-                <FooterLinks links={linksArray} />
+                <div className={styles.logoContainer}>
+                    <div className={styles.logoImg}>
+                        <img src="" alt="logo" />
+                    </div>
+                </div>
+                <div className={styles.linksContainer}>
+                    <FooterLinks links={linksArray} />
+                </div>
             </div>
         </footer>
     );

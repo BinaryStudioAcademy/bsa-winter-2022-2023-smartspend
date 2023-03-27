@@ -177,13 +177,13 @@ class ServerApp implements IServerApp {
 
         await this.initMiddlewares();
 
+        await this.initPlugins();
+
         this.initValidationCompiler();
 
         this.initErrorHandler();
 
         this.initRoutes();
-
-        await this.initPlugins();
 
         this.database.connect();
 

@@ -19,23 +19,25 @@ const SecondStepPart: React.FC = () => {
     ];
 
     return (
-        <section className={styles.container}>
-            <span className={styles.bigBlueBorderCircle}></span>
-            <span className={styles.smallBlueBorderCircle}></span>
-            <span className={styles.bigBlueCircle}></span>
-            <span className={styles.lightBlueCircle}></span>
+        <section className={styles.body}>
+            <div className={styles.container}>
+                <span className={styles.bigBlueBorderCircle}></span>
+                <span className={styles.smallBlueBorderCircle}></span>
+                <span className={styles.bigBlueCircle}></span>
+                <span className={styles.lightBlueCircle}></span>
 
-            <LineChartCard
-                dataArr={dataArray}
-                title={'Account Balance'}
-                date={'Mar 01-31'}
-            />
-            <StepInfoPanel
-                title={'Understand your financial habits'}
-                listItems={listItems}
-                step={2}
-                variant={StepInfoPanelVariant.PRIMARY}
-            />
+                <LineChartCard
+                    dataArr={dataArray}
+                    title={'Account Balance'}
+                    date={'Mar 01-31'}
+                />
+                <StepInfoPanel
+                    title={'Understand your financial habits'}
+                    listItems={listItems}
+                    step={2}
+                    variant={StepInfoPanelVariant.PRIMARY}
+                />
+            </div>
         </section>
     );
 };

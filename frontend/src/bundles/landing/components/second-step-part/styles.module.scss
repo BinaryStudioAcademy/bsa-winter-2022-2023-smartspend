@@ -1,13 +1,20 @@
-.container {
+.body {
     position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-blue-600);
+}
+
+.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    gap: var(--m-5);
+    width: var(--container);
     height: 730px;
-    padding: 0 var(--p-8);
-    overflow: hidden;
-    background-color: var(--color-blue-600);
+    padding: 0 var(--p-3);
 }
 
 .bigBlueBorderCircle {
@@ -50,50 +57,26 @@
     border-radius: 50%;
 }
 
+@media (max-width: 992px) {
+    .container > div:last-child {
+        width: auto;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
         height: auto;
-        padding: var(--p-4) 0;
+        padding: var(--p-5) var(--p-3);
     }
 
-    .container div:nth-child(5) {
+    .container > div:nth-child(5) {
         order: 1;
-    }
-
-    .container div:nth-child(6) {
-        z-index: 1;
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        padding: var(--p-4) 0;
-    }
-
-    .container div:nth-child(5) {
-        order: 1;
-    }
-
-    .container div:nth-child(6) {
-        z-index: 1;
-    }
-}
-
-@media (min-width: 993px) and (max-width: 1250px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        padding: var(--p-4) 0;
-    }
-
-    .container div:nth-child(5) {
-        order: 1;
-    }
-
-    .container div:nth-child(6) {
-        z-index: 1;
+@media (max-width: 576px) {
+    .smallBlueBorderCircle {
+        display: none;
     }
 }

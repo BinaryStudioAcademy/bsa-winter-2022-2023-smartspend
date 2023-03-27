@@ -37,15 +37,18 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    max-width: 372px;
 }
 
 .transactionTypeContainer {
     display: flex;
     flex-direction: row;
-    column-gap: 10px;
+    gap: var(--m-2);
 }
 
 .transactionNum {
+    display: flex;
+    justify-content: center;
     color: var(--color-blue-300);
     font-weight: var(--font-weight-400);
     font-size: 15px;
@@ -72,4 +75,23 @@
 
 .transactionSum.red {
     color: var(--color-warning);
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 100%;
+        padding: var(--p-3);
+    }
+
+    .transactionType {
+        font-size: var(--font-size-level-6-heading);
+    }
+
+    .transactionTypeContainer {
+        gap: var(--m-2);
+    }
+
+    .transactionNum {
+        font-size: var(--font-size-level-6-heading);
+    }
 }

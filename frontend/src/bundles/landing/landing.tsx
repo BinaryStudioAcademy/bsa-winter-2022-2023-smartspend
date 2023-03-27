@@ -48,6 +48,30 @@ const Landing: React.FC = () => {
         },
         {
             name: 'Joan',
+            src: JoyAvatar,
+            feedback:
+                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Crahjhjs in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
+        },
+        {
+            name: 'Joan',
+            src: JoyAvatar,
+            feedback:
+                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Cras in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
+        },
+        {
+            name: 'Joan',
+            src: JoyAvatar,
+            feedback:
+                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Crahjhjs in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
+        },
+        {
+            name: 'Joan',
+            src: JoanAvatar,
+            feedback:
+                'The fact that it is cross-platform has made my life easier. I am always in control of my finances.',
+        },
+        {
+            name: 'Joan',
             src: JoanAvatar,
             feedback:
                 'The fact that it is cross-platform has made my life easier. I am always in control of my finances.',

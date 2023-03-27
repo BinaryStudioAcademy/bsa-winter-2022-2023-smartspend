@@ -25,22 +25,24 @@ const Footer: React.FC = () => {
         },
     ];
     return (
-        <footer className={styles.container}>
-            <div className={styles.socialMediaIconsContainer}>
-                <FooterMediaIcons icons={iconsArray} />
-            </div>
-            <Link to={AppRoute.ROOT} className={styles.logoContainer}>
-                <div className={styles.logoImg}>
-                    <img
+        <footer className={styles.body}>
+            <div className={styles.container}>
+                <div className={styles.socialMediaIconsContainer}>
+                    <FooterMediaIcons icons={iconsArray} />
+                </div>
+                <Link to={AppRoute.ROOT} className={styles.logoContainer}>
+                    <div className={styles.logoImg}>
+                        <img
                         className={styles.imgLogo}
                         src={SmartSpendLogo}
                         alt="logo"
                     />
-                </div>
-                <span className={styles.logoText}>SmartSpend</span>
+                    </div>
+                    <span className={styles.logoText}>SmartSpend</span>
             </Link>
-            <div className={styles.links_container}>
-                <FooterLinks links={linksArray} />
+                <div className={styles.linksContainer}>
+                    <FooterLinks links={linksArray} />
+                </div>
             </div>
         </footer>
     );

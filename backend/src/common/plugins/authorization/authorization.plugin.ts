@@ -34,5 +34,5 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
     });
     return await Promise.resolve();
 });
-    
+
 export { authorization };

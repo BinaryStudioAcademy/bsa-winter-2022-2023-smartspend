@@ -1,5 +1,5 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
-const iconProvider = { faChevronDown };
+const iconProvider = { faChevronDown, faChevronUp };
 
 export { iconProvider };

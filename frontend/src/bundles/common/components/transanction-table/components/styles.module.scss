@@ -1,0 +1,118 @@
+.group {
+    margin: var(--m-4) 0;
+    padding: var(--p-4);
+    background-color: var(--color-white-100);
+    border-radius: 25px;
+    box-shadow: 0 0 5px #0000001a;
+}
+
+.dateRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--m-1);
+    padding: var(--p-2);
+    font-weight: var(--font-weight-500);
+}
+
+.date {
+    padding-left: var(--p-1);
+    color: var(--color-navy-900);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+}
+
+.columns {
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+    padding-left: var(--m-1);
+}
+
+.leftColumn {
+    justify-content: start;
+}
+
+.rightColumn {
+    justify-content: end;
+    font-size: var(--font-size-level-5-heading);
+}
+
+.plus {
+    color: var(--color-blue-600);
+}
+
+.plus::before {
+    content: "+";
+}
+
+.minus {
+    color: var(--color-warning);
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.totals {
+    color: var(--color-blue-300);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-5-heading);
+}
+
+.rowTitle {
+    margin-left: var(--m-5);
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-5-heading);
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-level-6-heading);
+}
+
+.transaction div {
+    padding: var(--p-2);
+    text-align: center;
+}
+
+.chevronIcon {
+    color: var(--color-blue-600);
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+}
+
+.checkbox:focus {
+    border-color: inherit;
+    outline: none;
+    box-shadow: none;
+}
+
+.futureTransactionsHide {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease, height 0.5s ease, transform 0.5s ease;
+}
+
+.futureTransactionsShow {
+    height: auto;
+    opacity: 1;
+    transition: opacity 0.5s ease, height 0.5s ease, transform 0.5s ease;
+}
+
+.futureTitle {
+    padding: var(--p-2);
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+}

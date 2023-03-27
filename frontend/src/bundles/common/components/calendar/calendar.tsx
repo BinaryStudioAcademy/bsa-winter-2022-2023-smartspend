@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { OneDayCalendar } from './one-day-calendar';
 import { RangeCalendar } from './range-calendar';

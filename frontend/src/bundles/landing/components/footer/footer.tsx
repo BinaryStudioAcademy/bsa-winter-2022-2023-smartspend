@@ -33,13 +33,13 @@ const Footer: React.FC = () => {
                 <Link to={AppRoute.ROOT} className={styles.logoContainer}>
                     <div className={styles.logoImg}>
                         <img
-                        className={styles.imgLogo}
-                        src={SmartSpendLogo}
-                        alt="logo"
-                    />
+                            className={styles.imgLogo}
+                            src={SmartSpendLogo}
+                            alt="logo"
+                        />
                     </div>
                     <span className={styles.logoText}>SmartSpend</span>
-            </Link>
+                </Link>
                 <div className={styles.linksContainer}>
                     <FooterLinks links={linksArray} />
                 </div>

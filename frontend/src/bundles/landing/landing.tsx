@@ -48,33 +48,27 @@ const Landing: React.FC = () => {
         },
         {
             name: 'Joan',
-            src: JoyAvatar,
+            src: JoanAvatar,
             feedback:
                 'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Crahjhjs in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
         },
         {
-            name: 'Joan',
+            name: 'Daniel',
             src: JoyAvatar,
             feedback:
-                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Cras in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
+                'I have tried other money-tracking apps before SmartSpend, but I choose to stick to this because of its simplicity and intuitive design.',
         },
         {
-            name: 'Joan',
+            name: 'Sophia',
+            src: JoanAvatar,
+            feedback:
+                'I am using this app for more than two years and couldn\'t be happier with the service I got.',
+        },
+        {
+            name: 'Jacob',
             src: JoyAvatar,
             feedback:
-                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Crahjhjs in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
-        },
-        {
-            name: 'Joan',
-            src: JoanAvatar,
-            feedback:
-                'The fact that it is cross-platform has made my life easier. I am always in control of my finances.',
-        },
-        {
-            name: 'Joan',
-            src: JoanAvatar,
-            feedback:
-                'The fact that it is cross-platform has made my life easier. I am always in control of my finances.',
+                'The app works intuitively, it makes it super easy to control your money. It helps me to develop healthy spending habits.',
         },
     ];
 

@@ -10,7 +10,7 @@ type Properties = {
 
 const Calendar: React.FC<Properties> = ({ isRangeCalendar }: Properties) => {
     //TO DO: implement here flag, which will be change view of calendar
-    const [isRangeView, setRangeView] = useState<boolean>(isRangeCalendar);
+    const isRangeView: boolean = isRangeCalendar;
 
     return (
         <div className={styles.calendars_wrapper}>

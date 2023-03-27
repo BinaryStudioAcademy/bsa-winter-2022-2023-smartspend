@@ -62,7 +62,7 @@ const Landing: React.FC = () => {
             name: 'Sophia',
             src: JoanAvatar,
             feedback:
-                'I am using this app for more than two years and couldn\'t be happier with the service I got.',
+                'I am using this app for more than two years and could not be happier with the service I got.',
         },
         {
             name: 'Jacob',

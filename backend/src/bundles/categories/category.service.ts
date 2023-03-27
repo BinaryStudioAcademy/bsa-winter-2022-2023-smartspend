@@ -66,16 +66,16 @@ class CategoryService implements Partial<IService> {
 
     public async deleteCategory(
         id: string,
-    ): Promise<CategoryGetAllResponseDto | undefined> {
-        const deletedCategory = await this.categoryRepository.deleteCategory(
-            id,
-        );
+    ): Promise<CategoryEntity | undefined> {
+        const deletedCategory = await this.findById(id);
 
-        if (!deletedCategory) {
+        await this.categoryRepository.deleteCategory(id);
+
+        if (!id) {
             throw new Error(CategoryErrorMessage.NOT_FOUND);
         }
 
-        return await this.findAll();
+        return deletedCategory;
     }
 }
 

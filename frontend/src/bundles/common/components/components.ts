@@ -7,6 +7,7 @@ export { DoughnutChart } from './doughnut-chart/doughnut-chart.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Loader } from './loader/loader';
 export { Menu } from './menu/menu.js';
 export { BaseModal } from './modal/modal.js';
 export { Portal } from './portal/portal.js';

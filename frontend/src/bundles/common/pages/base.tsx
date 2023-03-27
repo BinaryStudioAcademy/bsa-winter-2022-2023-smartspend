@@ -14,6 +14,7 @@ import {
     Header,
     Input,
     LineChart,
+    Loader,
 } from '../components/components.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
@@ -476,6 +477,7 @@ const Base: React.FC = () => {
                     ))}
                 </div>
             </div>
+            <Loader />
         </>
     );
 };

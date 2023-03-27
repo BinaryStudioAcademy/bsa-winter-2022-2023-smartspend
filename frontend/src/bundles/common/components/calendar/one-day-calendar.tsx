@@ -4,9 +4,9 @@ import 'react-date-range/dist/theme/default.css';
 import React, { useState } from 'react';
 import { Calendar } from 'react-date-range';
 
+import calendarIcon from '~/assets/img/calendar-icon.svg';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
-import calendarIcon from '../../../../assets/img/calendar-icon.svg';
 import { ButtonSize } from '../../enums/button-size.enum';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { formatOneDay } from '../../helpers/helpers';

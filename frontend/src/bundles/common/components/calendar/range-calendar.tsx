@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import { type Range, type RangeKeyDict } from 'react-date-range';
 import { DateRangePicker } from 'react-date-range';
 
+import calendarIcon from '~/assets/img/calendar-icon.svg';
+import leftArrow from '~/assets/img/left-arrow.svg';
+import rightArrow from '~/assets/img/right-arrow.svg';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
-import calendarIcon from '../../../../assets/img/calendar-icon.svg';
-import leftArrow from '../../../../assets/img/left-arrow.svg';
-import rightArrow from '../../../../assets/img/right-arrow.svg';
 import { ButtonSize } from '../../enums/button-size.enum';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import {

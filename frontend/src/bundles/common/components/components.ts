@@ -13,5 +13,6 @@ export { Portal } from './portal/portal.js';
 export { PrivateRoute } from './private-route/private-route.js';
 export { PublicRoute } from './public-route/public-route';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { TransactionTable } from './transanction-table/transaction-table';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';

@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 
 interface CheckboxProperties {
     id: string;
-    label: string;
+    label?: string;
     isChecked: boolean;
     onChange: (isChecked: boolean) => void;
 }
@@ -36,6 +36,7 @@ const Checkbox: React.FC<CheckboxProperties> = ({
                 className={`${styles.box} ${
                     isChecked ? styles.boxСhecked : ''
                 }`}
+                // onClick={()=>handleClick(id)}
                 onClick={handleClick}
                 role="checkbox"
                 aria-checked={isChecked}

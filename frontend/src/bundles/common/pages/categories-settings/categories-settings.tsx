@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Button } from '../../components/button/button';
 import { ButtonSize, ButtonType, ButtonVariant } from '../../enums/enums';
@@ -8,13 +8,14 @@ import { IncomeList } from './income-list/income-list';
 import styles from './styles.module.scss';
 
 const CategoriesSettings: React.FC = () => {
-    
+    // const [checkedItem, setCheckedItem] = useState<string[]>([]);
+
     const handelClickMerge = useCallback(() => {
         // console.log('click Merge')
     }, []);
     
     const handelClickDelete = useCallback(() => {
-        // console.log()
+        // const countDelete = checkedItem.length
     }, []);
 
     return (
@@ -32,11 +33,13 @@ const CategoriesSettings: React.FC = () => {
                                         type={ButtonType.BUTTON}
                                         variant={ButtonVariant.PRIMARY}
                                         size={ButtonSize.MEDIUM}
-                                        disabled={false}
+                                        disabled={true}
+                                        // disabled={checkedItem?.length >= 2 ? false : true}
                                         className={styles.btn}
                                         onClick={handelClickMerge}
-                                        >
-                                            <span className={styles.btnName}>Merge category</span>
+                                    >
+                                        <span className={styles.btnName}>Merge category</span>
+                                        {/* <span className={styles.btnName}>{checkedItem?.length >= 2 ? `Merge category (${checkedItem?.length})` : 'Merge category'}</span> */}
                                         </Button>
                                 </div>
                                 <div className={styles.wrapperBtn}>
@@ -44,16 +47,19 @@ const CategoriesSettings: React.FC = () => {
                                         type={ButtonType.BUTTON}
                                         variant={ButtonVariant.PRIMARY}
                                         size={ButtonSize.MEDIUM}
-                                        disabled={false}
-                                        className={styles.btn}
+                                        disabled={true}
+                                        // disabled={checkedItem?.length !== 0 ? false : true}
+                                        className={`${styles.btn}`}
                                         onClick={handelClickDelete}
-                                        >
+                                    >
                                             <span className={styles.btnName}>Delete category</span>
+                                            {/* <span className={styles.btnName}>{ checkedItem?.length !== 0 ?  `Delete category (${checkedItem?.length})` : 'Delete category'}</span> */}
                                         </Button>
                                 </div>
                             </div>
                         </div>
-                        <IncomeList />
+                        <IncomeList/>
+                        {/* <IncomeList setCheckedItem={setCheckedItem}/> */}
                         <ExpenseList />
                     </div>
                 </div>

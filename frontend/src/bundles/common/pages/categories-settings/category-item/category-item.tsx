@@ -13,6 +13,7 @@ type Properties = {
     count: string | number;
     iconKey: string;
     colorIcon: string;
+    // setCheckedItem: string[];
 };
 
 const CategoryItem: React.FC<Properties> = ({
@@ -21,6 +22,7 @@ const CategoryItem: React.FC<Properties> = ({
     count,
     iconKey,
     colorIcon,
+    // setCheckedItem,
 }) => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -28,13 +30,27 @@ const CategoryItem: React.FC<Properties> = ({
 
     const handleCheckboxChange = useCallback((isChecked: boolean): void => {
         setIsChecked(isChecked);
+        // if (isChecked) {
+        //     setCheckedItem((prev: string[]) => [...prev, id])
+        // } else {
+        //     setCheckedItem((prev: string[]) => prev.filter((item: string) => item !== id));
+        // }
     }, []);
-    // const handelClickSettings = (id: string): void => {
-    //     // console.log(id);
-    // }
-    // const handelClickDelete = (id: string): void => {
-    //     // console.log(id);
-    // }
+
+    // const handelClickSettings = useCallback((id: string): void => {
+        // console.log(id);
+    // }, []);
+    const handelClickSettings = useCallback(() => {
+        // console.log(id);
+    }, []);
+
+    const handelClickDelete = useCallback(()=> {
+        // console.log(id);
+    }, []);
+
+    // const handelClickDelete = useCallback((id: string): void => {
+        // console.log(id);
+    // }, []);
 
     return (
         <div>
@@ -82,7 +98,8 @@ const CategoryItem: React.FC<Properties> = ({
                             <button
                                 type="button"
                                 className={styles.iconBtn}
-                                // onClick={() => handelClickSettings(id)}
+                                // onClick={():void => handelClickSettings(id)}
+                                onClick={handelClickSettings}
                             >
                                 <FontAwesomeIcon icon={faGear} />
                             </button>
@@ -91,7 +108,8 @@ const CategoryItem: React.FC<Properties> = ({
                             <button
                                 type="button"
                                 className={`${styles.iconBtn} ${styles.iconBtnDelete}`}
-                                // onClick={(): void => handelClickDelete(id)}
+                                // onClick={():void=> handelClickDelete(id)}
+                                onClick={handelClickDelete}
                             >
                                 <FontAwesomeIcon icon={faTrash} />
                             </button>

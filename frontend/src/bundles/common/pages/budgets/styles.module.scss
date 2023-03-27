@@ -37,8 +37,16 @@
     padding: calc(var(--p-3) + var(--p-1)) var(--p-4)
         calc(var(--p-2) + var(--p-5));
     background-color: var(--color-white-100);
+    background-image: none;
     border-radius: var(--b-5);
     cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.cardCreate:hover {
+    background-color: var(--color-white-100);
+    background-image: none;
+    box-shadow: 0 2px 12px rgb(56 109 246 / 12%);
 }
 
 .createText {

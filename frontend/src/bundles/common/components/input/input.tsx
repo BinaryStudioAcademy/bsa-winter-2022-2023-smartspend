@@ -75,7 +75,7 @@ const Input = <T extends FieldValues>({
             <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}
-                type={passwordShown ? InputType.TEXT : type}
+                type={passwordShown || !field.value ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
                 className={`${hasError ? styles.hasError : inputClasses}`}

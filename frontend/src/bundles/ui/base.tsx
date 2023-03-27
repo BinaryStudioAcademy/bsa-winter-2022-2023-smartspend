@@ -5,7 +5,7 @@ import { userSignInValidationSchema } from 'shared/build/index.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
-import { Calendar } from '../components/calendar/calendar';
+import { Calendar } from '../common/components/calendar/calendar';
 import {
     BaseModal,
     Button,
@@ -15,15 +15,15 @@ import {
     Header,
     Input,
     LineChart,
-} from '../components/components.js';
-import { RangeSlider } from '../components/range-slider/range-slider';
-import { Tabs } from '../components/tabs/tabs';
-import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
-import { ButtonSize } from '../enums/button-size.enum';
-import { ButtonVariant } from '../enums/button-variant.enum.js';
-import { CardVariant } from '../enums/card-variant.enum';
-import { AppRoute, InputType } from '../enums/enums.js';
-import { useAppForm } from '../hooks/hooks.js';
+} from '../common/components/components.js';
+import { RangeSlider } from '../common/components/range-slider/range-slider';
+import { Tabs } from '../common/components/tabs/tabs';
+import { UserSettingsTabs } from '../common/components/user-settings-tabs/user-settings-tabs';
+import { ButtonSize } from '../common/enums/button-size.enum';
+import { ButtonVariant } from '../common/enums/button-variant.enum.js';
+import { CardVariant } from '../common/enums/card-variant.enum';
+import { AppRoute, InputType } from '../common/enums/enums.js';
+import { useAppForm } from '../common/hooks/hooks.js';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },

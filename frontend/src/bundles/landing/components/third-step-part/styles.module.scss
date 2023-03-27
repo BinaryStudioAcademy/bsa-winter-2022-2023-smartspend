@@ -38,6 +38,30 @@
 }
 
 @media (max-width: 1200px) {
+    .chartCardTop {
+        right: 100px;
+        bottom: -20px;
+    }
+
+    // .container {
+    //     flex-direction: column;
+    //     height: auto;
+    //     padding: var(--p-5) var(--p-3);
+    // }
+
+    // .chartCardsContainer {
+    //     position: inherit;
+    //     display: flex;
+    //     gap: 20px;
+    // }
+
+    // .chartCardTop,
+    // .chartCardBottom {
+    //     position: inherit;
+    // }
+}
+
+@media (max-width: 992px) {
     .container {
         flex-direction: column;
         height: auto;
@@ -46,7 +70,9 @@
 
     .chartCardsContainer {
         position: inherit;
-        display: flex;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(2, minmax(288px, 420px));
         gap: 20px;
     }
 
@@ -54,11 +80,18 @@
     .chartCardBottom {
         position: inherit;
     }
+
+    .chartCardTop > div,
+    .chartCardBottom > div {
+        display: flex;
+        width: 100%;
+    }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     .chartCardsContainer {
-        flex-direction: column;
+        grid-template-rows: 1fr;
+        grid-template-columns: minmax(288px, 420px);
     }
 }
 

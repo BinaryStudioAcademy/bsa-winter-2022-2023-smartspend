@@ -16,7 +16,13 @@ type Properties = {
     };
 };
 
-const BudgetCard: React.FC<Properties> = ({ id, title, total, moneyLeft, date }) => {
+const BudgetCard: React.FC<Properties> = ({
+    id,
+    title,
+    total,
+    moneyLeft,
+    date,
+}) => {
     const value = Math.round((100 * moneyLeft) / total);
 
     return (

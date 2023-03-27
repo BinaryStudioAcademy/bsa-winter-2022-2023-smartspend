@@ -1,18 +1,22 @@
-import { BaseModal, BudgetCard, Button } from '~/bundles/common/components/components.js';
+import {
+    BaseModal,
+    BudgetCard,
+    Button,
+} from '~/bundles/common/components/components.js';
 import { ButtonVariant } from '~/bundles/common/enums/enums.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 type CardType = {
-    id: string
+    id: string;
     title: string;
     total: number;
     moneyLeft: number;
     date: {
         start: string;
         end: string;
-    }
+    };
 };
 
 type Properties = {

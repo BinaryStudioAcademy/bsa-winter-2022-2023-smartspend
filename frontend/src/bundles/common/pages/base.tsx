@@ -27,7 +27,7 @@ import { useAppForm } from '../hooks/hooks.js';
 
 const budgetDate = {
     start: 'March 02, 2023',
-    end: 'March 02, 2023'
+    end: 'March 02, 2023',
 };
 
 const tabsData = [

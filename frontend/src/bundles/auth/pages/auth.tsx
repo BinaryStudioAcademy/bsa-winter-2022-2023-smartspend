@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -15,7 +14,7 @@ import {
 } from '~/bundles/users/users.js';
 
 import { SignInForm, SignUpForm } from '../components/components.js';
-import { AuthApiPath } from '../enums/enums.js';
+import { AppRoute, AuthApiPath } from '../enums/enums.js';
 import { actions as authActions } from '../store';
 import styles from './styles.module.scss';
 
@@ -38,17 +37,19 @@ const Auth: React.FC = () => {
     );
 
     const getScreen = (screen: string): React.ReactNode => {
-        switch (screen) {
-            case AppRoute.SIGN_IN: {
-                return <SignInForm onSubmit={handleSignInSubmit} />;
-            }
-            case AppRoute.SIGN_UP: {
-                return <SignUpForm onSubmit={handleSignUpSubmit} />;
-            }
+        if (screen.includes(AppRoute.SIGN_IN)) {
+            return <SignInForm onSubmit={handleSignInSubmit} />;
         }
-
+        if (screen.includes(AppRoute.SIGN_UP)) {
+            return <SignUpForm onSubmit={handleSignUpSubmit} />;
+        }
         return null;
     };
+
+    const authPath =
+        pathname === AppRoute.SIGN_IN
+            ? AuthApiPath.SIGN_UP
+            : AuthApiPath.SIGN_IN;
 
     return (
         <div className={styles.authContainer}>
@@ -63,26 +64,25 @@ const Auth: React.FC = () => {
                     <div className={styles.authWrapper}>
                         <div className={styles.authContent}>
                             <div className={styles.authHeader}>
-                                <h2 className={styles.headerText}>
+                                <h2 className={styles.headerTitle}>
                                     {getText(pathname, 'title')}
                                 </h2>
-                                <Link
-                                    className={styles.headerLink}
-                                    to={
-                                        pathname === AppRoute.SIGN_IN
-                                            ? AuthApiPath.SIGN_UP
-                                            : AuthApiPath.SIGN_IN
-                                    }
-                                >
-                                    {getText(pathname, 'header')}
-                                </Link>
+                                <div className={styles.headerText}>
+                                    <span>{getText(pathname, 'authText')}</span>
+                                    <Link
+                                        className={styles.headerLink}
+                                        to={authPath}
+                                    >
+                                        {getText(pathname, 'authLink')}
+                                    </Link>
+                                </div>
                             </div>
                             <div className={styles.authBody}>
                                 {getScreen(pathname)}
                             </div>
                             <div className={styles.authFooter}>
                                 <p className={styles.footerText}>
-                                    {getText(pathname, 'footer')}
+                                    {getText(pathname, 'footers')}
                                 </p>
                                 <div className={styles.authSocial}>
                                     <img

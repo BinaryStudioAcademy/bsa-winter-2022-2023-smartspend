@@ -15,17 +15,21 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
-        defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
-        validationSchema: userSignUpValidationSchema,
-        mode: 'onBlur',
-    });
+    const { control, errors, handleSubmit, reset } =
+        useAppForm<UserSignUpRequestDto>({
+            defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+            validationSchema: userSignUpValidationSchema,
+            mode: 'onBlur',
+        });
+
+    const inputReset = reset;
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             void handleSubmit(onSubmit)(event_);
+            inputReset && reset();
         },
-        [handleSubmit, onSubmit],
+        [handleSubmit, inputReset, onSubmit, reset],
     );
 
     return (
@@ -34,22 +38,22 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     type={InputType.EMAIL}
                     label="E-mail"
-                    placeholder="Enter your email"
+                    placeholder="E-mail address"
                     name="email"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    inputClassName={styles.inputPages}
                 />
             </p>
             <p className={styles.inputWrapper}>
                 <Input
                     type={InputType.PASSWORD}
                     label="Password"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     name="password"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    inputClassName={styles.inputPages}
                     eyeHidden
                 />
             </p>
@@ -57,15 +61,17 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 <Input
                     type={InputType.PASSWORD}
                     label="Confirm password"
-                    placeholder="Confirm your password"
+                    placeholder="Confirm password"
                     name="repeatPassword"
                     control={control}
                     errors={errors}
-                    className={styles.input}
+                    inputClassName={styles.inputPages}
                     eyeHidden
                 />
             </p>
-            <Button type={ButtonType.SUBMIT}>Sign up</Button>
+            <Button className={styles.formButton} type={ButtonType.SUBMIT}>
+                Sign Up
+            </Button>
         </form>
     );
 };

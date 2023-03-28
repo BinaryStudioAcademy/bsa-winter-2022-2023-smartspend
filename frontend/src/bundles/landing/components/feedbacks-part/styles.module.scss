@@ -20,3 +20,58 @@
     font-size: var(--font-size-level-1-heading);
     line-height: var(--line-height-level-1-heading);
 }
+
+@media (max-width: 768px) {
+    .container {
+        height: auto;
+    }
+
+    .carouselContainer {
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .carouselContainer > div {
+        width: 400px;
+    }
+
+    .title {
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .container {
+        height: auto;
+    }
+
+    .carouselContainer {
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .carouselContainer > div {
+        width: 450px;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1300px) {
+    .container {
+        height: auto;
+    }
+
+    .carouselContainer {
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        padding: var(--p-4) 0;
+    }
+
+    .carouselContainer > div {
+        width: 500px;
+    }
+}

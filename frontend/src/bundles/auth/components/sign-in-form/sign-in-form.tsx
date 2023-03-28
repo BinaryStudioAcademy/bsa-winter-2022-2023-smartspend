@@ -1,13 +1,14 @@
+import { Button, Input } from '~/bundles/common/components/components';
+import { ButtonType } from '~/bundles/common/enums/enums';
+import { InputType } from '~/bundles/common/enums/enums.js';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
-} from 'shared/build';
+} from '~/bundles/users/users';
 
-import { Button, Input } from '~/bundles/common/components/components.js';
-import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
-
-import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
+import { DEFAULT_SIGN_IN_PAYLOAD } from './constans/constans';
+import styles from './styles.module.scss';
 
 type Properties = {
     onSubmit: (event: UserSignInRequestDto) => void;
@@ -18,39 +19,43 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
         defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
         validationSchema: userSignInValidationSchema,
     });
-    const submit = useCallback(
+
+    const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             void handleSubmit(onSubmit)(event_);
         },
         [handleSubmit, onSubmit],
     );
+
     return (
-        <>
-            <h1>Sign In</h1>
-            <form onSubmit={submit}>
-                <p>
-                    <Input
-                        type={InputType.TEXT}
-                        label="Email"
-                        placeholder="Enter your email"
-                        name="email"
-                        control={control}
-                        errors={errors}
-                    />
-                </p>
-                <p>
-                    <Input
-                        type={InputType.TEXT}
-                        label="Password"
-                        placeholder="Enter your password"
-                        name="password"
-                        control={control}
-                        errors={errors}
-                    />
-                </p>
-                <Button>Sign in</Button>
-            </form>
-        </>
+        <form className={styles.form} onSubmit={handleFormSubmit}>
+            <p className={styles.inputWrapper}>
+                <Input
+                    type={InputType.EMAIL}
+                    label="E-mail"
+                    placeholder="E-mail address"
+                    name="email"
+                    control={control}
+                    errors={errors}
+                    inputClassName={styles.inputPages}
+                />
+            </p>
+            <p className={styles.inputWrapper}>
+                <Input
+                    type={InputType.PASSWORD}
+                    label="Password"
+                    placeholder="Password"
+                    name="password"
+                    control={control}
+                    errors={errors}
+                    inputClassName={styles.inputPages}
+                    eyeHidden
+                />
+            </p>
+            <Button className={styles.button} type={ButtonType.SUBMIT}>
+                Log In
+            </Button>
+        </form>
     );
 };
 

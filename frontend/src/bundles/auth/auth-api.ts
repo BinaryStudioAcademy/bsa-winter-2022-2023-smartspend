@@ -18,12 +18,10 @@ type Constructor = {
     http: IHttp;
     storage: IStorage;
 };
-
 class AuthApi extends HttpApi {
     public constructor({ baseUrl, http, storage }: Constructor) {
         super({ path: ApiPath.AUTH, baseUrl, http, storage });
     }
-
     public async signUp(
         payload: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {

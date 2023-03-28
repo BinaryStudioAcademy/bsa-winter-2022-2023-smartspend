@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .container {
     display: flex;
     flex-direction: column;
@@ -118,25 +120,25 @@
     line-height: var(--line-height-caption);
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .charts {
         grid-template-columns: 1fr;
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: $md) and (max-width: $lg) {
     .charts {
         grid-template-columns: repeat(2, 360px);
     }
 }
 
-@media (min-width: 993px) and (max-width: 1200px) {
+@media (min-width: calc($lg + 1px)) and (max-width: $xl) {
     .charts {
         grid-template-columns: repeat(2, 420px);
     }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: calc($xl + 1px)) {
     .charts {
         grid-template-columns: repeat(2, 480px);
     }

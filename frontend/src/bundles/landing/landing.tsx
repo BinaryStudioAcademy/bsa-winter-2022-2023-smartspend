@@ -51,7 +51,7 @@ const Landing: React.FC = () => {
             name: 'Joan',
             src: JoanAvatar,
             feedback:
-                'Nullam tempus, elit non tempus molestie, tellus diam sagittis urna, vel viverra velit risus in nunc. Crahjhjs in quam leo. Nullam mattis at lacus eget pretium. Etiam quis pulvinar',
+                'The fact that it is cross-platform has made my life easier. I am always in control of my finances.',
         },
         {
             name: 'Daniel',
@@ -61,13 +61,13 @@ const Landing: React.FC = () => {
         },
         {
             name: 'Sophia',
-            src: JoanAvatar,
+            src: EmmaAvatar,
             feedback:
                 'I am using this app for more than two years and could not be happier with the service I got.',
         },
         {
             name: 'Jacob',
-            src: JoyAvatar,
+            src: JoanAvatar,
             feedback:
                 'The app works intuitively, it makes it super easy to control your money. It helps me to develop healthy spending habits.',
         },

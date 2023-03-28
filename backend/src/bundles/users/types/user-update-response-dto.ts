@@ -1,6 +1,6 @@
 import { type Gender } from './types.js';
 
-type UserUpdateResponseDto = Partial<{
+type UserUpdateResponseDto = {
     id: string;
     email: string;
     firstName?: string;
@@ -9,6 +9,6 @@ type UserUpdateResponseDto = Partial<{
     dateOfBirth?: string;
     language?: string;
     currency?: string;
-}>;
+};
 
 export { type UserUpdateResponseDto };

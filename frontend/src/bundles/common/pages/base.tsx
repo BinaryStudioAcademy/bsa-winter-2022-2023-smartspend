@@ -191,8 +191,7 @@ const Base: React.FC = () => {
     return (
         <>
             <Header dataTabs={allTabsData} />
-
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', marginTop: '80px' }}>
                 <b>Style Guide</b>
                 <div>
                     <Tabs tabsData={tabsData} />

@@ -38,7 +38,7 @@
     font-weight: var(--font-weight-600);
 }
 
-.tab.disabled {
+.tab:disabled {
     color: var(--color-gray-200);
 }
 

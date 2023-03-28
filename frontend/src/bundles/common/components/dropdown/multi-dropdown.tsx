@@ -38,13 +38,26 @@ const MultiDropdown: React.FC<Properties> = ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
+            color: 'var(--color-blue-600)',
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
         }),
+        indicatorSeparator: () => ({
+            display: 'none',
+        }),
         container: (provided) => ({
             ...provided,
             width,
+        }),
+        control: (provided, state) => ({
+            ...provided,
+            borderColor: state.isFocused
+                ? 'var(--color-blue-600)'
+                : provided.borderColor,
+            boxShadow: state.isFocused
+                ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
+                : provided.boxShadow,
         }),
         option: (base, { isSelected }) => {
             const backgroundColor = base.color;
@@ -117,6 +130,7 @@ const MultiDropdown: React.FC<Properties> = ({
             }}
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
+            isClearable={false}
         />
     );
 };

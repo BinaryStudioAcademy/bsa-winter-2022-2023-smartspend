@@ -42,9 +42,13 @@ const Dropdown: React.FC<Properties> = ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
+            color: 'var(--color-blue-600)',
             transform: state.selectProps.menuIsOpen
-                ? 'rotate(1801deg)'
+                ? 'rotate(180deg)'
                 : 'rotate(0deg)',
+        }),
+        indicatorSeparator: () => ({
+            display: 'none',
         }),
         container: (provided) => ({
             ...provided,
@@ -52,8 +56,12 @@ const Dropdown: React.FC<Properties> = ({
         }),
         control: (provided, state) => ({
             ...provided,
-            borderColor: provided.borderColor,
-            boxShadow: state.isFocused ? 'none' : provided.boxShadow,
+            borderColor: state.isFocused
+                ? 'var(--color-blue-600)'
+                : provided.borderColor,
+            boxShadow: state.isFocused
+                ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
+                : provided.boxShadow,
         }),
 
         option: (base, { isSelected }) => {
@@ -72,10 +80,6 @@ const Dropdown: React.FC<Properties> = ({
                 },
             };
         },
-        menu: (provided) => ({
-            ...provided,
-            width: 'fit-content',
-        }),
     };
 
     const formatOptionLabel = useCallback(

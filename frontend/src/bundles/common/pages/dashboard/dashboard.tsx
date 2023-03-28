@@ -9,7 +9,7 @@ import {
     DoughnutChart,
     Input,
     LineChart,
-    RangeSlider
+    RangeSlider,
 } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { CardVariant } from '../../enums/enums';

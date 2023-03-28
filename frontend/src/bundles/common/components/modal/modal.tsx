@@ -14,8 +14,8 @@ type Properties = {
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
-    Header?: ReactNode;
-    Body?: ReactNode;
+    Header: ReactNode;
+    Body: ReactNode;
     children?: ReactNode;
     submitButtonName: string;
 };

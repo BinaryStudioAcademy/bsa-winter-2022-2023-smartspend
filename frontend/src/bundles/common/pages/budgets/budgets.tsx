@@ -69,9 +69,9 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                 onClose={handleClickClose}
                 onSubmit={handleClickClose}
                 submitButtonName={'Create budget'}
-            >
-                There should be a component of budget creation ...
-            </BaseModal>
+                Header={'Add new budget'}
+                Body={'New budget body...'}
+            />
         </div>
     );
 };

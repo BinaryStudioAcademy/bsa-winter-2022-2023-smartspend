@@ -4,7 +4,6 @@ import { AppRoute, ButtonSize, ButtonType } from '../../enums/enums';
 import { useCallback } from '../../hooks/hooks';
 import { useViewportWidth } from '../../hooks/use-viewport-width/use-viewport-width';
 import { Button, Menu } from '../components';
-import { MenuBurger } from '../menu-burger/menu-burger';
 import { Tabs } from '../tabs/tabs';
 import styles from './styles.module.scss';
 

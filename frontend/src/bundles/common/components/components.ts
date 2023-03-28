@@ -8,7 +8,6 @@ export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Menu } from './menu/menu.js';
-export { MenuLinks } from './menu-links/menu-links.js';
 export { BaseModal } from './modal/modal.js';
 export { Portal } from './portal/portal.js';
 export { PrivateRoute } from './private-route/private-route.js';

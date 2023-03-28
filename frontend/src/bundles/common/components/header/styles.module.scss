@@ -1,7 +1,10 @@
 .header {
+    position: relative;
+    z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     height: 80px;
     background-color: var(--color-blue-600);
 }
@@ -16,11 +19,15 @@
     padding: 0 var(--p-3);
 }
 
+.headerContainer > button {
+    z-index: 3;
+}
+
 .headerBody {
     display: flex;
     flex: 1 1 auto;
     justify-content: center;
-    margin: 0 4.5rem;
+    margin: 0 4.5rem 0 0;
 }
 
 .userLink {
@@ -29,6 +36,7 @@
 }
 
 .headerLogo {
+    z-index: 3;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,30 +72,21 @@
 }
 
 @media (max-width: 768px) {
-    .header {
-        padding: var(--p-3) 4.25rem;
-    }
-
     .headerBody {
-        display: none;
-        margin: 0 var(--m-4);
+        flex: 0 0 auto;
+        order: 2;
+        margin: 0;
     }
 
-    .logoText {
-        display: none;
+    .headerBody + button {
+        order: 2;
+        justify-content: flex-end;
+        margin: 0 var(--m-4) 0 auto;
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-    .header {
-        padding: var(--p-3) var(--p-5);
-    }
-
-    .logoText {
-        display: none;
-    }
-
-    .headerBody {
-        margin: 0 1.25rem;
-    }
-}
+// @media (max-width: 576px) {
+//     .logoText {
+//         display: none;
+//     }
+// }

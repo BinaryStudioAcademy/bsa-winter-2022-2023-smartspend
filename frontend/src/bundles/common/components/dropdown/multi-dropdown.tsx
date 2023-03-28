@@ -1,3 +1,5 @@
+import '~/assets/css/variables/color-variables.scss';
+
 import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
@@ -33,12 +35,14 @@ const MultiDropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
+    const blue600 = 'var(--color-blue-600)';
+
     const customStyles: StylesConfig<DataType, true> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: 'var(--color-blue-600)',
+            color: blue600,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
@@ -52,13 +56,26 @@ const MultiDropdown: React.FC<Properties> = ({
         }),
         control: (provided, state) => ({
             ...provided,
-            borderColor: state.isFocused
-                ? 'var(--color-blue-600)'
-                : provided.borderColor,
-            boxShadow: state.isFocused
-                ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
-                : provided.boxShadow,
+            borderColor:
+                state.isFocused || state.menuIsOpen
+                    ? blue600
+                    : provided.borderColor,
+            boxShadow:
+                state.isFocused || state.menuIsOpen
+                    ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
+                    : provided.boxShadow,
+            '&:hover':
+                state.isFocused || state.menuIsOpen
+                    ? {
+                          borderColor: blue600,
+                      }
+                    : {
+                          borderColor: provided.borderColor,
+                          boxShadow: provided.boxShadow,
+                      },
+            cursor: 'pointer',
         }),
+
         option: (base, { isSelected }) => {
             const backgroundColor = base.color;
             const fontWeight = isSelected ? 'bold' : 'normal';
@@ -131,6 +148,7 @@ const MultiDropdown: React.FC<Properties> = ({
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             isClearable={false}
+            blurInputOnSelect={true}
         />
     );
 };

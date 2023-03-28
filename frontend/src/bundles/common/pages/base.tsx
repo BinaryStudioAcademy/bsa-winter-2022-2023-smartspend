@@ -365,25 +365,6 @@ const Base: React.FC = () => {
                                         ],
                                     },
                                 ],
-                                [
-                                    {
-                                        label: 'test',
-                                        data: [
-                                            {
-                                                date: '02 Jan 2022 00:00:00 GMT',
-                                                value: 200_000,
-                                            },
-                                            {
-                                                date: '03 Jan 2023 00:00:00 GMT',
-                                                value: 250_000,
-                                            },
-                                            {
-                                                date: '05 Feb 2023 00:00:00 GMT',
-                                                value: 750_000,
-                                            },
-                                        ],
-                                    },
-                                ],
                             ]}
                         />
                     </div>

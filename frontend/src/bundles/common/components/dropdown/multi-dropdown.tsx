@@ -64,18 +64,17 @@ const MultiDropdown: React.FC<Properties> = ({
                 state.isFocused || state.menuIsOpen
                     ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
                     : provided.boxShadow,
-            '&:hover':
-                state.isFocused || state.menuIsOpen
-                    ? {
-                          borderColor: blue600,
-                      }
-                    : {
-                          borderColor: provided.borderColor,
-                          boxShadow: provided.boxShadow,
-                      },
+            // '&:hover':
+            //     state.isFocused || state.menuIsOpen
+            //         ? {
+            //               borderColor: blue600,
+            //           }
+            //         : {
+            //               borderColor: provided.borderColor,
+            //               boxShadow: provided.boxShadow,
+            //           },
             cursor: 'pointer',
         }),
-
         option: (base, { isSelected }) => {
             const backgroundColor = base.color;
             const fontWeight = isSelected ? 'bold' : 'normal';
@@ -92,21 +91,6 @@ const MultiDropdown: React.FC<Properties> = ({
                 },
             };
         },
-    };
-
-    const ValueContainer = (
-        properties: ValueContainerProps<DataType>,
-    ): JSX.Element => {
-        const { getValue } = properties;
-        const selectedCount = getValue().length;
-        const labelText =
-            selectedCount > 0 ? `${selectedCount} selected` : 'Select items';
-
-        return (
-            <components.ValueContainer {...properties}>
-                <span className={styles.name}>{labelText}</span>
-            </components.ValueContainer>
-        );
     };
 
     const formatOptionLabel = useCallback(
@@ -133,6 +117,21 @@ const MultiDropdown: React.FC<Properties> = ({
         [selectedOption],
     );
 
+    const ValueContainer = (
+        properties: ValueContainerProps<DataType>,
+    ): JSX.Element => {
+        const { getValue } = properties;
+        const selectedCount = getValue().length;
+        const labelText =
+            selectedCount > 0 ? `${selectedCount} selected` : 'Select items';
+
+        return (
+            <components.ValueContainer {...properties}>
+                <span className={styles.name}>{labelText}</span>
+            </components.ValueContainer>
+        );
+    };
+
     return (
         <Select
             isMulti
@@ -148,7 +147,7 @@ const MultiDropdown: React.FC<Properties> = ({
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             isClearable={false}
-            blurInputOnSelect={true}
+            isSearchable={false}
         />
     );
 };

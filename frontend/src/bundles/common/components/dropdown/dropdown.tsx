@@ -22,6 +22,7 @@ interface Properties {
     ) => void;
     handleFocus?: () => boolean;
     width?: string;
+    isSearchable?: boolean;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -30,6 +31,7 @@ const Dropdown: React.FC<Properties> = ({
     handleChange,
     handleFocus,
     width = '229px',
+    isSearchable = true,
 }) => {
     const options = data.map((item) => ({
         value: item.value,
@@ -66,15 +68,15 @@ const Dropdown: React.FC<Properties> = ({
                 state.isFocused || state.menuIsOpen
                     ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
                     : provided.boxShadow,
-            '&:hover':
-                state.isFocused || state.menuIsOpen
-                    ? {
-                          borderColor: blue600,
-                      }
-                    : {
-                          borderColor: provided.borderColor,
-                          boxShadow: provided.boxShadow,
-                      },
+            // '&:hover':
+            //     state.isFocused || state.menuIsOpen
+            //         ? {
+            //               borderColor: blue600,
+            //           }
+            //         : {
+            //               borderColor: provided.borderColor,
+            //               boxShadow: provided.boxShadow,
+            //           },
             cursor: 'pointer',
         }),
 
@@ -125,8 +127,11 @@ const Dropdown: React.FC<Properties> = ({
             formatOptionLabel={formatOptionLabel}
             styles={customStyles}
             onFocus={handleFocus}
+            isSearchable={isSearchable}
         />
     );
 };
 
 export { Dropdown };
+
+/* eslint-disable indent */

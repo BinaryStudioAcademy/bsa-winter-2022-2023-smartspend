@@ -1,5 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
+
 import { AppRoute, ButtonSize, ButtonType } from '../../enums/enums';
 import { useCallback } from '../../hooks/hooks';
 import { useViewportWidth } from '../../hooks/use-viewport-width/use-viewport-width';
@@ -38,12 +40,16 @@ const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
     return (
         <header className={styles.header}>
             <div className={styles.headerContainer}>
-                <div className={styles.headerLogo}>
+                <Link to={AppRoute.ROOT} className={styles.headerLogo}>
                     <div className={styles.logoImg}>
-                        <img className={styles.imgLogo} src="" alt="logo" />
+                        <img
+                            className={styles.imgLogo}
+                            src={logoSmartSpend}
+                            alt="logo"
+                        />
                     </div>
                     <span className={styles.logoText}>SmartSpend</span>
-                </div>
+                </Link>
                 <div className={styles.headerBody}>
                     {name ? (
                         <>

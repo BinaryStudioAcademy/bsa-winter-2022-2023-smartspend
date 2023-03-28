@@ -1,13 +1,11 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+
 import classNames from 'classnames';
-import {
-    type MouseEventHandler,
-    useCallback,
-    useEffect,
-    useState,
-} from 'react';
+import { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { Portal } from '~/bundles/common/components/portal/portal';
-
+import { InputType } from '../../enums/input-type.enum';
+import { BaseModal, Input } from '../components';
 import styles from './styles.module.scss';
 
 interface Properties {
@@ -16,7 +14,17 @@ interface Properties {
     onSubmit: () => void;
 }
 
-const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
+const ModalAddWallet: React.FC<Properties> = ({
+    isShown,
+    onClose,
+    onSubmit,
+}) => {
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
     const [walletName, setWalletName] = useState('');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currency, setCurrency] = useState('');
@@ -45,46 +53,14 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
     //     [walletName, currency, onClose],
     // );
 
-    const handleClose = useCallback(() => {
-        onClose();
-    }, [onClose]);
-
-    const handleDisableContentContainerClick: MouseEventHandler<HTMLFormElement> =
-        useCallback((event_) => {
-            event_.stopPropagation();
-        }, []);
-
-    const handleKeyDown = (event_: KeyboardEvent): void => {
-        if (event_.key === 'Escape') {
-            onClose();
-        }
-    };
-
-    useEffect(() => {
-        if (isShown) {
-            document.addEventListener('keydown', handleKeyDown);
-        } else {
-            document.removeEventListener('keydown', handleKeyDown);
-        }
-    });
-
-    if (!isShown) {
-        return null;
-    }
-
     return (
-        <Portal>
-            <div
-                className={styles.modalBackground}
-                onClick={handleClose}
-                role="presentation"
-            >
-                <form
-                    className={styles.modal}
-                    onClick={handleDisableContentContainerClick}
-                    role="presentation"
-                >
-                    <span className={styles.title}>Create new Wallet</span>
+        <BaseModal
+            isShown={isShown}
+            onClose={onClose}
+            onSubmit={handleSubmit(onSubmit)}
+            Header={<h1>Create new Wallet</h1>}
+            Body={
+                <form className={styles.modal}>
                     <div className={styles.inputGroup}>
                         <label className={styles.label} htmlFor="walletName">
                             Wallet Name
@@ -106,8 +82,6 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
                             Currency
                         </label>
 
-                        {/* Dropdown starts here */}
-
                         <select
                             id="walletCurrency"
                             required
@@ -119,10 +93,17 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
                             <option value="JPY">JPY</option>
                             <option value="CAD">CAD</option>
                         </select>
-
-                        {/* Dropdown ends here */}
                     </div>
-                    <div className={styles.inputGroup}>
+                    <Input
+                        control={control}
+                        errors={errors}
+                        label="Starting balance (optional)"
+                        name="startingBalance"
+                        placeholder="0.00"
+                        type={InputType.NUMBER}
+                    />
+
+                    {/* <div className={styles.inputGroup}>
                         <label
                             className={styles.label}
                             htmlFor="startingBalance"
@@ -135,20 +116,23 @@ const ModalAddWallet: React.FC<Properties> = ({ isShown, onClose }) => {
                             id="startingBalance"
                             placeholder="0.00"
                         />
-                    </div>
+                    </div> */}
                     <button
                         className={classNames(
                             walletName && styles.active,
                             styles.button,
                         )}
-                        style={{ cursor: walletName ? 'pointer' : 'default' }}
+                        style={{
+                            cursor: walletName ? 'pointer' : 'default',
+                        }}
                         type="submit"
                     >
                         Create
                     </button>
                 </form>
-            </div>
-        </Portal>
+            }
+            submitButtonName={'Create'}
+        ></BaseModal>
     );
 };
 

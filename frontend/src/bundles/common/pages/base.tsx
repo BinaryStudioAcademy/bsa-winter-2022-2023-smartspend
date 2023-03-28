@@ -101,7 +101,7 @@ const Base: React.FC = () => {
 
     // WALLET MODAL
 
-    const [walletModalActive, setWalletModalActive] = useState(false);
+    const [walletModalActive, setWalletModalActive] = useState(true);
 
     const handleWalletModalCancel = useCallback(() => {
         setWalletModalActive(false);

@@ -5,6 +5,7 @@ import 'swiper/css/autoplay';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { Breakpoint, SwiperBreakpointConfig } from '../../enums/enums';
 import { FeedbackCard } from '../components';
 import styles from './styles.module.scss';
 
@@ -29,13 +30,13 @@ const paginationOptions = {
 };
 
 const breakpoints = {
-    992: {
-        slidesPerView: 3,
-        spaceBetween: 35,
+    [Breakpoint.LG]: {
+        slidesPerView: SwiperBreakpointConfig.LG_SLIDES_PER_VIEW,
+        spaceBetween: SwiperBreakpointConfig.LG_SPACE_BETWEEN,
     },
-    768: {
-        slidesPerView: 2,
-        spaceBetween: 20,
+    [Breakpoint.MD]: {
+        slidesPerView: SwiperBreakpointConfig.MD_SLIDES_PER_VIEW,
+        spaceBetween: SwiperBreakpointConfig.MD_SPACE_BETWEEN,
     },
 };
 

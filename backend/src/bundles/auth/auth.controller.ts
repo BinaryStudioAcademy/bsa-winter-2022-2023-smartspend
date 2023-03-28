@@ -1,5 +1,4 @@
 import {
-    type UserLoadRequestDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
@@ -62,7 +61,7 @@ class AuthController extends Controller {
             handler: (options) =>
                 this.loadUser(
                     options as ApiHandlerOptions<{
-                        headers: UserLoadRequestDto;
+                        token: string;
                     }>,
                 ),
         });
@@ -182,11 +181,11 @@ class AuthController extends Controller {
 
     private async loadUser(
         options: ApiHandlerOptions<{
-            headers: UserLoadRequestDto;
+            token: string;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const { authorization } = options.headers;
-        const token = getToken(authorization);
+        const { token: bearerToken } = options;
+        const token = getToken(bearerToken);
         const user = await this.authService.getUserByToken(token);
         return {
             status: HttpCode.OK,

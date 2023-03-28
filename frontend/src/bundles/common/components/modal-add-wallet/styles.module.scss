@@ -4,8 +4,12 @@
     justify-content: space-between;
     width: 352px;
     height: 310px;
-    background-color: var(--color-white-100);
-    border-radius: var(--b-2);
+}
+
+.title {
+    margin-top: var(--m-2);
+    color: var(--color-blue-600);
+    font-size: 1.25rem;
 }
 
 .inputGroup {

@@ -23,18 +23,17 @@ const ModalAddWallet: React.FC<Properties> = ({
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+        watch,
+    } = useForm({
+        defaultValues: {
+            walletName: '',
+            startingBalance: '',
+        },
+    });
 
-    const [walletName, setWalletName] = useState('');
+    const walletName = watch('walletName');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currency, setCurrency] = useState('');
-
-    const handleWalletNameChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setWalletName(event.target.value);
-        },
-        [],
-    );
 
     const handleCurrencyChange = useCallback(
         (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -57,23 +56,21 @@ const ModalAddWallet: React.FC<Properties> = ({
         <BaseModal
             isShown={isShown}
             onClose={onClose}
+            hasActionButtons={false}
             onSubmit={handleSubmit(onSubmit)}
-            Header={<h1>Create new Wallet</h1>}
+            Header={<span className={styles.title}>Create new Wallet</span>}
             Body={
                 <form className={styles.modal}>
-                    <div className={styles.inputGroup}>
-                        <label className={styles.label} htmlFor="walletName">
-                            Wallet Name
-                        </label>
-                        <input
-                            className={styles.input}
-                            type="text"
-                            id="walletName"
-                            placeholder="Enter your wallet name"
-                            onChange={handleWalletNameChange}
-                            required
-                        />
-                    </div>
+                    <Input
+                        control={control}
+                        errors={errors}
+                        label="Wallet Name"
+                        name="walletName"
+                        placeholder="Enter your wallet name"
+                        type={InputType.TEXT}
+                        inputClassName={styles.input}
+                        labelClassName={styles.label}
+                    />
                     <div className={styles.inputGroup}>
                         <label
                             className={styles.label}
@@ -101,22 +98,9 @@ const ModalAddWallet: React.FC<Properties> = ({
                         name="startingBalance"
                         placeholder="0.00"
                         type={InputType.NUMBER}
+                        inputClassName={styles.input}
+                        labelClassName={styles.label}
                     />
-
-                    {/* <div className={styles.inputGroup}>
-                        <label
-                            className={styles.label}
-                            htmlFor="startingBalance"
-                        >
-                            Starting balance (optional)
-                        </label>
-                        <input
-                            className={styles.input}
-                            type="number"
-                            id="startingBalance"
-                            placeholder="0.00"
-                        />
-                    </div> */}
                     <button
                         className={classNames(
                             walletName && styles.active,

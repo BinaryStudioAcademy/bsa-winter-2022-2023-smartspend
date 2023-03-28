@@ -17,6 +17,7 @@ type Properties = {
     Header: ReactNode;
     Body: ReactNode;
     children?: ReactNode;
+    hasActionButtons?: boolean;
     submitButtonName: string;
 };
 
@@ -27,6 +28,7 @@ const BaseModal: React.FC<Properties> = ({
     children,
     isShown,
     onSubmit,
+    hasActionButtons = true,
     submitButtonName,
 }) => {
     const handleClose = useCallback(() => {
@@ -78,22 +80,24 @@ const BaseModal: React.FC<Properties> = ({
                         <div className={styles.modalBody}>{Body}</div>
                         <div className={styles.modalFooter}>
                             {children}
-                            <div className={styles.mainButtonsWrapper}>
-                                <Button
-                                    variant={ButtonVariant.SECONDARY}
-                                    size={ButtonSize.SMALL}
-                                    onClick={handleClose}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    variant={ButtonVariant.PRIMARY}
-                                    size={ButtonSize.SMALL}
-                                    onClick={onSubmit}
-                                >
-                                    {submitButtonName}
-                                </Button>
-                            </div>
+                            {hasActionButtons && (
+                                <div className={styles.mainButtonsWrapper}>
+                                    <Button
+                                        variant={ButtonVariant.SECONDARY}
+                                        size={ButtonSize.SMALL}
+                                        onClick={handleClose}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        variant={ButtonVariant.PRIMARY}
+                                        size={ButtonSize.SMALL}
+                                        onClick={onSubmit}
+                                    >
+                                        {submitButtonName}
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

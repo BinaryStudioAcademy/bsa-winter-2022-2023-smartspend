@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     display: flex;
     justify-content: center;
@@ -53,13 +55,13 @@
     height: 42px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $xl) {
     .container {
         padding: var(--p-6) var(--p-3);
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container {
         padding: var(--p-5) var(--p-3);
     }
@@ -72,7 +74,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .formContainer {
         flex-direction: column;
         height: auto;

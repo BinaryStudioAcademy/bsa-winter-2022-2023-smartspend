@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     position: relative;
     display: flex;
@@ -95,7 +97,7 @@
     object-fit: contain;
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container {
         grid-template-columns: repeat(2, 1fr);
         height: auto;
@@ -120,7 +122,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .container {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -148,7 +150,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .buttonsContainer {
         gap: var(--m-2);
     }

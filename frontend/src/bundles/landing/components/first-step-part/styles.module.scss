@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     display: flex;
     justify-content: center;
@@ -29,7 +31,7 @@
     margin-top: 30px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container {
         flex-direction: column;
         height: auto;
@@ -53,7 +55,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .cardsContainer {
         grid-template-columns: minmax(288px, 330px);
     }

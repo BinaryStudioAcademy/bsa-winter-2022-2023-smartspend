@@ -8,6 +8,9 @@ const menuLinks = [
     { to: '/about', title: 'About us' },
     { to: '/blog', title: 'Blog' },
     { to: '/contact', title: 'Contact' },
-] as unknown as { to: ValueOf<typeof AppRoute>; title: string }[];
+] as {
+    to: ValueOf<typeof AppRoute>;
+    title: string;
+}[];
 
 export { menuLinks };

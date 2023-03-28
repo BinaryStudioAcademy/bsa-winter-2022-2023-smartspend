@@ -1,0 +1,46 @@
+button {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+span {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 5px 0;
+    background: #ffffff;
+    transition: transform 0.2s ease-in-out;
+}
+
+span:first-child {
+    transform-origin: top left;
+}
+
+span:last-child {
+    transform-origin: bottom left;
+}
+
+.burgerList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+}
+
+.burgerList li {
+    margin: 10px 0;
+}
+
+.burgerLink {
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+}

@@ -27,7 +27,7 @@ class TransactionModel extends AbstractModel {
             relation: Model.BelongsToOneRelation,
             modelClass: 'CategoryModel',
             join: {
-                from: 'transactions.category_id',
+                from: 'transactions.categoryId',
                 to: 'categories.id',
             },
         },
@@ -35,7 +35,7 @@ class TransactionModel extends AbstractModel {
             relation: Model.BelongsToOneRelation,
             modelClass: 'CurrencyModel',
             join: {
-                from: 'transactions.currency_id',
+                from: 'transactions.currencyId',
                 to: 'currencies.id',
             },
         },

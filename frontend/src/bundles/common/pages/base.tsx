@@ -1,4 +1,5 @@
 import React from 'react';
+import { type MultiValue, type SingleValue } from 'react-select';
 import { type UserSignInRequestDto } from 'shared/build/index.js';
 import { userSignInValidationSchema } from 'shared/build/index.js';
 
@@ -16,6 +17,8 @@ import {
     Input,
     LineChart,
 } from '../components/components.js';
+import { Dropdown } from '../components/dropdown/dropdown.js';
+import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
 import { ModalAddWallet } from '../components/modal-add-wallet/modal-add-wallet.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
@@ -25,6 +28,7 @@ import { ButtonVariant } from '../enums/button-variant.enum.js';
 import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
+import { type DataType } from '../types/dropdown.type';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -73,6 +77,33 @@ const tabsDashboard = [
     { title: 'Dashboard', to: AppRoute.DASHBOARD },
     { title: 'Budget', to: AppRoute.BUDGETS },
 ];
+
+//////////////// DROPDOWNs data
+
+const people = [
+    {
+        value: 'John Doe',
+        name: 'John Doe',
+    },
+    {
+        value: 'Jane Smith',
+        name: 'Jane Smith',
+    },
+    {
+        value: 'Alice Johnson',
+        name: 'Alice Johnson',
+    },
+    {
+        value: 'Bob Brown',
+        name: 'Bob Brown',
+    },
+    {
+        value: 'Charlie Green',
+        name: 'Charlie Green',
+    },
+];
+
+//////////////// DROPDOWNs data end
 
 const allTabsData = {
     dashboard: tabsDashboard,
@@ -134,6 +165,37 @@ const Base: React.FC = () => {
         validationSchema: userSignInValidationSchema,
         mode: 'onBlur',
     });
+
+    //////////////// Single Dropdown
+
+    const [selectedSingle, setSelectedSingle] = useState<DataType>(people[0]);
+
+    const handleDropdownChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setSelectedSingle(selectedOption);
+            }
+        },
+        [],
+    );
+
+    //////////////// Multiselect Dropdown
+
+    const [selectedMulti, setSelectedMulti] = useState<
+        MultiValue<DataType> | SingleValue<DataType>
+    >([]);
+
+    const handleMultiDropdownChange = useCallback(
+        (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
+            if (selectedOption === null) {
+                setSelectedMulti([]);
+            } else {
+                setSelectedMulti(selectedOption);
+            }
+        },
+        [],
+    );
+
     return (
         <>
             <Header dataTabs={allTabsData} />
@@ -155,6 +217,24 @@ const Base: React.FC = () => {
                     <Calendar isRangeCalendar={true} />
                     <Calendar isRangeCalendar={false} />
                     {/* Calendar */}
+                </div>
+
+                <div style={{ margin: '15px' }}>
+                    <Dropdown
+                        data={people}
+                        selectedOption={selectedSingle}
+                        handleChange={handleDropdownChange}
+                        width="229px"
+                    />
+                </div>
+
+                <div style={{ margin: '15px' }}>
+                    <MultiDropdown
+                        data={people}
+                        selectedOption={selectedMulti}
+                        handleChange={handleMultiDropdownChange}
+                        width="229px"
+                    />
                 </div>
 
                 {/* Buttons */}
@@ -452,6 +532,8 @@ const Base: React.FC = () => {
                     isShown={walletModalActive}
                     onClose={handleWalletModalCancel}
                     onSubmit={handleWalletModalCancel}
+                    // dropdownData={people}
+                    // dropdownSelected={selectedSingle}
                 />
             </div>
             <br></br>
@@ -501,7 +583,6 @@ const Base: React.FC = () => {
                     </form>
                 </div>
             </div>
-
             <UserSettingsTabs tabsData={userSettingsData} />
             <div>
                 <RangeSlider

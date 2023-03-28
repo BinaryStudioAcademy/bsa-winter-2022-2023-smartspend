@@ -1,23 +1,28 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { InputType } from '../../enums/input-type.enum';
 import { BaseModal, Input } from '../components';
+// import { Dropdown } from '../dropdown/dropdown';
 import styles from './styles.module.scss';
 
 interface Properties {
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
+    // dropdownData;
+    // dropdownSelected;
 }
 
 const ModalAddWallet: React.FC<Properties> = ({
     isShown,
     onClose,
     onSubmit,
+    // dropdownData,
+    // dropdownSelected,
 }) => {
     const {
         control,
@@ -35,12 +40,12 @@ const ModalAddWallet: React.FC<Properties> = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currency, setCurrency] = useState('');
 
-    const handleCurrencyChange = useCallback(
-        (event: React.ChangeEvent<HTMLSelectElement>) => {
-            setCurrency(event.target.value);
-        },
-        [],
-    );
+    // const handleCurrencyChange = useCallback(
+    //     (event: React.ChangeEvent<HTMLSelectElement>) => {
+    //         setCurrency(event.target.value);
+    //     },
+    //     [],
+    // );
 
     //   in progress, don't review this part please =)
 
@@ -71,26 +76,7 @@ const ModalAddWallet: React.FC<Properties> = ({
                         inputClassName={styles.input}
                         labelClassName={styles.label}
                     />
-                    <div className={styles.inputGroup}>
-                        <label
-                            className={styles.label}
-                            htmlFor="walletCurrency"
-                        >
-                            Currency
-                        </label>
 
-                        <select
-                            id="walletCurrency"
-                            required
-                            onChange={handleCurrencyChange}
-                        >
-                            <option value="USD">USD</option>
-                            <option value="EUR">EUR</option>
-                            <option value="GBP">GBP</option>
-                            <option value="JPY">JPY</option>
-                            <option value="CAD">CAD</option>
-                        </select>
-                    </div>
                     <Input
                         control={control}
                         errors={errors}

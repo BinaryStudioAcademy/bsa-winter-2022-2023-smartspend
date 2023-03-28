@@ -1,22 +1,70 @@
 import { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Button } from '../../components/button/button';
+import { BaseModal } from '../../components/components';
 import { ButtonSize, ButtonType, ButtonVariant } from '../../enums/enums';
-import { ExpenseList } from './expense-list/expense-list';
+import { CategoryList } from './category-list/category-list';
+import { testDB } from './common/test-database';
 import { FormCreateCategory } from './form-create-category/form-create-category';
-import { IncomeList } from './income-list/income-list';
 import styles from './styles.module.scss';
 
+type RootState = {
+    categories: {
+        checkedCategory: string[];
+    }
+};
+interface Data {
+    id: string;
+    categoryName: string;
+    type: string;
+    icon: string;
+    colorIcon: string;
+}
+
+type GroupedData = Record<string, Data[]>;
+
 const CategoriesSettings: React.FC = () => {
-    // const [checkedItem, setCheckedItem] = useState<string[]>([]);
+    const [modalMerge, setModalMerge] = useState(false);
+    const [modalDelete, setModalDelete] = useState(false);
+    const checkedCategories = useSelector((state: RootState) => state.categories.checkedCategory);
+
+    const handelOpenModalMerge = useCallback(() => {
+        setModalMerge(true);
+    }, []);
 
     const handelClickMerge = useCallback(() => {
-        // console.log('click Merge')
+        // console.log('merge')
     }, []);
     
-    const handelClickDelete = useCallback(() => {
-        // const countDelete = checkedItem.length
+    const handelOpenModalDelete = useCallback(() => {
+        setModalDelete(true);
     }, []);
+
+    const handelClickDelete = useCallback(() => {
+        // console.log('del')
+    }, []);
+
+    const handleCloseModal = useCallback(() => {
+        setModalDelete(false);
+        setModalMerge(false);
+    }, []);
+
+    // const sortByType: GroupedData = testDB.reduce((accumulator: GroupedData, current: Data) => {
+    //     if (!accumulator[current.type]) {
+    //         accumulator[current.type] = [];
+    //     }
+    //     accumulator[current.type].push(current);
+    //     return accumulator;
+    // }, {});
+
+    const sortByType: GroupedData = {};
+    for (const data of testDB) {
+        if (!sortByType[data.type]) {
+            sortByType[data.type] = [];
+        }
+        sortByType[data.type].push(data);
+    }
 
     return (
         <div className={styles.section}>
@@ -31,39 +79,54 @@ const CategoriesSettings: React.FC = () => {
                                 <div className={styles.wrapperBtn}>
                                     <Button
                                         type={ButtonType.BUTTON}
-                                        variant={ButtonVariant.PRIMARY}
-                                        size={ButtonSize.MEDIUM}
-                                        disabled={true}
-                                        // disabled={checkedItem?.length >= 2 ? false : true}
+                                        variant={ButtonVariant.SECONDARY}
+                                        size={ButtonSize.SMALL}
+                                        // disabled={true}
+                                        disabled={checkedCategories.length >= 2 ? false : true}
                                         className={styles.btn}
-                                        onClick={handelClickMerge}
+                                        onClick={handelOpenModalMerge}
                                     >
-                                        <span className={styles.btnName}>Merge category</span>
-                                        {/* <span className={styles.btnName}>{checkedItem?.length >= 2 ? `Merge category (${checkedItem?.length})` : 'Merge category'}</span> */}
-                                        </Button>
+                                        {/* <span>Merge category</span> */}
+                                        <span>{checkedCategories.length >= 2 ? `Merge category (${checkedCategories.length})` : 'Merge category'}</span>
+                                    </Button>
                                 </div>
                                 <div className={styles.wrapperBtn}>
                                     <Button
                                         type={ButtonType.BUTTON}
-                                        variant={ButtonVariant.PRIMARY}
-                                        size={ButtonSize.MEDIUM}
-                                        disabled={true}
-                                        // disabled={checkedItem?.length !== 0 ? false : true}
-                                        className={`${styles.btn}`}
-                                        onClick={handelClickDelete}
+                                        variant={ButtonVariant.DELETE}
+                                        size={ButtonSize.SMALL}
+                                        // disabled={true}
+                                        disabled={checkedCategories.length === 0 ? true : false}
+                                        className={styles.btn}
+                                        onClick={handelOpenModalDelete}
                                     >
-                                            <span className={styles.btnName}>Delete category</span>
-                                            {/* <span className={styles.btnName}>{ checkedItem?.length !== 0 ?  `Delete category (${checkedItem?.length})` : 'Delete category'}</span> */}
-                                        </Button>
+                                            {/* <span>Delete category</span> */}
+                                            <span>{ checkedCategories.length === 0 ?  'Delete category' : `Delete category (${checkedCategories.length})`}</span>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
-                        <IncomeList/>
-                        {/* <IncomeList setCheckedItem={setCheckedItem}/> */}
-                        <ExpenseList />
+                        <CategoryList title={'Income Categories'} categories={sortByType.income} />
+                        <CategoryList title={'Expense category'} categories={sortByType.expense} />
                     </div>
                 </div>
             </div>
+                <BaseModal
+                    isShown={modalMerge}
+                    onClose={handleCloseModal}
+                    onSubmit={handelClickMerge}
+                    Header={<h1>{`You're about to merge ${checkedCategories.length} categories`}</h1>}
+                    Body={<p>Simple modal</p>}
+                    submitButtonName={'Merge category'}
+                />
+                <BaseModal
+                    isShown={modalDelete}
+                    onClose={handleCloseModal}
+                    onSubmit={handelClickDelete}
+                    Header={<h1>{`You're about to delete ${checkedCategories.length} categories`}</h1>}
+                    Body={<p>This change is irreversible. Do you really want to delete them?</p>}
+                    submitButtonName={'Delete category'}
+                />
         </div>
     );
 };

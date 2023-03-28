@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/';
+import { categoryReducer } from '~/bundles/categories/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
@@ -18,6 +19,7 @@ import { notification } from '~/services/services.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
+    categories: ReturnType<typeof categoryReducer>;
 };
 
 type ExtraArguments = {
@@ -44,6 +46,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 users: usersReducer,
+                categories: categoryReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 return [

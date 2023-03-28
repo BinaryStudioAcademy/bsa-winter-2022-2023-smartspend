@@ -1,7 +1,11 @@
 import { faGear, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { categoriesSlice } from '~/bundles/categories/store';
+import { BaseModal, Button } from '~/bundles/common/components/components';
+import { ButtonSize, ButtonType, ButtonVariant } from '~/bundles/common/enums/enums';
 import { findIcon } from '~/bundles/common/helpers/find-icon';
 
 import { Checkbox } from '../common/checkbox/checkbox';
@@ -10,10 +14,15 @@ import styles from './styles.module.scss';
 type Properties = {
     id: string;
     categoryName: string;
-    count: string | number;
+    count?: string | number;
     iconKey: string;
     colorIcon: string;
-    // setCheckedItem: string[];
+};
+
+type RootState = {
+    categories: {
+        checkedCategory: string[];
+    }
 };
 
 const CategoryItem: React.FC<Properties> = ({
@@ -22,35 +31,46 @@ const CategoryItem: React.FC<Properties> = ({
     count,
     iconKey,
     colorIcon,
-    // setCheckedItem,
 }) => {
-    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [modalDelete, setModalDelete] = useState(false);
+    const [modalEdit, setModalEdit] = useState(false);
+    // const [editCategory, setEditCategory]= useState({})
+    const dispatch = useDispatch();
+    const isChecked = useSelector<RootState, boolean>(
+        state => state.categories.checkedCategory.includes(id)
+    );
 
     const icon = findIcon(iconKey);
 
     const handleCheckboxChange = useCallback((isChecked: boolean): void => {
-        setIsChecked(isChecked);
-        // if (isChecked) {
-        //     setCheckedItem((prev: string[]) => [...prev, id])
-        // } else {
-        //     setCheckedItem((prev: string[]) => prev.filter((item: string) => item !== id));
-        // }
+        if (isChecked) {
+            dispatch(categoriesSlice.addChecked(id));  
+        } else {
+            dispatch(categoriesSlice.removeChecked(id));
+        }   
+    }, [dispatch, id]);
+
+    const handelOpenModalEdit = useCallback((): void => {
+        setModalEdit(true);
     }, []);
 
-    // const handelClickSettings = useCallback((id: string): void => {
-        // console.log(id);
-    // }, []);
-    const handelClickSettings = useCallback(() => {
-        // console.log(id);
-    }, []);
-
-    const handelClickDelete = useCallback(()=> {
+    const handelClickEdit = useCallback(() => {
         // console.log(id);
     }, []);
 
-    // const handelClickDelete = useCallback((id: string): void => {
-        // console.log(id);
-    // }, []);
+    const handelOpenModalDelete = useCallback(()=> {
+        setModalDelete(true);
+    }, []);
+
+    const handelClickDelete = useCallback((): void => {
+        // console.log(id); //delete item from ID
+        setModalDelete(true);
+    }, []);
+
+    const handleCloseModal = useCallback(() => {
+        setModalDelete(false);
+        setModalEdit(false);
+    }, []);
 
     return (
         <div>
@@ -95,29 +115,53 @@ const CategoryItem: React.FC<Properties> = ({
                             className={`${styles.base} ${styles.iconWrapper}`}
                         ></div>
                         <div className={`${styles.base} ${styles.iconWrapper}`}>
-                            <button
-                                type="button"
+                            <Button
+                                type={ButtonType.BUTTON}
+                                variant={ButtonVariant.SECONDARY}
+                                size={ButtonSize.SMALL}
                                 className={styles.iconBtn}
-                                // onClick={():void => handelClickSettings(id)}
-                                onClick={handelClickSettings}
+                                disabled={false}
+                                onClick={handelOpenModalEdit}
                             >
-                                <FontAwesomeIcon icon={faGear} />
-                            </button>
+                                <span className={styles.btnName}>
+                                     <FontAwesomeIcon icon={faGear} />
+                                </span>
+                            </Button>  
                         </div>
                         <div className={`${styles.base} ${styles.iconWrapper}`}>
-                            <button
-                                type="button"
-                                className={`${styles.iconBtn} ${styles.iconBtnDelete}`}
-                                // onClick={():void=> handelClickDelete(id)}
-                                onClick={handelClickDelete}
+                            <Button
+                                type={ButtonType.BUTTON}
+                                variant={ButtonVariant.DELETE}
+                                size={ButtonSize.SMALL}
+                                className={`${styles.iconBtn} `}
+                                disabled={false}
+                                onClick={handelOpenModalDelete}
                             >
-                                <FontAwesomeIcon icon={faTrash} />
-                            </button>
+                                <span className={styles.btnName}>
+                                     <FontAwesomeIcon icon={faTrash} />
+                                </span>
+                            </Button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="overlay"></div>
+            <BaseModal
+                    isShown={modalEdit}
+                    onClose={handleCloseModal}
+                    onSubmit={handelClickEdit}
+                    Header={<h1>{`You're about to merge ${categoryName} categories`}</h1>}
+                    Body={<p></p>}
+                    submitButtonName={'Edit category'}
+                />
+            <BaseModal
+                    isShown={modalDelete}
+                    onClose={handleCloseModal}
+                    onSubmit={handelClickDelete}
+                    Header={<h1>{`You're about to delete ${categoryName} categories`}</h1>}
+                    Body={<p>This change is irreversible. Do you really want to delete them?</p>}
+                    submitButtonName={'Delete category'}
+                />
         </div>
     );
 };

@@ -11,18 +11,18 @@
     width: 20px;
     height: 20px;
     margin-right: 8px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid var(--color-gray-200);
     border-radius: 4px;
     transition: all 0.2s ease-in-out;
 }
 
 .box:hover {
-    border-color: #12c48b;
+    border-color: var(--color-blue-600);
 }
 
 .boxСhecked {
-    background-color: #12c48b;
-    border-color: #12c48b;
+    background-color: var(--color-blue-600);
+    border-color: var(--color-blue-600);
 }
 
 .checkboxСheck {

@@ -1,28 +1,34 @@
 import { CategoryItem } from '../category-item/category-item';
-import { testDB } from '../common/test-database';
 import styles from './styles.module.scss';
 
-// type Properties = {
-//     setCheckedItem: string[],
-// };
+interface Data {
+    id: string;
+    categoryName: string;
+    type: string;
+    icon: string;
+    colorIcon: string;
+}
 
-const IncomeList: React.FC = () => {
+type Properties = {
+    title: string;
+    categories: Data[];
+};
+
+const CategoryList: React.FC<Properties> = ({ title, categories }) => {
     return (
-        <div>
-            <h2 className={styles.title}>Income Categories</h2>
-            {testDB.map((item) => (
+        <div className={styles.wrapper}>
+            <h2 className={styles.title}>{title}</h2>
+            {categories.map((item) => (
                 <CategoryItem
                     key={item.id}
                     id={item.id}
                     categoryName={item.categoryName}
-                    count={item.count}
                     iconKey={item.icon}
                     colorIcon={item.colorIcon}
-                    // setCheckedItem={setCheckedItem}
                 />
             ))}
         </div>
     );
 };
 
-export { IncomeList };
+export { CategoryList };

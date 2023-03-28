@@ -1,5 +1,4 @@
 
-
 @media screen and (min-width: 768px) {
     .overlay {
         transition: opacity 0.3s;
@@ -60,16 +59,8 @@
     padding: var(--p-2);
 }
 
-.btn:disabled{
+.btn{
     width: 100%;
-    color: #7b93a4;
-    background-color: #e5ebee;
-    box-shadow: none;
-}
-
-.btn:active{
-    color: #f14c52;
-    background-color: #feefef;
 }
 
 .btnName {

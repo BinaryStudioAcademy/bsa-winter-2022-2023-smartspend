@@ -24,7 +24,11 @@ const LineChartCard: React.FC<Properties> = ({ dataArr, title, date }) => {
                 <ButtonTabs tabsData={tabsDashboard} />
             </div>
             <div className={styles.containerLineChart}>
-                <LineChart dataArr={dataArr} />
+                <LineChart
+                    dataArr={dataArr}
+                    tooltipDisplay={false}
+                    pointHoverRadius={3}
+                />
             </div>
         </div>
     );

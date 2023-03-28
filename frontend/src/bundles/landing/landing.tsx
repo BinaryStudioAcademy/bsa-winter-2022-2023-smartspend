@@ -14,6 +14,7 @@ import {
     ThirdStepPart,
 } from './components/components';
 import { AppRoute } from './enums/enums';
+import styles from './styles.module.scss';
 
 const Landing: React.FC = () => {
     const tabsData = [
@@ -75,23 +76,27 @@ const Landing: React.FC = () => {
     return (
         <>
             <Header dataTabs={allTabsData} />
-            <HighlightBanner
-                title={'The only app that gets your money into shape'}
-                details={
-                    'Use SmartSpend to plan your budget and take control of finances'
-                }
-            />
-            <QuestionPart question={'How to get your money into shape?'} />
-            <FirstStepPart />
-            <SecondStepPart />
-            <ThirdStepPart />
-            <FeedbacksPart
-                title={'Why people use SmartSpend'}
-                feedbacks={feedbacksArray}
-            />
-            <SubscriptionPart
-                title={'Get monthly money tips and stay on top of your finance'}
-            />
+            <div className={styles.wrapper}>
+                <HighlightBanner
+                    title={'The only app that gets your money into shape'}
+                    details={
+                        'Use SmartSpend to plan your budget and take control of finances'
+                    }
+                />
+                <QuestionPart question={'How to get your money into shape?'} />
+                <FirstStepPart />
+                <SecondStepPart />
+                <ThirdStepPart />
+                <FeedbacksPart
+                    title={'Why people use SmartSpend'}
+                    feedbacks={feedbacksArray}
+                />
+                <SubscriptionPart
+                    title={
+                        'Get monthly money tips and stay on top of your finance'
+                    }
+                />
+            </div>
             <Footer />
         </>
     );

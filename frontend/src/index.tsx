@@ -62,19 +62,19 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     </PrivateRoute>
                                 ),
                             },
+                            {
+                                path: AppRoute.WALLET_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <WalletDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
                         ],
                     },
                     {
                         path: AppRoute.UI,
                         element: <Base />,
-                    },
-                    {
-                        path: AppRoute.WALLET_DETAILS,
-                        element: (
-                            // <PrivateRoute>
-                            <WalletDetails />
-                            // </PrivateRoute>
-                        ),
                     },
                     {
                         path: AppRoute.NOT_FOUND,

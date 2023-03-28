@@ -5,6 +5,10 @@
     border-radius: var(--b-5);
 }
 
+.button:hover {
+    cursor: default;
+}
+
 .button.primary {
     background-image: linear-gradient(
             var(--color-white-transparent),

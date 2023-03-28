@@ -2,36 +2,22 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 352px;
+    width: 310px;
     height: 310px;
 }
 
 .title {
-    margin-top: var(--m-2);
+    margin: var(--m-3) 0;
     color: var(--color-blue-600);
     font-size: 1.25rem;
 }
 
-.inputGroup {
-    display: flex;
-    flex-direction: column;
-}
-
-// "select" will be removed after dropdown replacement
-.input,
-select {
+.input {
     height: 36px;
+    margin: var(--m-2) 0;
     padding-left: var(--p-2);
     border: 1px solid var(--color-blue-200);
     border-radius: var(--b-1);
-}
-
-.input:focus {
-    outline: none;
-}
-
-.input::placeholder {
-    color: var(--color-blue-300);
 }
 
 .input::-webkit-inner-spin-button,
@@ -41,7 +27,7 @@ select {
 }
 
 .label {
-    margin-bottom: var(--m-1);
+    margin-bottom: var(--m-3);
     color: var(--color-blue-300);
     font-size: 0.9rem;
 }

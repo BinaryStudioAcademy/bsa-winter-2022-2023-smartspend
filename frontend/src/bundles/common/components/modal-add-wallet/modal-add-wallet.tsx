@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import classNames from 'classnames';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { InputType } from '../../enums/input-type.enum';
 import { BaseModal, Input } from '../components';
-// import { Dropdown } from '../dropdown/dropdown';
+import { Dropdown } from '../dropdown/dropdown';
 import styles from './styles.module.scss';
+
+const currencies = [
+    { value: 'USD', name: 'US Dollar' },
+    { value: 'EUR', name: 'Euro' },
+    { value: 'GBP', name: 'British Pound' },
+];
 
 interface Properties {
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
-    // dropdownData;
-    // dropdownSelected;
 }
 
 const ModalAddWallet: React.FC<Properties> = ({
     isShown,
     onClose,
     onSubmit,
-    // dropdownData,
-    // dropdownSelected,
 }) => {
     const {
         control,
@@ -37,15 +38,6 @@ const ModalAddWallet: React.FC<Properties> = ({
     });
 
     const walletName = watch('walletName');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [currency, setCurrency] = useState('');
-
-    // const handleCurrencyChange = useCallback(
-    //     (event: React.ChangeEvent<HTMLSelectElement>) => {
-    //         setCurrency(event.target.value);
-    //     },
-    //     [],
-    // );
 
     //   in progress, don't review this part please =)
 
@@ -76,6 +68,12 @@ const ModalAddWallet: React.FC<Properties> = ({
                         inputClassName={styles.input}
                         labelClassName={styles.label}
                     />
+
+                    <Dropdown
+                        data={currencies}
+                        selectedOption={currencies[0]}
+                        width="100%"
+                    ></Dropdown>
 
                     <Input
                         control={control}

@@ -3,12 +3,14 @@ import '~/assets/css/variables/color-variables.scss';
 import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
-    type MultiValue,
     type SingleValue,
     type StylesConfig,
 } from 'react-select';
 
-import { type DataType } from '../../types/dropdown.type';
+import {
+    type DataType,
+    type HandleChangeFunction,
+} from '../../types/dropdown.type';
 import styles from './styles.module.scss';
 
 interface Properties {
@@ -100,12 +102,7 @@ const Dropdown: React.FC<Properties> = ({
                 name: selectedOption.name,
                 image: selectedOption.image,
             }}
-            onChange={
-                handleChange as unknown as (
-                    newValue: SingleValue<DataType> | MultiValue<DataType>,
-                    actionMeta: ActionMeta<DataType>,
-                ) => void
-            }
+            onChange={handleChange as HandleChangeFunction}
             options={options}
             formatOptionLabel={formatOptionLabel}
             styles={customStyles}

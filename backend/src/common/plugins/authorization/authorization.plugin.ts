@@ -6,6 +6,7 @@ import {
     HttpCode,
     HttpError,
 } from '../../enums/enums.js';
+import { getToken } from '../../helpers/helpers';
 
 const authorization = fp(async (fastify, { routesWhiteList, services }) => {
     fastify.decorateRequest('user', null);
@@ -18,7 +19,7 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
                 return;
             }
 
-            const [, token] = request.headers.authorization?.split(' ') ?? [];
+            const token = getToken(request.headers.authorization as string);
             const { auth } = services;
 
             const authorizedUser = await auth.getUserByToken(token);

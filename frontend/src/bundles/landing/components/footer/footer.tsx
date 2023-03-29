@@ -31,7 +31,6 @@ const Footer: React.FC = () => {
                     <FooterLinks links={menuLinks} />
                 </div>
             </div>
-
         </footer>
     );
 };

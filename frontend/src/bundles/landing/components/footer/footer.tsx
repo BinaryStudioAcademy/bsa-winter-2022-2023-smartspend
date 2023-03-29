@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
 import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
 import { menuLinks } from '~/bundles/common/enums/menu-links.enum';
@@ -15,18 +17,21 @@ const Footer: React.FC = () => {
         },
     ];
     return (
-        <footer className={styles.container}>
-            <div className={styles.socialMediaIconsContainer}>
-                <FooterMediaIcons icons={iconsArray} />
-            </div>
-            <div className={styles.logoContainer}>
-                <div className={styles.logoImg}>
-                    <img src="" alt="logo" />
+        <footer className={styles.body}>
+            <div className={classNames('container', styles.container)}>
+                <div className={styles.socialMediaIconsContainer}>
+                    <FooterMediaIcons icons={iconsArray} />
+                </div>
+                <div className={styles.logoContainer}>
+                    <div className={styles.logoImg}>
+                        <img src="" alt="logo" />
+                    </div>
+                </div>
+                <div className={styles.links_container}>
+                    <FooterLinks links={menuLinks} />
                 </div>
             </div>
-            <div className={styles.links_container}>
-                <FooterLinks links={menuLinks} />
-            </div>
+
         </footer>
     );
 };

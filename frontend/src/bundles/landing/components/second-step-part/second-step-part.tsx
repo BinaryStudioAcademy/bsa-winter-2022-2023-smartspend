@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { StepInfoPanelVariant } from '../../enums/enums';
 import { type DataObject } from '../../types/types';
 import { LineChartCard, StepInfoPanel } from '../components';
@@ -19,23 +21,25 @@ const SecondStepPart: React.FC = () => {
     ];
 
     return (
-        <section id="analytics" className={styles.container}>
-            <span className={styles.bigBlueBorderCircle}></span>
-            <span className={styles.smallBlueBorderCircle}></span>
-            <span className={styles.bigBlueCircle}></span>
-            <span className={styles.lightBlueCircle}></span>
+        <section id="analytics" className={styles.body}>
+            <div className={classNames('container', styles.container)}>
+                <span className={styles.bigBlueBorderCircle}></span>
+                <span className={styles.smallBlueBorderCircle}></span>
+                <span className={styles.bigBlueCircle}></span>
+                <span className={styles.lightBlueCircle}></span>
 
-            <LineChartCard
-                dataArr={dataArray}
-                title={'Account Balance'}
-                date={'Mar 01-31'}
-            />
-            <StepInfoPanel
-                title={'Track your cash flow'}
-                listItems={listItems}
-                step={2}
-                variant={StepInfoPanelVariant.PRIMARY}
-            />
+                <LineChartCard
+                    dataArr={dataArray}
+                    title={'Account Balance'}
+                    date={'Mar 01-31'}
+                />
+                <StepInfoPanel
+                    title={'Track your cash flow'}
+                    listItems={listItems}
+                    step={2}
+                    variant={StepInfoPanelVariant.PRIMARY}
+                />
+            </div>
         </section>
     );
 };

@@ -21,11 +21,15 @@ type Properties = {
         total: number;
         color: string;
     }[];
+    tooltipDisplay?: boolean;
 };
 
 ChartJS.register(ArcElement);
 
-const DoughnutChart: React.FC<Properties> = ({ categories }) => {
+const DoughnutChart: React.FC<Properties> = ({
+    categories,
+    tooltipDisplay = true,
+}) => {
     const colors = categories.map((object) => getGradientColors(object.color));
 
     const data: ChartData<
@@ -49,7 +53,11 @@ const DoughnutChart: React.FC<Properties> = ({ categories }) => {
             legend: {
                 display: false,
             },
+            tooltip: {
+                enabled: tooltipDisplay,
+            },
         },
+        borderWidth: 0,
     };
 
     //test in center - features

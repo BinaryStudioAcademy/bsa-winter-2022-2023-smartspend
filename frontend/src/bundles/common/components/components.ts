@@ -12,6 +12,7 @@ export { BaseModal } from './modal/modal.js';
 export { Portal } from './portal/portal.js';
 export { PrivateRoute } from './private-route/private-route.js';
 export { PublicRoute } from './public-route/public-route';
+export { RangeSlider } from './range-slider/range-slider.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { TransactionTable } from './transanction-table/transaction-table';
 export { Provider as StoreProvider } from 'react-redux';

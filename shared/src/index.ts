@@ -13,6 +13,15 @@ export {
     userSignUpValidationSchema,
 } from './bundles/users/users.js';
 export {
+    type WalletCreateRequestDto,
+    type WalletFindRequestDto,
+    type WalletGetAllItemResponseDto,
+    type WalletGetAllResponseDto,
+    createWallet,
+    WalletsApiPath,
+    WalletValidationMessage,
+} from './bundles/wallets/wallets.js';
+export {
     ApiPath,
     AppEnvironment,
     ContentType,

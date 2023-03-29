@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
 import {
@@ -5,7 +6,7 @@ import {
     BudgetCard,
     Button,
 } from '~/bundles/common/components/components.js';
-import { ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -57,7 +58,12 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                             onClickCapture={handleClickOpen}
                         >
                             <div className={styles.cardWrapper}>
-                                <Button variant={ButtonVariant.ROUND}>+</Button>
+                                <Button variant={ButtonVariant.ROUND} className={styles.button}>
+                                    <FontAwesomeIcon
+                                        icon={FaIcons.PLUS}
+                                        color={'var(--color-white-100)'}
+                                    />
+                                </Button>
                                 <p className={styles.createText}>
                                     Create a New Budget
                                 </p>

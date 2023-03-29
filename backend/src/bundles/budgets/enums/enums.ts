@@ -1,4 +1,1 @@
-export {
-    BudgetsApiPath,
-    BudgetValidationMessage,
-} from 'shared/build/index.js';
+export { BudgetsApiPath, BudgetValidationMessage } from 'shared/build/index.js';

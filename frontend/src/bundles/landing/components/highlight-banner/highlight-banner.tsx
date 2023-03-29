@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import AppStoreIcon from '~/assets/img/app-store-icon.svg';
 import GooglePlayIcon from '~/assets/img/google-play-icon.svg';
 import LaptopPreview from '~/assets/img/laptop-preview.svg';
@@ -13,7 +15,7 @@ type Properties = {
 const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
     return (
         <section className={styles.body}>
-            <div className={styles.container}>
+            <div className={classNames('container', styles.container)}>
                 <span className={styles.pinkCircle}></span>
                 <span className={styles.violetCircle}></span>
                 <span className={styles.blueCircle}></span>

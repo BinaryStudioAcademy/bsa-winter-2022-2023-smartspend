@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     display: flex;
     justify-content: center;
@@ -11,7 +13,6 @@
     justify-content: center;
     align-items: center;
     row-gap: 30px;
-    width: var(--container);
     padding: 90px var(--p-3);
 }
 
@@ -74,6 +75,12 @@
         padding: var(--p-5) var(--p-3);
     }
 
+    .button {
+        font-weight: var(--font-weight-400);
+    }
+}
+
+@media (max-width: $md) {
     .title {
         width: auto;
         font-size: var(--font-size-level-2-heading);
@@ -82,7 +89,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .formContainer {
         flex-direction: column;
         height: auto;

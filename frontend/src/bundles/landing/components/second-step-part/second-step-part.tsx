@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { StepInfoPanelVariant } from '../../enums/enums';
 import { type DataObject } from '../../types/types';
 import { LineChartCard, StepInfoPanel } from '../components';
@@ -20,7 +22,7 @@ const SecondStepPart: React.FC = () => {
 
     return (
         <section className={styles.body}>
-            <div className={styles.container}>
+            <div className={classNames('container', styles.container)}>
                 <span className={styles.bigBlueBorderCircle}></span>
                 <span className={styles.smallBlueBorderCircle}></span>
                 <span className={styles.bigBlueCircle}></span>

@@ -2,6 +2,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
+import classNames from 'classnames';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -43,7 +44,7 @@ const breakpoints = {
 const FeedbacksPart: React.FC<Properties> = ({ title, feedbacks }) => {
     return (
         <section className={styles.body}>
-            <div className={styles.container}>
+            <div className={classNames('container', styles.container)}>
                 <h1 className={styles.title}>{title}</h1>
                 <Swiper
                     modules={[Pagination, Autoplay]}

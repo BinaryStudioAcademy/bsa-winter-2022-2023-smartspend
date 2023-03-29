@@ -8,12 +8,11 @@
 
 .container {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: var(--container);
     height: 680px;
-    padding: 0 var(--p-3);
 }
 
 .chartCardsContainer {

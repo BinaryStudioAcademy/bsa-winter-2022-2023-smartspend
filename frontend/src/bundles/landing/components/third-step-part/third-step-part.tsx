@@ -1,7 +1,10 @@
+import classNames from 'classnames';
+
 import {
     DoughnutChartCartVariant,
     StepInfoPanelVariant,
-} from '../../enums/enums';
+} from '~/bundles/landing/enums/enums.js';
+
 import { DoughnutChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
 
@@ -14,7 +17,7 @@ const ThirdStepPart: React.FC = () => {
 
     return (
         <section className={styles.body}>
-            <div className={styles.container}>
+            <div className={classNames('container', styles.container)}>
                 <StepInfoPanel
                     step={3}
                     listItems={itemsList}

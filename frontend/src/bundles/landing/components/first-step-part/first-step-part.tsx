@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { StepInfoPanelVariant, WalletCardVariant } from '../../enums/enums';
 import { StepInfoPanel, WalletCard } from '../components';
 import styles from './styles.module.scss';
@@ -40,7 +42,7 @@ const FirstStepPart: React.FC = () => {
 
     return (
         <section className={styles.body}>
-            <div className={styles.container}>
+            <div className={classNames('container', styles.container)}>
                 <StepInfoPanel
                     variant={StepInfoPanelVariant.SECONDARY}
                     title={'Track your cash flow'}

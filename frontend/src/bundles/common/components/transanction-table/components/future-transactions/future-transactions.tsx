@@ -54,7 +54,7 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                 </div>
                 <div>
                     {futureTransactions.length}
-                    <span className={styles.smHide}>transaction(s)</span>
+                    <span className={styles.smHide}> transaction(s)</span>
                 </div>
                 {futureTransactions.length > 0 ? (
                     <div

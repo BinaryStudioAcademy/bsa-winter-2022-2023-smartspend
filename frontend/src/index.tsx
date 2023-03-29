@@ -20,6 +20,8 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
+import { Budgets } from './bundles/common/pages/budgets/budgets';
+
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
         <Toast />
@@ -62,19 +64,27 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     </PrivateRoute>
                                 ),
                             },
+                            {
+                                path: AppRoute.BUDGETS,
+                                element: (
+                                    <PrivateRoute>
+                                        <Budgets />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.WALLET_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <WalletDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
                         ],
                     },
                     {
                         path: AppRoute.UI,
                         element: <StyleGuide />,
-                    },
-                    {
-                        path: AppRoute.WALLET_DETAILS,
-                        element: (
-                            <PrivateRoute>
-                                <WalletDetails />
-                            </PrivateRoute>
-                        ),
                     },
                     {
                         path: AppRoute.NOT_FOUND,

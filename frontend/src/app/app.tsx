@@ -1,7 +1,11 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import { actions as authActions } from '~/bundles/auth/store';
-import { RouterOutlet } from '~/bundles/common/components/components.js';
+import {
+    Header,
+    RouterOutlet,
+} from '~/bundles/common/components/components.js';
+import { dataTabs } from '~/bundles/common/config/header-tabs.config.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -36,7 +40,12 @@ const App: React.FC = () => {
         }
     }, [dispatch, token, user]);
 
-    return <RouterOutlet />;
+    return (
+        <>
+            <Header name={user?.email} dataTabs={dataTabs} />
+            <RouterOutlet />
+        </>
+    );
 };
 
 export { App };

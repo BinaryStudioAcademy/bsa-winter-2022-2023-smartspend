@@ -51,7 +51,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                 <span className={styles.date}>{date}</span>
             </div>
             <div className={styles.chartPart}>
-                <DoughnutChart categories={categories} />
+                <DoughnutChart tooltipDisplay={false} categories={categories} />
             </div>
             <div className={styles.bottomPart}>
                 <div className={styles.transactionTypeContainer}>
@@ -63,7 +63,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                         }
                         alt={'murse'}
                     />
-                    <p>{transaction_type}</p>
+                    <p className={styles.transactionType}>{transaction_type}</p>
                 </div>
                 <p className={styles.transactionNum}>
                     {transaction_num} transaction

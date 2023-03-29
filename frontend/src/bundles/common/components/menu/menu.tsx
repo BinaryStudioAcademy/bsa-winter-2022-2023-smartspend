@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import { menuLinks } from '~/bundles/common/enums/enums.js';
+import { handleScroll } from '~/bundles/common/helpers/helpers.js';
 import {
     useCallback,
     useEffect,
@@ -14,72 +15,46 @@ const Menu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeLink, setActiveLink] = useState<string | null>('#app');
 
-    const handleClick = useCallback(() => {
+    const handleClickMenu = useCallback(() => {
         setIsOpen(!isOpen);
     }, [isOpen]);
+
+    const handleClickLink = useCallback(() => {
+        if (isOpen) {
+            setIsOpen(false);
+        }
+    }, [isOpen]);
+
+    const scrollListener = useCallback(
+        () => handleScroll(menuLinks, setActiveLink),
+        [],
+    );
 
     const toggleMenu = (className: string): string => {
         return isOpen ? className : classNames(className, styles.hide);
     };
 
-    const handleScroll = (): void => {
-        let isLastLinkVisible = false;
-        const lastLink = menuLinks[menuLinks.length - 1];
-
-        for (const link of menuLinks) {
-            // eslint-disable-next-line unicorn/prefer-query-selector
-            const element = document.getElementById(link.to);
-
-            if (element) {
-                const elementTop =
-                    element.getBoundingClientRect().top +
-                    window.pageYOffset -
-                    80;
-                const isLastLink = link === lastLink;
-                const isLastLinkVisibleAtBottom =
-                    isLastLink &&
-                    window.innerHeight + window.pageYOffset >=
-                        document.body.offsetHeight;
-                const isElementVisible =
-                    isLastLinkVisibleAtBottom ||
-                    elementTop < window.pageYOffset;
-
-                if (isElementVisible) {
-                    setActiveLink(link.to);
-                    isLastLinkVisible =
-                        link.to === menuLinks[menuLinks.length - 1].to ||
-                        isLastLinkVisible;
-                }
-            }
-            if (
-                !isLastLinkVisible &&
-                window.innerHeight + window.scrollY >=
-                    document.body.offsetHeight
-            ) {
-                setActiveLink(menuLinks[menuLinks.length - 1].to);
-            }
-        }
-    };
-
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', scrollListener);
         window.scrollTo(0, 0);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', scrollListener);
         };
-    }, []);
+    }, [scrollListener]);
 
     return (
         <>
-            <button className={toggleMenu(styles.button)} onClick={handleClick}>
+            <button
+                className={toggleMenu(styles.button)}
+                onClick={handleClickMenu}
+            >
                 <span className={styles.line}></span>
             </button>
             <nav className={toggleMenu(styles.menu)}>
                 <ul className={toggleMenu(styles.menuList)}>
                     {menuLinks.map((link, index) => (
-                        <li key={index} onClickCapture={handleClick}>
+                        <li key={index} onClickCapture={handleClickLink}>
                             <ScrollNavLink
-                                to={link.to}
                                 title={link.title}
                                 scrollToId={link.to}
                                 className={classNames(styles.menuLink, {

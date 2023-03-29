@@ -22,6 +22,7 @@
     text-decoration: none;
     background-color: transparent;
     border: none;
+    cursor: pointer;
 }
 
 .menuLink::after {
@@ -63,9 +64,9 @@
 }
 
 @media (max-width: 1200px) {
-    // .menuList {
-    //     gap: var(--m-4);
-    // }
+    .menuList {
+        gap: var(--m-4);
+    }
 }
 
 @media (max-width: 992px) {
@@ -183,5 +184,9 @@
 
     .menuLink {
         font-size: var(--font-size-level-2-heading);
+    }
+
+    .menuLink::after {
+        bottom: -8px;
     }
 }

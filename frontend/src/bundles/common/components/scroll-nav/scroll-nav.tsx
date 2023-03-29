@@ -1,33 +1,27 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 
 interface Properties {
-    to: string;
     title: string;
     scrollToId: string;
     className: string;
 }
 
 const ScrollNavLink: React.FC<Properties> = ({
-    to,
     title,
     scrollToId,
     className,
 }) => {
-    const linkReference = useRef<HTMLAnchorElement>(null);
+    const linkReference = useRef<HTMLDivElement>(null);
 
-    const handleClick = useCallback(
-        (event: MouseEvent): void => {
-            // eslint-disable-next-line unicorn/prefer-query-selector
-            const element = document.getElementById(scrollToId);
+    const handleClick = useCallback((): void => {
+        const element: HTMLElement | null = document.querySelector(scrollToId);
 
-            if (element) {
-                event.preventDefault();
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        },
-        [scrollToId],
-    );
+        if (element) {
+            const elementTop =
+                element.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top: elementTop, behavior: 'smooth' });
+        }
+    }, [scrollToId]);
 
     useEffect(() => {
         const reference = linkReference;
@@ -39,9 +33,9 @@ const ScrollNavLink: React.FC<Properties> = ({
     }, [handleClick, scrollToId]);
 
     return (
-        <Link to={to} className={className} ref={linkReference}>
+        <div className={className} ref={linkReference}>
             {title}
-        </Link>
+        </div>
     );
 };
 

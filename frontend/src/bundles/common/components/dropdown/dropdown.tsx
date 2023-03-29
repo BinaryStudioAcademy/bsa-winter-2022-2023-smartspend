@@ -21,8 +21,6 @@ interface Properties {
         actionMeta: ActionMeta<DataType>,
     ) => void;
     handleFocus?: () => boolean;
-    width?: string;
-    isSearchable?: boolean;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -30,8 +28,6 @@ const Dropdown: React.FC<Properties> = ({
     selectedOption,
     handleChange,
     handleFocus,
-    width = '229px',
-    isSearchable = true,
 }) => {
     const options = data.map((item) => ({
         value: item.value,
@@ -54,12 +50,10 @@ const Dropdown: React.FC<Properties> = ({
         indicatorSeparator: () => ({
             display: 'none',
         }),
-        container: (provided) => ({
-            ...provided,
-            width,
-        }),
         control: (provided, state) => ({
             ...provided,
+            height:'48px',
+      
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue600
@@ -116,7 +110,6 @@ const Dropdown: React.FC<Properties> = ({
 
     return (
         <Select
-            className={styles.select}
             value={{
                 value: selectedOption.value,
                 name: selectedOption.name,
@@ -127,7 +120,7 @@ const Dropdown: React.FC<Properties> = ({
             formatOptionLabel={formatOptionLabel}
             styles={customStyles}
             onFocus={handleFocus}
-            isSearchable={isSearchable}
+            isSearchable={false}
         />
     );
 };

@@ -20,14 +20,12 @@ interface Properties {
         selectedOption: MultiValue<DataType> | SingleValue<DataType>,
         actionMeta: ActionMeta<DataType>,
     ) => void;
-    width?: string;
 }
 
 const MultiDropdown: React.FC<Properties> = ({
     data,
     selectedOption,
     handleChange,
-    width = '229px',
 }) => {
     const options = data.map((item) => ({
         value: item.value,
@@ -50,12 +48,9 @@ const MultiDropdown: React.FC<Properties> = ({
         indicatorSeparator: () => ({
             display: 'none',
         }),
-        container: (provided) => ({
-            ...provided,
-            width,
-        }),
         control: (provided, state) => ({
             ...provided,
+            height:'48px',
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue600

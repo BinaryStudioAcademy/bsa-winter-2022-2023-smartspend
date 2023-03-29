@@ -5,7 +5,8 @@ import { BudgetValidationMessage } from '~/bundles/budgets/enums/enums.js';
 import {
     type BudgetFindRequestDto,
     type BudgetGetAllResponseDto,
-    type BudgetResponseDto, type UpdateRequestDto,
+    type BudgetResponseDto,
+    type UpdateRequestDto,
 } from './types/types.js';
 
 class BudgetService {

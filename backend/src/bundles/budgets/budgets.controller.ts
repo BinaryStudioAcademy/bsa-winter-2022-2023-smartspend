@@ -248,12 +248,9 @@ class BudgetController extends Controller {
             name: request.body.name,
             amount: request.body.amount,
             currency: request.body.currency,
-            recurrence: request.body.recurrence
+            recurrence: request.body.recurrence,
         };
-        const budget = await this.budgetService.createBudget(
-            payload,
-            userId,
-        );
+        const budget = await this.budgetService.createBudget(payload, userId);
         const categories = await budgetCategoriesService.createBudgetCategory(
             request.body.categories,
             budget.id,
@@ -360,7 +357,7 @@ class BudgetController extends Controller {
             name: request.body.name,
             amount: request.body.amount,
             currency: request.body.currency,
-            recurrence: request.body.recurrence
+            recurrence: request.body.recurrence,
         };
 
         const updatedBudget = await this.budgetService.updateBudget(

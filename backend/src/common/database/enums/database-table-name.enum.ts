@@ -3,7 +3,7 @@ enum DatabaseTableName {
     USERS = 'users',
     WALLETS = 'wallets',
     BUDGETS = 'budgets',
-    BUDGET_CATEGORIES = 'budget_categories'
+    BUDGET_CATEGORIES = 'budget_categories',
 }
 
 export { DatabaseTableName };

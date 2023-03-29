@@ -50,7 +50,7 @@ const Menu: React.FC = () => {
             >
                 <span className={styles.line}></span>
             </button>
-            <nav className={toggleMenu(styles.menu)} onClick={handleClickLink}>
+            <nav className={toggleMenu(styles.menu)} onClickCapture={handleClickLink}>
                 <ul className={toggleMenu(styles.menuList)}>
                     {menuLinks.map((link, index) => (
                         <li key={index} onClickCapture={handleClickLink}>

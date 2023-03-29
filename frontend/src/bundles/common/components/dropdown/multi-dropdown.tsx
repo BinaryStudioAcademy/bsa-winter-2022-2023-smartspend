@@ -112,17 +112,22 @@ const MultiDropdown: React.FC<Properties> = ({
         [selectedOption],
     );
 
-    const ValueContainer = (
-        properties: ValueContainerProps<DataType>,
-    ): JSX.Element => {
-        const { getValue } = properties;
-        const selectedCount = getValue().length;
-        const labelText =
-            selectedCount > 0 ? `${selectedCount} selected` : 'Select items';
-
+    const ValueContainer: React.FC<ValueContainerProps<DataType>> = ({
+        children,
+        ...properties
+    }) => {
+        const { getValue, hasValue } = properties;
+        const length = getValue().length;
+        if (!hasValue) {
+            return (
+                <components.ValueContainer {...properties}>
+                    {children}
+                </components.ValueContainer>
+            );
+        }
         return (
             <components.ValueContainer {...properties}>
-                <span className={styles.name}>{labelText}</span>
+                {`${length} option/s selected`}
             </components.ValueContainer>
         );
     };
@@ -141,7 +146,6 @@ const MultiDropdown: React.FC<Properties> = ({
             }}
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
-            isClearable={false}
             isSearchable={false}
         />
     );

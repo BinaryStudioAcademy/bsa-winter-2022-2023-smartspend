@@ -134,7 +134,10 @@
 }
 
 .noTransaction {
-    justify-content: "center";
+    justify-content: center;
+    margin-top: var(--m-4);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
 }
 
 @media (max-width: 576px) {

@@ -52,9 +52,9 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                                 date={card.date}
                             />
                         ))}
-                        <Button
+                        <div
                             className={styles.cardCreate}
-                            onClick={handleClickOpen}
+                            onClickCapture={handleClickOpen}
                         >
                             <div className={styles.cardWrapper}>
                                 <Button variant={ButtonVariant.ROUND}>+</Button>
@@ -62,7 +62,7 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                                     Create a New Budget
                                 </p>
                             </div>
-                        </Button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,13 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     background-color: var(--color-white-100);
 }
 
 .title {
-    max-width: var(--container);
-    padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-1-heading);

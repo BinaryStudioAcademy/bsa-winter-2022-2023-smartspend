@@ -12,7 +12,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: var(--container);
     padding: 90px var(--p-3);
 }
 
@@ -74,7 +73,9 @@
     .container {
         padding: var(--p-5) var(--p-3);
     }
+}
 
+@media (max-width: $md) {
     .title {
         width: auto;
         font-size: var(--font-size-level-2-heading);

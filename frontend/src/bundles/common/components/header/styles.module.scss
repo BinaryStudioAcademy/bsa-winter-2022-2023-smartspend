@@ -71,6 +71,11 @@
     border-radius: 50%;
 }
 
+.headerBtn {
+    color: var(--color-blue-600);
+}
+
+
 @media (max-width: $md) {
     .headerBody {
         display: none;

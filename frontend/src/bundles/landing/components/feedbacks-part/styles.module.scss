@@ -3,8 +3,9 @@
 .body {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    row-gap: 20px;
     width: 100%;
     background-color: var(--color-white-100);
 }
@@ -12,8 +13,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    row-gap: 20px;
+    height: 620px;
 }
 
 .carouselContainer {

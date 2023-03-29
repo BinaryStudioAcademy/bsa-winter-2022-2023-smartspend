@@ -12,6 +12,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    row-gap: 30px;
     padding: 90px var(--p-3);
 }
 
@@ -72,6 +73,10 @@
 @media (max-width: $lg) {
     .container {
         padding: var(--p-5) var(--p-3);
+    }
+
+    .button {
+        font-weight: var(--font-weight-400);
     }
 }
 

@@ -10,6 +10,8 @@
 
 .title {
     margin: var(--m-3) 0 var(--m-3);
+    margin-top: var(--m-4);
+    margin-bottom: var(--m-1);
     font-weight: var(--font-weight-600);
     font-size: var(--font-size-level-1-heading);
     line-height: var(--line-height-level-1-heading);
@@ -41,7 +43,7 @@
 
 .list {
     position: relative;
-    margin: 0 0 0 var(--m-4);
+    margin: 0;
     padding: 0;
 }
 

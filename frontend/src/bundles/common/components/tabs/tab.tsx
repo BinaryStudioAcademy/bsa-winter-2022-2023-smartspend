@@ -4,10 +4,10 @@ import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 
-interface TabProperties {
+type Properties = {
     title: string;
     to: string;
-}
+};
 
 const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     return classNames(styles.tab, {
@@ -15,7 +15,7 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     });
 };
 
-const Tab: React.FC<TabProperties> = ({ title, to }) => {
+const Tab: React.FC<Properties> = ({ title, to }) => {
     return (
         <NavLink to={to} className={getNavLinkClassName}>
             {title}

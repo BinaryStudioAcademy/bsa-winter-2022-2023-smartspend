@@ -1,4 +1,4 @@
 export {
     BudgetsApiPath,
     BudgetValidationMessage,
-} from 'shared/src/bundles/budgets/enums/enums.js';
+} from 'shared/build/index.js';

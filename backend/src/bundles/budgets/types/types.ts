@@ -7,4 +7,4 @@ export {
     type TokenDeleteRequestDto,
     type TokenRequestDto,
     type UpdateRequestDto,
-} from 'shared/src/index.js';
+} from 'shared/build/index.js';

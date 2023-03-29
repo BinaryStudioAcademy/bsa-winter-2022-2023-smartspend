@@ -22,6 +22,12 @@
     padding-bottom: var(--p-5);
 }
 
+.logoLink {
+    display: flex;
+    margin: var(--m-7) auto var(--m-4);
+    text-decoration: none;
+}
+
 .authLogo {
     display: flex;
     flex: 0 0 auto;
@@ -29,7 +35,6 @@
     align-items: center;
     width: 4.5rem;
     height: 4.5rem;
-    margin: var(--m-7) auto var(--m-4);
     padding: var(--p-10) var(--p-3);
     overflow: hidden;
     background: var(--gradient-6);
@@ -41,6 +46,14 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.logoText {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--p-3);
+    color: var(--color-white-100);
+    font-size: 2.1rem;
 }
 
 .authInside {

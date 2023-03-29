@@ -5,7 +5,7 @@ import {
     Header,
     RouterOutlet,
 } from '~/bundles/common/components/components.js';
-import { dataTabs } from '~/bundles/common/components/header/constants/menu-tabs-data.js';
+import { dataTabs } from '~/bundles/common/config/header-tabs.config.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,

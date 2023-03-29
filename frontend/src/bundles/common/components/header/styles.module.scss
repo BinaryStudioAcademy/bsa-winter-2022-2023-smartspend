@@ -74,10 +74,16 @@
     border-radius: 50%;
 }
 
+@media (max-width: 992px) {
+    .headerBody {
+        margin-right: var(--m-3);
+    }
+}
+
 @media (max-width: 768px) {
     .headerBody {
         flex: 0 0 auto;
-        order: 2;
+        order: 3;
         margin: 0;
     }
 
@@ -87,9 +93,3 @@
         margin: 0 var(--m-4) 0 auto;
     }
 }
-
-// @media (max-width: 576px) {
-//     .logoText {
-//         display: none;
-//     }
-// }

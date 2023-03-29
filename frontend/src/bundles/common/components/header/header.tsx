@@ -4,7 +4,6 @@ import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
 
 import { AppRoute, ButtonSize, ButtonType } from '../../enums/enums';
 import { useCallback } from '../../hooks/hooks';
-import { useViewportWidth } from '../../hooks/use-viewport-width/use-viewport-width';
 import { Button, Menu } from '../components';
 import { Tabs } from '../tabs/tabs';
 import styles from './styles.module.scss';
@@ -25,7 +24,6 @@ type Properties = {
 
 const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
     const navigate = useNavigate();
-    const viewportWidth = useViewportWidth();
     const { pathname } = useLocation();
 
     const loginHandler = useCallback(

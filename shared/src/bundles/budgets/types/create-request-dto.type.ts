@@ -3,6 +3,7 @@ type BudgetCreateRequestDto = {
     amount: number;
     currency: string;
     recurrence: string;
+    startDate: string;
     categories: string[];
 };
 

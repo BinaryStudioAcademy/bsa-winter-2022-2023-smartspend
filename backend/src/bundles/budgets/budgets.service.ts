@@ -36,15 +36,13 @@ class BudgetService {
         payload: UpdateRequestDto,
         userId: string,
     ): Promise<BudgetResponseDto> {
-        const date = Date.now();
-        const today = new Date(date);
         const budget = await this.budgetRepository.createBudget(
             BudgetEntity.initializeNew({
                 name: payload.name,
                 amount: payload.amount,
                 currency: payload.currency,
                 recurrence: payload.recurrence,
-                startDate: today,
+                startDate: payload.startDate,
                 ownerId: userId,
             }),
         );

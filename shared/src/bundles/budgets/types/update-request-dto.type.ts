@@ -3,6 +3,7 @@ type UpdateRequestDto = {
     amount: number;
     currency: string;
     recurrence: string;
+    startDate: string;
 };
 
 export { type UpdateRequestDto };

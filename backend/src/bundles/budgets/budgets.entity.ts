@@ -11,7 +11,7 @@ class BudgetEntity implements IEntity {
 
     private 'recurrence': string;
 
-    private 'startDate': Date;
+    private 'startDate': string;
 
     private 'ownerId': string;
 
@@ -29,7 +29,7 @@ class BudgetEntity implements IEntity {
         amount: number;
         currency: string;
         recurrence: string;
-        startDate: Date;
+        startDate: string;
         ownerId: string;
     }) {
         this.id = id;
@@ -55,7 +55,7 @@ class BudgetEntity implements IEntity {
         amount: number;
         currency: string;
         recurrence: string;
-        startDate: Date;
+        startDate: string;
         ownerId: string;
     }): BudgetEntity {
         return new BudgetEntity({
@@ -81,7 +81,7 @@ class BudgetEntity implements IEntity {
         amount: number;
         currency: string;
         recurrence: string;
-        startDate: Date;
+        startDate: string;
         ownerId: string;
     }): BudgetEntity {
         return new BudgetEntity({
@@ -101,7 +101,7 @@ class BudgetEntity implements IEntity {
         amount: number;
         currency: string;
         recurrence: string;
-        startDate: Date;
+        startDate: string;
         ownerId: string;
     } {
         return {
@@ -120,7 +120,7 @@ class BudgetEntity implements IEntity {
         amount: number;
         currency: string;
         recurrence: string;
-        startDate: Date;
+        startDate: string;
         ownerId: string;
     } {
         return {

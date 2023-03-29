@@ -49,6 +49,10 @@ import {
  *            type: string
  *            format: text
  *            example: WEEKLY
+ *          startDate:
+ *              type: Date
+ *              format: IsoString
+ *              example: "2023-03-29T12:48:16.424Z"
  *          categoriesId:
  *            type: array
  *            format: string
@@ -223,6 +227,10 @@ class BudgetController extends Controller {
      *                 type: string
      *                 format: text
      *                 example: WEEKLY
+     *               startDate:
+     *                  type: Date
+     *                  format: IsoString
+     *                  example: "2023-03-29T12:48:16.424Z"
      *               categories:
      *                  type: array
      *                  format: string
@@ -249,6 +257,7 @@ class BudgetController extends Controller {
             amount: request.body.amount,
             currency: request.body.currency,
             recurrence: request.body.recurrence,
+            startDate: request.body.startDate,
         };
         const budget = await this.budgetService.createBudget(payload, userId);
         const categories = await budgetCategoriesService.createBudgetCategory(
@@ -304,6 +313,10 @@ class BudgetController extends Controller {
      *                 type: string
      *                 format: text
      *                 example: WEEKLY
+     *               startDate:
+     *                  type: Date
+     *                  format: IsoString
+     *                  example: "2023-03-29T12:48:16.424Z"
      *               categories:
      *                  type: array
      *                  format: string
@@ -340,6 +353,9 @@ class BudgetController extends Controller {
      *          recurrence:
      *            type: string
      *            format: text
+     *            startDate:
+     *              type: Date
+     *              format: IsoString
      *          categoriesId:
      *            type: array
      *            format: string
@@ -358,6 +374,7 @@ class BudgetController extends Controller {
             amount: request.body.amount,
             currency: request.body.currency,
             recurrence: request.body.recurrence,
+            startDate: request.body.startDate,
         };
 
         const updatedBudget = await this.budgetService.updateBudget(

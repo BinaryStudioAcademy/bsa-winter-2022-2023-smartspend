@@ -16,6 +16,7 @@ import { AppRoute } from '~/bundles/common/enums/enums';
 import { Base } from '~/bundles/common/pages/base';
 import { Budgets } from '~/bundles/common/pages/budgets/budgets';
 import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
+import { NotFound } from '~/bundles/common/pages/not-found/not-found';
 import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
 import { Landing } from '~/bundles/landing/landing';
 import { store } from '~/framework/store/store';
@@ -70,6 +71,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     </PrivateRoute>
                                 ),
                             },
+                            {
+                                path: AppRoute.WALLET_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <WalletDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
                         ],
                     },
                     {
@@ -77,12 +86,8 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         element: <Base />,
                     },
                     {
-                        path: AppRoute.WALLET_DETAILS,
-                        element: (
-                            <PrivateRoute>
-                                <WalletDetails />
-                            </PrivateRoute>
-                        ),
+                        path: AppRoute.NOT_FOUND,
+                        element: <NotFound />,
                     },
                 ]}
             />

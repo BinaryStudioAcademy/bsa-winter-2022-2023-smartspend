@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import defaultAvatar from '~/assets/img/default-avatar.jpg';
+import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
 import {
     AppRoute,
     ButtonSize,
@@ -47,12 +48,16 @@ const Header: React.FC<Properties> = ({
     return (
         <header className={styles.header}>
             <div className={styles.headerContainer}>
-                <div className={styles.headerLogo}>
+                <Link to={AppRoute.ROOT} className={styles.headerLogo}>
                     <div className={styles.logoImg}>
-                        <img className={styles.imgLogo} src="" alt="logo" />
+                        <img
+                            className={styles.imgLogo}
+                            src={logoSmartSpend}
+                            alt="logo"
+                        />
                     </div>
                     <span className={styles.logoText}>SmartSpend</span>
-                </div>
+                </Link>
                 <div className={styles.headerBody}>
                     {token ? (
                         <>

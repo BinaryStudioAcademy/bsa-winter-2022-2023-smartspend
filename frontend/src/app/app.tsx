@@ -1,3 +1,5 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 import { actions as authActions } from '~/bundles/auth/store';
 import {
     Header,
@@ -12,6 +14,10 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as userActions } from '~/bundles/users/store';
 import { storage, StorageKey } from '~/framework/storage/storage';
+
+import { iconProvider } from '../bundles/common/icon-provider';
+
+library.add(iconProvider);
 
 const App: React.FC = () => {
     const { pathname } = useLocation();

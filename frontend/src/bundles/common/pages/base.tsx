@@ -1,10 +1,12 @@
 import React from 'react';
+import { type MultiValue, type SingleValue } from 'react-select';
 import { type UserSignInRequestDto } from 'shared/build/index.js';
 import { userSignInValidationSchema } from 'shared/build/index.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
+import { Calendar } from '../components/calendar/calendar';
 import {
     BaseModal,
     BudgetCard,
@@ -16,6 +18,8 @@ import {
     Input,
     LineChart,
 } from '../components/components.js';
+import { Dropdown } from '../components/dropdown/dropdown.js';
+import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
@@ -24,6 +28,7 @@ import { ButtonVariant } from '../enums/button-variant.enum.js';
 import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
+import { type DataType } from '../types/dropdown.type';
 
 const budgetDate = {
     start: 'March 02, 2023',
@@ -78,6 +83,38 @@ const tabsDashboard = [
     { title: 'Budget', to: AppRoute.BUDGETS },
 ];
 
+//////////////// DROPDOWNs data
+
+const people = [
+    {
+        value: 'John Doe',
+        name: 'John Doe',
+        image: 'https://placekitten.com/50/50',
+    },
+    {
+        value: 'Jane Smith',
+        name: 'Jane Smith',
+        image: 'https://placekitten.com/51/51',
+    },
+    {
+        value: 'Alice Johnson',
+        name: 'Alice Johnson',
+        image: 'https://placekitten.com/52/52',
+    },
+    {
+        value: 'Bob Brown',
+        name: 'Bob Brown',
+        image: 'https://placekitten.com/53/53',
+    },
+    {
+        value: 'Charlie Green',
+        name: 'Charlie Green',
+        image: 'https://placekitten.com/54/54',
+    },
+];
+
+//////////////// DROPDOWNs data end
+
 const allTabsData = {
     dashboard: tabsDashboard,
     wallets: tabsData,
@@ -126,14 +163,78 @@ const Base: React.FC = () => {
         validationSchema: userSignInValidationSchema,
         mode: 'onBlur',
     });
+
+    //////////////// Single Dropdown
+
+    const [selectedSingle, setSelectedSingle] = useState<DataType>(people[0]);
+
+    const handleDropdownChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setSelectedSingle(selectedOption);
+            }
+        },
+        [],
+    );
+
+    //////////////// Multiselect Dropdown
+
+    const [selectedMulti, setSelectedMulti] = useState<
+        MultiValue<DataType> | SingleValue<DataType>
+    >([]);
+
+    const handleMultiDropdownChange = useCallback(
+        (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
+            if (selectedOption === null) {
+                setSelectedMulti([]);
+            } else {
+                setSelectedMulti(selectedOption);
+            }
+        },
+        [],
+    );
+
     return (
         <>
             <Header dataTabs={allTabsData} />
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', marginTop: '80px' }}>
                 <b>Style Guide</b>
                 <div>
                     <Tabs tabsData={tabsData} />
                 </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                        alignItems: 'start',
+                        backgroundColor: '#f6f8f9',
+                    }}
+                >
+                    {/* Calendar */}
+                    <Calendar isRangeCalendar={true} />
+                    <Calendar isRangeCalendar={false} />
+                    {/* Calendar */}
+                </div>
+
+                <div style={{ margin: '15px' }}>
+                    <Dropdown
+                        data={people}
+                        selectedOption={selectedSingle}
+                        handleChange={handleDropdownChange}
+                        width="229px"
+                    />
+                </div>
+
+                <div style={{ margin: '15px' }}>
+                    <MultiDropdown
+                        data={people}
+                        selectedOption={selectedMulti}
+                        handleChange={handleMultiDropdownChange}
+                        width="229px"
+                    />
+                </div>
+
                 {/* Buttons */}
                 <div
                     style={{
@@ -461,7 +562,6 @@ const Base: React.FC = () => {
                     </form>
                 </div>
             </div>
-
             <UserSettingsTabs tabsData={userSettingsData} />
             <div>
                 <RangeSlider

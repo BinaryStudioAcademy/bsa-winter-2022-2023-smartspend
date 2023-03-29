@@ -26,7 +26,6 @@ function up(knex: Knex): Promise<void> {
     });
 }
 function down(knex: Knex): Promise<void> {
-    return knex.schema
-        .dropTableIfExists(CATEGORIES_TABLE_NAME);
+    return knex.schema.dropTableIfExists(CATEGORIES_TABLE_NAME);
 }
 export { down, up };

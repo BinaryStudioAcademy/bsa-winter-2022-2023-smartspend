@@ -10,7 +10,6 @@ export { DoughnutData } from './doughnut-data.enum.js';
 export { FaIcons } from './fa-icons.enum.js';
 export { InputType } from './input-type.enum.js';
 export { menuLinks } from './menu-links.enum.js';
-export { dataTabs } from './menu-tabs-data.enum.js';
 export {
     ApiPath,
     AppEnvironment,

@@ -24,9 +24,10 @@ const BudgetCard: React.FC<Properties> = ({
     date,
 }) => {
     const value = Math.round((100 * moneyLeft) / total);
+    const budgetDetailRoute = `${AppRoute.BUDGETS}/${id}`;
 
     return (
-        <Link className={styles.card} to={`${AppRoute.BUDGETS}/${id}`}>
+        <Link className={styles.card} to={budgetDetailRoute}>
             <div className={styles.cardWrapper}>
                 <div className={styles.cardHeader}>
                     <h2 className={styles.headerTitle}>{title}</h2>

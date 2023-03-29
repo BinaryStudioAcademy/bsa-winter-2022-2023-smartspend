@@ -1,4 +1,4 @@
-import { AppRoute } from './enums.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 const tabsDashboard = [
     { title: 'Dashboard', to: AppRoute.DASHBOARD },

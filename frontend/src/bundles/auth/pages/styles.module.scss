@@ -1,3 +1,7 @@
+:root {
+    --p-10: 10px;
+}
+
 .authContainer {
     position: absolute;
     top: 0;
@@ -26,6 +30,7 @@
     width: 4.5rem;
     height: 4.5rem;
     margin: var(--m-7) auto var(--m-4);
+    padding: var(--p-10) var(--p-3);
     overflow: hidden;
     background: var(--gradient-6);
     border-radius: 50%;

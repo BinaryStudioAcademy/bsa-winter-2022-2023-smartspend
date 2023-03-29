@@ -19,11 +19,21 @@ type OneData = { date: string; value: number };
 type DataObject = { data: OneData[]; label: string };
 type ChartProperties = { array: DataObject[][] };
 
+const sortByDateAscending = (array: DataObject[][]): DataObject[][] => {
+    return array.sort(
+        (a, b) =>
+            new Date(a[0].data[0].date).getTime() -
+            new Date(b[0].data[0].date).getTime(),
+    );
+};
+
 const Chart: React.FC<ChartProperties> = ({ array }) => {
     const colors = Object.values(BarColors);
 
+    const sortedArray = sortByDateAscending(array);
+
     const data = {
-        datasets: array.map((object: DataObject[], index) => {
+        datasets: sortedArray.map((object: DataObject[], index) => {
             return {
                 label: object[0].label,
                 data: dateToShortStringHelper(object[0].data),

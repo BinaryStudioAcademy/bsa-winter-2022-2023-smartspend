@@ -107,6 +107,7 @@ const Dropdown: React.FC<Properties> = ({
 
     return (
         <Select
+            className={styles.select}
             value={{
                 value: selectedOption.value,
                 name: selectedOption.name,

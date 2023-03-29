@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import {
     BaseModal,
     BudgetCard,
@@ -36,7 +38,7 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
 
     return (
         <div className={styles.budgets}>
-            <div className={styles.container}>
+            <div className={classNames(styles.container, 'container')}>
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>

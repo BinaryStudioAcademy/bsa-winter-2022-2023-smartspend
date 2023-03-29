@@ -48,7 +48,7 @@ const Header: React.FC<Properties> = ({
 
     return (
         <header className={styles.header}>
-            <div className={styles.headerContainer}>
+            <div className={classNames(styles.headerContainer, 'container')}>
                 <Link to={AppRoute.ROOT} className={styles.headerLogo}>
                     <div className={styles.logoImg}>
                         <img

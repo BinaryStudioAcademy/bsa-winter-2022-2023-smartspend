@@ -24,7 +24,22 @@
     text-overflow: ellipsis;
 }
 
+.circle {
+    width: 35px;
+    color: var(--color-white-100);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(--line-height-level-3-heading);
+    background-color: #007aff;
+    border-radius: 50%;
+}
+
+.text {
+    margin: 0 var(--m-2);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+}
+
 .checkbox {
     margin-right: var(--m-2);
-    transform: scale(1.4);
+    transform: scale(1.5);
 }

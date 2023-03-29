@@ -48,6 +48,10 @@ const MultiDropdown: React.FC<Properties> = ({
         indicatorSeparator: () => ({
             display: 'none',
         }),
+        clearIndicator: (base) => ({
+            ...base,
+            color: blue600,
+        }),
         control: (provided, state) => ({
             ...provided,
             height: '48px',
@@ -59,6 +63,7 @@ const MultiDropdown: React.FC<Properties> = ({
                 state.isFocused || state.menuIsOpen
                     ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
                     : provided.boxShadow,
+            transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
             // '&:hover':
             //     state.isFocused || state.menuIsOpen
             //         ? {
@@ -116,8 +121,11 @@ const MultiDropdown: React.FC<Properties> = ({
         children,
         ...properties
     }) => {
-        const { getValue, hasValue } = properties;
-        const length = getValue().length;
+        const { getValue, hasValue, options } = properties;
+        const selectedValues = getValue();
+        const length = selectedValues.length;
+        const allSelected = options.length === length;
+
         if (!hasValue) {
             return (
                 <components.ValueContainer {...properties}>
@@ -125,9 +133,15 @@ const MultiDropdown: React.FC<Properties> = ({
                 </components.ValueContainer>
             );
         }
+
         return (
             <components.ValueContainer {...properties}>
-                {`${length} option/s selected`}
+                {allSelected ? (
+                    <span className={styles.circle}>All</span>
+                ) : (
+                    <span className={styles.circle}>{length}</span>
+                )}
+                <span className={styles.text}>Selected</span>
             </components.ValueContainer>
         );
     };

@@ -53,7 +53,7 @@
     align-items: center;
     padding: var(--p-3);
     color: var(--color-white-100);
-    font-size: var(--font-size-level-2-heading)
+    font-size: var(--font-size-level-2-heading);
 }
 
 .authInside {
@@ -219,13 +219,15 @@
 }
 
 @media (max-height: 768px) {
-    .authLogo, .logoText {
+    .authLogo,
+    .logoText {
         margin: var(--m-6) auto var(--m-3);
     }
 }
 
 @media (max-height: 576px) {
-    .authLogo, .logoText {
+    .authLogo,
+    .logoText {
         margin: var(--m-5) auto var(--m-2);
     }
 }

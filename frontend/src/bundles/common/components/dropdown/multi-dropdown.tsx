@@ -20,12 +20,16 @@ interface Properties {
         selectedOption: MultiValue<DataType> | SingleValue<DataType>,
         actionMeta: ActionMeta<DataType>,
     ) => void;
+    handleFocus?: () => boolean;
+    formatOptionLabel?: (data: DataType) => JSX.Element;
 }
 
 const MultiDropdown: React.FC<Properties> = ({
     data,
     selectedOption,
     handleChange,
+    handleFocus,
+    formatOptionLabel,
 }) => {
     const options = data.map((item) => ({
         value: item.value,
@@ -33,14 +37,14 @@ const MultiDropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
-    const blue600 = 'var(--color-blue-600)';
+    const blue500 = 'var(--color-blue-500)';
 
     const customStyles: StylesConfig<DataType, true> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: blue600,
+            color: blue500,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
@@ -50,29 +54,20 @@ const MultiDropdown: React.FC<Properties> = ({
         }),
         clearIndicator: (base) => ({
             ...base,
-            color: blue600,
+            color: blue500,
         }),
         control: (provided, state) => ({
             ...provided,
             height: '48px',
-            borderColor:
-                state.isFocused || state.menuIsOpen
-                    ? blue600
-                    : provided.borderColor,
-            boxShadow:
-                state.isFocused || state.menuIsOpen
-                    ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
-                    : provided.boxShadow,
-            transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
-            // '&:hover':
-            //     state.isFocused || state.menuIsOpen
-            //         ? {
-            //               borderColor: blue600,
-            //           }
-            //         : {
-            //               borderColor: provided.borderColor,
-            //               boxShadow: provided.boxShadow,
-            //           },
+            borderColor: state.isFocused ? blue500 : provided.borderColor,
+            boxShadow: state.isFocused
+                ? '#3242df33 0 0 0 4px;'
+                : provided.boxShadow,
+            transition: 'box-shadow 0.2s linear',
+            '&:hover': {
+                borderColor: state.isFocused ? blue500 : provided.borderColor,
+            },
+
             cursor: 'pointer',
         }),
         option: (base, { isSelected }) => {
@@ -93,7 +88,7 @@ const MultiDropdown: React.FC<Properties> = ({
         },
     };
 
-    const formatOptionLabel = useCallback(
+    const defaultFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 <input
@@ -153,13 +148,14 @@ const MultiDropdown: React.FC<Properties> = ({
             value={selectedOption}
             onChange={handleChange}
             options={options}
-            formatOptionLabel={formatOptionLabel}
+            formatOptionLabel={formatOptionLabel ?? defaultFormatOptionLabel}
             styles={customStyles}
             components={{
                 ValueContainer,
             }}
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
+            onFocus={handleFocus}
             isSearchable={false}
         />
     );

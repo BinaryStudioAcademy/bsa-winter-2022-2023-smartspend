@@ -21,6 +21,7 @@ interface Properties {
         actionMeta: ActionMeta<DataType>,
     ) => void;
     handleFocus?: () => boolean;
+    formatOptionLabel?: (data: DataType) => JSX.Element;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -28,6 +29,7 @@ const Dropdown: React.FC<Properties> = ({
     selectedOption,
     handleChange,
     handleFocus,
+    formatOptionLabel,
 }) => {
     const options = data.map((item) => ({
         value: item.value,
@@ -35,14 +37,14 @@ const Dropdown: React.FC<Properties> = ({
         image: item.image,
     }));
 
-    const blue600 = 'var(--color-blue-600)';
+    const blue500 = 'var(--color-blue-500)';
 
     const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: blue600,
+            color: blue500,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
@@ -56,21 +58,16 @@ const Dropdown: React.FC<Properties> = ({
 
             borderColor:
                 state.isFocused || state.menuIsOpen
-                    ? blue600
+                    ? blue500
                     : provided.borderColor,
             boxShadow:
                 state.isFocused || state.menuIsOpen
-                    ? 'rgba(105, 137, 254, 0.5) 0 0 10px 0, rgba(60, 100, 244, 0.2) 0 0 0 4px'
+                    ? '#3242df33 0 0 0 4px;'
                     : provided.boxShadow,
-            // '&:hover':
-            //     state.isFocused || state.menuIsOpen
-            //         ? {
-            //               borderColor: blue600,
-            //           }
-            //         : {
-            //               borderColor: provided.borderColor,
-            //               boxShadow: provided.boxShadow,
-            //           },
+            transition: 'box-shadow 0.2s linear',
+            '&:hover': {
+                borderColor: state.isFocused ? blue500 : provided.borderColor,
+            },
             cursor: 'pointer',
         }),
 
@@ -92,7 +89,7 @@ const Dropdown: React.FC<Properties> = ({
         },
     };
 
-    const formatOptionLabel = useCallback(
+    const defaultFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 {data.image && (
@@ -117,7 +114,7 @@ const Dropdown: React.FC<Properties> = ({
             }}
             onChange={handleChange as HandleChangeFunction}
             options={options}
-            formatOptionLabel={formatOptionLabel}
+            formatOptionLabel={formatOptionLabel ?? defaultFormatOptionLabel}
             styles={customStyles}
             onFocus={handleFocus}
             isSearchable={false}

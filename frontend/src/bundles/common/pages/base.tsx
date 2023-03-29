@@ -177,6 +177,15 @@ const Base: React.FC = () => {
         [],
     );
 
+    // const testFormat = useCallback(
+    //     (data: DataType): JSX.Element => (
+    //         <div>
+    //             <span>{data.name}</span>
+    //         </div>
+    //     ),
+    //     [],
+    // );
+
     //////////////// Multiselect Dropdown
 
     const [selectedMulti, setSelectedMulti] = useState<
@@ -222,6 +231,7 @@ const Base: React.FC = () => {
                         data={people}
                         selectedOption={selectedSingle}
                         handleChange={handleDropdownChange}
+                        // formatOptionLabel={testFormat}
                     />
                 </div>
 

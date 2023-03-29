@@ -24,7 +24,6 @@ type Properties<T extends FieldValues> = {
     labelClassName?: string;
     isDisabled?: boolean;
     eyeHidden?: boolean;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = <T extends FieldValues>({
@@ -38,7 +37,6 @@ const Input = <T extends FieldValues>({
     labelClassName = '',
     isDisabled = false,
     eyeHidden = false,
-    onChange,
 }: Properties<T>): JSX.Element => {
     const [passwordShown, setPasswordShown] = useState(false);
     const { field } = useFormController({ name, control });
@@ -71,17 +69,21 @@ const Input = <T extends FieldValues>({
         styles[isDisabled ? 'disabled' : ''],
         inputClassName,
     );
+    let checkTypePassword;
+    if (type !== InputType.CHECKBOX) {
+        checkTypePassword =
+            passwordShown || (!field.value && InputType.PASSWORD);
+    }
 
     return (
         <label className={labelClasses}>
             <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}
-                type={passwordShown || !field.value ? InputType.TEXT : type}
+                type={checkTypePassword ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
                 className={`${hasError ? styles.hasError : inputClasses}`}
-                onChange={onChange}
             />
             {eyeHidden && (
                 <span

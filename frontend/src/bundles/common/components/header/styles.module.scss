@@ -93,3 +93,10 @@
         margin: 0 var(--m-4) 0 auto;
     }
 }
+
+@media (max-width: 576px) {
+    .headerBody + button {
+        padding-right: var(--p-3);
+        padding-left: var(--p-3);
+    }
+}

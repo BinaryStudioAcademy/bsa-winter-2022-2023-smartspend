@@ -19,3 +19,13 @@
     text-transform: uppercase;
     text-decoration: none;
 }
+
+@media (max-width: 576px) {
+    .links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        align-items: center;
+        gap: var(--m-2);
+    }
+}

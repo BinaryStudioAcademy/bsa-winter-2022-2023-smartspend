@@ -1,17 +1,24 @@
-.container {
+.body {
     position: relative;
     display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--color-blue-600);
+}
+
+.container {
+    display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     justify-content: space-between;
-    width: 100%;
     height: 200px;
-    padding: var(--p-4);
-    background-color: var(--color-blue-600);
+    padding: var(--p-4) var(--p-3);
 }
 
 .socialMediaIconsContainer {
     position: absolute;
-    right: var(--p-4);
+    top: var(--m-4);
+    right: var(--m-4);
 }
 
 .logoContainer {
@@ -26,4 +33,10 @@
     overflow: hidden;
     background: var(--gradient-6);
     border-radius: 50%;
+}
+
+@media (max-width: 576px) {
+    .container {
+        height: 180px;
+    }
 }

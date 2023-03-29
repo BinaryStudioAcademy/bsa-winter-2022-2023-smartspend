@@ -14,4 +14,5 @@ export { getText } from './get-text-to-path/get-text-to-path.js';
 export { handleScroll } from './handle-scroll/handle-scroll.js';
 export { numberToStringCurrencyHelper } from './number-to-string-currency/number-to-string-currency.helper';
 export { sumArray } from './sum-array/sum-array.js';
+export { toCustomLocaleString } from './to-custom-locale-string/to-custom-locale-string.js';
 export { configureString } from 'shared/build/index.js';

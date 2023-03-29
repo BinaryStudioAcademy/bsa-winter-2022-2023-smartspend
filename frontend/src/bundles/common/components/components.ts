@@ -1,6 +1,7 @@
 export { App } from '../../../app/app.js';
 export { Chart } from './bar-chart/bar-chart';
 export { Button } from './button/button.js';
+export { Calendar } from './calendar/calendar';
 export { CardTotal } from './card-total/card-total.js';
 export { LineChart } from './charts/line-chart/line-chart';
 export { DoughnutChart } from './doughnut-chart/doughnut-chart.js';
@@ -12,6 +13,9 @@ export { BaseModal } from './modal/modal.js';
 export { Portal } from './portal/portal.js';
 export { PrivateRoute } from './private-route/private-route.js';
 export { PublicRoute } from './public-route/public-route';
+export { RangeSlider } from './range-slider/range-slider';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Tabs } from './tabs/tabs';
+export { UserSettingsTabs } from './user-settings-tabs/user-settings-tabs';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';

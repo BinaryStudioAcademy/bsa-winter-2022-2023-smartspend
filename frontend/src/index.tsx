@@ -17,7 +17,7 @@ import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
 import { NotFound } from '~/bundles/common/pages/not-found/not-found';
 import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
 import { Landing } from '~/bundles/landing/landing';
-import { Base } from '~/bundles/ui/base';
+import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -66,7 +66,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     },
                     {
                         path: AppRoute.UI,
-                        element: <Base />,
+                        element: <StyleGuide />,
                     },
                     {
                         path: AppRoute.WALLET_DETAILS,

@@ -1,7 +1,9 @@
 .budgets {
     display: flex;
+    flex: 1 1 auto;
     justify-content: center;
     min-height: 100%;
+    margin-top: 80px;
     padding-top: calc(var(--p-4) + var(--p-1));
     background-color: var(--color-blue-100);
 }

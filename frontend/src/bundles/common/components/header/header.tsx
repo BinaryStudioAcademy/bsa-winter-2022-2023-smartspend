@@ -63,8 +63,8 @@ const Header: React.FC<Properties> = ({
                     <div className={classNames(styles.headerBody, styles.tabs)}>
                         {(pathname === AppRoute.DASHBOARD ||
                             pathname === AppRoute.BUDGETS) && (
-                                <Tabs tabsData={dataTabs.dashboard} />
-                            )}
+                            <Tabs tabsData={dataTabs.dashboard} />
+                        )}
                         {pathname === AppRoute.WALLETS && (
                             <Tabs tabsData={dataTabs.wallets} />
                         )}

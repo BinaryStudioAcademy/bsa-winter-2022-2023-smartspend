@@ -11,8 +11,10 @@ import {
     CardPart,
     ChartPart,
     DoughnutChartPart,
+    DropdownPart,
     HeaderPart,
     LineChartPart,
+    MultiDropdownPart,
     RangeSliderPart,
     TabsPart,
     UserSettingsTabsPart,
@@ -77,6 +79,8 @@ const StyleGuide: React.FC = () => {
         { name: 'input', component: <InputPart /> },
         { name: 'userSettingsTabs', component: <UserSettingsTabsPart /> },
         { name: 'rangeSlider', component: <RangeSliderPart /> },
+        { name: 'multiDropdown', component: <MultiDropdownPart /> },
+        { name: 'dropdown', component: <DropdownPart /> },
     ];
     return (
         <>

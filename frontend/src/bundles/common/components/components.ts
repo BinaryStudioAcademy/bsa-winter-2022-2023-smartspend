@@ -6,6 +6,8 @@ export { Calendar } from './calendar/calendar';
 export { CardTotal } from './card-total/card-total.js';
 export { LineChart } from './charts/line-chart/line-chart';
 export { DoughnutChart } from './doughnut-chart/doughnut-chart.js';
+export { Dropdown } from './dropdown/dropdown';
+export { MultiDropdown } from './dropdown/multi-dropdown';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';

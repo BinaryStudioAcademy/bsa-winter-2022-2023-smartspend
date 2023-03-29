@@ -12,7 +12,7 @@ type Properties = {
 
 const FeedbacksPart: React.FC<Properties> = ({ title, feedbacks }) => {
     return (
-        <section id='#reviews' className={styles.container}>
+        <section id="#reviews" className={styles.container}>
             <h1 className={styles.title}>{title}</h1>
             <div className={styles.carouselContainer}>
                 {feedbacks.map((feedback, index) => (

@@ -19,7 +19,7 @@ const SecondStepPart: React.FC = () => {
     ];
 
     return (
-        <section id='#analytics' className={styles.container}>
+        <section id="#analytics" className={styles.container}>
             <span className={styles.bigBlueBorderCircle}></span>
             <span className={styles.smallBlueBorderCircle}></span>
             <span className={styles.bigBlueCircle}></span>

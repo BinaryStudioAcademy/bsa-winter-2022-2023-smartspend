@@ -39,7 +39,7 @@ const FirstStepPart: React.FC = () => {
     ];
 
     return (
-        <section id='#about' className={styles.container}>
+        <section id="#about" className={styles.container}>
             <StepInfoPanel
                 variant={StepInfoPanelVariant.SECONDARY}
                 title={'Track your cash flow'}

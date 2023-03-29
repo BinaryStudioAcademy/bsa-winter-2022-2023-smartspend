@@ -4,7 +4,7 @@ interface IService<T = unknown> {
     }>;
     create(payload: unknown): Promise<T>;
     update(): Promise<T>;
-    delete(): Promise<boolean>;
+    delete(): Promise<T>;
 }
 
 export { type IService };

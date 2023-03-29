@@ -3,7 +3,7 @@ interface IRepository<T = unknown> {
     findAll(): Promise<T[]>;
     create(payload: unknown): Promise<T>;
     update(): Promise<T>;
-    delete(): Promise<boolean>;
+    delete(): Promise<T>;
 }
 
 export { type IRepository };

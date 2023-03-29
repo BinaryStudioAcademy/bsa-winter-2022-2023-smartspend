@@ -1,20 +1,11 @@
 import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
 import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
+import { menuLinks } from '~/bundles/common/enums/menu-links.enum';
 
-import { AppRoute } from '../../enums/enums';
 import { FooterLinks, FooterMediaIcons } from '../components';
 import styles from './styles.module.scss';
 
 const Footer: React.FC = () => {
-    const linksArray = [
-        { to: AppRoute.UI, value: 'PRICING' },
-        { to: AppRoute.UI, value: 'Bank connect' },
-        { to: AppRoute.UI, value: 'Help' },
-        { to: AppRoute.UI, value: 'About Us' },
-        { to: AppRoute.UI, value: 'Blog' },
-        { to: AppRoute.UI, value: 'Contact' },
-    ];
-
     const iconsArray = [
         { src: TwitterIcon, alt: 'twitter', href: 'https://twitter.com/' },
         {
@@ -34,7 +25,7 @@ const Footer: React.FC = () => {
                 </div>
             </div>
             <div className={styles.links_container}>
-                <FooterLinks links={linksArray} />
+                <FooterLinks links={menuLinks} />
             </div>
         </footer>
     );

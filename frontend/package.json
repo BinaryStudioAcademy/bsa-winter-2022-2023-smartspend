@@ -34,7 +34,9 @@
         "react-hook-form": "7.43.5",
         "react-redux": "8.0.5",
         "react-router-dom": "6.8.2",
-        "react-toastify": "9.1.1"
+        "react-toastify": "9.1.1",
+        "swiper": "9.1.1",
+        "react-select": "5.7.1"
     },
     "devDependencies": {
         "@types/chart.js": "2.9.37",

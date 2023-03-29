@@ -59,5 +59,6 @@
 
 .button {
     width: 149px;
-    margin-top: 40px;
+    margin-top: var(--m-4);
+    font-weight: var(--font-weight-400);
 }

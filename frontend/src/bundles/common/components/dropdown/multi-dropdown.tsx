@@ -4,11 +4,10 @@ import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
     type MultiValue,
+    type MultiValueProps,
     type SingleValue,
     type StylesConfig,
-    type ValueContainerProps,
 } from 'react-select';
-import { components } from 'react-select';
 
 import { type DataType } from '../../types/dropdown.type';
 import styles from './styles.module.scss';
@@ -112,32 +111,27 @@ const MultiDropdown: React.FC<Properties> = ({
         [selectedOption],
     );
 
-    const ValueContainer: React.FC<ValueContainerProps<DataType>> = ({
-        children,
-        ...properties
+    const MultiValue: React.FC<MultiValueProps<DataType>> = ({
+        getValue,
+        index,
+        options,
     }) => {
-        const { getValue, hasValue, options } = properties;
-        const selectedValues = getValue();
-        const length = selectedValues.length;
+        const length = getValue().length;
         const allSelected = options.length === length;
 
-        if (!hasValue) {
-            return (
-                <components.ValueContainer {...properties}>
-                    {children}
-                </components.ValueContainer>
-            );
+        if (index !== 0) {
+            return null;
         }
 
         return (
-            <components.ValueContainer {...properties}>
+            <>
                 {allSelected ? (
                     <span className={styles.circle}>All</span>
                 ) : (
                     <span className={styles.circle}>{length}</span>
                 )}
                 <span className={styles.text}>Selected</span>
-            </components.ValueContainer>
+            </>
         );
     };
 
@@ -151,7 +145,7 @@ const MultiDropdown: React.FC<Properties> = ({
             formatOptionLabel={formatOptionLabel ?? defaultFormatOptionLabel}
             styles={customStyles}
             components={{
-                ValueContainer,
+                MultiValue,
             }}
             closeMenuOnSelect={false}
             hideSelectedOptions={false}

@@ -18,7 +18,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
     });
 
     return (
-        <section className={styles.container}>
+        <section id='#subscription' className={styles.container}>
             <h1 className={styles.title}>{title}</h1>
             <form className={styles.form}>
                 <div className={styles.formContainer}>

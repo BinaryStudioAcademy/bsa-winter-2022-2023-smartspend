@@ -15,6 +15,7 @@ import { AppRoute } from './enums/enums';
 import styles from './styles.module.scss';
 
 const Landing: React.FC = () => {
+
     const tabsData = [
         { title: 'Transaction', to: '/ui/' },
         { title: 'Overview', to: '/ui/overview' },

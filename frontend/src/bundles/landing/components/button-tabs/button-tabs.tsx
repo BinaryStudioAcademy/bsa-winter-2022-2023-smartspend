@@ -18,7 +18,7 @@ const ButtonTabs: React.FC<Properties> = ({ tabsData }) => {
                 <ButtonTab
                     key={index}
                     disabled={item.disabled}
-                    title={item.title}
+                    label={item.title}
                     isActive={item.isActive}
                 />
             ))}

@@ -52,8 +52,8 @@ const Dropdown: React.FC<Properties> = ({
         }),
         control: (provided, state) => ({
             ...provided,
-            height:'48px',
-      
+            height: '48px',
+
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue600
@@ -126,5 +126,3 @@ const Dropdown: React.FC<Properties> = ({
 };
 
 export { Dropdown };
-
-/* eslint-disable indent */

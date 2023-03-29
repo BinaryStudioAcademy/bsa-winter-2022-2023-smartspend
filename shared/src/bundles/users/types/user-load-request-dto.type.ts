@@ -1,5 +1,5 @@
 type UserLoadRequestDto = {
-    token: string;
+    authorization: string;
 };
 
 export { type UserLoadRequestDto };

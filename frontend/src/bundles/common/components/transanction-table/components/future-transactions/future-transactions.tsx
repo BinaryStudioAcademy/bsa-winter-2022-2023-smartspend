@@ -52,17 +52,31 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                     />
                     <span className={styles.rowTitle}>Scheduled</span>
                 </div>
-                <div>{futureTransactions.length} transaction(s)</div>
-                <div
-                    className={classNames(
-                        styles.columns,
-                        styles.rightColumn,
-                        futureTotals < 0 ? styles.minus : styles.plus,
-                    )}
-                >
-                    {futureTotals.toFixed(2)}
-                    {futureTransactions[0].currency}
+                <div>
+                    {futureTransactions.length}
+                    <span className={styles.smHide}>transaction(s)</span>
                 </div>
+                {futureTransactions.length > 0 ? (
+                    <div
+                        className={classNames(
+                            styles.columns,
+                            styles.rightColumn,
+                            futureTotals < 0 ? styles.minus : styles.plus,
+                        )}
+                    >
+                        {futureTotals.toFixed(2)}
+                        {futureTransactions[0].currency}
+                    </div>
+                ) : (
+                    <div
+                        className={classNames(
+                            styles.columns,
+                            styles.rightColumn,
+                        )}
+                    >
+                        0
+                    </div>
+                )}
             </div>
             <div
                 className={
@@ -71,15 +85,26 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                         : styles.futureTransactionsHide
                 }
             >
-                {futureTransactions.map((transaction) => (
-                    <Transaction
-                        key={transaction.id}
-                        transaction={transaction}
-                        control={control}
-                        errors={errors}
-                        isFutureTransaction={true}
-                    />
-                ))}
+                {futureTransactions.length > 0 ? (
+                    futureTransactions.map((transaction) => (
+                        <Transaction
+                            key={transaction.id}
+                            transaction={transaction}
+                            control={control}
+                            errors={errors}
+                            isFutureTransaction={true}
+                        />
+                    ))
+                ) : (
+                    <div
+                        className={classNames(
+                            styles.transaction,
+                            styles.noTransaction,
+                        )}
+                    >
+                        - - - No transactions yet - - -
+                    </div>
+                )}
             </div>
         </div>
     );

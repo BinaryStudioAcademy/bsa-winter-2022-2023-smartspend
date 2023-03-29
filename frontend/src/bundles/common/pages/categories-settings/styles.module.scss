@@ -6,16 +6,18 @@
 
     .section {
         display: flex;
-        flex-basis: 75%;
-        max-width: 75%;
+        width: 967px;
+        padding: 15px 188px 80px 162px;
+        background: #FFFFFF;
+        border-radius: 25px;
     }
 
     .wrapper {
-        padding: var(--p-2) 0;
+        // padding: var(--p-2) 0;
     }
 
     .content {
-        padding: 12px 80px 20px;
+        // padding: 12px 80px 20px;
     }
 }
 
@@ -27,12 +29,6 @@
 
 .content {
     padding: var(--p-2) var(--p-2) var(--p-3);
-}
-
-@media screen and (min-width: 1200px) {
-    .content {
-        padding: 24px 120px 40px;
-    }
 }
 
 .manageWrapper {

@@ -1,11 +1,14 @@
 // import { faEnvelope, faGasPump } from '@fortawesome/free-solid-svg-icons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '~/bundles/common/components/components';
-// import { Input } from '~/bundles/common/components/input/input';
-import { ButtonSize,ButtonType,ButtonVariant } from '~/bundles/common/enums/enums';
-// import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
+import { useForm } from 'react-hook-form';
 
+import { Button, Input } from '~/bundles/common/components/components';
+import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
+import { ButtonSize,ButtonType,ButtonVariant, InputType } from '~/bundles/common/enums/enums';
+import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
+import { type DataType } from '~/bundles/common/types/dropdown.type';
+
+import { colors } from '../common/icons-color';
 import styles from './styles.module.scss';
 
 interface FormValues {
@@ -14,6 +17,11 @@ interface FormValues {
     name: string;
     type: string;
 }
+
+type InputValues = {
+    name: string;
+    
+};
 
 const FormCreateCategory: React.FC = () => {
 
@@ -25,7 +33,42 @@ const FormCreateCategory: React.FC = () => {
         color: '',
         type:'',
     });
+    const [selectedSingle, setSelectedSingle] = useState<DataType>(colors[0]);
 
+    const handleDropdownIconChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                const icon = selectedOption.value;
+                setForm((previousState) => ({ ...previousState, icon: icon }));
+            }
+        }, []);
+    
+    const handleDropdownColorChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                const colorIcon = selectedOption.value;
+                setForm((previousState) => ({ ...previousState, color: colorIcon }));
+            }
+    },[]);
+
+    const handleDropdownTypeChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                const type = selectedOption.value;
+                setForm((previousState) => ({ ...previousState, type: type }));
+            }
+        }, []);
+    
+    const { control, formState: { errors }, watch } = useForm<InputValues>({
+        defaultValues: { name: '' }
+    });
+    
+    const inputValue = watch('name');
+
+    useEffect(()=> {
+        setForm((previousState) => ({ ...previousState, name: inputValue }));
+    }, [inputValue]);
+    
     useEffect(() => {
         const { name, icon, color, type } = form;
         if (name && icon && color && type) {
@@ -34,11 +77,6 @@ const FormCreateCategory: React.FC = () => {
         }
         setIsButtonVisible(true);
     }, [form]);
-
-    const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
-        const { name, value } = event.target;
-        setForm((previousState) => ({ ...previousState, [name]: value }));
-    }, []);
 
     const handleClick = useCallback(():void => {
         resetForm();
@@ -71,13 +109,12 @@ const FormCreateCategory: React.FC = () => {
         setForm({ name: '', icon: '', color: '', type: '' });
         setIsButtonVisible(false);
     };
-
+    
     return (
         <div>
             <div>
-                <span>Create a new category</span>
+                <span className={styles.title}>Create a new category</span>
             </div>
-            {/* <button></button> //mobile */}
             <div>
                 <div className={`${styles.overlay} ${isFormActive ? styles.active : ''}`}
                     role="button"
@@ -93,65 +130,52 @@ const FormCreateCategory: React.FC = () => {
                                 <div className={styles.nameFour}>
                                     <div className={styles.wrapperIconSettings}>
                                         <div className={styles.selectIcon}>
-                                            <label htmlFor="icon">Icon</label>
-                                            <select name="icon" id="icon"
-                                                value={form.icon}
-                                                onChange={handleInputChange}
-                                                onFocus={handleFocus}
-                                            >
-                                                <option value=""></option>
-                                                <option value="icon1">icon1</option>
-                                                <option value="icon2">icon2</option>
-                                            </select>
+                                            <span className={styles.inputLabel}>Icon</span>
+                                             <Dropdown
+                                                data={colors}
+                                                selectedOption={selectedSingle}
+                                                handleChange={handleDropdownIconChange}
+                                                width="100%"
+                                                handleFocus={handleFocus}
+                                            />
                                         </div>
                                         <div className={styles.selectIconColor}>
-                                            <label htmlFor="color">Color</label>
-                                            <select name="color" id="color"
-                                                value={form.color}
-                                                onChange={handleInputChange}
-                                                onFocus={handleFocus}
-                                            >
-                                                <option value=""></option>
-                                                <option value="red">red</option>
-                                                <option value="green">green</option>
-                                            </select>
+                                            <span className={styles.inputLabel}>Color</span>
+                                            <Dropdown
+                                                data={colors}
+                                                selectedOption={selectedSingle}
+                                                handleChange={handleDropdownColorChange}
+                                                width="100%"
+                                                handleFocus={handleFocus}
+                                            />
                                         </div>
                                     </div>
                                     <div className={styles.categoryName}>
-                                        <label htmlFor="name">Name</label>
-                                        <input
-                                            onChange={handleInputChange}
-                                            onFocus={handleFocus}
-                                            value={form.name}
-                                            id='name'
-                                            name="name"
-                                            type="text"
-                                            placeholder="New category name"
-                                            className={`${styles.customInput} ${styles.inputLabel} ${styles.label}`}
-                                        />
-                                        {/* <Input
+                                        <Input
                                             control={control}
                                             errors={errors}
                                             label="Name"
-                                            name="note"
+                                            name="name"
                                             placeholder="New category name"
                                             type={InputType.TEXT}
-                                            className={`${styles.customInput} ${styles.inputLabel} ${styles.label}`}
+                                            inputClassName={styles.customInput}
+                                            labelClassName={styles.inputLabel}
                                             isDisabled={false}
-                                            eyeHidden={false}
-                                        /> */}
+                                            // onChange={handleInputChange}
+                                            onFocus={handleFocus}
+                                            value={form.name} 
+                                        />
                                     </div>
                                     <div className={styles.wrapperType}>
                                         <div className={styles.selectType}>
-                                            <label htmlFor="type">Type</label>
-                                            <select name="type" id="type"
-                                                value={form.type}
-                                                onChange={handleInputChange}
-                                                onFocus={handleFocus}
-                                            >
-                                                <option value="expense">expense</option>
-                                                <option value="income">income</option>
-                                            </select>
+                                            <span className={styles.inputLabel}>Type</span>
+                                            <Dropdown
+                                                data={colors}
+                                                selectedOption={selectedSingle}
+                                                handleChange={handleDropdownTypeChange}
+                                                width="100%"
+                                                handleFocus={handleFocus}
+                                            />
                                         </div>
                                     </div>
                                     <div className={styles.wrapperBtn}>

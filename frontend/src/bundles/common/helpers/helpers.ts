@@ -1,3 +1,12 @@
+export {
+    formatOneDay,
+    formatRange,
+} from './calendar-helpers/get-formating-date';
+export { getInitialRange } from './calendar-helpers/get-initial-range';
+export {
+    getBackwardMonths,
+    getForwardMonths,
+} from './calendar-helpers/get-months-for-arrows';
 export { createGradients } from './create-gradient/create-gradient.js';
 export { dateToShortStringHelper } from './date-to-short-string/date-to-short-string.helper';
 export { getGradientColors } from './get-gradient-colors/get-gradient-colors.js';

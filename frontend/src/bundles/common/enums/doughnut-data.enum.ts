@@ -1,5 +1,5 @@
 enum DoughnutData {
-    CUTOUT = 46,
+    CUTOUT = 48,
     RADIUS = 58.5,
 }
 

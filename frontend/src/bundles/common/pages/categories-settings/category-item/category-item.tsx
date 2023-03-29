@@ -150,7 +150,7 @@ const CategoryItem: React.FC<Properties> = ({
                     isShown={modalEdit}
                     onClose={handleCloseModal}
                     onSubmit={handelClickEdit}
-                    Header={<h1>{`You're about to merge ${categoryName} categories`}</h1>}
+                    Header={<h1>{`You're about to edit ${categoryName} categories`}</h1>}
                     Body={<p></p>}
                     submitButtonName={'Edit category'}
                 />

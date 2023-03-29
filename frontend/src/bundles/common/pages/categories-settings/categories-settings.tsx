@@ -72,6 +72,7 @@ const CategoriesSettings: React.FC = () => {
                 <div className={styles.content}>
                     <h1 className="visually-hidden">Category Settings</h1>
                     <div>
+
                         <FormCreateCategory />
                         <div className={styles.manageWrapper}>
                             <h2 className={styles.title}>Manage categories</h2>
@@ -81,7 +82,6 @@ const CategoriesSettings: React.FC = () => {
                                         type={ButtonType.BUTTON}
                                         variant={ButtonVariant.SECONDARY}
                                         size={ButtonSize.SMALL}
-                                        // disabled={true}
                                         disabled={checkedCategories.length >= 2 ? false : true}
                                         className={styles.btn}
                                         onClick={handelOpenModalMerge}
@@ -95,7 +95,6 @@ const CategoriesSettings: React.FC = () => {
                                         type={ButtonType.BUTTON}
                                         variant={ButtonVariant.DELETE}
                                         size={ButtonSize.SMALL}
-                                        // disabled={true}
                                         disabled={checkedCategories.length === 0 ? true : false}
                                         className={styles.btn}
                                         onClick={handelOpenModalDelete}

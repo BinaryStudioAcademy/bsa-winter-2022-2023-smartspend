@@ -1,5 +1,6 @@
 :root {
     --font-height-input: 2.25rem;
+    --border-input: 1px
 }
 
 .overlay {
@@ -16,8 +17,14 @@
 }
 
 .active{
-opacity: .6;
-pointer-events: all;
+    opacity: .6;
+    pointer-events: all;
+}
+
+.title {
+    color: var(--color-gray-300);
+    font-weight: var(--font-weight-600);
+    font-size: 14px;
 }
 
 .formWrapper {
@@ -46,12 +53,20 @@ pointer-events: all;
 .nameFour {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-end;
 }
 
 @media screen and (min-width: 768px) {
     .wrapperIconSettings {
+        display: flex;
         flex-basis: 100%;
+        flex-wrap: wrap;
         max-width: 100%;
+    }
+
+    .selectIcon, .selectIconColor{
+        flex-basis: 50%;
+        max-width: 50%;
     }
 }
 
@@ -59,6 +74,23 @@ pointer-events: all;
     .wrapperIconSettings {
         flex-basis: 25%;
         max-width: 25%;
+    }
+
+    .categoryName {
+        flex-basis: 33.3%;
+        max-width: 33.3%;
+        padding-bottom: 10px;
+    }
+
+    .wrapperType {
+        flex-basis: 16.6%;
+        max-width: 16.6%;
+    }
+
+    .wrapperBtn {
+        flex-basis: 25%;
+        max-width: 25%;
+        padding-bottom: 10px;
     }
 }
 
@@ -67,35 +99,19 @@ pointer-events: all;
     max-width: 100%;
 }
 
-@media screen and (min-width: 992px) {
-    .customIcon {
-        flex-basis: 25%;
-        max-width: 25%;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .categoryName {
-        flex-basis: 33.3%;
-        max-width: 33.3%;
-    }
-}
-
-.label {
-    height: 100%;
-    font-size: var(--font-size-caption);
-}
-
 .customInput {
-    height: 36px;
+    height: 38px;
+    margin: 0;
     padding: 0 8px;
     color: #324c5b;
     font-weight: var(--font-weight-400);
     line-height: var(--font-height-input);
+    border: var(--border-input) solid var(--color-blue-200);
     border-color: #e5ebee;
 }
 
 .inputLabel {
+    margin: 0;
     color: #7b93a4;
     font-size: var(--font-size-level-2-body);
 }
@@ -106,27 +122,12 @@ pointer-events: all;
     border-color: #bbcdd8;
 }
 
-.customInput:focus {
-    box-shadow: none;
-}
-
 .btn {
     width: 100%;
+    height: 38px;
 }
 
 .btnName{
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
-}
-
-@media screen and (min-width: 992px) {
-    .wrapperType {
-        flex-basis: 16.6%;
-        max-width: 16.6%;
-    }
-
-    .wrapperBtn {
-        flex-basis: 25%;
-        max-width: 25%;
-    }
 }

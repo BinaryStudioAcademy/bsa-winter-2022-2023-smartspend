@@ -25,6 +25,8 @@ type Properties<T extends FieldValues> = {
     labelClassName?: string;
     isDisabled?: boolean;
     eyeHidden?: boolean;
+    onFocus?: () => void;
+    value?: string;
 };
 
 const Input = <T extends FieldValues>({
@@ -38,6 +40,8 @@ const Input = <T extends FieldValues>({
     labelClassName = '',
     isDisabled = false,
     eyeHidden = false,
+    onFocus,
+    value,
 }: Properties<T>): JSX.Element => {
     const [passwordShown, setPasswordShown] = useState(false);
 
@@ -81,6 +85,8 @@ const Input = <T extends FieldValues>({
                 placeholder={placeholder}
                 disabled={isDisabled}
                 className={`${hasError ? styles.hasError : inputClasses}`}
+                onFocus={onFocus}
+                value={value}
             />
             {eyeHidden && (
                 <span

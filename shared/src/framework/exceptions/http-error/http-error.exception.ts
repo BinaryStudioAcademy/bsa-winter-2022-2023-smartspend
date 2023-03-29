@@ -1,5 +1,5 @@
-import { type HttpCode } from 'shared/src/framework/http/http.js';
-import { type ValueOf } from 'shared/src/types/value-of.type.js';
+import { type HttpCode } from '~/framework/http/http.js';
+import { type ValueOf } from '~/types/value-of.type.js';
 
 import { ApplicationError } from '../application-error/application-error.exception.js';
 

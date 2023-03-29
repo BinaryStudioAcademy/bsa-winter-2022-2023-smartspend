@@ -31,6 +31,10 @@
     margin: 0 4.5rem 0 0;
 }
 
+.tabs {
+    margin: 0;
+}
+
 .userLink {
     color: var(--color-white-100);
     text-decoration: none;
@@ -91,6 +95,19 @@
         order: 2;
         justify-content: flex-end;
         margin: 0 var(--m-4) 0 auto;
+    }
+
+    .tabs {
+        order: 2;
+        margin: 0 var(--m-3);
+    }
+
+    .userLink {
+        order: 3;
+    }
+
+    .logoText {
+        display: none;
     }
 }
 

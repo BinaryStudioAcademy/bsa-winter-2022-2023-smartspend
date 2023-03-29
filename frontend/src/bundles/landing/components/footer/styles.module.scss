@@ -8,9 +8,9 @@
 
 .container {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     justify-content: space-between;
-    width: var(--container);
     height: 200px;
     padding: var(--p-4) var(--p-3);
 }

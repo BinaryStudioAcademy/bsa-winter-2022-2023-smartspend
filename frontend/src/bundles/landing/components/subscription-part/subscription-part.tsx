@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useAppForm } from '~/bundles/common/hooks/hooks';
 
@@ -19,7 +21,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
 
     return (
         <section className={styles.body}>
-            <div className={styles.container}>
+            <div className={classNames('container', styles.container)}>
                 <h1 className={styles.title}>{title}</h1>
                 <form className={styles.form}>
                     <div className={styles.formContainer}>

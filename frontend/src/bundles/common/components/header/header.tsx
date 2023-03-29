@@ -1,11 +1,16 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import defaultAvatar from '~/assets/img/default-avatar.jpg';
 import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
+import {
+    AppRoute,
+    ButtonSize,
+    ButtonType,
+} from '~/bundles/common/enums/enums.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { storage, StorageKey } from '~/framework/storage/storage.js';
 
-import { AppRoute, ButtonSize, ButtonType } from '../../enums/enums';
-import { useCallback } from '../../hooks/hooks';
-import { Button, Menu } from '../components';
-import { Tabs } from '../tabs/tabs';
+import { Button, Menu, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 type TabsData = {
@@ -22,9 +27,14 @@ type Properties = {
     };
 };
 
-const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
+const Header: React.FC<Properties> = ({
+    name,
+    avatar = defaultAvatar,
+    dataTabs,
+}) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const token = storage.getSync(StorageKey.TOKEN);
 
     const loginHandler = useCallback(
         (): void => navigate(AppRoute.SIGN_IN),
@@ -49,9 +59,10 @@ const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
                     <span className={styles.logoText}>SmartSpend</span>
                 </Link>
                 <div className={styles.headerBody}>
-                    {name ? (
+                    {token ? (
                         <>
-                            {pathname === AppRoute.DASHBOARD && (
+                            {(pathname === AppRoute.DASHBOARD ||
+                                pathname === AppRoute.BUDGETS) && (
                                 <Tabs tabsData={dataTabs.dashboard} />
                             )}
                             {pathname === AppRoute.WALLETS && (
@@ -62,11 +73,17 @@ const Header: React.FC<Properties> = ({ name, avatar, dataTabs }) => {
                         <Menu />
                     )}
                 </div>
-                {name ? (
+                {token ? (
                     <Link className={styles.userLink} to={AppRoute.USER}>
                         <div className={styles.headerLogo}>
                             <div className={styles.userLogo}>
-                                {avatar && <img src={avatar} alt="user" />}
+                                {avatar && (
+                                    <img
+                                        className={styles.imgLogo}
+                                        src={avatar}
+                                        alt="user"
+                                    />
+                                )}
                             </div>
                             <span className={styles.logoText}>{name}</span>
                         </div>

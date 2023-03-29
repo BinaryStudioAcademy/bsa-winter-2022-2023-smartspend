@@ -49,3 +49,15 @@
         url("../fonts/rubik/Rubik-SemiBold.woff") format("woff"),
         url("../fonts/rubik/Rubik-SemiBold.ttf") format("truetype");
 }
+
+@font-face {
+    font-weight: normal;
+    font-family: Verdana;
+    font-style: normal;
+    src: url("Verdana.eot");
+    src: local("Verdana"),
+        url("../fonts/Verdana/Verdana.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Verdana/Verdana.woff2") format("woff2"),
+        url("../fonts/Verdana/Verdana.woff") format("woff"),
+        url("../fonts/Verdana/Verdana.ttf") format("truetype");
+}

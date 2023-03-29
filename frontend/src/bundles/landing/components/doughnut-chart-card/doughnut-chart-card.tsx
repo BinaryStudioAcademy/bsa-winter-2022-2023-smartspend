@@ -63,7 +63,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                         }
                         alt={'murse'}
                     />
-                    <p>{transaction_type}</p>
+                    <p className={styles.transactionType}>{transaction_type}</p>
                 </div>
                 <p className={styles.transactionNum}>
                     {transaction_num} transaction

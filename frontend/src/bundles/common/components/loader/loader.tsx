@@ -1,4 +1,5 @@
-import Logo from '../../../../assets/img/logo.svg';
+import Logo from '~/assets/img/logo.svg';
+
 import styles from './styles.module.scss';
 
 const Loader: React.FC = () => {

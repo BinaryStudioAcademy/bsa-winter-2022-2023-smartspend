@@ -10,7 +10,7 @@ type Properties = {
 
 const ButtonTab: React.FC<Properties> = ({ label, isActive, disabled }) => {
     const tabClassName = classNames(styles.tab, {
-        [styles.active]: isActive,
+        [styles.activeTab]: isActive,
     });
     return (
         <button disabled={disabled} className={tabClassName}>

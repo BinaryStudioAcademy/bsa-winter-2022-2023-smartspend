@@ -33,16 +33,14 @@
     margin-right: 0;
 }
 
-.tab.active {
+.activeTab {
     color: var(--color-pink-100);
     font-weight: var(--font-weight-600);
+    background-color: var(--color-white-100);
+    border-radius: 8px;
 }
 
 .tab:disabled {
     color: var(--color-gray-200);
 }
 
-.tabs .active {
-    background-color: var(--color-white-100);
-    border-radius: 8px;
-}

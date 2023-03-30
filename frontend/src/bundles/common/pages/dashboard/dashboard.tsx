@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { actions as walletsActions } from '~/bundles/wallets/store';
+import { type WalletCreateRequestDto } from '~/bundles/wallets/wallets';
 
 import { Calendar } from '../../components/calendar/calendar';
 import {
@@ -15,6 +16,7 @@ import {
 } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { CardVariant } from '../../enums/enums';
+import { toCustomLocaleString } from '../../helpers/helpers';
 import { useAppDispatch, useAppForm, useAppSelector } from '../../hooks/hooks';
 import {
     barChartData,
@@ -100,6 +102,19 @@ const Dashboard: React.FC = () => {
         [],
     );
 
+    const data: WalletCreateRequestDto = {
+        name: 'wallets 6',
+        currencyId: 'e0df152c-86ce-4e24-b1e1-757b0fb79873',
+        balance: 300_000,
+    };
+
+    const handleAddWallet = useCallback(() => {
+        void dispatch(walletsActions.create(data));
+
+        },
+        [dispatch]
+    );
+
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
     }, [dispatch]);
@@ -109,15 +124,21 @@ const Dashboard: React.FC = () => {
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
+                    <div onClickCapture={handleAddWallet} >Add wallet</div>
                     <div className={styles.wallets}>
-                        {wallets.map((wallet) => (
-                            <div key={wallet.id}>
+                        {wallets.map(({ id, name, balance }) => (
+                            <div className={styles.walletBody} key={id}>
                                 <WalletButton isButton={false}>
-                                    {wallet.name}
+                                    <div>
+                                        <p>{name}</p>
+                                        <p>Balance</p>
+                                        <p>
+                                            {balance > 0 && '+'}{toCustomLocaleString(balance)}$
+                                        </p>
+                                    </div>
                                 </WalletButton>
                             </div>
                         ))}
-
                         <WalletButton>Add new wallet</WalletButton>
                         <WalletButton>Connect a bank account</WalletButton>
                     </div>

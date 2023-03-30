@@ -12,6 +12,7 @@ const walletsApi = new WalletsApi({
 
 export { walletsApi };
 export {
+    type WalletCreateRequestDto,
     type WalletGetAllItemResponseDto,
     type WalletGetAllResponseDto,
 } from './types/types.js';

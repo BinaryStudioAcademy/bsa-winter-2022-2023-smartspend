@@ -1,9 +1,10 @@
-import { loadAll } from './actions.js';
+import { create, loadAll } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     loadAll,
+    create,
 };
 
 export { allActions as actions };

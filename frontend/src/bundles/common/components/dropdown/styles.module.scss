@@ -26,9 +26,10 @@
 
 .circle {
     width: 35px;
+    height: 35px;
     color: var(--color-white-100);
     font-size: var(--font-size-level-3-heading);
-    line-height: var(--line-height-level-3-heading);
+    line-height: 35px;
     background-color: #007aff;
     border-radius: 50%;
 }

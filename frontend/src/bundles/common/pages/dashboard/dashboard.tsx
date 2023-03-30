@@ -108,7 +108,10 @@ const Dashboard: React.FC = () => {
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
                         {wallets.map((wallet: Wallet) => (
-                            <div key={wallet.id}>
+                            <div
+                                key={wallet.id}
+                                className={styles.walletWrapper}
+                            >
                                 <WalletButton isButton={false}>
                                     <WalletCard
                                         title={wallet.title}
@@ -135,7 +138,7 @@ const Dashboard: React.FC = () => {
                 )}
             >
                 <div className={styles.contentWrapper}>
-                    <div>
+                    <div className={styles.filtertBody}>
                         <div className={styles.filters}>
                             <div>
                                 <div className={styles.largeCalendar}>
@@ -155,6 +158,7 @@ const Dashboard: React.FC = () => {
                         </div>
                         <div className={styles.filters}>
                             <Input
+                                labelClassName={styles.filterLabel}
                                 control={control}
                                 errors={errors}
                                 label={'By wallet'}
@@ -162,6 +166,7 @@ const Dashboard: React.FC = () => {
                                 placeholder={'Cash wallet'}
                             />
                             <Input
+                                labelClassName={styles.filterLabel}
                                 control={control}
                                 errors={errors}
                                 label={'All Categories'}
@@ -169,6 +174,7 @@ const Dashboard: React.FC = () => {
                                 placeholder={'Filter by specific name'}
                             />
                             <Input
+                                labelClassName={styles.filterLabel}
                                 control={control}
                                 errors={errors}
                                 label={'By note'}
@@ -188,7 +194,7 @@ const Dashboard: React.FC = () => {
             <div className={classNames(styles.dashboard, styles.barsDashboard)}>
                 <div className={styles.contentWrapper}>
                     <div className={styles.bars}>
-                        <div className={styles.wallets}>
+                        <div className={styles.cards}>
                             <CardTotal
                                 title="Total Balance"
                                 sum={40.45}

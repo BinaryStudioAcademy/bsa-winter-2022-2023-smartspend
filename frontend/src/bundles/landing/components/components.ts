@@ -18,9 +18,11 @@ export { ThirdStepPart } from './third-step-part/third-step-part';
 export {
     Button,
     DoughnutChart,
+    Dropdown,
     Header,
     Input,
     LineChart,
     Link,
+    MultiDropdown,
     WalletCard,
 } from '~/bundles/common/components/components';

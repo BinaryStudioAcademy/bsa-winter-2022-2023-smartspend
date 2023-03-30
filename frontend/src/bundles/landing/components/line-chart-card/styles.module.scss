@@ -50,7 +50,8 @@
         display: grid;
         grid-template-rows: 1fr;
         grid-template-columns: minmax(240px, 372px);
-        height: auto;
+        min-height: auto;
+        padding: var(--p-3) var(--p-3) 0;
     }
 
     .title {
@@ -60,5 +61,9 @@
     .containerLineChart {
         max-width: 100%;
         height: auto;
+    }
+
+    .topContainer > nav > button {
+        padding: 0 var(--p-2);
     }
 }

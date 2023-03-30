@@ -17,6 +17,7 @@ import {
     Header,
     Input,
     LineChart,
+    Loader,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
 import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
@@ -613,6 +614,7 @@ const Base: React.FC = () => {
                     />
                 </div>
             </div>
+            <Loader />
         </>
     );
 };

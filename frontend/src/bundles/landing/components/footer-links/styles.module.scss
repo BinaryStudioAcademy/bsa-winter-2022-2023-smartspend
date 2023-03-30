@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .links_container {
     display: flex;
     justify-content: center;
@@ -20,7 +22,7 @@
     text-decoration: none;
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .links {
         display: grid;
         grid-template-columns: repeat(2, 1fr);

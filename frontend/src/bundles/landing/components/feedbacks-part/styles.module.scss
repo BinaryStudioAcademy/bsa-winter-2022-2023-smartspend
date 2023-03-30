@@ -1,8 +1,11 @@
+@import "@assets/utils";
+
 .body {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    row-gap: 20px;
     width: 100%;
     background-color: var(--color-white-100);
 }
@@ -10,8 +13,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    row-gap: 20px;
+    height: 620px;
 }
 
 .carouselContainer {
@@ -31,7 +36,7 @@
 }
 
 .bulletActive {
-    background-color: var(--color-turquoise-500);
+    background-color: #01d0c6;
 }
 
 .horizontalClass {
@@ -51,7 +56,7 @@
     line-height: var(--line-height-level-1-heading);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $xl) {
     .container {
         justify-content: center;
         height: auto;
@@ -59,7 +64,7 @@
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container {
         padding: var(--p-5) var(--p-3);
     }
@@ -74,7 +79,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .title {
         text-align: center;
     }

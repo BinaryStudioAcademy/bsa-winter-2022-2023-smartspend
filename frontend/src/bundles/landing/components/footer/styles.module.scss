@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     position: relative;
     display: flex;
@@ -24,19 +26,35 @@
 .logoContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: var(--m-2);
+    text-decoration: none;
 }
 
 .logoImg {
+    display: flex;
     flex: 0 0 auto;
-    width: 40px;
-    height: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     background: var(--gradient-6);
     border-radius: 50%;
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .container {
         height: 180px;
     }
+}
+
+.imgLogo {
+    width: 70%;
+    height: 70%;
+}
+
+.logoText {
+    color: var(--color-white-100);
+    line-height: var(--line-height-level-1-heading);
 }

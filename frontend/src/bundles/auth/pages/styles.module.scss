@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 :root {
     --p-10: 10px;
 }
@@ -178,7 +180,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .authInside {
         width: 520px;
     }
@@ -188,7 +190,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .authRoundsmall {
         right: -25px;
     }
@@ -198,7 +200,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .authInside {
         width: 100%;
         padding-right: var(--p-2);
@@ -218,14 +220,14 @@
     }
 }
 
-@media (max-height: 768px) {
+@media (max-height: $md) {
     .authLogo,
     .logoText {
         margin: var(--m-6) auto var(--m-3);
     }
 }
 
-@media (max-height: 576px) {
+@media (max-height: $sm) {
     .authLogo,
     .logoText {
         margin: var(--m-5) auto var(--m-2);

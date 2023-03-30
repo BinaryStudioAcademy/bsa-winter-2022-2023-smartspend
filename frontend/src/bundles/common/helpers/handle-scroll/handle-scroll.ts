@@ -9,34 +9,30 @@ const handleScroll = (
     const lastLink = menuLinks[menuLinks.length - 1];
 
     for (const link of menuLinks) {
-        const element: HTMLElement | null = document.querySelector(link.to);
+        const element: HTMLElement = document.querySelector(link.to) as HTMLElement;
+        const bottomScrollPosition =
+            window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
-        if (element) {
-            const elementTop =
-                element.getBoundingClientRect().top + window.pageYOffset - 81;
+        const elementTop = element.getBoundingClientRect().top + (window.pageYOffset - 81);
 
-            const isLastLink = link === lastLink;
+        const isLastLink = link === lastLink;
 
-            const isLastLinkVisibleAtBottom =
-                isLastLink &&
-                window.innerHeight + window.pageYOffset >=
-                    document.body.offsetHeight;
+        const isLastLinkVisibleAtBottom =
+            isLastLink &&
+            window.innerHeight + window.pageYOffset >=
+            document.body.offsetHeight;
 
-            const isElementVisible =
-                isLastLinkVisibleAtBottom || elementTop < window.pageYOffset;
+        const isElementVisible =
+            isLastLinkVisibleAtBottom || elementTop < window.pageYOffset;
 
-            if (isElementVisible) {
-                setState(link.to);
-                isLastLinkVisible =
-                    link.to === menuLinks[menuLinks.length - 1].to ||
-                    isLastLinkVisible;
-            }
+        if (isElementVisible) {
+            setState(link.to);
+            isLastLinkVisible =
+                link.to === menuLinks[menuLinks.length - 1].to ||
+                isLastLinkVisible;
         }
 
-        if (
-            !isLastLinkVisible &&
-            window.innerHeight + window.scrollY >= document.body.offsetHeight
-        ) {
+        if (!isLastLinkVisible && bottomScrollPosition) {
             setState(menuLinks[menuLinks.length - 1].to);
         }
     }

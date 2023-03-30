@@ -9,18 +9,21 @@ const handleScroll = (
     const lastLink = menuLinks[menuLinks.length - 1];
 
     for (const link of menuLinks) {
-        const element: HTMLElement = document.querySelector(link.to) as HTMLElement;
+        const element: HTMLElement = document.querySelector(
+            link.to,
+        ) as HTMLElement;
         const bottomScrollPosition =
             window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
-        const elementTop = element.getBoundingClientRect().top + (window.pageYOffset - 81);
+        const elementTop =
+            element.getBoundingClientRect().top + (window.pageYOffset - 81);
 
         const isLastLink = link === lastLink;
 
         const isLastLinkVisibleAtBottom =
             isLastLink &&
             window.innerHeight + window.pageYOffset >=
-            document.body.offsetHeight;
+                document.body.offsetHeight;
 
         const isElementVisible =
             isLastLinkVisibleAtBottom || elementTop < window.pageYOffset;

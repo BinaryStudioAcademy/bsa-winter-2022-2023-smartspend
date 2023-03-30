@@ -1,118 +1,56 @@
 :root {
     --font-height-input: 2.25rem;
-    --border-input: 1px
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 50;
-    width: 100vw;
-    pointer-events: none;
-    background: #00000099;
-    opacity: 0;
-}
-
-.active{
-    opacity: .6;
-    pointer-events: all;
+    --border-input: 1px;
+    --font-size-input: 1rem;
 }
 
 .title {
-    color: var(--color-gray-300);
-    font-weight: var(--font-weight-600);
-    font-size: 14px;
-}
-
-.formWrapper {
-    position: relative;
-    transition: z-index 0.35s step-end;
-}
-
-.formActive {
-    position: relative;
-    z-index: 51;
-    transition: z-index 0.35s step-start;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(-line-height-level-3-heading);
 }
 
 .form {
-    position: relative;
-    margin: 0 -15px;
+    margin: 25px -15px 0;
     padding: 15px;
-    background: white;
-    border-radius: 8px;
 }
 
-.nameTree {
-    width: 100%;
-}
-
-.nameFour {
+.wrapperInputs {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
+    width: 100%;
 }
 
-@media screen and (min-width: 768px) {
-    .wrapperIconSettings {
-        display: flex;
-        flex-basis: 100%;
-        flex-wrap: wrap;
-        max-width: 100%;
-    }
-
-    .selectIcon, .selectIconColor{
-        flex-basis: 50%;
-        max-width: 50%;
-    }
+.dropdownModal {
+    margin: 0 8px;
 }
 
-@media screen and (min-width: 992px) {
-    .wrapperIconSettings {
-        flex-basis: 25%;
-        max-width: 25%;
-    }
-
-    .categoryName {
-        flex-basis: 33.3%;
-        max-width: 33.3%;
-        padding-bottom: 10px;
-    }
-
-    .wrapperType {
-        flex-basis: 16.6%;
-        max-width: 16.6%;
-    }
-
-    .wrapperBtn {
-        flex-basis: 25%;
-        max-width: 25%;
-        padding-bottom: 10px;
-    }
+.inputLabel {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-gray-200);
+    font-size: var(--font-size-level-2-body);
 }
 
-.mob {
-    flex-basis: 100%;
-    max-width: 100%;
+.categoryInput {
+    flex-basis: 40%;
+    margin: 0 8px;
 }
 
 .customInput {
-    height: 38px;
+    height: 48px;
     margin: 0;
     padding: 0 8px;
-    color: #324c5b;
-    font-weight: var(--font-weight-400);
-    line-height: var(--font-height-input);
+    color: var(--color-gray-200);
+    font-size: var(--font-size-input);
     border: var(--border-input) solid var(--color-blue-200);
     border-color: #e5ebee;
 }
 
-.inputLabel {
-    margin: 0;
-    color: #7b93a4;
+.inputLabelColor {
+    color: var(--color-gray-200);
     font-size: var(--font-size-level-2-body);
 }
 
@@ -122,12 +60,40 @@
     border-color: #bbcdd8;
 }
 
-.btn {
-    width: 100%;
-    height: 38px;
+.wrapperModalBtn {
+    flex-basis: 30%;
+    margin: 0 8px;
 }
 
-.btnName{
-    font-weight: var(--font-weight-400);
-    font-size: var(--font-size-level-2-body);
+.btn {
+    width: 100%;
+    height: 48px;
+}
+
+.btnName {
+    margin-left: 10px;
+}
+
+.wrapperSettings {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.wrapperSelect{
+    flex-grow: 1;
+}
+
+.wrapperSelect:not(:last-child) {
+    margin-right: 15px;
+}
+
+.wrapperSelect:nth-child(1),
+.wrapperSelect:nth-child(2){
+    flex-basis: 20%;
+}
+
+.wrapperSelect:nth-child(3),
+.wrapperSelect:nth-child(4) {
+    flex-basis: 50%;
 }

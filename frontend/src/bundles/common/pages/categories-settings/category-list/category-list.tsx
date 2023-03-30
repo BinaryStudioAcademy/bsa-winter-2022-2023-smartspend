@@ -23,6 +23,7 @@ const CategoryList: React.FC<Properties> = ({ title, categories }) => {
                     key={item.id}
                     id={item.id}
                     categoryName={item.categoryName}
+                    type={item.type}
                     iconKey={item.icon}
                     colorIcon={item.colorIcon}
                 />

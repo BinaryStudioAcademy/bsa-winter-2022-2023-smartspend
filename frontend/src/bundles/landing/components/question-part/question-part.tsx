@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -7,7 +9,9 @@ type Properties = {
 const QuestionPart: React.FC<Properties> = ({ question }) => {
     return (
         <section className={styles.container}>
-            <h1 className={styles.title}>{question}</h1>
+            <div className={classNames('container', styles.container)}>
+                <h1 className={styles.title}>{question}</h1>
+            </div>
         </section>
     );
 };

@@ -1,20 +1,21 @@
-import { faGear, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { categoriesSlice } from '~/bundles/categories/store';
 import { BaseModal, Button } from '~/bundles/common/components/components';
-import { ButtonSize, ButtonType, ButtonVariant } from '~/bundles/common/enums/enums';
+import { ButtonSize, ButtonType, ButtonVariant, FaIcons } from '~/bundles/common/enums/enums';
 import { findIcon } from '~/bundles/common/helpers/find-icon';
 
 import { Checkbox } from '../common/checkbox/checkbox';
+import { FormEditCategory } from '../form-create-category/form-edit-category';
 import styles from './styles.module.scss';
 
 type Properties = {
     id: string;
     categoryName: string;
     count?: string | number;
+    type: string;
     iconKey: string;
     colorIcon: string;
 };
@@ -29,6 +30,7 @@ const CategoryItem: React.FC<Properties> = ({
     id,
     categoryName,
     count,
+    type,
     iconKey,
     colorIcon,
 }) => {
@@ -44,10 +46,10 @@ const CategoryItem: React.FC<Properties> = ({
 
     const handleCheckboxChange = useCallback((isChecked: boolean): void => {
         if (isChecked) {
-            dispatch(categoriesSlice.addChecked(id));  
+            dispatch(categoriesSlice.addChecked(id));
         } else {
             dispatch(categoriesSlice.removeChecked(id));
-        }   
+        }
     }, [dispatch, id]);
 
     const handelOpenModalEdit = useCallback((): void => {
@@ -111,22 +113,19 @@ const CategoryItem: React.FC<Properties> = ({
                                 </div>
                             </div>
                         </div>
-                        <div
-                            className={`${styles.base} ${styles.iconWrapper}`}
-                        ></div>
                         <div className={`${styles.base} ${styles.iconWrapper}`}>
                             <Button
                                 type={ButtonType.BUTTON}
                                 variant={ButtonVariant.SECONDARY}
                                 size={ButtonSize.SMALL}
-                                className={styles.iconBtn}
+                                className={`${styles.iconBtn} ${styles.btnEdit}`}
                                 disabled={false}
                                 onClick={handelOpenModalEdit}
                             >
-                                <span className={styles.btnName}>
-                                     <FontAwesomeIcon icon={faGear} />
-                                </span>
-                            </Button>  
+                            <span className={`${styles.btnName} ${styles.btnEdit}`}>
+                                    <FontAwesomeIcon icon={FaIcons.GEAR} />
+                            </span>
+                            </Button>
                         </div>
                         <div className={`${styles.base} ${styles.iconWrapper}`}>
                             <Button
@@ -137,9 +136,9 @@ const CategoryItem: React.FC<Properties> = ({
                                 disabled={false}
                                 onClick={handelOpenModalDelete}
                             >
-                                <span className={styles.btnName}>
-                                     <FontAwesomeIcon icon={faTrash} />
-                                </span>
+                            <span className={styles.btnName}>
+                                    <FontAwesomeIcon icon={FaIcons.TRASH} />
+                            </span>
                             </Button>
                         </div>
                     </div>
@@ -150,8 +149,14 @@ const CategoryItem: React.FC<Properties> = ({
                     isShown={modalEdit}
                     onClose={handleCloseModal}
                     onSubmit={handelClickEdit}
-                    Header={<h1>{`You're about to edit ${categoryName} categories`}</h1>}
-                    Body={<p></p>}
+                    Header={<h1 className='visually-hidden'>{`You're about to edit ${categoryName} categories`}</h1>}
+                Body={<FormEditCategory
+                    categoryName={categoryName}
+                    type={type}
+                    iconKey={iconKey}
+                    colorIcon={colorIcon}
+                    onClose={handleCloseModal}
+                />}
                     submitButtonName={'Edit category'}
                 />
             <BaseModal

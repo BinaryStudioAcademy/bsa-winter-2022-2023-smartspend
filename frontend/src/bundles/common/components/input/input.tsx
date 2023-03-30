@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import {
     type Control,
@@ -6,9 +7,7 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import eye from '~/assets/img/eye.svg';
-import eyeSlash from '~/assets/img/eye-slash.svg';
-import { InputType } from '~/bundles/common/enums/enums.js';
+import { FaIcons, InputType } from '~/bundles/common/enums/enums.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 
@@ -26,6 +25,7 @@ type Properties<T extends FieldValues> = {
     isDisabled?: boolean;
     eyeHidden?: boolean;
     onFocus?: () => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     value?: string;
 };
 
@@ -41,9 +41,11 @@ const Input = <T extends FieldValues>({
     isDisabled = false,
     eyeHidden = false,
     onFocus,
+    onChange,
     value,
 }: Properties<T>): JSX.Element => {
     const [passwordShown, setPasswordShown] = useState(false);
+    const { field } = useFormController({ name, control });
 
     const togglePasswordVisibility = useCallback(() => {
         setPasswordShown((previousState) => !previousState);
@@ -52,7 +54,8 @@ const Input = <T extends FieldValues>({
     const handleClickEye = useCallback(() => {
         togglePasswordVisibility();
     }, [togglePasswordVisibility]);
-    const show = passwordShown ? eye : eyeSlash;
+
+    const show = passwordShown ? FaIcons.EYE : FaIcons.EYE_SLASH;
 
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLSpanElement>): void => {
@@ -63,13 +66,10 @@ const Input = <T extends FieldValues>({
         [handleClickEye],
     );
 
-    const { field } = useFormController({ name, control });
-
     const error = errors[name]?.message;
     const hasError = Boolean(error);
 
     const labelClasses = classNames(styles.label, labelClassName);
-
     const inputClasses = classNames(
         styles.input,
         styles[isDisabled ? 'disabled' : ''],
@@ -81,11 +81,12 @@ const Input = <T extends FieldValues>({
             <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}
-                type={passwordShown ? InputType.TEXT : type}
+                type={passwordShown || !field.value ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
                 className={`${hasError ? styles.hasError : inputClasses}`}
                 onFocus={onFocus}
+                onChange={onChange}
                 value={value}
             />
             {eyeHidden && (
@@ -96,9 +97,9 @@ const Input = <T extends FieldValues>({
                     onClick={handleClickEye}
                     onKeyDown={handleKeyDown}
                 >
-                    <img
-                        src={show}
-                        alt={passwordShown ? 'Hide password' : 'Show password'}
+                    <FontAwesomeIcon
+                        icon={[FaIcons.FA_REGULAR, show]}
+                        style={{ color: 'var(--color-password)' }}
                     />
                 </span>
             )}

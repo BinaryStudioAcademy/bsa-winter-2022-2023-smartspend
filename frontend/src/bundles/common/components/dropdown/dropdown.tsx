@@ -29,7 +29,7 @@ const Dropdown: React.FC<Properties> = ({
     selectedOption,
     handleChange,
     handleFocus,
-    width = '229px',
+    width,
 }) => {
     const options = data.map((item) => ({
         value: item.value,

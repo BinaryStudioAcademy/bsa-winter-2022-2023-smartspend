@@ -6,7 +6,7 @@ const colors = [
     {
         value: '#b55a42',
     },
-     {
+    {
         value: '#f6534b',
     },
     {

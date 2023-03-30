@@ -5,7 +5,8 @@
 }
 
 .title {
-    color: var(--color-gray-300);
-    font-weight: var(--font-weight-600);
-    font-size: 14px;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(-line-height-level-3-heading);
 }

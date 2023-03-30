@@ -8,7 +8,7 @@
         display: flex;
         width: 967px;
         padding: 15px 188px 80px 162px;
-        background: #FFFFFF;
+        background: var(--color-white-100);
         border-radius: 25px;
     }
 
@@ -25,7 +25,7 @@
     width: 100%;
     background-color: var(--color-white-100);
     border-radius: var(--b-2);
-}   
+}
 
 .content {
     padding: var(--p-2) var(--p-2) var(--p-3);
@@ -37,9 +37,10 @@
 }
 
 .title {
-    color: var(--color-gray-300);
-    font-weight: var(--font-weight-600);
-    font-size: 14px;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(-line-height-level-3-heading);
 }
 
 .wrapperAllBtn {
@@ -50,8 +51,6 @@
 }
 
 .wrapperBtn{
-    flex-basis: 33.3%;
-    max-width: 33.3%;
     padding: var(--p-2);
 }
 
@@ -60,6 +59,5 @@
 }
 
 .btnName {
-    font-weight: var(--font-weight-400);
-    font-size: var(--font-size-level-2-body);
+    padding-left: 10px;
 }

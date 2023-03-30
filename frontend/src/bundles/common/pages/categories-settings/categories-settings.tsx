@@ -1,11 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button } from '../../components/button/button';
 import { BaseModal } from '../../components/components';
-import { ButtonSize, ButtonType, ButtonVariant } from '../../enums/enums';
+import { ButtonSize, ButtonType, ButtonVariant, FaIcons } from '../../enums/enums';
 import { CategoryList } from './category-list/category-list';
-import { testDB } from './common/test-database';
+import { testDB } from './common/mock/test-database';
+import { Form } from './form-create-category/form';
 import { FormCreateCategory } from './form-create-category/form-create-category';
 import styles from './styles.module.scss';
 
@@ -25,10 +27,20 @@ interface Data {
 type GroupedData = Record<string, Data[]>;
 
 const CategoriesSettings: React.FC = () => {
+    const [modalCreate, setModalCreate] = useState(false);
     const [modalMerge, setModalMerge] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
     const checkedCategories = useSelector((state: RootState) => state.categories.checkedCategory);
 
+    const handelClickModalCreate = useCallback((event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>):void => {
+        setModalCreate(true);
+    },[]);
+
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>):void => {
+        if (event.key === 'Enter') {
+            handelClickModalCreate(event);
+        }
+    }, []);
     const handelOpenModalMerge = useCallback(() => {
         setModalMerge(true);
     }, []);
@@ -36,7 +48,7 @@ const CategoriesSettings: React.FC = () => {
     const handelClickMerge = useCallback(() => {
         // console.log('merge')
     }, []);
-    
+
     const handelOpenModalDelete = useCallback(() => {
         setModalDelete(true);
     }, []);
@@ -46,6 +58,7 @@ const CategoriesSettings: React.FC = () => {
     }, []);
 
     const handleCloseModal = useCallback(() => {
+        setModalCreate(false);
         setModalDelete(false);
         setModalMerge(false);
     }, []);
@@ -73,7 +86,9 @@ const CategoriesSettings: React.FC = () => {
                     <h1 className="visually-hidden">Category Settings</h1>
                     <div>
 
-                        <FormCreateCategory />
+                        <Form onClick={handelClickModalCreate}
+                            handleKeyDown={handleKeyDown}
+                        />
                         <div className={styles.manageWrapper}>
                             <h2 className={styles.title}>Manage categories</h2>
                             <div className={styles.wrapperAllBtn}>
@@ -81,26 +96,26 @@ const CategoriesSettings: React.FC = () => {
                                     <Button
                                         type={ButtonType.BUTTON}
                                         variant={ButtonVariant.SECONDARY}
-                                        size={ButtonSize.SMALL}
+                                        size={ButtonSize.MEDIUM}
                                         disabled={checkedCategories.length >= 2 ? false : true}
                                         className={styles.btn}
                                         onClick={handelOpenModalMerge}
                                     >
-                                        {/* <span>Merge category</span> */}
-                                        <span>{checkedCategories.length >= 2 ? `Merge category (${checkedCategories.length})` : 'Merge category'}</span>
+                                        <FontAwesomeIcon icon={FaIcons.COPY} />
+                                        <span className={styles.btnName}>{checkedCategories.length >= 2 ? `Merge category (${checkedCategories.length})` : 'Merge category'}</span>
                                     </Button>
                                 </div>
                                 <div className={styles.wrapperBtn}>
                                     <Button
                                         type={ButtonType.BUTTON}
                                         variant={ButtonVariant.DELETE}
-                                        size={ButtonSize.SMALL}
+                                        size={ButtonSize.MEDIUM}
                                         disabled={checkedCategories.length === 0 ? true : false}
                                         className={styles.btn}
                                         onClick={handelOpenModalDelete}
                                     >
-                                            {/* <span>Delete category</span> */}
-                                            <span>{ checkedCategories.length === 0 ?  'Delete category' : `Delete category (${checkedCategories.length})`}</span>
+                                            <FontAwesomeIcon icon={FaIcons.TRASH} />
+                                            <span className={styles.btnName}>{ checkedCategories.length === 0 ?  'Delete category' : `Delete category (${checkedCategories.length})`}</span>
                                     </Button>
                                 </div>
                             </div>
@@ -110,6 +125,16 @@ const CategoriesSettings: React.FC = () => {
                     </div>
                 </div>
             </div>
+                <BaseModal
+                    isShown={modalCreate}
+                    onClose={handleCloseModal}
+                    onSubmit={handleCloseModal}
+                    Header={<h1 className='visually-hidden'>{'Create a new category'}</h1>}
+                    Body={<FormCreateCategory
+                        onClose={handleCloseModal}
+                    />}
+                    submitButtonName={'Edit category'}
+                />
                 <BaseModal
                     isShown={modalMerge}
                     onClose={handleCloseModal}

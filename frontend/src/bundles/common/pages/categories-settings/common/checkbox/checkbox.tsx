@@ -15,12 +15,10 @@ const Checkbox: React.FC<CheckboxProperties> = ({
     isChecked,
     onChange,
 }) => {
-    
     const handleClick = useCallback((): void => {
         const newValue = !isChecked;
         onChange(newValue);
     }, [onChange, isChecked]);
-    
     const onKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLSpanElement>): void => {
             if (event.key === 'Enter') {

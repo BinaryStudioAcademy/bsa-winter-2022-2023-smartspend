@@ -42,7 +42,7 @@
     gap: 10px;
 }
 
-.buttons{
+.buttons {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -98,7 +98,7 @@
     column-gap: 4px;
 }
 
-.rangeFilter{
+.rangeFilter {
     display: flex;
     flex-direction: column;
     height: 76px;
@@ -110,7 +110,7 @@
     font-size: var(--font-size-level-2-body);
 }
 
-.dropdown > *{
+.dropdown > * {
     width: 233px;
 }
 
@@ -145,7 +145,7 @@
     padding: 0 var(--p-2);
 }
 
-.walletTransactions{
+.walletTransactions {
     width: 100%;
 }
 
@@ -248,34 +248,36 @@
     color: var(--color-gray-200);
 }
 
-@media (max-width: $xl){
-    .filters, .buttonsDate, .walletTransactionsContainer{
+@media (max-width: $xl) {
+    .filters,
+    .buttonsDate,
+    .walletTransactionsContainer {
         padding: 20px;
     }
 }
 
-@media (max-width: $lg){
-    .buttonsContainer{
+@media (max-width: $lg) {
+    .buttonsContainer {
         justify-content: center;
     }
 
-    .buttonsDate{
+    .buttonsDate {
         justify-content: center;
         align-items: center;
     }
 
-    .cards{
+    .cards {
         justify-content: center;
         gap: 20px;
     }
 
-    .applyFilters{
+    .applyFilters {
         gap: 20px;
     }
 }
 
-@media (max-width: $sm){
-    .applyFilters{
+@media (max-width: $sm) {
+    .applyFilters {
         justify-content: center;
         align-items: center;
     }

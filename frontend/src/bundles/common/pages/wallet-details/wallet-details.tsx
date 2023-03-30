@@ -7,7 +7,8 @@ import { RangeCalendar } from '~/bundles/common/components/calendar/range-calend
 import {
     Button,
     CardTotal,
-    Input, RangeSlider,
+    Input,
+    RangeSlider,
 } from '~/bundles/common/components/components.js';
 import { MultiDropdown } from '~/bundles/common/components/dropdown/multi-dropdown.js';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum.js';
@@ -60,27 +61,27 @@ const categories = [
     {
         value: 'shopping',
         name: 'Shopping',
-        image: 'https://img.freepik.com/free-photo/girl-holds-fashion-shopping-bag-beauty_1150-13673.jpg'
+        image: 'https://img.freepik.com/free-photo/girl-holds-fashion-shopping-bag-beauty_1150-13673.jpg',
     },
     {
         value: 'food',
         name: 'Food',
-        image: 'https://media.istockphoto.com/id/153010865/uk/%D1%84%D0%BE%D1%82%D0%BE/%D1%87%D0%B5%D1%80%D0%B2%D0%BE%D0%BD%D0%B5-%D1%8F%D0%B1%D0%BB%D1%83%D0%BA%D0%BE.jpg?s=612x612&w=0&k=20&c=Hr4iJ9Taaiaz4SLEAX7BbFSvTsnSrgg-KlRV4IIHG4s='
+        image: 'https://media.istockphoto.com/id/153010865/uk/%D1%84%D0%BE%D1%82%D0%BE/%D1%87%D0%B5%D1%80%D0%B2%D0%BE%D0%BD%D0%B5-%D1%8F%D0%B1%D0%BB%D1%83%D0%BA%D0%BE.jpg?s=612x612&w=0&k=20&c=Hr4iJ9Taaiaz4SLEAX7BbFSvTsnSrgg-KlRV4IIHG4s=',
     },
     {
         value: 'games',
         name: 'Games',
-        image: 'https://img.freepik.com/free-vector/joystick-game-sport-technology_138676-2045.jpg?w=2000'
+        image: 'https://img.freepik.com/free-vector/joystick-game-sport-technology_138676-2045.jpg?w=2000',
     },
     {
         value: 'car',
         name: 'Car',
-        image: 'https://store-images.microsoft.com/image/apps.27729.9007199266312409.d86b04ff-7ebb-4451-a920-9cfe5dbd05d7.ffd1ea39-da23-4062-936a-66afe45ffe14?mode=scale&q=90&h=200&w=200&background=%23000000'
+        image: 'https://store-images.microsoft.com/image/apps.27729.9007199266312409.d86b04ff-7ebb-4451-a920-9cfe5dbd05d7.ffd1ea39-da23-4062-936a-66afe45ffe14?mode=scale&q=90&h=200&w=200&background=%23000000',
     },
     {
         value: 'travel',
         name: 'Travel',
-        image: 'https://thumbs.dreamstime.com/b/travel-world-landmarks-background-blue-sky-46083021.jpg'
+        image: 'https://thumbs.dreamstime.com/b/travel-world-landmarks-background-blue-sky-46083021.jpg',
     },
 ];
 
@@ -164,7 +165,7 @@ const WalletDetails: React.FC = () => {
                                 </Button>
                             </div>
                         </div>
-                        <RangeCalendar/>
+                        <RangeCalendar />
                     </div>
                     <div className={styles.filters}>
                         <div className={styles.filtersContainer}>
@@ -182,8 +183,12 @@ const WalletDetails: React.FC = () => {
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={categories}
-                                            selectedOption={selectedCategoriesMulti}
-                                            handleChange={handleCategoriesMultiDropdownChange}
+                                            selectedOption={
+                                                selectedCategoriesMulti
+                                            }
+                                            handleChange={
+                                                handleCategoriesMultiDropdownChange
+                                            }
                                         />
                                     </div>
                                 </div>
@@ -195,7 +200,9 @@ const WalletDetails: React.FC = () => {
                                         <MultiDropdown
                                             data={people}
                                             selectedOption={selectedPeopleMulti}
-                                            handleChange={handlePeopleMultiDropdownChange}
+                                            handleChange={
+                                                handlePeopleMultiDropdownChange
+                                            }
                                         />
                                     </div>
                                 </div>
@@ -212,7 +219,12 @@ const WalletDetails: React.FC = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className={classNames(styles.filter, styles.rangeFilter)}>
+                                <div
+                                    className={classNames(
+                                        styles.filter,
+                                        styles.rangeFilter,
+                                    )}
+                                >
                                     <span className={styles.categoryText}>
                                         By amount
                                     </span>

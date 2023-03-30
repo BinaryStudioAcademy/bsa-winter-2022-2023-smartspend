@@ -21,6 +21,8 @@ import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-deta
 import { Landing } from '~/bundles/landing/landing';
 import { store } from '~/framework/store/store';
 
+import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
+
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
         <Toast />
@@ -76,6 +78,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 element: (
                                     <PrivateRoute>
                                         <WalletDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.BUDGETS_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <BudgetDetails />
                                     </PrivateRoute>
                                 ),
                             },

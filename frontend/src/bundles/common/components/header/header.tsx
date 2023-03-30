@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import defaultAvatar from '~/assets/img/default-avatar.jpg';
@@ -10,7 +11,7 @@ import {
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
-import { Button, Tabs } from '../components.js';
+import { Button, Menu, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 type TabsData = {
@@ -48,7 +49,7 @@ const Header: React.FC<Properties> = ({
 
     return (
         <header className={styles.header}>
-            <div className={styles.headerContainer}>
+            <div className={classNames(styles.headerContainer, 'container')}>
                 <Link to={AppRoute.ROOT} className={styles.headerLogo}>
                     <div className={styles.logoImg}>
                         <img
@@ -59,21 +60,21 @@ const Header: React.FC<Properties> = ({
                     </div>
                     <span className={styles.logoText}>SmartSpend</span>
                 </Link>
-                <div className={styles.headerBody}>
-                    {/*{token ? (*/}
-                        <>
-                            {(pathname === AppRoute.DASHBOARD ||
-                                pathname === AppRoute.BUDGETS) && (
-                                <Tabs tabsData={dataTabs.dashboard} />
-                            )}
-                            {pathname == `/wallet/${id}` && (
-                                <Tabs tabsData={dataTabs.wallets} />
-                            )}
-                        </>
-                    {/*// ) : (*/}
-                    {/*//     <Menu />*/}
-                    {/*// )}*/}
-                </div>
+                {token ? (
+                    <div className={classNames(styles.headerBody, styles.tabs)}>
+                        {(pathname === AppRoute.DASHBOARD ||
+                            pathname === AppRoute.BUDGETS) && (
+                            <Tabs tabsData={dataTabs.dashboard} />
+                        )}
+                        {pathname === AppRoute.WALLETS && (
+                            <Tabs tabsData={dataTabs.wallets} />
+                        )}
+                    </div>
+                ) : (
+                    <div className={styles.headerBody}>
+                        <Menu />
+                    </div>
+                )}
                 {token ? (
                     <Link className={styles.userLink} to={AppRoute.USER}>
                         <div className={styles.headerLogo}>

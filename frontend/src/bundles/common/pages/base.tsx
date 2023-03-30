@@ -524,8 +524,6 @@ const Base: React.FC = () => {
                     isShown={walletModalActive}
                     onClose={handleWalletModalCancel}
                     onSubmit={handleWalletModalCancel}
-                    // dropdownData={people}
-                    // dropdownSelected={selectedSingle}
                 />
             </div>
             <br></br>

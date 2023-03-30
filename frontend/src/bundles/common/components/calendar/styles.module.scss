@@ -16,11 +16,15 @@
     border: 1px solid var(--color-disable);
 }
 
-.range_display {
+.range_wrapper {
     display: flex;
     padding: var(--p-1);
     background-color: var(--color-white-100);
     border-radius: var(--b-1);
+}
+
+.range_display {
+    width: 270px;
 }
 
 .modal_one_day {

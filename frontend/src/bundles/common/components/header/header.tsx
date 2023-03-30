@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import defaultAvatar from '~/assets/img/default-avatar.jpg';
@@ -47,7 +48,7 @@ const Header: React.FC<Properties> = ({
 
     return (
         <header className={styles.header}>
-            <div className={styles.headerContainer}>
+            <div className={classNames(styles.headerContainer, 'container')}>
                 <Link to={AppRoute.ROOT} className={styles.headerLogo}>
                     <div className={styles.logoImg}>
                         <img
@@ -58,21 +59,21 @@ const Header: React.FC<Properties> = ({
                     </div>
                     <span className={styles.logoText}>SmartSpend</span>
                 </Link>
-                <div className={styles.headerBody}>
-                    {token ? (
-                        <>
-                            {(pathname === AppRoute.DASHBOARD ||
-                                pathname === AppRoute.BUDGETS) && (
-                                <Tabs tabsData={dataTabs.dashboard} />
-                            )}
-                            {pathname === AppRoute.WALLETS && (
-                                <Tabs tabsData={dataTabs.wallets} />
-                            )}
-                        </>
-                    ) : (
+                {token ? (
+                    <div className={classNames(styles.headerBody, styles.tabs)}>
+                        {(pathname === AppRoute.DASHBOARD ||
+                            pathname === AppRoute.BUDGETS) && (
+                            <Tabs tabsData={dataTabs.dashboard} />
+                        )}
+                        {pathname === AppRoute.WALLETS && (
+                            <Tabs tabsData={dataTabs.wallets} />
+                        )}
+                    </div>
+                ) : (
+                    <div className={styles.headerBody}>
                         <Menu />
-                    )}
-                </div>
+                    </div>
+                )}
                 {token ? (
                     <Link className={styles.userLink} to={AppRoute.USER}>
                         <div className={styles.headerLogo}>

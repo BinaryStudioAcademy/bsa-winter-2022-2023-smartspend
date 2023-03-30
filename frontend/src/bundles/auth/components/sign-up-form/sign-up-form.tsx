@@ -15,7 +15,7 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit, reset } =
+    const { control, errors, handleSubmit, reset, watch, trigger } =
         useAppForm<UserSignUpRequestDto>({
             defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
             validationSchema: userSignUpValidationSchema,
@@ -26,10 +26,18 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
+            event_.preventDefault();
+            void trigger();
+            const email = watch('email');
+            const password = watch('password');
+            const repeatPassword = watch('repeatPassword');
+            if (!email || !password || !repeatPassword) {
+                return;
+            }
             void handleSubmit(onSubmit)(event_);
             inputReset && reset();
         },
-        [handleSubmit, inputReset, onSubmit, reset],
+        [handleSubmit, inputReset, onSubmit, reset, trigger, watch],
     );
 
     return (

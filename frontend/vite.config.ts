@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import reactPlugin from '@vitejs/plugin-react';
 import { type ConfigEnv, defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -79,6 +81,12 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
                     target: VITE_APP_PROXY_SERVER_URL,
                     changeOrigin: true,
                 },
+            },
+        },
+        resolve: {
+            alias: {
+                // eslint-disable-next-line unicorn/prefer-module
+                '@assets': path.resolve(__dirname, './src/assets/css'),
             },
         },
     });

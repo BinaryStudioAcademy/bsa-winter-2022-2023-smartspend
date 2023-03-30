@@ -55,12 +55,15 @@ const Auth: React.FC = () => {
     return (
         <div className={styles.authContainer}>
             <div className={styles.authWrap}>
-                <Link to={AppRoute.ROOT} className={styles.authLogo}>
-                    <img
-                        className={styles.logoImg}
-                        src={logoSmartSpend}
-                        alt="logo"
-                    />
+                <Link to={AppRoute.ROOT} className={styles.logoLink}>
+                    <div className={styles.authLogo}>
+                        <img
+                            className={styles.logoImg}
+                            src={logoSmartSpend}
+                            alt="logo"
+                        />
+                    </div>
+                    <span className={styles.logoText}>SmartSpend</span>
                 </Link>
                 <div className={styles.authInside}>
                     <span className={styles.authRoundlarge}></span>

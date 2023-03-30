@@ -4,8 +4,10 @@ const mockData: UserChangeSettingsRequestDto = {
     name: 'Delete',
     surname: 'Me',
     email: 'deleteme@gmail.com',
+    sex: '',
+    birth: '',
     currency: 'USD',
-    language: 'en',
+    language: 'English',
 };
 
 export { mockData };

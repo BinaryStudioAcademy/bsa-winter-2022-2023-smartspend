@@ -22,8 +22,6 @@ const AvatarContainer: React.FC = () => {
 
     return (
         <div className={styles.avatarContainer}>
-            <span className={styles.label}>Profile photo</span>
-
             <div className={styles.avatarContent}>
                 <Avatar selectedFile={selectedFile} />
                 <UploadAvatarButton handleFileChange={handleFileChange} />

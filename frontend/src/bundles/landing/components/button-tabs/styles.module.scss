@@ -5,7 +5,7 @@
     width: fit-content;
     height: 36px;
     margin: 0;
-    padding: 6px;
+    padding: 5px;
     font-family: var(--font-family);
     line-height: 20px;
     list-style: none;
@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     height: 24px;
-    padding: 0 25px;
+    padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-600);
     text-decoration: none;

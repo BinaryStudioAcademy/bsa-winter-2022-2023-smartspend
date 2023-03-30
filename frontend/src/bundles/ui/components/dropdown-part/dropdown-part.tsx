@@ -102,7 +102,6 @@ const DropdownPart: React.FC = () => {
                 data={people}
                 selectedOption={selectedSingle}
                 handleChange={handleDropdownChange}
-                width="229px"
             />
         </>
     );

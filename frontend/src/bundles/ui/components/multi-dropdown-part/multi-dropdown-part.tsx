@@ -110,7 +110,6 @@ const MultiDropdownPart: React.FC = () => {
                 data={people}
                 selectedOption={selectedMulti}
                 handleChange={handleMultiDropdownChange}
-                width="229px"
             />
         </>
     );

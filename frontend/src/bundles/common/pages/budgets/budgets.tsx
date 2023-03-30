@@ -58,7 +58,10 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                             onClickCapture={handleClickOpen}
                         >
                             <div className={styles.cardWrapper}>
-                                <Button variant={ButtonVariant.ROUND} className={styles.button}>
+                                <Button
+                                    variant={ButtonVariant.ROUND}
+                                    className={styles.button}
+                                >
                                     <FontAwesomeIcon
                                         icon={FaIcons.PLUS}
                                         color={'var(--color-white-100)'}

@@ -1,7 +1,8 @@
-import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 
+import { Button } from '~/bundles/common/components/components';
+import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
+import { ButtonType, ButtonVariant } from '~/bundles/common/enums/enums';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import styles from '../styles.module.scss';
@@ -20,12 +21,12 @@ const UploadAvatarButton: React.FC<Properties> = ({ handleFileChange }) => {
     }, []);
 
     return (
-        <button
-            type="button"
-            className={styles.uploadAvatar}
+        <Button
             onClick={handleClick}
+            size={ButtonSize.SMALL}
+            variant={ButtonVariant.SECONDARY}
+            type={ButtonType.BUTTON}
         >
-            <FontAwesomeIcon icon={faArrowUpFromBracket} />
             <span className={styles.uploadAvatarText}>Upload avatar</span>
             <input
                 type="file"
@@ -35,7 +36,7 @@ const UploadAvatarButton: React.FC<Properties> = ({ handleFileChange }) => {
                 onChange={handleFileChange}
                 className={styles.inputFile}
             />
-        </button>
+        </Button>
     );
 };
 

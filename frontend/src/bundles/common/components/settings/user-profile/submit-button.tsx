@@ -1,3 +1,5 @@
+import { Button } from '~/bundles/common/components/button/button';
+
 import styles from '../styles.module.scss';
 
 type Properties = {
@@ -5,11 +7,10 @@ type Properties = {
     isChange: boolean;
 };
 const SubmitButton: React.FC<Properties> = ({ children, isChange }) => {
-    const className = isChange ? styles.submitBtnActive : styles.submitBtn;
     return (
-        <button className={className} type="submit">
-            {children}
-        </button>
+        <div className={styles.submitBtn}>
+            <Button disabled={!isChange}>{children}</Button>
+        </div>
     );
 };
 

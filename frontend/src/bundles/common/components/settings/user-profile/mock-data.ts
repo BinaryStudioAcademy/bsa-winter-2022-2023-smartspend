@@ -4,7 +4,7 @@ const mockData: UserChangeSettingsRequestDto = {
     name: 'Delete',
     surname: 'Me',
     email: 'deleteme@gmail.com',
-    sex: '',
+    sex: 'Male',
     birth: '',
     currency: 'USD',
     language: 'English',

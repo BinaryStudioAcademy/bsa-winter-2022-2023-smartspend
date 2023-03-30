@@ -24,9 +24,10 @@ const AvatarContainer: React.FC = () => {
         <div className={styles.avatarContainer}>
             <div className={styles.avatarContent}>
                 <Avatar selectedFile={selectedFile} />
-                <UploadAvatarButton handleFileChange={handleFileChange} />
-
-                <DeleteAvatarButton deleteFile={deleteFIle} />
+                <div className={styles.btnContainer}>
+                    <UploadAvatarButton handleFileChange={handleFileChange} />
+                    <DeleteAvatarButton deleteFile={deleteFIle} />
+                </div>
             </div>
         </div>
     );

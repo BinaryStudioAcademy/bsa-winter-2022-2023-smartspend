@@ -23,8 +23,8 @@ const language = [
 ];
 
 const sex = [
-    { value: 'male', name: 'male' },
-    { value: 'female', name: 'female' },
+    { value: 'Male', name: 'Male' },
+    { value: 'Female', name: 'Female' },
 ];
 
 const SettingsForm: React.FC = () => {
@@ -37,13 +37,14 @@ const SettingsForm: React.FC = () => {
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { name, surname, email, language, currency } = mockData;
+        const { name, surname, email, language, currency, sex } = mockData;
         return (
             newName !== name ||
             newSurname !== surname ||
             newEmail !== email ||
             language !== selectedSingleLanguage.name ||
-            currency !== selectedSingleCurrency.name
+            currency !== selectedSingleCurrency.name ||
+            sex !== selectedSingleSex.name
         );
     };
 
@@ -128,7 +129,7 @@ const SettingsForm: React.FC = () => {
                 selectedOption={selectedSingleLanguage}
             />
             <SubmitButton isChange={isChange()}>
-                Update my settings
+                Update My Settings
             </SubmitButton>
         </form>
     );

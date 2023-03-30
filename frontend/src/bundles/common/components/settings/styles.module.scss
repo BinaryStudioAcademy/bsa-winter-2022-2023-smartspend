@@ -61,40 +61,12 @@
     border-radius: 50%;
 }
 
-.uploadAvatar {
-    position: relative;
-    margin-left: var(--m-3);
-    padding: var(--p-2);
-    color: var(--color-green-300);
-    font-weight: var(--font-weight-600);
-    font-size: var(--font-size-1-button-text);
-    background-color: var(--color-green-100);
-    border: none;
-    border-radius: var(--b-1);
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.uploadAvatar:hover {
-    background-color: var(--color-green-200);
-}
-
-.deleteAvatar {
+.btnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100px;
     margin-left: var(--m-2);
-    padding: var(--p-2);
-    color: var(--color-red-300);
-    font-size: var(--font-size-1-button-text);
-    background-color: var(--color-red-100);
-    border: none;
-    border-radius: var(--b-1);
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.deleteAvatar:hover {
-    background-color: var(--color-red-200);
 }
 
 .uploadAvatarText {
@@ -108,26 +80,7 @@
 }
 
 .submitBtn {
-    width: 100%;
-    padding: var(--p-2);
-    color: var(--color-gray-200);
-    background-color: var(--color-disable);
-    border: none;
-    border-radius: var(--b-1);
-    outline: none;
-    transition: 0.4s;
-}
-
-.submitBtnActive {
-    width: 100%;
-    padding: var(--p-2);
-    color: var(--color-white-100);
-    background-color: var(--color-green-300);
-    border: none;
-    border-radius: var(--b-1);
-    outline: none;
-    cursor: pointer;
-    transition: 0.4s;
+    margin-top: var(--m-3);
 }
 
 .divider {

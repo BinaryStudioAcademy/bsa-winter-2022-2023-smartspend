@@ -1,12 +1,14 @@
+import '~/assets/css/variables/color-variables.scss';
+
+import classNames from 'classnames';
 import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
     type MultiValue,
+    type MultiValueProps,
     type SingleValue,
     type StylesConfig,
-    type ValueContainerProps,
 } from 'react-select';
-import { components } from 'react-select';
 
 import { type DataType } from '../../types/dropdown.type';
 import styles from './styles.module.scss';
@@ -18,33 +20,67 @@ interface Properties {
         selectedOption: MultiValue<DataType> | SingleValue<DataType>,
         actionMeta: ActionMeta<DataType>,
     ) => void;
-    width?: string;
+    handleFocus?: () => boolean;
+    formatOptionLabel?: (data: DataType) => JSX.Element;
+    label?: string;
+    labelClassName?: string;
 }
 
 const MultiDropdown: React.FC<Properties> = ({
     data,
     selectedOption,
     handleChange,
-    width = '229px',
+    handleFocus,
+    formatOptionLabel,
+    label,
+    labelClassName = '',
 }) => {
+    const labelClasses = classNames(styles.label, labelClassName);
+
     const options = data.map((item) => ({
         value: item.value,
         name: item.name,
         image: item.image,
     }));
 
+    const blue500 = 'var(--color-blue-500)';
+
     const customStyles: StylesConfig<DataType, true> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
+            color: blue500,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
         }),
-        container: (provided) => ({
+        indicatorSeparator: () => ({
+            display: 'none',
+        }),
+        clearIndicator: (base) => ({
+            ...base,
+            color: blue500,
+        }),
+        control: (provided, state) => ({
             ...provided,
-            width,
+            height: '48px',
+            width: '100%',
+            borderWidth: '0.1rem',
+            borderColor:
+                state.isFocused || state.menuIsOpen
+                    ? blue500
+                    : 'var(--color-blue-200)',
+            boxShadow:
+                state.isFocused || state.menuIsOpen
+                    ? '#3242df33 0 0 0 4px;'
+                    : provided.boxShadow,
+            transition: 'box-shadow 0.2s linear',
+            '&:hover': {
+                borderColor: state.isFocused ? blue500 : provided.borderColor,
+            },
+
+            cursor: 'pointer',
         }),
         option: (base, { isSelected }) => {
             const backgroundColor = base.color;
@@ -64,22 +100,7 @@ const MultiDropdown: React.FC<Properties> = ({
         },
     };
 
-    const ValueContainer = (
-        properties: ValueContainerProps<DataType>,
-    ): JSX.Element => {
-        const { getValue } = properties;
-        const selectedCount = getValue().length;
-        const labelText =
-            selectedCount > 0 ? `${selectedCount} selected` : 'Select items';
-
-        return (
-            <components.ValueContainer {...properties}>
-                <span className={styles.name}>{labelText}</span>
-            </components.ValueContainer>
-        );
-    };
-
-    const formatOptionLabel = useCallback(
+    const defaultFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 <input
@@ -103,21 +124,54 @@ const MultiDropdown: React.FC<Properties> = ({
         [selectedOption],
     );
 
+    const MultiValue: React.FC<MultiValueProps<DataType>> = ({
+        getValue,
+        index,
+        options,
+    }) => {
+        const length = getValue().length;
+        const allSelected = options.length === length;
+
+        if (index !== 0) {
+            return null;
+        }
+
+        return (
+            <>
+                {allSelected ? (
+                    <span className={styles.circle}>All</span>
+                ) : (
+                    <span className={styles.circle}>{length}</span>
+                )}
+                <span className={styles.text}>Selected</span>
+            </>
+        );
+    };
+
     return (
-        <Select
-            isMulti
-            className={styles.select}
-            value={selectedOption}
-            onChange={handleChange}
-            options={options}
-            formatOptionLabel={formatOptionLabel}
-            styles={customStyles}
-            components={{
-                ValueContainer,
-            }}
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-        />
+        <>
+            <div className={styles.labelContainer}>
+                <span className={labelClasses}>{label}</span>
+            </div>
+            <Select
+                isMulti
+                className={styles.select}
+                value={selectedOption}
+                onChange={handleChange}
+                options={options}
+                formatOptionLabel={
+                    formatOptionLabel ?? defaultFormatOptionLabel
+                }
+                styles={customStyles}
+                components={{
+                    MultiValue,
+                }}
+                closeMenuOnSelect={false}
+                hideSelectedOptions={false}
+                onFocus={handleFocus}
+                isSearchable={false}
+            />
+        </>
     );
 };
 

@@ -224,7 +224,7 @@ const Base: React.FC = () => {
                         data={people}
                         selectedOption={selectedSingle}
                         handleChange={handleDropdownChange}
-                        width="229px"
+                        label={'TestLabel'}
                     />
                 </div>
 
@@ -233,7 +233,6 @@ const Base: React.FC = () => {
                         data={people}
                         selectedOption={selectedMulti}
                         handleChange={handleMultiDropdownChange}
-                        width="229px"
                     />
                 </div>
 

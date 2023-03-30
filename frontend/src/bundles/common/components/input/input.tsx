@@ -74,6 +74,7 @@ const Input = <T extends FieldValues>({
         checkTypePassword =
             passwordShown || (!field.value && InputType.PASSWORD);
     }
+    const inputClassesWithError = classNames(inputClasses, styles.hasError);
 
     return (
         <label className={labelClasses}>
@@ -83,7 +84,7 @@ const Input = <T extends FieldValues>({
                 type={checkTypePassword ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
-                className={`${hasError ? styles.hasError : inputClasses}`}
+                className={`${hasError ? inputClassesWithError : inputClasses}`}
             />
             {eyeHidden && (
                 <span

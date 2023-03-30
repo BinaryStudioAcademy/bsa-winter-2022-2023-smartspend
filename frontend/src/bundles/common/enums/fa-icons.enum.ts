@@ -3,6 +3,7 @@ enum FaIcons {
     CHEVRON_UP = 'chevron-up',
     EYE = 'eye',
     EYE_SLASH = 'eye-slash',
+    PLUS = 'plus',
     FA_REGULAR = 'far',
 }
 

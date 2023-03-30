@@ -16,6 +16,7 @@ export { PrivateRoute } from './private-route/private-route.js';
 export { PublicRoute } from './public-route/public-route';
 export { RangeSlider } from './range-slider/range-slider.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { ScrollNavLink } from './scroll-nav/scroll-nav.js';
 export { Tabs } from './tabs/tabs.js';
 export { TransactionTable } from './transanction-table/transaction-table';
 export { Provider as StoreProvider } from 'react-redux';

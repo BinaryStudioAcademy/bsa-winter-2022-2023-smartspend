@@ -9,7 +9,7 @@
 .title {
     margin: var(--m-2) 0;
     color: var(--color-blue-600);
-    font-size: 1.25rem;
+    font-size: var(--font-size-level-3-heading);
 }
 
 .input::-webkit-inner-spin-button,
@@ -30,7 +30,7 @@
     height: 34px;
     color: var(--color-blue-300);
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: var(--font-size-level-4-heading);
     background-color: var(--color-disable);
     border: none;
     border-radius: var(--b-1);

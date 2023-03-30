@@ -91,22 +91,27 @@ const people = [
     {
         value: 'John Doe',
         name: 'John Doe',
+        image: 'https://placekitten.com/50/50',
     },
     {
         value: 'Jane Smith',
         name: 'Jane Smith',
+        image: 'https://placekitten.com/51/51',
     },
     {
         value: 'Alice Johnson',
         name: 'Alice Johnson',
+        image: 'https://placekitten.com/52/52',
     },
     {
         value: 'Bob Brown',
         name: 'Bob Brown',
+        image: 'https://placekitten.com/53/53',
     },
     {
         value: 'Charlie Green',
         name: 'Charlie Green',
+        image: 'https://placekitten.com/54/54',
     },
 ];
 

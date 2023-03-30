@@ -6,7 +6,7 @@ import { InputType } from '../../enums/input-type.enum';
 import { type DataType } from '../../types/dropdown.type';
 import { BaseModal, Input } from '../components';
 import { Dropdown } from '../dropdown/dropdown';
-import { currencies } from './currency-list';
+import { currencies } from './currency-list/currency-list';
 import styles from './styles.module.scss';
 
 interface Properties {

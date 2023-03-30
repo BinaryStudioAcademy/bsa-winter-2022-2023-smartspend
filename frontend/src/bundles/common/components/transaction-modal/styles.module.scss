@@ -1,0 +1,33 @@
+.body {
+    display: flex;
+}
+
+.labelElement {
+    color: var(--color-gray-200);
+}
+
+.category {
+    width: 150px;
+}
+
+.label {
+    width: 150px;
+}
+
+.amount {
+    width: 10%;
+}
+
+.currency {
+    width: 110px;
+}
+
+.delete {
+    color: var(--color-warning);
+    border: var(--border) solid var(--color-warning);
+}
+
+.delete:hover {
+    color: var(--color-red-300);
+    border: var(--border) solid var(--color-red-300);
+}

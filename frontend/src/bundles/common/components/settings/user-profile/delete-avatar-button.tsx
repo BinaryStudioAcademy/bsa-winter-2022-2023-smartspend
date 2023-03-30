@@ -1,7 +1,6 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import styles from '../styles.module.scss';
+import { Button } from '~/bundles/common/components/components';
+import { ButtonType } from '~/bundles/common/enums/button-type.enum';
+import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 
 type Properties = {
     deleteFile: () => void;
@@ -9,13 +8,13 @@ type Properties = {
 
 const DeleteAvatarButton: React.FC<Properties> = ({ deleteFile }) => {
     return (
-        <button
-            type="button"
-            className={styles.deleteAvatar}
+        <Button
+            variant={ButtonVariant.DELETE}
+            type={ButtonType.BUTTON}
             onClick={deleteFile}
         >
-            <FontAwesomeIcon icon={faTrash} />
-        </button>
+            Delete Avatar
+        </Button>
     );
 };
 

@@ -87,7 +87,7 @@
 .charts {
     display: grid;
     grid-template-rows: repeat(2, 300px);
-    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
     justify-content: center;
     gap: 15px;
     margin-top: var(--m-3);

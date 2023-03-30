@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .header {
     position: fixed;
     top: 0;
@@ -70,17 +72,18 @@
 }
 
 .headerBtn {
+    width: 111px;
     color: var(--color-blue-600);
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .headerBody {
         display: none;
         margin: 0 var(--m-4);
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: $md) and (max-width: $lg) {
     .headerBody {
         margin: 0 1.25rem;
     }

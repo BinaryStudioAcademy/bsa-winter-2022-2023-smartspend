@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .menu {
     display: flex;
     justify-content: flex-end;
@@ -48,13 +50,13 @@
     transition: transform 0.2s ease-in-out;
 }
 
-@media (max-width: var(--xl)) {
+@media (max-width: $xl) {
     .menuList {
         gap: var(--m-3);
     }
 }
 
-@media (max-width: var(--lg)) {
+@media (max-width: $lg) {
     .menuList {
         gap: var(--m-3);
     }

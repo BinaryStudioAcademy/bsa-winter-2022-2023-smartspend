@@ -19,6 +19,9 @@ type Properties = {
     children?: ReactNode;
     hasActionButtons?: boolean;
     submitButtonName?: string;
+    width?: number;
+    footerContainerClass?: string;
+    buttonsSize?: ButtonSize;
 };
 
 const BaseModal: React.FC<Properties> = ({
@@ -28,8 +31,11 @@ const BaseModal: React.FC<Properties> = ({
     children,
     isShown,
     onSubmit,
-    hasActionButtons = true,
+    // hasActionButtons = true,
     submitButtonName,
+    footerContainerClass = '',
+    width,
+    buttonsSize = ButtonSize.SMALL,
 }) => {
     const handleClose = useCallback(() => {
         onClose();
@@ -68,6 +74,7 @@ const BaseModal: React.FC<Properties> = ({
                         className={styles.popup}
                         onClick={handleDisableContentContainerClick}
                         role="presentation"
+                        style={{ width: `${width}px` }}
                     >
                         <button
                             data-test-id="book-trip-popup-close"
@@ -78,26 +85,29 @@ const BaseModal: React.FC<Properties> = ({
                         </button>
                         <div className={styles.modalHeader}>{Header}</div>
                         <div className={styles.modalBody}>{Body}</div>
-                        <div className={styles.modalFooter}>
-                            {children}
-                            {hasActionButtons && (
-                                <div className={styles.mainButtonsWrapper}>
-                                    <Button
-                                        variant={ButtonVariant.SECONDARY}
-                                        size={ButtonSize.SMALL}
-                                        onClick={handleClose}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        variant={ButtonVariant.PRIMARY}
-                                        size={ButtonSize.SMALL}
-                                        onClick={onSubmit}
-                                    >
-                                        {submitButtonName}
-                                    </Button>
-                                </div>
+                        <div
+                            className={classNames(
+                                styles.modalFooter,
+                                footerContainerClass,
                             )}
+                        >
+                            {children}
+                            <div className={styles.mainButtonsWrapper}>
+                                <Button
+                                    variant={ButtonVariant.SECONDARY}
+                                    size={buttonsSize}
+                                    onClick={handleClose}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant={ButtonVariant.PRIMARY}
+                                    size={buttonsSize}
+                                    onClick={onSubmit}
+                                >
+                                    {submitButtonName}
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,4 @@
-import {
-    type PrepareAction,
-    createAction,
-    createAsyncThunk,
-} from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {

@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .container {
     display: flex;
     flex-direction: column;
@@ -11,8 +13,9 @@
 }
 
 .contentWrapper {
-    max-width: var(--lg);
+    max-width: 1192px;
     margin: 0 auto;
+    padding: 0 var(--p-3);
 }
 
 .wallets {
@@ -109,8 +112,23 @@
     align-items: center;
     width: 230px;
     height: 160px;
-    background: white;
+    background: var(--color-white-100);
     border-radius: var(--b-4);
+}
+
+.walletButtonTitle {
+    color: var(--color-blue-600);
+}
+
+.smallCalendar {
+    display: none;
+}
+
+@media (max-width: 450px) {
+    .charts .chart {
+        width: 370px;
+        margin: 0 auto;
+    }
 }
 
 .walletIcon {
@@ -131,14 +149,6 @@
     opacity: 0.7;
 }
 
-.walletButtonTitle {
-    color: var(--color-blue-600);
-}
-
-.smallCalendar {
-    display: none;
-}
-
 @media (max-width: 450px) {
     .charts .chart {
         width: 370px;
@@ -146,7 +156,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .charts {
         grid-template-columns: 430px;
     }
@@ -173,7 +183,7 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: $md) and (max-width: $lg) {
     .charts {
         grid-template-columns: repeat(2, 400px);
     }
@@ -187,13 +197,15 @@
         grid-template-columns: repeat(2, 400px);
         margin: 0 auto;
     }
+}
 
-    .wallets div:nth-child(odd) {
-        justify-self: end;
+@media (min-width: calc($lg + 1px)) and (max-width: $xl) {
+    .charts {
+        grid-template-columns: repeat(2, 420px);
     }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: calc($xl + 1px)) {
     .charts {
         grid-template-columns: repeat(2, 480px);
     }

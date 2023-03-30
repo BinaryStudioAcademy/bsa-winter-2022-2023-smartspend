@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 :root {
     --p-10: 10px;
 }
@@ -22,6 +24,12 @@
     padding-bottom: var(--p-5);
 }
 
+.logoLink {
+    display: flex;
+    margin: var(--m-7) auto var(--m-4);
+    text-decoration: none;
+}
+
 .authLogo {
     display: flex;
     flex: 0 0 auto;
@@ -29,7 +37,6 @@
     align-items: center;
     width: 4.5rem;
     height: 4.5rem;
-    margin: var(--m-7) auto var(--m-4);
     padding: var(--p-10) var(--p-3);
     overflow: hidden;
     background: var(--gradient-6);
@@ -41,6 +48,14 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.logoText {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--p-3);
+    color: var(--color-white-100);
+    font-size: var(--font-size-level-2-heading);
 }
 
 .authInside {
@@ -165,7 +180,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .authInside {
         width: 520px;
     }
@@ -175,7 +190,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .authRoundsmall {
         right: -25px;
     }
@@ -185,7 +200,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .authInside {
         width: 100%;
         padding-right: var(--p-2);
@@ -205,14 +220,16 @@
     }
 }
 
-@media (max-height: 768px) {
-    .authLogo {
+@media (max-height: $md) {
+    .authLogo,
+    .logoText {
         margin: var(--m-6) auto var(--m-3);
     }
 }
 
-@media (max-height: 576px) {
-    .authLogo {
+@media (max-height: $sm) {
+    .authLogo,
+    .logoText {
         margin: var(--m-5) auto var(--m-2);
     }
 }

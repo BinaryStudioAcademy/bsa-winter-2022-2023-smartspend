@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .links_container {
     display: flex;
     justify-content: center;
@@ -18,4 +20,14 @@
     font-size: var(--font-size-caption);
     text-transform: uppercase;
     text-decoration: none;
+}
+
+@media (max-width: $sm) {
+    .links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        align-items: center;
+        gap: var(--m-2);
+    }
 }

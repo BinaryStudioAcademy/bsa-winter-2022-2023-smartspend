@@ -43,11 +43,9 @@ const loadUser = createAsyncThunk<
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/authenticated-user`, async (_registerPayload, { extra }) => {
-    const { authApi, storage } = extra;
+    const { authApi } = extra;
 
-    const token = storage.getSync(StorageKey.TOKEN) as string;
-
-    return await authApi.loadUser({ token });
+    return await authApi.loadUser();
 });
 
 export { loadUser, signIn, signUp };

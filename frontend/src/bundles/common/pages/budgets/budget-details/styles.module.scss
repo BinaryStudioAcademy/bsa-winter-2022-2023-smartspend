@@ -1,0 +1,156 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 280px;
+    padding: var(--p-4);
+    color: var(--color-gray-400);
+    font-family: var(--font-family);
+    background: white;
+    border-radius: 15px;
+}
+
+.title {
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+}
+
+.total {
+    margin-top: var(--m-3);
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-4-heading);
+}
+
+.cardOriginally {
+    // background-color: #c9e4f8;
+    // add any other styles you want for this type of card
+}
+
+.cardOriginally .total::before {
+    content: "+";
+}
+
+.cardSpent {
+    // background-color: #f9c9c9;
+    // add any other styles you want for this type of card
+}
+
+.cardSpent .total::before {
+    content: "-";
+}
+
+.minus {
+    color: var(--color-warning);
+}
+
+.cardLeft {
+    // background-color: #c5e8d1;
+    // add any other styles you want for this type of card
+}
+
+.cardLeft .total::before {
+    content: "+";
+}
+
+.cardCan {
+    // background-color: #f2d7c8;
+    // add any other styles you want for this type of card
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+    background: #eff3ff;
+}
+
+.contentWrapper {
+    width: 100%;
+    max-width: 1192px;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.calendarWrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.budgetInfoWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    background: white;
+    border-radius: 15px;
+}
+
+.breadcrumbsWrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+    padding: 15px;
+    background: white;
+    border-radius: 15px;
+}
+
+.breadcrumbsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editButtonWrapper {
+    margin: 10px;
+    padding: 15px;
+}
+
+.editButton {
+    color: var(--color-turquoise-600);
+    border-color: var(--color-turquoise-600);
+}
+
+.cardsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.progressWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 15px;
+}
+
+.budgetProgressBar {
+    width: 100%;
+    height: 16px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.budgetProgressBarSpent {
+    float: left;
+    height: 100%;
+    background-color: #f44336;
+}
+
+.budgetProgressBarRemaining {
+    float: right;
+    height: 100%;
+    background-color: #4caf50;
+}

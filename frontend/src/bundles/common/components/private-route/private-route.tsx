@@ -21,7 +21,6 @@ const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     if (!token) {
         return <Navigate to={AppRoute.SIGN_IN} />;
     }
-
     return children;
 };
 

@@ -17,6 +17,7 @@ import {
     Header,
     Input,
     LineChart,
+    Loader,
     TransactionTable,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
@@ -684,6 +685,7 @@ const Base: React.FC = () => {
                     />
                 </div>
             </div>
+            <Loader />
         </>
     );
 };

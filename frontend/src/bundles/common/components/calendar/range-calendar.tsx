@@ -14,9 +14,9 @@ import { ButtonSize } from '../../enums/button-size.enum';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import {
     formatRange,
-    getBackwardMonths,
-    getForwardMonths,
+    getFutureDate,
     getInitialRange,
+    getPastDate,
 } from '../../helpers/helpers';
 import { Button } from '../components';
 import styles from './styles.module.scss';
@@ -37,12 +37,12 @@ const RangeCalendar: React.FC = () => {
                     break;
                 }
                 case 'forward': {
-                    setRange(getForwardMonths(range));
+                    setRange(getFutureDate(range));
 
                     break;
                 }
                 case 'backward': {
-                    setRange(getBackwardMonths(range));
+                    setRange(getPastDate(range));
 
                     break;
                 }
@@ -54,21 +54,15 @@ const RangeCalendar: React.FC = () => {
         [isShowModal, range],
     );
 
-    const handleSelectRange = useCallback(
-        //з кастомного календаря DateRangePicker приходить один з кастомних типів(DateRange, RangeKeyDict) .
-        //FIX: спробувати прокинути всюди тип RangeKeyDict
-        //FIX: спробувати використовувати тип Range з бібліотеки. Лише тоді в данних що будуть передаватись прибрати, на самому початку, поле "selection"
-
-        (range: RangeKeyDict): void => {
-            const newRange: Range = {
-                startDate: range.selection.startDate,
-                key: 'selection',
-                endDate: range.selection.endDate,
-            };
-            setRange(newRange);
-        },
-        [],
-    );
+    const handleSelectRange = useCallback((range: RangeKeyDict): void => {
+        const newRange: Range = {
+            startDate: range.selection.startDate,
+            key: 'selection',
+            endDate: range.selection.endDate,
+            color: '#03bfd9',
+        };
+        setRange(newRange);
+    }, []);
 
     return (
         <div className={styles.calendar_wrapper}>
@@ -78,7 +72,7 @@ const RangeCalendar: React.FC = () => {
                 size={ButtonSize.MEDIUM}
                 onClick={handleClick}
             >
-                <div className={styles.range_display}>
+                <div className={styles.range_wrapper}>
                     <img
                         className={styles.arrow_left}
                         id="backward"
@@ -86,7 +80,9 @@ const RangeCalendar: React.FC = () => {
                         alt="left-arrow"
                     />
 
-                    <div id="range_date">{formatRange(range)}</div>
+                    <div className={styles.range_display} id="range_date">
+                        {formatRange(range)}
+                    </div>
 
                     <img
                         className={styles.arrow_right}
@@ -123,7 +119,7 @@ const RangeCalendar: React.FC = () => {
                             size={ButtonSize.SMALL}
                             onClick={handleClick}
                         >
-                            Close
+                            Select
                         </Button>
                     </div>
                 </>

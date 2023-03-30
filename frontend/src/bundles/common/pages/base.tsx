@@ -89,15 +89,18 @@ const tabsDashboard = [
 
 const people = [
     {
-        value: 'John Doe',
+        value: '1111John Doe',
+        fullName: 'QQQQQQQQQQQ',
         name: 'John Doe',
     },
     {
         value: 'Jane Smith',
+        fullName: 'QQQQQQQQQQQ',
         name: 'Jane Smith',
     },
     {
         value: 'Alice Johnson',
+        fullName: 'QQQQQQQQQQQ',
         name: 'Alice Johnson',
     },
     {
@@ -139,7 +142,7 @@ const Base: React.FC = () => {
 
     // WALLET MODAL
 
-    const [walletModalActive, setWalletModalActive] = useState(true);
+    const [walletModalActive, setWalletModalActive] = useState(false);
 
     const handleWalletModalCancel = useCallback(() => {
         setWalletModalActive(false);

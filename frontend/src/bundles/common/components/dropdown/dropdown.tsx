@@ -40,23 +40,21 @@ const Dropdown: React.FC<Properties> = ({
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
-    const options = data.map((item) => ({
-        value: item.value,
-        name: item.name,
-        image: item.image,
-    }));
-
     const blue500 = 'var(--color-blue-500)';
+    const blue600 = 'var(--color-blue-600)';
 
     const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: blue500,
+            color: blue600,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
+            ':hover': {
+                color: blue600,
+            },
         }),
         indicatorSeparator: () => ({
             display: 'none',
@@ -65,6 +63,7 @@ const Dropdown: React.FC<Properties> = ({
             ...provided,
             height: '48px',
             width: '100%',
+            borderRadius: 'var(--b-2)',
             borderWidth: '0.1rem',
             borderColor:
                 state.isFocused || state.menuIsOpen
@@ -76,7 +75,9 @@ const Dropdown: React.FC<Properties> = ({
                     : provided.boxShadow,
             transition: 'box-shadow 0.2s linear',
             '&:hover': {
-                borderColor: state.isFocused ? blue500 : provided.borderColor,
+                borderColor: state.isFocused
+                    ? blue500
+                    : 'var(--color-blue-300)',
             },
             cursor: 'pointer',
         }),
@@ -128,7 +129,7 @@ const Dropdown: React.FC<Properties> = ({
                     image: selectedOption.image,
                 }}
                 onChange={handleChange as HandleChangeFunction}
-                options={options}
+                options={data}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }

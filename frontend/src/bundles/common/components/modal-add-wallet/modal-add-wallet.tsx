@@ -1,28 +1,18 @@
 import classNames from 'classnames';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { InputType } from '../../enums/input-type.enum';
+import { type DataType } from '../../types/dropdown.type';
 import { BaseModal, Input } from '../components';
 import { Dropdown } from '../dropdown/dropdown';
+import { currencies } from './currency-list';
 import styles from './styles.module.scss';
-
-const currencies = [
-    { value: 'USD', name: 'US Dollar' },
-    { value: 'EUR', name: 'Euro' },
-    { value: 'GBP', name: 'British Pound' },
-];
 
 interface Properties {
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
-}
-
-interface FormValues {
-    walletName: string;
-    currency: string;
-    startingBalance: string;
 }
 
 const ModalAddWallet: React.FC<Properties> = ({
@@ -34,12 +24,20 @@ const ModalAddWallet: React.FC<Properties> = ({
         control,
         formState: { errors },
         watch,
-    } = useForm<FormValues>({
+    } = useForm({
         defaultValues: {
             walletName: '',
             startingBalance: '',
         },
     });
+
+    const [currency, setCurrency] = useState<DataType>(currencies[0]);
+
+    const handleChange = useCallback((selectedOption: DataType | null) => {
+        if (selectedOption !== null) {
+            setCurrency(selectedOption);
+        }
+    }, []);
 
     const walletName = watch('walletName');
 
@@ -47,11 +45,13 @@ const ModalAddWallet: React.FC<Properties> = ({
         (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
-            // const formData = new FormData(event.target as HTMLFormElement);
-            // const formDataEntries = formData.entries();
-            // const formDataFormatted = Object.fromEntries(formDataEntries);
+            const formData = new FormData(event.target as HTMLFormElement);
+            const formDataEntries = formData.entries();
+            onClose();
+
+            return Object.fromEntries(formDataEntries);
         },
-        [],
+        [onClose],
     );
 
     return (
@@ -76,7 +76,8 @@ const ModalAddWallet: React.FC<Properties> = ({
 
                     <Dropdown
                         data={currencies}
-                        selectedOption={currencies[0]}
+                        selectedOption={currency}
+                        handleChange={handleChange}
                         label="Currency"
                         labelClassName={styles.label}
                         name="Dropdown"

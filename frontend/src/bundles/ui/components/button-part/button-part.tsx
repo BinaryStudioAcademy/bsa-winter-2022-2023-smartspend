@@ -98,7 +98,7 @@ export { ButtonExample }
 
 const ButtonPart: React.FC = () => {
     return (
-        <div className={styles.container}>
+        <div className={'container'}>
             <CodeHighlight code={codeExample} />
             <div className={styles.buttonsContainer}>
                 <Button

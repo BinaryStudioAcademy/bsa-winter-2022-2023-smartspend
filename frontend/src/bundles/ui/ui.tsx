@@ -83,7 +83,7 @@ const StyleGuide: React.FC = () => {
         { name: 'dropdown', component: <DropdownPart /> },
     ];
     return (
-        <>
+        <div>
             <h1>Style Guide</h1>
             <ul className={styles.list}>
                 {collapseItemsArray.map((item, index) => (
@@ -111,7 +111,7 @@ const StyleGuide: React.FC = () => {
                     </li>
                 ))}
             </ul>
-        </>
+        </div>
     );
 };
 

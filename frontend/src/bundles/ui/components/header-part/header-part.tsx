@@ -1,5 +1,6 @@
 import { AppRoute } from '../../enums/enums';
 import { CodeHighlight, Header } from '../components';
+import styles from './styles.module.scss';
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -49,7 +50,9 @@ const HeaderPart: React.FC = () => {
     return (
         <>
             <CodeHighlight code={exampleCode} />
-            <Header dataTabs={allTabsData} />
+            <div className={styles.headerContainer} >
+            <Header  dataTabs={allTabsData} />
+            </div>
         </>
     );
 };

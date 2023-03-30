@@ -1,5 +1,6 @@
 import '~/assets/css/variables/color-variables.scss';
 
+import classNames from 'classnames';
 import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
@@ -22,6 +23,8 @@ interface Properties {
     ) => void;
     handleFocus?: () => boolean;
     formatOptionLabel?: (data: DataType) => JSX.Element;
+    label?: string;
+    labelClassName?: string;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -30,7 +33,11 @@ const Dropdown: React.FC<Properties> = ({
     handleChange,
     handleFocus,
     formatOptionLabel,
+    label,
+    labelClassName = '',
 }) => {
+    const labelClasses = classNames(styles.label, labelClassName);
+
     const options = data.map((item) => ({
         value: item.value,
         name: item.name,
@@ -55,7 +62,8 @@ const Dropdown: React.FC<Properties> = ({
         control: (provided, state) => ({
             ...provided,
             height: '48px',
-
+            width: '100%',
+            borderWidth: '0.1rem',
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue500
@@ -106,20 +114,27 @@ const Dropdown: React.FC<Properties> = ({
     );
 
     return (
-        <Select
-            className={styles.select}
-            value={{
-                value: selectedOption.value,
-                name: selectedOption.name,
-                image: selectedOption.image,
-            }}
-            onChange={handleChange as HandleChangeFunction}
-            options={options}
-            formatOptionLabel={formatOptionLabel ?? defaultFormatOptionLabel}
-            styles={customStyles}
-            onFocus={handleFocus}
-            isSearchable={false}
-        />
+        <>
+            <div className={styles.labelContainer}>
+                <span className={labelClasses}>{label}</span>
+            </div>
+            <Select
+                className={styles.select}
+                value={{
+                    value: selectedOption.value,
+                    name: selectedOption.name,
+                    image: selectedOption.image,
+                }}
+                onChange={handleChange as HandleChangeFunction}
+                options={options}
+                formatOptionLabel={
+                    formatOptionLabel ?? defaultFormatOptionLabel
+                }
+                styles={customStyles}
+                onFocus={handleFocus}
+                isSearchable={false}
+            />
+        </>
     );
 };
 

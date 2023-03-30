@@ -232,6 +232,7 @@ const Base: React.FC = () => {
                         data={people}
                         selectedOption={selectedSingle}
                         handleChange={handleDropdownChange}
+                        label={'TestLabel'}
                         // formatOptionLabel={testFormat}
                     />
                 </div>

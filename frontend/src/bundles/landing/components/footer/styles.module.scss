@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     position: relative;
     display: flex;
@@ -41,7 +43,7 @@
     border-radius: 50%;
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .container {
         height: 180px;
     }

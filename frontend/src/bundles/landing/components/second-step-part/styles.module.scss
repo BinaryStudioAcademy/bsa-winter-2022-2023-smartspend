@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     position: relative;
     display: flex;
@@ -55,13 +57,13 @@
     border-radius: 50%;
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container > div:last-child {
         width: auto;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .container {
         flex-direction: column;
         height: auto;
@@ -73,7 +75,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .smallBlueBorderCircle {
         display: none;
     }

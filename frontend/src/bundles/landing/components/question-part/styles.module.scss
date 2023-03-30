@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .container {
     display: flex;
     justify-content: center;
@@ -13,14 +15,14 @@
     text-align: center;
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .title {
         font-size: var(--font-size-level-2-heading);
         line-height: var(--line-height-level-3-heading);
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .title {
         margin: var(--m-4) 0;
     }

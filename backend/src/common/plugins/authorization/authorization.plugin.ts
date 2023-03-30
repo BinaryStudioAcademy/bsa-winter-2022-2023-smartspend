@@ -1,5 +1,7 @@
 import fp from 'fastify-plugin';
 
+import { type WhiteRoute } from '~/common/types/white-route.type.js';
+
 import {
     ControllerHook,
     ExceptionMessage,
@@ -13,12 +15,18 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
 
     fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
         try {
-            const isWhiteRoute = routesWhiteList.includes(request.routerPath);
+            const routeConfig = {
+                endpoint: request.routerPath,
+                method: request.method,
+            };
+            const isWhiteRoute = routesWhiteList.some(
+                (route: WhiteRoute) =>
+                    JSON.stringify(route) === JSON.stringify(routeConfig),
+            );
 
             if (isWhiteRoute) {
                 return;
             }
-
             const token = getToken(request.headers.authorization as string);
             const { auth } = services;
 

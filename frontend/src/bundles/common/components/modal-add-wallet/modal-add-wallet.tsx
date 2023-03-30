@@ -69,11 +69,14 @@ const ModalAddWallet: React.FC<Properties> = ({
                         labelClassName={styles.label}
                     />
 
-                    <Dropdown
-                        data={currencies}
-                        selectedOption={currencies[0]}
-                        width="100%"
-                    ></Dropdown>
+                    <div>
+                        <span className={styles.dropdownLabel}>Wallet</span>
+                        <Dropdown
+                            data={currencies}
+                            selectedOption={currencies[0]}
+                            width="100%"
+                        ></Dropdown>
+                    </div>
 
                     <Input
                         control={control}

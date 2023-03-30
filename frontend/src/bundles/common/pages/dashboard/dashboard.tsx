@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import { Calendar } from '../../components/calendar/calendar';
 import {
@@ -13,14 +15,12 @@ import {
 } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { CardVariant } from '../../enums/enums';
-import { useAppForm } from '../../hooks/hooks';
+import { useAppDispatch, useAppForm, useAppSelector } from '../../hooks/hooks';
 import {
-    type Wallet,
     barChartData,
     categories,
     lineChartData,
-    mockSliderData,
-    wallets,
+    mockSliderData
 } from './mocks.dashboard';
 import styles from './styles.module.scss';
 
@@ -79,6 +79,8 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
 };
 
 const Dashboard: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { wallets } = useAppSelector((state) => state.wallets);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
@@ -98,16 +100,20 @@ const Dashboard: React.FC = () => {
         [],
     );
 
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+    }, [dispatch]);
+
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {wallets.map((wallet: Wallet) => (
+                        {wallets.map((wallet) => (
                             <div key={wallet.id}>
                                 <WalletButton isButton={false}>
-                                    <>Mock {wallet.title}</>
+                                    {wallet.name}
                                 </WalletButton>
                             </div>
                         ))}

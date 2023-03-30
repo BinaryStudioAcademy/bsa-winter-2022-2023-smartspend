@@ -9,7 +9,7 @@ const loadAll = createAsyncThunk<
     WalletGetAllResponseDto,
     undefined,
     AsyncThunkConfig
->(`${sliceName}/`, (_, { extra }) => {
+>(sliceName, (_, { extra }) => {
     const { walletsApi } = extra;
 
     return walletsApi.getAll();

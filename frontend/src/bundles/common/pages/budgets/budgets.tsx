@@ -1,9 +1,12 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
+
 import {
     BaseModal,
     BudgetCard,
     Button,
 } from '~/bundles/common/components/components.js';
-import { ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
@@ -36,7 +39,7 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
 
     return (
         <div className={styles.budgets}>
-            <div className={styles.container}>
+            <div className={classNames(styles.container, 'container')}>
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
@@ -50,17 +53,25 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                                 date={card.date}
                             />
                         ))}
-                        <Button
+                        <div
                             className={styles.cardCreate}
-                            onClick={handleClickOpen}
+                            onClickCapture={handleClickOpen}
                         >
                             <div className={styles.cardWrapper}>
-                                <Button variant={ButtonVariant.ROUND}>+</Button>
+                                <Button
+                                    variant={ButtonVariant.ROUND}
+                                    className={styles.button}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={FaIcons.PLUS}
+                                        color={'var(--color-white-100)'}
+                                    />
+                                </Button>
                                 <p className={styles.createText}>
                                     Create a New Budget
                                 </p>
                             </div>
-                        </Button>
+                        </div>
                     </div>
                 </div>
             </div>

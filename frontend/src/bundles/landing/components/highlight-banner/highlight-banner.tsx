@@ -14,7 +14,7 @@ type Properties = {
 
 const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
     return (
-        <section className={styles.body}>
+        <section id="app" className={styles.body}>
             <div className={classNames('container', styles.container)}>
                 <span className={styles.pinkCircle}></span>
                 <span className={styles.violetCircle}></span>

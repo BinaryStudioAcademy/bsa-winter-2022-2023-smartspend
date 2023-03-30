@@ -1,4 +1,4 @@
 export {
     WalletsApiPath,
     WalletValidationMessage,
-} from 'shared/src/bundles/wallets/enums/enums.js';
+} from 'shared/build/bundles/wallets/enums/enums.js';

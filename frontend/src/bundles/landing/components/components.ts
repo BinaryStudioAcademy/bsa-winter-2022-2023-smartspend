@@ -15,7 +15,6 @@ export { StepInfoPanel } from './step-info-panel/step-info-panel';
 export { StoreButton } from './store-button/store-button';
 export { SubscriptionPart } from './subscription-part/subscription-part';
 export { ThirdStepPart } from './third-step-part/third-step-part';
-export { WalletCard } from './wallet-card/wallet-card';
 export {
     Button,
     DoughnutChart,
@@ -23,4 +22,5 @@ export {
     Input,
     LineChart,
     Link,
+    WalletCard,
 } from '~/bundles/common/components/components';

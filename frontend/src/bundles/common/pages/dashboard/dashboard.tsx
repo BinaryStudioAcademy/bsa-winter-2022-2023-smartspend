@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 
+import { WalletCardSize } from '~/bundles/landing/enums/enums';
+
 import { Calendar } from '../../components/calendar/calendar';
 import {
     Button,
@@ -10,6 +12,7 @@ import {
     Input,
     LineChart,
     RangeSlider,
+    WalletCard,
 } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { CardVariant } from '../../enums/enums';
@@ -107,7 +110,12 @@ const Dashboard: React.FC = () => {
                         {wallets.map((wallet: Wallet) => (
                             <div key={wallet.id}>
                                 <WalletButton isButton={false}>
-                                    <>Mock {wallet.title}</>
+                                    <WalletCard
+                                        title={wallet.title}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={wallet.value}
+                                        wallet_type={'Balance'}
+                                    />
                                 </WalletButton>
                             </div>
                         ))}

@@ -11,6 +11,8 @@ export { DoughnutData } from './doughnut-data.enum.js';
 export { FaIcons } from './fa-icons.enum.js';
 export { InputType } from './input-type.enum.js';
 export { menuLinks } from './menu-links.enum.js';
+export { WalletCardSize } from './wallet-card-size.enum.js';
+export { WalletCardVariant } from './wallet-card-variant.enum.js';
 export {
     ApiPath,
     AppEnvironment,

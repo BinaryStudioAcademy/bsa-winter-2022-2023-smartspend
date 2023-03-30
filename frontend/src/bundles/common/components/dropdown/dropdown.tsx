@@ -40,21 +40,23 @@ const Dropdown: React.FC<Properties> = ({
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
+    const options = data.map((item) => ({
+        value: item.value,
+        name: item.name,
+        image: item.image,
+    }));
+
     const blue500 = 'var(--color-blue-500)';
-    const blue600 = 'var(--color-blue-600)';
 
     const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: blue600,
+            color: blue500,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
-            ':hover': {
-                color: blue600,
-            },
         }),
         indicatorSeparator: () => ({
             display: 'none',
@@ -63,7 +65,6 @@ const Dropdown: React.FC<Properties> = ({
             ...provided,
             height: '48px',
             width: '100%',
-            borderRadius: 'var(--b-2)',
             borderWidth: '0.1rem',
             borderColor:
                 state.isFocused || state.menuIsOpen
@@ -75,9 +76,7 @@ const Dropdown: React.FC<Properties> = ({
                     : provided.boxShadow,
             transition: 'box-shadow 0.2s linear',
             '&:hover': {
-                borderColor: state.isFocused
-                    ? blue500
-                    : 'var(--color-blue-300)',
+                borderColor: state.isFocused ? blue500 : provided.borderColor,
             },
             cursor: 'pointer',
         }),
@@ -117,7 +116,7 @@ const Dropdown: React.FC<Properties> = ({
     );
 
     return (
-        <div>
+        <>
             <div className={styles.labelContainer}>
                 <span className={labelClasses}>{label}</span>
             </div>
@@ -129,7 +128,7 @@ const Dropdown: React.FC<Properties> = ({
                     image: selectedOption.image,
                 }}
                 onChange={handleChange as HandleChangeFunction}
-                options={data}
+                options={options}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }
@@ -138,7 +137,7 @@ const Dropdown: React.FC<Properties> = ({
                 isSearchable={false}
                 name={name}
             />
-        </div>
+        </>
     );
 };
 

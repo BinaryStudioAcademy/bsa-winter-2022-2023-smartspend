@@ -39,34 +39,35 @@ const MultiDropdown: React.FC<Properties> = ({
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
+    const options = data.map((item) => ({
+        value: item.value,
+        name: item.name,
+        image: item.image,
+    }));
+
     const blue500 = 'var(--color-blue-500)';
-    const blue600 = 'var(--color-blue-600)';
 
     const customStyles: StylesConfig<DataType, true> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: blue600,
+            color: blue500,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
-            ':hover': {
-                color: blue600,
-            },
         }),
         indicatorSeparator: () => ({
             display: 'none',
         }),
         clearIndicator: (base) => ({
             ...base,
-            color: blue600,
+            color: blue500,
         }),
         control: (provided, state) => ({
             ...provided,
             height: '48px',
             width: '100%',
-            borderRadius: 'var(--b-2)',
             borderWidth: '0.1rem',
             borderColor:
                 state.isFocused || state.menuIsOpen
@@ -78,9 +79,7 @@ const MultiDropdown: React.FC<Properties> = ({
                     : provided.boxShadow,
             transition: 'box-shadow 0.2s linear',
             '&:hover': {
-                borderColor: state.isFocused
-                    ? blue500
-                    : 'var(--color-blue-300)',
+                borderColor: state.isFocused ? blue500 : provided.borderColor,
             },
 
             cursor: 'pointer',
@@ -115,14 +114,13 @@ const MultiDropdown: React.FC<Properties> = ({
                     className={styles.checkbox}
                 />
 
-                {data.image && (
-                    <img
-                        className={styles.image}
-                        src={data.image}
-                        alt={data.name ?? ''}
-                    />
-                )}
-                {data.name && <span className={styles.name}>{data.name}</span>}
+                <img
+                    className={styles.image}
+                    src={data.image}
+                    alt={data.name ?? ''}
+                />
+
+                <span className={styles.name}>{data.name}</span>
             </div>
         ),
         [selectedOption],
@@ -153,7 +151,7 @@ const MultiDropdown: React.FC<Properties> = ({
     };
 
     return (
-        <div>
+        <>
             <div className={styles.labelContainer}>
                 <span className={labelClasses}>{label}</span>
             </div>
@@ -162,7 +160,7 @@ const MultiDropdown: React.FC<Properties> = ({
                 className={styles.select}
                 value={selectedOption}
                 onChange={handleChange}
-                options={data}
+                options={options}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }
@@ -176,7 +174,7 @@ const MultiDropdown: React.FC<Properties> = ({
                 isSearchable={false}
                 name={name}
             />
-        </div>
+        </>
     );
 };
 

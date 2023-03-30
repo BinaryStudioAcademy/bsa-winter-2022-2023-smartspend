@@ -49,7 +49,11 @@ const OneDayCalendar: React.FC = () => {
                         className={styles.overlay}
                     ></input>
                     <div className={styles.modal_one_day}>
-                        <Calendar date={day} onChange={handleSelectDay} />
+                        <Calendar
+                            date={day}
+                            onChange={handleSelectDay}
+                            color="#03bfd9"
+                        />
                     </div>
                 </>
             ) : (

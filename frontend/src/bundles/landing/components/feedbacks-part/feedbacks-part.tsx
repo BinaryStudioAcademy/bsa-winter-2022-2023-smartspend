@@ -43,7 +43,7 @@ const breakpoints = {
 
 const FeedbacksPart: React.FC<Properties> = ({ title, feedbacks }) => {
     return (
-        <section className={styles.body}>
+        <section id="reviews" className={styles.body}>
             <div className={classNames('container', styles.container)}>
                 <h1 className={styles.title}>{title}</h1>
                 <Swiper

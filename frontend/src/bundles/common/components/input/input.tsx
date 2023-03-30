@@ -75,6 +75,7 @@ const Input = <T extends FieldValues>({
         styles[isDisabled ? 'disabled' : ''],
         inputClassName,
     );
+    const inputClassesWithError = classNames(inputClasses, styles.hasError);
 
     return (
         <label className={labelClasses}>

@@ -1,3 +1,4 @@
+export { ButtonTabs } from './button-tabs/button-tabs';
 export { DoughnutChartCard } from './doughnut-chart-card/doughnut-chart-card';
 export { FeedbackCard } from './feedback-card/feedback-card';
 export { FeedbacksPart } from './feedbacks-part/feedbacks-part';

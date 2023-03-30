@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .header {
     position: fixed;
     top: 0;
@@ -15,16 +17,22 @@
     flex: 1 1 auto;
     justify-content: space-between;
     align-items: center;
-    max-width: var(--container);
     height: 100%;
-    padding: 0 var(--p-3);
+}
+
+.headerContainer > button {
+    z-index: 3;
 }
 
 .headerBody {
     display: flex;
     flex: 1 1 auto;
     justify-content: center;
-    margin: 0 4.5rem;
+    margin: 0 4.5rem 0 0;
+}
+
+.tabs {
+    margin: 0;
 }
 
 .userLink {
@@ -33,6 +41,7 @@
 }
 
 .headerLogo {
+    z-index: 3;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,15 +78,52 @@
     border-radius: 50%;
 }
 
-@media (max-width: 768px) {
+.headerBtn {
+    width: 110px;
+    color: var(--color-blue-600);
+}
+
+@media (max-width: $lg) {
     .headerBody {
-        display: none;
-        margin: 0 var(--m-4);
+        margin-right: var(--m-3);
+    }
+
+    .headerBtn {
+        width: 80px;
+        color: var(--color-blue-600);
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
+@media (max-width: $md) {
     .headerBody {
-        margin: 0 1.25rem;
+        flex: 0 0 auto;
+        order: 3;
+        margin: 0;
+    }
+
+    .headerBody + button {
+        order: 2;
+        justify-content: flex-end;
+        margin: 0 var(--m-4) 0 auto;
+    }
+
+    .tabs {
+        order: 2;
+        margin: 0 var(--m-3);
+    }
+
+    .userLink {
+        order: 3;
+    }
+
+    .logoText {
+        display: none;
+    }
+}
+
+@media (max-width: $sm) {
+    .headerBody + button {
+        padding-right: var(--p-3);
+        padding-left: var(--p-3);
     }
 }

@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .container {
     z-index: 1;
     display: flex;
@@ -8,6 +10,8 @@
 
 .title {
     margin: var(--m-3) 0 var(--m-3);
+    margin-top: var(--m-4);
+    margin-bottom: var(--m-1);
     font-weight: var(--font-weight-600);
     font-size: var(--font-size-level-1-heading);
     line-height: var(--line-height-level-1-heading);
@@ -39,7 +43,7 @@
 
 .list {
     position: relative;
-    margin: 0 0 0 var(--m-4);
+    margin: 0;
     padding: 0;
 }
 
@@ -61,20 +65,20 @@
     background-image: var(--gradient-3);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $xl) {
     .container {
         width: 450px;
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .title {
         font-size: var(--font-size-level-2-heading);
         line-height: var(--line-height-level-3-heading);
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .container {
         width: auto;
     }

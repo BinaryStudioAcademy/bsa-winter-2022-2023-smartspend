@@ -1,5 +1,6 @@
 import '~/assets/css/variables/color-variables.scss';
 
+import classNames from 'classnames';
 import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
@@ -20,8 +21,10 @@ interface Properties {
         selectedOption: SingleValue<DataType>,
         actionMeta: ActionMeta<DataType>,
     ) => void;
-    handleFocus?: () => void;
-    width?: string;
+    handleFocus?: () => boolean;
+    formatOptionLabel?: (data: DataType) => JSX.Element;
+    label?: string;
+    labelClassName?: string;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -29,31 +32,51 @@ const Dropdown: React.FC<Properties> = ({
     selectedOption,
     handleChange,
     handleFocus,
-    width,
+    formatOptionLabel,
+    label,
+    labelClassName = '',
 }) => {
+    const labelClasses = classNames(styles.label, labelClassName);
+
     const options = data.map((item) => ({
         value: item.value,
         name: item.name,
         image: item.image,
     }));
 
+    const blue500 = 'var(--color-blue-500)';
+
     const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
+            color: blue500,
             transform: state.selectProps.menuIsOpen
-                ? 'rotate(1801deg)'
+                ? 'rotate(180deg)'
                 : 'rotate(0deg)',
         }),
-        container: (provided) => ({
-            ...provided,
-            width,
+        indicatorSeparator: () => ({
+            display: 'none',
         }),
         control: (provided, state) => ({
             ...provided,
-            borderColor: provided.borderColor,
-            boxShadow: state.isFocused ? 'none' : provided.boxShadow,
+            height: '48px',
+            width: '100%',
+            borderWidth: '0.1rem',
+            borderColor:
+                state.isFocused || state.menuIsOpen
+                    ? blue500
+                    : 'var(--color-blue-200)',
+            boxShadow:
+                state.isFocused || state.menuIsOpen
+                    ? '#3242df33 0 0 0 4px;'
+                    : provided.boxShadow,
+            transition: 'box-shadow 0.2s linear',
+            '&:hover': {
+                borderColor: state.isFocused ? blue500 : provided.borderColor,
+            },
+            cursor: 'pointer',
         }),
 
         option: (base, { isSelected }) => {
@@ -72,13 +95,9 @@ const Dropdown: React.FC<Properties> = ({
                 },
             };
         },
-        menu: (provided) => ({
-            ...provided,
-            width: 'fit-content',
-        }),
     };
 
-    const formatOptionLabel = useCallback(
+    const defaultFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 {data.image && (
@@ -95,19 +114,27 @@ const Dropdown: React.FC<Properties> = ({
     );
 
     return (
-        <Select
-            className={styles.select}
-            value={{
-                value: selectedOption.value,
-                name: selectedOption.name,
-                image: selectedOption.image,
-            }}
-            onChange={handleChange as HandleChangeFunction}
-            options={options}
-            formatOptionLabel={formatOptionLabel}
-            styles={customStyles}
-            onFocus={handleFocus}
-        />
+        <>
+            <div className={styles.labelContainer}>
+                <span className={labelClasses}>{label}</span>
+            </div>
+            <Select
+                className={styles.select}
+                value={{
+                    value: selectedOption.value,
+                    name: selectedOption.name,
+                    image: selectedOption.image,
+                }}
+                onChange={handleChange as HandleChangeFunction}
+                options={options}
+                formatOptionLabel={
+                    formatOptionLabel ?? defaultFormatOptionLabel
+                }
+                styles={customStyles}
+                onFocus={handleFocus}
+                isSearchable={false}
+            />
+        </>
     );
 };
 

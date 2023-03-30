@@ -17,6 +17,7 @@ import {
     Header,
     Input,
     LineChart,
+    Loader,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
 import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
@@ -222,7 +223,7 @@ const Base: React.FC = () => {
                         data={people}
                         selectedOption={selectedSingle}
                         handleChange={handleDropdownChange}
-                        width="229px"
+                        label={'TestLabel'}
                     />
                 </div>
 
@@ -231,7 +232,6 @@ const Base: React.FC = () => {
                         data={people}
                         selectedOption={selectedMulti}
                         handleChange={handleMultiDropdownChange}
-                        width="229px"
                     />
                 </div>
 
@@ -605,6 +605,7 @@ const Base: React.FC = () => {
                     />
                 </div>
             </div>
+            <Loader />
         </>
     );
 };

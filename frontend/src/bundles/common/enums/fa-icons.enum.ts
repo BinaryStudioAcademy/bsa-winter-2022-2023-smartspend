@@ -2,6 +2,7 @@ enum FaIcons {
     CHEVRON_DOWN = 'chevron-down',
     EYE = 'eye',
     EYE_SLASH = 'eye-slash',
+    PLUS = 'plus',
     FA_REGULAR = 'far',
     FA_PEN = 'pen',
     BASKET_SHOPPING = 'basket-shopping',

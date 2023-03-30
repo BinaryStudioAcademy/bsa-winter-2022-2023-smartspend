@@ -16,7 +16,7 @@ const ThirdStepPart: React.FC = () => {
     ];
 
     return (
-        <section className={styles.body}>
+        <section id="budget" className={styles.body}>
             <div className={classNames('container', styles.container)}>
                 <StepInfoPanel
                     step={3}

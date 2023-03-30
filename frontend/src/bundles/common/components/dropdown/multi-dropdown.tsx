@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
     type MultiValue,
@@ -8,7 +7,9 @@ import Select, {
     type StylesConfig,
 } from 'react-select';
 
-import { type DataType } from '../../types/dropdown.type';
+import { useCallback } from '~/bundles/common/hooks/hooks';
+import { type DataType } from '~/bundles/common/types/dropdown.type';
+
 import styles from './styles.module.scss';
 
 interface Properties {

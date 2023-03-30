@@ -25,6 +25,8 @@
 }
 
 .circle {
+    display: flex;
+    justify-content: center;
     width: 35px;
     height: 35px;
     color: var(--color-white-100);

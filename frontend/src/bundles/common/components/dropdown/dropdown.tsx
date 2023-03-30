@@ -1,15 +1,16 @@
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
 import Select, {
     type ActionMeta,
     type SingleValue,
     type StylesConfig,
 } from 'react-select';
 
+import { useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type DataType,
     type HandleChangeFunction,
-} from '../../types/dropdown.type';
+} from '~/bundles/common/types/dropdown.type';
+
 import styles from './styles.module.scss';
 
 interface Properties {

@@ -8,7 +8,7 @@
     position: absolute;
     top: 0;
     display: flex;
-    width: 100vw;
+    width: 100%;
     overflow: auto;
     background-color: var(--color-blue-600);
 }
@@ -26,7 +26,7 @@
 
 .logoLink {
     display: flex;
-    margin: var(--m-7) auto var(--m-4);
+    margin: var(--m-2) auto 0;
     text-decoration: none;
 }
 
@@ -223,13 +223,13 @@
 @media (max-height: $md) {
     .authLogo,
     .logoText {
-        margin: var(--m-6) auto var(--m-3);
+        margin: var(--m-4) auto var(--m-2);
     }
 }
 
 @media (max-height: $sm) {
     .authLogo,
     .logoText {
-        margin: var(--m-5) auto var(--m-2);
+        margin: var(--m-3) auto var(--m-1);
     }
 }

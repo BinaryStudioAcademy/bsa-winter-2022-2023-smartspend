@@ -9,7 +9,7 @@ const Toast: FC = () => {
     return (
         <ToastContainer
             className={styles.toastContainer}
-            position="bottom-center"
+            position="top-right"
             autoClose={3500}
             hideProgressBar
             newestOnTop

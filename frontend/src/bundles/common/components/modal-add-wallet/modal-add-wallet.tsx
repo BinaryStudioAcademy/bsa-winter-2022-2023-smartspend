@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
 import classNames from 'classnames';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { InputType } from '../../enums/input-type.enum';
 import { BaseModal, Input } from '../components';
 import { Dropdown } from '../dropdown/dropdown';
-import { addWalletService } from '../modal-add-wallet/add-wallet-service';
 import styles from './styles.module.scss';
 
 const currencies = [
@@ -28,11 +25,6 @@ interface FormValues {
     startingBalance: string;
 }
 
-interface WalletData {
-    walletName: string;
-    currency: string;
-}
-
 const ModalAddWallet: React.FC<Properties> = ({
     isShown,
     onClose,
@@ -45,38 +37,32 @@ const ModalAddWallet: React.FC<Properties> = ({
     } = useForm<FormValues>({
         defaultValues: {
             walletName: '',
-            currency: '',
             startingBalance: '',
         },
     });
 
     const walletName = watch('walletName');
-    const currency = watch('currency');
 
-    const handleCreateWallet = useCallback(async () => {
-        const walletData: WalletData = {
-            walletName,
-            currency,
-        };
+    const walletDataHandler = useCallback(
+        (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
 
-        try {
-            await addWalletService.add(walletData);
-            onSubmit();
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-        }
-    }, [walletName, currency, onSubmit]);
+            // const formData = new FormData(event.target as HTMLFormElement);
+            // const formDataEntries = formData.entries();
+            // const formDataFormatted = Object.fromEntries(formDataEntries);
+        },
+        [],
+    );
 
     return (
         <BaseModal
             isShown={isShown}
             onClose={onClose}
             hasActionButtons={false}
-            onSubmit={handleCreateWallet}
+            onSubmit={onSubmit}
             Header={<span className={styles.title}>Create new Wallet</span>}
             Body={
-                <form className={styles.modal} onSubmit={handleCreateWallet}>
+                <form className={styles.modal} onSubmit={walletDataHandler}>
                     <Input
                         control={control}
                         errors={errors}
@@ -93,7 +79,8 @@ const ModalAddWallet: React.FC<Properties> = ({
                         selectedOption={currencies[0]}
                         label="Currency"
                         labelClassName={styles.label}
-                    ></Dropdown>
+                        name="Dropdown"
+                    />
 
                     <Input
                         control={control}

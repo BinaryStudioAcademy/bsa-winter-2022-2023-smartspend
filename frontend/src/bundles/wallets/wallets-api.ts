@@ -4,7 +4,11 @@ import { type IHttp } from '~/framework/http/http.js';
 import { type IStorage } from '~/framework/storage/storage.js';
 
 import { WalletsApiPath } from './enums/enums';
-import { type WalletGetAllResponseDto } from './types/types';
+import {
+    type WalletCreateRequestDto,
+    type WalletGetAllItemResponseDto,
+    type WalletGetAllResponseDto,
+} from './types/types';
 
 type Constructor = {
     baseUrl: string;
@@ -28,6 +32,22 @@ class WalletsApi extends HttpApi {
         );
 
         return await response.json<WalletGetAllResponseDto>();
+    }
+
+    public async createWallet(
+        payload: WalletCreateRequestDto,
+    ): Promise<WalletGetAllItemResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(WalletsApiPath.ROOT, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return response.json<WalletGetAllItemResponseDto>();
     }
 }
 

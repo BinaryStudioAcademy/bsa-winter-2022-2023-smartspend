@@ -19,8 +19,10 @@ export { WalletCard } from './wallet-card/wallet-card';
 export {
     Button,
     DoughnutChart,
+    Dropdown,
     Header,
     Input,
     LineChart,
     Link,
+    MultiDropdown,
 } from '~/bundles/common/components/components';

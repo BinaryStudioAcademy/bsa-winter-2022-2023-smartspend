@@ -5,4 +5,4 @@ export {
     type WalletFindRequestDto,
     type WalletGetAllItemResponseDto,
     type WalletGetAllResponseDto,
-} from 'shared/src/bundles/wallets/types/types';
+} from 'shared/build/bundles/wallets/types/types';

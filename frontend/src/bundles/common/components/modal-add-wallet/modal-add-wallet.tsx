@@ -25,10 +25,7 @@ const ModalAddWallet: React.FC<Properties> = ({
         formState: { errors },
         watch,
     } = useForm({
-        defaultValues: {
-            walletName: '',
-            startingBalance: '',
-        },
+        defaultValues: { walletName: '', startingBalance: '' },
     });
 
     const [currency, setCurrency] = useState<DataType>(currencies[0]);

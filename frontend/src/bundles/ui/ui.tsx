@@ -14,6 +14,7 @@ import {
     DropdownPart,
     HeaderPart,
     LineChartPart,
+    LoaderPart,
     MultiDropdownPart,
     RangeSliderPart,
     TabsPart,
@@ -81,6 +82,7 @@ const StyleGuide: React.FC = () => {
         { name: 'rangeSlider', component: <RangeSliderPart /> },
         { name: 'multiDropdown', component: <MultiDropdownPart /> },
         { name: 'dropdown', component: <DropdownPart /> },
+        { name: 'loader', component: <LoaderPart /> },
     ];
     return (
         <div>

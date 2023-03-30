@@ -9,6 +9,7 @@ export {
     Header,
     Input,
     LineChart,
+    Loader,
     MultiDropdown,
     RangeSlider,
     Tabs,
@@ -24,6 +25,7 @@ export { DoughnutChartPart } from './doughnut-chart-part/doughnut-chart-part';
 export { DropdownPart } from './dropdown-part/dropdown-part';
 export { HeaderPart } from './header-part/header-part';
 export { LineChartPart } from './line-chart-part/line-chart-part';
+export { LoaderPart } from './loader-part/loader-part';
 export { MultiDropdownPart } from './multi-dropdown-part/multi-dropdown-part';
 export { RangeSliderPart } from './range-slider-part/range-slider-part';
 export { TabsPart } from './tabs-part/tabs-part';

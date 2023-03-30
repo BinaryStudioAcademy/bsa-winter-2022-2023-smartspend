@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { actions as walletsActions } from '~/bundles/wallets/store';
-import { type WalletCreateRequestDto } from '~/bundles/wallets/wallets';
+import { storage, StorageKey } from '~/framework/storage/storage';
 
 import { Calendar } from '../../components/calendar/calendar';
 import {
@@ -22,7 +22,7 @@ import {
     barChartData,
     categories,
     lineChartData,
-    mockSliderData
+    mockSliderData,
 } from './mocks.dashboard';
 import styles from './styles.module.scss';
 
@@ -86,6 +86,8 @@ const Dashboard: React.FC = () => {
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
+    const token = storage.getSync(StorageKey.TOKEN);
+
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
@@ -102,29 +104,18 @@ const Dashboard: React.FC = () => {
         [],
     );
 
-    const data: WalletCreateRequestDto = {
-        name: 'wallets 6',
-        currencyId: 'e0df152c-86ce-4e24-b1e1-757b0fb79873',
-        balance: 300_000,
-    };
-
-    const handleAddWallet = useCallback(() => {
-        void dispatch(walletsActions.create(data));
-
-        },
-        [dispatch]
-    );
-
     useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-    }, [dispatch]);
+        if (token) {
+            void dispatch(walletsActions.loadAll());
+        }
+    }, [dispatch, token]);
 
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
-                    <div onClickCapture={handleAddWallet} >Add wallet</div>
+                    <div>Add wallet</div>
                     <div className={styles.wallets}>
                         {wallets.map(({ id, name, balance }) => (
                             <div className={styles.walletBody} key={id}>
@@ -133,7 +124,8 @@ const Dashboard: React.FC = () => {
                                         <p>{name}</p>
                                         <p>Balance</p>
                                         <p>
-                                            {balance > 0 && '+'}{toCustomLocaleString(balance)}$
+                                            {balance > 0 && '+'}
+                                            {toCustomLocaleString(balance)}$
                                         </p>
                                     </div>
                                 </WalletButton>

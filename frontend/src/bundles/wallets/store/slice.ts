@@ -34,14 +34,14 @@ const { reducer, actions, name } = createSlice({
             isAnyOf(loadAll.pending, create.pending),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
-            }
+            },
         );
 
         builder.addMatcher(
             isAnyOf(loadAll.rejected, create.rejected),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
-            }
+            },
         );
     },
 });

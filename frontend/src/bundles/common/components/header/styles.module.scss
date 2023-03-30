@@ -79,7 +79,7 @@
 }
 
 .headerBtn {
-    width: 111px;
+    width: 110px;
     color: var(--color-blue-600);
 }
 
@@ -87,6 +87,11 @@
     .headerBody {
         margin-right: var(--m-3);
     }
+
+    .headerBtn {
+    width: 80px;
+    color: var(--color-blue-600);
+}
 }
 
 @media (max-width: $md) {

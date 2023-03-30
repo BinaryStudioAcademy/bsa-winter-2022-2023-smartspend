@@ -1,6 +1,5 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import {
-    type UserLoadRequestDto,
     type UserLoadResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
@@ -54,15 +53,9 @@ class AuthApi extends HttpApi {
         return await response.json<UserSignInResponseDto>();
     }
 
-    public async loadUser(
-        payload: UserLoadRequestDto,
-    ): Promise<UserLoadResponseDto> {
-        const queryString = new URLSearchParams(payload).toString();
+    public async loadUser(): Promise<UserLoadResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(
-                `${AuthApiPath.AUTHENTICATED_USER}?${queryString}`,
-                {},
-            ),
+            this.getFullEndpoint(AuthApiPath.AUTHENTICATED_USER, {}),
             {
                 method: 'GET',
                 contentType: ContentType.JSON,

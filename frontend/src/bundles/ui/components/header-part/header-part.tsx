@@ -50,8 +50,8 @@ const HeaderPart: React.FC = () => {
     return (
         <>
             <CodeHighlight code={exampleCode} />
-            <div className={styles.headerContainer} >
-            <Header  dataTabs={allTabsData} />
+            <div className={styles.headerContainer}>
+                <Header dataTabs={allTabsData} />
             </div>
         </>
     );

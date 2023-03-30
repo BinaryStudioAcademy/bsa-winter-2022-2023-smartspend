@@ -1,15 +1,11 @@
-const Loader = (): React.ReactElement | null => {
+import Logo from '~/assets/img/logo.svg';
+
+import styles from './styles.module.scss';
+
+const Loader: React.FC = () => {
     return (
-        <div
-            style={{
-                height: '100vh',
-                width: '100vw',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
-            <h1>Loading...</h1>
+        <div className={styles.container}>
+            <img className={styles.spinner} src={Logo} alt="logo" />
         </div>
     );
 };

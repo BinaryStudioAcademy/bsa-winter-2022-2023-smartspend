@@ -62,7 +62,8 @@ const Header: React.FC<Properties> = ({
                 {token ? (
                     <div className={classNames(styles.headerBody, styles.tabs)}>
                         {(pathname === AppRoute.DASHBOARD ||
-                            pathname === AppRoute.BUDGETS) && (
+                            pathname === AppRoute.BUDGETS ||
+                            pathname.match(/^\/budgets\/\d+$/)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
                         {pathname === AppRoute.WALLETS && (

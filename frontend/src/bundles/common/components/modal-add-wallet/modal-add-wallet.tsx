@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import classNames from 'classnames';
+// import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { InputType } from '../../enums/input-type.enum';
 import { BaseModal, Input } from '../components';
 import { Dropdown } from '../dropdown/dropdown';
+// import { addWalletService } from '../modal-add-wallet/add-wallet-service';
 import styles from './styles.module.scss';
 
 const currencies = [
@@ -20,6 +22,17 @@ interface Properties {
     onSubmit: () => void;
 }
 
+interface FormValues {
+    walletName: string;
+    currency: string;
+    startingBalance: string;
+}
+
+// interface WalletData {
+//     walletName: string;
+//     currency: string;
+// }
+
 const ModalAddWallet: React.FC<Properties> = ({
     isShown,
     onClose,
@@ -30,14 +43,31 @@ const ModalAddWallet: React.FC<Properties> = ({
         handleSubmit,
         formState: { errors },
         watch,
-    } = useForm({
+    } = useForm<FormValues>({
         defaultValues: {
             walletName: '',
+            currency: '',
             startingBalance: '',
         },
     });
 
     const walletName = watch('walletName');
+    // const currency = watch('currency');
+
+    // const handleCreateWallet = useCallback(async () => {
+    //     const walletData: WalletData = {
+    //         walletName,
+    //         currency,
+    //     };
+
+    //     try {
+    //         await addWalletService.add(walletData);
+    //         onSubmit();
+    //     } catch (error) {
+    //         // eslint-disable-next-line no-console
+    //         console.error(error);
+    //     }
+    // }, [walletName, currency, onSubmit]);
 
     return (
         <BaseModal

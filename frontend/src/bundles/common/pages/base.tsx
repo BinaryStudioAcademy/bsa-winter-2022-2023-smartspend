@@ -89,18 +89,15 @@ const tabsDashboard = [
 
 const people = [
     {
-        value: '1111John Doe',
-        fullName: 'QQQQQQQQQQQ',
+        value: 'John Doe',
         name: 'John Doe',
     },
     {
         value: 'Jane Smith',
-        fullName: 'QQQQQQQQQQQ',
         name: 'Jane Smith',
     },
     {
         value: 'Alice Johnson',
-        fullName: 'QQQQQQQQQQQ',
         name: 'Alice Johnson',
     },
     {

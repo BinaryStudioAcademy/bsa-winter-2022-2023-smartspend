@@ -1,6 +1,9 @@
+@import "@assets/utils";
+
 .container {
     display: flex;
     flex-direction: column;
+    padding-top: 80px;
     font-family: var(--font-family);
 }
 
@@ -10,20 +13,16 @@
 }
 
 .contentWrapper {
-    max-width: var(--lg);
+    max-width: 1192px;
     margin: 0 auto;
+    padding: 0 var(--p-3);
 }
 
 .wallets {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
-}
-
-.wallet {
-    max-width: 230px;
-    max-height: 160px;
-    background: var(--color-blue-600);
 }
 
 .filtersDashboard {
@@ -36,8 +35,18 @@
 
 .filters {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
     align-items: center;
     gap: var(--m-3);
+}
+
+.filters label {
+    color: #9aacbd;
+}
+
+.resetButton {
+    padding-top: 25px;
 }
 
 .title {
@@ -47,52 +56,23 @@
     line-height: var(--line-height-sub-heading);
 }
 
+.overview {
+    margin-top: var(--m-6);
+    margin-bottom: 0;
+}
+
 .totals {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 10px;
-}
-
-.total {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 230px;
-    height: 105px;
-    color: var(--color-white-100);
-    background: var(--color-white-100);
-    border-radius: 20px;
-}
-
-.totalBalance {
-    background: var(--gradient-2);
-}
-
-.totalChange {
-    background: var(--gradient-6);
-}
-
-.totalExpenses {
-    color: var(--color-warning);
-    background: var(--color-white-100);
-    border: 1px solid var(--color-warning);
-}
-
-.totalExpenses h4 {
-    color: var(--color-blue-600);
-}
-
-.totalFinal {
-    background: var(--gradient-3);
+    gap: 15px;
 }
 
 .charts {
     display: grid;
     grid-template-rows: repeat(2, 300px);
     grid-template-columns: repeat(2, 480px);
-    justify-content: space-between;
+    justify-content: center;
     gap: 15px;
     margin-top: var(--m-3);
 }
@@ -100,7 +80,14 @@
 .chart {
     padding: var(--p-3);
     background-color: var(--color-white-100);
-    border-radius: 25px;
+    border-radius: var(--b-4);
+}
+
+.chartBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
 }
 
 .chartTitle {
@@ -118,25 +105,107 @@
     line-height: var(--line-height-caption);
 }
 
-@media (max-width: 768px) {
-    .charts {
-        grid-template-columns: 1fr;
+.walletButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 160px;
+    background: var(--color-white-100);
+    border-radius: var(--b-4);
+}
+
+.walletButtonTitle {
+    color: var(--color-blue-600);
+}
+
+.smallCalendar {
+    display: none;
+}
+
+@media (max-width: 450px) {
+    .charts .chart {
+        width: 370px;
+        margin: 0 auto;
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-    .charts {
-        grid-template-columns: repeat(2, 360px);
+.walletIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--color-white-100);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-heading);
+    line-height: 0;
+    background: var(--color-blue-500);
+    border-radius: var(--b-5);
+}
+
+.walletIcon:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 450px) {
+    .charts .chart {
+        width: 370px;
+        margin: 0 auto;
     }
 }
 
-@media (min-width: 993px) and (max-width: 1200px) {
+@media (max-width: $md) {
+    .charts {
+        grid-template-columns: 430px;
+    }
+
+    .wallets {
+        display: grid;
+        grid-template-columns: 430px;
+        justify-items: center;
+    }
+
+    .filters {
+        display: block;
+        justify-content: center;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .smallCalendar {
+        display: block;
+    }
+
+    .largeCalendar {
+        display: none;
+    }
+}
+
+@media (min-width: $md) and (max-width: $lg) {
+    .charts {
+        grid-template-columns: repeat(2, 400px);
+    }
+
+    .filters {
+        justify-content: center;
+    }
+
+    .wallets {
+        display: grid;
+        grid-template-columns: repeat(2, 400px);
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: calc($lg + 1px)) and (max-width: $xl) {
     .charts {
         grid-template-columns: repeat(2, 420px);
     }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: calc($xl + 1px)) {
     .charts {
         grid-template-columns: repeat(2, 480px);
     }

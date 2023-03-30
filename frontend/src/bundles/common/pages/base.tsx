@@ -9,6 +9,7 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { Calendar } from '../components/calendar/calendar';
 import {
     BaseModal,
+    BudgetCard,
     Button,
     CardTotal,
     Chart,
@@ -16,6 +17,7 @@ import {
     Header,
     Input,
     LineChart,
+    Loader,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
 import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
@@ -29,6 +31,11 @@ import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
 import { type DataType } from '../types/dropdown.type';
+
+const budgetDate = {
+    start: 'March 02, 2023',
+    end: 'March 02, 2023',
+};
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -458,25 +465,6 @@ const Base: React.FC = () => {
                                         ],
                                     },
                                 ],
-                                [
-                                    {
-                                        label: 'test',
-                                        data: [
-                                            {
-                                                date: '02 Jan 2022 00:00:00 GMT',
-                                                value: 200_000,
-                                            },
-                                            {
-                                                date: '03 Jan 2023 00:00:00 GMT',
-                                                value: 250_000,
-                                            },
-                                            {
-                                                date: '05 Feb 2023 00:00:00 GMT',
-                                                value: 750_000,
-                                            },
-                                        ],
-                                    },
-                                ],
                             ]}
                         />
                     </div>
@@ -545,12 +533,6 @@ const Base: React.FC = () => {
             </div>
             {/* end-Doughnut Chart------------------------------- */}
             <div>
-                {/* Doughnut Chart----------------------------------- */}
-                <div>
-                    <p>Doughnut Chart</p>
-                    <DoughnutChart categories={categories} />
-                </div>
-                {/* end-Doughnut Chart------------------------------- */}
                 <div>
                     <form style={{ textAlign: 'left' }}>
                         <Input
@@ -597,6 +579,55 @@ const Base: React.FC = () => {
                     ))}
                 </div>
             </div>
+            <div style={{ backgroundColor: '#EFF3FF', padding: '0 1rem 1rem' }}>
+                <h1
+                    style={{
+                        fontSize: '24px',
+                        lineHeight: '3rem',
+                        margin: '0',
+                    }}
+                >
+                    Budgets
+                </h1>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns:
+                            'repeat(auto-fill, minmax(370px, 1fr))',
+                        gap: '20px',
+                    }}
+                >
+                    <BudgetCard
+                        id={'12345'}
+                        title={'One'}
+                        total={12_301.25}
+                        moneyLeft={824.56}
+                        date={budgetDate}
+                    />
+                    <BudgetCard
+                        id={'12345'}
+                        title={'Two'}
+                        total={1301}
+                        moneyLeft={135.45}
+                        date={budgetDate}
+                    />
+                    <BudgetCard
+                        id={'12345'}
+                        title={'Three'}
+                        total={15_381}
+                        moneyLeft={1025.26}
+                        date={budgetDate}
+                    />
+                    <BudgetCard
+                        id={'12345'}
+                        title={'Four'}
+                        total={75_471}
+                        moneyLeft={20_456}
+                        date={budgetDate}
+                    />
+                </div>
+            </div>
+            <Loader />
         </>
     );
 };

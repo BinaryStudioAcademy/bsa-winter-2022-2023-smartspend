@@ -15,7 +15,7 @@
     flex: 1 1 auto;
     justify-content: space-between;
     align-items: center;
-    max-width: 1192px;
+    max-width: var(--container);
     height: 100%;
     padding: 0 var(--p-3);
 }
@@ -69,30 +69,18 @@
     border-radius: 50%;
 }
 
-@media (max-width: 768px) {
-    .header {
-        padding: var(--p-3) 4.25rem;
-    }
+.headerBtn {
+    color: var(--color-blue-600);
+}
 
+@media (max-width: 768px) {
     .headerBody {
         display: none;
         margin: 0 var(--m-4);
     }
-
-    .logoText {
-        display: none;
-    }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
-    .header {
-        padding: var(--p-3) var(--p-5);
-    }
-
-    .logoText {
-        display: none;
-    }
-
     .headerBody {
         margin: 0 1.25rem;
     }

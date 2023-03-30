@@ -60,7 +60,7 @@
     height: 40px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $xl) {
     .container {
         padding: var(--p-6) var(--p-3);
     }
@@ -70,7 +70,7 @@
     font-weight: var(--font-weight-400);
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container {
         padding: var(--p-5) var(--p-3);
     }

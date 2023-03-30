@@ -58,10 +58,14 @@ const MultiDropdown: React.FC<Properties> = ({
         control: (provided, state) => ({
             ...provided,
             height: '48px',
-            borderColor: state.isFocused ? blue500 : provided.borderColor,
-            boxShadow: state.isFocused
-                ? '#3242df33 0 0 0 4px;'
-                : provided.boxShadow,
+            borderColor:
+                state.isFocused || state.menuIsOpen
+                    ? blue500
+                    : 'var(--color-blue-200)',
+            boxShadow:
+                state.isFocused || state.menuIsOpen
+                    ? '#3242df33 0 0 0 4px;'
+                    : provided.boxShadow,
             transition: 'box-shadow 0.2s linear',
             '&:hover': {
                 borderColor: state.isFocused ? blue500 : provided.borderColor,

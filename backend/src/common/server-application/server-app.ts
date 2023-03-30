@@ -174,14 +174,13 @@ class ServerApp implements IServerApp {
 
     public async init(): Promise<void> {
         this.logger.info('Application initialization…');
-
         await this.app.register(cors, {
             origin: true,
         });
 
         await this.initMiddlewares();
 
-        // await this.initPlugins();
+        await this.initPlugins();
 
         this.initValidationCompiler();
 

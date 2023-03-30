@@ -1,5 +1,7 @@
 .card {
-    width: 230px;
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 230px;
     overflow: hidden;
     font-family: var(--font-family);
     font-style: normal;
@@ -13,6 +15,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: var(--m-2);
+    height: 100%;
     padding: var(--p-4);
     color: var(--color-white-100);
 }

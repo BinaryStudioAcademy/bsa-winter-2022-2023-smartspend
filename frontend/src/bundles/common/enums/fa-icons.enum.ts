@@ -16,7 +16,9 @@ enum FaIcons {
     GAS_PUMP = 'gas-pump',
     GEAR = 'gear',
     TRASH = 'trash',
-    COPY = 'copy'
+    COPY = 'copy',
+    CLOUD_ARROW_UP = 'cloud-arrow-up',
+    STOP = 'stop'
 }
 
 export { FaIcons };

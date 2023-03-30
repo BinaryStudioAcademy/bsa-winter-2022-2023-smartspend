@@ -5,9 +5,10 @@ import { Button, Input } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
 import { ButtonSize,ButtonType,ButtonVariant, FaIcons, InputType } from '~/bundles/common/enums/enums';
 import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
 
-import { colors } from '../common/mock/icons-color';
+import { categoriesType } from '../common/mock/caregories-type';
+import { iconColors } from '../common/mock/icons-color';
+import { iconList } from '../common/mock/icons-list';
 import styles from './styles.module.scss';
 
 interface FormValues {
@@ -15,6 +16,12 @@ interface FormValues {
     color: string;
     name: string;
     type: string;
+}
+
+interface DataType {
+    value: any;
+    name?: string;
+    image?: string;
 }
 
 type InputValues = {
@@ -34,30 +41,90 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
         color: '',
         type:'',
     });
-    const [selectedSingle, setSelectedSingle] = useState<DataType>(colors[0]);
+    const [selectedIcon, setSelectedIcon] = useState<DataType>({ value: form.icon });
+    const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>({ value: form.color });
+    const [selectedType, setSelectedType] = useState<DataType>({ value: form.type });
 
     const handleDropdownIconChange = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const icon = selectedOption.value;
                 setForm((previousState) => ({ ...previousState, icon: icon }));
+                setSelectedIcon(selectedOption);
             }
-        }, []);
+        }, []
+    );
+    const iconFormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                {data.value ? (
+                    <span
+                        className={styles.dropdownColorIcon}
+                        style={{ background: `var(${selectedColorIcon.value})` }}
+                    >
+                        <FontAwesomeIcon icon={data.value} />
+                    </span>
+                ) : <span
+                        className={styles.dropdownColorIcon}
+                    >
+                        <FontAwesomeIcon icon={FaIcons.CLOUD_ARROW_UP} />
+                    </span>
+                }
+            </div>
+        ), [selectedColorIcon]
+    );
     const handleDropdownColorChange = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const colorIcon = selectedOption.value;
                 setForm((previousState) => ({ ...previousState, color: colorIcon }));
+                setSelectedColorIcon(selectedOption);
             }
-    },[]);
+        }, []
+    );
+    const iconColorFormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                {data.value ? (
+                    <span
+                        className={styles.dropdownColorIcon}
+                        style={{ background: `var(${data.value})` }}
+                    ></span>
+                ) : (
+                    <span
+                        className={styles.dropdownColorIcon}
+                        >
+                        <FontAwesomeIcon icon={FaIcons.STOP} />
+                    </span>
+                )}
+            </div>
+        ),[]
+    );
 
     const handleDropdownTypeChange = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const type = selectedOption.value;
                 setForm((previousState) => ({ ...previousState, type: type }));
+                setSelectedType(selectedOption);
             }
-        }, []);
+        }, []
+    );
+    const typeFormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                {data.name ? (
+                    <span
+                        className={styles.inputLabel}
+                    >{data.name }</span>
+                ) : (
+                    <span
+                        className={styles.inputLabel}
+                    >Choose type</span>
+                )}
+            </div>
+        ),[]
+    );
     const { control, formState: { errors }, watch } = useForm<InputValues>({
         defaultValues: { name: '' }
     });
@@ -87,19 +154,23 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
                 <form name="categoryNewForm" autoComplete="off">
                     <div className={styles.wrapperInputs}>
                         <div className={styles.dropdownModal}>
-                            <span className={styles.inputLabel}>Icon</span>
                                 <Dropdown
-                                data={colors}
-                                selectedOption={selectedSingle}
+                                data={iconList}
+                                selectedOption={selectedIcon}
                                 handleChange={handleDropdownIconChange}
+                                labelClassName={styles.inputLabel}
+                                label={'Icon'}
+                                formatOptionLabel={iconFormatOptionLabel}
                             />
                         </div>
                         <div className={styles.dropdownModal}>
-                            <span className={styles.inputLabel}>Color</span>
                             <Dropdown
-                                data={colors}
-                                selectedOption={selectedSingle}
+                                data={iconColors}
+                                selectedOption={selectedColorIcon}
                                 handleChange={handleDropdownColorChange}
+                                labelClassName={styles.inputLabel}
+                                label={'Color'}
+                                formatOptionLabel={iconColorFormatOptionLabel}
                             />
                         </div>
                         <div className={styles.categoryInput}>
@@ -118,11 +189,13 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
                             />
                         </div>
                         <div className={styles.dropdownModal}>
-                            <span className={styles.inputLabel}>Type</span>
                             <Dropdown
-                                data={colors}
-                                selectedOption={selectedSingle}
+                                data={categoriesType}
+                                selectedOption={selectedType}
                                 handleChange={handleDropdownTypeChange}
+                                labelClassName={styles.inputLabel}
+                                label={'Type'}
+                                formatOptionLabel={typeFormatOptionLabel}
                             />
                         </div>
                         <div className={styles.wrapperModalBtn}>

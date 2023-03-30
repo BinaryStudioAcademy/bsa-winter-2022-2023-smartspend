@@ -92,7 +92,7 @@ const CategoryItem: React.FC<Properties> = ({
                         >
                             <span
                                 className={styles.icon}
-                                style={{ backgroundColor: colorIcon }}
+                                style={{ background: `var(${colorIcon})` }}
                             >
                                 {icon}
                             </span>

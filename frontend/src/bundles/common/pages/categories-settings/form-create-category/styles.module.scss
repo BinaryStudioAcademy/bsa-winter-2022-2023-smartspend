@@ -28,14 +28,17 @@
 }
 
 .inputLabel {
-    display: block;
-    margin-bottom: 5px;
     color: var(--color-gray-200);
     font-size: var(--font-size-level-2-body);
 }
 
 .categoryInput {
-    flex-basis: 40%;
+    flex-basis: 32%;
+    margin: 0 8px;
+}
+
+.categoryInputEdit {
+    flex-basis: 48%;
     margin: 0 8px;
 }
 
@@ -61,7 +64,7 @@
 }
 
 .wrapperModalBtn {
-    flex-basis: 30%;
+    flex-basis: 25%;
     margin: 0 8px;
 }
 
@@ -95,5 +98,18 @@
 
 .wrapperSelect:nth-child(3),
 .wrapperSelect:nth-child(4) {
-    flex-basis: 50%;
+    flex-basis: 30%;
+}
+
+.dropdownColorIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    max-height: 32px;
+    color: white;
+    background: var(--color-blue-200);
+    border-radius: 6px;
 }

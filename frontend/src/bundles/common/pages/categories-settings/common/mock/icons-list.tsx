@@ -1,27 +1,17 @@
-import {
-    faBasketShopping,
-    faBriefcase,
-    faCar,
-    faCircleMinus,
-    faGift,
-    faGraduationCap,
-    faLandmark,
-    faPaw,
-    faSackDollar,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 
-type Icons = Record<string, JSX.Element>;
+const iconList = [
+    { value: `${FaIcons.BASKET_SHOPPING}` },
+    { value: `${FaIcons.PAW}` },
+    { value: `${FaIcons.CAR}` },
+    { value: `${FaIcons.LANDMARK}` },
+    { value: `${FaIcons.GIFT}` },
+    { value: `${FaIcons.SACK_DOLLAR}` },
+    { value: `${FaIcons.GRADUATION_CAP}` },
+    { value: `${FaIcons.BRIEFCASE}` },
+    { value: `${FaIcons.GAS_PUMP}` },
+    { value: `${FaIcons.GEAR}` },
+    { value: `${FaIcons.TRASH}` },
+];
 
-const icons: Icons = {
-    // paw: <FontAwesomeIcon icon={faPaw} />,
-    // car: <FontAwesomeIcon icon={faCar} />,
-    // loan: <FontAwesomeIcon icon={faLandmark} />,
-    // gift: <FontAwesomeIcon icon={faGift} />,
-    // sackDollar: <FontAwesomeIcon icon={faSackDollar} />,
-    // shopping: <FontAwesomeIcon icon={faBasketShopping} />,
-    // education: <FontAwesomeIcon icon={faGraduationCap} />,
-    // work: <FontAwesomeIcon icon={faBriefcase} />,
-};
-
-export { icons };
+export { iconList };

@@ -76,7 +76,7 @@ const ModalAddWallet: React.FC<Properties> = ({
             onSubmit={handleCreateWallet}
             Header={<span className={styles.title}>Create new Wallet</span>}
             Body={
-                <form className={styles.modal}>
+                <form className={styles.modal} onSubmit={handleCreateWallet}>
                     <Input
                         control={control}
                         errors={errors}
@@ -91,7 +91,8 @@ const ModalAddWallet: React.FC<Properties> = ({
                     <Dropdown
                         data={currencies}
                         selectedOption={currencies[0]}
-                        width="100%"
+                        label="Currency"
+                        labelClassName={styles.label}
                     ></Dropdown>
 
                     <Input
@@ -113,7 +114,6 @@ const ModalAddWallet: React.FC<Properties> = ({
                             cursor: walletName ? 'pointer' : 'default',
                         }}
                         type="submit"
-                        onClick={onSubmit}
                     >
                         Create
                     </button>

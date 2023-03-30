@@ -7,17 +7,9 @@
 }
 
 .title {
-    margin: var(--m-3) 0;
+    margin: var(--m-2) 0;
     color: var(--color-blue-600);
     font-size: 1.25rem;
-}
-
-.input {
-    height: 36px;
-    margin: var(--m-2) 0;
-    padding-left: var(--p-2);
-    border: 1px solid var(--color-blue-200);
-    border-radius: var(--b-1);
 }
 
 .input::-webkit-inner-spin-button,
@@ -27,9 +19,7 @@
 }
 
 .label {
-    margin-bottom: var(--m-3);
     color: var(--color-blue-300);
-    font-size: 0.9rem;
 }
 
 .label:hover {
@@ -44,7 +34,7 @@
     background-color: var(--color-disable);
     border: none;
     border-radius: var(--b-1);
-    transition: background-color 0.6s ease, color 0.6s ease;
+    transition: background-color 0.6s ease, color 0.2s ease;
 }
 
 .active {

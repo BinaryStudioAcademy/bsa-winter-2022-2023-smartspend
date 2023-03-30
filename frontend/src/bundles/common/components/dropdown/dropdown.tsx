@@ -25,6 +25,7 @@ interface Properties {
     label?: string;
     labelClassName?: string;
     name?: string;
+    placeholder?: string;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -36,6 +37,7 @@ const Dropdown: React.FC<Properties> = ({
     label,
     labelClassName = '',
     name,
+    placeholder
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
@@ -136,6 +138,7 @@ const Dropdown: React.FC<Properties> = ({
                 onFocus={handleFocus}
                 isSearchable={false}
                 name={name}
+                placeholder={placeholder}
             />
         </div>
     );

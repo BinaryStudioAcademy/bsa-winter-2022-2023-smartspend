@@ -24,6 +24,7 @@ interface Properties {
     label?: string;
     labelClassName?: string;
     name?: string;
+    placeholder?: string;
 }
 
 const MultiDropdown: React.FC<Properties> = ({
@@ -35,6 +36,7 @@ const MultiDropdown: React.FC<Properties> = ({
     label,
     labelClassName = '',
     name,
+    placeholder
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
@@ -174,6 +176,7 @@ const MultiDropdown: React.FC<Properties> = ({
                 onFocus={handleFocus}
                 isSearchable={false}
                 name={name}
+                placeholder={placeholder}
             />
         </div>
     );

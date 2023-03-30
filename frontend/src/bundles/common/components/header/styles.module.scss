@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .header {
     position: fixed;
     top: 0;
@@ -77,16 +79,17 @@
 }
 
 .headerBtn {
+    width: 111px;
     color: var(--color-blue-600);
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .headerBody {
         margin-right: var(--m-3);
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .headerBody {
         flex: 0 0 auto;
         order: 3;
@@ -113,7 +116,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .headerBody + button {
         padding-right: var(--p-3);
         padding-left: var(--p-3);

@@ -69,6 +69,7 @@ const Input = <T extends FieldValues>({
         styles[isDisabled ? 'disabled' : ''],
         inputClassName,
     );
+    const inputClassesWithError = classNames(inputClasses, styles.hasError);
 
     return (
         <label className={labelClasses}>
@@ -78,7 +79,7 @@ const Input = <T extends FieldValues>({
                 type={passwordShown || !field.value ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
-                className={`${hasError ? styles.hasError : inputClasses}`}
+                className={`${hasError ? inputClassesWithError : inputClasses}`}
             />
             {eyeHidden && (
                 <span

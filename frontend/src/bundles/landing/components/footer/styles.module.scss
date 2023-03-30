@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     position: relative;
     display: flex;
@@ -53,7 +55,7 @@
     line-height: var(--line-height-level-1-heading);
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .container {
         height: 180px;
     }

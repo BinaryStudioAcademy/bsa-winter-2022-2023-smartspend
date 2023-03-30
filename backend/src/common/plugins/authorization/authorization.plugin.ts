@@ -6,7 +6,7 @@ import {
     HttpCode,
     HttpError,
 } from '../../enums/enums.js';
-import { getToken } from '../../helpers/helpers';
+import { getToken } from '../../helpers/helpers.js';
 
 const authorization = fp(async (fastify, { routesWhiteList, services }) => {
     fastify.decorateRequest('user', null);

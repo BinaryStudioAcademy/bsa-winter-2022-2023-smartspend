@@ -18,7 +18,7 @@ type Properties = {
     Body: ReactNode;
     children?: ReactNode;
     hasActionButtons?: boolean;
-    submitButtonName: string;
+    submitButtonName?: string;
 };
 
 const BaseModal: React.FC<Properties> = ({

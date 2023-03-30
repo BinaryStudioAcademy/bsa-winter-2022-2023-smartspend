@@ -39,16 +39,6 @@ const ModalAddWallet: React.FC<Properties> = ({
 
     const walletName = watch('walletName');
 
-    //   in progress, don't review this part please =)
-
-    // const handleSubmit = useCallback(
-    //     // async (event: React.FormEvent) => {
-    //     //     event.preventDefault();
-    //
-    //     // },
-    //     [walletName, currency, onClose],
-    // );
-
     return (
         <BaseModal
             isShown={isShown}
@@ -69,14 +59,11 @@ const ModalAddWallet: React.FC<Properties> = ({
                         labelClassName={styles.label}
                     />
 
-                    <div>
-                        <span className={styles.dropdownLabel}>Wallet</span>
-                        <Dropdown
-                            data={currencies}
-                            selectedOption={currencies[0]}
-                            width="100%"
-                        ></Dropdown>
-                    </div>
+                    <Dropdown
+                        data={currencies}
+                        selectedOption={currencies[0]}
+                        width="100%"
+                    ></Dropdown>
 
                     <Input
                         control={control}
@@ -102,7 +89,6 @@ const ModalAddWallet: React.FC<Properties> = ({
                     </button>
                 </form>
             }
-            submitButtonName={'Create'}
         ></BaseModal>
     );
 };

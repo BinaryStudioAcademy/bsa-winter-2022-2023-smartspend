@@ -1,23 +1,23 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { actions as walletsActions } from '~/bundles/wallets/store';
-import { storage, StorageKey } from '~/framework/storage/storage';
-
-import { Calendar } from '../../components/calendar/calendar';
 import {
     Button,
+    Calendar,
     CardTotal,
     Chart,
     DoughnutChart,
     Input,
     LineChart,
     RangeSlider,
-} from '../../components/components';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import { CardVariant } from '../../enums/enums';
-import { toCustomLocaleString } from '../../helpers/helpers';
-import { useAppDispatch, useAppForm, useAppSelector } from '../../hooks/hooks';
+} from '~/bundles/common/components/components';
+import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
+import { CardVariant } from '~/bundles/common/enums/enums';
+import { toCustomLocaleString } from '~/bundles/common/helpers/helpers';
+import { useAppDispatch, useAppForm, useAppSelector } from '~/bundles/common/hooks/hooks';
+import { actions as walletsActions } from '~/bundles/wallets/store';
+import { storage, StorageKey } from '~/framework/storage/storage.js';
+
 import {
     barChartData,
     categories,
@@ -115,7 +115,6 @@ const Dashboard: React.FC = () => {
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
-                    <div>Add wallet</div>
                     <div className={styles.wallets}>
                         {wallets.map(({ id, name, balance }) => (
                             <div className={styles.walletBody} key={id}>

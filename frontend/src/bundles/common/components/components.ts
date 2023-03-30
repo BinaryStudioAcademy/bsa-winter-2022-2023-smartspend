@@ -2,6 +2,7 @@ export { App } from '../../../app/app.js';
 export { Chart } from './bar-chart/bar-chart';
 export { BudgetCard } from './budget-card/budget-card.js';
 export { Button } from './button/button.js';
+export { Calendar } from './calendar/calendar.js';
 export { CardTotal } from './card-total/card-total.js';
 export { LineChart } from './charts/line-chart/line-chart';
 export { DoughnutChart } from './doughnut-chart/doughnut-chart.js';

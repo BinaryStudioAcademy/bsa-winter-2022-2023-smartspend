@@ -8,8 +8,8 @@ const WHITE_ROUTES: WhiteRoute[] = [
         method: 'GET',
     },
     { endpoint: '/v1/documentation/json', method: 'GET' },
-    { endpoint: '/api/v1/auth/sign-in', method: 'GET' },
-    { endpoint: '/api/v1/auth/sign-up', method: 'GET' },
+    { endpoint: '/api/v1/auth/sign-in', method: 'POST' },
+    { endpoint: '/api/v1/auth/sign-up', method: 'POST' },
 ];
 
 export { WHITE_ROUTES };

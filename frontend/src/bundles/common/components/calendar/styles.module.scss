@@ -56,6 +56,10 @@
 }
 
 .button {
+    position: absolute;
+    bottom: 20px;
+    left: 70px;
+    z-index: 10000;
     margin-top: var(--m-2);
 }
 

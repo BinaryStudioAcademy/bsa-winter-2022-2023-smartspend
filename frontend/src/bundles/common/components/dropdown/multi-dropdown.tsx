@@ -151,7 +151,7 @@ const MultiDropdown: React.FC<Properties> = ({
     };
 
     return (
-        <>
+        <div>
             <div className={styles.labelContainer}>
                 <span className={labelClasses}>{label}</span>
             </div>
@@ -174,7 +174,7 @@ const MultiDropdown: React.FC<Properties> = ({
                 isSearchable={false}
                 name={name}
             />
-        </>
+        </div>
     );
 };
 

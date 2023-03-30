@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import Select, {
-    type ActionMeta,
     type MultiValue,
     type MultiValueProps,
     type SingleValue,
@@ -8,17 +7,17 @@ import Select, {
 } from 'react-select';
 
 import { useCallback } from '~/bundles/common/hooks/hooks';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
+import {
+    type DataType,
+    type HandleMultiChange,
+} from '~/bundles/common/types/dropdown.type';
 
 import styles from './styles.module.scss';
 
 interface Properties {
     data: DataType[];
     selectedOption: MultiValue<DataType> | SingleValue<DataType>;
-    handleChange: (
-        selectedOption: MultiValue<DataType> | SingleValue<DataType>,
-        actionMeta: ActionMeta<DataType>,
-    ) => void;
+    handleChange: HandleMultiChange;
     handleFocus?: () => boolean;
     formatOptionLabel?: (data: DataType) => JSX.Element;
     label?: string;
@@ -36,7 +35,7 @@ const MultiDropdown: React.FC<Properties> = ({
     label,
     labelClassName = '',
     name,
-    placeholder
+    placeholder,
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 

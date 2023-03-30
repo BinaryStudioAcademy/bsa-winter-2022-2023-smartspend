@@ -1,14 +1,11 @@
 import classNames from 'classnames';
-import Select, {
-    type ActionMeta,
-    type SingleValue,
-    type StylesConfig,
-} from 'react-select';
+import Select, { type StylesConfig } from 'react-select';
 
 import { useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type DataType,
-    type HandleChangeFunction,
+    type HandleMultiChange,
+    type HandleSingleChange,
 } from '~/bundles/common/types/dropdown.type';
 
 import styles from './styles.module.scss';
@@ -16,10 +13,7 @@ import styles from './styles.module.scss';
 interface Properties {
     data: DataType[];
     selectedOption: DataType;
-    handleChange?: (
-        selectedOption: SingleValue<DataType>,
-        actionMeta: ActionMeta<DataType>,
-    ) => void;
+    handleChange: HandleSingleChange;
     handleFocus?: () => boolean;
     formatOptionLabel?: (data: DataType) => JSX.Element;
     label?: string;
@@ -37,7 +31,7 @@ const Dropdown: React.FC<Properties> = ({
     label,
     labelClassName = '',
     name,
-    placeholder
+    placeholder,
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
@@ -129,7 +123,7 @@ const Dropdown: React.FC<Properties> = ({
                     name: selectedOption.name,
                     image: selectedOption.image,
                 }}
-                onChange={handleChange as HandleChangeFunction}
+                onChange={handleChange as HandleMultiChange}
                 options={data}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel

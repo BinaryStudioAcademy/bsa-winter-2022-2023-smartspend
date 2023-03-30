@@ -8,7 +8,6 @@
 }
 
 .dashboard {
-    padding: var(--p-3);
     background: var(--color-blue-100);
 }
 
@@ -18,10 +17,17 @@
     padding: 0 var(--p-3);
 }
 
+.filtertBody {
+    margin: 0 0 var(--m-3);
+}
+
+.filterLabel {
+    margin: 0;
+}
+
 .wallets {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 230px);
     gap: 15px;
 }
 
@@ -31,6 +37,16 @@
 
 .barsDashboard {
     flex-grow: 1;
+}
+
+.bars {
+    margin: var(--m-4) 0 var(--m-6);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
 }
 
 .filters {
@@ -71,13 +87,15 @@
 .charts {
     display: grid;
     grid-template-rows: repeat(2, 300px);
-    grid-template-columns: repeat(2, 480px);
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
     justify-content: center;
     gap: 15px;
     margin-top: var(--m-3);
 }
 
 .chart {
+    display: flex;
+    flex-direction: column;
     padding: var(--p-3);
     background-color: var(--color-white-100);
     border-radius: var(--b-4);
@@ -85,6 +103,7 @@
 
 .chartBox {
     display: flex;
+    flex: 1 1 auto;
     justify-content: center;
     align-items: center;
     height: fit-content;
@@ -124,13 +143,6 @@
     display: none;
 }
 
-@media (max-width: 450px) {
-    .charts .chart {
-        width: 370px;
-        margin: 0 auto;
-    }
-}
-
 .walletIcon {
     display: flex;
     justify-content: center;
@@ -149,22 +161,20 @@
     opacity: 0.7;
 }
 
-@media (max-width: 450px) {
-    .charts .chart {
-        width: 370px;
-        margin: 0 auto;
-    }
-}
-
 @media (max-width: $md) {
-    .charts {
-        grid-template-columns: 430px;
+    .wallets {
+        grid-template-columns: 1fr 1fr;
     }
 
-    .wallets {
-        display: grid;
-        grid-template-columns: 430px;
-        justify-items: center;
+    .walletWrapper {
+        display: flex;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .walletButton {
+        flex: 1 1 auto;
+        width: 100%;
     }
 
     .filters {
@@ -179,34 +189,26 @@
     }
 
     .largeCalendar {
-        display: none;
+        display: block;
     }
 }
 
 @media (min-width: $md) and (max-width: $lg) {
     .charts {
-        grid-template-columns: repeat(2, 400px);
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     }
 
     .filters {
         justify-content: center;
     }
+}
 
+@media (max-width: $sm) {
     .wallets {
-        display: grid;
-        grid-template-columns: repeat(2, 400px);
-        margin: 0 auto;
+        grid-template-columns: 1fr;
     }
-}
 
-@media (min-width: calc($lg + 1px)) and (max-width: $xl) {
     .charts {
-        grid-template-columns: repeat(2, 420px);
-    }
-}
-
-@media (min-width: calc($xl + 1px)) {
-    .charts {
-        grid-template-columns: repeat(2, 480px);
+        grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
     }
 }

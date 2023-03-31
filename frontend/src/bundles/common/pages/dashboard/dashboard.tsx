@@ -357,6 +357,7 @@ const Dashboard: React.FC = () => {
                                 />
                             </ChartBox>
                         </div>
+                        <TransactionModal />
                     </div>
                 </div>
             </div>

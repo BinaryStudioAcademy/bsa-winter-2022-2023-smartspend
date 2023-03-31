@@ -542,7 +542,6 @@ const Base: React.FC = () => {
                 </div>
             </div>
             <UserSettingsTabs tabsData={userSettingsData} />
-            <UserProfile />
             <div>
                 <RangeSlider
                     rangeLimits={rangeLimits}

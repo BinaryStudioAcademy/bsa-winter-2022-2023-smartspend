@@ -1,10 +1,7 @@
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import { Input } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
-import {
-    DEFAULT_TRANSACTION,
-    DROPDOWN_WIDTH,
-} from '~/bundles/common/components/transaction-modal/constants/constants';
+import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionModalElement } from '~/bundles/common/components/transaction-modal/transaction-modal-element';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
@@ -16,24 +13,50 @@ import styles from './styles.module.scss';
 interface Properties {
     categories: DataType[];
     currency: DataType[];
+    labels: DataType[];
 }
 
 const TransactionModalBody: React.FC<Properties> = ({
     categories,
     currency,
+    labels,
 }) => {
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
     });
 
-    const [selectedSingle, setSelectedSingle] = useState<DataType>(
-        categories[0],
-    );
+    const [selectedSingleCategory, setSelectedSingleCategory] =
+        useState<DataType>(categories[0]);
 
-    const handleDropdownChange = useCallback(
+    const handleDropdownChangeCategory = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
-                setSelectedSingle(selectedOption);
+                setSelectedSingleCategory(selectedOption);
+            }
+        },
+        [],
+    );
+
+    const [selectedSingleCurrency, setSelectedSingleCurrency] =
+        useState<DataType>(currency[0]);
+
+    const handleDropdownChangeCurrency = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setSelectedSingleCurrency(selectedOption);
+            }
+        },
+        [],
+    );
+
+    const [selectedSingleLabel, setSelectedSingleLabel] = useState<DataType>(
+        labels[0],
+    );
+
+    const handleDropdownChangeLabel = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setSelectedSingleLabel(selectedOption);
             }
         },
         [],
@@ -47,9 +70,8 @@ const TransactionModalBody: React.FC<Properties> = ({
             >
                 <Dropdown
                     data={categories}
-                    selectedOption={selectedSingle}
-                    handleChange={handleDropdownChange}
-                    width={DROPDOWN_WIDTH}
+                    selectedOption={selectedSingleCategory}
+                    handleChange={handleDropdownChangeCategory}
                 />
             </TransactionModalElement>
             <TransactionModalElement className={styles.date} label="Date">
@@ -57,6 +79,7 @@ const TransactionModalBody: React.FC<Properties> = ({
             </TransactionModalElement>
             <TransactionModalElement className={styles.note} label="By note">
                 <Input
+                    inputClassName={styles.note}
                     type={InputType.TEXT}
                     placeholder="Write note"
                     name="note"
@@ -66,10 +89,9 @@ const TransactionModalBody: React.FC<Properties> = ({
             </TransactionModalElement>
             <TransactionModalElement className={styles.label} label="Label">
                 <Dropdown
-                    data={categories}
-                    selectedOption={selectedSingle}
-                    handleChange={handleDropdownChange}
-                    width={DROPDOWN_WIDTH}
+                    data={labels}
+                    selectedOption={selectedSingleLabel}
+                    handleChange={handleDropdownChangeLabel}
                 />
             </TransactionModalElement>
             <TransactionModalElement className={styles.amount} label="Amount">
@@ -87,9 +109,8 @@ const TransactionModalBody: React.FC<Properties> = ({
             >
                 <Dropdown
                     data={currency}
-                    selectedOption={selectedSingle}
-                    handleChange={handleDropdownChange}
-                    width={DROPDOWN_WIDTH}
+                    selectedOption={selectedSingleCurrency}
+                    handleChange={handleDropdownChangeCurrency}
                 />
             </TransactionModalElement>
         </div>

@@ -2,8 +2,9 @@ import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import {
 faBasketShopping, faBriefcase, faCar, faChevronDown, faCloudArrowUp, faCopy,
     faGasPump, faGear, faGift, faGraduationCap, faLandmark, faPaw,
-    faPen, faPlus, faSackDollar, faStop,
-faTrash, } from '@fortawesome/free-solid-svg-icons';
+    faPen, faPlus, faSackDollar, faStop,  faArrowDown, faArrowUp,
+    faChevronDown, faTrash, 
+    } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
     faChevronDown, faEye, faEyeSlash, faGasPump,
@@ -11,6 +12,10 @@ const iconProvider = {
     faGear, faGift, faGraduationCap, faLandmark,
     faPaw, faPen, faSackDollar, faTrash, faPlus, faCopy,
     faCloudArrowUp, faStop,
+    faArrowDown,
+    faArrowUp,
+    faEye,
+    faEyeSlash,
 };
 
 export { iconProvider };

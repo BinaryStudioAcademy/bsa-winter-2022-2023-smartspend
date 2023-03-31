@@ -20,7 +20,10 @@ import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
 import { NotFound } from '~/bundles/common/pages/not-found/not-found';
 import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
 import { Landing } from '~/bundles/landing/landing';
+import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
+
+import { Budgets } from './bundles/common/pages/budgets/budgets';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -80,15 +83,15 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     </PrivateRoute>
                                 ),
                             },
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFound />,
+                            },
                         ],
                     },
                     {
                         path: AppRoute.UI,
-                        element: <Base />,
-                    },
-                    {
-                        path: AppRoute.NOT_FOUND,
-                        element: <NotFound />,
+                        element: <StyleGuide />,
                     },
                     {
                         path: AppRoute.CATEGORIES,

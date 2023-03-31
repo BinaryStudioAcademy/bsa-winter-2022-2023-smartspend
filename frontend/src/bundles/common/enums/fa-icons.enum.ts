@@ -19,6 +19,8 @@ enum FaIcons {
     COPY = 'copy',
     CLOUD_ARROW_UP = 'cloud-arrow-up',
     STOP = 'stop'
+    ARROW_DOWN = 'arrow-down',
+    ARROW_UP = 'arrow-up',
 }
 
 export { FaIcons };

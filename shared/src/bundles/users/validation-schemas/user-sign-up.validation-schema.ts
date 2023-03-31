@@ -33,6 +33,7 @@ const userSignUp = joi.object<UserSignUpRequestDto, true>({
         .required()
         .messages({
             'any.only': UserValidationMessage.PASSWORD_CONFIRM,
+            'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
         }),
 });
 

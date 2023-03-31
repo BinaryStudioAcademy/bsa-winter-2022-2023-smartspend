@@ -16,7 +16,6 @@ import { CardVariant } from '~/bundles/common/enums/enums';
 import { toCustomLocaleString } from '~/bundles/common/helpers/helpers';
 import { useAppDispatch, useAppForm, useAppSelector } from '~/bundles/common/hooks/hooks';
 import { actions as walletsActions } from '~/bundles/wallets/store';
-import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import {
     barChartData,
@@ -86,7 +85,6 @@ const Dashboard: React.FC = () => {
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
-    const token = storage.getSync(StorageKey.TOKEN);
 
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
@@ -106,7 +104,7 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
-    }, [dispatch, token]);
+    }, [dispatch]);
 
     return (
         <div className={styles.container}>

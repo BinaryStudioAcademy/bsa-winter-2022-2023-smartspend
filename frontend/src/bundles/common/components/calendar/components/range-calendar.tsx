@@ -8,17 +8,16 @@ import { DateRangePicker } from 'react-date-range';
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import leftArrow from '~/assets/img/left-arrow.svg';
 import rightArrow from '~/assets/img/right-arrow.svg';
-import { useCallback } from '~/bundles/common/hooks/hooks';
-
-import { ButtonSize } from '../../../enums/button-size.enum';
-import { ButtonVariant } from '../../../enums/button-variant.enum';
+import { Button } from '~/bundles/common/components/components';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
 import {
     formatRange,
     getFutureDate,
     getInitialRange,
     getPastDate,
-} from '../../../helpers/helpers';
-import { Button } from '../../components';
+} from '~/bundles/common/helpers/helpers';
+import { useCallback } from '~/bundles/common/hooks/hooks';
+
 import styles from '../styles.module.scss';
 
 const RangeCalendar: React.FC = () => {

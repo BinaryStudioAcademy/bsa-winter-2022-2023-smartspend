@@ -1,4 +1,4 @@
-import { AppRoute } from '../../enums/enums.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 const getText = (pathname: string, type: string): string => {
     type Properties = Record<string, string>;

@@ -2,11 +2,9 @@ import classNames from 'classnames';
 import { type MouseEventHandler, type ReactNode } from 'react';
 import React, { useCallback } from 'react';
 
-import { Button } from '~/bundles/common/components/button/button';
-import { Portal } from '~/bundles/common/components/portal/portal';
-import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { useEffect } from '~/bundles/common/hooks/hooks';
+import { Button, Portal } from '~/bundles/common/components/components.js';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { useEffect } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 

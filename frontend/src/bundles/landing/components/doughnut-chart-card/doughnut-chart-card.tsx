@@ -2,9 +2,9 @@ import classNames from 'classnames';
 
 import BlueMurseIcon from '~/assets/img/blue-murse-icon.svg';
 import OrangeMurseIcon from '~/assets/img/orange-murse-icon.svg';
+import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums.js';
 
-import { DoughnutChartCartVariant } from '../../enums/enums';
-import { DoughnutChart } from '../components';
+import { DoughnutChart } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {

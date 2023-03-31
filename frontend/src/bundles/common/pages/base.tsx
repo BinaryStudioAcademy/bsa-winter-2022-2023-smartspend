@@ -6,7 +6,10 @@ import {
 } from 'shared/build/index.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
-import { UserProfile } from '~/bundles/common/components/settings/user-profile';
+import { Dropdown } from '~/bundles/common/components/dropdown/components.js';
+import { MultiDropdown } from '~/bundles/common/components/dropdown/components/multi-dropdown.js';
+import { RangeSlider } from '~/bundles/common/components/range-slider/range-slider';
+import { UserProfile } from '~/bundles/common/components/user-profile/user-profile';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import { Calendar } from '../components/calendar/calendar';
@@ -22,9 +25,6 @@ import {
     LineChart,
     Loader,
 } from '../components/components.js';
-import { Dropdown } from '../components/dropdown/dropdown.js';
-import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
-import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
 import { ButtonSize } from '../enums/button-size.enum';

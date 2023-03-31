@@ -5,14 +5,16 @@ import {
     Button,
     CardTotal,
     Input,
-} from '~/bundles/common/components/components';
-import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { CardVariant } from '~/bundles/common/enums/card-variant.enum';
+} from '~/bundles/common/components/components.js';
+import {
+    ButtonSize,
+    ButtonVariant,
+    CardVariant,
+    FaIcons,
+    InputType,
+} from '~/bundles/common/enums/enums.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
-import { FaIcons } from '../../enums/enums';
-import { InputType } from '../../enums/input-type.enum';
-import { useAppForm } from '../../hooks/hooks';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {

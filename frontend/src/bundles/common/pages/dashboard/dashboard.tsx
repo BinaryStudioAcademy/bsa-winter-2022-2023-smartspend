@@ -9,6 +9,7 @@ import {
     DoughnutChart,
     Input,
     LineChart,
+    NewWalletModal,
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
@@ -72,13 +73,27 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     children,
     isButton = true,
 }) => {
+    const [active, setActive] = useState(false);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
     return (
         <div className={styles.walletButton}>
             {isButton && (
-                <Button variant={ButtonVariant.PLAIN}>
+                <Button variant={ButtonVariant.PLAIN} onClick={handleModal}>
                     <div className={styles.walletIcon}>+</div>
                 </Button>
             )}
+            <NewWalletModal
+                isShown={active}
+                onClose={handleCancel}
+                onSubmit={handleModal}
+            />
             <div className={styles.walletButtonTitle}>{children}</div>
         </div>
     );
@@ -206,7 +221,7 @@ const Dashboard: React.FC = () => {
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={504_000.549}
+                                sum={504_000.54}
                                 variant={CardVariant.BLUE}
                             />
                             <CardTotal

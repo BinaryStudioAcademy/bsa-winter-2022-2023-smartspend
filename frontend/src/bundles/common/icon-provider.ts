@@ -1,5 +1,7 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import {
+    faArrowDown,
+    faArrowUp,
     faBasketShopping,
     faBriefcase,
     faCar,
@@ -16,10 +18,7 @@ import {
     faPlus,
     faSackDollar,
     faStop,
-    faArrowDown,
-    faArrowUp,
     faTrash,
-
     } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {

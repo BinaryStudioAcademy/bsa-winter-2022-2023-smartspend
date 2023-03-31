@@ -18,7 +18,7 @@ enum FaIcons {
     TRASH = 'trash',
     COPY = 'copy',
     CLOUD_ARROW_UP = 'cloud-arrow-up',
-    STOP = 'stop'
+    STOP = 'stop',
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
 }

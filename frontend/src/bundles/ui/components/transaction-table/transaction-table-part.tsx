@@ -2,32 +2,32 @@ import { CodeHighlight, TransactionTable } from '../components';
 
 const codeExample = `
 const TransactionTable: React.FC<TransactionTableProperties> = ({
-  transactions,
+    transactions,
 }) => {
-  const defaultValues = getDefaultValues(transactions);
-  const { control, errors } = useAppForm({ defaultValues });
-  const today = new Date();
-  const pastTransactions = getPastTransactions(transactions, today);
-  const futureTransactions = getFutureTransactions(transactions, today);
-  const groupedPastTransactions = groupTransactionsByDate(pastTransactions);
-  const dailyTotals = getDailyTotals(groupedPastTransactions);
-  const futureTotals = getFutureTotals(futureTransactions);
+    const defaultValues = getDefaultValues(transactions);
+    const { control, errors } = useAppForm({ defaultValues });
+    const today = new Date();
+    const pastTransactions = getPastTransactions(transactions, today);
+    const futureTransactions = getFutureTransactions(transactions, today);
+    const groupedPastTransactions = groupTransactionsByDate(pastTransactions);
+    const dailyTotals = getDailyTotals(groupedPastTransactions);
+    const futureTotals = getFutureTotals(futureTransactions);
 
-  return (
-      <div className={styles.transactionTable}>
-          <FutureTransactions
-              futureTotals={futureTotals}
-              futureTransactions={futureTransactions}
-              control={control}
-              errors={errors}
-          />
-          <PastTransactions
-              groupedPastTransactions={groupedPastTransactions}
-              dailyTotals={dailyTotals}
-              control={control}
-              errors={errors}
-          />
-      </div>
+    return (
+        <div className={styles.transactionTable}>
+            <FutureTransactions
+                futureTotals={futureTotals}
+                futureTransactions={futureTransactions}
+                control={control}
+                errors={errors}
+            />
+            <PastTransactions
+                groupedPastTransactions={groupedPastTransactions}
+                dailyTotals={dailyTotals}
+                control={control}
+                errors={errors}
+            />
+        </div>
   );
 };
 `;

@@ -133,6 +133,23 @@
     height: 160px;
     background: var(--color-white-100);
     border-radius: var(--b-4);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.walletWrapper {
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.walletButton:hover,
+.walletWrapper:hover {
+    box-shadow: 0 2px 12px rgb(56 109 246 / 12%);
+}
+
+.button > svg {
+    position: relative;
+    left: 0.5px;
 }
 
 .walletButtonTitle {
@@ -160,6 +177,7 @@
 .walletIcon:hover {
     opacity: 0.7;
 }
+
 
 @media (max-width: $md) {
     .wallets {

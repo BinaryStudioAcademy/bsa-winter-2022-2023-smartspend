@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -14,7 +15,7 @@ import {
     WalletCard,
 } from '~/bundles/common/components/components.js';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
-import { CardVariant } from '~/bundles/common/enums/enums.js';
+import { CardVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -67,48 +68,45 @@ const ChartBox = ({
 interface WalletButtonProperties {
     children: JSX.Element | string;
     isButton?: boolean;
+    onClick?: () => void;
 }
 
 const WalletButton: React.FC<WalletButtonProperties> = ({
     children,
     isButton = true,
+    onClick,
 }) => {
-    const [active, setActive] = useState(false);
-
-    const handleCancel = useCallback(() => {
-        setActive(false);
-    }, []);
-    const handleModal = useCallback(() => {
-        setActive(true);
-    }, []);
-
     return (
         <div className={styles.walletButton}>
             {isButton && (
-                <Button variant={ButtonVariant.PLAIN} onClick={handleModal}>
-                    <div className={styles.walletIcon}>+</div>
+                <Button
+                    variant={ButtonVariant.ROUND}
+                    className={styles.button}
+                    onClick={onClick}
+                >
+                    <FontAwesomeIcon
+                        icon={FaIcons.PLUS}
+                        color={'var(--color-white-100)'}
+                    />
                 </Button>
             )}
-            <NewWalletModal
-                isShown={active}
-                onClose={handleCancel}
-                onSubmit={handleModal}
-            />
+
             <div className={styles.walletButtonTitle}>{children}</div>
         </div>
     );
 };
 
 const Dashboard: React.FC = () => {
+    const [active, setActive] = useState(false);
+    const [, setFilteredData] = useState(mockSliderData);
+    const rangeLimits = { min: -100, max: 1000 };
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
+
     const dispatch = useAppDispatch();
     const { wallets } = useAppSelector((state) => state.wallets);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
-
-    const rangeLimits = { min: -100, max: 1000 };
-    const [currentRange, setCurrentRange] = useState(rangeLimits);
-    const [, setFilteredData] = useState(mockSliderData);
 
     const handleSliderChange = useCallback(
         (range: { min: number; max: number }): void => {
@@ -121,6 +119,14 @@ const Dashboard: React.FC = () => {
         },
         [],
     );
+
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
@@ -142,8 +148,13 @@ const Dashboard: React.FC = () => {
                                 />
                             </div>
                         ))}
-                        <WalletButton>Add new wallet</WalletButton>
+                        <WalletButton onClick={handleModal}>Add new wallet</WalletButton>
                         <WalletButton>Connect a bank account</WalletButton>
+                        <NewWalletModal
+                            isShown={active}
+                            onClose={handleCancel}
+                            onSubmit={handleModal}
+                        />
                     </div>
                     <h2 className={classNames(styles.title, styles.overview)}>
                         Overview

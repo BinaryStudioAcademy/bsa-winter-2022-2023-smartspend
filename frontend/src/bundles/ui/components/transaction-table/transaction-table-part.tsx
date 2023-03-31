@@ -111,8 +111,18 @@ const TransactionTablePart: React.FC = () => {
                             amount: -5,
                             currency: '$',
                         },
+                        {
+                            id: '9',
+                            category: 'Salary',
+                            name: 'faMoneyBill',
+                            date: '2023-04-30',
+                            label: 'Electronics Store',
+                            amount: 3500,
+                            currency: '$',
+                        },
                     ]}
                 />
+                <TransactionTable transactions={[]} />
             </div>
         </div>
     );

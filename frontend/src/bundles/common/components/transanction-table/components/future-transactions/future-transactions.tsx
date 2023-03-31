@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     type Control,
     type FieldErrors,
@@ -28,9 +28,9 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
     const [isShowFutureTransaction, setIsShowFutureTransaction] =
         useState(false);
 
-    const handleToggleShowFutureTransactions = (): void => {
+    const handleToggleShowFutureTransactions = useCallback(() => {
         setIsShowFutureTransaction((previousState) => !previousState);
-    };
+    }, []);
     return (
         <div className={styles.group}>
             <div className={styles.transaction}>
@@ -47,7 +47,6 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                                 ? FaIcons.CHEVRON_DOWN
                                 : FaIcons.CHEVRON_UP
                         }
-                        // eslint-disable-next-line react/jsx-no-bind
                         onClick={handleToggleShowFutureTransactions}
                     />
                     <span className={styles.rowTitle}>Scheduled</span>

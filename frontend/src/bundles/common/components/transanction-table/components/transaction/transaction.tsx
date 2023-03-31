@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     type Control,
     type FieldErrors,
@@ -28,16 +28,17 @@ const Transaction: React.FC<TransactionProperties> = ({
 }) => {
     const [isChecked, setIsChecked] = useState(false);
 
-    const handleChange = (event: React.FormEvent<HTMLFormElement>): void => {
-        const target = event.target as HTMLInputElement;
-        if (target.checked) {
-            // eslint-disable-next-line no-console
-            console.log(`Checkbox ${transaction.id} is checked`);
-            setIsChecked(true);
-        } else {
-            setIsChecked(false);
-        }
-    };
+    const handleChange = useCallback(
+        (event: React.FormEvent<HTMLFormElement>): void => {
+            const target = event.target as HTMLInputElement;
+            if (target.checked) {
+                setIsChecked(true);
+            } else {
+                setIsChecked(false);
+            }
+        },
+        [],
+    );
 
     return (
         <div
@@ -48,7 +49,6 @@ const Transaction: React.FC<TransactionProperties> = ({
             )}
         >
             <div className={classNames(styles.columns, styles.leftColumn)}>
-                {/* eslint-disable-next-line react/jsx-no-bind  */}
                 <form className={styles.form} onChange={handleChange}>
                     <Input
                         type={InputType.CHECKBOX}
@@ -59,7 +59,6 @@ const Transaction: React.FC<TransactionProperties> = ({
                     />
                 </form>
                 <div>
-                    {/* There must be icon from DB */}
                     <img src={OrangeMurseIcon} alt={'murse'} />
                 </div>
                 <div>{transaction.category}</div>

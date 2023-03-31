@@ -11,13 +11,12 @@ const groupTransactionsByDate = (
         transactions,
     ) as ITransaction[]) {
         const date = transaction.date;
-
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (!groupedTransactions[date]) {
-            groupedTransactions[date] = [];
-        }
-
-        groupedTransactions[date].push(transaction);
+        const groupedTransactionsDate = groupedTransactions[
+            date
+        ] as unknown as string;
+        groupedTransactionsDate
+            ? groupedTransactions[date].push(transaction)
+            : (groupedTransactions[date] = [transaction]);
     }
 
     return groupedTransactions;

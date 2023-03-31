@@ -13,6 +13,7 @@ export {
     MultiDropdown,
     RangeSlider,
     Tabs,
+    TransactionTable,
     UserSettingsTabs,
 } from '../../common/components/components';
 export { BaseModalPart } from './base-modal-part/base-modal-part';
@@ -29,4 +30,5 @@ export { LoaderPart } from './loader-part/loader-part';
 export { MultiDropdownPart } from './multi-dropdown-part/multi-dropdown-part';
 export { RangeSliderPart } from './range-slider-part/range-slider-part';
 export { TabsPart } from './tabs-part/tabs-part';
+export { TransactionTablePart } from './transaction-table/transaction-table-part';
 export { UserSettingsTabsPart } from './user-settings-tabs-part/user-settings-tabs-part';

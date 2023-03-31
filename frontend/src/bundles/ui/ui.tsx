@@ -18,6 +18,7 @@ import {
     MultiDropdownPart,
     RangeSliderPart,
     TabsPart,
+    TransactionTablePart,
     UserSettingsTabsPart,
 } from './components/components';
 import { InputPart } from './components/input-part/input-part.js';
@@ -37,6 +38,7 @@ type CollapseState = {
     input: boolean;
     userSettingsTabs: boolean;
     rangeSlider: boolean;
+    transactionTable: boolean;
 };
 
 const defaultCollapse: CollapseState = {
@@ -52,6 +54,7 @@ const defaultCollapse: CollapseState = {
     userSettingsTabs: false,
     rangeSlider: false,
     card: false,
+    transactionTable: false,
 };
 
 const StyleGuide: React.FC = () => {
@@ -83,6 +86,7 @@ const StyleGuide: React.FC = () => {
         { name: 'multiDropdown', component: <MultiDropdownPart /> },
         { name: 'dropdown', component: <DropdownPart /> },
         { name: 'loader', component: <LoaderPart /> },
+        { name: 'transactionTable', component: <TransactionTablePart /> },
     ];
     return (
         <div>

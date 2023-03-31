@@ -77,28 +77,31 @@ function calculateBudgetDetails(
 interface ProgressProperties {
     totalBudget: number;
     spentSoFar: number;
-  }
-  
-  const BudgetProgressBar: React.FC<ProgressProperties> = ({ totalBudget, spentSoFar }) => {
+}
+
+const BudgetProgressBar: React.FC<ProgressProperties> = ({
+    totalBudget,
+    spentSoFar,
+}) => {
     const percentageSpent = (spentSoFar / totalBudget) * 100;
     const percentageRemaining = 100 - percentageSpent;
-  
+
     return (
-      <div className={styles.budgetProgressBar}>
-        <div
-          className={styles.budgetProgressBarSpent}
-          style={{ width: `${percentageSpent}%` }}
-        />
-        <div
-          className={styles.budgetProgressBarRemaining}
-          style={{ width: `${percentageRemaining}%` }}
-        />
-      </div>
+        <div className={styles.budgetProgressBar}>
+            <div
+                className={styles.budgetProgressBarSpent}
+                style={{ width: `${percentageSpent}%` }}
+            />
+            <div
+                className={styles.budgetProgressBarRemaining}
+                style={{ width: `${percentageRemaining}%` }}
+            />
+        </div>
     );
-  };
+};
 const BudgetDetails = (): JSX.Element => {
     const originallyBudgeted = 100_000;
-    const spentSoFar = 1250;
+    const spentSoFar = 12_500;
     // const { id } = useLocation();
     const { canSpend, moneyLeft } = calculateBudgetDetails(
         originallyBudgeted,
@@ -152,10 +155,12 @@ const BudgetDetails = (): JSX.Element => {
                     />
                 </div>
                 <div className={styles.progressWrapper}>
-                    <span>Budget progress</span>
-                    <div>
-                        <BudgetProgressBar totalBudget={originallyBudgeted} spentSoFar={spentSoFar}/>
-                    </div>
+                    <div>Budget progress</div>
+
+                    <BudgetProgressBar
+                        totalBudget={originallyBudgeted}
+                        spentSoFar={spentSoFar}
+                    />
                 </div>
             </div>
         </div>

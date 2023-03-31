@@ -14,7 +14,7 @@ import { MultiDropdown } from '~/bundles/common/components/dropdown/multi-dropdo
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum.js';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
 import { CardVariant } from '~/bundles/common/enums/card-variant.enum.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import { useCallback, useMemo, useState } from '~/bundles/common/hooks/hooks';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
@@ -100,7 +100,10 @@ const WalletDetails: React.FC = () => {
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
 
-    const rangeLimits = { min: -100, max: 1000 };
+    const rangeLimits = useMemo(() => {
+        return { min: -100, max: 1000 };
+    }, []);
+
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
 

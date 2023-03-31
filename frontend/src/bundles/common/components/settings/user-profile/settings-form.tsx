@@ -90,7 +90,7 @@ const SettingsForm: React.FC = () => {
             <AvatarContainer />
             <Input
                 type={InputType.TEXT}
-                label="Name"
+                label="First name"
                 placeholder="Enter your name"
                 name="name"
                 control={control}
@@ -98,7 +98,7 @@ const SettingsForm: React.FC = () => {
             />
             <Input
                 type={InputType.TEXT}
-                label="Surname"
+                label="Last name"
                 placeholder="Enter your surname"
                 name="surname"
                 control={control}
@@ -108,25 +108,28 @@ const SettingsForm: React.FC = () => {
                 data={sex}
                 handleChange={handleDropdownChangeSex}
                 selectedOption={selectedSingleSex}
+                label="Sex"
             />
             <Input
                 type={InputType.EMAIL}
-                label="Email"
+                label="E-mail address"
                 placeholder="Enter your email"
                 name="email"
                 control={control}
                 errors={errors}
             />
-            <Title>Localization settings</Title>
+            <Title>Account Settings</Title>
             <Dropdown
                 data={currency}
                 handleChange={handleDropdownChangeCurrency}
                 selectedOption={selectedSingleCurrency}
+                label="Account currency"
             />
             <Dropdown
                 data={language}
                 handleChange={handleDropdownChangeLanguage}
                 selectedOption={selectedSingleLanguage}
+                label="Language"
             />
             <SubmitButton isChange={isChange()}>
                 Update My Settings

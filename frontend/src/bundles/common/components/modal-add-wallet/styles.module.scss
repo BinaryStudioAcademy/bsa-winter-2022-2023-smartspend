@@ -4,10 +4,12 @@
     justify-content: space-between;
     width: 310px;
     height: 310px;
+    padding: 0 var(--p-3) var(--p-3) var(--p-3);
 }
 
 .title {
     margin: var(--m-2) 0;
+    padding-left: var(--p-3);
     color: var(--color-blue-600);
     font-size: var(--font-size-level-3-heading);
 }

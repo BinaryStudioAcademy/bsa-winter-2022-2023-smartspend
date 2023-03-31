@@ -86,11 +86,12 @@ const lineChartData = [
 type Wallet = {
     id: string;
     title: string;
+    value: string;
 };
 
 const wallets: Wallet[] = [
-    { id: '1', title: 'wallet 1' },
-    { id: '2', title: 'wallet 2' },
+    { id: '1', title: 'wallet 1', value: '+900.00$' },
+    { id: '2', title: 'wallet 2', value: '+900.00$' },
 ];
 
 // mock data for range slider

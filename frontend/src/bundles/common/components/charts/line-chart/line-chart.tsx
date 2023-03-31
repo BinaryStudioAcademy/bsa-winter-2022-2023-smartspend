@@ -9,7 +9,7 @@ import {
     createLineChartOptions,
     getData,
     getLabels,
-} from '~/bundles/common/helpers/chart-helper';
+} from '~/bundles/common/helpers/chart-helper/chart-helper';
 import { type DataObject } from '~/bundles/common/types/chart-data.type';
 
 import styles from './styles.module.scss';

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React, { useCallback, useState } from 'react';
 
 import { ButtonVariant } from '../common/enums/button-variant.enum';
 import {
@@ -7,7 +6,12 @@ import {
     DoughnutChartCardSize,
     DoughnutChartCartVariant,
 } from '../common/enums/enums';
-import { useAppForm } from '../common/hooks/hooks';
+import {
+    useAppForm,
+    useButtonTabsState,
+    useCallback,
+    useState,
+} from '../common/hooks/hooks';
 import {
     Button,
     ButtonTabs,
@@ -47,6 +51,9 @@ const Dashboard: React.FC = () => {
         { title: 'Week', isActive: false, disabled: false },
         { title: 'Months', isActive: false, disabled: true },
     ];
+
+    const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
+    const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
 
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
@@ -179,7 +186,11 @@ const Dashboard: React.FC = () => {
                                 title={'Account Balance'}
                                 date={'Dec 01-23'}
                                 controls={
-                                    <ButtonTabs tabsData={tabsDashboard} />
+                                    <ButtonTabs
+                                        cursor="pointer"
+                                        tabsData={secondTabs}
+                                        onClick={setSecondTabs}
+                                    />
                                 }
                             >
                                 <LineChart
@@ -191,7 +202,11 @@ const Dashboard: React.FC = () => {
                                 title={'Changes'}
                                 date={'Dec 01-23'}
                                 controls={
-                                    <ButtonTabs tabsData={tabsDashboard} />
+                                    <ButtonTabs
+                                        cursor="pointer"
+                                        tabsData={firstTabs}
+                                        onClick={setFirstTabs}
+                                    />
                                 }
                             >
                                 <Chart array={barChartData} />

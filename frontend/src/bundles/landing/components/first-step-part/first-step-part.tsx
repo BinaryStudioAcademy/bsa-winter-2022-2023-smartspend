@@ -1,11 +1,14 @@
 import classNames from 'classnames';
 
 import {
+    StepInfoPanel,
+    WalletCard,
+} from '~/bundles/landing/components/components.js';
+import {
     StepInfoPanelVariant,
     WalletCardVariant,
 } from '~/bundles/landing/enums/enums.js';
 
-import { StepInfoPanel, WalletCard } from '../components.js';
 import styles from './styles.module.scss';
 
 const FirstStepPart: React.FC = () => {

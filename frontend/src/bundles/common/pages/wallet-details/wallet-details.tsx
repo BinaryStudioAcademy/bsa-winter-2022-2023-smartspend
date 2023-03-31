@@ -140,7 +140,7 @@ const WalletDetails: React.FC = () => {
         setCategoriesDropdown([]);
         setFilteredData(mockSliderData);
         setCurrentRange(rangeLimits);
-    }, []);
+    },[rangeLimits]);
 
     return (
         <div className={styles.app}>

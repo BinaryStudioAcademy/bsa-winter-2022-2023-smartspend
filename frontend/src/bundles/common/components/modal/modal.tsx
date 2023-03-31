@@ -18,6 +18,9 @@ type Properties = {
     Body: ReactNode;
     children?: ReactNode;
     submitButtonName: string;
+    width?: number;
+    footerContainerClass?: string;
+    buttonsSize?: ButtonSize;
 };
 
 const BaseModal: React.FC<Properties> = ({
@@ -28,6 +31,9 @@ const BaseModal: React.FC<Properties> = ({
     isShown,
     onSubmit,
     submitButtonName,
+    footerContainerClass = '',
+    width,
+    buttonsSize = ButtonSize.SMALL,
 }) => {
     const handleClose = useCallback(() => {
         onClose();
@@ -66,6 +72,7 @@ const BaseModal: React.FC<Properties> = ({
                         className={styles.popup}
                         onClick={handleDisableContentContainerClick}
                         role="presentation"
+                        style={{ width: `${width}px` }}
                     >
                         <button
                             data-test-id="book-trip-popup-close"
@@ -76,19 +83,24 @@ const BaseModal: React.FC<Properties> = ({
                         </button>
                         <div className={styles.modalHeader}>{Header}</div>
                         <div className={styles.modalBody}>{Body}</div>
-                        <div className={styles.modalFooter}>
+                        <div
+                            className={classNames(
+                                styles.modalFooter,
+                                footerContainerClass,
+                            )}
+                        >
                             {children}
                             <div className={styles.mainButtonsWrapper}>
                                 <Button
                                     variant={ButtonVariant.SECONDARY}
-                                    size={ButtonSize.SMALL}
+                                    size={buttonsSize}
                                     onClick={handleClose}
                                 >
                                     Cancel
                                 </Button>
                                 <Button
                                     variant={ButtonVariant.PRIMARY}
-                                    size={ButtonSize.SMALL}
+                                    size={buttonsSize}
                                     onClick={onSubmit}
                                 >
                                     {submitButtonName}

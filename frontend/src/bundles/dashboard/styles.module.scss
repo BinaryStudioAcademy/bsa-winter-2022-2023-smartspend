@@ -77,13 +77,6 @@
     margin-bottom: 0;
 }
 
-.totals {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 15px;
-}
-
 .charts {
     display: grid;
     grid-template-rows: repeat(2, 350px);
@@ -91,52 +84,6 @@
     justify-content: center;
     gap: 15px;
     margin-top: var(--m-3);
-}
-
-.chart {
-    display: flex;
-    flex-direction: column;
-    padding: var(--p-3);
-    background-color: var(--color-white-100);
-    border-radius: var(--b-4);
-}
-
-.chartBox {
-    display: flex;
-    flex: 1 1 auto;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-}
-
-.chartTitle {
-    color: var(--color-gray-400);
-    font-weight: var(--font-weight-500);
-    font-size: var(--font-size-level-4-heading);
-    font-style: normal;
-}
-
-.chartDate {
-    color: var(--color-gray-200);
-    font-weight: var(--font-weight-400);
-    font-size: var(--font-size-caption);
-    font-family: Poppins, sans-serif;
-    line-height: var(--line-height-caption);
-}
-
-.walletButton {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 230px;
-    height: 160px;
-    background: var(--color-white-100);
-    border-radius: var(--b-4);
-}
-
-.walletButtonTitle {
-    color: var(--color-blue-600);
 }
 
 .smallCalendar {

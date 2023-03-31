@@ -1,17 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 
-import { Calendar } from '../common/components/calendar/calendar';
-import {
-    Button,
-    ButtonTabs,
-    CardTotal,
-    Chart,
-    DoughnutChartCard,
-    Input,
-    LineChart,
-    RangeSlider,
-} from '../common/components/components';
 import { ButtonVariant } from '../common/enums/button-variant.enum';
 import {
     CardVariant,
@@ -19,6 +8,19 @@ import {
     DoughnutChartCartVariant,
 } from '../common/enums/enums';
 import { useAppForm } from '../common/hooks/hooks';
+import {
+    Button,
+    ButtonTabs,
+    Calendar,
+    CardTotal,
+    Chart,
+    ChartBox,
+    DoughnutChartCard,
+    Input,
+    LineChart,
+    RangeSlider,
+    WalletButton,
+} from './components/components';
 import {
     type Wallet,
     barChartData,
@@ -33,54 +35,6 @@ type FormValues = {
     name: string;
     category: string;
     wallet: string;
-};
-
-type ChartBoxProperties = {
-    children: JSX.Element | JSX.Element[] | string;
-    title: string;
-    date: string;
-    controls?: JSX.Element | JSX.Element[] | string;
-};
-
-const ChartBox = ({
-    children,
-    title,
-    date,
-    controls,
-}: ChartBoxProperties): JSX.Element => {
-    return (
-        <div className={classNames(styles.chart)}>
-            <div className={styles.totals}>
-                <div>
-                    <h3 className={styles.chartTitle}>{title}</h3>
-                    <span className={styles.chartDate}>{date}</span>
-                </div>
-                <div>{controls}</div>
-            </div>
-            <div className={styles.chartBox}>{children}</div>
-        </div>
-    );
-};
-
-interface WalletButtonProperties {
-    children: JSX.Element | string;
-    isButton?: boolean;
-}
-
-const WalletButton: React.FC<WalletButtonProperties> = ({
-    children,
-    isButton = true,
-}) => {
-    return (
-        <div className={styles.walletButton}>
-            {isButton && (
-                <Button variant={ButtonVariant.PLAIN}>
-                    <div className={styles.walletIcon}>+</div>
-                </Button>
-            )}
-            <div className={styles.walletButtonTitle}>{children}</div>
-        </div>
-    );
 };
 
 const Dashboard: React.FC = () => {

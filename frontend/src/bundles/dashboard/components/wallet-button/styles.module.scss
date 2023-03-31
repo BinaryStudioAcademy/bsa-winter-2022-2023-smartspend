@@ -1,0 +1,41 @@
+@import "@assets/utils";
+
+.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 160px;
+    background: var(--color-white-100);
+    border-radius: var(--b-4);
+}
+
+.buttonTitle {
+    color: var(--color-blue-600);
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--color-white-100);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-heading);
+    line-height: 0;
+    background: var(--color-blue-500);
+    border-radius: var(--b-5);
+}
+
+.icon:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: $md) {
+    .button {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}

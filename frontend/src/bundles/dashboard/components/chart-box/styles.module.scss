@@ -1,0 +1,37 @@
+.chart {
+    display: flex;
+    flex-direction: column;
+    padding: var(--p-3);
+    background-color: var(--color-white-100);
+    border-radius: var(--b-4);
+}
+
+.totals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.chartTitle {
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+    font-style: normal;
+}
+
+.chartDate {
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-caption);
+    font-family: Poppins, sans-serif;
+    line-height: var(--line-height-caption);
+}
+
+.chartBox {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}

@@ -10,11 +10,16 @@ import {
     Input,
     LineChart,
     RangeSlider,
-} from '~/bundles/common/components/components';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { CardVariant } from '~/bundles/common/enums/enums';
-import { toCustomLocaleString } from '~/bundles/common/helpers/helpers';
-import { useAppDispatch, useAppForm, useAppSelector } from '~/bundles/common/hooks/hooks';
+    WalletCard,
+} from '~/bundles/common/components/components.js';
+import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
+import { CardVariant } from '~/bundles/common/enums/enums.js';
+import {
+    useAppDispatch,
+    useAppForm,
+    useAppSelector,
+} from '~/bundles/common/hooks/hooks.js';
+import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import {
@@ -113,20 +118,13 @@ const Dashboard: React.FC = () => {
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
                         {wallets.map(({ id, name, balance }) => (
-                            <div
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletButton isButton={false}>
-                                    <div>
-                                        <p>{name}</p>
-                                        <p>Balance</p>
-                                        <p>
-                                            {balance > 0 && '+'}
-                                            {toCustomLocaleString(balance)}$
-                                        </p>
-                                    </div>
-                                </WalletButton>
+                            <div key={id} className={styles.walletWrapper}>
+                                <WalletCard
+                                    title={name}
+                                    size={WalletCardSize.MEDIUM}
+                                    balance_value={balance}
+                                    wallet_type={'Balance'}
+                                />
                             </div>
                         ))}
                         <WalletButton>Add new wallet</WalletButton>

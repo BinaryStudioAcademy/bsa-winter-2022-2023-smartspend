@@ -17,25 +17,25 @@ const FirstStepPart: React.FC = () => {
         {
             title: CashWallets,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 900,
             variant: WalletCardVariant.PRIMARY,
         },
         {
             title: CashWallets,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 900,
             variant: WalletCardVariant.SECONDARY,
         },
         {
             title: CashWallets,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 900,
             variant: WalletCardVariant.TERTIARY,
         },
         {
             title: CashWallets,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 900,
             variant: WalletCardVariant.QUATERNARY,
         },
     ];

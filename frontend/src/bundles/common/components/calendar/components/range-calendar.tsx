@@ -62,7 +62,7 @@ const RangeCalendar: React.FC = () => {
     }, []);
 
     return (
-        <>
+        <div className={styles.calendar_wrapper}>
             <Button
                 className={styles.calendar}
                 variant={ButtonVariant.PLAIN}
@@ -123,7 +123,7 @@ const RangeCalendar: React.FC = () => {
             ) : (
                 <></>
             )}
-        </>
+        </div>
     );
 };
 

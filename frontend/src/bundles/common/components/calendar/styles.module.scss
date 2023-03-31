@@ -1,3 +1,7 @@
+.calendar_wrapper {
+    position: relative;
+}
+
 .calendar {
     color: var(--color-blue-600);
     border: 1px solid var(--color-disable);
@@ -16,16 +20,16 @@
 
 .modal_one_day {
     position: absolute;
-    top: 52px;
-    left: 5px;
+    top: 1px;
+    left: 1px;
     z-index: 10000;
     margin-left: var(--m-2);
 }
 
 .modal_range {
     position: absolute;
-    top: 172px;
-    left: 10px;
+    top: 50px;
+    left: 1px;
     z-index: 10000;
     margin-left: var(--m-2);
 }

@@ -43,7 +43,7 @@ const OneDayCalendar: React.FC = () => {
             </Button>
 
             {isShowModal ? (
-                <>
+                <div className={styles.calendar_wrapper}>
                     <input
                         onClick={handleClick}
                         className={styles.overlay}
@@ -55,7 +55,7 @@ const OneDayCalendar: React.FC = () => {
                             color="#03bfd9"
                         />
                     </div>
-                </>
+                </div>
             ) : (
                 <></>
             )}

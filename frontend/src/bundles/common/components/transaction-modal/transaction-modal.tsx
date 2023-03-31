@@ -18,6 +18,11 @@ const currency: DataType[] = [
     { value: 'UAH', name: 'UAH' },
 ];
 
+const labels: DataType[] = [
+    { value: 'food', name: 'food' },
+    { value: 'cafe', name: 'cafe' },
+];
+
 const TransactionModal: React.FC = () => {
     const [active, setActive] = useState(true);
 
@@ -34,6 +39,7 @@ const TransactionModal: React.FC = () => {
                 <TransactionModalBody
                     categories={categories}
                     currency={currency}
+                    labels={labels}
                 />
             }
             submitButtonName={'Save changes'}

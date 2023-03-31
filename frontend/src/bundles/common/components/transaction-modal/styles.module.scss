@@ -1,25 +1,12 @@
 .body {
-    display: flex;
+    display: grid;
+    grid-template-columns: 130px 200px 1fr 120px 100px 110px;
+    gap: 5px;
+    padding: var(--p-6) var(--p-4) var(--p-6);
 }
 
-.labelElement {
-    color: var(--color-gray-200);
-}
-
-.category {
-    width: 150px;
-}
-
-.label {
-    width: 150px;
-}
-
-.amount {
-    width: 10%;
-}
-
-.currency {
-    width: 110px;
+.note {
+    width: 100%;
 }
 
 .delete {
@@ -28,6 +15,6 @@
 }
 
 .delete:hover {
-    color: var(--color-red-300);
-    border: var(--border) solid var(--color-red-300);
+    color: var(--color-warning);
+    border: var(--border) solid var(--color-warning);
 }

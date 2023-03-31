@@ -22,6 +22,7 @@ export { RangeSlider } from './range-slider/range-slider.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { ScrollNavLink } from './scroll-nav/scroll-nav.js';
 export { Tabs } from './tabs/tabs.js';
+export { Toast } from './toast/toast';
 export { UserSettingsTabs } from './user-settings-tabs/user-settings-tabs';
 export { WalletCard } from './wallet-card/wallet-card';
 export { Provider as StoreProvider } from 'react-redux';

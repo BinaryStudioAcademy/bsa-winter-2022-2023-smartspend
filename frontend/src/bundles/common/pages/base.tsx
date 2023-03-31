@@ -1,9 +1,12 @@
 import React from 'react';
 import { type MultiValue, type SingleValue } from 'react-select';
-import { type UserSignInRequestDto } from 'shared/build/index.js';
-import { userSignInValidationSchema } from 'shared/build/index.js';
+import {
+    type UserSignInRequestDto,
+    userSignInValidationSchema,
+} from 'shared/build/index.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
+import { UserProfile } from '~/bundles/common/components/settings/user-profile';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import { Calendar } from '../components/calendar/calendar';
@@ -21,7 +24,6 @@ import {
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
 import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
-import { NewWalletModal } from '../components/modal-add-wallet/modal-add-wallet.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
@@ -140,18 +142,6 @@ const Base: React.FC = () => {
     }, []);
     const handleModal = useCallback(() => {
         setActive(true);
-    }, []);
-
-    // WALLET MODAL
-
-    const [walletModalActive, setWalletModalActive] = useState(false);
-
-    const handleWalletModalCancel = useCallback(() => {
-        setWalletModalActive(false);
-    }, []);
-
-    const handleWalletModalOpen = useCallback(() => {
-        setWalletModalActive(true);
     }, []);
 
     // Range Slider -------------------------------------
@@ -517,17 +507,6 @@ const Base: React.FC = () => {
                     submitButtonName={'Save changes'}
                 ></BaseModal>
             </div>
-            <br />
-            <div>
-                <button onClick={handleWalletModalOpen}>Add New Wallet</button>
-                <NewWalletModal
-                    isShown={walletModalActive}
-                    onClose={handleWalletModalCancel}
-                    onSubmit={handleWalletModalCancel}
-                />
-            </div>
-            <br></br>
-
             {/* Doughnut Chart----------------------------------- */}
             <div>
                 <p>Doughnut Chart</p>
@@ -568,6 +547,7 @@ const Base: React.FC = () => {
                 </div>
             </div>
             <UserSettingsTabs tabsData={userSettingsData} />
+            <UserProfile />
             <div>
                 <RangeSlider
                     rangeLimits={rangeLimits}

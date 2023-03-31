@@ -59,8 +59,8 @@ import {
  *            example: ["4b7908cc-5581-4d74-8910-7f2bba8cb49b"]
  *      Budgets:
  *        type: array
- *        items:
- *          $ref: '#/components/schemas/Budget'
+ *            items:
+ *              $ref: '#/components/schemas/Budget'
  *
  */
 

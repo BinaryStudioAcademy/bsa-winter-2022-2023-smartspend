@@ -20,7 +20,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
     });
 
     return (
-        <section className={styles.body}>
+        <section id="subscription" className={styles.body}>
             <div className={classNames('container', styles.container)}>
                 <h1 className={styles.title}>{title}</h1>
                 <form className={styles.form}>
@@ -34,7 +34,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
                             labelClassName={styles.inputLabel}
                             inputClassName={styles.input}
                         />
-                        <Button>Subscribe</Button>
+                        <Button className={styles.button}>Subscribe</Button>
                     </div>
                 </form>
             </div>

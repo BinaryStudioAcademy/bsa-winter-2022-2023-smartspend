@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .body {
     display: flex;
     justify-content: center;
@@ -36,14 +38,14 @@
     right: -40px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: $xl) {
     .chartCardTop {
         right: 100px;
         bottom: -20px;
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg) {
     .container {
         flex-direction: column;
         height: auto;
@@ -70,14 +72,14 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $md) {
     .chartCardsContainer {
         grid-template-rows: 1fr;
         grid-template-columns: minmax(288px, 420px);
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: $sm) {
     .chartCardsContainer {
         display: grid;
         grid-template-rows: 1fr 1fr;

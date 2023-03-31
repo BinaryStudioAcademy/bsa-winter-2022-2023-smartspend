@@ -9,6 +9,10 @@ type Properties = {
     gradient_number?: number;
 };
 
+const getNumberToRange1to3 = (value: number): number => {
+    return (((value % 3) + 3) % 3) + 1;
+};
+
 const FeedbackCard: React.FC<Properties> = ({
     name,
     avatar_src,
@@ -17,7 +21,7 @@ const FeedbackCard: React.FC<Properties> = ({
 }) => {
     const containerClass = classNames(
         styles.container,
-        styles[`gradient_${gradient_number}`],
+        styles[`gradient_${getNumberToRange1to3(gradient_number)}`],
     );
     return (
         <div className={containerClass}>

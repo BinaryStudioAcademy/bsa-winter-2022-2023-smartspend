@@ -1,7 +1,3 @@
-:root {
-    --pr-40: 2.5rem;
-}
-
 .form {
     display: flex;
     flex-direction: column;
@@ -45,7 +41,7 @@
 
 .inputPages[type="password"],
 .inputPages[type="text"] {
-    padding-right: var(--pr-40);
+    padding-right: var(--p-6);
 }
 
 .imgWrapper {
@@ -61,4 +57,36 @@
     width: 149px;
     margin-top: var(--m-4);
     font-weight: var(--font-weight-400);
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+}
+
+.footerContainerClass {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.modalDetailsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modalDetails {
+    width: 280px;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
 }

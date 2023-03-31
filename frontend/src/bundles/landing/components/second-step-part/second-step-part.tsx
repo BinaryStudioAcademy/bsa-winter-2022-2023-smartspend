@@ -7,9 +7,9 @@ import styles from './styles.module.scss';
 
 const SecondStepPart: React.FC = () => {
     const listItems = [
-        'Connect your bank accounts and all your transactions will get automatically imported to SmartSpend.',
-        'Connect your crypto wallet and E-Wallet for complete overview of your cash flow.',
-        'Add your cash expenses manually.',
+        'Analyze your finance with beautiful, simple and easy-to-understand graphics. No need for complicated Excel sheets.',
+        'See where your money goes and where they come from every month.',
+        'See whether you spend less than you earn in one place and on 1 tap.',
     ];
 
     const dataArray: DataObject[] = [
@@ -21,7 +21,7 @@ const SecondStepPart: React.FC = () => {
     ];
 
     return (
-        <section className={styles.body}>
+        <section id="analytics" className={styles.body}>
             <div className={classNames('container', styles.container)}>
                 <span className={styles.bigBlueBorderCircle}></span>
                 <span className={styles.smallBlueBorderCircle}></span>
@@ -34,7 +34,7 @@ const SecondStepPart: React.FC = () => {
                     date={'Mar 01-31'}
                 />
                 <StepInfoPanel
-                    title={'Track your cash flow'}
+                    title={'Understand your financial habits'}
                     listItems={listItems}
                     step={2}
                     variant={StepInfoPanelVariant.PRIMARY}

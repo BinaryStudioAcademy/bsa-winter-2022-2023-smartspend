@@ -12,11 +12,14 @@ import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import { ButtonSize } from '../../../enums/button-size.enum';
 import { ButtonVariant } from '../../../enums/button-variant.enum';
+import {
+    formatRange,
+    getFutureDate,
+    getInitialRange,
+    getPastDate,
+} from '../../../helpers/helpers';
 import { Button } from '../../components';
 import styles from '../styles.module.scss';
-import { getFutureDate, getPastDate } from './helpers/get-date-for-arrows';
-import { formatRange } from './helpers/get-formating-date';
-import { getInitialRange } from './helpers/get-initial-range';
 
 const RangeCalendar: React.FC = () => {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);

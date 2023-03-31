@@ -9,9 +9,9 @@ import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import { ButtonSize } from '../../../enums/button-size.enum';
 import { ButtonVariant } from '../../../enums/button-variant.enum';
+import { formatOneDay } from '../../../helpers/helpers';
 import { Button } from '../../components';
 import styles from '../styles.module.scss';
-import { formatOneDay } from './helpers/get-formating-date';
 
 const OneDayCalendar: React.FC = () => {
     const [day, setDay] = useState<Date>(new Date());

@@ -7,11 +7,11 @@ import { Calendar } from 'react-date-range';
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
-import { ButtonSize } from '../../enums/button-size.enum';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import { formatOneDay } from '../../helpers/helpers';
-import { Button } from '../components';
-import styles from './styles.module.scss';
+import { ButtonSize } from '../../../enums/button-size.enum';
+import { ButtonVariant } from '../../../enums/button-variant.enum';
+import { Button } from '../../components';
+import styles from '../styles.module.scss';
+import { formatOneDay } from './helpers/get-formating-date';
 
 const OneDayCalendar: React.FC = () => {
     const [day, setDay] = useState<Date>(new Date());
@@ -27,7 +27,7 @@ const OneDayCalendar: React.FC = () => {
     }, []);
 
     return (
-        <div className={styles.calendar_wrapper}>
+        <>
             <Button
                 className={styles.calendar}
                 variant={ButtonVariant.PLAIN}
@@ -59,7 +59,7 @@ const OneDayCalendar: React.FC = () => {
             ) : (
                 <></>
             )}
-        </div>
+        </>
     );
 };
 

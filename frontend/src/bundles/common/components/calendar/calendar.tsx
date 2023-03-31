@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { OneDayCalendar } from './one-day-calendar';
-import { RangeCalendar } from './range-calendar';
-import styles from './styles.module.scss';
+import { OneDayCalendar } from './components/one-day-calendar';
+import { RangeCalendar } from './components/range-calendar';
 
 type Properties = {
     isRangeCalendar: boolean;
@@ -11,11 +10,7 @@ type Properties = {
 const Calendar: React.FC<Properties> = ({ isRangeCalendar }: Properties) => {
     const isRangeView: boolean = isRangeCalendar;
 
-    return (
-        <div className={styles.calendars_wrapper}>
-            {isRangeView ? <RangeCalendar /> : <OneDayCalendar />}
-        </div>
-    );
+    return <>{isRangeView ? <RangeCalendar /> : <OneDayCalendar />}</>;
 };
 
 export { Calendar };

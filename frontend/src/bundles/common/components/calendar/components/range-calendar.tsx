@@ -10,16 +10,13 @@ import leftArrow from '~/assets/img/left-arrow.svg';
 import rightArrow from '~/assets/img/right-arrow.svg';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
-import { ButtonSize } from '../../enums/button-size.enum';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import {
-    formatRange,
-    getFutureDate,
-    getInitialRange,
-    getPastDate,
-} from '../../helpers/helpers';
-import { Button } from '../components';
-import styles from './styles.module.scss';
+import { ButtonSize } from '../../../enums/button-size.enum';
+import { ButtonVariant } from '../../../enums/button-variant.enum';
+import { Button } from '../../components';
+import styles from '../styles.module.scss';
+import { getFutureDate, getPastDate } from './helpers/get-date-for-arrows';
+import { formatRange } from './helpers/get-formating-date';
+import { getInitialRange } from './helpers/get-initial-range';
 
 const RangeCalendar: React.FC = () => {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
@@ -65,7 +62,7 @@ const RangeCalendar: React.FC = () => {
     }, []);
 
     return (
-        <div className={styles.calendar_wrapper}>
+        <>
             <Button
                 className={styles.calendar}
                 variant={ButtonVariant.PLAIN}
@@ -126,7 +123,7 @@ const RangeCalendar: React.FC = () => {
             ) : (
                 <></>
             )}
-        </div>
+        </>
     );
 };
 

@@ -1,12 +1,20 @@
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
 
-import { InputType } from '../../enums/input-type.enum';
-import { type DataType } from '../../types/dropdown.type';
-import { BaseModal, Input } from '../components';
-import { Dropdown } from '../dropdown/dropdown';
-import { currencies } from './currency-list/currency-list';
+import {
+    BaseModal,
+    Dropdown,
+    Input,
+} from '~/bundles/common/components/components';
+import { currencies } from '~/bundles/common/components/modal-add-wallet/currency-list/currency-list';
+import { InputType } from '~/bundles/common/enums/input-type.enum';
+import {
+    useAppForm,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
+import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type FormValues } from '~/bundles/common/types/new-wallet-modal.type';
+
 import styles from './styles.module.scss';
 
 interface Properties {
@@ -20,12 +28,8 @@ const ModalAddWallet: React.FC<Properties> = ({
     onClose,
     onSubmit,
 }) => {
-    const {
-        control,
-        formState: { errors },
-        watch,
-    } = useForm({
-        defaultValues: { walletName: '', startingBalance: '' },
+    const { control, errors, watch } = useAppForm<FormValues>({
+        defaultValues: { walletName: '', currency: '', balance: '' },
     });
 
     const [currency, setCurrency] = useState<DataType>(currencies[0]);
@@ -75,7 +79,7 @@ const ModalAddWallet: React.FC<Properties> = ({
                         data={currencies}
                         selectedOption={currency}
                         handleChange={handleChange}
-                        label="Currency"
+                        label="currency"
                         labelClassName={styles.label}
                         name="Dropdown"
                     />
@@ -84,7 +88,7 @@ const ModalAddWallet: React.FC<Properties> = ({
                         control={control}
                         errors={errors}
                         label="Starting balance (optional)"
-                        name="startingBalance"
+                        name="balance"
                         placeholder="0.00"
                         type={InputType.NUMBER}
                         inputClassName={styles.input}

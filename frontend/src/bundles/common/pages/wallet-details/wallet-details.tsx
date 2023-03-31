@@ -148,14 +148,14 @@ const WalletDetails: React.FC = () => {
     return (
         <div className={styles.app}>
             <div className={styles.body}>
-                <div className={styles.bodyContainer}>
+                <div className={classNames(styles.bodyContainer, 'container')}>
                     <div className={styles.buttonsDate}>
                         <div className={styles.buttonsContainer}>
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
                             >
-                                <span>+</span>
+                                <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
                             </Button>
                             <div className={styles.buttons}>
@@ -176,7 +176,12 @@ const WalletDetails: React.FC = () => {
                         <RangeCalendar />
                     </div>
                     <div className={styles.filters}>
-                        <div className={styles.filtersContainer}>
+                        <div
+                            className={classNames(
+                                styles.filtersContainer,
+                                'container',
+                            )}
+                        >
                             <div className={styles.filterText}>
                                 <h2>Filters</h2>
                                 <button
@@ -249,7 +254,12 @@ const WalletDetails: React.FC = () => {
                         </div>
                     </div>
                     <div className={styles.walletTransactions}>
-                        <div className={styles.walletTransactionsContainer}>
+                        <div
+                            className={classNames(
+                                styles.walletTransactionsContainer,
+                                'container',
+                            )}
+                        >
                             <div className={styles.cards}>
                                 <CardTotal
                                     title="Total Balance"

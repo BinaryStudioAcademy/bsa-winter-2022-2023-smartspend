@@ -5,15 +5,14 @@ import {
     Dropdown,
     Input,
 } from '~/bundles/common/components/components';
-import { currencies } from '~/bundles/common/components/modal-add-wallet/currency-list/currency-list';
-import { InputType } from '~/bundles/common/enums/input-type.enum';
+import { currencies } from '~/bundles/common/components/modal-add-wallet/constants/constants';
+import { InputType } from '~/bundles/common/enums/enums';
 import {
     useAppForm,
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
-import { type FormValues } from '~/bundles/common/types/new-wallet-modal.type';
+import { type DataType, type FormValues } from '~/bundles/common/types/types';
 
 import styles from './styles.module.scss';
 

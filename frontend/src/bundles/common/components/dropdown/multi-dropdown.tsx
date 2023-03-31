@@ -24,6 +24,7 @@ interface Properties {
     formatOptionLabel?: (data: DataType) => JSX.Element;
     label?: string;
     labelClassName?: string;
+    name?: string;
 }
 
 const MultiDropdown: React.FC<Properties> = ({
@@ -34,6 +35,7 @@ const MultiDropdown: React.FC<Properties> = ({
     formatOptionLabel,
     label,
     labelClassName = '',
+    name,
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
@@ -149,7 +151,7 @@ const MultiDropdown: React.FC<Properties> = ({
     };
 
     return (
-        <>
+        <div>
             <div className={styles.labelContainer}>
                 <span className={labelClasses}>{label}</span>
             </div>
@@ -170,8 +172,9 @@ const MultiDropdown: React.FC<Properties> = ({
                 hideSelectedOptions={false}
                 onFocus={handleFocus}
                 isSearchable={false}
+                name={name}
             />
-        </>
+        </div>
     );
 };
 

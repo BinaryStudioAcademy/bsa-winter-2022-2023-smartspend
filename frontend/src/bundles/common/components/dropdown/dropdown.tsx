@@ -25,6 +25,7 @@ interface Properties {
     formatOptionLabel?: (data: DataType) => JSX.Element;
     label?: string;
     labelClassName?: string;
+    name?: string;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -35,6 +36,7 @@ const Dropdown: React.FC<Properties> = ({
     formatOptionLabel,
     label,
     labelClassName = '',
+    name,
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
@@ -114,7 +116,7 @@ const Dropdown: React.FC<Properties> = ({
     );
 
     return (
-        <>
+        <div>
             <div className={styles.labelContainer}>
                 <span className={labelClasses}>{label}</span>
             </div>
@@ -133,8 +135,9 @@ const Dropdown: React.FC<Properties> = ({
                 styles={customStyles}
                 onFocus={handleFocus}
                 isSearchable={false}
+                name={name}
             />
-        </>
+        </div>
     );
 };
 

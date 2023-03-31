@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .button {
     width: 200px;
     color: var(--color-white-100);
@@ -18,9 +20,11 @@
 }
 
 .title {
+    width: 100%;
     margin: 0 0 var(--m-1);
     font-weight: 400;
     font-size: 11px;
+    text-align: start;
 }
 
 .detailsContainer {
@@ -32,4 +36,29 @@
 .body {
     margin: 0;
     font-size: var(--font-size-1-button-text);
+}
+
+@media (max-width: $lg) {
+    .button {
+        width: 160px;
+        padding: var(--p-2);
+    }
+}
+
+@media (max-width: $sm) {
+    .button {
+        width: 138px;
+    }
+
+    .title {
+        font-size: 10px;
+    }
+
+    .body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0;
+    }
 }

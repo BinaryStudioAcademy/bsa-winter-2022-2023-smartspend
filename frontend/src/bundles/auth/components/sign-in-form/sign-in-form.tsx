@@ -7,7 +7,7 @@ import {
     userSignInValidationSchema,
 } from '~/bundles/users/users';
 
-import { DEFAULT_SIGN_IN_PAYLOAD } from './constans/constans';
+import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -15,16 +15,24 @@ type Properties = {
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
-        defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
-        validationSchema: userSignInValidationSchema,
-    });
+    const { control, errors, handleSubmit, watch, trigger } =
+        useAppForm<UserSignInRequestDto>({
+            defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
+            validationSchema: userSignInValidationSchema,
+        });
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
+            event_.preventDefault();
+            void trigger();
+            const email = watch('email');
+            const password = watch('password');
+            if (!email || !password) {
+                return;
+            }
             void handleSubmit(onSubmit)(event_);
         },
-        [handleSubmit, onSubmit],
+        [handleSubmit, onSubmit, trigger, watch],
     );
 
     return (

@@ -1,20 +1,15 @@
-import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
-import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
+import classNames from 'classnames';
 
-import { AppRoute } from '../../enums/enums';
-import { FooterLinks, FooterMediaIcons } from '../components';
+import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
+import SmartSpendLogo from '~/assets/img/logo-smartspend.svg';
+import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
+import { AppRoute } from '~/bundles/auth/enums/enums';
+import { menuLinks } from '~/bundles/common/enums/menu-links.enum';
+
+import { FooterLinks, FooterMediaIcons, Link } from '../components';
 import styles from './styles.module.scss';
 
 const Footer: React.FC = () => {
-    const linksArray = [
-        { to: AppRoute.UI, value: 'PRICING' },
-        { to: AppRoute.UI, value: 'Bank connect' },
-        { to: AppRoute.UI, value: 'Help' },
-        { to: AppRoute.UI, value: 'About Us' },
-        { to: AppRoute.UI, value: 'Blog' },
-        { to: AppRoute.UI, value: 'Contact' },
-    ];
-
     const iconsArray = [
         { src: TwitterIcon, alt: 'twitter', href: 'https://twitter.com/' },
         {
@@ -24,17 +19,24 @@ const Footer: React.FC = () => {
         },
     ];
     return (
-        <footer className={styles.container}>
-            <div className={styles.socialMediaIconsContainer}>
-                <FooterMediaIcons icons={iconsArray} />
-            </div>
-            <div className={styles.logoContainer}>
-                <div className={styles.logoImg}>
-                    <img src="" alt="logo" />
+        <footer className={styles.body}>
+            <div className={classNames('container', styles.container)}>
+                <div className={styles.socialMediaIconsContainer}>
+                    <FooterMediaIcons icons={iconsArray} />
                 </div>
-            </div>
-            <div className={styles.links_container}>
-                <FooterLinks links={linksArray} />
+                <Link to={AppRoute.ROOT} className={styles.logoContainer}>
+                    <div className={styles.logoImg}>
+                        <img
+                            className={styles.imgLogo}
+                            src={SmartSpendLogo}
+                            alt="logo"
+                        />
+                    </div>
+                    <span className={styles.logoText}>SmartSpend</span>
+                </Link>
+                <div className={styles.links_container}>
+                    <FooterLinks links={menuLinks} />
+                </div>
             </div>
         </footer>
     );

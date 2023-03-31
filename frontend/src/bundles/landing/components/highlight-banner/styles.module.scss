@@ -1,15 +1,25 @@
-.container {
+@import "@assets/utils";
+
+.body {
     position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 530px;
-    padding: 0 var(--p-8);
     background: var(--gradient-9);
 }
 
+.container {
+    display: grid;
+    flex: 1 1 auto;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    gap: var(--m-3);
+    height: 530px;
+}
+
 .title {
+    z-index: 1;
     width: 440px;
     margin: 0;
     padding: 0;
@@ -20,6 +30,7 @@
 }
 
 .details {
+    z-index: 1;
     width: 330px;
     margin: 0;
     padding: 0;
@@ -32,7 +43,7 @@
 .detailsContainer {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
+    gap: 20px;
 }
 
 .buttonsContainer {
@@ -71,34 +82,55 @@
     border-radius: 50%;
 }
 
-.laptopImg {
+.laptopImgWrapper {
     z-index: 1;
+    grid-row: span 2;
+    grid-column-start: 2;
 }
 
-@media (max-width: 768px) {
+.laptopImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: $lg) {
     .container {
-        flex-direction: column;
+        grid-template-columns: repeat(2, 1fr);
         height: auto;
-        padding: var(--p-4) 0;
-    }
-
-    .detailsContainer {
-        position: static;
-        grid-template-columns: 1fr;
-        margin-top: 30px;
-    }
-
-    .cardsContainer > :nth-child(2n) {
-        margin-top: 0;
-    }
-
-    .laptopImg {
-        width: 90%;
-        padding: 20px 0;
+        padding: var(--p-4) var(--p-3);
+        column-gap: var(--m-2);
     }
 
     .title {
+        width: auto;
+        font-size: var(--font-size-level-2-heading);
+        line-height: var(--line-height-level-3-heading);
+    }
+
+    .buttonsContainer {
         z-index: 1;
+        justify-content: center;
+        gap: var(--m-4);
+    }
+
+    .laptopImgWrapper {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: $md) {
+    .container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: var(--m-4);
+    }
+
+    .laptopImgWrapper {
+        grid-row-start: 2;
+        grid-column-start: 1;
+        padding: 0;
     }
 
     .blueCircle {
@@ -109,56 +141,19 @@
     .pinkCircle {
         display: none;
     }
-}
 
-@media (min-width: 768px) and (max-width: 992px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        padding: var(--p-4) 0;
-    }
-
-    .detailsContainer {
-        position: static;
-        grid-template-columns: 2fr;
-        margin-top: 30px;
-    }
-
-    .cardsContainer > :nth-child(2n) {
-        margin-top: 0;
-    }
-
-    .laptopImg {
-        padding: 20px 0;
-    }
-
-    .title {
-        z-index: 1;
+    .buttonsContainer {
+        display: flex;
+        flex-wrap: nowrap;
     }
 }
 
-@media (min-width: 993px) and (max-width: 1250px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-        padding: var(--p-4) 0;
+@media (max-width: $sm) {
+    .buttonsContainer {
+        gap: var(--m-2);
     }
 
-    .detailsContainer {
-        position: static;
-        grid-template-columns: 2fr 2fr;
-        margin-top: 30px;
-    }
-
-    .cardsContainer > :nth-child(2n) {
-        margin-top: 0;
-    }
-
-    .laptopImg {
-        padding: 20px 0;
-    }
-
-    .title {
-        z-index: 1;
+    .details {
+        width: auto;
     }
 }

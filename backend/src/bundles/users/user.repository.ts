@@ -1,8 +1,12 @@
+import { type PartialModelObject } from 'objection';
+
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-class UserRepository implements IRepository {
+import { type UserProfileModel } from './user-profile.model.js';
+
+class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     private userModel: typeof UserModel;
 
     public constructor(userModel: typeof UserModel) {
@@ -34,11 +38,43 @@ class UserRepository implements IRepository {
             })
             .returning('*')
             .execute();
+
         return UserEntity.initialize(item);
     }
 
-    public update(): ReturnType<IRepository['update']> {
-        return Promise.resolve(null);
+    public async updateUserProfile(
+        id: string,
+        data: PartialModelObject<
+            UserModel & { userProfile?: PartialModelObject<UserProfileModel> }
+        >,
+    ): Promise<UserEntity | undefined> {
+        const user = await this.userModel
+            .query()
+            .findById(id)
+            .withGraphFetched('userProfile');
+
+        if (!user) {
+            return undefined;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!user.userProfile) {
+            await user
+                .$relatedQuery('userProfile')
+                .insert({ ...data.userProfile })
+                .returning('*')
+                .execute();
+        }
+
+        await user
+            .$relatedQuery('userProfile')
+            .update({ ...data.userProfile })
+            .returning('*')
+            .execute();
+
+        await user.$query().update(data).returning('*').execute();
+
+        return UserEntity.initialize(user);
     }
 
     public delete(): ReturnType<IRepository['delete']> {

@@ -1,7 +1,13 @@
+@import "@assets/utils";
+
 .header {
+    position: fixed;
+    top: 0;
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     height: 80px;
     background-color: var(--color-blue-600);
 }
@@ -11,16 +17,22 @@
     flex: 1 1 auto;
     justify-content: space-between;
     align-items: center;
-    max-width: 1192px;
     height: 100%;
-    padding: 0 var(--p-3);
+}
+
+.headerContainer > button {
+    z-index: 3;
 }
 
 .headerBody {
     display: flex;
     flex: 1 1 auto;
     justify-content: center;
-    margin: 0 4.5rem;
+    margin: 0 4.5rem 0 0;
+}
+
+.tabs {
+    margin: 0;
 }
 
 .userLink {
@@ -29,16 +41,19 @@
 }
 
 .headerLogo {
+    z-index: 3;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: var(--m-2);
+    text-decoration: none;
 }
 
 .logoImg {
     flex: 0 0 auto;
     width: 40px;
     height: 40px;
+    padding: 6px 10px;
     overflow: hidden;
     background: var(--gradient-6);
     border-radius: 50%;
@@ -63,14 +78,42 @@
     border-radius: 50%;
 }
 
-@media (max-width: 768px) {
-    .header {
-        padding: var(--p-3) 4.25rem;
+.headerBtn {
+    width: 110px;
+    color: var(--color-blue-600);
+}
+
+@media (max-width: $lg) {
+    .headerBody {
+        margin-right: var(--m-3);
     }
 
+    .headerBtn {
+        width: 80px;
+        color: var(--color-blue-600);
+    }
+}
+
+@media (max-width: $md) {
     .headerBody {
-        display: none;
-        margin: 0 var(--m-4);
+        flex: 0 0 auto;
+        order: 3;
+        margin: 0;
+    }
+
+    .headerBody + button {
+        order: 2;
+        justify-content: flex-end;
+        margin: 0 var(--m-4) 0 auto;
+    }
+
+    .tabs {
+        order: 2;
+        margin: 0 var(--m-3);
+    }
+
+    .userLink {
+        order: 3;
     }
 
     .logoText {
@@ -78,16 +121,9 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-    .header {
-        padding: var(--p-3) var(--p-5);
-    }
-
-    .logoText {
-        display: none;
-    }
-
-    .headerBody {
-        margin: 0 1.25rem;
+@media (max-width: $sm) {
+    .headerBody + button {
+        padding-right: var(--p-3);
+        padding-left: var(--p-3);
     }
 }

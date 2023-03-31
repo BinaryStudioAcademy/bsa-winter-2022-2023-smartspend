@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
@@ -43,11 +43,11 @@ const loadUser = createAsyncThunk<
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/authenticated-user`, async (_registerPayload, { extra }) => {
-    const { authApi, storage } = extra;
+    const { authApi } = extra;
 
-    const token = storage.getSync(StorageKey.TOKEN) as string;
-
-    return await authApi.loadUser({ token });
+    return await authApi.loadUser();
 });
 
-export { loadUser, signIn, signUp };
+const toggleSignUpModalOpen = createAction(`${sliceName}/sign-up-modal-state`);
+
+export { loadUser, signIn, signUp, toggleSignUpModalOpen };

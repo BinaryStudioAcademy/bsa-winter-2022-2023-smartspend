@@ -1,8 +1,12 @@
 .button {
     background-clip: content-box, border-box;
     background-origin: border-box;
-    border: solid 3px transparent;
+    border: solid 2px transparent;
     border-radius: var(--b-5);
+}
+
+.button:hover {
+    cursor: default;
 }
 
 .button.primary {

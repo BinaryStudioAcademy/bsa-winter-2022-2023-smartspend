@@ -10,7 +10,8 @@ rules:
     declaration-no-important: true
     max-nesting-depth: 0
     no-descending-specificity: true
-    scss/at-import-partial-extension: always
+    scss/at-import-partial-extension: never
+    import-notation: null
 
     order/order:
         - custom-properties

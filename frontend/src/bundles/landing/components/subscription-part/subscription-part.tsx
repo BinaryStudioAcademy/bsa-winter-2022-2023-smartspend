@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useAppForm } from '~/bundles/common/hooks/hooks';
 
@@ -18,22 +20,24 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
     });
 
     return (
-        <section className={styles.container}>
-            <h1 className={styles.title}>{title}</h1>
-            <form className={styles.form}>
-                <div className={styles.formContainer}>
-                    <Input
-                        type={InputType.TEXT}
-                        placeholder="E-mail address"
-                        name="email"
-                        control={control}
-                        errors={errors}
-                        labelClassName={styles.inputLabel}
-                        inputClassName={styles.input}
-                    />
-                    <Button>Subscribe</Button>
-                </div>
-            </form>
+        <section id="subscription" className={styles.body}>
+            <div className={classNames('container', styles.container)}>
+                <h1 className={styles.title}>{title}</h1>
+                <form className={styles.form}>
+                    <div className={styles.formContainer}>
+                        <Input
+                            type={InputType.TEXT}
+                            placeholder="Enter your email"
+                            name="email"
+                            control={control}
+                            errors={errors}
+                            labelClassName={styles.inputLabel}
+                            inputClassName={styles.input}
+                        />
+                        <Button className={styles.button}>Subscribe</Button>
+                    </div>
+                </form>
+            </div>
         </section>
     );
 };

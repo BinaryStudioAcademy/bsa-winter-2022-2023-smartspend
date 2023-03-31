@@ -1,11 +1,14 @@
-import {
-    type UserGetAllResponseDto,
-    type UserSignUpRequestDto,
-} from '~/bundles/users/types/types.js';
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type IService } from '~/common/interfaces/interfaces.js';
 import { cryptService } from '~/common/services/services.js';
+
+import {
+    type UserGetAllResponseDto,
+    type UserSignUpRequestDto,
+    type UserUpdateRequestDto,
+    type UserUpdateResponseDto,
+} from './types/types.js';
 
 class UserService implements IService {
     private userRepository: UserRepository;
@@ -45,8 +48,19 @@ class UserService implements IService {
         );
     }
 
-    public update(): ReturnType<IService['update']> {
-        return Promise.resolve(null);
+    public async update(
+        id: string,
+        payload: Partial<UserUpdateRequestDto>,
+    ): Promise<UserUpdateResponseDto | undefined> {
+        const updatedUser = await this.userRepository.updateUserProfile(
+            id,
+            payload,
+        );
+
+        if (!updatedUser) {
+            throw new Error('Something went wrong.');
+        }
+        return updatedUser.toObject();
     }
 
     public delete(): ReturnType<IService['delete']> {

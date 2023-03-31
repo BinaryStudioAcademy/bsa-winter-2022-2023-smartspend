@@ -1,16 +1,26 @@
 import { Navigate } from 'react-router-dom';
 
-import { AppRoute } from '../../enums/enums';
-import { useAppSelector } from '../../hooks/hooks';
+import { AppRoute } from '~/bundles/common/enums/enums';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
+import { storage, StorageKey } from '~/framework/storage/storage.js';
+
+import { Loader } from '../components';
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     children,
 }) => {
-    const { user } = useAppSelector(({ auth }) => ({ user: auth.user }));
-    if (!user) {
-        return <Navigate to={AppRoute.SIGN_IN} />;
+    const { isLoaded } = useAppSelector(({ auth }) => ({
+        isLoaded: auth.isLoaded,
+    }));
+    const token = storage.getSync(StorageKey.TOKEN);
+
+    if (!isLoaded && token) {
+        return <Loader />;
     }
 
+    if (!token) {
+        return <Navigate to={AppRoute.SIGN_IN} />;
+    }
     return children;
 };
 

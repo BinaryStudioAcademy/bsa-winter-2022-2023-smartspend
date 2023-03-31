@@ -15,6 +15,9 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { authService } from '../../bundles/auth/auth.js';
+import { WHITE_ROUTES } from '../constants/constants.js';
+import { authorization } from '../plugins/plugins.js';
 import {
     type IServerApp,
     type IServerAppApi,
@@ -67,6 +70,13 @@ class ServerApp implements IServerApp {
         for (const it of parameters) {
             this.addRoute(it);
         }
+    }
+
+    public async initPlugins(): Promise<void> {
+        await this.app.register(authorization, {
+            services: { auth: authService },
+            routesWhiteList: WHITE_ROUTES,
+        });
     }
 
     public initRoutes(): void {
@@ -165,7 +175,13 @@ class ServerApp implements IServerApp {
     public async init(): Promise<void> {
         this.logger.info('Application initialization…');
 
+        await this.app.register(cors, {
+            origin: true,
+        });
+
         await this.initMiddlewares();
+
+        await this.initPlugins();
 
         this.initValidationCompiler();
 
@@ -174,10 +190,6 @@ class ServerApp implements IServerApp {
         this.initRoutes();
 
         this.database.connect();
-
-        await this.app.register(cors, {
-            origin: true,
-        });
 
         await this.app
             .listen({

@@ -3,16 +3,16 @@ import React from 'react';
 import styles from './styles.module.scss';
 import { Tab } from './tab';
 
-interface TabsData {
+type TabsData = {
     title: string;
     to: string;
-}
+};
 
-interface TabsProperties {
+type Properties = {
     tabsData: TabsData[];
-}
+};
 
-const Tabs: React.FC<TabsProperties> = ({ tabsData }) => {
+const Tabs: React.FC<Properties> = ({ tabsData }) => {
     return (
         <nav className={styles.tabs}>
             {tabsData.map((item, index) => (

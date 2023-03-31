@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import fbIcon from '~/assets/img/facebook-icon.svg';
 import googleIcon from '~/assets/img/google-icon.svg';
+import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
 import { getText } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -54,9 +55,16 @@ const Auth: React.FC = () => {
     return (
         <div className={styles.authContainer}>
             <div className={styles.authWrap}>
-                <div className={styles.authLogo}>
-                    <img className={styles.logoImg} src="" alt="logo" />
-                </div>
+                <Link to={AppRoute.ROOT} className={styles.logoLink}>
+                    <div className={styles.authLogo}>
+                        <img
+                            className={styles.logoImg}
+                            src={logoSmartSpend}
+                            alt="logo"
+                        />
+                    </div>
+                    <span className={styles.logoText}>SmartSpend</span>
+                </Link>
                 <div className={styles.authInside}>
                     <span className={styles.authRoundlarge}></span>
                     <span className={styles.authRoundsmall}></span>

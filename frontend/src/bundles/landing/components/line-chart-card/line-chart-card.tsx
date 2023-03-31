@@ -1,5 +1,5 @@
 import { type DataObject } from '../../types/types';
-import { LineChart } from '../components';
+import { ButtonTabs, LineChart } from '../components';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -9,6 +9,11 @@ type Properties = {
 };
 
 const LineChartCard: React.FC<Properties> = ({ dataArr, title, date }) => {
+    const tabsDashboard = [
+        { title: 'Days', isActive: true, disabled: false },
+        { title: 'Week', isActive: false, disabled: false },
+        { title: 'Months', isActive: false, disabled: true },
+    ];
     return (
         <div className={styles.container}>
             <div className={styles.topContainer}>
@@ -16,10 +21,14 @@ const LineChartCard: React.FC<Properties> = ({ dataArr, title, date }) => {
                     <p className={styles.title}>{title}</p>
                     <span className={styles.date}>{date}</span>
                 </div>
-                <div>Button tabs</div>
+                <ButtonTabs tabsData={tabsDashboard} />
             </div>
             <div className={styles.containerLineChart}>
-                <LineChart dataArr={dataArr} />
+                <LineChart
+                    dataArr={dataArr}
+                    tooltipDisplay={false}
+                    pointHoverRadius={3}
+                />
             </div>
         </div>
     );

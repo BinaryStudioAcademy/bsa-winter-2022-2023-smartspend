@@ -1,5 +1,16 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type CategoryGetAllItemResponseDto,
+    type CategoryGetAllResponseDto,
+    type CategoryIdRequestDto,
+    type CategoryRequestDto,
+    type CategoryUpdatePayloadDto,
+    CategoriesApiPath,
+    CategoryErrorMessage,
+    CategoryType,
+    categoryValidationSchema,
+} from './bundles/categories/categories.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserLoadRequestDto,
@@ -12,6 +23,15 @@ export {
     userSignInValidationSchema,
     userSignUpValidationSchema,
 } from './bundles/users/users.js';
+export {
+    type WalletCreateRequestDto,
+    type WalletFindRequestDto,
+    type WalletGetAllItemResponseDto,
+    type WalletGetAllResponseDto,
+    createWallet,
+    WalletsApiPath,
+    WalletValidationMessage,
+} from './bundles/wallets/wallets.js';
 export {
     ApiPath,
     AppEnvironment,

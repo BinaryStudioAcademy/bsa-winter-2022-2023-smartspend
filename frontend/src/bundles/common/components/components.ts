@@ -23,5 +23,6 @@ export { ScrollNavLink } from './scroll-nav/scroll-nav.js';
 export { Tabs } from './tabs/tabs.js';
 export { TransactionTable } from './transanction-table/transaction-table.js';
 export { UserSettingsTabs } from './user-settings-tabs/user-settings-tabs';
+export { WalletCard } from './wallet-card/wallet-card';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';

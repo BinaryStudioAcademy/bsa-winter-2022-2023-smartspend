@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets.js';
 
-import { create, loadAll } from './actions';
+import { create, loadAll, remove, update } from './actions';
 
 type State = {
     wallets: WalletGetAllItemResponseDto[];
@@ -26,19 +26,32 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
         });
 
-        builder.addCase(create.fulfilled, (state) => {
-            state.dataStatus = DataStatus.FULFILLED;
-        });
+        builder.addMatcher(
+            isAnyOf(create.fulfilled, remove.fulfilled, update.fulfilled),
+            (state) => {
+                state.dataStatus = DataStatus.FULFILLED;
+            },
+        );
 
         builder.addMatcher(
-            isAnyOf(loadAll.pending, create.pending),
+            isAnyOf(
+                loadAll.pending,
+                create.pending,
+                remove.pending,
+                update.pending,
+            ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
             },
         );
 
         builder.addMatcher(
-            isAnyOf(loadAll.rejected, create.rejected),
+            isAnyOf(
+                loadAll.rejected,
+                create.rejected,
+                remove.rejected,
+                update.rejected,
+            ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;
             },

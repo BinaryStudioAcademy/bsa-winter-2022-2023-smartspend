@@ -24,9 +24,37 @@ const create = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/create`, async (walletPayload, { extra, dispatch }) => {
     const { walletsApi } = extra;
+
     await walletsApi.createWallet(walletPayload);
 
     await dispatch(loadAll());
 });
 
-export { create, loadAll };
+// functionality has not been tested
+
+const remove = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
+    `${sliceName}/delete`,
+    async (id, { extra, dispatch }) => {
+        const { walletsApi } = extra;
+
+        await walletsApi.deleteWallet(id);
+
+        await dispatch(loadAll());
+    },
+);
+
+// functionality has not been tested
+
+const update = createAsyncThunk<
+    Promise<void>,
+    WalletCreateRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/delete`, async (walletPayload, { extra, dispatch }) => {
+    const { walletsApi } = extra;
+
+    await walletsApi.updateWallet(walletPayload);
+
+    await dispatch(loadAll());
+});
+
+export { create, loadAll, remove, update };

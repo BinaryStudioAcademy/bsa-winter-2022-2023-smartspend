@@ -104,3 +104,20 @@
     color: var(--color-white-100);
     background-color: var(--color-blue-500);
 }
+
+.delete {
+    color: var(--color-warning);
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--color-warning);
+    border: var(--border) solid transparent;
+}
+
+.delete:hover {
+    color: var(--color-red-300);
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--color-red-300);
+    border: var(--border) solid transparent;
+    transition: all var(--transition-time);
+}

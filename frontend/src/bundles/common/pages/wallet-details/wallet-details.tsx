@@ -17,6 +17,7 @@ import { CardVariant } from '~/bundles/common/enums/card-variant.enum.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
 
 import { FaIcons } from '../../enums/enums.js';
 import { InputType } from '../../enums/input-type.enum.js';
@@ -91,11 +92,11 @@ const WalletDetails: React.FC = () => {
         defaultValues: DEFAULT_INPUT,
     });
 
-    const [selectedPeopleMulti, setPeopleSelectedMulti] = useState<
+    const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
 
-    const [selectedCategoriesMulti, setCategoriesSelectedMulti] = useState<
+    const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
 
@@ -106,9 +107,9 @@ const WalletDetails: React.FC = () => {
     const handlePeopleMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
             if (selectedOption === null) {
-                setPeopleSelectedMulti([]);
+                setPeopleDropdown([]);
             } else {
-                setPeopleSelectedMulti(selectedOption);
+                setPeopleDropdown(selectedOption);
             }
         },
         [],
@@ -117,25 +118,29 @@ const WalletDetails: React.FC = () => {
     const handleCategoriesMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
             if (selectedOption === null) {
-                setCategoriesSelectedMulti([]);
+                setCategoriesDropdown([]);
             } else {
-                setCategoriesSelectedMulti(selectedOption);
+                setCategoriesDropdown(selectedOption);
             }
         },
         [],
     );
 
-    const handleSliderChange = useCallback(
-        (range: { min: number; max: number }): void => {
-            setCurrentRange(range);
+    const handleSliderChange = useCallback((range: RangeLimits): void => {
+        setCurrentRange(range);
 
-            const newFilteredData = mockSliderData.filter(
-                (item) => item.amount >= range.min && item.amount <= range.max,
-            );
-            setFilteredData(newFilteredData);
-        },
-        [],
-    );
+        const newFilteredData = mockSliderData.filter(
+            (item) => item.amount >= range.min && item.amount <= range.max,
+        );
+        setFilteredData(newFilteredData);
+    }, []);
+
+    const hangleReset = useCallback((): void => {
+        setPeopleDropdown([]);
+        setCategoriesDropdown([]);
+        setFilteredData(mockSliderData);
+        setCurrentRange(rangeLimits);
+    }, []);
 
     return (
         <div className={styles.app}>
@@ -171,7 +176,10 @@ const WalletDetails: React.FC = () => {
                         <div className={styles.filtersContainer}>
                             <div className={styles.filterText}>
                                 <h2>Filters</h2>
-                                <button className={styles.reset}>
+                                <button
+                                    className={styles.reset}
+                                    onClick={hangleReset}
+                                >
                                     Reset filters
                                 </button>
                             </div>
@@ -183,9 +191,7 @@ const WalletDetails: React.FC = () => {
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={categories}
-                                            selectedOption={
-                                                selectedCategoriesMulti
-                                            }
+                                            selectedOption={categoriesDropdown}
                                             handleChange={
                                                 handleCategoriesMultiDropdownChange
                                             }
@@ -199,7 +205,7 @@ const WalletDetails: React.FC = () => {
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={people}
-                                            selectedOption={selectedPeopleMulti}
+                                            selectedOption={peopleDropdown}
                                             handleChange={
                                                 handlePeopleMultiDropdownChange
                                             }

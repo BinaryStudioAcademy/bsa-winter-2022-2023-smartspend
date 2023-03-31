@@ -28,7 +28,7 @@ const TransactionTable: React.FC<TransactionTableProperties> = ({
                 errors={errors}
             />
         </div>
-  );
+    );
 };
 `;
 

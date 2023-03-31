@@ -21,7 +21,7 @@ import {
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
 import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
-import { ModalAddWallet } from '../components/modal-add-wallet/modal-add-wallet.js';
+import { NewWalletModal } from '../components/modal-add-wallet/modal-add-wallet.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';
@@ -520,7 +520,7 @@ const Base: React.FC = () => {
             <br />
             <div>
                 <button onClick={handleWalletModalOpen}>Add New Wallet</button>
-                <ModalAddWallet
+                <NewWalletModal
                     isShown={walletModalActive}
                     onClose={handleWalletModalCancel}
                     onSubmit={handleWalletModalCancel}

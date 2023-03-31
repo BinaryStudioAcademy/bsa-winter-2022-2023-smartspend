@@ -23,7 +23,7 @@ interface Properties {
     onSubmit: () => void;
 }
 
-const ModalAddWallet: React.FC<Properties> = ({
+const NewWalletModal: React.FC<Properties> = ({
     isShown,
     onClose,
     onSubmit,
@@ -112,4 +112,4 @@ const ModalAddWallet: React.FC<Properties> = ({
     );
 };
 
-export { ModalAddWallet };
+export { NewWalletModal };

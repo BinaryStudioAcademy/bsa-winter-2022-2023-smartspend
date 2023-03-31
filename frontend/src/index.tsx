@@ -80,15 +80,15 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                     </PrivateRoute>
                                 ),
                             },
-                            {
-                                path: AppRoute.NOT_FOUND,
-                                element: <NotFound />,
-                            },
                         ],
                     },
                     {
                         path: AppRoute.UI,
                         element: <StyleGuide />,
+                    },
+                    {
+                        path: AppRoute.NOT_FOUND,
+                        element: <NotFound />,
                     },
                 ]}
             />

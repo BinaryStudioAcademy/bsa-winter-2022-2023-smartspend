@@ -103,6 +103,7 @@ const NewWalletModal: React.FC<Properties> = ({
                             cursor: walletName ? 'pointer' : 'default',
                         }}
                         type="submit"
+                        disabled={!walletName}
                     >
                         Create
                     </button>

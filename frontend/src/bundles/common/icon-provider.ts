@@ -19,14 +19,29 @@ import {
     faSackDollar,
     faStop,
     faTrash,
-    } from '@fortawesome/free-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
-    faChevronDown, faEye, faEyeSlash, faGasPump,
-    faBasketShopping, faBriefcase, faCar,
-    faGear, faGift, faGraduationCap, faLandmark,
-    faPaw, faPen, faSackDollar, faTrash, faPlus, faCopy,
-    faCloudArrowUp, faStop, faArrowDown,
+    faChevronDown,
+    faEye,
+    faEyeSlash,
+    faGasPump,
+    faBasketShopping,
+    faBriefcase,
+    faCar,
+    faGear,
+    faGift,
+    faGraduationCap,
+    faLandmark,
+    faPaw,
+    faPen,
+    faSackDollar,
+    faTrash,
+    faPlus,
+    faCopy,
+    faCloudArrowUp,
+    faStop,
+    faArrowDown,
     faArrowUp,
 };
 

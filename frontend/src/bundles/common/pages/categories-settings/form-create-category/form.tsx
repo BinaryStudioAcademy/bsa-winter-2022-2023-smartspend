@@ -9,7 +9,11 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import styles from './styles.module.scss';
 
 type Properties = {
-    onClick: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+    onClick: (
+        event:
+            | React.MouseEvent<HTMLDivElement>
+            | React.KeyboardEvent<HTMLDivElement>,
+    ) => void;
     handleKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
 };
 
@@ -23,16 +27,20 @@ interface DataType {
     image?: string;
 }
 
-const mock = [
-    { value: '' }
-];
+const mock = [{ value: '' }];
 
-const Form: React.FC<Properties>= ({ onClick, handleKeyDown }) => {
+const Form: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
     const [selectedIcon, setSelectedIcon] = useState<DataType>(mock[0]);
-    const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>(mock[0]);
+    const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>(
+        mock[0],
+    );
     const [selectedType, setSelectedType] = useState<DataType>(mock[0]);
-    const { control, formState: { errors }, watch } = useForm<InputValues>({
-        defaultValues: { name: '' }
+    const {
+        control,
+        formState: { errors },
+        watch,
+    } = useForm<InputValues>({
+        defaultValues: { name: '' },
     });
     const iconFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
@@ -40,18 +48,20 @@ const Form: React.FC<Properties>= ({ onClick, handleKeyDown }) => {
                 {data.value ? (
                     <span
                         className={styles.dropdownColorIcon}
-                        style={{ background: `var(${selectedColorIcon.value})` }}
+                        style={{
+                            background: `var(${selectedColorIcon.value})`,
+                        }}
                     >
                         <FontAwesomeIcon icon={data.value} />
                     </span>
-                ) : <span
-                        className={styles.dropdownColorIcon}
-                    >
+                ) : (
+                    <span className={styles.dropdownColorIcon}>
                         <FontAwesomeIcon icon={FaIcons.CLOUD_ARROW_UP} />
                     </span>
-                }
+                )}
             </div>
-        ), [selectedColorIcon]
+        ),
+        [selectedColorIcon],
     );
     const iconColorFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
@@ -62,29 +72,25 @@ const Form: React.FC<Properties>= ({ onClick, handleKeyDown }) => {
                         style={{ background: `var(${data.value})` }}
                     ></span>
                 ) : (
-                    <span
-                        className={styles.dropdownColorIcon}
-                        >
+                    <span className={styles.dropdownColorIcon}>
                         <FontAwesomeIcon icon={FaIcons.STOP} />
                     </span>
                 )}
             </div>
-        ),[]
+        ),
+        [],
     );
     const typeFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 {data.name ? (
-                    <span
-                        className={styles.inputLabel}
-                    >{data.name }</span>
+                    <span className={styles.inputLabel}>{data.name}</span>
                 ) : (
-                    <span
-                        className={styles.inputLabel}
-                    >Choose type</span>
+                    <span className={styles.inputLabel}>Choose type</span>
                 )}
             </div>
-        ),[]
+        ),
+        [],
     );
 
     return (
@@ -92,11 +98,17 @@ const Form: React.FC<Properties>= ({ onClick, handleKeyDown }) => {
             <div>
                 <span className={styles.title}>Create a new category</span>
             </div>
-            <div className={styles.form} role='button' tabIndex={0} onClick={onClick} onKeyDown={handleKeyDown}>
+            <div
+                className={styles.form}
+                role="button"
+                tabIndex={0}
+                onClick={onClick}
+                onKeyDown={handleKeyDown}
+            >
                 <form name="categoryNewForm" autoComplete="off">
                     <div className={styles.wrapperSettings}>
                         <div className={styles.wrapperSelect}>
-                                <Dropdown
+                            <Dropdown
                                 data={mock}
                                 selectedOption={selectedIcon}
                                 label={'Icon'}
@@ -142,4 +154,3 @@ const Form: React.FC<Properties>= ({ onClick, handleKeyDown }) => {
 };
 
 export { Form };
-

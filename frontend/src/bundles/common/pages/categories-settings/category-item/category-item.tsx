@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { categoriesSlice } from '~/bundles/categories/store';
 import { BaseModal, Button } from '~/bundles/common/components/components';
-import { ButtonSize, ButtonType, ButtonVariant, FaIcons } from '~/bundles/common/enums/enums';
+import {
+    ButtonSize,
+    ButtonType,
+    ButtonVariant,
+    FaIcons,
+} from '~/bundles/common/enums/enums';
 import { findIcon } from '~/bundles/common/helpers/find-icon';
 
 import { Checkbox } from '../common/checkbox/checkbox';
@@ -23,7 +28,7 @@ type Properties = {
 type RootState = {
     categories: {
         checkedCategory: string[];
-    }
+    };
 };
 
 const CategoryItem: React.FC<Properties> = ({
@@ -38,19 +43,22 @@ const CategoryItem: React.FC<Properties> = ({
     const [modalEdit, setModalEdit] = useState(false);
     // const [editCategory, setEditCategory]= useState({})
     const dispatch = useDispatch();
-    const isChecked = useSelector<RootState, boolean>(
-        state => state.categories.checkedCategory.includes(id)
+    const isChecked = useSelector<RootState, boolean>((state) =>
+        state.categories.checkedCategory.includes(id),
     );
 
     const icon = findIcon(iconKey);
 
-    const handleCheckboxChange = useCallback((isChecked: boolean): void => {
-        if (isChecked) {
-            dispatch(categoriesSlice.addChecked(id));
-        } else {
-            dispatch(categoriesSlice.removeChecked(id));
-        }
-    }, [dispatch, id]);
+    const handleCheckboxChange = useCallback(
+        (isChecked: boolean): void => {
+            if (isChecked) {
+                dispatch(categoriesSlice.addChecked(id));
+            } else {
+                dispatch(categoriesSlice.removeChecked(id));
+            }
+        },
+        [dispatch, id],
+    );
 
     const handelOpenModalEdit = useCallback((): void => {
         setModalEdit(true);
@@ -60,7 +68,7 @@ const CategoryItem: React.FC<Properties> = ({
         // console.log(id);
     }, []);
 
-    const handelOpenModalDelete = useCallback(()=> {
+    const handelOpenModalDelete = useCallback(() => {
         setModalDelete(true);
     }, []);
 
@@ -122,9 +130,11 @@ const CategoryItem: React.FC<Properties> = ({
                                 disabled={false}
                                 onClick={handelOpenModalEdit}
                             >
-                            <span className={`${styles.btnName} ${styles.btnEdit}`}>
+                                <span
+                                    className={`${styles.btnName} ${styles.btnEdit}`}
+                                >
                                     <FontAwesomeIcon icon={FaIcons.GEAR} />
-                            </span>
+                                </span>
                             </Button>
                         </div>
                         <div className={`${styles.base} ${styles.iconWrapper}`}>
@@ -136,9 +146,9 @@ const CategoryItem: React.FC<Properties> = ({
                                 disabled={false}
                                 onClick={handelOpenModalDelete}
                             >
-                            <span className={styles.btnName}>
+                                <span className={styles.btnName}>
                                     <FontAwesomeIcon icon={FaIcons.TRASH} />
-                            </span>
+                                </span>
                             </Button>
                         </div>
                     </div>
@@ -146,27 +156,38 @@ const CategoryItem: React.FC<Properties> = ({
             </div>
             <div className="overlay"></div>
             <BaseModal
-                    isShown={modalEdit}
-                    onClose={handleCloseModal}
-                    onSubmit={handelClickEdit}
-                    Header={<h1 className='visually-hidden'>{`You're about to edit ${categoryName} categories`}</h1>}
-                Body={<FormEditCategory
-                    categoryName={categoryName}
-                    type={type}
-                    iconKey={iconKey}
-                    colorIcon={colorIcon}
-                    onClose={handleCloseModal}
-                />}
-                    submitButtonName={'Edit category'}
-                />
+                isShown={modalEdit}
+                onClose={handleCloseModal}
+                onSubmit={handelClickEdit}
+                Header={
+                    <h1 className="visually-hidden">{`You're about to edit ${categoryName} categories`}</h1>
+                }
+                Body={
+                    <FormEditCategory
+                        categoryName={categoryName}
+                        type={type}
+                        iconKey={iconKey}
+                        colorIcon={colorIcon}
+                        onClose={handleCloseModal}
+                    />
+                }
+                submitButtonName={'Edit category'}
+            />
             <BaseModal
-                    isShown={modalDelete}
-                    onClose={handleCloseModal}
-                    onSubmit={handelClickDelete}
-                    Header={<h1>{`You're about to delete ${categoryName} categories`}</h1>}
-                    Body={<p>This change is irreversible. Do you really want to delete them?</p>}
-                    submitButtonName={'Delete category'}
-                />
+                isShown={modalDelete}
+                onClose={handleCloseModal}
+                onSubmit={handelClickDelete}
+                Header={
+                    <h1>{`You're about to delete ${categoryName} categories`}</h1>
+                }
+                Body={
+                    <p>
+                        This change is irreversible. Do you really want to
+                        delete them?
+                    </p>
+                }
+                submitButtonName={'Delete category'}
+            />
         </div>
     );
 };

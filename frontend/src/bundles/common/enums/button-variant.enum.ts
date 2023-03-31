@@ -3,7 +3,7 @@ enum ButtonVariant {
     SECONDARY = 'secondary',
     PLAIN = 'plain',
     ROUND = 'round',
-    DELETE ='delete'
+    DELETE = 'delete',
 }
 
 export { ButtonVariant };

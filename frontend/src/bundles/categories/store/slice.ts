@@ -17,12 +17,14 @@ const categoriesSlice = createSlice({
             state.checkedCategory.push(action.payload);
         },
         removeChecked: (state, action: PayloadAction<string>) => {
-            state.checkedCategory = state.checkedCategory.filter(id => id !== action.payload);
+            state.checkedCategory = state.checkedCategory.filter(
+                (id) => id !== action.payload,
+            );
         },
         clearChecked: (state) => {
             state.checkedCategory = [];
         },
-    }
+    },
 });
 
 export { categoriesSlice };

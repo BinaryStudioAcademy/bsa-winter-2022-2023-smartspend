@@ -1,4 +1,4 @@
-:root{
+:root {
     --border: 1px;
 }
 
@@ -123,15 +123,18 @@
     transition: background-color 0.2s ease-in-out;
 }
 
-.iconBtn:hover, .iconBtn:active, .iconBtn:focus {
+.iconBtn:hover,
+.iconBtn:active,
+.iconBtn:focus {
     border: none;
 }
 
-.btnEdit{
+.btnEdit {
     color: var(--color-pink-100);
 }
 
-.btnEdit:hover, .btnEdit:active, .btnEdit:focus{
+.btnEdit:hover,
+.btnEdit:active,
+.btnEdit:focus {
     color: #5063e4;
 }
-

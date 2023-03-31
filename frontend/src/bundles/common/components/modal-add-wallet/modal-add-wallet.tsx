@@ -8,12 +8,14 @@ import {
 import { currencies } from '~/bundles/common/components/modal-add-wallet/currency-list/currency-list';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import {
+    useAppDispatch,
     useAppForm,
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
-import { type FormValues } from '~/bundles/common/types/new-wallet-modal.type';
+import { actions as walletsActions } from '~/bundles/wallets/store';
+import { type WalletCreateRequestDto } from '~/bundles/wallets/wallets';
 
 import styles from './styles.module.scss';
 
@@ -28,9 +30,15 @@ const NewWalletModal: React.FC<Properties> = ({
     onClose,
     onSubmit,
 }) => {
-    const { control, errors, watch } = useAppForm<FormValues>({
-        defaultValues: { walletName: '', currency: '', balance: '' },
-    });
+    const dispatch = useAppDispatch();
+    const { control, errors, watch, reset } =
+        useAppForm<WalletCreateRequestDto>({
+            defaultValues: {
+                name: '',
+                currencyId: 'e0df152c-86ce-4e24-b1e1-757b0fb79873',
+                balance: 0,
+            },
+        });
 
     const [currency, setCurrency] = useState<DataType>(currencies[0]);
 
@@ -40,7 +48,8 @@ const NewWalletModal: React.FC<Properties> = ({
         }
     }, []);
 
-    const walletName = watch('walletName');
+    const walletName = watch('name');
+    const formReset = reset;
 
     const walletDataHandler = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
@@ -49,10 +58,15 @@ const NewWalletModal: React.FC<Properties> = ({
             const formData = new FormData(event.target as HTMLFormElement);
             const formDataEntries = formData.entries();
             onClose();
+            formReset && reset();
 
-            return Object.fromEntries(formDataEntries);
+            const data = Object.fromEntries(
+                formDataEntries,
+            ) as unknown as WalletCreateRequestDto;
+
+            void dispatch(walletsActions.create(data));
         },
-        [onClose],
+        [dispatch, formReset, onClose, reset],
     );
 
     return (
@@ -68,7 +82,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         control={control}
                         errors={errors}
                         label="Wallet Name"
-                        name="walletName"
+                        name="name"
                         placeholder="Enter your wallet name"
                         type={InputType.TEXT}
                         inputClassName={styles.input}
@@ -81,7 +95,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         handleChange={handleChange}
                         label="Currency"
                         labelClassName={styles.label}
-                        name="Dropdown"
+                        name="currencyId"
                     />
 
                     <Input

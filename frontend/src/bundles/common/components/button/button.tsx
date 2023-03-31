@@ -11,6 +11,7 @@ import styles from './styles.module.scss';
 
 type Properties = {
     children: React.ReactNode;
+    name?: string;
     type?: ButtonType;
     className?: string;
     variant?: ButtonVariant;
@@ -27,6 +28,7 @@ const Button: React.FC<Properties> = ({
     size = 'medium',
     disabled = false,
     onClick,
+    name = '',
 }) => {
     const buttonClasses = classNames(
         styles.button,
@@ -39,6 +41,7 @@ const Button: React.FC<Properties> = ({
 
     return (
         <button
+            name={name}
             type={type}
             className={buttonClasses}
             disabled={disabled}

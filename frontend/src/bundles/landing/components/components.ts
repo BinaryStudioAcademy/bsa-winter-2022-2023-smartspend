@@ -1,5 +1,4 @@
-export { ButtonTabs } from './button-tabs/button-tabs';
-export { DoughnutChartCard } from './doughnut-chart-card/doughnut-chart-card';
+export { ButtonTabs } from '../../common/components/components';
 export { FeedbackCard } from './feedback-card/feedback-card';
 export { FeedbacksPart } from './feedbacks-part/feedbacks-part';
 export { FirstStepPart } from './first-step-part/first-step-part';
@@ -19,6 +18,7 @@ export { WalletCard } from './wallet-card/wallet-card';
 export {
     Button,
     DoughnutChart,
+    DoughnutChartCard,
     Dropdown,
     Header,
     Input,

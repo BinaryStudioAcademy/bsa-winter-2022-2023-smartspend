@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import styles from './styles.module.scss';
+import styles from '../styles.module.scss';
 
 type Properties = {
     label: string;
@@ -12,6 +12,7 @@ const ButtonTab: React.FC<Properties> = ({ label, isActive, disabled }) => {
     const tabClassName = classNames(styles.tab, {
         [styles.activeTab]: isActive,
     });
+
     return (
         <button disabled={disabled} className={tabClassName}>
             {label}

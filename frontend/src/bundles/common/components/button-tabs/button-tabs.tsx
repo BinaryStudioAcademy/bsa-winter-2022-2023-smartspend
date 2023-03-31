@@ -1,4 +1,4 @@
-import { ButtonTab } from './button-tab';
+import { ButtonTab } from './components/button-tab';
 import styles from './styles.module.scss';
 
 type TabsData = {

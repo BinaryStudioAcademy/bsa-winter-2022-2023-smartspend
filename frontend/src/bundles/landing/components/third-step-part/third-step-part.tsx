@@ -1,10 +1,8 @@
 import classNames from 'classnames';
 
-import {
-    DoughnutChartCartVariant,
-    StepInfoPanelVariant,
-} from '~/bundles/landing/enums/enums.js';
+import { DoughnutChartCartVariant } from '~/bundles/common/enums/enums';
 
+import { StepInfoPanelVariant } from '../../enums/step-info-panel-variant.enum';
 import { DoughnutChartCard, StepInfoPanel } from '../components';
 import styles from './styles.module.scss';
 

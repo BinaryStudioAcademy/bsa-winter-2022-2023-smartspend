@@ -1,19 +1,24 @@
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 
-import { Calendar } from '../../components/calendar/calendar';
+import { Calendar } from '../common/components/calendar/calendar';
 import {
     Button,
+    ButtonTabs,
     CardTotal,
     Chart,
-    DoughnutChart,
+    DoughnutChartCard,
     Input,
     LineChart,
     RangeSlider,
-} from '../../components/components';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import { CardVariant } from '../../enums/enums';
-import { useAppForm } from '../../hooks/hooks';
+} from '../common/components/components';
+import { ButtonVariant } from '../common/enums/button-variant.enum';
+import {
+    CardVariant,
+    DoughnutChartCardSize,
+    DoughnutChartCartVariant,
+} from '../common/enums/enums';
+import { useAppForm } from '../common/hooks/hooks';
 import {
     type Wallet,
     barChartData,
@@ -82,6 +87,13 @@ const Dashboard: React.FC = () => {
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
+
+    const tabsDashboard = [
+        { title: 'Days', isActive: true, disabled: false },
+        { title: 'Week', isActive: false, disabled: false },
+        { title: 'Months', isActive: false, disabled: true },
+    ];
+
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
@@ -210,25 +222,48 @@ const Dashboard: React.FC = () => {
                         </div>
                         <div className={styles.charts}>
                             <ChartBox
-                                title={'Chart 1'}
+                                title={'Account Balance'}
                                 date={'Dec 01-23'}
-                                controls={'Controls'}
+                                controls={
+                                    <ButtonTabs tabsData={tabsDashboard} />
+                                }
                             >
-                                <LineChart dataArr={lineChartData} />
+                                <LineChart
+                                    dataArr={lineChartData}
+                                    tooltipDisplay={true}
+                                />
                             </ChartBox>
                             <ChartBox
-                                title={'Chart 2'}
+                                title={'Changes'}
                                 date={'Dec 01-23'}
-                                controls={'Controls'}
+                                controls={
+                                    <ButtonTabs tabsData={tabsDashboard} />
+                                }
                             >
                                 <Chart array={barChartData} />
                             </ChartBox>
-                            <ChartBox title={'Chart 3'} date={'Dec 01-23'}>
-                                <DoughnutChart categories={categories} />
-                            </ChartBox>
-                            <ChartBox title={'Chart 4'} date={'Dec 01-23'}>
-                                <DoughnutChart categories={categories} />
-                            </ChartBox>
+                            <DoughnutChartCard
+                                title={'Period Income'}
+                                date={'Dec 01-23'}
+                                transaction_num={1}
+                                transaction_type={'Food & Drink'}
+                                size={DoughnutChartCardSize.AUTO}
+                                variant={DoughnutChartCartVariant.PRIMARY}
+                                transaction_sum={'+$4,365.00'}
+                                categoriesArray={categories}
+                                tooltipDisplay={true}
+                            />
+                            <DoughnutChartCard
+                                title={'Period Expenses'}
+                                date={'Dec 01-23'}
+                                transaction_num={2}
+                                transaction_type={'Salary'}
+                                size={DoughnutChartCardSize.AUTO}
+                                variant={DoughnutChartCartVariant.SECONDARY}
+                                transaction_sum={'-$200'}
+                                categoriesArray={categories}
+                                tooltipDisplay={true}
+                            />
                         </div>
                     </div>
                 </div>

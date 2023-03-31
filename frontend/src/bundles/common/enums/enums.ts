@@ -7,6 +7,8 @@ export { ButtonVariant } from './button-variant.enum.js';
 export { CardVariant } from './card-variant.enum.js';
 export { variantStyleMap } from './card-variant-style-map.js';
 export { DataStatus } from './data-status.enum.js';
+export { DoughnutChartCardSize } from './doughnut-chart-card-size.enum.js';
+export { DoughnutChartCartVariant } from './doughnut-chart-card-variant.enum.js';
 export { DoughnutData } from './doughnut-data.enum.js';
 export { FaIcons } from './fa-icons.enum.js';
 export { InputType } from './input-type.enum.js';

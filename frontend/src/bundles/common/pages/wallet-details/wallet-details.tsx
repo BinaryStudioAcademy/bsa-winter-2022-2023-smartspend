@@ -254,12 +254,7 @@ const WalletDetails: React.FC = () => {
                         </div>
                     </div>
                     <div className={styles.walletTransactions}>
-                        <div
-                            className={classNames(
-                                styles.walletTransactionsContainer,
-                                'container',
-                            )}
-                        >
+                        <div className={styles.walletTransactionsContainer}>
                             <div className={styles.cards}>
                                 <CardTotal
                                     title="Total Balance"

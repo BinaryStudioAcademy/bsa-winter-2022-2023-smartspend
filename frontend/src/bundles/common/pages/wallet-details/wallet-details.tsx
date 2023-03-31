@@ -258,7 +258,7 @@ const WalletDetails: React.FC = () => {
                                 />
                                 <CardTotal
                                     title="Total Period Change"
-                                    sum={504_000_000_000.549}
+                                    sum={504}
                                     variant={CardVariant.BLUE}
                                 />
                                 <CardTotal

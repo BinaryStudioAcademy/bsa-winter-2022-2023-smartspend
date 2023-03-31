@@ -79,7 +79,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         data={currencies}
                         selectedOption={currency}
                         handleChange={handleChange}
-                        label="currency"
+                        label="Currency"
                         labelClassName={styles.label}
                         name="Dropdown"
                     />

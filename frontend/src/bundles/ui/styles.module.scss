@@ -1,0 +1,16 @@
+.list {
+    list-style: none;
+}
+
+.listItem {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: var(--m-3) 0;
+}
+
+.collapseLabel {
+    display: flex;
+    flex-direction: row;
+    column-gap: 50px;
+}

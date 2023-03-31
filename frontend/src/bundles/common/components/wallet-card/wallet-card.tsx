@@ -1,6 +1,10 @@
 import classNames from 'classnames';
 
-import { WalletCardVariant } from '../../enums/enums';
+import {
+    WalletCardSize,
+    WalletCardVariant,
+} from '~/bundles/common/enums/enums';
+
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -8,6 +12,7 @@ type Properties = {
     balance_value: string;
     wallet_type: string;
     variant?: WalletCardVariant;
+    size?: WalletCardSize;
 };
 
 const WalletCard: React.FC<Properties> = ({
@@ -15,8 +20,13 @@ const WalletCard: React.FC<Properties> = ({
     balance_value,
     wallet_type,
     variant = WalletCardVariant.PRIMARY,
+    size = WalletCardSize.BIG,
 }) => {
-    const cardContainerClass = classNames(styles.container, styles[variant]);
+    const cardContainerClass = classNames(
+        styles.container,
+        styles[variant],
+        styles[size],
+    );
     return (
         <div className={cardContainerClass}>
             <h1 className={styles.title}>{title}</h1>

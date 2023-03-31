@@ -1,10 +1,12 @@
+@import "@assets/utils";
+
 .container {
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 330px;
-    padding: var(--p-4);
+    min-height: 310px;
+    padding: var(--p-3) var(--p-4);
     background-color: var(--color-white-100);
     border-radius: var(--b-4);
 }
@@ -21,7 +23,9 @@
 }
 
 .title {
+    margin: var(--m-2) 0;
     color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
 }
 
 .date {
@@ -30,6 +34,36 @@
 }
 
 .containerLineChart {
-    width: 450px;
-    height: 200px;
+    width: 430px;
+    height: 208px;
+}
+
+@media (max-width: $lg) {
+    .containerLineChart {
+        width: 372px;
+        height: auto;
+    }
+}
+
+@media (max-width: $sm) {
+    .container {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: minmax(240px, 372px);
+        min-height: auto;
+        padding: var(--p-3) var(--p-3) 0;
+    }
+
+    .title {
+        margin: 0;
+    }
+
+    .containerLineChart {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .topContainer > nav > button {
+        padding: 0 var(--p-2);
+    }
 }

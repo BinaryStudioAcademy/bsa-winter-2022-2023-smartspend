@@ -77,20 +77,15 @@
 }
 
 .applyFilters {
-    display: flex;
-    flex-grow: 1;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    row-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
     width: 100%;
-    column-gap: var(--p-1);
 }
 
 .filter {
     display: flex;
     flex-direction: column;
-    max-width: 233px;
     height: 100%;
     padding-top: var(--p-2);
     column-gap: 4px;
@@ -106,10 +101,6 @@
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
-}
-
-.dropdown > * {
-    width: 233px;
 }
 
 .categoryText {
@@ -141,6 +132,10 @@
     flex-grow: 1;
     align-items: center;
     padding: 0 var(--p-2);
+}
+
+.slider > * {
+    width: 100%;
 }
 
 .walletTransactions {

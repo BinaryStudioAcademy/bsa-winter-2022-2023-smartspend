@@ -35,8 +35,8 @@ const NewWalletModal: React.FC<Properties> = ({
         useAppForm<WalletCreateRequestDto>({
             defaultValues: {
                 name: '',
-                currencyId: 'e0df152c-86ce-4e24-b1e1-757b0fb79873',
-                balance: 0,
+                currencyId: '',
+                balance: undefined,
             },
         });
 

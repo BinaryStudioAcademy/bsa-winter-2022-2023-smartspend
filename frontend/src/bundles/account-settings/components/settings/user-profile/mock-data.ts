@@ -1,11 +1,11 @@
-import { type UserChangeSettingsRequestDto } from 'shared/build/bundles/users/types/user-change-settings-request';
+import { type UserUpdateRequestDto, Gender } from 'shared/build';
 
-const mockData: UserChangeSettingsRequestDto = {
-    name: 'Delete',
-    surname: 'Me',
+const mockData: UserUpdateRequestDto = {
+    firstName: 'Delete',
+    lastName: 'Me',
     email: 'deleteme@gmail.com',
-    sex: 'Male',
-    birth: '',
+    sex: Gender.MALE,
+    dateOfBirth: '',
     currency: 'USD',
     language: 'English',
 };

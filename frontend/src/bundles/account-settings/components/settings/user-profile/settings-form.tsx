@@ -32,15 +32,17 @@ const SettingsForm: React.FC = () => {
         defaultValues: mockData,
     });
 
-    const newName = useFormController({ name: 'name', control }).field.value;
-    const newSurname = useFormController({ name: 'surname', control }).field
+    const newName = useFormController({ name: 'firstName', control }).field
+        .value;
+    const newSurname = useFormController({ name: 'lastName', control }).field
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { name, surname, email, language, currency, sex } = mockData;
+        const { firstName, lastName, email, language, currency, sex } =
+            mockData;
         return (
-            newName !== name ||
-            newSurname !== surname ||
+            newName !== firstName ||
+            newSurname !== lastName ||
             newEmail !== email ||
             language !== selectedSingleLanguage.name ||
             currency !== selectedSingleCurrency.name ||
@@ -92,7 +94,7 @@ const SettingsForm: React.FC = () => {
                 type={InputType.TEXT}
                 label="First name"
                 placeholder="Enter your name"
-                name="name"
+                name="firstName"
                 control={control}
                 errors={errors}
             />
@@ -100,7 +102,7 @@ const SettingsForm: React.FC = () => {
                 type={InputType.TEXT}
                 label="Last name"
                 placeholder="Enter your surname"
-                name="surname"
+                name="lastName"
                 control={control}
                 errors={errors}
             />

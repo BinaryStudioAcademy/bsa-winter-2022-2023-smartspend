@@ -1,13 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
+import { actions as budgetsActions } from '~/bundles/budgets/store';
 import {
     BaseModal,
     BudgetCard,
     Button,
 } from '~/bundles/common/components/components.js';
 import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -27,6 +33,7 @@ type Properties = {
 };
 
 const Budgets: React.FC<Properties> = ({ budgetCards }) => {
+    const dispatch = useAppDispatch();
     const [active, setActive] = useState(false);
 
     const handleClickOpen = useCallback((): void => {
@@ -36,6 +43,10 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
     const handleClickClose = useCallback((): void => {
         setActive(false);
     }, []);
+
+    useEffect(() => {
+        void dispatch(budgetsActions.loadAll());
+    }, [dispatch]);
 
     return (
         <div className={styles.budgets}>

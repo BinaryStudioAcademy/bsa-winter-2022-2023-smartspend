@@ -7,6 +7,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/';
+import { budgetsApi } from '~/bundles/budgets/budgets.js';
+import { reducer as budgetsReducer } from '~/bundles/budgets/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
@@ -18,11 +20,13 @@ import { notification } from '~/services/services.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
+    budgets: ReturnType<typeof budgetsReducer>;
 };
 
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    budgetsApi: typeof budgetsApi;
     notification: typeof notification;
     storage: typeof storage;
 };
@@ -44,6 +48,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 users: usersReducer,
+                budgets: budgetsReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 return [
@@ -62,6 +67,7 @@ class Store {
         return {
             authApi,
             userApi,
+            budgetsApi,
             notification,
             storage,
         };

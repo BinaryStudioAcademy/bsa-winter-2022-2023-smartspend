@@ -1,6 +1,6 @@
-import { type IEntity } from '~/common/interfaces/interfaces.js';
+import { type Gender } from 'shared/build';
 
-import { type Gender } from './types/types.js';
+import { type IEntity } from '~/common/interfaces/interfaces.js';
 
 class UserEntity implements IEntity {
     private 'id': string | null;

@@ -3,7 +3,7 @@ import { type TransactionUpdatePayloadDto } from 'shared/build/bundles/transacti
 import { type TransactionModel } from '~/bundles/transactions/transactions';
 import { type IRepository } from '~/common/interfaces/repository.interface';
 
-import { TransactionEntity } from './transaction.entity';
+import { TransactionEntity } from './transactions';
 
 class TransactionRepository implements Partial<IRepository> {
     private transactionModel: typeof TransactionModel;

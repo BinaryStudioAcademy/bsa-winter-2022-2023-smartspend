@@ -1,21 +1,36 @@
-.container {
+@import "@assets/utils";
+
+.body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 45px;
-    height: 100vh;
-    padding-top: 130px;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-top: 80px;
     padding-bottom: var(--p-6);
     background-color: var(--color-blue-100);
 }
 
-.button {
-    align-self: start;
-    margin-top: 33px;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--m-5);
+    width: 1192px;
+    padding-top: var(--p-5);
 }
 
 .userProfileContainer {
-    padding: var(--p-4) var(--p-8);
+    width: 100%;
     background-color: var(--color-white-100);
     border-radius: var(--b-5);
+}
+
+@media (max-width: $sm) {
+    .body {
+        padding-bottom: var(--p-3);
+    }
+
+    .container {
+        gap: var(--m-3);
+        padding-top: var(--p-3);
+    }
 }

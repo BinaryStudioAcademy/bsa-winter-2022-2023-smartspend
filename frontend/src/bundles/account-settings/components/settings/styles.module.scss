@@ -1,5 +1,7 @@
+@import "@assets/utils";
+
 .userProfile {
-    max-width: 840px;
+    max-width: 920px;
     margin: 0 auto;
     padding: var(--p-3) calc(var(--p-5) + var(--p-2))
         calc(var(--p-5) + var(--p-2));
@@ -19,6 +21,7 @@
 
 .avatarContent {
     display: flex;
+    grid-column-start: 1;
     align-items: center;
     gap: 10px;
 }
@@ -97,4 +100,35 @@
 
 .icon {
     padding-right: 5px;
+}
+
+@media (max-width: $md) {
+    .userProfile {
+        padding: var(--p-3);
+    }
+
+    .title {
+        font-size: var(--font-size-level-3-heading);
+    }
+}
+
+@media (max-width: $sm) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+
+    .btnContainer > button {
+        padding: var(--p-1) var(--p-2);
+    }
+
+    .submitBtn,
+    .dltButton {
+        justify-self: center;
+        width: 100%;
+    }
+
+    .submitBtn > button,
+    .dltButton > button {
+        width: 100%;
+    }
 }

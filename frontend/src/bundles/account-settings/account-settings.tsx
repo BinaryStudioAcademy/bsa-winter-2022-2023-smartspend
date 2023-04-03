@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import { AppRoute } from '../common/enums/app-route.enum.js';
@@ -13,10 +14,12 @@ const AccountSettings: React.FC = () => {
         { title: 'Terms and Policies', to: AppRoute.DASHBOARD },
     ];
     return (
-        <main className={styles.container}>
-            <Tabs tabsData={dataTabs} />
-            <div className={styles.userProfileContainer}>
-                <UserProfile />
+        <main className={styles.body}>
+            <div className={classNames(styles.container, 'container')}>
+                <Tabs tabsData={dataTabs} />
+                <div className={styles.userProfileContainer}>
+                    <UserProfile />
+                </div>
             </div>
         </main>
     );

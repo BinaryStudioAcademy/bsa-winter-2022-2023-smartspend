@@ -1,5 +1,22 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type BudgetCategoryCreateRequestDto,
+    type BudgetCategoryGetAllResponseDto,
+    type BudgetCategoryResponseDto,
+} from './bundles/budget-categories/types/types.js';
+export {
+    type BudgetCreateRequestDto,
+    type BudgetFindRequestDto,
+    type BudgetGetAllCategoriesResponseDto,
+    type BudgetGetAllResponseDto,
+    type BudgetResponseDto,
+    type TokenDeleteRequestDto,
+    type TokenRequestDto,
+    type UpdateBudgetRequestDto,
+    BudgetsApiPath,
+    BudgetValidationMessage,
+} from './bundles/budgets/budgets.js';
+export {
     type CategoryGetAllItemResponseDto,
     type CategoryGetAllResponseDto,
     type CategoryIdRequestDto,

@@ -1,61 +1,10 @@
+@import "@assets/utils";
+
 .app {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     font-family: var(--font-family);
-}
-
-.header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 63px;
-    background: var(--color-blue-600);
-}
-
-.headerContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 80vw;
-    max-width: 1293px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logoIcon {
-    display: inline-block;
-    width: 41px;
-    height: 41px;
-    background: var(--gradient-6);
-    border-radius: 50%;
-}
-
-.logoText {
-    padding-left: 7px;
-    color: var(--color-white-100);
-    font-weight: var(--font-weight-400);
-    font-size: var(--px-4);
-}
-
-.tabs {
-    display: flex;
-    align-items: center;
-}
-
-.profile {
-    display: flex;
-    align-items: center;
-}
-
-.userName {
-    padding-left: var(--p-2);
-    color: var(--color-white-100);
-    font-weight: var(--font-weight-400);
-    font-size: var(--px-4);
 }
 
 .body {
@@ -64,6 +13,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    margin-top: 80px;
     background: var(--color-blue-100);
 }
 
@@ -71,20 +21,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 1293px;
 }
 
 .buttonsDate {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 115px;
+    min-height: 115px;
 }
 
 .buttonsContainer {
     display: flex;
+    flex-grow: 1;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
     gap: 10px;
 }
 
@@ -99,18 +58,16 @@
 .filters {
     display: flex;
     justify-content: center;
+    align-items: start;
     width: 100vw;
-    height: 203px;
+    min-height: 233px;
     background: var(--color-white-100);
 }
 
 .filtersContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
-    max-width: 1293px;
-    height: 100%;
 }
 
 .filterText {
@@ -119,20 +76,25 @@
     width: 100%;
 }
 
-.filterText p {
-    padding-top: 10px;
-}
-
 .applyFilters {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
     width: 100%;
 }
 
 .filter {
-    width: 293px;
-    padding-top: var(--p-1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: var(--p-2);
+    column-gap: 4px;
+}
+
+.rangeFilter {
+    display: flex;
+    flex-direction: column;
+    height: 76px;
 }
 
 .applyFilters * {
@@ -142,6 +104,7 @@
 }
 
 .categoryText {
+    align-self: start;
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
@@ -164,25 +127,35 @@
     cursor: pointer;
 }
 
+.slider {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 0 var(--p-2);
+}
+
+.slider > * {
+    width: 100%;
+}
+
+.walletTransactions {
+    width: 100%;
+}
+
 .walletTransactionsContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 25px;
-    width: 1293px;
+    width: 100%;
     margin-top: 19px;
 }
 
 .cards {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
     width: 100%;
-}
-
-.card {
-    width: 293px;
-    height: 106px;
 }
 
 .futureTransactions {
@@ -259,4 +232,39 @@
     width: 17px;
     height: 17px;
     color: var(--color-gray-200);
+}
+
+@media (max-width: $xl) {
+    .filters,
+    .buttonsDate,
+    .walletTransactionsContainer {
+        padding: 20px;
+    }
+}
+
+@media (max-width: $lg) {
+    .buttonsContainer {
+        justify-content: center;
+    }
+
+    .buttonsDate {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cards {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .applyFilters {
+        gap: 20px;
+    }
+}
+
+@media (max-width: $sm) {
+    .applyFilters {
+        justify-content: center;
+        align-items: center;
+    }
 }

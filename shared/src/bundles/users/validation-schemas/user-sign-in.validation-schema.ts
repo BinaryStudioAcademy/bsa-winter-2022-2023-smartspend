@@ -3,14 +3,13 @@ import joi from 'joi';
 import { UserValidationMessage } from '../enums/enums.js';
 import { type UserSignInRequestDto } from '../types/types.js';
 
+const emailRegExp =
+    /^[\w!#$%&'*+./=?^`{|}~-]+@[\dA-Za-z]+(?:[\w-]+\.)+[A-Za-z]{2,}$/;
+
 const userSignIn = joi.object<UserSignInRequestDto, true>({
     email: joi
         .string()
-        .pattern(
-            new RegExp(
-                '^[a-zA-Z0-9._%+-]{1,15}@(?=.{3,15}$)[a-zA-Z0-9.-]{1,}\\.[a-zA-Z]{1,}$',
-            ),
-        )
+        .pattern(emailRegExp)
         .email({
             tlds: {
                 allow: false,

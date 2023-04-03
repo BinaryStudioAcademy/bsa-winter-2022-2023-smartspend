@@ -13,10 +13,9 @@ import {
     useEffect,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
+import { iconProvider } from '~/bundles/common/icon-provider';
 import { actions as userActions } from '~/bundles/users/store';
 import { storage, StorageKey } from '~/framework/storage/storage';
-
-import { iconProvider } from '../bundles/common/icon-provider';
 
 library.add(iconProvider);
 

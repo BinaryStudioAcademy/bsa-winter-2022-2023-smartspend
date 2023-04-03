@@ -4,32 +4,34 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
-import { RangeCalendar } from '~/bundles/common/components/calendar/range-calendar.js';
+import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
     Button,
     CardTotal,
     Input,
+    MultiDropdown,
     RangeSlider,
 } from '~/bundles/common/components/components.js';
-import { MultiDropdown } from '~/bundles/common/components/multiselect-dropdown/multiselect-dropdown.js';
-import { ButtonSize } from '~/bundles/common/enums/button-size.enum.js';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
-import { CardVariant } from '~/bundles/common/enums/card-variant.enum.js';
-import { FaIcons } from '~/bundles/common/enums/enums.js';
+import {
+    ButtonSize,
+    ButtonVariant,
+    CardVariant,
+    FaIcons,
+    InputType,
+} from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppForm,
     useAppSelector,
     useCallback,
     useMemo,
     useState,
-} from '~/bundles/common/hooks/hooks';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+} from '~/bundles/common/hooks/hooks.js';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
-import { InputType } from '../../enums/input-type.enum.js';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {

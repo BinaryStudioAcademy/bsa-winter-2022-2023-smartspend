@@ -69,6 +69,11 @@ const Input = <T extends FieldValues>({
         styles[isDisabled ? 'disabled' : ''],
         inputClassName,
     );
+    let checkTypePassword;
+    if (type !== InputType.CHECKBOX) {
+        checkTypePassword =
+            passwordShown || (!field.value && InputType.PASSWORD);
+    }
     const inputClassesWithError = classNames(inputClasses, styles.hasError);
 
     return (
@@ -76,7 +81,7 @@ const Input = <T extends FieldValues>({
             <span className={styles.inputLabel}>{label}</span>
             <input
                 {...field}
-                type={passwordShown || !field.value ? InputType.TEXT : type}
+                type={checkTypePassword ? InputType.TEXT : type}
                 placeholder={placeholder}
                 disabled={isDisabled}
                 className={`${hasError ? inputClassesWithError : inputClasses}`}

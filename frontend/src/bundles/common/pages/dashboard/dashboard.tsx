@@ -15,8 +15,7 @@ import {
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
-import { CardVariant, FaIcons } from '~/bundles/common/enums/enums.js';
+import { ButtonVariant, CardVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppForm,

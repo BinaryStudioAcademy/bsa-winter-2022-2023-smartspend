@@ -39,13 +39,12 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-
 }
 
 .buttons {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--m-2);
 }
 
 .button {
@@ -271,5 +270,11 @@
     .applyFilters {
         justify-content: center;
         align-items: center;
+    }
+}
+
+@media (min-width: $lg) {
+    .buttonsContainer {
+        margin-right: var(--m-2);
     }
 }

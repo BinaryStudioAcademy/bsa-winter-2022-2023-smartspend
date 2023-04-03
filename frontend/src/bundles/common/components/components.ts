@@ -12,6 +12,7 @@ export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Menu } from './menu/menu.js';
 export { BaseModal } from './modal/modal.js';
+export { NewWalletModal } from './modal-add-wallet/modal-add-wallet.js';
 export { Portal } from './portal/portal.js';
 export { PrivateRoute } from './private-route/private-route.js';
 export { PublicRoute } from './public-route/public-route.js';

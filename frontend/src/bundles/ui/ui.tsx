@@ -17,6 +17,7 @@ import {
     LineChartPart,
     LoaderPart,
     MultiDropdownPart,
+    NewWalletModalPart,
     RangeSliderPart,
     TabsPart,
     UserSettingsTabsPart,
@@ -37,6 +38,7 @@ type CollapseState = {
     input: boolean;
     userSettingsTabs: boolean;
     rangeSlider: boolean;
+    newWalletModal: boolean;
 };
 
 const defaultCollapse: CollapseState = {
@@ -52,6 +54,7 @@ const defaultCollapse: CollapseState = {
     userSettingsTabs: false,
     rangeSlider: false,
     card: false,
+    newWalletModal: false,
 };
 
 const StyleGuide: React.FC = () => {
@@ -83,6 +86,7 @@ const StyleGuide: React.FC = () => {
         { name: 'multiDropdown', component: <MultiDropdownPart /> },
         { name: 'dropdown', component: <DropdownPart /> },
         { name: 'loader', component: <LoaderPart /> },
+        { name: 'newWalletModal', component: <NewWalletModalPart /> },
     ];
     return (
         <div>

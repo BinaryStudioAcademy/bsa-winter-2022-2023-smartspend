@@ -86,7 +86,7 @@
 }
 
 .transaction div {
-    padding: var(--p-2);
+    padding: var(--p-1);
     text-align: center;
 }
 
@@ -98,7 +98,7 @@
 .checkbox {
     width: 20px;
     height: 20px;
-    margin: 0;
+    margin-right: var(--m-2);
 }
 
 .checkbox:focus {

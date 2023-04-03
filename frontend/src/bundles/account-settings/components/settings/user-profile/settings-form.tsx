@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 import { Button } from '~/bundles/common/components/button/button';
+import { Icon } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
@@ -145,12 +145,9 @@ const SettingsForm: React.FC = () => {
             </SubmitButton>
             <div className={styles.dltButton}>
                 <Button variant={ButtonVariant.DELETE} size={ButtonSize.MEDIUM}>
-                    <FontAwesomeIcon
-                        style={{
-                            paddingRight: '5px',
-                        }}
-                        icon={FaIcons.TRASH_CAN}
-                    />
+                    <span className={styles.icon}>
+                        <Icon name={FaIcons.TRASH_CAN} />
+                    </span>
                     <span>Delete Account</span>
                 </Button>
             </div>

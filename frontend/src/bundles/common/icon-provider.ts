@@ -15,6 +15,7 @@ import {
     faLandmark,
     faPaw,
     faPen,
+    faChevronUp,
     faPlus,
     faSackDollar,
     faStop,
@@ -23,6 +24,7 @@ import {
 
 const iconProvider = {
     faChevronDown,
+    faChevronUp,
     faEye,
     faEyeSlash,
     faGasPump,

@@ -21,6 +21,7 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { ScrollNavLink } from './scroll-nav/scroll-nav.js';
 export { Tabs } from './tabs/tabs.js';
 export { Toast } from './toast/toast.js';
+export { TransactionTable } from './transanction-table/transaction-table.js';
 export { UserSettingsTabs } from './user-settings-tabs/user-settings-tabs.js';
 export { WalletCard } from './wallet-card/wallet-card.js';
 export { App } from '~/app/app.js';

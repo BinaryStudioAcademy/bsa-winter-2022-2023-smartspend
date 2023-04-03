@@ -2,8 +2,11 @@ import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 
-import { Button, Input } from '~/bundles/common/components/components';
-import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
+import {
+    Button,
+    Dropdown,
+    Input,
+} from '~/bundles/common/components/components';
 import {
     ButtonSize,
     ButtonType,

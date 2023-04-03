@@ -44,12 +44,12 @@
 .list {
     position: relative;
     margin: 0;
-    padding: 0;
+    padding-left: var(--p-4);
 }
 
 .listItem::before {
     position: absolute;
-    left: -20px;
+    left: 0;
     width: 6px;
     height: 6px;
     margin: 11px 0;

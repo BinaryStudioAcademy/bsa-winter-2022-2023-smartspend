@@ -8,18 +8,16 @@ import { DateRangePicker } from 'react-date-range';
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import leftArrow from '~/assets/img/left-arrow.svg';
 import rightArrow from '~/assets/img/right-arrow.svg';
-import { useCallback } from '~/bundles/common/hooks/hooks';
-
-import { ButtonSize } from '../../enums/button-size.enum';
-import { ButtonVariant } from '../../enums/button-variant.enum';
+import styles from '~/bundles/common/components/calendar/styles.module.scss';
+import { Button } from '~/bundles/common/components/components.js';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
 import {
     formatRange,
     getBackwardMonths,
     getForwardMonths,
     getInitialRange,
-} from '../../helpers/helpers';
-import { Button } from '../components';
-import styles from './styles.module.scss';
+} from '~/bundles/common/helpers/helpers';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 const RangeCalendar: React.FC = () => {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);

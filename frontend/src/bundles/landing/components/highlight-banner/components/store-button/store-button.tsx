@@ -1,6 +1,7 @@
-import { useCallback } from '../../../common/hooks/hooks';
-import { ButtonVariant } from '../../enums/enums';
-import { Button } from '../components';
+import { Button } from '~/bundles/common/components/components.js';
+import { ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
+
 import styles from './styles.module.scss';
 
 type Properties = {

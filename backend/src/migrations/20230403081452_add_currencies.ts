@@ -2,8 +2,6 @@ import { type Knex } from 'knex';
 
 const CURRENCIES_TABLE = 'currencies';
 
-const uuid = 'uuid_generate_v4()';
-
 const CurrenciesColumnName = {
     ID: 'id',
     SYMBOL: 'symbol',

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { RangeCalendar } from '~/bundles/common/components/calendar/range-calendar.js';
@@ -14,14 +15,21 @@ import { MultiDropdown } from '~/bundles/common/components/multiselect-dropdown/
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum.js';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
 import { CardVariant } from '~/bundles/common/enums/card-variant.enum.js';
-import { useCallback, useMemo, useState } from '~/bundles/common/hooks/hooks';
+import { FaIcons } from '~/bundles/common/enums/enums.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useMemo,
+    useState,
+} from '~/bundles/common/hooks/hooks';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
+import { actions as walletsActions } from '~/bundles/wallets/store';
 
-import { FaIcons } from '../../enums/enums.js';
 import { InputType } from '../../enums/input-type.enum.js';
-import { useAppForm } from '../../hooks/hooks.js';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -87,10 +95,15 @@ const categories = [
 ];
 
 const WalletDetails: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { id } = useParams();
+    const { wallets } = useAppSelector((state) => state.wallets);
     const { control, errors } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
+
+    const currentWallet = wallets.find((wallet) => wallet.id === id);
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -144,6 +157,10 @@ const WalletDetails: React.FC = () => {
         setFilteredData(mockSliderData);
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+    }, [dispatch]);
 
     return (
         <div className={styles.app}>
@@ -258,7 +275,7 @@ const WalletDetails: React.FC = () => {
                             <div className={styles.cards}>
                                 <CardTotal
                                     title="Total Balance"
-                                    sum={40.45}
+                                    sum={currentWallet?.balance as number}
                                     variant={CardVariant.ORANGE}
                                 />
                                 <CardTotal

@@ -62,13 +62,16 @@ const Header: React.FC<Properties> = ({
                 </Link>
                 {token ? (
                     <div className={classNames(styles.headerBody, styles.tabs)}>
-                        {(pathname === AppRoute.DASHBOARD ||
-                            pathname === AppRoute.BUDGETS) && (
+                        {(pathname.includes(AppRoute.DASHBOARD) ||
+                            pathname.includes(AppRoute.BUDGETS)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {(pathname === `${AppRoute.WALLET}/${id}` ||
-                            pathname === AppRoute.USER) && (
-                            <Tabs tabsData={dataTabs.wallets} />
+                        {(pathname.includes(AppRoute.WALLET) ||
+                            pathname.includes(AppRoute.USER)) && (
+                            <Tabs
+                                tabsData={dataTabs.wallets}
+                                prefix={`/wallet/${id}`}
+                            />
                         )}
                     </div>
                 ) : (

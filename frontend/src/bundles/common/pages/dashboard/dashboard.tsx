@@ -141,7 +141,7 @@ const Dashboard: React.FC = () => {
                     <div className={styles.wallets}>
                         {wallets.map(({ id, name, balance }) => (
                             <Link
-                                to={`/wallet/${id}`}
+                                to={`/wallet/${id}/transaction`}
                                 key={id}
                                 className={styles.walletWrapper}
                             >

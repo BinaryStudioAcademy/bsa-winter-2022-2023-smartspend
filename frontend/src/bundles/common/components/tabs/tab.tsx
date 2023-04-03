@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 type Properties = {
     title: string;
     to: string;
+    prefix?: string;
 };
 
 const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
@@ -15,9 +16,12 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     });
 };
 
-const Tab: React.FC<Properties> = ({ title, to }) => {
+const Tab: React.FC<Properties> = ({ title, to, prefix }) => {
     return (
-        <NavLink to={to} className={getNavLinkClassName}>
+        <NavLink
+            to={prefix ? `${prefix}${to}` : to}
+            className={getNavLinkClassName}
+        >
             {title}
         </NavLink>
     );

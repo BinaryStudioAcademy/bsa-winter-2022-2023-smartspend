@@ -7,7 +7,7 @@ const AppRoute = {
     BUDGETS: '/budgets',
     WALLETS: '/wallets',
     UI: '/ui',
-    WALLET_DETAILS: '/wallet/:id',
+    WALLET_DETAILS_TRANSACTION: '/wallet/:id/transaction',
     NOT_FOUND: '*',
     WALLET: '/wallet',
 } as const;

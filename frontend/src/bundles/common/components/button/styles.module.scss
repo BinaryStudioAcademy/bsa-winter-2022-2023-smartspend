@@ -115,19 +115,10 @@
 }
 
 .delete:hover {
-    color: var(--color-delete-hover);
+    color: var(--color-red-300);
     background: linear-gradient(var(--color-white-100), var(--color-white-100))
             padding-box,
-        var(--color-delete-hover);
+        var(--color-red-300);
     border: var(--border) solid transparent;
     transition: all var(--transition-time);
-}
-
-.deleteDisabled {
-    color: var(--color-disable);
-    background: linear-gradient(var(--color-white-100), var(--color-white-100))
-            padding-box,
-        var(--color-disable);
-    border: var(--border) solid transparent;
-    cursor: auto;
 }

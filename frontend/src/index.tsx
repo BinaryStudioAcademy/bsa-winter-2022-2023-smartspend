@@ -3,6 +3,7 @@ import '~/assets/css/styles.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { AccountSettings } from '~/bundles/account-settings/account-settings';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
@@ -81,8 +82,20 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.NOT_FOUND,
-                                element: <NotFound />,
+                                path: AppRoute.USER,
+                                element: (
+                                    <PrivateRoute>
+                                        <AccountSettings />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.USER,
+                                element: (
+                                    <PrivateRoute>
+                                        <CategoriesSettings />
+                                    </PrivateRoute>
+                                ),
                             },
                         ],
                     },
@@ -91,8 +104,8 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         element: <StyleGuide />,
                     },
                     {
-                        path: AppRoute.CATEGORIES,
-                        element: <CategoriesSettings />,
+                        path: AppRoute.NOT_FOUND,
+                        element: <NotFound />,
                     },
                 ]}
             />

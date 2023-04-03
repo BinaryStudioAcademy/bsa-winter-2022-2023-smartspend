@@ -1,7 +1,6 @@
-import { Title } from '~/bundles/common/components/settings/title';
-import { SettingsForm } from '~/bundles/common/components/settings/user-profile/settings-form';
-
 import styles from './styles.module.scss';
+import { Title } from './title';
+import { SettingsForm } from './user-profile/settings-form';
 
 const UserProfile: React.FC = () => {
     return (

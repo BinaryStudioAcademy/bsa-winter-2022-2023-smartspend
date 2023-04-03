@@ -1,8 +1,5 @@
 import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
 import { Input } from '~/bundles/common/components/input/input';
-import { Title } from '~/bundles/common/components/settings/title';
-import { AvatarContainer } from '~/bundles/common/components/settings/user-profile/avatar-container';
-import { SubmitButton } from '~/bundles/common/components/settings/user-profile/submit-button';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
@@ -10,7 +7,10 @@ import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hoo
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
 import styles from '../styles.module.scss';
+import { Title } from '../title';
+import { AvatarContainer } from './avatar-container';
 import { mockData } from './mock-data';
+import { SubmitButton } from './submit-button';
 
 const currency = [
     { value: 'USD', name: 'USD' },
@@ -32,15 +32,17 @@ const SettingsForm: React.FC = () => {
         defaultValues: mockData,
     });
 
-    const newName = useFormController({ name: 'name', control }).field.value;
-    const newSurname = useFormController({ name: 'surname', control }).field
+    const newName = useFormController({ name: 'firstName', control }).field
+        .value;
+    const newSurname = useFormController({ name: 'lastName', control }).field
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { name, surname, email, language, currency, sex } = mockData;
+        const { firstName, lastName, email, language, currency, sex } =
+            mockData;
         return (
-            newName !== name ||
-            newSurname !== surname ||
+            newName !== firstName ||
+            newSurname !== lastName ||
             newEmail !== email ||
             language !== selectedSingleLanguage.name ||
             currency !== selectedSingleCurrency.name ||
@@ -92,7 +94,7 @@ const SettingsForm: React.FC = () => {
                 type={InputType.TEXT}
                 label="First name"
                 placeholder="Enter your name"
-                name="name"
+                name="firstName"
                 control={control}
                 errors={errors}
             />
@@ -100,7 +102,7 @@ const SettingsForm: React.FC = () => {
                 type={InputType.TEXT}
                 label="Last name"
                 placeholder="Enter your surname"
-                name="surname"
+                name="lastName"
                 control={control}
                 errors={errors}
             />

@@ -127,7 +127,7 @@ const SettingsForm: React.FC = () => {
                 control={control}
                 errors={errors}
             />
-            <Title>Localisation settings</Title>
+            <Title>Localization settings</Title>
             <Dropdown
                 data={currency}
                 handleChange={handleDropdownChangeCurrency}

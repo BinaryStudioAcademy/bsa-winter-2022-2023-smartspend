@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import defaultAvatar from '~/assets/img/default-avatar.jpg';
 import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
@@ -33,6 +33,7 @@ const Header: React.FC<Properties> = ({
     avatar = defaultAvatar,
     dataTabs,
 }) => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const token = storage.getSync(StorageKey.TOKEN);
@@ -66,7 +67,8 @@ const Header: React.FC<Properties> = ({
                             pathname.match(/^\/budgets\/\d+$/)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {pathname === AppRoute.WALLETS && (
+                        {(pathname === `${AppRoute.WALLET}/${id}` ||
+                            pathname === AppRoute.USER) && (
                             <Tabs tabsData={dataTabs.wallets} />
                         )}
                     </div>

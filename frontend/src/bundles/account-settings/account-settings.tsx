@@ -1,4 +1,6 @@
-import { AppRoute } from '../common/enums/app-route.enum';
+import React from 'react';
+
+import { AppRoute } from '../common/enums/app-route.enum.js';
 import { Tabs, UserProfile } from './components/components';
 import styles from './styles.module.scss';
 

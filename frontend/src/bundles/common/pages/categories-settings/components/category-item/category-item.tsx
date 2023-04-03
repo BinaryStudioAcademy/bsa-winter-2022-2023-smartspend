@@ -10,7 +10,7 @@ import {
     ButtonVariant,
     FaIcons,
 } from '~/bundles/common/enums/enums';
-import { findIcon } from '~/bundles/common/helpers/find-icon';
+import { Icon } from '~/bundles/common/helpers/find-icon';
 
 import { Checkbox } from '../checkbox/checkbox';
 import { FormEditCategory } from '../form-create-category/form-edit-category';
@@ -25,10 +25,12 @@ type Properties = {
     colorIcon: string;
 };
 
+type SelectedCategory = {
+    selectedCategory: string[];
+};
+
 type RootState = {
-    categories: {
-        checkedCategory: string[];
-    };
+    categories: SelectedCategory;
 };
 
 const CategoryItem: React.FC<Properties> = ({
@@ -39,47 +41,45 @@ const CategoryItem: React.FC<Properties> = ({
     iconKey,
     colorIcon,
 }) => {
-    const [modalDelete, setModalDelete] = useState(false);
-    const [modalEdit, setModalEdit] = useState(false);
-    // const [editCategory, setEditCategory]= useState({})
+    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+    const [isEditModalShown, setIsEditModalShown] = useState(false);
     const dispatch = useDispatch();
     const isChecked = useSelector<RootState, boolean>((state) =>
-        state.categories.checkedCategory.includes(id),
+        state.categories.selectedCategory.includes(id),
     );
 
-    const icon = findIcon(iconKey);
+    const icon = Icon(iconKey);
 
     const handleCheckboxChange = useCallback(
         (isChecked: boolean): void => {
             if (isChecked) {
-                dispatch(categoriesSlice.addChecked(id));
-            } else {
-                dispatch(categoriesSlice.removeChecked(id));
+                dispatch(categoriesSlice.addSelectedCategory(id));
+                return;
             }
+            dispatch(categoriesSlice.removeSelectedCategory(id));
         },
         [dispatch, id],
     );
 
     const handelOpenModalEdit = useCallback((): void => {
-        setModalEdit(true);
+        setIsEditModalShown(true);
     }, []);
 
-    const handelClickEdit = useCallback(() => {
-        // console.log(id);
+    const handelClickEdit = useCallback((): void => {
+        // will be used
     }, []);
 
     const handelOpenModalDelete = useCallback(() => {
-        setModalDelete(true);
+        setIsDeleteModalShown(true);
     }, []);
 
     const handelClickDelete = useCallback((): void => {
-        // console.log(id); //delete item from ID
-        setModalDelete(true);
+        setIsDeleteModalShown(true);
     }, []);
 
     const handleCloseModal = useCallback(() => {
-        setModalDelete(false);
-        setModalEdit(false);
+        setIsDeleteModalShown(false);
+        setIsEditModalShown(false);
     }, []);
 
     return (
@@ -139,7 +139,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 type={ButtonType.BUTTON}
                                 variant={ButtonVariant.DELETE}
                                 size={ButtonSize.SMALL}
-                                className={`${styles.iconBtn} `}
+                                className={styles.iconBtn}
                                 disabled={false}
                                 onClick={handelOpenModalDelete}
                             >
@@ -152,11 +152,11 @@ const CategoryItem: React.FC<Properties> = ({
                 </div>
             </div>
             <BaseModal
-                isShown={modalEdit}
+                isShown={isEditModalShown}
                 onClose={handleCloseModal}
                 onSubmit={handelClickEdit}
                 Header={
-                    <h1 className="visually-hidden">{`You're about to edit ${categoryName} categories`}</h1>
+                    <h2 className="visually-hidden">{`You're about to edit ${categoryName} categories`}</h2>
                 }
                 Body={
                     <FormEditCategory
@@ -168,13 +168,14 @@ const CategoryItem: React.FC<Properties> = ({
                     />
                 }
                 submitButtonName={'Edit category'}
+                hasActionButtons={false}
             />
             <BaseModal
-                isShown={modalDelete}
+                isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
                 onSubmit={handelClickDelete}
                 Header={
-                    <h1>{`You're about to delete ${categoryName} categories`}</h1>
+                    <h2>{`You're about to delete ${categoryName} categories`}</h2>
                 }
                 Body={
                     <p>

@@ -90,7 +90,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.USER,
+                                path: AppRoute.CATEGORIES,
                                 element: (
                                     <PrivateRoute>
                                         <CategoriesSettings />

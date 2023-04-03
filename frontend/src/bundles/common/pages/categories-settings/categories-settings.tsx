@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { Button } from '../../components/button/button';
 import { BaseModal } from '../../components/components';
@@ -13,14 +12,10 @@ import {
 import { CategoryList } from './components/category-list/category-list';
 import { FormCreateCategory } from './components/form-create-category/form-create-category';
 import { FormUi } from './components/form-create-category/form-ui';
+import { ManageCategories } from './components/manage-categories/manage-categories';
 import { testDB } from './components/mock/test-database';
 import styles from './styles.module.scss';
 
-type RootState = {
-    categories: {
-        checkedCategory: string[];
-    };
-};
 interface Data {
     id: string;
     categoryName: string;
@@ -32,15 +27,10 @@ interface Data {
 type GroupedData = Record<string, Data[]>;
 
 const CategoriesSettings: React.FC = () => {
-    const [modalCreate, setModalCreate] = useState(false);
-    const [modalMerge, setModalMerge] = useState(false);
-    const [modalDelete, setModalDelete] = useState(false);
-    const checkedCategories = useSelector(
-        (state: RootState) => state.categories.checkedCategory,
-    );
+    const [isCreateModalShown, setIsCreateModalShown] = useState(false);
 
     const handelClickModalCreate = useCallback((): void => {
-        setModalCreate(true);
+        setIsCreateModalShown(true);
     }, []);
 
     const handleKeyDown = useCallback(
@@ -51,35 +41,10 @@ const CategoriesSettings: React.FC = () => {
         },
         [handelClickModalCreate],
     );
-    const handelOpenModalMerge = useCallback(() => {
-        setModalMerge(true);
-    }, []);
-
-    const handelClickMerge = useCallback(() => {
-        // console.log('merge')
-    }, []);
-
-    const handelOpenModalDelete = useCallback(() => {
-        setModalDelete(true);
-    }, []);
-
-    const handelClickDelete = useCallback(() => {
-        // console.log('del')
-    }, []);
 
     const handleCloseModal = useCallback(() => {
-        setModalCreate(false);
-        setModalDelete(false);
-        setModalMerge(false);
+        setIsCreateModalShown(false);
     }, []);
-
-    // const sortByType: GroupedData = testDB.reduce((accumulator: GroupedData, current: Data) => {
-    //     if (!accumulator[current.type]) {
-    //         accumulator[current.type] = [];
-    //     }
-    //     accumulator[current.type].push(current);
-    //     return accumulator;
-    // }, {});
 
     const sortByType: GroupedData = {};
     for (const data of testDB) {
@@ -88,7 +53,6 @@ const CategoriesSettings: React.FC = () => {
         }
         sortByType[data.type].push(data);
     }
-
     return (
         <div className={styles.section}>
             <div className={styles.wrapper}>
@@ -117,53 +81,7 @@ const CategoriesSettings: React.FC = () => {
                                 </span>
                             </Button>
                         </div>
-                        <div className={styles.manageWrapper}>
-                            <h2 className={styles.title}>Manage categories</h2>
-                            <div className={styles.wrapperAllBtn}>
-                                <div className={styles.wrapperBtn}>
-                                    <Button
-                                        type={ButtonType.BUTTON}
-                                        variant={ButtonVariant.SECONDARY}
-                                        size={ButtonSize.MEDIUM}
-                                        disabled={
-                                            checkedCategories.length >= 2
-                                                ? false
-                                                : true
-                                        }
-                                        className={styles.btn}
-                                        onClick={handelOpenModalMerge}
-                                    >
-                                        <FontAwesomeIcon icon={FaIcons.COPY} />
-                                        <span className={styles.btnName}>
-                                            {checkedCategories.length >= 2
-                                                ? `Merge category (${checkedCategories.length})`
-                                                : 'Merge category'}
-                                        </span>
-                                    </Button>
-                                </div>
-                                <div className={styles.wrapperBtn}>
-                                    <Button
-                                        type={ButtonType.BUTTON}
-                                        variant={ButtonVariant.DELETE}
-                                        size={ButtonSize.MEDIUM}
-                                        disabled={
-                                            checkedCategories.length === 0
-                                                ? true
-                                                : false
-                                        }
-                                        className={styles.btn}
-                                        onClick={handelOpenModalDelete}
-                                    >
-                                        <FontAwesomeIcon icon={FaIcons.TRASH} />
-                                        <span className={styles.btnName}>
-                                            {checkedCategories.length === 0
-                                                ? 'Delete category'
-                                                : `Delete category (${checkedCategories.length})`}
-                                        </span>
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
+                        <ManageCategories/>
                         <CategoryList
                             title={'Income Categories'}
                             categories={sortByType.income}
@@ -176,41 +94,17 @@ const CategoriesSettings: React.FC = () => {
                 </div>
             </div>
             <BaseModal
-                isShown={modalCreate}
+                isShown={isCreateModalShown}
                 onClose={handleCloseModal}
                 onSubmit={handleCloseModal}
                 Header={
-                    <h1 className="visually-hidden">
+                    <h2 className="visually-hidden">
                         {'Create a new category'}
-                    </h1>
+                    </h2>
                 }
                 Body={<FormCreateCategory onClose={handleCloseModal} />}
                 submitButtonName={'Edit category'}
-            />
-            <BaseModal
-                isShown={modalMerge}
-                onClose={handleCloseModal}
-                onSubmit={handelClickMerge}
-                Header={
-                    <h1>{`You're about to merge ${checkedCategories.length} categories`}</h1>
-                }
-                Body={<p>Simple modal</p>}
-                submitButtonName={'Merge category'}
-            />
-            <BaseModal
-                isShown={modalDelete}
-                onClose={handleCloseModal}
-                onSubmit={handelClickDelete}
-                Header={
-                    <h1>{`You're about to delete ${checkedCategories.length} categories`}</h1>
-                }
-                Body={
-                    <p>
-                        This change is irreversible. Do you really want to
-                        delete them?
-                    </p>
-                }
-                submitButtonName={'Delete category'}
+                hasActionButtons={false}
             />
         </div>
     );

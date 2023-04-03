@@ -76,8 +76,6 @@ const Input = <T extends FieldValues>({
         inputClassName,
     );
 
-    // const inputClassesWithError = classNames(inputClasses, styles.hasError);
-
     return (
         <label className={labelClasses}>
             <span className={styles.inputLabel}>{label}</span>

@@ -44,27 +44,27 @@ type Properties = {
 
 const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
     const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const [form, setForm] = useState<FormValues>({
+    const [formData, setFormData] = useState<FormValues>({
         name: '',
         icon: '',
         color: '',
         type: '',
     });
     const [selectedIcon, setSelectedIcon] = useState<DataType>({
-        value: form.icon,
+        value: formData.icon,
     });
     const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>({
-        value: form.color,
+        value: formData.color,
     });
     const [selectedType, setSelectedType] = useState<DataType>({
-        value: form.type,
+        value: formData.type,
     });
 
     const handleDropdownIconChange = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const icon = selectedOption.value;
-                setForm((previousState) => ({ ...previousState, icon: icon }));
+                setFormData((previousState) => ({ ...previousState, icon: icon }));
                 setSelectedIcon(selectedOption);
             }
         },
@@ -97,7 +97,7 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const colorIcon = selectedOption.value;
-                setForm((previousState) => ({
+                setFormData((previousState) => ({
                     ...previousState,
                     color: colorIcon,
                 }));
@@ -127,7 +127,7 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const type = selectedOption.value;
-                setForm((previousState) => ({ ...previousState, type: type }));
+                setFormData((previousState) => ({ ...previousState, type: type }));
                 setSelectedType(selectedOption);
             }
         },
@@ -154,25 +154,25 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
-            setForm((previousState) => ({ ...previousState, name: value }));
+            setFormData((previousState) => ({ ...previousState, name: value }));
         },
         [],
     );
     useEffect(() => {
-        const { name, icon, color, type } = form;
+        const { name, icon, color, type } = formData;
         if (name && icon && color && type) {
             setIsButtonVisible(false);
             return;
         }
         setIsButtonVisible(true);
-    }, [form]);
+    }, [formData]);
     const handleClick = useCallback((): void => {
         resetForm();
         setIsButtonVisible(true);
         onClose();
     }, [onClose]);
     const resetForm = (): void => {
-        setForm({ name: '', icon: '', color: '', type: '' });
+        setFormData({ name: '', icon: '', color: '', type: '' });
         setIsButtonVisible(false);
     };
     return (
@@ -211,7 +211,7 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
                             labelClassName={styles.inputLabelColor}
                             isDisabled={false}
                             onChange={handleInputChange}
-                            value={form.name}
+                            value={formData.name}
                         />
                     </div>
                     <div className={styles.dropdownModal}>

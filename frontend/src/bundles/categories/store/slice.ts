@@ -2,27 +2,27 @@ import { type PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface CategoryState {
-    checkedCategory: string[];
+    selectedCategory: string[];
 }
 
 const initialState: CategoryState = {
-    checkedCategory: [],
+    selectedCategory: [],
 };
 
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
     reducers: {
-        addChecked: (state, action: PayloadAction<string>) => {
-            state.checkedCategory.push(action.payload);
+        addSelectedCategory: (state, action: PayloadAction<string>) => {
+            state.selectedCategory.push(action.payload);
         },
-        removeChecked: (state, action: PayloadAction<string>) => {
-            state.checkedCategory = state.checkedCategory.filter(
+        removeSelectedCategory: (state, action: PayloadAction<string>) => {
+            state.selectedCategory = state.selectedCategory.filter(
                 (id) => id !== action.payload,
             );
         },
-        clearChecked: (state) => {
-            state.checkedCategory = [];
+        clearSelectedCategory: (state) => {
+            state.selectedCategory = [];
         },
     },
 });

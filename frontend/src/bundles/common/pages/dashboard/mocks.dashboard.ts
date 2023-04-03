@@ -115,8 +115,8 @@ const byWallets: walletCategoryData[] = [
 ];
 
 const byCategory: walletCategoryData[] = [
-    { value: 'Alcohol', name: 'Alcohol' },
     { value: 'Car', name: 'Car' },
+    { value: 'Alcohol', name: 'Alcohol' },
     { value: 'Pet', name: 'Pet' },
     { value: 'Food', name: 'Food' },
     { value: 'House', name: 'House' },

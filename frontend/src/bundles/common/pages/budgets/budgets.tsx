@@ -41,7 +41,7 @@ const Budgets: React.FC = () => {
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
-                        {budgets.map((card) => (
+                        {budgets?.map((card) => (
                             <BudgetCard
                                 key={card.id}
                                 id={card.id}

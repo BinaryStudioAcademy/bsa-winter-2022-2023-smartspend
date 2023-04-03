@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .tabs {
     display: flex;
     justify-content: center;
@@ -35,4 +37,14 @@
     font-weight: var(--font-weight-600);
     background-color: var(--color-white-100);
     border-radius: var(--b-2);
+}
+
+@media (max-width: $md) {
+    .tabs {
+        z-index: 99;
+        justify-content: space-around;
+        width: 100vw;
+        height: 50px;
+        border-radius: 0;
+    }
 }

@@ -168,7 +168,7 @@ const Dashboard: React.FC = () => {
                                 labelClassName={styles.filterLabel}
                                 control={control}
                                 errors={errors}
-                                label={'All Categories'}
+                                label={'By Categories'}
                                 name={'category'}
                                 placeholder={'Filter by specific name'}
                             />

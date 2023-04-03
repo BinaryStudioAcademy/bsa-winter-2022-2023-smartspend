@@ -54,6 +54,16 @@ const Budgets: React.FC = () => {
                                 }}
                             />
                         ))}
+                        <BudgetCard
+                            id={'12345'}
+                            title={'Four'}
+                            total={75_471}
+                            moneyLeft={20_456}
+                            date={{
+                                start: 'March 02, 2023',
+                                end: 'March 02, 2023',
+                            }}
+                        />
                         <div
                             className={styles.cardCreate}
                             onClickCapture={handleClickOpen}

@@ -28,7 +28,7 @@ export {
     categoryValidationSchema,
 } from './bundles/categories/categories.js';
 export {
-    type UpdateRequestDto,
+    type ApiUpdateUserOptions,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserLoadRequestDto,

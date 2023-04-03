@@ -12,7 +12,7 @@ import {
     type HandleMultiChange,
 } from '~/bundles/common/types/types.js';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 interface Properties {
     data: DataType[];

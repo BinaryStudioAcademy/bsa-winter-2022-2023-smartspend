@@ -25,6 +25,10 @@
     margin: 0;
 }
 
+.dropdownLabel {
+    color: var(--color-gray-200);
+}
+
 .wallets {
     display: grid;
     grid-template-columns: repeat(auto-fill, 230px);

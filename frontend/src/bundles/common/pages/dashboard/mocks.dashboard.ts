@@ -104,9 +104,29 @@ const mockSliderData = [
     { amount: 900 },
 ];
 
+type walletCategoryData = {
+    value: string;
+    name: string;
+};
+
+const byWallets: walletCategoryData[] = [
+    { value: 'Daddys Wallet', name: 'Daddys Wallet' },
+    { value: 'Mommys Wallet', name: 'Mommys Wallet' },
+];
+
+const byCategory: walletCategoryData[] = [
+    { value: 'Alcohol', name: 'Alcohol' },
+    { value: 'Car', name: 'Car' },
+    { value: 'Pet', name: 'Pet' },
+    { value: 'Food', name: 'Food' },
+    { value: 'House', name: 'House' },
+];
+
 export {
     type Wallet,
     barChartData,
+    byCategory,
+    byWallets,
     categories,
     lineChartData,
     mockSliderData,

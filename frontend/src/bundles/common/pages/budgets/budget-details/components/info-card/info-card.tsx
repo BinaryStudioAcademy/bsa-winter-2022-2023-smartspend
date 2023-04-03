@@ -46,7 +46,8 @@ const InfoCard: React.FC<InfoCardProperties> = ({ type, total, currency }) => {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                 })}{' '}
-                {currency}{type === InfoCardTypes.CAN ? '/Day' : ''}
+                {currency}
+                {type === InfoCardTypes.CAN ? '/Day' : ''}
             </span>
         </div>
     );

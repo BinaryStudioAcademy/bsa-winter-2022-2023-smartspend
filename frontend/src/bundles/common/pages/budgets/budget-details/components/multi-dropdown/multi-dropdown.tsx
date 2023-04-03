@@ -32,13 +32,13 @@ const RenderMultiDropdown = ({
     const handleMultiDropdownChangeWrapper = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
             handleMultiDropdownChange(selectedOption);
-            onChange(
-                selectedOption === null
-                    ? []
-                    : (Array.isArray(selectedOption)
+            let selectedValues = [];
+            if (selectedOption !== null) {
+                selectedValues = Array.isArray(selectedOption)
                     ? selectedOption
-                    : [selectedOption]),
-            );
+                    : [selectedOption];
+            }
+            onChange(selectedValues);
         },
         [handleMultiDropdownChange, onChange],
     );

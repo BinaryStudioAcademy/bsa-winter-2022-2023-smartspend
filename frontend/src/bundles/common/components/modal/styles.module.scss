@@ -23,8 +23,8 @@
 
 .popup__close {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-sub-heading);
@@ -37,7 +37,7 @@
 
 .popup {
     position: relative;
-    width: 80vw;
+    width: fit-content;
     max-width: 970px;
     padding: var(--p-3);
     background-color: var(--color-white-100);

@@ -6,7 +6,7 @@ import {
     type BudgetFindRequestDto,
     type BudgetGetAllResponseDto,
     type BudgetResponseDto,
-    type UpdateRequestDto,
+    type UpdateBudgetRequestDto,
 } from './types/types.js';
 
 class BudgetService {
@@ -33,7 +33,7 @@ class BudgetService {
     }
 
     public async createBudget(
-        payload: UpdateRequestDto,
+        payload: UpdateBudgetRequestDto,
         userId: string,
     ): Promise<BudgetResponseDto> {
         const budget = await this.budgetRepository.createBudget(
@@ -51,7 +51,7 @@ class BudgetService {
 
     public async updateBudget(
         id: string,
-        payload: UpdateRequestDto,
+        payload: UpdateBudgetRequestDto,
         ownerId: string,
     ): Promise<BudgetResponseDto | undefined> {
         const updatedBudget = await this.budgetRepository.updateBudget(

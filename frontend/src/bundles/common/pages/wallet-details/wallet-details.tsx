@@ -10,7 +10,7 @@ import {
     Input,
     RangeSlider,
 } from '~/bundles/common/components/components.js';
-import { MultiDropdown } from '~/bundles/common/components/dropdown/multi-dropdown.js';
+import { MultiDropdown } from '~/bundles/common/components/multiselect-dropdown/multiselect-dropdown.js';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum.js';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum.js';
 import { CardVariant } from '~/bundles/common/enums/card-variant.enum.js';

@@ -1,112 +1,65 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
-
 // import { useLocation } from 'react-router-dom';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import { Button } from '~/bundles/common/components/components';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
-import { iconProvider } from '~/bundles/common/icon-provider';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
+import {
+    BudgetProgressBar,
+    EditBudgetModal,
+    InfoCard,
+} from './components/components';
+import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
+import { InfoCardTypes } from './enums/enums';
+import { calculateBudgetDetails } from './helpers/helpers';
 import styles from './styles.module.scss';
 
-enum CardTypes {
-    ORIGINALLY = 'Originally',
-    SPENT = 'Spent',
-    LEFT = 'Left',
-    CAN = 'Can',
-}
-
-interface CardProperties {
-    type: CardTypes;
-    total: number;
-    currency: string;
-}
-
-const Card: React.FC<CardProperties> = ({ type, total, currency }) => {
-    let title;
-    switch (type) {
-        case CardTypes.ORIGINALLY: {
-            title = 'Originally Budgeted';
-            break;
-        }
-        case CardTypes.SPENT: {
-            title = 'Spent so far';
-            break;
-        }
-        case CardTypes.LEFT: {
-            title = 'Money left';
-            break;
-        }
-        case CardTypes.CAN: {
-            title = 'You can spend';
-            break;
-        }
-        default: {
-            title = '';
-        }
-    }
-
-    return (
-        <div className={classNames(styles.card, `${styles['card' + type]}`)}>
-            <span className={styles.title}>{title}</span>
-            <span
-                className={classNames(
-                    styles.total,
-                    type === CardTypes.SPENT ? styles.minus : '',
-                )}
-            >
-                {total.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                })}{' '}
-                {currency}
-            </span>
-        </div>
-    );
+const getBudget = {
+    id: '1',
+    name: 'My first budget',
+    amount: 100_000,
+    spent: 12_500,
+    startDate: 'April 22, 2023',
+    recurrence: 'monthly',
+    categories: [
+        {
+            value: 'John Doe',
+            name: 'John Doe',
+            image: 'https://placekitten.com/50/50',
+        },
+    ],
+    currency: 'USD',
 };
-function calculateBudgetDetails(
-    originallyBudgeted: number,
-    spentSoFar: number,
-): { moneyLeft: number; canSpend: number } {
-    const moneyLeft = originallyBudgeted - spentSoFar;
-    const canSpend =
-        spentSoFar > originallyBudgeted ? 0 : originallyBudgeted - spentSoFar;
-    return { moneyLeft, canSpend };
-}
 
-interface ProgressProperties {
-    totalBudget: number;
-    spentSoFar: number;
-}
-
-const BudgetProgressBar: React.FC<ProgressProperties> = ({
-    totalBudget,
-    spentSoFar,
-}) => {
-    const percentageSpent = (spentSoFar / totalBudget) * 100;
-    const percentageRemaining = 100 - percentageSpent;
-
-    return (
-        <div className={styles.budgetProgressBar}>
-            <div
-                className={styles.budgetProgressBarSpent}
-                style={{ width: `${percentageSpent}%` }}
-            />
-            <div
-                className={styles.budgetProgressBarRemaining}
-                style={{ width: `${percentageRemaining}%` }}
-            />
-        </div>
-    );
-};
 const BudgetDetails = (): JSX.Element => {
-    const originallyBudgeted = 100_000;
-    const spentSoFar = 12_500;
+    const doughnutData = [
+        {
+            total: 1150,
+            color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
+        },
+        {
+            total: 1825,
+            color: 'linear-gradient(96.2deg, #FECC66 -30.03%, #F83062 95.13%)',
+        },
+        {
+            total: 1325,
+            color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
+        },
+    ];
+    const budget = getBudget;
+    const [active, setActive] = useState(false);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
     // const { id } = useLocation();
-    const { canSpend, moneyLeft } = calculateBudgetDetails(
-        originallyBudgeted,
-        spentSoFar,
-    );
+    const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails(budget);
+
     return (
         <div className={styles.container}>
             <div className={styles.contentWrapper}>
@@ -115,52 +68,90 @@ const BudgetDetails = (): JSX.Element => {
                 </div>
                 <div className={styles.budgetInfoWrapper}>
                     <div className={styles.breadcrumbsWrapper}>
-                        <span>Budgets</span>
-                        <FontAwesomeIcon icon={iconProvider.faChevronRight} />
-                        <div className={styles.breadcrumbsContent}>
-                            <span>name</span>
-                            <span>All wallets</span>
-                        </div>
-                        <FontAwesomeIcon icon={iconProvider.faChevronRight} />
+                        {budget.name}
                     </div>
                     <div className={styles.editButtonWrapper}>
                         <Button
                             className={styles.editButton}
                             variant={ButtonVariant.SECONDARY}
+                            onClick={handleModal}
                         >
                             Edit budget
                         </Button>
+                        <EditBudgetModal
+                            isShown={active}
+                            onClose={handleCancel}
+                            budget={budget}
+                        />
                     </div>
                 </div>
                 <div className={styles.cardsWrapper}>
-                    <Card
-                        type={CardTypes.ORIGINALLY}
-                        total={originallyBudgeted}
-                        currency={'$'}
+                    <InfoCard
+                        type={InfoCardTypes.ORIGINALLY}
+                        total={budget.amount}
+                        currency={budget.currency}
                     />
-                    <Card
-                        type={CardTypes.SPENT}
-                        total={spentSoFar}
-                        currency={'$'}
+
+                    <InfoCard
+                        type={InfoCardTypes.SPENT}
+                        total={budget.spent}
+                        currency={budget.currency}
                     />
-                    <Card
-                        type={CardTypes.LEFT}
+                    <InfoCard
+                        type={InfoCardTypes.LEFT}
                         total={moneyLeft}
-                        currency={'$'}
+                        currency={budget.currency}
                     />
-                    <Card
-                        type={CardTypes.CAN}
+                    <InfoCard
+                        type={InfoCardTypes.CAN}
                         total={canSpend}
-                        currency={'$'}
+                        currency={budget.currency}
                     />
                 </div>
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
+                    <div className={styles.progressContent}>
+                        <div>
+                            You can spending{' '}
+                            {canSpend.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}{' '}
+                            {budget.currency}/Day
+                        </div>
+                        <BudgetProgressBar
+                            totalBudget={budget.amount}
+                            spentSoFar={budget.spent}
+                        />
+                        <div className={styles.periodBudgetWrapper}>
+                            <div>{budget.startDate}</div>
+                            <div>{lastDate}</div>
+                        </div>
+                    </div>
+                </div>
 
-                    <BudgetProgressBar
-                        totalBudget={originallyBudgeted}
-                        spentSoFar={spentSoFar}
-                    />
+                <div className={styles.cartBoxWrapper}>
+                    <div className={styles.chartWrapper}>
+                        <DoughnutChartCard
+                            variant={DoughnutChartCartVariant.SECONDARY}
+                            title={'Accounted Categories'}
+                            date={budget.startDate}
+                            transaction_num={0}
+                            transaction_type={'some'}
+                            transaction_sum={''}
+                            categories={doughnutData}
+                        />
+                    </div>
+                    <div className={styles.chartWrapper}>
+                        <DoughnutChartCard
+                            title={'Accounted Wallets'}
+                            date={budget.startDate}
+                            transaction_num={0}
+                            transaction_type={''}
+                            transaction_sum={''}
+                            categories={doughnutData}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

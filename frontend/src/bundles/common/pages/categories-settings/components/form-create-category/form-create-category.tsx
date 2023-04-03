@@ -1,3 +1,4 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 
@@ -12,8 +13,9 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
 
-import { iconColors } from '../common/mock/icons-color';
-import { iconList } from '../common/mock/icons-list';
+import { categoriesType } from '../mock/caregories-type';
+import { iconColors } from '../mock/icons-color';
+import { iconList } from '../mock/icons-list';
 import styles from './styles.module.scss';
 
 interface FormValues {
@@ -24,42 +26,35 @@ interface FormValues {
 }
 
 interface DataType {
-    value: any;
+    value: string;
     name?: string;
     image?: string;
 }
-
-type Properties = {
-    categoryName: string;
-    type: string;
-    iconKey: string;
-    colorIcon: string;
-    onClose: () => void;
-};
 
 type InputValues = {
     name: string;
 };
 
-const FormEditCategory: React.FC<Properties> = ({
-    categoryName,
-    type,
-    iconKey,
-    colorIcon,
-    onClose,
-}) => {
+type Properties = {
+    onClose: () => void;
+};
+
+const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [form, setForm] = useState<FormValues>({
-        name: categoryName,
-        icon: iconKey,
-        color: colorIcon,
-        type: type,
+        name: '',
+        icon: '',
+        color: '',
+        type: '',
     });
     const [selectedIcon, setSelectedIcon] = useState<DataType>({
         value: form.icon,
     });
     const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>({
         value: form.color,
+    });
+    const [selectedType, setSelectedType] = useState<DataType>({
+        value: form.type,
     });
 
     const handleDropdownIconChange = useCallback(
@@ -73,20 +68,26 @@ const FormEditCategory: React.FC<Properties> = ({
         [],
     );
     const iconFormatOptionLabel = useCallback(
-        (data: DataType): JSX.Element => (
-            <div className={styles.item}>
-                {data.value && (
-                    <span
-                        className={styles.dropdownColorIcon}
-                        style={{
-                            background: `var(${selectedColorIcon.value})`,
-                        }}
-                    >
-                        <FontAwesomeIcon icon={data.value} />
-                    </span>
-                )}
-            </div>
-        ),
+        (data: DataType): JSX.Element => {
+            return (
+                <div className={styles.item}>
+                    {data.value ? (
+                        <span
+                            className={styles.dropdownColorIcon}
+                            style={{
+                                background: `var(${selectedColorIcon.value})`,
+                            }}
+                        >
+                            <FontAwesomeIcon icon={data.value as IconProp} />
+                        </span>
+                    ) : (
+                        <span className={styles.dropdownColorIcon}>
+                            <FontAwesomeIcon icon={FaIcons.CLOUD_ARROW_UP} />
+                        </span>
+                    )}
+                </div>
+            );
+        },
         [selectedColorIcon],
     );
     const handleDropdownColorChange = useCallback(
@@ -105,21 +106,40 @@ const FormEditCategory: React.FC<Properties> = ({
     const iconColorFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
-                {data.value && (
+                {data.value ? (
                     <span
                         className={styles.dropdownColorIcon}
                         style={{ background: `var(${data.value})` }}
                     ></span>
+                ) : (
+                    <span className={styles.dropdownColorIcon}>
+                        <FontAwesomeIcon icon={FaIcons.STOP} />
+                    </span>
                 )}
             </div>
         ),
         [],
     );
-    const handleInputChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target;
-            setForm((previousState) => ({ ...previousState, name: value }));
+    const handleDropdownTypeChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                const type = selectedOption.value;
+                setForm((previousState) => ({ ...previousState, type: type }));
+                setSelectedType(selectedOption);
+            }
         },
+        [],
+    );
+    const typeFormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                {data.name ? (
+                    <span className={styles.inputLabel}>{data.name}</span>
+                ) : (
+                    <span className={styles.inputLabel}>Choose type</span>
+                )}
+            </div>
+        ),
         [],
     );
     const {
@@ -128,20 +148,33 @@ const FormEditCategory: React.FC<Properties> = ({
     } = useForm<InputValues>({
         defaultValues: { name: '' },
     });
+    const handleInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = event.target;
+            setForm((previousState) => ({ ...previousState, name: value }));
+        },
+        [],
+    );
     useEffect(() => {
-        const { name, icon, color } = form;
-        if (name && icon && color) {
+        const { name, icon, color, type } = form;
+        if (name && icon && color && type) {
             setIsButtonVisible(false);
             return;
         }
         setIsButtonVisible(true);
     }, [form]);
     const handleClick = useCallback((): void => {
+        resetForm();
+        setIsButtonVisible(true);
         onClose();
     }, [onClose]);
+    const resetForm = (): void => {
+        setForm({ name: '', icon: '', color: '', type: '' });
+        setIsButtonVisible(false);
+    };
     return (
         <div className={styles.form}>
-            <form name="categoryEditForm" autoComplete="off">
+            <form id="categoryNew" name="categoryNewForm" autoComplete="off">
                 <div className={styles.wrapperInputs}>
                     <div className={styles.dropdownModal}>
                         <Dropdown
@@ -163,7 +196,7 @@ const FormEditCategory: React.FC<Properties> = ({
                             formatOptionLabel={iconColorFormatOptionLabel}
                         />
                     </div>
-                    <div className={styles.categoryInputEdit}>
+                    <div className={styles.categoryInput}>
                         <Input
                             control={control}
                             errors={errors}
@@ -178,11 +211,21 @@ const FormEditCategory: React.FC<Properties> = ({
                             value={form.name}
                         />
                     </div>
+                    <div className={styles.dropdownModal}>
+                        <Dropdown
+                            data={categoriesType}
+                            selectedOption={selectedType}
+                            handleChange={handleDropdownTypeChange}
+                            labelClassName={styles.inputLabel}
+                            label={'Type'}
+                            formatOptionLabel={typeFormatOptionLabel}
+                        />
+                    </div>
                     <div className={styles.wrapperModalBtn}>
                         <Button
                             onClick={handleClick}
                             type={ButtonType.BUTTON}
-                            variant={ButtonVariant.SECONDARY}
+                            variant={ButtonVariant.PRIMARY}
                             size={ButtonSize.MEDIUM}
                             disabled={isButtonVisible}
                             className={styles.btn}
@@ -192,7 +235,7 @@ const FormEditCategory: React.FC<Properties> = ({
                                 width="18px"
                             />
                             <span className={styles.btnName}>
-                                Edit category
+                                Create category
                             </span>
                         </Button>
                     </div>
@@ -202,4 +245,4 @@ const FormEditCategory: React.FC<Properties> = ({
     );
 };
 
-export { FormEditCategory };
+export { FormCreateCategory };

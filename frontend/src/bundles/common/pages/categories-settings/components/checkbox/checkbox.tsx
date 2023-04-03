@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import styles from './styles.module.scss';
 
 interface CheckboxProperties {
-    id: string;
+    id?: string;
     label?: string;
     isChecked: boolean;
     onChange: (isChecked: boolean) => void;
@@ -11,7 +11,6 @@ interface CheckboxProperties {
 
 const Checkbox: React.FC<CheckboxProperties> = ({
     id,
-    label,
     isChecked,
     onChange,
 }) => {
@@ -34,6 +33,7 @@ const Checkbox: React.FC<CheckboxProperties> = ({
                 className={`${styles.box} ${
                     isChecked ? styles.boxСhecked : ''
                 }`}
+                id={id}
                 // onClick={()=>handleClick(id)}
                 onClick={handleClick}
                 role="checkbox"

@@ -1,25 +1,41 @@
-@media screen and (min-width: 768px) {
-    .overlay {
-        transition: opacity 0.3s;
-    }
+.section {
+    display: flex;
+    padding: 15px 60px 30px;
+    background: var(--color-white-100);
+    border-radius: 25px;
+}
 
+@media screen and (min-width: 768px) {
     .section {
-        display: flex;
-        width: 967px;
-        padding: 15px 188px 80px 162px;
-        background: var(--color-white-100);
-        border-radius: 25px;
+        padding: 15px 120px 50px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .section {
+        padding: 15px 175px 80px;
     }
 }
 
 .wrapper {
-    width: 100%;
+    flex-grow: 1;
+    max-width: 620px;
     background-color: var(--color-white-100);
     border-radius: var(--b-2);
 }
 
 .content {
     padding: var(--p-2) var(--p-2) var(--p-3);
+}
+
+.mobileBtn {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .mobileBtn {
+        display: block;
+    }
 }
 
 .manageWrapper {

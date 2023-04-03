@@ -22,50 +22,23 @@
 
 .item {
     display: flex;
-    flex: 0 1 auto;
     flex-flow: wrap;
     margin: 0 -0.5rem;
 }
 
 .base {
     flex: 0 0 auto;
-    flex-grow: 1;
-    flex-basis: 0;
     max-width: 100%;
     padding: 0.5rem;
 }
 
 .checkbox {
     display: flex;
-    flex-shrink: 0;
-    margin-right: -1rem;
-}
-
-@media screen and (min-width: 992px) {
-    .checkbox {
-        flex-basis: 8.33%;
-        max-width: 8.33%;
-        opacity: 1;
-        pointer-events: all;
-    }
 }
 
 .iconWrapper {
     display: flex;
-    flex-grow: initial;
-    flex-shrink: 0;
     align-items: center;
-}
-
-@media screen and (min-width: 992px) {
-    .iconCategory {
-        display: inline;
-        display: initial;
-        flex-basis: 8.33%;
-        max-width: 8.33%;
-        opacity: 1;
-        pointer-events: all;
-    }
 }
 
 .icon {
@@ -93,20 +66,13 @@
 }
 
 .name {
-    flex: 2;
+    flex: 0.75;
+    color: var(--color-blue-600);
 }
 
 .count {
-    flex: 3;
-}
-
-.text {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
-    color: #324c5b;
+    flex: 1.5;
+    color: var(--color-gray-200);
 }
 
 .iconBtn {

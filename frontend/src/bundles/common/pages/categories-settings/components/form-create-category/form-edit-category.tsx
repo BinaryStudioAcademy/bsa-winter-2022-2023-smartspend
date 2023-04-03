@@ -1,3 +1,4 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 
@@ -12,9 +13,8 @@ import {
 } from '~/bundles/common/enums/enums';
 import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
 
-import { categoriesType } from '../common/mock/caregories-type';
-import { iconColors } from '../common/mock/icons-color';
-import { iconList } from '../common/mock/icons-list';
+import { iconColors } from '../mock/icons-color';
+import { iconList } from '../mock/icons-list';
 import styles from './styles.module.scss';
 
 interface FormValues {
@@ -25,35 +25,42 @@ interface FormValues {
 }
 
 interface DataType {
-    value: any;
+    value: string;
     name?: string;
     image?: string;
 }
+
+type Properties = {
+    categoryName: string;
+    type: string;
+    iconKey: string;
+    colorIcon: string;
+    onClose: () => void;
+};
 
 type InputValues = {
     name: string;
 };
 
-type Properties = {
-    onClose: () => void;
-};
-
-const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
+const FormEditCategory: React.FC<Properties> = ({
+    categoryName,
+    type,
+    iconKey,
+    colorIcon,
+    onClose,
+}) => {
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [form, setForm] = useState<FormValues>({
-        name: '',
-        icon: '',
-        color: '',
-        type: '',
+        name: categoryName,
+        icon: iconKey,
+        color: colorIcon,
+        type: type,
     });
     const [selectedIcon, setSelectedIcon] = useState<DataType>({
         value: form.icon,
     });
     const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>({
         value: form.color,
-    });
-    const [selectedType, setSelectedType] = useState<DataType>({
-        value: form.type,
     });
 
     const handleDropdownIconChange = useCallback(
@@ -69,18 +76,14 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
     const iconFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
-                {data.value ? (
+                {data.value && (
                     <span
                         className={styles.dropdownColorIcon}
                         style={{
                             background: `var(${selectedColorIcon.value})`,
                         }}
                     >
-                        <FontAwesomeIcon icon={data.value} />
-                    </span>
-                ) : (
-                    <span className={styles.dropdownColorIcon}>
-                        <FontAwesomeIcon icon={FaIcons.CLOUD_ARROW_UP} />
+                        <FontAwesomeIcon icon={data.value as IconProp} />
                     </span>
                 )}
             </div>
@@ -103,50 +106,16 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
     const iconColorFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
-                {data.value ? (
+                {data.value && (
                     <span
                         className={styles.dropdownColorIcon}
                         style={{ background: `var(${data.value})` }}
                     ></span>
-                ) : (
-                    <span className={styles.dropdownColorIcon}>
-                        <FontAwesomeIcon icon={FaIcons.STOP} />
-                    </span>
                 )}
             </div>
         ),
         [],
     );
-
-    const handleDropdownTypeChange = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                const type = selectedOption.value;
-                setForm((previousState) => ({ ...previousState, type: type }));
-                setSelectedType(selectedOption);
-            }
-        },
-        [],
-    );
-    const typeFormatOptionLabel = useCallback(
-        (data: DataType): JSX.Element => (
-            <div className={styles.item}>
-                {data.name ? (
-                    <span className={styles.inputLabel}>{data.name}</span>
-                ) : (
-                    <span className={styles.inputLabel}>Choose type</span>
-                )}
-            </div>
-        ),
-        [],
-    );
-    const {
-        control,
-        formState: { errors },
-        watch,
-    } = useForm<InputValues>({
-        defaultValues: { name: '' },
-    });
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
@@ -154,26 +123,26 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
         },
         [],
     );
+    const {
+        control,
+        formState: { errors },
+    } = useForm<InputValues>({
+        defaultValues: { name: '' },
+    });
     useEffect(() => {
-        const { name, icon, color, type } = form;
-        if (name && icon && color && type) {
+        const { name, icon, color } = form;
+        if (name && icon && color) {
             setIsButtonVisible(false);
             return;
         }
         setIsButtonVisible(true);
     }, [form]);
     const handleClick = useCallback((): void => {
-        resetForm();
-        setIsButtonVisible(true);
         onClose();
-    }, []);
-    const resetForm = (): void => {
-        setForm({ name: '', icon: '', color: '', type: '' });
-        setIsButtonVisible(false);
-    };
+    }, [onClose]);
     return (
         <div className={styles.form}>
-            <form name="categoryNewForm" autoComplete="off">
+            <form name="categoryEditForm" autoComplete="off">
                 <div className={styles.wrapperInputs}>
                     <div className={styles.dropdownModal}>
                         <Dropdown
@@ -195,7 +164,7 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
                             formatOptionLabel={iconColorFormatOptionLabel}
                         />
                     </div>
-                    <div className={styles.categoryInput}>
+                    <div className={styles.categoryInputEdit}>
                         <Input
                             control={control}
                             errors={errors}
@@ -210,21 +179,11 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
                             value={form.name}
                         />
                     </div>
-                    <div className={styles.dropdownModal}>
-                        <Dropdown
-                            data={categoriesType}
-                            selectedOption={selectedType}
-                            handleChange={handleDropdownTypeChange}
-                            labelClassName={styles.inputLabel}
-                            label={'Type'}
-                            formatOptionLabel={typeFormatOptionLabel}
-                        />
-                    </div>
                     <div className={styles.wrapperModalBtn}>
                         <Button
                             onClick={handleClick}
                             type={ButtonType.BUTTON}
-                            variant={ButtonVariant.PRIMARY}
+                            variant={ButtonVariant.SECONDARY}
                             size={ButtonSize.MEDIUM}
                             disabled={isButtonVisible}
                             className={styles.btn}
@@ -234,7 +193,7 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
                                 width="18px"
                             />
                             <span className={styles.btnName}>
-                                Create category
+                                Edit category
                             </span>
                         </Button>
                     </div>
@@ -244,4 +203,4 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
     );
 };
 
-export { FormCreateCategory };
+export { FormEditCategory };

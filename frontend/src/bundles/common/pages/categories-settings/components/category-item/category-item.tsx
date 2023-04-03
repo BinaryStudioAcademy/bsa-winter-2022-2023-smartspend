@@ -12,7 +12,7 @@ import {
 } from '~/bundles/common/enums/enums';
 import { findIcon } from '~/bundles/common/helpers/find-icon';
 
-import { Checkbox } from '../common/checkbox/checkbox';
+import { Checkbox } from '../checkbox/checkbox';
 import { FormEditCategory } from '../form-create-category/form-edit-category';
 import styles from './styles.module.scss';
 
@@ -90,14 +90,11 @@ const CategoryItem: React.FC<Properties> = ({
                         <div className={`${styles.base} ${styles.checkbox}`}>
                             <Checkbox
                                 id={id}
-                                label=""
                                 isChecked={isChecked}
                                 onChange={handleCheckboxChange}
                             />
                         </div>
-                        <div
-                            className={`${styles.base} ${styles.Wrapper} ${styles.iconCategory}`}
-                        >
+                        <div className={styles.base}>
                             <span
                                 className={styles.icon}
                                 style={{ background: `var(${colorIcon})` }}
@@ -154,7 +151,6 @@ const CategoryItem: React.FC<Properties> = ({
                     </div>
                 </div>
             </div>
-            <div className="overlay"></div>
             <BaseModal
                 isShown={modalEdit}
                 onClose={handleCloseModal}

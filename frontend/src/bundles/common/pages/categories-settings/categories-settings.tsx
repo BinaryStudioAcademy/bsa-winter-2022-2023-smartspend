@@ -10,10 +10,10 @@ import {
     ButtonVariant,
     FaIcons,
 } from '../../enums/enums';
-import { CategoryList } from './category-list/category-list';
-import { testDB } from './common/mock/test-database';
-import { Form } from './form-create-category/form';
-import { FormCreateCategory } from './form-create-category/form-create-category';
+import { CategoryList } from './components/category-list/category-list';
+import { FormCreateCategory } from './components/form-create-category/form-create-category';
+import { FormUi } from './components/form-create-category/form-ui';
+import { testDB } from './components/mock/test-database';
 import styles from './styles.module.scss';
 
 type RootState = {
@@ -39,24 +39,17 @@ const CategoriesSettings: React.FC = () => {
         (state: RootState) => state.categories.checkedCategory,
     );
 
-    const handelClickModalCreate = useCallback(
-        (
-            event:
-                | React.MouseEvent<HTMLDivElement>
-                | React.KeyboardEvent<HTMLDivElement>,
-        ): void => {
-            setModalCreate(true);
-        },
-        [],
-    );
+    const handelClickModalCreate = useCallback((): void => {
+        setModalCreate(true);
+    }, []);
 
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLDivElement>): void => {
             if (event.key === 'Enter') {
-                handelClickModalCreate(event);
+                handelClickModalCreate();
             }
         },
-        [],
+        [handelClickModalCreate],
     );
     const handelOpenModalMerge = useCallback(() => {
         setModalMerge(true);
@@ -90,7 +83,7 @@ const CategoriesSettings: React.FC = () => {
 
     const sortByType: GroupedData = {};
     for (const data of testDB) {
-        if (!sortByType[data.type]) {
+        if (!(data.type in sortByType)) {
             sortByType[data.type] = [];
         }
         sortByType[data.type].push(data);
@@ -100,12 +93,30 @@ const CategoriesSettings: React.FC = () => {
         <div className={styles.section}>
             <div className={styles.wrapper}>
                 <div className={styles.content}>
-                    <h1 className="visually-hidden">Category Settings</h1>
+                    <h1 className={styles.title}>Create a new category</h1>
                     <div>
-                        <Form
+                        <FormUi
                             onClick={handelClickModalCreate}
                             handleKeyDown={handleKeyDown}
                         />
+                        <div className={styles.mobileBtn}>
+                            <Button
+                                onClick={handelClickModalCreate}
+                                type={ButtonType.BUTTON}
+                                variant={ButtonVariant.PRIMARY}
+                                size={ButtonSize.MEDIUM}
+                                disabled={false}
+                                className={styles.btn}
+                            >
+                                <FontAwesomeIcon
+                                    icon={FaIcons.FA_PEN}
+                                    width="18px"
+                                />
+                                <span className={styles.btnName}>
+                                    Create category
+                                </span>
+                            </Button>
+                        </div>
                         <div className={styles.manageWrapper}>
                             <h2 className={styles.title}>Manage categories</h2>
                             <div className={styles.wrapperAllBtn}>

@@ -1,25 +1,26 @@
 .userProfile {
-    width: 800px;
+    max-width: 840px;
     margin: 0 auto;
-    text-align: left;
+    padding: var(--p-3) calc(var(--p-5) + var(--p-2))
+        calc(var(--p-5) + var(--p-2));
 }
 
 .title {
     grid-column: 1/-1;
-    margin-bottom: var(--m-3);
+    margin: 0 0 var(--m-4);
     color: var(--color-gray-400);
     font-weight: var(--font-weight-600);
+    line-height: 27px;
 }
 
 .avatarContainer {
     grid-column: 1/-1;
-    margin-top: var(--m-2);
 }
 
 .avatarContent {
     display: flex;
     align-items: center;
-    margin-top: var(--m-3);
+    gap: 10px;
 }
 
 .label {
@@ -66,7 +67,6 @@
     flex-direction: column;
     justify-content: space-evenly;
     height: 100px;
-    margin-left: var(--m-2);
 }
 
 .uploadAvatarText {

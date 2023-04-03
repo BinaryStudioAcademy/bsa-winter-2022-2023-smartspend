@@ -10,6 +10,7 @@ import {
 import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
     useEffect,
     useState,
@@ -17,23 +18,9 @@ import {
 
 import styles from './styles.module.scss';
 
-type CardType = {
-    id: string;
-    title: string;
-    total: number;
-    moneyLeft: number;
-    date: {
-        start: string;
-        end: string;
-    };
-};
-
-type Properties = {
-    budgetCards?: CardType[];
-};
-
-const Budgets: React.FC<Properties> = ({ budgetCards }) => {
+const Budgets: React.FC = () => {
     const dispatch = useAppDispatch();
+    const { budgets } = useAppSelector((state) => state.budgets);
     const [active, setActive] = useState(false);
 
     const handleClickOpen = useCallback((): void => {
@@ -54,14 +41,17 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
-                        {budgetCards?.map((card, index) => (
+                        {budgets?.map((card) => (
                             <BudgetCard
-                                key={index}
+                                key={card.id}
                                 id={card.id}
-                                title={card.title}
-                                total={card.total}
-                                moneyLeft={card.moneyLeft}
-                                date={card.date}
+                                title={card.name}
+                                total={card.amount}
+                                moneyLeft={card.amount}
+                                date={{
+                                    start: card.startDate,
+                                    end: card.startDate
+                                }}
                             />
                         ))}
                         <div

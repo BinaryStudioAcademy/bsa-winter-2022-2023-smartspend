@@ -5,8 +5,8 @@ import {
     Dropdown,
     Input,
 } from '~/bundles/common/components/components';
-import { currencies } from '~/bundles/common/components/modal-add-wallet/currency-list/currency-list';
-import { InputType } from '~/bundles/common/enums/input-type.enum';
+import { currencies } from '~/bundles/common/components/modal-add-wallet/constants/constants';
+import { InputType } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppForm,

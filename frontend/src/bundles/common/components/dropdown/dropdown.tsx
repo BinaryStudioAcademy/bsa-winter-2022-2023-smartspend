@@ -1,31 +1,25 @@
-import '~/assets/css/variables/color-variables.scss';
-
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
-import Select, {
-    type ActionMeta,
-    type SingleValue,
-    type StylesConfig,
-} from 'react-select';
+import Select, { type StylesConfig } from 'react-select';
 
+import { useCallback } from '~/bundles/common/hooks/hooks';
 import {
     type DataType,
-    type HandleChangeFunction,
-} from '../../types/dropdown.type';
+    type HandleMultiChange,
+    type HandleSingleChange,
+} from '~/bundles/common/types/dropdown.type';
+
 import styles from './styles.module.scss';
 
 interface Properties {
     data: DataType[];
     selectedOption: DataType;
-    handleChange?: (
-        selectedOption: SingleValue<DataType>,
-        actionMeta: ActionMeta<DataType>,
-    ) => void;
+    handleChange: HandleSingleChange;
     handleFocus?: () => boolean;
     formatOptionLabel?: (data: DataType) => JSX.Element;
     label?: string;
     labelClassName?: string;
     name?: string;
+    placeholder?: string;
 }
 
 const Dropdown: React.FC<Properties> = ({
@@ -37,26 +31,25 @@ const Dropdown: React.FC<Properties> = ({
     label,
     labelClassName = '',
     name,
+    placeholder,
 }) => {
     const labelClasses = classNames(styles.label, labelClassName);
 
-    const options = data.map((item) => ({
-        value: item.value,
-        name: item.name,
-        image: item.image,
-    }));
-
     const blue500 = 'var(--color-blue-500)';
+    const blue600 = 'var(--color-blue-600)';
 
     const customStyles: StylesConfig<DataType> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
             padding: '0 8px',
-            color: blue500,
+            color: blue600,
             transform: state.selectProps.menuIsOpen
                 ? 'rotate(180deg)'
                 : 'rotate(0deg)',
+            ':hover': {
+                color: blue600,
+            },
         }),
         indicatorSeparator: () => ({
             display: 'none',
@@ -65,6 +58,7 @@ const Dropdown: React.FC<Properties> = ({
             ...provided,
             height: '48px',
             width: '100%',
+            borderRadius: 'var(--b-2)',
             borderWidth: '0.1rem',
             borderColor:
                 state.isFocused || state.menuIsOpen
@@ -76,7 +70,9 @@ const Dropdown: React.FC<Properties> = ({
                     : provided.boxShadow,
             transition: 'box-shadow 0.2s linear',
             '&:hover': {
-                borderColor: state.isFocused ? blue500 : provided.borderColor,
+                borderColor: state.isFocused
+                    ? blue500
+                    : 'var(--color-blue-300)',
             },
             cursor: 'pointer',
         }),
@@ -127,8 +123,8 @@ const Dropdown: React.FC<Properties> = ({
                     name: selectedOption.name,
                     image: selectedOption.image,
                 }}
-                onChange={handleChange as HandleChangeFunction}
-                options={options}
+                onChange={handleChange as HandleMultiChange}
+                options={data}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }
@@ -136,6 +132,7 @@ const Dropdown: React.FC<Properties> = ({
                 onFocus={handleFocus}
                 isSearchable={false}
                 name={name}
+                placeholder={placeholder}
             />
         </div>
     );

@@ -1,4 +1,4 @@
-import { type Gender } from './types.js';
+import { type Gender } from '../enums/enums';
 
 type UserUpdateResponseDto = {
     id: string;

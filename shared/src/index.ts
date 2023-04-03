@@ -28,6 +28,7 @@ export {
     categoryValidationSchema,
 } from './bundles/categories/categories.js';
 export {
+    type UpdateRequestDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserLoadRequestDto,
@@ -36,6 +37,9 @@ export {
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
+    type UserUpdateRequestDto,
+    type UserUpdateResponseDto,
+    Gender,
     UsersApiPath,
     userSignInValidationSchema,
     userSignUpValidationSchema,

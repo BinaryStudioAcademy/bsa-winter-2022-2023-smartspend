@@ -6,11 +6,11 @@ import Select, {
     type StylesConfig,
 } from 'react-select';
 
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
     type DataType,
     type HandleMultiChange,
-} from '~/bundles/common/types/dropdown.type';
+} from '~/bundles/common/types/types.js';
 
 import styles from './styles.module.scss';
 

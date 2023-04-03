@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 
-import { ScrollNavLink } from '~/bundles/common/components/components';
-import { menuLinks } from '~/bundles/common/enums/enums';
-import { handleScroll } from '~/bundles/common/helpers/helpers';
-import { type MenuLinksType } from '~/bundles/common/types/menu-link.type';
+import { ScrollNavLink } from '~/bundles/common/components/components.js';
+import { menuLinks } from '~/bundles/common/enums/enums.js';
+import { handleScroll } from '~/bundles/common/helpers/helpers.js';
+import { type MenuLinksType } from '~/bundles/common/types/types.js';
 
 import styles from './styles.module.scss';
 

@@ -3,6 +3,7 @@ import styles from '../styles.module.scss';
 type Properties = {
     selectedFile: File | null;
 };
+
 const Avatar: React.FC<Properties> = ({ selectedFile }) => {
     return (
         <div className={styles.avatar}>

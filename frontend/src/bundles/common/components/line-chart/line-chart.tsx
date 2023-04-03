@@ -4,13 +4,13 @@ import 'chartjs-adapter-date-fns';
 import { type ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-import { CHART_COLOR } from '~/bundles/common/components/charts/line-chart/constants/constants';
+import { LineChartOptions } from '~/bundles/common/enums/enums.js';
 import {
     createLineChartOptions,
     getData,
     getLabels,
-} from '~/bundles/common/helpers/chart-helper';
-import { type DataObject } from '~/bundles/common/types/chart-data.type';
+} from '~/bundles/common/helpers/helpers.js';
+import { type DataObject } from '~/bundles/common/types/types.js';
 
 import styles from './styles.module.scss';
 
@@ -32,8 +32,8 @@ const LineChart: React.FC<Properties> = ({
             {
                 label: 'line chart',
                 data: getData(dataArr),
-                borderColor: CHART_COLOR,
-                backgroundColor: CHART_COLOR,
+                borderColor: LineChartOptions.CHART_COLOR as string,
+                backgroundColor: LineChartOptions.CHART_COLOR as string,
                 pointHoverRadius: pointHoverRadius,
             },
         ],

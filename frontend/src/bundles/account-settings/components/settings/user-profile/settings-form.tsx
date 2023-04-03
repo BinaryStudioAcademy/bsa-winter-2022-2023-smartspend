@@ -1,4 +1,4 @@
-import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
+import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';

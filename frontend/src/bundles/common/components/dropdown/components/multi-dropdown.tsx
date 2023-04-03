@@ -1,19 +1,23 @@
 import classNames from 'classnames';
-import Select, { type StylesConfig } from 'react-select';
+import Select, {
+    type MultiValue,
+    type MultiValueProps,
+    type SingleValue,
+    type StylesConfig,
+} from 'react-select';
 
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import {
     type DataType,
     type HandleMultiChange,
-    type HandleSingleChange,
-} from '~/bundles/common/types/dropdown.type';
+} from '~/bundles/common/types/types.js';
 
-import styles from './styles.module.scss';
+import styles from '../styles.module.scss';
 
 interface Properties {
     data: DataType[];
-    selectedOption: DataType;
-    handleChange: HandleSingleChange;
+    selectedOption: MultiValue<DataType> | SingleValue<DataType>;
+    handleChange: HandleMultiChange;
     handleFocus?: () => boolean;
     formatOptionLabel?: (data: DataType) => JSX.Element;
     label?: string;
@@ -22,7 +26,7 @@ interface Properties {
     placeholder?: string;
 }
 
-const Dropdown: React.FC<Properties> = ({
+const MultiDropdown: React.FC<Properties> = ({
     data,
     selectedOption,
     handleChange,
@@ -38,7 +42,7 @@ const Dropdown: React.FC<Properties> = ({
     const blue500 = 'var(--color-blue-500)';
     const blue600 = 'var(--color-blue-600)';
 
-    const customStyles: StylesConfig<DataType> = {
+    const customStyles: StylesConfig<DataType, true> = {
         dropdownIndicator: (base, state) => ({
             ...base,
             cursor: 'pointer',
@@ -53,6 +57,10 @@ const Dropdown: React.FC<Properties> = ({
         }),
         indicatorSeparator: () => ({
             display: 'none',
+        }),
+        clearIndicator: (base) => ({
+            ...base,
+            color: blue600,
         }),
         control: (provided, state) => ({
             ...provided,
@@ -74,9 +82,9 @@ const Dropdown: React.FC<Properties> = ({
                     ? blue500
                     : 'var(--color-blue-300)',
             },
+
             cursor: 'pointer',
         }),
-
         option: (base, { isSelected }) => {
             const backgroundColor = base.color;
             const fontWeight = isSelected ? 'bold' : 'normal';
@@ -98,6 +106,15 @@ const Dropdown: React.FC<Properties> = ({
     const defaultFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
+                <input
+                    type="checkbox"
+                    checked={(selectedOption as MultiValue<DataType>).some(
+                        (option) => option.value === data.value,
+                    )}
+                    readOnly
+                    className={styles.checkbox}
+                />
+
                 {data.image && (
                     <img
                         className={styles.image}
@@ -108,8 +125,32 @@ const Dropdown: React.FC<Properties> = ({
                 {data.name && <span className={styles.name}>{data.name}</span>}
             </div>
         ),
-        [],
+        [selectedOption],
     );
+
+    const MultiValue: React.FC<MultiValueProps<DataType>> = ({
+        getValue,
+        index,
+        options,
+    }) => {
+        const length = getValue().length;
+        const allSelected = options.length === length;
+
+        if (index !== 0) {
+            return null;
+        }
+
+        return (
+            <>
+                {allSelected ? (
+                    <span className={styles.circle}>All</span>
+                ) : (
+                    <span className={styles.circle}>{length}</span>
+                )}
+                <span className={styles.text}>Selected</span>
+            </>
+        );
+    };
 
     return (
         <div>
@@ -117,18 +158,20 @@ const Dropdown: React.FC<Properties> = ({
                 <span className={labelClasses}>{label}</span>
             </div>
             <Select
+                isMulti
                 className={styles.select}
-                value={{
-                    value: selectedOption.value,
-                    name: selectedOption.name,
-                    image: selectedOption.image,
-                }}
-                onChange={handleChange as HandleMultiChange}
+                value={selectedOption}
+                onChange={handleChange}
                 options={data}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }
                 styles={customStyles}
+                components={{
+                    MultiValue,
+                }}
+                closeMenuOnSelect={false}
+                hideSelectedOptions={false}
                 onFocus={handleFocus}
                 isSearchable={false}
                 name={name}
@@ -138,4 +181,4 @@ const Dropdown: React.FC<Properties> = ({
     );
 };
 
-export { Dropdown };
+export { MultiDropdown };

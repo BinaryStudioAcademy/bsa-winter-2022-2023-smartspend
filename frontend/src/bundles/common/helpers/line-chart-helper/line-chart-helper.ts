@@ -1,12 +1,6 @@
 import { type ChartOptions, type Tick } from 'chart.js';
 
-import {
-    BORDER_WIDTH,
-    FONT_SIZE,
-    GRID_COLOR,
-    PADDING,
-    TEXT_COLOR,
-} from '~/bundles/common/components/charts/line-chart/constants/constants';
+import { LineChartOptions } from '~/bundles/common/enums/enums.js';
 import { type DataObject } from '~/bundles/common/types/chart-data.type';
 
 const convertDate = (date: string | number | Date): string => {
@@ -49,13 +43,13 @@ const createLineChartOptions = (
         },
     },
     layout: {
-        padding: PADDING,
+        padding: LineChartOptions.PADDING as number,
     },
     scales: {
         x: {
             grid: {
-                color: GRID_COLOR,
-                lineWidth: BORDER_WIDTH,
+                color: LineChartOptions.GRID_COLOR as string,
+                lineWidth: LineChartOptions.BORDER_WIDTH as number,
                 tickWidth: 0,
             },
             type: 'time',
@@ -64,26 +58,26 @@ const createLineChartOptions = (
             },
             ticks: {
                 font: {
-                    size: FONT_SIZE,
+                    size: LineChartOptions.FONT_SIZE as number,
                 },
                 autoSkip: true,
                 maxRotation: 25,
                 minRotation: 25,
                 align: 'inner',
-                color: TEXT_COLOR,
+                color: LineChartOptions.TEXT_COLOR as string,
                 maxTicksLimit: 8,
                 callback: convertDate,
             },
         },
         y: {
             grid: {
-                color: GRID_COLOR,
-                lineWidth: BORDER_WIDTH,
+                color: LineChartOptions.GRID_COLOR as string,
+                lineWidth: LineChartOptions.BORDER_WIDTH as number,
                 tickWidth: 0,
             },
             min: -200,
             ticks: {
-                color: TEXT_COLOR,
+                color: LineChartOptions.TEXT_COLOR as string,
                 maxTicksLimit: 6,
                 callback: getRoundValue,
             },

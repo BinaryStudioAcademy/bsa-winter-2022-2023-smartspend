@@ -1,3 +1,5 @@
+import { type UpdateRequestDto } from 'shared/build';
+
 import { type UserService } from '~/bundles/users/user.service.js';
 import {
     type ApiHandlerResponse,
@@ -9,7 +11,6 @@ import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
-import { type UpdateRequestDto } from './types/update-request-dto.js';
 
 /**
  * @swagger

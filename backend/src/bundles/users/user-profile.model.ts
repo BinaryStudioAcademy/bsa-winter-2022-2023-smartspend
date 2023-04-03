@@ -1,11 +1,11 @@
 import { type RelationMappings, Model } from 'objection';
+import { type Gender } from 'shared/build';
 
 import {
     AbstractModel,
     DatabaseTableName,
 } from '~/common/database/database.js';
 
-import { type Gender } from './types/types.js';
 import { UserModel } from './user.model.js';
 
 class UserProfileModel extends AbstractModel {

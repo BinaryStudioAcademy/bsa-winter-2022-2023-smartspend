@@ -1,3 +1,5 @@
+import { type FormEvent } from 'react';
+
 import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
 import { Input } from '~/bundles/common/components/input/input';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
@@ -120,7 +122,7 @@ const SettingsForm: React.FC = () => {
                 control={control}
                 errors={errors}
             />
-            <Title>Account Settings</Title>
+            <Title>Localisation settings</Title>
             <Dropdown
                 data={currency}
                 handleChange={handleDropdownChangeCurrency}

@@ -4,6 +4,7 @@ import {
     faArrowUp,
     faChevronDown,
     faPlus,
+    faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
@@ -13,6 +14,7 @@ const iconProvider = {
     faEye,
     faEyeSlash,
     faPlus,
+    faTrashCan,
 };
 
 export { iconProvider };

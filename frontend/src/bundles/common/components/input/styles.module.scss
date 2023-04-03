@@ -56,6 +56,10 @@
     transition: box-shadow 0.2s linear;
 }
 
+.input:hover {
+    border-color: var(--color-blue-300);
+}
+
 .input:focus {
     border-color: var(--color-blue-500);
     box-shadow: #3242df33 0 0 0 4px;

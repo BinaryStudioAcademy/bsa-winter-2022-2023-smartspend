@@ -14,6 +14,7 @@ export { MultiDropdownPart } from './multi-dropdown-part/multi-dropdown-part';
 export { NewWalletModalPart } from './new-wallet-modal-part/new-wallet-modal-part.js';
 export { RangeSliderPart } from './range-slider-part/range-slider-part';
 export { TabsPart } from './tabs-part/tabs-part';
+export { TransactionTablePart } from './transaction-table/transaction-table-part.js';
 export { UserSettingsTabsPart } from './user-settings-tabs-part/user-settings-tabs-part';
 export {
     BaseModal,
@@ -31,5 +32,6 @@ export {
     NewWalletModal,
     RangeSlider,
     Tabs,
+    TransactionTable,
     UserSettingsTabs,
 } from '~/bundles/common/components/components';

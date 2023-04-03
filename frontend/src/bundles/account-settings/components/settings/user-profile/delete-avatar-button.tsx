@@ -1,6 +1,9 @@
-import { Button } from '~/bundles/common/components/components';
-import { ButtonType } from '~/bundles/common/enums/button-type.enum';
-import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
+import { Button } from '~/bundles/common/components/components.js';
+import {
+    ButtonSize,
+    ButtonType,
+    ButtonVariant,
+} from '~/bundles/common/enums/enums.js';
 
 type Properties = {
     deleteFile: () => void;

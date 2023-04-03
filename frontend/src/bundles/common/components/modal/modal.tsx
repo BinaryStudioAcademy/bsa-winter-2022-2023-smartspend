@@ -2,11 +2,9 @@ import classNames from 'classnames';
 import { type MouseEventHandler, type ReactNode } from 'react';
 import React, { useCallback } from 'react';
 
-import { Button } from '~/bundles/common/components/button/button';
-import { Portal } from '~/bundles/common/components/portal/portal';
-import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { useEffect } from '~/bundles/common/hooks/hooks';
+import { Button, Portal } from '~/bundles/common/components/components.js';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { useEffect } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -17,7 +15,8 @@ type Properties = {
     Header: ReactNode;
     Body: ReactNode;
     children?: ReactNode;
-    submitButtonName: string;
+    hasActionButtons?: boolean;
+    submitButtonName?: string;
     width?: number;
     footerContainerClass?: string;
     buttonsSize?: ButtonSize;
@@ -30,6 +29,7 @@ const BaseModal: React.FC<Properties> = ({
     children,
     isShown,
     onSubmit,
+    hasActionButtons = true,
     submitButtonName,
     footerContainerClass = '',
     width,
@@ -90,22 +90,24 @@ const BaseModal: React.FC<Properties> = ({
                             )}
                         >
                             {children}
-                            <div className={styles.mainButtonsWrapper}>
-                                <Button
-                                    variant={ButtonVariant.SECONDARY}
-                                    size={buttonsSize}
-                                    onClick={handleClose}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    variant={ButtonVariant.PRIMARY}
-                                    size={buttonsSize}
-                                    onClick={onSubmit}
-                                >
-                                    {submitButtonName}
-                                </Button>
-                            </div>
+                            {hasActionButtons && (
+                                <div className={styles.mainButtonsWrapper}>
+                                    <Button
+                                        variant={ButtonVariant.SECONDARY}
+                                        size={buttonsSize}
+                                        onClick={handleClose}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        variant={ButtonVariant.PRIMARY}
+                                        size={buttonsSize}
+                                        onClick={onSubmit}
+                                    >
+                                        {submitButtonName}
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

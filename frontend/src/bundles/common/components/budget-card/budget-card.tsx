@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { AppRoute } from '~/bundles/common/enums/app-route.enum';
+import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { toCustomLocaleString } from '~/bundles/common/helpers/helpers.js';
 
 import styles from './styles.module.scss';

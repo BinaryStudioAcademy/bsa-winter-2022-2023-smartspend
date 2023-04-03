@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { OneDayCalendar } from './one-day-calendar';
-import { RangeCalendar } from './range-calendar';
+import { OneDayCalendar, RangeCalendar } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {

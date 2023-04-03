@@ -5,4 +5,4 @@ export { type BudgetResponseDto } from './budget-response-dto.type.js';
 export { type BudgetCreateRequestDto } from './create-request-dto.type.js';
 export { type TokenDeleteRequestDto } from './token-delete-request-dto.type';
 export { type TokenRequestDto } from './token-request-dto.type';
-export { type UpdateRequestDto } from './update-request-dto.type.js';
+export { type UpdateBudgetRequestDto } from './update-request-dto.type.js';

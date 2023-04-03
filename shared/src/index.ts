@@ -12,7 +12,7 @@ export {
     type BudgetResponseDto,
     type TokenDeleteRequestDto,
     type TokenRequestDto,
-    type UpdateRequestDto,
+    type UpdateBudgetRequestDto,
     BudgetsApiPath,
     BudgetValidationMessage,
 } from './bundles/budgets/budgets.js';

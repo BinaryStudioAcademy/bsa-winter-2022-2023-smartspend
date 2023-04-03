@@ -1,4 +1,4 @@
-type UpdateRequestDto = {
+type UpdateBudgetRequestDto = {
     name: string;
     amount: number;
     currency: string;
@@ -6,4 +6,4 @@ type UpdateRequestDto = {
     startDate: string;
 };
 
-export { type UpdateRequestDto };
+export { type UpdateBudgetRequestDto };

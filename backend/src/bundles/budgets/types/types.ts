@@ -6,5 +6,5 @@ export {
     type BudgetResponseDto,
     type TokenDeleteRequestDto,
     type TokenRequestDto,
-    type UpdateRequestDto,
+    type UpdateBudgetRequestDto,
 } from 'shared/build/index.js';

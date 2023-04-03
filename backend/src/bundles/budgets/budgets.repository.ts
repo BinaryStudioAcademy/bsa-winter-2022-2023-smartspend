@@ -1,6 +1,6 @@
 import { BudgetEntity } from '~/bundles/budgets/budgets.entity.js';
 import { type BudgetModel } from '~/bundles/budgets/budgets.model.js';
-import { type UpdateRequestDto } from '~/bundles/budgets/types/types.js';
+import { type UpdateBudgetRequestDto } from '~/bundles/budgets/types/types.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
 class BudgetRepository implements Partial<IRepository> {
@@ -53,7 +53,7 @@ class BudgetRepository implements Partial<IRepository> {
 
     public async updateBudget(
         id: string,
-        payload: UpdateRequestDto,
+        payload: UpdateBudgetRequestDto,
         ownerId: string,
     ): Promise<BudgetEntity | undefined> {
         const item = await this.budgetModel

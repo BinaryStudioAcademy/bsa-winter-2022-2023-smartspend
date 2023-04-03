@@ -1,11 +1,13 @@
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
+import { type Range } from 'react-date-range';
 
 import { WalletCardSize } from '~/bundles/landing/enums/enums';
 
-import { Calendar } from '../../components/calendar/calendar';
+import { type DataObjectS } from '../../components/bar-chart/bar-chart';
 import {
     Button,
+    Calendar,
     CardTotal,
     Chart,
     DoughnutChart,
@@ -16,7 +18,10 @@ import {
 } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
 import { CardVariant } from '../../enums/enums';
+import { formatRangeGraph } from '../../helpers/calendar-helpers/get-formating-date';
+import { getInitialRange } from '../../helpers/helpers';
 import { useAppForm } from '../../hooks/hooks';
+import { type DataObject } from '../../types/chart-data.type';
 import {
     type Wallet,
     barChartData,
@@ -89,6 +94,41 @@ const Dashboard: React.FC = () => {
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
 
+    const [day, setDay] = useState<Range>(getInitialRange());
+
+    const handleSelectDay = useCallback((day: Range): void => {
+        setDay(day);
+    }, []);
+
+    const filterLineChart = useCallback((range: Range): DataObject[] => {
+        const startDate: Date | undefined = range.startDate;
+        const endDate: Date | undefined = range.endDate;
+        return lineChartData.filter(
+            (date) =>
+                startDate &&
+                new Date(date.date) >= startDate &&
+                endDate &&
+                new Date(date.date) <= endDate,
+        );
+    }, []);
+
+    const filterChart = useCallback((range: Range): DataObjectS[][] => {
+        const startDate: Date | undefined = range.startDate;
+        const endDate: Date | undefined = range.endDate;
+        return barChartData.map(({ label, data }) => {
+            const filteredData = data.filter(
+                (item: { date: string | number | Date }) => {
+                    const itemDate = new Date(item.date);
+                    return (
+                        (!startDate || itemDate >= startDate) &&
+                        (!endDate || itemDate <= endDate)
+                    );
+                },
+            );
+            return [{ label, data: filteredData }];
+        });
+    }, []);
+
     const handleSliderChange = useCallback(
         (range: { min: number; max: number }): void => {
             setCurrentRange(range);
@@ -142,7 +182,11 @@ const Dashboard: React.FC = () => {
                         <div className={styles.filters}>
                             <div>
                                 <div className={styles.largeCalendar}>
-                                    <Calendar isRangeCalendar={true} />
+                                    <Calendar
+                                        isRangeCalendar
+                                        initialRange={day}
+                                        onRangeChange={handleSelectDay}
+                                    />
                                 </div>
                                 <div className={styles.smallCalendar}>
                                     <Calendar isRangeCalendar={false} />
@@ -218,23 +262,27 @@ const Dashboard: React.FC = () => {
                         </div>
                         <div className={styles.charts}>
                             <ChartBox
-                                title={'Chart 1'}
-                                date={'Dec 01-23'}
-                                controls={'Controls'}
+                                title={'Account Balance'}
+                                date={formatRangeGraph(day)}
                             >
-                                <LineChart dataArr={lineChartData} />
+                                <LineChart dataArr={filterLineChart(day)} />
                             </ChartBox>
                             <ChartBox
-                                title={'Chart 2'}
-                                date={'Dec 01-23'}
-                                controls={'Controls'}
+                                title={'Changes'}
+                                date={formatRangeGraph(day)}
                             >
-                                <Chart array={barChartData} />
+                                <Chart array={filterChart(day)} />
                             </ChartBox>
-                            <ChartBox title={'Chart 3'} date={'Dec 01-23'}>
+                            <ChartBox
+                                title={'Period income'}
+                                date={formatRangeGraph(day)}
+                            >
                                 <DoughnutChart categories={categories} />
                             </ChartBox>
-                            <ChartBox title={'Chart 4'} date={'Dec 01-23'}>
+                            <ChartBox
+                                title={'Period Expenses'}
+                                date={formatRangeGraph(day)}
+                            >
                                 <DoughnutChart categories={categories} />
                             </ChartBox>
                         </div>

@@ -21,9 +21,19 @@ import {
 import { Button } from '../components';
 import styles from './styles.module.scss';
 
-const RangeCalendar: React.FC = () => {
+interface MyComponentProperties {
+    onRangeChange?: (day: Range) => void;
+    initialRange?: Range;
+}
+
+const RangeCalendar: React.FC<MyComponentProperties> = ({
+    onRangeChange,
+    initialRange,
+}) => {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [range, setRange] = useState<Range>(getInitialRange());
+    const [range, setRange] = useState<Range>(
+        initialRange ?? getInitialRange(),
+    );
 
     const handleClick = useCallback(
         (
@@ -38,12 +48,12 @@ const RangeCalendar: React.FC = () => {
                 }
                 case 'forward': {
                     setRange(getForwardMonths(range));
-
+                    onRangeChange?.(getForwardMonths(range));
                     break;
                 }
                 case 'backward': {
                     setRange(getBackwardMonths(range));
-
+                    onRangeChange?.(getBackwardMonths(range));
                     break;
                 }
                 default: {
@@ -51,7 +61,7 @@ const RangeCalendar: React.FC = () => {
                 }
             }
         },
-        [isShowModal, range],
+        [isShowModal, range, onRangeChange],
     );
 
     const handleSelectRange = useCallback(
@@ -66,8 +76,9 @@ const RangeCalendar: React.FC = () => {
                 endDate: range.selection.endDate,
             };
             setRange(newRange);
+            onRangeChange?.(newRange);
         },
-        [],
+        [onRangeChange],
     );
 
     return (

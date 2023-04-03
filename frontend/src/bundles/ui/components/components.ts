@@ -11,6 +11,7 @@ export {
     LineChart,
     Loader,
     MultiDropdown,
+    NewWalletModal,
     RangeSlider,
     Tabs,
     TransactionTable,
@@ -28,6 +29,7 @@ export { HeaderPart } from './header-part/header-part';
 export { LineChartPart } from './line-chart-part/line-chart-part';
 export { LoaderPart } from './loader-part/loader-part';
 export { MultiDropdownPart } from './multi-dropdown-part/multi-dropdown-part';
+export { NewWalletModalPart } from './new-wallet-modal-part/new-wallet-modal-part';
 export { RangeSliderPart } from './range-slider-part/range-slider-part';
 export { TabsPart } from './tabs-part/tabs-part';
 export { TransactionTablePart } from './transaction-table/transaction-table-part';

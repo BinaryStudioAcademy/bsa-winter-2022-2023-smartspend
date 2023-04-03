@@ -5,8 +5,8 @@ import {
     userSignInValidationSchema,
 } from 'shared/build/index.js';
 
+import { UserProfile } from '~/bundles/account-settings/components/components';
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
-import { UserProfile } from '~/bundles/common/components/settings/user-profile';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import { Calendar } from '../components/calendar/calendar';
@@ -21,10 +21,10 @@ import {
     Input,
     LineChart,
     Loader,
+    MultiDropdown,
     TransactionTable,
 } from '../components/components.js';
 import { Dropdown } from '../components/dropdown/dropdown.js';
-import { MultiDropdown } from '../components/dropdown/multi-dropdown.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';

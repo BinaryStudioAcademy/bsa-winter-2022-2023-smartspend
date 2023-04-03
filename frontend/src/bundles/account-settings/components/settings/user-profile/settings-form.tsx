@@ -1,7 +1,12 @@
-import { type FormEvent } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
-import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
+import { Button } from '~/bundles/common/components/button/button';
+import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
+import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
+import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
+import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
@@ -138,6 +143,17 @@ const SettingsForm: React.FC = () => {
             <SubmitButton isChange={isChange()}>
                 Update My Settings
             </SubmitButton>
+            <div className={styles.dltButton}>
+                <Button variant={ButtonVariant.DELETE} size={ButtonSize.MEDIUM}>
+                    <FontAwesomeIcon
+                        style={{
+                            paddingRight: '5px',
+                        }}
+                        icon={FaIcons.TRASH_CAN}
+                    />
+                    <span>Delete Account</span>
+                </Button>
+            </div>
         </form>
     );
 };

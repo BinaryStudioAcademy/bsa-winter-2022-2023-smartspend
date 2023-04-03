@@ -6,8 +6,12 @@ import classNames from 'classnames';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Breakpoint, SwiperBreakpointConfig } from '../../enums/enums';
-import { FeedbackCard } from '../components';
+import {
+    Breakpoint,
+    SwiperBreakpointConfig,
+} from '~/bundles/landing/enums/enums.js';
+
+import { FeedbackCard } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {

@@ -1,8 +1,10 @@
 import classNames from 'classnames';
 
-import { StepInfoPanelVariant } from '../../enums/enums';
-import { type DataObject } from '../../types/types';
-import { LineChartCard, StepInfoPanel } from '../components';
+import { StepInfoPanel } from '~/bundles/landing/components/components.js';
+import { StepInfoPanelVariant } from '~/bundles/landing/enums/enums.js';
+import { type DataObject } from '~/bundles/landing/types/types.js';
+
+import { LineChartCard } from './components/components.js';
 import styles from './styles.module.scss';
 
 const SecondStepPart: React.FC = () => {

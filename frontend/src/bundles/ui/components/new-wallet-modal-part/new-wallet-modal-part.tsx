@@ -1,6 +1,6 @@
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
-import { CodeHighlight, NewWalletModal } from '../components';
+import { CodeHighlight, NewWalletModal } from '../components.js';
 
 const codeExample = `
 const NewWalletModalPart: React.FC = () => {

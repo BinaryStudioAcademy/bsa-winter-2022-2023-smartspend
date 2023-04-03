@@ -1,9 +1,12 @@
 import { useRef } from 'react';
 
 import { Button } from '~/bundles/common/components/components';
-import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
-import { ButtonType, ButtonVariant } from '~/bundles/common/enums/enums';
-import { useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    ButtonSize,
+    ButtonType,
+    ButtonVariant,
+} from '~/bundles/common/enums/enums.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import styles from '../styles.module.scss';
 

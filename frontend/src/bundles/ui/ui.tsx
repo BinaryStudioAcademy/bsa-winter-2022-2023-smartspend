@@ -13,16 +13,17 @@ import {
     DoughnutChartPart,
     DropdownPart,
     HeaderPart,
+    InputPart,
     LineChartPart,
     LoaderPart,
     MultiDropdownPart,
     NewWalletModalPart,
     RangeSliderPart,
     TabsPart,
+    TransactionTablePart,
     UserSettingsTabsPart,
-} from './components/components';
-import { InputPart } from './components/input-part/input-part.js';
-import { FaIcons } from './enums/enums';
+} from './components/components.js';
+import { FaIcons } from './enums/enums.js';
 import styles from './styles.module.scss';
 
 type CollapseState = {
@@ -38,6 +39,7 @@ type CollapseState = {
     input: boolean;
     userSettingsTabs: boolean;
     rangeSlider: boolean;
+    transactionTable: boolean;
     newWalletModal: boolean;
 };
 
@@ -54,6 +56,7 @@ const defaultCollapse: CollapseState = {
     userSettingsTabs: false,
     rangeSlider: false,
     card: false,
+    transactionTable: false,
     newWalletModal: false,
 };
 
@@ -86,6 +89,7 @@ const StyleGuide: React.FC = () => {
         { name: 'multiDropdown', component: <MultiDropdownPart /> },
         { name: 'dropdown', component: <DropdownPart /> },
         { name: 'loader', component: <LoaderPart /> },
+        { name: 'transactionTable', component: <TransactionTablePart /> },
         { name: 'newWalletModal', component: <NewWalletModalPart /> },
     ];
     return (

@@ -1,4 +1,4 @@
-import { type BudgetCategoryResponseDto } from 'shared/src/bundles/budget-categories/types/types.js';
+import { type BudgetCategoryResponseDto } from 'shared/build/bundles/budget-categories/types/types.js';
 
 type BudgetCategoryGetAllResponseDto = {
     items: BudgetCategoryResponseDto[];

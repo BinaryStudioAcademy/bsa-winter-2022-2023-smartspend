@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
     Button,
@@ -139,14 +140,18 @@ const Dashboard: React.FC = () => {
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
                         {wallets.map(({ id, name, balance }) => (
-                            <div key={id} className={styles.walletWrapper}>
+                            <Link
+                                to={`/wallet/${id}`}
+                                key={id}
+                                className={styles.walletWrapper}
+                            >
                                 <WalletCard
                                     title={name}
                                     size={WalletCardSize.MEDIUM}
                                     balance_value={balance}
                                     wallet_type={'Balance'}
                                 />
-                            </div>
+                            </Link>
                         ))}
                         <WalletButton onClick={handleModal}>
                             Add new wallet

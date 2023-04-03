@@ -1,5 +1,6 @@
-import { SettingsForm, Title } from './components/components.js';
 import styles from './styles.module.scss';
+import { Title } from './title';
+import { SettingsForm } from './user-profile/settings-form';
 
 const UserProfile: React.FC = () => {
     return (

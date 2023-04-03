@@ -1,7 +1,11 @@
 import classNames from 'classnames';
 
-import { StepInfoButtonVariant, StepInfoPanelVariant } from '../../enums/enums';
-import { StepInfoButton } from '../components';
+import {
+    StepInfoButtonVariant,
+    StepInfoPanelVariant,
+} from '~/bundles/landing/enums/enums.js';
+
+import { StepInfoButton } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {

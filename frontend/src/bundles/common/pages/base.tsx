@@ -17,6 +17,7 @@ import {
     CardTotal,
     Chart,
     DoughnutChart,
+    Dropdown,
     Header,
     Input,
     LineChart,
@@ -24,7 +25,6 @@ import {
     MultiDropdown,
     TransactionTable,
 } from '../components/components.js';
-import { Dropdown } from '../components/dropdown/dropdown.js';
 import { RangeSlider } from '../components/range-slider/range-slider';
 import { Tabs } from '../components/tabs/tabs';
 import { UserSettingsTabs } from '../components/user-settings-tabs/user-settings-tabs';

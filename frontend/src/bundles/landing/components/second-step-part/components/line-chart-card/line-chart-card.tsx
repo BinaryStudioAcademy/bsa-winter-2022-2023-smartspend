@@ -1,5 +1,9 @@
-import { type DataObject } from '../../types/types';
-import { ButtonTabs, LineChart } from '../components';
+import {
+    ButtonTabs,
+    LineChart,
+} from '~/bundles/landing/components/components.js';
+import { type DataObject } from '~/bundles/landing/types/types.js';
+
 import styles from './styles.module.scss';
 
 type Properties = {

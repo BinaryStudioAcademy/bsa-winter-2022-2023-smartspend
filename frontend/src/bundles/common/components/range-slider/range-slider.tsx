@@ -4,7 +4,8 @@ import '~/assets/css/variables/color-variables.scss';
 import Slider from 'rc-slider';
 import React, { useCallback } from 'react';
 
-import { type RangeLimits } from '../../types/range-slider.type';
+import { type RangeLimits } from '~/bundles/common/types/types.js';
+
 import styles from './styles.module.scss';
 
 interface Properties {

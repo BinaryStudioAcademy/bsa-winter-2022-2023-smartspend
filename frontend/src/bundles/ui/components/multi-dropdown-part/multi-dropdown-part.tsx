@@ -1,9 +1,9 @@
 import { type MultiValue, type SingleValue } from 'react-select';
 
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { type DataType } from '~/bundles/common/types/types.js';
 
-import { CodeHighlight, MultiDropdown } from '../components';
+import { CodeHighlight, MultiDropdown } from '../components.js';
 
 const people = [
     {

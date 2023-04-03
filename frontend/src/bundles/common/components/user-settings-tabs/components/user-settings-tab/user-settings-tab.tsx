@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import styles from './styles.module.scss';
+import styles from '../../styles.module.scss';
 
-interface TabProperties {
+interface Properties {
     title: string;
     to: string;
 }
@@ -15,7 +15,7 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     });
 };
 
-const UserSettingsTab: React.FC<TabProperties> = ({ title, to }) => {
+const UserSettingsTab: React.FC<Properties> = ({ title, to }) => {
     return (
         <NavLink to={to} className={getNavLinkClassName}>
             <span className={styles.title}>{title}</span>

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import styles from './styles.module.scss';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     title: string;

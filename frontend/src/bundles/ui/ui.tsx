@@ -13,6 +13,7 @@ import {
     DoughnutChartPart,
     DropdownPart,
     HeaderPart,
+    InputPart,
     LineChartPart,
     LoaderPart,
     MultiDropdownPart,
@@ -21,9 +22,8 @@ import {
     TabsPart,
     TransactionTablePart,
     UserSettingsTabsPart,
-} from './components/components';
-import { InputPart } from './components/input-part/input-part.js';
-import { FaIcons } from './enums/enums';
+} from './components/components.js';
+import { FaIcons } from './enums/enums.js';
 import styles from './styles.module.scss';
 
 type CollapseState = {

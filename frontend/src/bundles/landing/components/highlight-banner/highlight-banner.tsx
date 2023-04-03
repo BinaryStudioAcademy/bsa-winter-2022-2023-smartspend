@@ -4,7 +4,7 @@ import AppStoreIcon from '~/assets/img/app-store-icon.svg';
 import GooglePlayIcon from '~/assets/img/google-play-icon.svg';
 import LaptopPreview from '~/assets/img/laptop-preview.svg';
 
-import { StoreButton } from '../components';
+import { StoreButton } from './components/components.js';
 import styles from './styles.module.scss';
 
 type Properties = {

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { Avatar } from '~/bundles/common/components/settings/user-profile/avatar';
-import { DeleteAvatarButton } from '~/bundles/common/components/settings/user-profile/delete-avatar-button';
-import { UploadAvatarButton } from '~/bundles/common/components/settings/user-profile/upload-avatar-button';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import styles from '../styles.module.scss';
+import { Avatar } from './avatar';
+import { DeleteAvatarButton } from './delete-avatar-button';
+import { UploadAvatarButton } from './upload-avatar-button';
 
 const AvatarContainer: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

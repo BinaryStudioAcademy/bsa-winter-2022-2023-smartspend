@@ -16,6 +16,7 @@ async function seed(knex: Knex): Promise<void> {
         { symbol: '¥', short_name: 'CNY', name: 'Chinese Yuan' },
         { symbol: '$', short_name: 'HKD', name: 'Hong Kong Dollar' },
         { symbol: '$', short_name: 'SGD', name: 'Singapore Dollar' },
+        { symbol: '₴', short_name: 'UAH', name: 'Ukrainian Hryvnia' },
     ]);
 }
 

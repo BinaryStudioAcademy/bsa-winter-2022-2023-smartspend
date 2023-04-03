@@ -127,3 +127,9 @@
         padding-left: var(--p-3);
     }
 }
+
+@media (max-width: 768px) {
+    .tabs {
+        display: none;
+    }
+  }

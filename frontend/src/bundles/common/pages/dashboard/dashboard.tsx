@@ -81,13 +81,9 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     onClick,
 }) => {
     return (
-        <div className={styles.walletButton}>
+        <div onClickCapture={onClick} className={styles.walletButton}>
             {isButton && (
-                <Button
-                    variant={ButtonVariant.ROUND}
-                    className={styles.button}
-                    onClick={onClick}
-                >
+                <Button variant={ButtonVariant.ROUND} className={styles.button}>
                     <FontAwesomeIcon
                         icon={FaIcons.PLUS}
                         color={'var(--color-white-100)'}

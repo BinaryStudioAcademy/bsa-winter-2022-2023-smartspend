@@ -1,4 +1,4 @@
-import { CodeHighlight, Tabs } from '../components';
+import { CodeHighlight, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 const tabsData = [

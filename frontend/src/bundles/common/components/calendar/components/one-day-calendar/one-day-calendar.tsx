@@ -5,13 +5,11 @@ import React, { useState } from 'react';
 import { Calendar } from 'react-date-range';
 
 import calendarIcon from '~/assets/img/calendar-icon.svg';
-import { useCallback } from '~/bundles/common/hooks/hooks';
-
-import { ButtonSize } from '../../enums/button-size.enum';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import { formatOneDay } from '../../helpers/helpers';
-import { Button } from '../components';
-import styles from './styles.module.scss';
+import styles from '~/bundles/common/components/calendar/styles.module.scss';
+import { Button } from '~/bundles/common/components/components.js';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { formatOneDay } from '~/bundles/common/helpers/helpers.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 const OneDayCalendar: React.FC = () => {
     const [day, setDay] = useState<Date>(new Date());

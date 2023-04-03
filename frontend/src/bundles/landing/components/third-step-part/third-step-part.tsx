@@ -5,7 +5,7 @@ import {
     StepInfoPanelVariant,
 } from '~/bundles/landing/enums/enums.js';
 
-import { DoughnutChartCard, StepInfoPanel } from '../components';
+import { DoughnutChartCard, StepInfoPanel } from '../components.js';
 import styles from './styles.module.scss';
 
 const ThirdStepPart: React.FC = () => {

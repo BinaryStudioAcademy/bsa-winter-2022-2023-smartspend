@@ -3,8 +3,7 @@ import {
     ButtonSize,
     ButtonType,
     ButtonVariant,
-} from
-'~/bundles/common/enums/enums.js';
+} from '~/bundles/common/enums/enums.js';
 
 type Properties = {
     deleteFile: () => void;

@@ -6,7 +6,7 @@ const tabsDashboard = [
 ];
 
 const tabsData = [
-    { title: 'Transaction', to: '/transaction' },
+    { title: 'Transaction', to: '/transaction', icon: '' },
     { title: 'Overview', to: '/overview' },
     { title: 'Budget', to: '/budget' },
     { title: 'Wallet Settings', to: '/wallet-settings' },

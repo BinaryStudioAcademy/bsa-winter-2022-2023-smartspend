@@ -29,9 +29,11 @@ const getBudget = {
     recurrence: 'monthly',
     categories: [
         {
-            value: 'John Doe',
-            name: 'John Doe',
-            image: 'https://placekitten.com/50/50',
+            id: '6b6510e3-7bd9-4952-9db4-e97a03dce2f6',
+            name: 'Food & Drink',
+            icon: 'burger-soda',
+            color: 'red',
+            type: 'expense',
         },
     ],
     currency: 'USD',

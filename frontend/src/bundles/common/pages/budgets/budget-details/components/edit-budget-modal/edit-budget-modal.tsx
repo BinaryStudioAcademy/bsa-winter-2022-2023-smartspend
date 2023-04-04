@@ -24,9 +24,7 @@ interface FormData {
     currency: string;
     recurrence: string;
     categories: {
-        value: string;
-        name?: string;
-        image?: string;
+        id: string;
     }[];
     startDate: string;
 }

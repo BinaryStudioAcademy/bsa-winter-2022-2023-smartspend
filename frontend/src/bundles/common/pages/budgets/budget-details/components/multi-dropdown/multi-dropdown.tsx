@@ -11,7 +11,9 @@ const RenderMultiDropdown = ({
 }: {
     field: {
         onChange: (value: SingleValue<DataType[]>) => void;
-        value: DataType[];
+        value: {
+            id: string;
+        }[];
     };
 }): JSX.Element => {
     const [selectedMulti, setSelectedMulti] = useState<
@@ -35,7 +37,7 @@ const RenderMultiDropdown = ({
             let selectedValues = [];
             if (selectedOption !== null) {
                 selectedValues = Array.isArray(selectedOption)
-                    ? selectedOption
+                    ? selectedOption.map((option) => option.value)
                     : [selectedOption];
             }
             onChange(selectedValues);
@@ -43,34 +45,39 @@ const RenderMultiDropdown = ({
         [handleMultiDropdownChange, onChange],
     );
 
+    // todo FontAwesomeIcon to dropdown
+
     return (
         <div className={styles.multiDropdown}>
             <MultiDropdown
                 data={[
                     {
-                        value: 'John Doe',
-                        name: 'John Doe',
-                        image: 'https://placekitten.com/50/50',
+                        value: '6b6510e3-7bd9-4952-9db4-e97a03dce2f6',
+                        name: 'Food & Drink',
                     },
                     {
-                        value: 'Jane Smith',
-                        name: 'Jane Smith',
-                        image: 'https://placekitten.com/51/51',
+                        value: '0a478b81-0f6e-4e04-810d-13b18f210954',
+                        name: 'Salary',
                     },
                     {
-                        value: 'Alice Johnson',
-                        name: 'Alice Johnson',
-                        image: 'https://placekitten.com/52/52',
+                        value: 'd2303d78-9446-471d-80c2-6966b6ceed3b',
+                        name: 'Car',
                     },
                     {
-                        value: 'Bob Brown',
-                        name: 'Bob Brown',
-                        image: 'https://placekitten.com/53/53',
+                        value: '5a832c55-954e-4def-8196-5854849b1977',
+                        name: 'Travel',
                     },
                     {
-                        value: 'Charlie Green',
-                        name: 'Charlie Green!',
-                        image: 'https://placekitten.com/54/54',
+                        value: 'e4aec229-ff61-49b8-9da8-d4209427ac76',
+                        name: 'Gifts',
+                    },
+                    {
+                        value: '9ec27eab-1737-44eb-8e7b-56ab214dffc4',
+                        name: 'Gifts',
+                    },
+                    {
+                        value: '2debaea0-d8d9-4c3d-9fb4-e1b375b62318',
+                        name: 'Bills & Fees',
                     },
                 ]}
                 label={'Budgeted for'}

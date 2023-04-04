@@ -69,9 +69,7 @@ const RenderMultiDropdown = ({
 }: {
     field: {
         onChange: (value: SingleValue<DataType[]>) => void;
-        value: {
-            id: string;
-        }[];
+        value: { id: string }[] | string[];
     };
 }): JSX.Element => {
     const [selectedMulti, setSelectedMulti] = useState<

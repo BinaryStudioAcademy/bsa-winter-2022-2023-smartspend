@@ -32,7 +32,7 @@ class BudgetCategoriesService {
         for (const category of categories) {
             const budget = await this.budgetRepository.createBudgetCategory(
                 BudgetCategoryEntity.initializeNew({
-                    budgetId: budgetId,
+                    budgetId,
                     categoryId: category,
                 }),
             );

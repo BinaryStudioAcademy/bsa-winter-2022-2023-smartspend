@@ -20,22 +20,11 @@ import {
 } from '../components';
 import styles from './styles.module.scss';
 
-interface FormData {
-    name: string;
-    amount: number;
-    currency: string;
-    recurrence: string;
-    categories: {
-        id: string;
-    }[];
-    startDate: string;
-}
-
 interface BudgetModalProperties {
     isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
-    budget?: FormData | undefined;
+    budget?: BudgetCreateRequestDto & { id: string };
 }
 
 const BudgetModal = ({
@@ -51,20 +40,25 @@ const BudgetModal = ({
             amount: 0,
             currency: '',
             recurrence: '',
-            categories: [{ id: '' }],
+            categories: [''],
             startDate: '',
         },
     });
 
     const handleBudgetSubmit = useCallback(
-        (formData: FormData): void => {
-            void dispatch(
-                budgetsActions.create(
-                    formData as unknown as BudgetCreateRequestDto,
-                ),
-            );
+        (formData: BudgetCreateRequestDto): void => {
+            if (isEdit) {
+                void dispatch(
+                    budgetsActions.update({
+                        id: budget?.id as string,
+                        payload: { ...formData },
+                    }),
+                );
+            } else {
+                void dispatch(budgetsActions.create(formData));
+            }
         },
-        [dispatch],
+        [budget?.id, dispatch, isEdit],
     );
 
     const handleFormSubmit = useCallback(

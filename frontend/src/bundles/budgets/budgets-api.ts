@@ -48,6 +48,38 @@ class BudgetsApi extends HttpApi {
 
         return response.json<BudgetResponseDto>();
     }
+
+    public async deleteBudget(id: string): Promise<void> {
+        await this.load(
+            this.getFullEndpoint(`${BudgetsApiPath.ROOT}${id}`, {}),
+            {
+                method: 'DELETE',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify({ id }),
+                hasAuth: true,
+            },
+        );
+    }
+
+    public async updateBudget({
+        id,
+        payload,
+    }: {
+        id: string;
+        payload: BudgetCreateRequestDto;
+    }): Promise<BudgetCreateRequestDto> {
+        const response = await this.load(
+            this.getFullEndpoint(`${BudgetsApiPath.ROOT}${id}`, {}),
+            {
+                method: 'PUT',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return response.json<BudgetCreateRequestDto>();
+    }
 }
 
 export { BudgetsApi };

@@ -30,4 +30,25 @@ const create = createAsyncThunk<
     await dispatch(loadAll());
 });
 
-export { create, loadAll };
+const remove = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
+    `${sliceName}/delete`,
+    async (id, { extra }) => {
+        const { budgetsApi } = extra;
+
+        await budgetsApi.deleteBudget(id);
+    },
+);
+
+const update = createAsyncThunk<
+    Promise<void>,
+    { id: string; payload: BudgetCreateRequestDto },
+    AsyncThunkConfig
+>(`${sliceName}/delete`, async ({ id, payload }, { extra, dispatch }) => {
+    const { budgetsApi } = extra;
+
+    await budgetsApi.updateBudget({ id, payload });
+
+    await dispatch(loadAll());
+});
+
+export { create, loadAll, remove, update };

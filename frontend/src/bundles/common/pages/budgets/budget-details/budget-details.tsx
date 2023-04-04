@@ -166,11 +166,13 @@ const BudgetDetails = (): JSX.Element => {
                         >
                             Edit budget
                         </Button>
-                        <EditBudgetModal
-                            isShown={active}
-                            onClose={handleCancel}
-                            budget={budget}
-                        />
+                        <div className={styles.modal}>
+                            <EditBudgetModal
+                                isShown={active}
+                                onClose={handleCancel}
+                                budget={budget}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className={styles.cardsWrapper}>

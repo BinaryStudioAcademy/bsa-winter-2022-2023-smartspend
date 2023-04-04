@@ -62,7 +62,6 @@ const EditBudgetModal = ({
 
     return (
         <BaseModal
-            width={600}
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}

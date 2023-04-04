@@ -13,9 +13,9 @@ import { Button } from '~/bundles/common/components/components.js';
 import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
 import {
     formatRange,
-    getBackwardMonths,
-    getForwardMonths,
+    getFutureDate,
     getInitialRange,
+    getPastDate,
 } from '~/bundles/common/helpers/helpers';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
@@ -35,12 +35,12 @@ const RangeCalendar: React.FC = () => {
                     break;
                 }
                 case 'forward': {
-                    setRange(getForwardMonths(range));
+                    setRange(getFutureDate(range));
 
                     break;
                 }
                 case 'backward': {
-                    setRange(getBackwardMonths(range));
+                    setRange(getPastDate(range));
 
                     break;
                 }

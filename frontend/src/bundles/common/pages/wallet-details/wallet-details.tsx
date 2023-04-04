@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
@@ -10,6 +10,7 @@ import {
     CardTotal,
     Input,
     MultiDropdown,
+    NewWalletModal,
     RangeSlider,
 } from '~/bundles/common/components/components.js';
 import {
@@ -31,6 +32,7 @@ import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
+import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
 import styles from './styles.module.scss';
 
@@ -99,13 +101,16 @@ const categories = [
 const WalletDetails: React.FC = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
+    const navigate = useNavigate();
+    const [active, setActive] = useState(false);
+    const [currentWallet, setCurrentWallet] = useState<
+        WalletGetAllItemResponseDto | undefined
+    >();
     const { wallets } = useAppSelector((state) => state.wallets);
     const { control, errors } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
-
-    const currentWallet = wallets.find((wallet) => wallet.id === id);
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -160,6 +165,30 @@ const WalletDetails: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
+    const onClickDeleteWalet = useCallback(
+        (id: string): void => {
+            void dispatch(walletsActions.remove(id));
+            navigate('/dashboard');
+        },
+        [dispatch, navigate],
+    );
+
+    const handleDeleteWalet = useCallback(
+        () => onClickDeleteWalet(id as string),
+        [id, onClickDeleteWalet],
+    );
+
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    useEffect(() => {
+        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
+    }, [id, wallets]);
+
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
     }, [dispatch]);
@@ -177,6 +206,10 @@ const WalletDetails: React.FC = () => {
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
                             </Button>
+                            <Button onClick={handleDeleteWalet}>
+                                Delete wallet
+                            </Button>
+                            <Button onClick={handleModal}>Edit wallet</Button>
                             <div className={styles.buttons}>
                                 <Button
                                     variant={ButtonVariant.SECONDARY}
@@ -193,6 +226,13 @@ const WalletDetails: React.FC = () => {
                             </div>
                         </div>
                         <RangeCalendar />
+                        <NewWalletModal
+                            isEdit
+                            isShown={active}
+                            onClose={handleCancel}
+                            onSubmit={handleModal}
+                            values={currentWallet}
+                        />
                     </div>
                     <div className={styles.filters}>
                         <div

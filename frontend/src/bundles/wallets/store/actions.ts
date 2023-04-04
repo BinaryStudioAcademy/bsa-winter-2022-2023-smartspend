@@ -30,29 +30,23 @@ const create = createAsyncThunk<
     await dispatch(loadAll());
 });
 
-// functionality has not been tested
-
 const remove = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
     `${sliceName}/delete`,
-    async (id, { extra, dispatch }) => {
+    async (id, { extra }) => {
         const { walletsApi } = extra;
 
         await walletsApi.deleteWallet(id);
-
-        await dispatch(loadAll());
     },
 );
 
-// functionality has not been tested
-
 const update = createAsyncThunk<
     Promise<void>,
-    WalletCreateRequestDto,
+    { id: string; payload: WalletCreateRequestDto },
     AsyncThunkConfig
->(`${sliceName}/delete`, async (walletPayload, { extra, dispatch }) => {
+>(`${sliceName}/delete`, async ({ id, payload }, { extra, dispatch }) => {
     const { walletsApi } = extra;
 
-    await walletsApi.updateWallet(walletPayload);
+    await walletsApi.updateWallet({ id, payload });
 
     await dispatch(loadAll());
 });

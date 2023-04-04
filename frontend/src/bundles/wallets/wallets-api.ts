@@ -50,24 +50,27 @@ class WalletsApi extends HttpApi {
         return response.json<WalletGetAllItemResponseDto>();
     }
 
-    // functionality has not been tested
-
     public async deleteWallet(id: string): Promise<void> {
-        await this.load(this.getFullEndpoint(WalletsApiPath.ID, {}), {
-            method: 'DELETE',
-            contentType: ContentType.JSON,
-            payload: id,
-            hasAuth: true,
-        });
+        await this.load(
+            this.getFullEndpoint(`${WalletsApiPath.ROOT}${id}`, {}),
+            {
+                method: 'DELETE',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(id),
+                hasAuth: true,
+            },
+        );
     }
 
-    // functionality has not been tested
-
-    public async updateWallet(
-        payload: WalletCreateRequestDto,
-    ): Promise<WalletCreateRequestDto> {
+    public async updateWallet({
+        id,
+        payload,
+    }: {
+        id: string;
+        payload: WalletCreateRequestDto;
+    }): Promise<WalletCreateRequestDto> {
         const response = await this.load(
-            this.getFullEndpoint(WalletsApiPath.ID, {}),
+            this.getFullEndpoint(`${WalletsApiPath.ROOT}${id}`, {}),
             {
                 method: 'PUT',
                 contentType: ContentType.JSON,

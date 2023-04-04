@@ -15,8 +15,8 @@ import {
     WalletCard,
 } from '../../components/components';
 import { ButtonVariant } from '../../enums/button-variant.enum';
-import { CardVariant } from '../../enums/enums';
-import { useAppForm } from '../../hooks/hooks';
+import { AppDocumentTitles, CardVariant } from '../../enums/enums';
+import { useAppDocumentTitle, useAppForm } from '../../hooks/hooks';
 import {
     type Wallet,
     barChartData,
@@ -82,6 +82,7 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
 };
 
 const Dashboard: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });

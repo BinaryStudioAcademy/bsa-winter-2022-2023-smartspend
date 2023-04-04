@@ -1,7 +1,11 @@
-import { Button } from '~/bundles/common/components/button/button';
+import { Button } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import {
+    useAppSelector,
+    useCallback,
+    useNavigate,
+} from '~/bundles/common/hooks/hooks.js';
 
-import { AppRoute } from '../../enums/enums';
-import { useAppSelector, useCallback, useNavigate } from '../../hooks/hooks';
 import styles from './styles.module.scss';
 
 const NotFound: React.FC = () => {

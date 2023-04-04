@@ -2,10 +2,10 @@ import { type UserSignInRequestDto } from 'shared/build';
 import { userSignInValidationSchema } from 'shared/build';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants';
-import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
-import { InputType } from '../../enums/enums';
-import { CodeHighlight, Input } from '../components';
+import { InputType } from '../../enums/enums.js';
+import { CodeHighlight, Input } from '../components.js';
 
 const codeExample = `
     const InputExample: React.FC = () => {

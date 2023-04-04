@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { OneDayCalendar } from './components/one-day-calendar';
-import { RangeCalendar } from './components/range-calendar';
+
+import { OneDayCalendar, RangeCalendar } from './components/components.js';
+import styles from './styles.module.scss';
 
 type Properties = {
     isRangeCalendar: boolean;

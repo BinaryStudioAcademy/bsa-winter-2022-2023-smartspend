@@ -3,7 +3,7 @@ import 'react-date-range/dist/theme/default.css';
 
 import React, { useState } from 'react';
 import { type Range, type RangeKeyDict } from 'react-date-range';
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import leftArrow from '~/assets/img/left-arrow.svg';
@@ -104,13 +104,13 @@ const RangeCalendar: React.FC = () => {
                         className={styles.overlay}
                     ></input>
                     <div className={styles.modal_range}>
-                        <DateRangePicker
+                        <DateRange
                             className={styles.modal}
                             ranges={[range]}
                             onChange={handleSelectRange}
                             months={2}
                             moveRangeOnFirstSelection={false}
-                            direction="horizontal"
+                            direction="vertical"
                         />
                         <Button
                             className={styles.button}

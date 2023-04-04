@@ -30,8 +30,8 @@
 
 .modal_range {
     position: absolute;
-    top: 50px;
-    right: 1px;
+    top: 40px;
+    left: 1px;
     z-index: 10000;
 }
 
@@ -53,8 +53,8 @@
 
 .button {
     position: absolute;
-    bottom: 20px;
-    left: 70px;
+    right: 1px;
+    bottom: -35px;
     z-index: 10000;
     margin-top: var(--m-2);
 }

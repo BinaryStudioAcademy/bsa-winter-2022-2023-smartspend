@@ -1,14 +1,14 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
-import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { type IService } from '~/common/interfaces/interfaces.js';
-import { cryptService } from '~/common/services/services.js';
-
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
     type UserUpdateRequestDto,
     type UserUpdateResponseDto,
-} from './types/types.js';
+} from 'shared/build';
+
+import { UserEntity } from '~/bundles/users/user.entity.js';
+import { type UserRepository } from '~/bundles/users/user.repository.js';
+import { type IService } from '~/common/interfaces/interfaces.js';
+import { cryptService } from '~/common/services/services.js';
 
 class UserService implements IService {
     private userRepository: UserRepository;

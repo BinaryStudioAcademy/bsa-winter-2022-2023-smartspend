@@ -3,16 +3,18 @@ import {
     faArrowDown,
     faArrowUp,
     faChevronDown,
+    faChevronUp,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
     faChevronDown,
-    faArrowDown,
-    faArrowUp,
+    faChevronUp,
     faEye,
     faEyeSlash,
     faPlus,
+    faArrowDown,
+    faArrowUp,
 };
 
 export { iconProvider };

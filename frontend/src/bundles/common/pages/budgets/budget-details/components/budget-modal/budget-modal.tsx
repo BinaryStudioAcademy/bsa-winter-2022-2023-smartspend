@@ -29,22 +29,31 @@ interface FormData {
     startDate: string;
 }
 
-interface EditBudgetModalProperties {
+interface BudgetModalProperties {
+    isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
-    budget: FormData;
+    budget?: FormData | undefined;
 }
 
-const EditBudgetModal = ({
+const BudgetModal = ({
+    isEdit = false,
     isShown,
     onClose,
     budget,
-}: EditBudgetModalProperties): JSX.Element => {
+}: BudgetModalProperties): JSX.Element => {
     const { control, errors, handleSubmit, trigger } = useAppForm({
-        defaultValues: budget,
+        defaultValues: budget ?? {
+            name: '',
+            amount: 0,
+            currency: '',
+            recurrence: '',
+            categories: [{ id: '' }],
+            startDate: '',
+        },
     });
 
-    const handleUpdateBudgetSubmit = useCallback((formData: FormData): void => {
+    const handleBudgetSubmit = useCallback((formData: FormData): void => {
         // eslint-disable-next-line no-console
         console.log(formData);
     }, []);
@@ -53,9 +62,9 @@ const EditBudgetModal = ({
         (event: React.BaseSyntheticEvent): void => {
             event.preventDefault();
             void trigger();
-            void handleSubmit(handleUpdateBudgetSubmit)(event);
+            void handleSubmit(handleBudgetSubmit)(event);
         },
-        [handleSubmit, handleUpdateBudgetSubmit, trigger],
+        [handleSubmit, handleBudgetSubmit, trigger],
     );
 
     return (
@@ -63,7 +72,7 @@ const EditBudgetModal = ({
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}
-            Header={<h1>Edit Budget</h1>}
+            Header={<h1>{isEdit ? 'Edit Budget' : 'Create budget'}</h1>}
             Body={
                 <>
                     <div className={styles.formWrapper}>
@@ -119,13 +128,15 @@ const EditBudgetModal = ({
                     </div>
                 </>
             }
-            submitButtonName={'Save changes'}
+            submitButtonName={isEdit ? 'Save changes' : 'Create'}
         >
-            <Button variant={ButtonVariant.DELETE} size={ButtonSize.SMALL}>
-                Delete budget
-            </Button>
+            {isEdit && (
+                <Button variant={ButtonVariant.DELETE} size={ButtonSize.SMALL}>
+                    Delete budget
+                </Button>
+            )}
         </BaseModal>
     );
 };
 
-export { EditBudgetModal };
+export { BudgetModal };

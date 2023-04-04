@@ -11,8 +11,8 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
 import {
+    BudgetModal,
     BudgetProgressBar,
-    EditBudgetModal,
     InfoCard,
 } from './components/components';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
@@ -169,7 +169,7 @@ const BudgetDetails = (): JSX.Element => {
                             Edit budget
                         </Button>
                         <div className={styles.modal}>
-                            <EditBudgetModal
+                            <BudgetModal
                                 isShown={active}
                                 onClose={handleCancel}
                                 budget={budget}

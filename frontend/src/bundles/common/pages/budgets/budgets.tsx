@@ -2,11 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
 import { actions as budgetsActions } from '~/bundles/budgets/store';
-import {
-    BaseModal,
-    BudgetCard,
-    Button,
-} from '~/bundles/common/components/components.js';
+import { BudgetCard, Button } from '~/bundles/common/components/components.js';
 import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -16,6 +12,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
+import { BudgetModal } from './budget-details/components/components';
 import styles from './styles.module.scss';
 
 const Budgets: React.FC = () => {
@@ -23,12 +20,11 @@ const Budgets: React.FC = () => {
     const { budgets } = useAppSelector((state) => state.budgets);
     const [active, setActive] = useState(false);
 
-    const handleClickOpen = useCallback((): void => {
-        setActive(true);
-    }, []);
-
-    const handleClickClose = useCallback((): void => {
+    const handleCancel = useCallback(() => {
         setActive(false);
+    }, []);
+    const handleModal = useCallback(() => {
+        setActive(true);
     }, []);
 
     useEffect(() => {
@@ -41,7 +37,7 @@ const Budgets: React.FC = () => {
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
-                        {budgets?.map((card) => (
+                        {budgets.map((card) => (
                             <BudgetCard
                                 key={card.id}
                                 id={card.id}
@@ -54,19 +50,9 @@ const Budgets: React.FC = () => {
                                 }}
                             />
                         ))}
-                        <BudgetCard
-                            id={'12345'}
-                            title={'Four'}
-                            total={75_471}
-                            moneyLeft={20_456}
-                            date={{
-                                start: 'March 02, 2023',
-                                end: 'March 02, 2023',
-                            }}
-                        />
                         <div
                             className={styles.cardCreate}
-                            onClickCapture={handleClickOpen}
+                            onClickCapture={handleModal}
                         >
                             <div className={styles.cardWrapper}>
                                 <Button
@@ -86,14 +72,13 @@ const Budgets: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <BaseModal
-                isShown={active}
-                onClose={handleClickClose}
-                onSubmit={handleClickClose}
-                submitButtonName={'Create budget'}
-                Header={'Add new budget'}
-                Body={'New budget body...'}
-            />
+            <div className={styles.modal}>
+                <BudgetModal
+                    isShown={active}
+                    onClose={handleCancel}
+                    // budget={budget}
+                />
+            </div>
         </div>
     );
 };

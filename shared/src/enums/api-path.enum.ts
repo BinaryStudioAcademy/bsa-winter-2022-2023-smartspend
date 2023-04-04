@@ -3,6 +3,7 @@ enum ApiPath {
     AUTH = '/auth',
     CATEGORIES = '/categories',
     WALLETS = '/wallets',
+    TRANSACTIONS = '/transactions',
 }
 
 export { ApiPath };

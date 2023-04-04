@@ -1,3 +1,5 @@
+import 'chart.js/auto';
+
 import {
     type BubbleDataPoint,
     type ChartData,
@@ -5,6 +7,7 @@ import {
     type ScriptableContext,
 } from 'chart.js';
 import { ArcElement, Chart as ChartJS } from 'chart.js';
+import { useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 import { DoughnutData } from '../../enums/enums.js';
@@ -31,7 +34,7 @@ const DoughnutChart: React.FC<Properties> = ({
     tooltipDisplay = true,
 }) => {
     const colors = categories.map((object) => getGradientColors(object.color));
-
+    const reference = useRef();
     const data: ChartData<
         'doughnut',
         (number | [number, number] | Point | BubbleDataPoint | null)[]
@@ -86,7 +89,12 @@ const DoughnutChart: React.FC<Properties> = ({
 
     return (
         <div className={styles.doughnut}>
-            <Doughnut data={data} options={options} plugins={[textCenter]} />
+            <Doughnut
+                ref={reference}
+                data={data}
+                options={options}
+                plugins={[textCenter]}
+            />
         </div>
     );
 };

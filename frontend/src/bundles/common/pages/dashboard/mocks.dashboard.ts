@@ -43,26 +43,32 @@ const barChartData = [
 const categories = [
     // props to Doughnut Chart
     {
+        date: 'Mar 01,2023',
         total: 1150,
         color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
     },
     {
+        date: 'Mar 02,2023',
         total: 1825,
         color: 'linear-gradient(96.2deg, #FECC66 -30.03%, #F83062 95.13%)',
     },
     {
+        date: 'Mar 04,2023',
         total: 1325,
         color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
     },
     {
+        date: 'Mar 03,2023',
         total: 2425,
         color: 'linear-gradient(91.64deg, #FCE302 -1.67%, #FE5C01 98.41%)',
     },
     {
+        date: 'Mar 05,2023',
         total: 1425,
         color: 'linear-gradient(95.77deg, #09F2D6 -14.06%, #09E1FF 101.51%)',
     },
     {
+        date: 'Mar 06,2023',
         total: 2225,
         color: 'linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%)',
     },

@@ -16,10 +16,10 @@ import { options } from './config-bar';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 type OneData = { date: string; value: number };
-type DataObjectS = { label: string; data: OneData[] };
-type ChartProperties = { array: DataObjectS[][] };
+type DataObject = { label: string; data: OneData[] };
+type ChartProperties = { array: DataObject[][] };
 
-const sortByDateAscending = (array: DataObjectS[][]): DataObjectS[][] => {
+const sortByDateAscending = (array: DataObject[][]): DataObject[][] => {
     return array.sort(
         (a, b) =>
             new Date(a[0].data[0]?.date).getTime() -
@@ -33,7 +33,7 @@ const Chart: React.FC<ChartProperties> = ({ array }) => {
     const sortedArray = sortByDateAscending(array);
 
     const data = {
-        datasets: sortedArray.map((object: DataObjectS[], index) => {
+        datasets: sortedArray.map((object: DataObject[], index) => {
             return {
                 label: object[0].label,
                 data: dateToShortStringHelper(object[0].data),
@@ -45,4 +45,4 @@ const Chart: React.FC<ChartProperties> = ({ array }) => {
     return <Bar options={options} data={data} className={styles.chart} />;
 };
 
-export { type DataObjectS, Chart };
+export { type DataObject, Chart };

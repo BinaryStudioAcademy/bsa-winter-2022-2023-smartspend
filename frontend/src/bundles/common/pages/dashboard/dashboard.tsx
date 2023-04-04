@@ -4,7 +4,6 @@ import { type Range } from 'react-date-range';
 
 import { WalletCardSize } from '~/bundles/landing/enums/enums';
 
-import { type DataObjectS } from '../../components/bar-chart/bar-chart';
 import {
     Button,
     Calendar,
@@ -21,12 +20,10 @@ import { CardVariant } from '../../enums/enums';
 import { formatRangeGraph } from '../../helpers/calendar-helpers/get-formating-date';
 import { getInitialRange } from '../../helpers/helpers';
 import { useAppForm } from '../../hooks/hooks';
-import { type DataObject } from '../../types/chart-data.type';
+import { filterChart, filterLineChart } from './helpers/helpers';
 import {
     type Wallet,
-    barChartData,
     categories,
-    lineChartData,
     mockSliderData,
     wallets,
 } from './mocks.dashboard';
@@ -98,35 +95,6 @@ const Dashboard: React.FC = () => {
 
     const handleSelectDay = useCallback((day: Range): void => {
         setDay(day);
-    }, []);
-
-    const filterLineChart = useCallback((range: Range): DataObject[] => {
-        const startDate: Date | undefined = range.startDate;
-        const endDate: Date | undefined = range.endDate;
-        return lineChartData.filter(
-            (date) =>
-                startDate &&
-                new Date(date.date) >= startDate &&
-                endDate &&
-                new Date(date.date) <= endDate,
-        );
-    }, []);
-
-    const filterChart = useCallback((range: Range): DataObjectS[][] => {
-        const startDate: Date | undefined = range.startDate;
-        const endDate: Date | undefined = range.endDate;
-        return barChartData.map(({ label, data }) => {
-            const filteredData = data.filter(
-                (item: { date: string | number | Date }) => {
-                    const itemDate = new Date(item.date);
-                    return (
-                        (!startDate || itemDate >= startDate) &&
-                        (!endDate || itemDate <= endDate)
-                    );
-                },
-            );
-            return [{ label, data: filteredData }];
-        });
     }, []);
 
     const handleSliderChange = useCallback(

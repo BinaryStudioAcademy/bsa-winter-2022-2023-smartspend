@@ -1,8 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 
-import { BaseModal,Button  } from '~/bundles/common/components/components';
-import { ButtonSize, ButtonType, ButtonVariant, FaIcons } from '~/bundles/common/enums/enums';
+import { BaseModal, Button } from '~/bundles/common/components/components';
+import {
+    ButtonSize,
+    ButtonType,
+    ButtonVariant,
+    FaIcons,
+} from '~/bundles/common/enums/enums';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import styles from './styles.module.scss';
@@ -43,14 +48,18 @@ const ManageCategories: React.FC = () => {
         setIsMergeModalShown(false);
     }, []);
 
-    const buttonIsCheckedCategoriesDeleteActive = isCheckedCategories.length === 0 ? true : false;
-    const buttonIsCheckedCategoriesDeleteName = isCheckedCategories.length === 0
-        ? 'Delete category'
-        : `Delete category ${isCheckedCategories.length}`;
-    const buttonIsCheckedCategoriesMergeActive = isCheckedCategories.length >= 2 ? false : true;
-    const buttonIsCheckedCategoriesMergeName = isCheckedCategories.length >= 2
-        ? `Merge category ${isCheckedCategories.length}`
-        : 'Merge category';
+    const buttonIsCheckedCategoriesDeleteActive =
+        isCheckedCategories.length === 0 ? true : false;
+    const buttonIsCheckedCategoriesDeleteName =
+        isCheckedCategories.length === 0
+            ? 'Delete category'
+            : `Delete category ${isCheckedCategories.length}`;
+    const buttonIsCheckedCategoriesMergeActive =
+        isCheckedCategories.length >= 2 ? false : true;
+    const buttonIsCheckedCategoriesMergeName =
+        isCheckedCategories.length >= 2
+            ? `Merge category ${isCheckedCategories.length}`
+            : 'Merge category';
     return (
         <>
             <div className={styles.manageWrapper}>

@@ -81,7 +81,7 @@ const CategoriesSettings: React.FC = () => {
                                 </span>
                             </Button>
                         </div>
-                        <ManageCategories/>
+                        <ManageCategories />
                         <CategoryList
                             title={'Income Categories'}
                             categories={sortByType.income}

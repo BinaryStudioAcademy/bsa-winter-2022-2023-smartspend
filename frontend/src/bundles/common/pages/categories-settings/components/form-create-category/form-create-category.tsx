@@ -64,7 +64,10 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const icon = selectedOption.value;
-                setFormData((previousState) => ({ ...previousState, icon: icon }));
+                setFormData((previousState) => ({
+                    ...previousState,
+                    icon: icon,
+                }));
                 setSelectedIcon(selectedOption);
             }
         },
@@ -127,7 +130,10 @@ const FormCreateCategory: React.FC<Properties> = ({ onClose }) => {
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const type = selectedOption.value;
-                setFormData((previousState) => ({ ...previousState, type: type }));
+                setFormData((previousState) => ({
+                    ...previousState,
+                    type: type,
+                }));
                 setSelectedType(selectedOption);
             }
         },

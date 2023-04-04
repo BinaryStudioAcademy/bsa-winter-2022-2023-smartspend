@@ -3,10 +3,16 @@ import {
     Button,
     Input,
 } from '~/bundles/common/components/components';
-import { AppRoute, ButtonSize, ButtonType } from '~/bundles/common/enums/enums';
+import {
+    AppDocumentTitles,
+    AppRoute,
+    ButtonSize,
+    ButtonType,
+} from '~/bundles/common/enums/enums';
 import { InputType } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppForm,
     useAppSelector,
     useCallback,
@@ -26,6 +32,7 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
+    useAppDocumentTitle(AppDocumentTitles.SIGN_UP);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const modalOpen = useAppSelector((state) => state.auth.signUpModalOpen);

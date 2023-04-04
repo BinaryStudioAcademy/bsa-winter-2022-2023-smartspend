@@ -1,7 +1,11 @@
 import { Button, Input } from '~/bundles/common/components/components';
-import { ButtonType } from '~/bundles/common/enums/enums';
+import { AppDocumentTitles, ButtonType } from '~/bundles/common/enums/enums';
 import { InputType } from '~/bundles/common/enums/enums.js';
-import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDocumentTitle,
+    useAppForm,
+    useCallback,
+} from '~/bundles/common/hooks/hooks';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
@@ -15,6 +19,7 @@ type Properties = {
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
+    useAppDocumentTitle(AppDocumentTitles.LOG_IN);
     const { control, errors, handleSubmit, watch, trigger } =
         useAppForm<UserSignInRequestDto>({
             defaultValues: DEFAULT_SIGN_IN_PAYLOAD,

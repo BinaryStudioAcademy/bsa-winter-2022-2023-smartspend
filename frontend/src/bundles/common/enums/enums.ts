@@ -1,3 +1,4 @@
+export { AppDocumentTitles } from './app-document-titles.enum.js';
 export { AppRoute } from './app-route.enum.js';
 export { BarColors } from './bar-color.enum.js';
 export { Breakpoint } from './breakpoint.enum';

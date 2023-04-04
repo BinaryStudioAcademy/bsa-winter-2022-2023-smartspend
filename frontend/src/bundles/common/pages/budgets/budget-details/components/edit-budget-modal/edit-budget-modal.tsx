@@ -41,7 +41,14 @@ const EditBudgetModal = ({
     budget,
 }: EditBudgetModalProperties): JSX.Element => {
     const { control, errors, handleSubmit, trigger } = useAppForm({
-        defaultValues: budget,
+        defaultValues: {
+            name: budget.name,
+            amount: budget.amount,
+            currency: budget.currency,
+            recurrence: budget.recurrence,
+            categories: budget.categories,
+            startDate: budget.startDate,
+        },
     });
 
     const handleUpdateBudgetSubmit = useCallback((formData: FormData): void => {

@@ -6,7 +6,7 @@ import { type DataType } from '~/bundles/common/types/dropdown.type';
 
 const currency = [
     { value: 'USD', name: 'USD' },
-    { value: 'UAH', name: 'UAH' },
+    { value: 'EUR', name: 'EUR' },
 ];
 
 const RenderCurrency = ({

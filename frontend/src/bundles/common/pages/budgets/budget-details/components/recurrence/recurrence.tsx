@@ -78,12 +78,12 @@ const Recurrence = ({
 };
 
 const recurrences: Recurrence[] = [
-    { value: 'once', label: 'Once' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'biweekly', label: 'Biweekly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'yearly', label: 'Yearly' },
+    { value: 'ONCE', label: 'Once' },
+    { value: 'DAILY', label: 'Daily' },
+    { value: 'WEEKLY', label: 'Weekly' },
+    { value: 'BIWEEKLY', label: 'Biweekly' },
+    { value: 'MONTHLY', label: 'Monthly' },
+    { value: 'YEARLY', label: 'Yearly' },
 ];
 
 const RenderRecurrence = ({

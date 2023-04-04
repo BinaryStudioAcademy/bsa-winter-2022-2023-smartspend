@@ -1,6 +1,9 @@
 // import { useLocation } from 'react-router-dom';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
-import { Button } from '~/bundles/common/components/components';
+import {
+    Button,
+    TransactionTable,
+} from '~/bundles/common/components/components';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
@@ -45,6 +48,89 @@ const BudgetDetails = (): JSX.Element => {
         {
             total: 1325,
             color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
+        },
+    ];
+    const transactionData = [
+        {
+            id: '1',
+            category: 'Food',
+            name: 'faBagShopping',
+            date: '2022-03-23',
+            label: 'Supermarket',
+            amount: -35,
+            currency: '$',
+        },
+        {
+            id: '2',
+            category: 'Transport',
+            name: 'faCarAlt',
+            date: '2022-03-23',
+            label: 'Gas Station',
+            amount: -50,
+            currency: '$',
+        },
+        {
+            id: '3',
+            category: 'Shopping',
+            name: 'faStoreAltSlash',
+            date: '2022-04-22',
+            label: 'Clothing Store',
+            amount: 120,
+            currency: '$',
+        },
+        {
+            id: '4',
+            category: 'Food',
+            name: 'faBowlFood',
+            date: '2022-03-22',
+            label: 'Cafeteria',
+            amount: -10,
+            currency: '$',
+        },
+        {
+            id: '5',
+            category: 'Transport',
+            name: 'faCarAlt',
+            date: '2022-03-22',
+            label: 'Taxi Company',
+            amount: -25,
+            currency: '$',
+        },
+        {
+            id: '6',
+            category: 'Salary',
+            name: 'faMoneyBill',
+            date: '2023-03-30',
+            label: 'Electronics Store',
+            amount: 3500,
+            currency: '$',
+        },
+        {
+            id: '7',
+            category: 'Food',
+            name: 'faBowlFood',
+            date: '2024-03-21',
+            label: 'Restaurant',
+            amount: -60,
+            currency: '$',
+        },
+        {
+            id: '8',
+            category: 'Transport',
+            name: 'faCarAlt',
+            date: '2022-03-21',
+            label: 'Public Transport',
+            amount: -5,
+            currency: '$',
+        },
+        {
+            id: '9',
+            category: 'Salary',
+            name: 'faMoneyBill',
+            date: '2023-04-30',
+            label: 'Electronics Store',
+            amount: 3500,
+            currency: '$',
         },
     ];
     const budget = getBudget;
@@ -153,6 +239,7 @@ const BudgetDetails = (): JSX.Element => {
                         />
                     </div>
                 </div>
+                <TransactionTable transactions={transactionData} />
             </div>
         </div>
     );

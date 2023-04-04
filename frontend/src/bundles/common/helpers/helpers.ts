@@ -13,6 +13,12 @@ export { getAppTitle } from './get-app-title/get-app-title.helper';
 export { getGradientColors } from './get-gradient-colors/get-gradient-colors.js';
 export { getText } from './get-text-to-path/get-text-to-path.js';
 export { handleScroll } from './handle-scroll/handle-scroll.js';
+export {
+    convertDate,
+    createLineChartOptions,
+    getData,
+    getLabels,
+} from './line-chart-helper/line-chart-helper.js';
 export { numberToStringCurrencyHelper } from './number-to-string-currency/number-to-string-currency.helper';
 export { sumArray } from './sum-array/sum-array.js';
 export { toCustomLocaleString } from './to-custom-locale-string/to-custom-locale-string.js';

@@ -1,4 +1,4 @@
-import { CodeHighlight, UserSettingsTabs } from '../components';
+import { CodeHighlight, UserSettingsTabs } from '../components.js';
 import styles from './styles.module.scss';
 
 const userSettingsData = [

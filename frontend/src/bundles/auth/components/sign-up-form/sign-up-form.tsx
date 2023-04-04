@@ -1,3 +1,4 @@
+import { actions as authActions } from '~/bundles/auth/store';
 import {
     BaseModal,
     Button,
@@ -17,14 +18,13 @@ import {
     useAppSelector,
     useCallback,
     useNavigate,
-} from '~/bundles/common/hooks/hooks';
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
-} from '~/bundles/users/users';
+} from '~/bundles/users/users.js';
 
-import { actions as authActions } from '../../store';
-import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants';
+import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {

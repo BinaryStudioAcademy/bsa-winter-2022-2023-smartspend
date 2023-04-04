@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 
-import { WalletCardSize } from '~/bundles/landing/enums/enums';
-
-import { Calendar } from '../../components/calendar/calendar';
 import {
     Button,
+    Calendar,
     CardTotal,
     Chart,
     DoughnutChart,
@@ -13,10 +11,18 @@ import {
     LineChart,
     RangeSlider,
     WalletCard,
-} from '../../components/components';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import { AppDocumentTitles, CardVariant } from '../../enums/enums';
-import { useAppDocumentTitle, useAppForm } from '../../hooks/hooks';
+} from '~/bundles/common/components/components.js';
+import {
+    AppDocumentTitles,
+    ButtonVariant,
+    CardVariant,
+} from '~/bundles/common/enums/enums.js';
+import {
+    useAppDocumentTitle,
+    useAppForm,
+} from '~/bundles/common/hooks/hooks.js';
+import { WalletCardSize } from '~/bundles/landing/enums/enums';
+
 import {
     type Wallet,
     barChartData,

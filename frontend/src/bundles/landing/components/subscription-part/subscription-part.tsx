@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 
-import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { InputType } from '~/bundles/common/enums/input-type.enum.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { Button, Input } from '~/bundles/landing/components/components.js';
 
-import { Button, Input } from '../components';
 import styles from './styles.module.scss';
 
 type Properties = {

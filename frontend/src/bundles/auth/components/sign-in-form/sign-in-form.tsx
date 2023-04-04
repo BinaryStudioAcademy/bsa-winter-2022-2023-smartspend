@@ -1,17 +1,20 @@
-import { Button, Input } from '~/bundles/common/components/components';
-import { AppDocumentTitles, ButtonType } from '~/bundles/common/enums/enums';
-import { InputType } from '~/bundles/common/enums/enums.js';
+import { Button, Input } from '~/bundles/common/components/components.js';
+import {
+    AppDocumentTitles,
+    ButtonType,
+    InputType,
+} from '~/bundles/common/enums/enums.js';
 import {
     useAppDocumentTitle,
     useAppForm,
     useCallback,
-} from '~/bundles/common/hooks/hooks';
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
-} from '~/bundles/users/users';
+} from '~/bundles/users/users.js';
 
-import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants';
+import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
 
 type Properties = {

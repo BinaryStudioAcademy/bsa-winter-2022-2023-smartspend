@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import FacebookIcon from '~/assets/img/facebook-footer-icon.svg';
 import SmartSpendLogo from '~/assets/img/logo-smartspend.svg';
 import TwitterIcon from '~/assets/img/twitter-footer-icon.svg';
-import { AppRoute } from '~/bundles/auth/enums/enums';
-import { menuLinks } from '~/bundles/common/enums/menu-links.enum';
+import { AppRoute } from '~/bundles/auth/enums/enums.js';
+import { Link } from '~/bundles/common/components/components.js';
+import { menuLinks } from '~/bundles/common/enums/enums.js';
 
-import { FooterLinks, FooterMediaIcons, Link } from '../components';
+import { FooterLinks, FooterMediaIcons } from './components/components.js';
 import styles from './styles.module.scss';
 
 const Footer: React.FC = () => {

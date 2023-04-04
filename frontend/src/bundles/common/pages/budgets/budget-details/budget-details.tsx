@@ -27,15 +27,7 @@ const getBudget = {
     spent: 12_500,
     startDate: 'April 22, 2023',
     recurrence: 'monthly',
-    categories: [
-        {
-            id: '6b6510e3-7bd9-4952-9db4-e97a03dce2f6',
-            name: 'Food & Drink',
-            icon: 'burger-soda',
-            color: 'red',
-            type: 'expense',
-        },
-    ],
+    categories: ['81b40a68-ebb8-4754-aa06-d9bc25a40a7e'],
     currency: 'USD',
 };
 
@@ -172,7 +164,7 @@ const BudgetDetails = (): JSX.Element => {
                             <BudgetModal
                                 isShown={active}
                                 onClose={handleCancel}
-                                budget={budget}
+                                // budget={budget}
                             />
                         </div>
                     </div>

@@ -1,12 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type BudgetGetAllResponseDto } from '~/bundles/budgets/budgets.js';
+import {
+    type BudgetCreateRequestDto,
+    type BudgetResponseDto,
+} from '~/bundles/budgets/budgets.js';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
 import { name as sliceName } from './slice.js';
 
 const loadAll = createAsyncThunk<
-    BudgetGetAllResponseDto,
+    BudgetResponseDto[],
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/load-all`, async (_, { extra }) => {
@@ -15,4 +18,16 @@ const loadAll = createAsyncThunk<
     return await budgetsApi.getAll();
 });
 
-export { loadAll };
+const create = createAsyncThunk<
+    Promise<void>,
+    BudgetCreateRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/create`, async (budgetsPayload, { extra, dispatch }) => {
+    const { budgetsApi } = extra;
+
+    await budgetsApi.createBudget(budgetsPayload);
+
+    await dispatch(loadAll());
+});
+
+export { create, loadAll };

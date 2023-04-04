@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 
+import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
+import { actions as budgetsActions } from '~/bundles/budgets/store';
 import {
     BaseModal,
     Button,
@@ -8,7 +10,7 @@ import {
 } from '~/bundles/common/components/components';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks';
 
 import {
     RenderCurrency,
@@ -42,6 +44,7 @@ const BudgetModal = ({
     onClose,
     budget,
 }: BudgetModalProperties): JSX.Element => {
+    const dispatch = useAppDispatch();
     const { control, errors, handleSubmit, trigger } = useAppForm({
         defaultValues: budget ?? {
             name: '',
@@ -53,18 +56,25 @@ const BudgetModal = ({
         },
     });
 
-    const handleBudgetSubmit = useCallback((formData: FormData): void => {
-        // eslint-disable-next-line no-console
-        console.log(formData);
-    }, []);
+    const handleBudgetSubmit = useCallback(
+        (formData: FormData): void => {
+            void dispatch(
+                budgetsActions.create(
+                    formData as unknown as BudgetCreateRequestDto,
+                ),
+            );
+        },
+        [dispatch],
+    );
 
     const handleFormSubmit = useCallback(
         (event: React.BaseSyntheticEvent): void => {
             event.preventDefault();
             void trigger();
             void handleSubmit(handleBudgetSubmit)(event);
+            onClose();
         },
-        [handleSubmit, handleBudgetSubmit, trigger],
+        [trigger, handleSubmit, handleBudgetSubmit, onClose],
     );
 
     return (

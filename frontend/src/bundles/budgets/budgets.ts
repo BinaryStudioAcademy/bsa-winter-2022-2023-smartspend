@@ -12,6 +12,7 @@ const budgetsApi = new BudgetsApi({
 
 export { budgetsApi };
 export {
+    type BudgetCreateRequestDto,
     type BudgetGetAllResponseDto,
     type BudgetResponseDto,
 } from 'shared/build/index.js';

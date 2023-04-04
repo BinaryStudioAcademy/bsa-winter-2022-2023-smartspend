@@ -1,4 +1,6 @@
-import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
+import { Gender } from 'shared/build';
+
+import { Dropdown } from '~/bundles/common/components/dropdown/components';
 import { Input } from '~/bundles/common/components/input/input';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
@@ -23,8 +25,8 @@ const language = [
 ];
 
 const sex = [
-    { value: 'Male', name: 'Male' },
-    { value: 'Female', name: 'Female' },
+    { value: Gender.MALE, name: Gender.MALE },
+    { value: Gender.FEMALE, name: Gender.FEMALE },
 ];
 
 const SettingsForm: React.FC = () => {
@@ -32,11 +34,31 @@ const SettingsForm: React.FC = () => {
         defaultValues: mockData,
     });
 
+    /*    const dispatch = useAppDispatch();*/
+
     const newName = useFormController({ name: 'firstName', control }).field
         .value;
     const newSurname = useFormController({ name: 'lastName', control }).field
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
+
+    /*const { userProfile } = useAppSelector((state) => ({
+        userProfile: state.users.userProfile,
+    }));
+    const handlePressMe = async (): Promise<void> => {
+        await dispatch(
+            updateUser({
+                email: 'string',
+                firstName: 'string',
+                lastName: 'string',
+                sex: Gender.MALE,
+                dateOfBirth: 'string',
+                language: 'string',
+                currency: 'string',
+            }),
+        );
+    };*/
+
     const isChange = (): boolean => {
         const { firstName, lastName, email, language, currency, sex } =
             mockData;
@@ -88,55 +110,57 @@ const SettingsForm: React.FC = () => {
     );
 
     return (
-        <form className={styles.form}>
-            <AvatarContainer />
-            <Input
-                type={InputType.TEXT}
-                label="First name"
-                placeholder="Enter your name"
-                name="firstName"
-                control={control}
-                errors={errors}
-            />
-            <Input
-                type={InputType.TEXT}
-                label="Last name"
-                placeholder="Enter your surname"
-                name="lastName"
-                control={control}
-                errors={errors}
-            />
-            <Dropdown
-                data={sex}
-                handleChange={handleDropdownChangeSex}
-                selectedOption={selectedSingleSex}
-                label="Sex"
-            />
-            <Input
-                type={InputType.EMAIL}
-                label="E-mail address"
-                placeholder="Enter your email"
-                name="email"
-                control={control}
-                errors={errors}
-            />
-            <Title>Account Settings</Title>
-            <Dropdown
-                data={currency}
-                handleChange={handleDropdownChangeCurrency}
-                selectedOption={selectedSingleCurrency}
-                label="Account currency"
-            />
-            <Dropdown
-                data={language}
-                handleChange={handleDropdownChangeLanguage}
-                selectedOption={selectedSingleLanguage}
-                label="Language"
-            />
-            <SubmitButton isChange={isChange()}>
-                Update My Settings
-            </SubmitButton>
-        </form>
+        <>
+            <form className={styles.form}>
+                <AvatarContainer />
+                <Input
+                    type={InputType.TEXT}
+                    label="First name"
+                    placeholder="Enter your name"
+                    name="firstName"
+                    control={control}
+                    errors={errors}
+                />
+                <Input
+                    type={InputType.TEXT}
+                    label="Last name"
+                    placeholder="Enter your surname"
+                    name="lastName"
+                    control={control}
+                    errors={errors}
+                />
+                <Dropdown
+                    data={sex}
+                    handleChange={handleDropdownChangeSex}
+                    selectedOption={selectedSingleSex}
+                    label="Sex"
+                />
+                <Input
+                    type={InputType.EMAIL}
+                    label="E-mail address"
+                    placeholder="Enter your email"
+                    name="email"
+                    control={control}
+                    errors={errors}
+                />
+                <Title>Account Settings</Title>
+                <Dropdown
+                    data={currency}
+                    handleChange={handleDropdownChangeCurrency}
+                    selectedOption={selectedSingleCurrency}
+                    label="Account currency"
+                />
+                <Dropdown
+                    data={language}
+                    handleChange={handleDropdownChangeLanguage}
+                    selectedOption={selectedSingleLanguage}
+                    label="Language"
+                />
+                <SubmitButton isChange={isChange()}>
+                    Update My Settings
+                </SubmitButton>
+            </form>
+        </>
     );
 };
 

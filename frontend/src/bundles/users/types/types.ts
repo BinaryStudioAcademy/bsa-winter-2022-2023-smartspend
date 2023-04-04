@@ -7,4 +7,6 @@ export {
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
+    type UserUpdateRequestDto,
+    type UserUpdateResponseDto,
 } from 'shared/build/index.js';

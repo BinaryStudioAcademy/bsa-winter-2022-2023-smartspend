@@ -11,7 +11,7 @@ import {
     SecondStepPart,
     SubscriptionPart,
     ThirdStepPart,
-} from './components/components';
+} from './components/components.js';
 import styles from './styles.module.scss';
 
 const Landing: React.FC = () => {

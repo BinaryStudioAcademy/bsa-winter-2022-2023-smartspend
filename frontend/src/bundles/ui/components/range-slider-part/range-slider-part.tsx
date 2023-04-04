@@ -1,4 +1,4 @@
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 import { CodeHighlight, RangeSlider } from '../components';
 

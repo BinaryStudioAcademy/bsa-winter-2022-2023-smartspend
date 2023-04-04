@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
-import { variantStyleMap } from '../../enums/enums.js';
+import { variantStyleMap } from '~/bundles/common/enums/enums.js';
+
 import styles from './styles.module.scss';
 
 type Properties = {

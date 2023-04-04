@@ -4,6 +4,7 @@ import {
     faArrowUp,
     faChartSimple,
     faChevronDown,
+    faChevronUp,
     faDollarSign,
     faPiggyBank,
     faPlus,
@@ -11,11 +12,12 @@ import {
 
 const iconProvider = {
     faChevronDown,
-    faArrowDown,
-    faArrowUp,
+    faChevronUp,
     faEye,
     faEyeSlash,
     faPlus,
+    faArrowDown,
+    faArrowUp,
     faChartSimple,
     faPiggyBank,
     faDollarSign,

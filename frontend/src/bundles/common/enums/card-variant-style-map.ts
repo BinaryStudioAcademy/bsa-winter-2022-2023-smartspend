@@ -1,5 +1,5 @@
 import styles from '../components/card-total/styles.module.scss';
-import { CardVariant } from './enums';
+import { CardVariant } from './enums.js';
 
 const variantStyleMap: Record<string, string> = {
     [CardVariant.WHITE]: styles.white,

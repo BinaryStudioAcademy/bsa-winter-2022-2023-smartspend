@@ -7,8 +7,10 @@ import {
 import { type UserService } from '~/bundles/users/user.service.js';
 import { ExceptionMessage } from '~/common/enums/enums.js';
 import { HttpError } from '~/common/exceptions/exceptions.js';
+import { getTemplate } from '~/common/helpers/helpers.js';
 import { HttpCode } from '~/common/http/enums/enums.js';
 import { type CryptService } from '~/common/services/crypt/crypt.service.js';
+import { emailService } from '~/common/services/services.js';
 import { type TokenService } from '~/common/services/token/token.service.js';
 
 type User = {
@@ -37,12 +39,31 @@ class AuthService {
         const isVerifyUser = await this.verifySignUpCredentials(userRequestDto);
         if (isVerifyUser) {
             const newUser = await this.userService.create(userRequestDto);
-            const { id } = newUser.toObject();
+            const { id, email } = newUser.toObject();
             const token = this.tokenService.createToken({ id });
+            void this.sendAfterSignUpEmail(email);
             return {
                 token,
             };
         }
+    }
+
+    private async sendAfterSignUpEmail(email: string): Promise<void> {
+        const htmlToSend = getTemplate({
+            name: 'sign-up-email-template',
+            context: {
+                title: 'SmartSpend',
+                dashboardLink: 'https://smartspend.netlify.app/dashboard',
+                logoLink:
+                    'https://i.gyazo.com/c708228fb8c0795f19eb5a37666f100c.png',
+            },
+        });
+        await emailService.sendEmail({
+            to: email,
+            subject: 'Welcome to SmartSpend',
+            text: 'Welcome to SmartSpend',
+            html: htmlToSend,
+        });
     }
 
     public async getUserByToken(token: string): Promise<User | undefined> {

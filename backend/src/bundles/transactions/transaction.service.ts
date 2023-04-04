@@ -21,8 +21,12 @@ class TransactionService {
         return await this.transactionRepository.find(payload);
     }
 
-    public async findAll(): Promise<TransactionGetAllResponseDto> {
-        const items = await this.transactionRepository.findAllTransactions();
+    public async findAll(
+        ownerId: string,
+    ): Promise<TransactionGetAllResponseDto> {
+        const items = await this.transactionRepository.findAllTransactions(
+            ownerId,
+        );
 
         return {
             items: items.map((it) => it.toObject()),
@@ -31,6 +35,7 @@ class TransactionService {
 
     public async create(
         payload: TransactionCreateRequestDto,
+        userId: string,
     ): Promise<TransactionGetAllItemResponseDto> {
         const transaction = await this.transactionRepository.createTransaction(
             TransactionEntity.initializeNew({
@@ -40,6 +45,7 @@ class TransactionService {
                 label: payload.label,
                 amount: payload.amount,
                 currencyId: payload.currencyId,
+                ownerId: userId,
             }),
         );
 
@@ -49,9 +55,14 @@ class TransactionService {
     public async update(
         id: string,
         payload: TransactionUpdatePayloadDto,
+        ownerId: string,
     ): Promise<TransactionGetAllItemResponseDto | undefined> {
         const updatedTransaction =
-            await this.transactionRepository.updateTransaction(id, payload);
+            await this.transactionRepository.updateTransaction(
+                id,
+                payload,
+                ownerId,
+            );
 
         if (!updatedTransaction) {
             throw new Error(TransactionValidationMessage.TRANSACTION_NOT_FOUND);
@@ -60,9 +71,12 @@ class TransactionService {
         return updatedTransaction.toObject();
     }
 
-    public async delete(id: string): Promise<TransactionEntity | undefined> {
+    public async delete(
+        id: string,
+        ownerId: string,
+    ): Promise<TransactionEntity | undefined> {
         const deletedTransaction =
-            await this.transactionRepository.deleteTransaction(id);
+            await this.transactionRepository.deleteTransaction(id, ownerId);
 
         if (!deletedTransaction) {
             throw new Error(TransactionValidationMessage.TRANSACTION_NOT_FOUND);

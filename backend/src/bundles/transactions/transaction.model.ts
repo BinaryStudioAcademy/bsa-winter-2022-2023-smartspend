@@ -19,6 +19,8 @@ class TransactionModel extends AbstractModel {
 
     public 'currencyId': string;
 
+    public 'ownerId': string;
+
     public static override get tableName(): string {
         return DatabaseTableName.TRANSACTIONS;
     }

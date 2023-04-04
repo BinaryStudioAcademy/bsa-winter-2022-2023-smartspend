@@ -1,4 +1,6 @@
 // import { useLocation } from 'react-router-dom';
+import classNames from 'classnames';
+
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
@@ -148,7 +150,7 @@ const BudgetDetails = (): JSX.Element => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.contentWrapper}>
+            <div className={classNames(styles.contentWrapper, 'container')}>
                 <div className={styles.calendarWrapper}>
                     <Calendar isRangeCalendar={true} />
                 </div>
@@ -239,7 +241,9 @@ const BudgetDetails = (): JSX.Element => {
                         />
                     </div>
                 </div>
-                <TransactionTable transactions={transactionData} />
+                <div className={styles.transactionTable}>
+                    <TransactionTable transactions={transactionData} />
+                </div>
             </div>
         </div>
     );

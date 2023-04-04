@@ -20,6 +20,8 @@ export {
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
+    type UserUpdateRequestDto,
+    type UserUpdateResponseDto,
 } from './types/types.js';
 export {
     userSignInValidationSchema,

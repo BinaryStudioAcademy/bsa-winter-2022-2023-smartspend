@@ -1,4 +1,4 @@
-import React from 'react';
+import { Gender } from 'shared/build';
 
 import { Button } from '~/bundles/common/components/button/button';
 import { Calendar, Icon } from '~/bundles/common/components/components';

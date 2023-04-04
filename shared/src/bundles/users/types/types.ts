@@ -1,7 +1,7 @@
 export { type UpdateRequestDto } from './update-request-dto';
 export { type UserGetAllItemResponseDto } from './user-get-all-item-response-dto.type.js';
 export { type UserGetAllResponseDto } from './user-get-all-response-dto.type.js';
-export { type UserProfileResponseDto }from './user-get-user-profile-response-dto.type.js';
+export { type UserProfileResponseDto } from './user-get-user-profile-response-dto.type.js';
 export { type UserLoadRequestDto } from './user-load-request-dto.type.js';
 export { type UserLoadResponseDto } from './user-load-response-dto.type.js';
 export { type UserSignInRequestDto } from './user-sign-in-request-dto.type.js';

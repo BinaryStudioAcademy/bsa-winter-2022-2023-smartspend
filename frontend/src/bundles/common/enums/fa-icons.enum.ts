@@ -6,7 +6,9 @@ enum FaIcons {
     FA_REGULAR = 'far',
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
-    CHART = 'chart-simple',
+    DASHBOARD = 'chart-simple',
+    BUDGET = 'piggy-bank',
+    TRANSACTION = 'dollar-sign',
 }
 
 export { FaIcons };

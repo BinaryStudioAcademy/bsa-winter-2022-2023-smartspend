@@ -4,6 +4,7 @@ import { UserSettingsTab } from './user-settings-tab';
 interface SettingsTabsData {
     title: string;
     to: string;
+    icon: string;
 }
 
 interface SettingsTabsProperties {

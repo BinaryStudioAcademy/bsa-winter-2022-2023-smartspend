@@ -55,9 +55,12 @@
 
     .tab {
         position: relative;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         width: 100%;
         height: 100%;
+        font-size: var(--font-size-caption);
     }
 
     .tabs .tab.active::after {
@@ -73,7 +76,6 @@
 
     .tab .icon {
         display: block;
-        margin-right: 10px;
         font-size: x-large;
     }
 

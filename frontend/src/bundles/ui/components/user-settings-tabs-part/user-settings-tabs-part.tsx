@@ -2,11 +2,11 @@ import { CodeHighlight, UserSettingsTabs } from '../components';
 import styles from './styles.module.scss';
 
 const userSettingsData = [
-    { title: 'Account', to: '/ui/' },
-    { title: 'All Categories', to: '/ui/categories' },
-    { title: 'Connected bank accounts', to: '/ui/accounts' },
-    { title: 'Support', to: '/ui/support' },
-    { title: 'Terms and Policies', to: '/ui/terms' },
+    { title: 'Account', to: '/ui/', icon: '' },
+    { title: 'All Categories', to: '/ui/categories', icon: '' },
+    { title: 'Connected bank accounts', to: '/ui/accounts', icon: '' },
+    { title: 'Support', to: '/ui/support', icon: '' },
+    { title: 'Terms and Policies', to: '/ui/terms', icon: '' },
 ];
 
 const codeExample = `

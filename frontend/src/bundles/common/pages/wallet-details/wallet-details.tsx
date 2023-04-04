@@ -3,10 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React from 'react';
 import { type MultiValue, type SingleValue } from 'react-select';
-import {
-    type CategoryGetAllItemResponseDto,
-    type CategoryGetAllResponseDto,
-} from 'shared/build/index.js';
 
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {

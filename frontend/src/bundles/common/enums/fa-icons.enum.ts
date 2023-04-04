@@ -7,6 +7,12 @@ enum FaIcons {
     FA_REGULAR = 'far',
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
+    MONEY_BILL = 'money-bill',
+    MONEY_BILLS = 'money-bills',
+    CAR = 'car',
+    PLANE = 'plane',
+    BURGER = 'burger',
+    GIFTS = 'gifts',
 }
 
 export { FaIcons };

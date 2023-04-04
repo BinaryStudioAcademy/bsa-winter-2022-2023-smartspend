@@ -6,6 +6,7 @@ interface ITransaction {
     label: string;
     amount: number;
     currency: string;
+    note?: string;
 }
 
 export { type ITransaction };

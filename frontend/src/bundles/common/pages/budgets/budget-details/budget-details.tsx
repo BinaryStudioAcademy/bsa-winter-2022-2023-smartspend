@@ -1,6 +1,11 @@
 // import { useLocation } from 'react-router-dom';
+import classNames from 'classnames';
+
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
-import { Button } from '~/bundles/common/components/components';
+import {
+    Button,
+    TransactionTable,
+} from '~/bundles/common/components/components';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
@@ -24,9 +29,11 @@ const getBudget = {
     recurrence: 'monthly',
     categories: [
         {
-            value: 'John Doe',
-            name: 'John Doe',
-            image: 'https://placekitten.com/50/50',
+            id: '6b6510e3-7bd9-4952-9db4-e97a03dce2f6',
+            name: 'Food & Drink',
+            icon: 'burger-soda',
+            color: 'red',
+            type: 'expense',
         },
     ],
     currency: 'USD',
@@ -47,6 +54,89 @@ const BudgetDetails = (): JSX.Element => {
             color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
         },
     ];
+    const transactionData = [
+        {
+            id: '1',
+            category: 'Food',
+            name: 'faBagShopping',
+            date: '2022-03-23',
+            label: 'Supermarket',
+            amount: -35,
+            currency: '$',
+        },
+        {
+            id: '2',
+            category: 'Transport',
+            name: 'faCarAlt',
+            date: '2022-03-23',
+            label: 'Gas Station',
+            amount: -50,
+            currency: '$',
+        },
+        {
+            id: '3',
+            category: 'Shopping',
+            name: 'faStoreAltSlash',
+            date: '2022-04-22',
+            label: 'Clothing Store',
+            amount: 120,
+            currency: '$',
+        },
+        {
+            id: '4',
+            category: 'Food',
+            name: 'faBowlFood',
+            date: '2022-03-22',
+            label: 'Cafeteria',
+            amount: -10,
+            currency: '$',
+        },
+        {
+            id: '5',
+            category: 'Transport',
+            name: 'faCarAlt',
+            date: '2022-03-22',
+            label: 'Taxi Company',
+            amount: -25,
+            currency: '$',
+        },
+        {
+            id: '6',
+            category: 'Salary',
+            name: 'faMoneyBill',
+            date: '2023-03-30',
+            label: 'Electronics Store',
+            amount: 3500,
+            currency: '$',
+        },
+        {
+            id: '7',
+            category: 'Food',
+            name: 'faBowlFood',
+            date: '2024-03-21',
+            label: 'Restaurant',
+            amount: -60,
+            currency: '$',
+        },
+        {
+            id: '8',
+            category: 'Transport',
+            name: 'faCarAlt',
+            date: '2022-03-21',
+            label: 'Public Transport',
+            amount: -5,
+            currency: '$',
+        },
+        {
+            id: '9',
+            category: 'Salary',
+            name: 'faMoneyBill',
+            date: '2023-04-30',
+            label: 'Electronics Store',
+            amount: 3500,
+            currency: '$',
+        },
+    ];
     const budget = getBudget;
     const [active, setActive] = useState(false);
 
@@ -62,7 +152,7 @@ const BudgetDetails = (): JSX.Element => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.contentWrapper}>
+            <div className={classNames(styles.contentWrapper, 'container')}>
                 <div className={styles.calendarWrapper}>
                     <Calendar isRangeCalendar={true} />
                 </div>
@@ -78,11 +168,13 @@ const BudgetDetails = (): JSX.Element => {
                         >
                             Edit budget
                         </Button>
-                        <EditBudgetModal
-                            isShown={active}
-                            onClose={handleCancel}
-                            budget={budget}
-                        />
+                        <div className={styles.modal}>
+                            <EditBudgetModal
+                                isShown={active}
+                                onClose={handleCancel}
+                                budget={budget}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className={styles.cardsWrapper}>
@@ -152,6 +244,9 @@ const BudgetDetails = (): JSX.Element => {
                             categories={doughnutData}
                         />
                     </div>
+                </div>
+                <div className={styles.transactionTable}>
+                    <TransactionTable transactions={transactionData} />
                 </div>
             </div>
         </div>

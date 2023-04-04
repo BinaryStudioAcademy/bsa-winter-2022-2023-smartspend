@@ -24,9 +24,7 @@ interface FormData {
     currency: string;
     recurrence: string;
     categories: {
-        value: string;
-        name?: string;
-        image?: string;
+        id: string;
     }[];
     startDate: string;
 }
@@ -62,7 +60,6 @@ const EditBudgetModal = ({
 
     return (
         <BaseModal
-            width={600}
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}

@@ -1,3 +1,4 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
     type ActionMeta,
     type MultiValue,
@@ -8,6 +9,10 @@ interface DataType {
     value: string;
     name?: string;
     image?: string;
+    icon?: IconProp;
+    color?: string;
+    type?: string;
+    id?: string;
 }
 
 type HandleMultiChange = (

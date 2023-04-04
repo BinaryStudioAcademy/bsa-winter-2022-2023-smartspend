@@ -10,7 +10,7 @@ import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type IService } from '~/common/interfaces/interfaces.js';
 import { cryptService } from '~/common/services/services.js';
 
-class UserService implements IService {
+class UserService implements Partial<IService> {
     private userRepository: UserRepository;
 
     public constructor(userRepository: UserRepository) {
@@ -63,8 +63,8 @@ class UserService implements IService {
         return updatedUser.toObject();
     }
 
-    public delete(): ReturnType<IService['delete']> {
-        return Promise.resolve(true);
+    public async deleteUser(id: string): Promise<UserEntity | undefined> {
+        return await this.userRepository.deleteUser(id);
     }
 }
 

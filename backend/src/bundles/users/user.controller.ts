@@ -11,6 +11,7 @@ import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
+import { type UserSignInResponseDto } from './types/types.js';
 
 /**
  * @swagger
@@ -47,6 +48,14 @@ class UserController extends Controller {
             method: 'PUT',
             handler: (options) => {
                 return this.update(options as UpdateRequestDto);
+            },
+        });
+
+        this.addRoute({
+            path: UsersApiPath.ROOT,
+            method: 'DELETE',
+            handler: (options) => {
+                return this.delete(options as UserSignInResponseDto);
             },
         });
     }
@@ -139,6 +148,33 @@ class UserController extends Controller {
         return {
             status: HttpCode.OK,
             payload: updatedUser,
+        };
+    }
+
+    /**
+     * @swagger
+     * /users/:
+     *    delete:
+     *      tags:
+     *       - Users
+     *      description: Deletes user
+     *      responses:
+     *        200:
+     *          description: Successful delete category operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     */
+
+    private async delete(
+        request: UserSignInResponseDto,
+    ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(request.token);
+
+        return {
+            status: HttpCode.OK,
+            payload: await this.userService.deleteUser(userId),
         };
     }
 }

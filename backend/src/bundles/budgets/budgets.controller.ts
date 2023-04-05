@@ -1,4 +1,5 @@
 import { type BudgetService } from '~/bundles/budgets/budgets.service.js';
+import { type CategoryEntity } from '~/bundles/categories/category.entity.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -10,10 +11,10 @@ import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { budgetCategoriesService } from '../budgets-categories/budgets-categories.js';
+import { categoryService } from '../categories/categories.js';
 import { BudgetsApiPath, BudgetValidationMessage } from './enums/enums.js';
 import {
     type BudgetFindRequestDto,
-    type BudgetGetAllCategoriesResponseDto,
     type TokenDeleteRequestDto,
     type TokenRequestDto,
 } from './types/types.js';
@@ -21,47 +22,44 @@ import {
 /**
  * @swagger
  * components:
- *    schemas:
- *      Budget:
- *        type: object
- *        required:
- *          - name
- *          - amount
- *          - currency
- *          - recurrence
- *          - categories
- *        properties:
- *          id:
- *            type: string
- *            format: uuid
- *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
- *          name:
- *            type: string
- *            format: text
- *          amount:
- *            type: number
- *            format: text
- *          currency:
- *            type: string
- *            format: text
- *            example: USD
- *          recurrence:
- *            type: string
- *            format: text
- *            example: WEEKLY
- *          startDate:
- *              type: Date
- *              format: IsoString
- *              example: "2023-03-29T12:48:16.424Z"
- *          categoriesId:
- *            type: array
- *            format: string
- *            example: ["4b7908cc-5581-4d74-8910-7f2bba8cb49b"]
- *      Budgets:
- *        type: array
- *            items:
- *              $ref: '#/components/schemas/Budget'
- *
+ *   schemas:
+ *     Budget:
+ *       type: object
+ *       required:
+ *         - name
+ *         - amount
+ *         - currency
+ *         - recurrence
+ *         - categories
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+ *         name:
+ *           type: string
+ *           format: text
+ *         amount:
+ *           type: number
+ *           format: text
+ *         currency:
+ *           type: string
+ *           format: text
+ *           example: USD
+ *         recurrence:
+ *           type: string
+ *           format: text
+ *           example: WEEKLY
+ *         startDate:
+ *           type: Date
+ *           format: IsoString
+ *           example: "2023-03-29T12:48:16.424Z"
+ *         categories:
+ *           type: array
+ *     Budgets:
+ *       type: array
+ *       items:
+ *         $ref: '#/components/schemas/Budget'
  */
 
 class BudgetController extends Controller {
@@ -135,7 +133,7 @@ class BudgetController extends Controller {
         const userId = getUserIdFromToken(token);
         const budgets = await this.budgetService.findAllBudget(userId);
 
-        const response: BudgetGetAllCategoriesResponseDto[] = [];
+        const response: unknown[] = [];
 
         for (const item of budgets.items) {
             const category =
@@ -144,7 +142,12 @@ class BudgetController extends Controller {
             for (const item of category.items) {
                 categoriesId.push(item.categoryId);
             }
-            response.push({ ...item, categoriesId });
+            const categories: CategoryEntity[] = [];
+            for (const item of categoriesId) {
+                const result = await categoryService.findById(item);
+                categories.push(result as CategoryEntity);
+            }
+            response.push({ ...item, categories });
         }
         return {
             status: HttpCode.OK,
@@ -191,9 +194,14 @@ class BudgetController extends Controller {
         for (const item of category.items) {
             categoriesId.push(item.categoryId);
         }
+        const categories: CategoryEntity[] = [];
+        for (const item of categoriesId) {
+            const result = await categoryService.findById(item);
+            categories.push(result as CategoryEntity);
+        }
         return {
             status: HttpCode.OK,
-            payload: { ...budget, categoriesId },
+            payload: { ...budget, categories },
         };
     }
 
@@ -260,17 +268,23 @@ class BudgetController extends Controller {
             startDate: request.body.startDate,
         };
         const budget = await this.budgetService.createBudget(payload, userId);
-        const categories = await budgetCategoriesService.createBudgetCategory(
+        const categoriesId = await budgetCategoriesService.createBudgetCategory(
             request.body.categories,
             budget.id,
         );
-        const categoriesId: string[] = [];
-        for (const item of categories) {
-            categoriesId.push(item.categoryId);
+        const categories: CategoryEntity[] = [];
+        const category: string[] = [];
+        for (const item of categoriesId) {
+            category.push(item.categoryId);
         }
+        for (const item of category) {
+            const result = await categoryService.findById(item);
+            categories.push(result as CategoryEntity);
+        }
+
         return {
             status: HttpCode.OK,
-            payload: { ...budget, categoriesId },
+            payload: { ...budget, categories },
         };
     }
 
@@ -386,17 +400,22 @@ class BudgetController extends Controller {
             throw new Error(BudgetValidationMessage.BUDGET_NOT_FOUND);
         }
         await budgetCategoriesService.deleteBudgetCategory(request.params.id);
-        const categories = await budgetCategoriesService.createBudgetCategory(
+        const category = await budgetCategoriesService.createBudgetCategory(
             request.body.categories,
             request.params.id,
         );
         const categoriesId: string[] = [];
-        for (const item of categories) {
+        for (const item of category) {
             categoriesId.push(item.categoryId);
+        }
+        const categories: CategoryEntity[] = [];
+        for (const item of categoriesId) {
+            const result = await categoryService.findById(item);
+            categories.push(result as CategoryEntity);
         }
         return {
             status: HttpCode.OK,
-            payload: { ...updatedBudget, categoriesId },
+            payload: { ...updatedBudget, categories },
         };
     }
 

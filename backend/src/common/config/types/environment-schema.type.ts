@@ -16,6 +16,11 @@ type EnvironmentSchema = {
         SECRET: string;
         EXPIRES_IN: string;
     };
+    GYAZO: {
+        FILE_SIZE: number;
+        UPLOAD_API_URL: string;
+        ACCESS_TOKEN: string;
+    };
 };
 
 export { type EnvironmentSchema };

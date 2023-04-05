@@ -61,18 +61,16 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         if (!user.userProfile) {
             await user
                 .$relatedQuery('userProfile')
-                .insert({ ...data.userProfile })
+                .insert({ ...data })
                 .returning('*')
                 .execute();
         }
 
         await user
             .$relatedQuery('userProfile')
-            .update({ ...data.userProfile })
+            .update({ ...data })
             .returning('*')
             .execute();
-
-        await user.$query().update(data).returning('*').execute();
 
         return UserEntity.initialize(user);
     }

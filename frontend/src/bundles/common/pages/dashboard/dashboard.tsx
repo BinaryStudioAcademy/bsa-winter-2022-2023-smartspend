@@ -22,6 +22,7 @@ import {
     CardVariant,
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
+import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppDocumentTitle,
@@ -111,6 +112,7 @@ const Dashboard: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const { wallets } = useAppSelector((state) => state.wallets);
+    const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
@@ -166,7 +168,7 @@ const Dashboard: React.FC = () => {
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {wallets.map(({ id, name, balance }) => (
+                        {wallets.map(({ id, name, balance, currencyId }) => (
                             <Link
                                 to={`/wallet/${id}/transaction`}
                                 key={id}
@@ -177,6 +179,10 @@ const Dashboard: React.FC = () => {
                                     size={WalletCardSize.MEDIUM}
                                     balance_value={balance}
                                     wallet_type={'Balance'}
+                                    currency={
+                                        findCurrencyById(currencies, currencyId)
+                                            ?.symbol
+                                    }
                                 />
                             </Link>
                         ))}

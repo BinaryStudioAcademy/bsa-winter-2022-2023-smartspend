@@ -41,7 +41,7 @@ class UserController extends Controller {
         });
 
         this.addRoute({
-            path: UsersApiPath.GET_ONE_USER,
+            path: UsersApiPath.GET_USER,
             method: 'GET',
             handler: (options) => this.find({ token: options.token as string }),
         });
@@ -142,7 +142,7 @@ class UserController extends Controller {
         const userId = getUserIdFromToken(options.token);
         return {
             status: HttpCode.OK,
-            payload: await this.userService.findUserInfo(userId),
+            payload: await this.userService.getCurrentUserDetails(userId),
         };
     }
 

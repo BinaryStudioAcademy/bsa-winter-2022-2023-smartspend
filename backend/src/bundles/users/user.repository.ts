@@ -22,7 +22,7 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         return UserEntity.initialize(user);
     }
 
-    public async findUserInfo(
+    public async getCurrentUserDetails(
         userId: string,
     ): Promise<UserProfileResponseDto | undefined> {
         const user = await this.userModel

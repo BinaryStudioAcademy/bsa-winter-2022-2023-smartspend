@@ -30,10 +30,10 @@ class UserService implements IService {
         return await this.find({ id });
     }
 
-    public async findUserInfo(
+    public async getCurrentUserDetails(
         id: string,
     ): Promise<UserProfileResponseDto | undefined> {
-        return await this.userRepository.findUserInfo(id);
+        return await this.userRepository.getCurrentUserDetails(id);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {

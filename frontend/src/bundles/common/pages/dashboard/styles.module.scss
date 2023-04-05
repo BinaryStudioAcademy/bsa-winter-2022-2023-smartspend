@@ -25,6 +25,10 @@
     margin: 0;
 }
 
+.dropdownLabel {
+    color: var(--color-gray-200);
+}
+
 .wallets {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -63,6 +67,7 @@
 
 .resetButton {
     padding-top: 25px;
+    font-weight: var(--font-weight-400);
 }
 
 .title {

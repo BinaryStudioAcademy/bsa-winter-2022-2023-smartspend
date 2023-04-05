@@ -9,6 +9,7 @@ import {
     CardTotal,
     Chart,
     DoughnutChart,
+    Dropdown,
     Input,
     LineChart,
     NewWalletModal,
@@ -25,11 +26,14 @@ import {
     useAppForm,
     useAppSelector,
 } from '~/bundles/common/hooks/hooks.js';
+import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import {
     barChartData,
+    byCategory,
+    byWallets,
     categories,
     lineChartData,
     mockSliderData,
@@ -131,6 +135,27 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
     }, [dispatch]);
+    const [wallet, setWallet] = useState<DataType>(byWallets[0]);
+
+    const handleDropdownByWallets = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setWallet(selectedOption);
+            }
+        },
+        [],
+    );
+
+    const [category, setCategory] = useState<DataType>(byCategory[0]);
+
+    const handleDropdownByCategory = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setCategory(selectedOption);
+            }
+        },
+        [],
+    );
 
     return (
         <div className={styles.container}>
@@ -193,21 +218,19 @@ const Dashboard: React.FC = () => {
                             </div>
                         </div>
                         <div className={styles.filters}>
-                            <Input
-                                labelClassName={styles.filterLabel}
-                                control={control}
-                                errors={errors}
-                                label={'By wallet'}
-                                name={'wallet'}
-                                placeholder={'Cash wallet'}
+                            <Dropdown
+                                data={byWallets}
+                                handleChange={handleDropdownByWallets}
+                                selectedOption={wallet}
+                                label="By wallet"
+                                labelClassName={styles.dropdownLabel}
                             />
-                            <Input
-                                labelClassName={styles.filterLabel}
-                                control={control}
-                                errors={errors}
-                                label={'All Categories'}
-                                name={'category'}
-                                placeholder={'Filter by specific name'}
+                            <Dropdown
+                                data={byCategory}
+                                handleChange={handleDropdownByCategory}
+                                selectedOption={category}
+                                label="By Categories"
+                                labelClassName={styles.dropdownLabel}
                             />
                             <Input
                                 labelClassName={styles.filterLabel}

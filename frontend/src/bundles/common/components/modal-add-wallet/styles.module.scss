@@ -31,11 +31,12 @@
 .button {
     height: 34px;
     color: var(--color-blue-300);
+    font: var(--font-family);
     font-weight: bold;
     font-size: var(--font-size-level-4-heading);
     background-color: var(--color-disable);
     border: none;
-    border-radius: var(--b-1);
+    border-radius: var(--b-2);
     transition: background-color 0.6s ease, color 0.2s ease;
 }
 

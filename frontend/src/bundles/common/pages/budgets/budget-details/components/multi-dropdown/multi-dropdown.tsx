@@ -1,3 +1,4 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
 import { type MultiValue, type SingleValue } from 'react-select';
@@ -128,7 +129,7 @@ const RenderMultiDropdown = ({
                             color: '#fff',
                         }}
                     >
-                        <FontAwesomeIcon icon={data.icon} />
+                        <FontAwesomeIcon icon={data.icon as IconProp} />
                     </span>
                 )}
                 {data.icon && <span className={styles.name}>{data.name}</span>}

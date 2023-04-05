@@ -6,6 +6,7 @@ export { CardTotal } from './card-total/card-total.js';
 export { DoughnutChart } from './doughnut-chart/doughnut-chart.js';
 export { Dropdown, MultiDropdown } from './dropdown/components.js';
 export { Header } from './header/header.js';
+export { Icon } from './icon/icon.js';
 export { Input } from './input/input.js';
 export { LineChart } from './line-chart/line-chart.js';
 export { Link } from './link/link.js';

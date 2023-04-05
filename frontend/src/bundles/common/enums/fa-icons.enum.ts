@@ -13,6 +13,7 @@ enum FaIcons {
     PLANE = 'plane',
     BURGER = 'burger',
     GIFTS = 'gifts',
+    TRASH_CAN = 'trash-can',
 }
 
 export { FaIcons };

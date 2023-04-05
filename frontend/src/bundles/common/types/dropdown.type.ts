@@ -9,7 +9,7 @@ interface DataType {
     value: string;
     name?: string;
     image?: string;
-    icon?: IconProp;
+    icon?: IconProp | string;
     color?: string;
     type?: string;
     id?: string;

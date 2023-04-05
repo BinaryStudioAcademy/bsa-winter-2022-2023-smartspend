@@ -10,6 +10,8 @@ import { reducer as authReducer } from '~/bundles/auth/store/';
 import { budgetsApi } from '~/bundles/budgets/budgets.js';
 import { reducer as budgetsReducer } from '~/bundles/budgets/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
+import { categoriesApi } from '~/bundles/common/stores/categories/categories.js';
+import { reducer as categoriesReducer } from '~/bundles/common/stores/categories/slice.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { type IConfig } from '~/framework/config/config.js';
@@ -21,12 +23,14 @@ type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
     budgets: ReturnType<typeof budgetsReducer>;
+    categories: ReturnType<typeof categoriesReducer>;
 };
 
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     budgetsApi: typeof budgetsApi;
+    categoriesApi: typeof categoriesApi;
     notification: typeof notification;
     storage: typeof storage;
 };
@@ -49,6 +53,7 @@ class Store {
                 auth: authReducer,
                 users: usersReducer,
                 budgets: budgetsReducer,
+                categories: categoriesReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 return [
@@ -68,6 +73,7 @@ class Store {
             authApi,
             userApi,
             budgetsApi,
+            categoriesApi,
             notification,
             storage,
         };

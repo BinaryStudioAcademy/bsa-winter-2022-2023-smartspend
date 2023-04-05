@@ -13,8 +13,15 @@ import {
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
-import { ButtonVariant, CardVariant } from '~/bundles/common/enums/enums.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    AppDocumentTitles,
+    ButtonVariant,
+    CardVariant,
+} from '~/bundles/common/enums/enums.js';
+import {
+    useAppDocumentTitle,
+    useAppForm,
+} from '~/bundles/common/hooks/hooks.js';
 import { type DataType } from '~/bundles/common/types/types';
 import { WalletCardSize } from '~/bundles/landing/enums/enums';
 
@@ -85,6 +92,7 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
 };
 
 const Dashboard: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });

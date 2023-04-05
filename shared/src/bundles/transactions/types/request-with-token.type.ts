@@ -1,7 +1,7 @@
 import {
     type TransactionCreateRequestDto,
     type TransactionFindRequestDto,
-} from './types';
+} from './types.js';
 
 type TokenRequestTransactionDto = {
     body: TransactionCreateRequestDto;

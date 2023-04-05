@@ -13,8 +13,8 @@ const transactionController = new TransactionController(
 );
 
 export { transactionController, transactionService };
-export { TransactionController } from './transaction.controller';
-export { TransactionEntity } from './transaction.entity';
-export { TransactionModel } from './transaction.model';
-export { TransactionRepository } from './transaction.repository';
-export { TransactionService } from './transaction.service';
+export { TransactionController } from './transaction.controller.js';
+export { TransactionEntity } from './transaction.entity.js';
+export { TransactionModel } from './transaction.model.js';
+export { TransactionRepository } from './transaction.repository.js';
+export { TransactionService } from './transaction.service.js';

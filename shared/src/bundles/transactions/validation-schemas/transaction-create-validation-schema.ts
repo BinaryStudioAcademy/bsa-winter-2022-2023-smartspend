@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { type TransactionCreateRequestDto } from '../types/types';
+import { type TransactionCreateRequestDto } from '../types/types.js';
 
 const createTransactionValidationSchema = joi.object<
     TransactionCreateRequestDto,

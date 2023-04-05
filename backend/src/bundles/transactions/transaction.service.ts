@@ -1,12 +1,15 @@
-import { TransactionValidationMessage } from './enums/enums';
-import { type TransactionRepository, TransactionEntity } from './transactions';
+import { TransactionValidationMessage } from './enums/enums.js';
+import {
+    type TransactionRepository,
+    TransactionEntity,
+} from './transactions.js';
 import {
     type TransactionCreateRequestDto,
     type TransactionFindRequestDto,
     type TransactionGetAllItemResponseDto,
     type TransactionGetAllResponseDto,
     type TransactionUpdatePayloadDto,
-} from './types/types';
+} from './types/types.js';
 
 class TransactionService {
     private transactionRepository: TransactionRepository;

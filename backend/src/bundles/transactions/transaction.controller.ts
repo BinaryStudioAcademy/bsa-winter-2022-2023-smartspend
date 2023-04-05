@@ -5,7 +5,7 @@
  *   description: API endpoints for transactions
  */
 
-import { ApiPath } from 'shared/build';
+import { ApiPath } from 'shared/build/index.js';
 
 import {
     type ApiHandlerResponse,
@@ -13,18 +13,18 @@ import {
 } from '~/common/controller/controller.js';
 import { getUserIdFromToken } from '~/common/helpers/get-id-from-token.helper.js';
 import { HttpCode } from '~/common/http/http.js';
-import { type ILogger } from '~/common/logger/logger';
+import { type ILogger } from '~/common/logger/logger.js';
 
 import {
     TransactionsApiPath,
     TransactionValidationMessage,
-} from './enums/enums';
-import { type TransactionService } from './transactions';
+} from './enums/enums.js';
+import { type TransactionService } from './transactions.js';
 import {
     type DeleteRequestTokenDto,
     type TokenRequestTransactionDto,
-} from './types/types';
-import { createTransactionValidationSchema } from './validation-schemas/validation-schemas';
+} from './types/types.js';
+import { createTransactionValidationSchema } from './validation-schemas/validation-schemas.js';
 
 /**
  * @swagger

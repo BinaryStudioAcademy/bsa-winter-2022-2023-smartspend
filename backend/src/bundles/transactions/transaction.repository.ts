@@ -1,9 +1,9 @@
 import { type TransactionUpdatePayloadDto } from 'shared/build/bundles/transactions/types/transaction-update-dto.type';
 
-import { type TransactionModel } from '~/bundles/transactions/transactions';
-import { type IRepository } from '~/common/interfaces/repository.interface';
+import { type TransactionModel } from '~/bundles/transactions/transactions.js';
+import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-import { TransactionEntity } from './transactions';
+import { TransactionEntity } from './transactions.js';
 
 class TransactionRepository implements Partial<IRepository> {
     private transactionModel: typeof TransactionModel;

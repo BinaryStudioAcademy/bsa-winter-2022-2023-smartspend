@@ -1,4 +1,4 @@
-import { type TransactionGetAllItemResponseDto } from './types';
+import { type TransactionGetAllItemResponseDto } from './types.js';
 
 type TransactionGetAllResponseDto = {
     items: TransactionGetAllItemResponseDto[];

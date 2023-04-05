@@ -1,4 +1,4 @@
-import { type IEntity } from '~/common/interfaces/entity.interface';
+import { type IEntity } from '~/common/interfaces/entity.interface.js';
 
 class TransactionEntity implements IEntity {
     private 'id': string | null;

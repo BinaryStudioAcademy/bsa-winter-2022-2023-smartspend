@@ -1,4 +1,4 @@
-import { type TransactionFindRequestDto } from './types';
+import { type TransactionFindRequestDto } from './types.js';
 
 type DeleteRequestTokenDto = {
     params: TransactionFindRequestDto;

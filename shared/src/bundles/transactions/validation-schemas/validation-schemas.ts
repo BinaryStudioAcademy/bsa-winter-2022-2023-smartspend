@@ -1,1 +1,1 @@
-export { createTransactionValidationSchema } from './transaction-create-validation-schema';
+export { createTransactionValidationSchema } from './transaction-create-validation-schema.js';

@@ -1,9 +1,9 @@
 import { logger } from '~/common/logger/logger.js';
 
-import { TransactionController } from './transaction.controller';
-import { TransactionModel } from './transaction.model';
-import { TransactionRepository } from './transaction.repository';
-import { TransactionService } from './transaction.service';
+import { TransactionController } from './transaction.controller.js';
+import { TransactionModel } from './transaction.model.js';
+import { TransactionRepository } from './transaction.repository.js';
+import { TransactionService } from './transaction.service.js';
 
 const transactionRepository = new TransactionRepository(TransactionModel);
 const transactionService = new TransactionService(transactionRepository);

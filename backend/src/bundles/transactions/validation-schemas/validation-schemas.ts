@@ -1,1 +1,1 @@
-export { createTransactionValidationSchema } from 'shared/build/bundles/transactions/validation-schemas/validation-schemas';
+export { createTransactionValidationSchema } from 'shared/build/index.js';

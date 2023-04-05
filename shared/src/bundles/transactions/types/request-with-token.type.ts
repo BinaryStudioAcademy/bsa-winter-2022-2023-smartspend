@@ -3,10 +3,10 @@ import {
     type TransactionFindRequestDto,
 } from './types';
 
-type TokenRequestDto = {
+type TokenRequestTransactionDto = {
     body: TransactionCreateRequestDto;
     params: TransactionFindRequestDto;
     token: string;
 };
 
-export { type TokenRequestDto };
+export { type TokenRequestTransactionDto };

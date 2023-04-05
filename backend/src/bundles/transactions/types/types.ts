@@ -1,9 +1,9 @@
 export {
     type DeleteRequestTokenDto,
-    type TokenRequestDto,
+    type TokenRequestTransactionDto,
     type TransactionCreateRequestDto,
     type TransactionFindRequestDto,
     type TransactionGetAllItemResponseDto,
     type TransactionGetAllResponseDto,
     type TransactionUpdatePayloadDto,
-} from 'shared/build/bundles/transactions/types/types';
+} from 'shared/build/index.js';

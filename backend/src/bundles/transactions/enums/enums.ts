@@ -1,2 +1,4 @@
-export { TransactionValidationMessage } from 'shared/build/bundles/transactions/enum/enums';
-export { TransactionsApiPath } from 'shared/build/bundles/transactions/enum/enums';
+export {
+    TransactionsApiPath,
+    TransactionValidationMessage,
+} from 'shared/build/index.js';

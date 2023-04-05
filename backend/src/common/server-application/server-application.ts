@@ -18,8 +18,8 @@ const apiV1 = new ServerAppApi(
     ...userController.routes,
     ...categoryController.routes,
     ...walletController.routes,
-    ...transactionController.routes,
     ...budgetController.routes,
+    ...transactionController.routes,
 );
 const serverApp = new ServerApp({
     config,

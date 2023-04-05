@@ -22,7 +22,7 @@ import {
 import { type TransactionService } from './transactions';
 import {
     type DeleteRequestTokenDto,
-    type TokenRequestDto,
+    type TokenRequestTransactionDto,
 } from './types/types';
 import { createTransactionValidationSchema } from './validation-schemas/validation-schemas';
 
@@ -103,7 +103,7 @@ class TransactionController extends Controller {
                 body: createTransactionValidationSchema,
             },
             handler: (options) => {
-                return this.create(options as TokenRequestDto);
+                return this.create(options as TokenRequestTransactionDto);
             },
         });
 
@@ -111,7 +111,7 @@ class TransactionController extends Controller {
             path: TransactionsApiPath.ROOT,
             method: 'PUT',
             handler: (options) => {
-                return this.update(options as TokenRequestDto);
+                return this.update(options as TokenRequestTransactionDto);
             },
         });
 
@@ -202,7 +202,7 @@ class TransactionController extends Controller {
      */
 
     private async create(
-        request: TokenRequestDto,
+        request: TokenRequestTransactionDto,
     ): Promise<ApiHandlerResponse> {
         if (!request.token) {
             throw new Error(TransactionValidationMessage.TOKEN_REQUIRE);
@@ -307,7 +307,7 @@ class TransactionController extends Controller {
      */
 
     private async update(
-        request: TokenRequestDto,
+        request: TokenRequestTransactionDto,
     ): Promise<ApiHandlerResponse> {
         if (!request.token) {
             throw new Error(TransactionValidationMessage.TOKEN_REQUIRE);

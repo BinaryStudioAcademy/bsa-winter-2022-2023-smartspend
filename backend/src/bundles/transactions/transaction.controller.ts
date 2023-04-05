@@ -26,6 +26,59 @@ import {
 } from './types/types';
 import { createTransactionValidationSchema } from './validation-schemas/validation-schemas';
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      Transaction:
+ *        type: object
+ *        required:
+ *          - category
+ *          - date
+ *          - note
+ *          - label
+ *          - amount
+ *          - currency
+ *          - ownerID
+ *        properties:
+ *          id:
+ *            type: string
+ *            format: uuid
+ *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+ *          category:
+ *            type: string
+ *            format: text
+ *          date:
+ *            type: date
+ *            format: text
+ *            example: 03/03/2023
+ *          note:
+ *            type: string
+ *            format: text
+ *            example: transaction note
+ *          label:
+ *            type: string
+ *            format: uuid
+ *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+ *          amount:
+ *            type: number
+ *            format: text
+ *            example: 1000
+ *          currency:
+ *            type: string
+ *            format: uuid
+ *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+ *          ownerId:
+ *            type: string
+ *            format: uuid
+ *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+ *      Transaction:
+ *        type: array
+ *        items:
+ *          $ref: '#/components/schemas/Transaction'
+ *
+ */
+
 class TransactionController extends Controller {
     private transactionService: TransactionService;
 
@@ -69,6 +122,23 @@ class TransactionController extends Controller {
         });
     }
 
+    /**
+     * @swagger
+     * /transactions:
+     *    get:
+     *      tags: [Transactions]
+     *      description: Returns an array of Transactions
+     *      security:
+     *       - bearerAuth: []
+     *      responses:
+     *        200:
+     *          description: Successful operation with an array of transaction
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Transactions'
+     */
+
     private async findAll(token: string): Promise<ApiHandlerResponse> {
         if (!token) {
             throw new Error(TransactionValidationMessage.TOKEN_REQUIRE);
@@ -79,6 +149,57 @@ class TransactionController extends Controller {
             payload: await this.transactionService.findAll(userId),
         };
     }
+
+    /**
+     * @swagger
+     * /transactions:
+     *   post:
+     *     tags: [Transaction]
+     *     description: Create transaction
+     *     security:
+     *       - bearerAuth: []
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               category:
+     *                 type: string
+     *                 format: text
+     *               date:
+     *                 type: date
+     *                 format: text
+     *                 example: 03/03/2023
+     *               note:
+     *                 type: string
+     *                 format: text
+     *                 example: transaction note
+     *               label:
+     *                 type: string
+     *                 format: uuid
+     *                 example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *               amount:
+     *                 type: float
+     *                 format: text
+     *                 example: 1000
+     *               currency:
+     *                 type: string
+     *                 format: uuid
+     *                 example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *               ownerId:
+     *                 type: string
+     *                 format: uuid
+     *                 example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *     responses:
+     *       201:
+     *         description: Successful transaction creation operation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Transaction'
+     */
 
     private async create(
         request: TokenRequestDto,
@@ -97,6 +218,94 @@ class TransactionController extends Controller {
         };
     }
 
+    /**
+     * @swagger
+     * /transactions/:
+     *   put:
+     *     tags: [Transactions]
+     *     summary: Update a transaction
+     *     description: Update a transaction's category, date, note, amount, label.
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - name: id
+     *         in: path
+     *         description: ID of the transaction to update.
+     *         required: true
+     *         schema:
+     *           type: string
+     *         example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               category:
+     *                 type: string
+     *                 format: text
+     *                 description: name of category
+     *               date:
+     *                 type: date
+     *                 format: text
+     *                 description: same date
+     *               note:
+     *                 type: string
+     *                 format: text
+     *                 description: Note for transaction
+     *               label:
+     *                 type: string
+     *                 format: uuid
+     *                 description: label id
+     *               amount:
+     *                 type: float
+     *                 format: text
+     *                 description: count
+     *               ownerId:
+     *                 type: string
+     *                 format: uuid
+     *                 description: Transaction owner Id
+     *     responses:
+     *       '200':
+     *         description: Transaction updated successfully.
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Transaction'
+     *     securitySchemes:
+     *       bearerAuth:
+     *         type: http
+     *         scheme: bearer
+     *         bearerFormat: JWT
+     * components:
+     *   schemas:
+     *     Transaction:
+     *       type: object
+     *       properties:
+     *         id:
+     *            type: string
+     *            format: uuid
+     *          category:
+     *            type: string
+     *            format: text
+     *          date:
+     *            type: date
+     *            format: text
+     *          note:
+     *            type: string
+     *            format: text
+     *          label:
+     *            type: string
+     *            format: uuid
+     *          amount:
+     *            type: number
+     *            format: text
+     *          ownerId:
+     *            type: string
+     *            format: uuid
+     */
+
     private async update(
         request: TokenRequestDto,
     ): Promise<ApiHandlerResponse> {
@@ -114,6 +323,31 @@ class TransactionController extends Controller {
             payload: updatedTransaction,
         };
     }
+
+    /**
+     * @swagger
+     * /transactions:
+     *    delete:
+     *      tags: [Transactions]
+     *      parameters:
+     *        - name: id
+     *          in: path
+     *          required: true
+     *          description: Transaction ID
+     *          schema:
+     *            type: string
+     *          example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *      security:
+     *         - bearerAuth: []
+     *      description: Delete transaction
+     *      responses:
+     *        200:
+     *          description: Successful delete transaction operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Transaction'
+     */
 
     private async delete(
         request: DeleteRequestTokenDto,

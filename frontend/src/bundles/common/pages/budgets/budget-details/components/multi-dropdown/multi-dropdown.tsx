@@ -31,7 +31,7 @@ const RenderMultiDropdown = ({
     );
     const newDataMenu = category.map((item) => ({
         ...item,
-        value: item.id ?? '',
+        value: item.id,
     }));
 
     const [selectedMulti, setSelectedMulti] = useState<

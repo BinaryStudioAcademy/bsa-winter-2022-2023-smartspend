@@ -162,15 +162,14 @@ const WalletDetails: React.FC = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            textAlign: 'center',
                             height: '25px',
                             width: '25px',
                             borderRadius: '6px',
+                            color: '#fff',
                         }}
                     >
-                        <FontAwesomeIcon
-                            icon={data.icon as IconProp}
-                            color="#fff"
-                        />
+                        <FontAwesomeIcon icon={data.icon as IconProp} />
                     </span>
                 )}
                 {data.icon && <span className={styles.name}>{data.name}</span>}

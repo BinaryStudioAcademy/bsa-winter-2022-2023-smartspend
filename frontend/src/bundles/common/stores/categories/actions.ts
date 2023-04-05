@@ -12,12 +12,7 @@ const loadCategories = createAsyncThunk<
 >(`${sliceName}/load-categories`, async (_, { extra }) => {
     const { categoriesApi } = extra;
 
-    const categories = await categoriesApi.loadCategories();
-
-    // eslint-disable-next-line no-console
-    console.log('dsadasd');
-
-    return categories;
+    return await categoriesApi.loadCategories();
 });
 
 export { loadCategories };

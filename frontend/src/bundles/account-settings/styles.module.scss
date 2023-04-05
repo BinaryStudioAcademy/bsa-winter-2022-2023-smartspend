@@ -1,13 +1,15 @@
 .container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     row-gap: 45px;
-    padding: 0 var(--p-6);
     padding-top: 120px;
     padding-bottom: var(--p-6);
     background-color: var(--color-blue-100);
+}
+
+.tabsContainer {
+    margin-top: var(--m-4);
 }
 
 .userProfileContainer {

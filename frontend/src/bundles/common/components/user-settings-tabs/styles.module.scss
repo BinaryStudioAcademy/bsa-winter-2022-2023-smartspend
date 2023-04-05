@@ -13,7 +13,7 @@
     height: 55px;
     color: var(--color-blue-600);
     text-decoration: none;
-    border-radius: var(--b-2);
+    border-radius: var(--b-2) 0 0 var(--b-2);
     transition: color 0.1s, background-color 0.3s;
 }
 

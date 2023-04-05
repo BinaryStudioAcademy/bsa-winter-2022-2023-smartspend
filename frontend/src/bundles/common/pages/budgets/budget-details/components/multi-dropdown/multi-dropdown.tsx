@@ -116,7 +116,20 @@ const RenderMultiDropdown = ({
                 />
 
                 {data.icon && (
-                    <FontAwesomeIcon icon={data.icon} color={data.color} />
+                    <span
+                        style={{
+                            background: `${data.color}`,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '25px',
+                            width: '25px',
+                            borderRadius: '6px',
+                            color: '#fff',
+                        }}
+                    >
+                        <FontAwesomeIcon icon={data.icon} />
+                    </span>
                 )}
                 {data.icon && <span className={styles.name}>{data.name}</span>}
             </div>

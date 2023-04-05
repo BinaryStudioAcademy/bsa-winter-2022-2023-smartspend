@@ -63,8 +63,9 @@ class UserService implements Partial<IService> {
         return updatedUser.toObject();
     }
 
-    public async deleteUser(id: string): Promise<UserEntity | undefined> {
-        return await this.userRepository.deleteUser(id);
+    public async deleteUser(id: string): Promise<boolean | undefined> {
+        const deletedUser = await this.userRepository.deleteUser(id);
+        return !!deletedUser;
     }
 }
 

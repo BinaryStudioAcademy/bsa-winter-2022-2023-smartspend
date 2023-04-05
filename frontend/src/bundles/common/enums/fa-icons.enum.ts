@@ -22,6 +22,7 @@ enum FaIcons {
     STOP = 'stop',
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
+    TRASH_CAN = 'trash-can',
 }
 
 export { FaIcons };

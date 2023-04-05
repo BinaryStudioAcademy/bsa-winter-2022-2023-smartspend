@@ -1,25 +1,13 @@
 .section {
     display: flex;
-    padding: 15px 60px 30px;
+    width: 800px;
     background: var(--color-white-100);
     border-radius: 25px;
 }
 
-@media screen and (min-width: 768px) {
-    .section {
-        padding: 15px 120px 50px;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .section {
-        padding: 15px 175px 80px;
-    }
-}
-
 .wrapper {
     flex-grow: 1;
-    max-width: 620px;
+    max-width: 800px;
     background-color: var(--color-white-100);
     border-radius: var(--b-2);
 }

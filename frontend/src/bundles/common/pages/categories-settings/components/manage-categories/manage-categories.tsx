@@ -46,7 +46,7 @@ const ManageCategories: React.FC<Properties> = ({
 
     const buttonIsCheckedCategoriesDeleteActive =
         isSelectedCategoriesExpense.length > 0 ||
-        isSelectedCategoriesIncome.length === 0
+        isSelectedCategoriesIncome.length > 0
             ? false
             : true;
 
@@ -54,17 +54,22 @@ const ManageCategories: React.FC<Properties> = ({
         isSelectedCategoriesIncome.length === 0 &&
         isSelectedCategoriesExpense.length === 0
             ? 'Delete category'
-            : `Delete category ${isSelectedCategoriesIncome.length}`;
+            : `Delete category ${
+            isSelectedCategoriesIncome.length
+            }`;
 
     const buttonIsCheckedCategoriesMergeActive =
-        isSelectedCategoriesExpense.length > 0 ||
+        isSelectedCategoriesExpense.length >= 2 ||
         isSelectedCategoriesIncome.length >= 2
             ? false
             : true;
 
     const buttonIsCheckedCategoriesMergeName =
+        isSelectedCategoriesExpense.length >= 2 ||
         isSelectedCategoriesIncome.length >= 2
-            ? `Merge ${isSelectedCategoriesIncome.length} categories`
+            ? `Merge categories ${
+                isSelectedCategoriesIncome.length
+            }`
             : 'Merge category';
     return (
         <>

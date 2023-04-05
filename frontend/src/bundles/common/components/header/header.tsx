@@ -67,7 +67,8 @@ const Header: React.FC<Properties> = ({
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
                         {(pathname === `${AppRoute.WALLET}/${id}` ||
-                            pathname === AppRoute.USER) && (
+                            pathname === AppRoute.USER ||
+                            pathname === AppRoute.CATEGORIES) && (
                             <Tabs tabsData={dataTabs.wallets} />
                         )}
                     </div>

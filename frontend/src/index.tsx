@@ -23,6 +23,8 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
+import { UserProfile } from './bundles/account-settings/components/components';
+
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
         <Toast />
@@ -82,20 +84,30 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.USER,
+                                path: AppRoute.ROOT,
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
                                     </PrivateRoute>
                                 ),
-                            },
-                            {
-                                path: AppRoute.CATEGORIES,
-                                element: (
-                                    <PrivateRoute>
-                                        <CategoriesSettings />
-                                    </PrivateRoute>
-                                ),
+                                children: [
+                                    {
+                                        path: AppRoute.USER,
+                                        element: (
+                                            <PrivateRoute>
+                                                <UserProfile />
+                                            </PrivateRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.CATEGORIES,
+                                        element: (
+                                            <PrivateRoute>
+                                                <CategoriesSettings />
+                                            </PrivateRoute>
+                                        ),
+                                    },
+                                ],
                             },
                         ],
                     },

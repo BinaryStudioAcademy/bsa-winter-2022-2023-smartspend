@@ -10,6 +10,7 @@ enum FaIcons {
     DASHBOARD = 'chart-simple',
     BUDGET = 'piggy-bank',
     TRANSACTION = 'dollar-sign',
+    SETTINGS = 'gear',
 }
 
 export { FaIcons };

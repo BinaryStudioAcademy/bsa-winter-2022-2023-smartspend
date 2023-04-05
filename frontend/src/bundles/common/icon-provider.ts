@@ -6,6 +6,7 @@ import {
     faChevronDown,
     faChevronUp,
     faDollarSign,
+    faGear,
     faPiggyBank,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +22,7 @@ const iconProvider = {
     faChartSimple,
     faPiggyBank,
     faDollarSign,
+    faGear,
 };
 
 export { iconProvider };

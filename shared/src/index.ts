@@ -28,6 +28,10 @@ export {
     categoryValidationSchema,
 } from './bundles/categories/categories.js';
 export {
+    type CurrencyGetAllItemResponseDto,
+    type CurrencyGetAllResponseDto,
+} from './bundles/currencies/currencies.js';
+export {
     type UpdateRequestDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,

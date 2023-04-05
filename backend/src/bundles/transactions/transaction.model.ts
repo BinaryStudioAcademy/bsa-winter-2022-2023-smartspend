@@ -1,6 +1,3 @@
-import { Model } from 'objection';
-import { type RelationMappings } from 'objection';
-
 import {
     AbstractModel,
     DatabaseTableName,

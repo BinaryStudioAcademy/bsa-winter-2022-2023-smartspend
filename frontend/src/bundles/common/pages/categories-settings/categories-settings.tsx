@@ -8,9 +8,10 @@ import {
     ButtonType,
     ButtonVariant,
     FaIcons,
+    IconSize,
 } from '../../enums/enums';
 import { CategoryList } from './components/category-list/category-list';
-import { FormCreateCategory } from './components/form-create-category/form-create-category';
+import { FormEditCategory } from './components/form-create-category/form-edit-category';
 import { FormUi } from './components/form-create-category/form-ui';
 import { ManageCategories } from './components/manage-categories/manage-categories';
 import { testDB } from './components/mock/test-database';
@@ -18,23 +19,50 @@ import styles from './styles.module.scss';
 
 interface Data {
     id: string;
-    categoryName: string;
+    name: string;
     type: string;
     icon: string;
-    colorIcon: string;
+    color: string;
 }
 
 type GroupedData = Record<string, Data[]>;
 
 const CategoriesSettings: React.FC = () => {
     const [isCreateModalShown, setIsCreateModalShown] = useState(false);
-
+    const [isSelectedCategoriesIncome, setIsSelectedCategoriesIncome] =
+        useState<string[]>([]);
+    const [isSelectedCategoriesExpense, setIsSelectedCategoriesExpense] =
+        useState<string[]>([]);
     const handelClickModalCreate = useCallback((): void => {
         setIsCreateModalShown(true);
     }, []);
 
+    const addIdCheckedCategories = useCallback(
+        (id: string, type: string): void => {
+            if (type === 'income') {
+                setIsSelectedCategoriesIncome((previousState) => {
+                    if (previousState.includes(id)) {
+                        return previousState.filter(
+                            (previousState_) => previousState_ !== id,
+                        );
+                    }
+                    return [...previousState, id];
+                });
+            }
+            setIsSelectedCategoriesExpense((previousState) => {
+                if (previousState.includes(id)) {
+                    return previousState.filter(
+                        (previousState_) => previousState_ !== id,
+                    );
+                }
+                return [...previousState, id];
+            });
+        },
+        [],
+    );
+
     const handleKeyDown = useCallback(
-        (event: React.KeyboardEvent<HTMLDivElement>): void => {
+        (event: React.KeyboardEvent<HTMLButtonElement>): void => {
             if (event.key === 'Enter') {
                 handelClickModalCreate();
             }
@@ -74,21 +102,30 @@ const CategoriesSettings: React.FC = () => {
                             >
                                 <FontAwesomeIcon
                                     icon={FaIcons.FA_PEN}
-                                    width="18px"
+                                    width={IconSize.EIGHTEEN}
                                 />
                                 <span className={styles.btnName}>
                                     Create category
                                 </span>
                             </Button>
                         </div>
-                        <ManageCategories />
+                        <ManageCategories
+                            isSelectedCategoriesIncome={
+                                isSelectedCategoriesIncome
+                            }
+                            isSelectedCategoriesExpense={
+                                isSelectedCategoriesExpense
+                            }
+                        />
                         <CategoryList
                             title={'Income Categories'}
                             categories={sortByType.income}
+                            addIdCheckedCategories={addIdCheckedCategories}
                         />
                         <CategoryList
                             title={'Expense category'}
                             categories={sortByType.expense}
+                            addIdCheckedCategories={addIdCheckedCategories}
                         />
                     </div>
                 </div>
@@ -102,7 +139,12 @@ const CategoriesSettings: React.FC = () => {
                         {'Create a new category'}
                     </h2>
                 }
-                Body={<FormCreateCategory onClose={handleCloseModal} />}
+                Body={
+                    <FormEditCategory
+                        onClose={handleCloseModal}
+                        isCreateModalShown={isCreateModalShown}
+                    />
+                }
                 submitButtonName={'Edit category'}
                 hasActionButtons={false}
             />

@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { categoriesSlice } from '~/bundles/categories/store';
 import { BaseModal, Button } from '~/bundles/common/components/components';
 import {
     ButtonSize,
@@ -18,47 +17,40 @@ import styles from './styles.module.scss';
 
 type Properties = {
     id: string;
-    categoryName: string;
+    name: string;
     count?: string | number;
     type: string;
-    iconKey: string;
-    colorIcon: string;
-};
-
-type SelectedCategory = {
-    selectedCategory: string[];
-};
-
-type RootState = {
-    categories: SelectedCategory;
+    icon: string;
+    color: string;
+    addIdCheckedCategories: (id: string, type: string) => void;
 };
 
 const CategoryItem: React.FC<Properties> = ({
     id,
-    categoryName,
+    name,
     count,
     type,
-    iconKey,
-    colorIcon,
+    icon,
+    color,
+    addIdCheckedCategories,
 }) => {
     const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
     const [isEditModalShown, setIsEditModalShown] = useState(false);
-    const dispatch = useDispatch();
-    const isChecked = useSelector<RootState, boolean>((state) =>
-        state.categories.selectedCategory.includes(id),
-    );
+    const [isCheckedItem, setIsCheckedItem] = useState(false);
 
-    const icon = Icon(iconKey);
+    const iconResult = Icon(icon);
 
     const handleCheckboxChange = useCallback(
         (isChecked: boolean): void => {
             if (isChecked) {
-                dispatch(categoriesSlice.addSelectedCategory(id));
+                setIsCheckedItem(isChecked);
+                addIdCheckedCategories(id, type);
                 return;
             }
-            dispatch(categoriesSlice.removeSelectedCategory(id));
+            setIsCheckedItem(isChecked);
+            addIdCheckedCategories(id, type);
         },
-        [dispatch, id],
+        [id, type, addIdCheckedCategories],
     );
 
     const handelOpenModalEdit = useCallback((): void => {
@@ -87,29 +79,32 @@ const CategoryItem: React.FC<Properties> = ({
             <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <div className={styles.item}>
-                        <div className={`${styles.base} ${styles.checkbox}`}>
+                        <div
+                            className={classNames(styles.base, styles.checkbox)}
+                        >
                             <Checkbox
                                 id={id}
-                                isChecked={isChecked}
+                                isChecked={isCheckedItem}
                                 onChange={handleCheckboxChange}
                             />
                         </div>
                         <div className={styles.base}>
                             <span
                                 className={styles.icon}
-                                style={{ background: `var(${colorIcon})` }}
+                                style={{ background: `var(${color})` }}
                             >
-                                {icon}
+                                {iconResult}
                             </span>
                         </div>
                         <div
-                            className={`${styles.base} ${styles.contentWrapper}`}
+                            className={classNames(
+                                styles.base,
+                                styles.contentWrapper,
+                            )}
                         >
                             <div className={styles.content}>
                                 <div className={styles.name}>
-                                    <span className={styles.text}>
-                                        {categoryName}
-                                    </span>
+                                    <span className={styles.text}>{name}</span>
                                 </div>
                                 <div className={styles.count}>
                                     <span className={styles.text}>
@@ -118,23 +113,39 @@ const CategoryItem: React.FC<Properties> = ({
                                 </div>
                             </div>
                         </div>
-                        <div className={`${styles.base} ${styles.iconWrapper}`}>
+                        <div
+                            className={classNames(
+                                styles.base,
+                                styles.iconWrapper,
+                            )}
+                        >
                             <Button
                                 type={ButtonType.BUTTON}
                                 variant={ButtonVariant.SECONDARY}
                                 size={ButtonSize.SMALL}
-                                className={`${styles.iconBtn} ${styles.btnEdit}`}
+                                className={classNames(
+                                    styles.iconBtn,
+                                    styles.btnEdit,
+                                )}
                                 disabled={false}
                                 onClick={handelOpenModalEdit}
                             >
                                 <span
-                                    className={`${styles.btnName} ${styles.btnEdit}`}
+                                    className={classNames(
+                                        styles.btnName,
+                                        styles.btnEdit,
+                                    )}
                                 >
                                     <FontAwesomeIcon icon={FaIcons.GEAR} />
                                 </span>
                             </Button>
                         </div>
-                        <div className={`${styles.base} ${styles.iconWrapper}`}>
+                        <div
+                            className={classNames(
+                                styles.base,
+                                styles.iconWrapper,
+                            )}
+                        >
                             <Button
                                 type={ButtonType.BUTTON}
                                 variant={ButtonVariant.DELETE}
@@ -156,15 +167,17 @@ const CategoryItem: React.FC<Properties> = ({
                 onClose={handleCloseModal}
                 onSubmit={handelClickEdit}
                 Header={
-                    <h2 className="visually-hidden">{`You're about to edit ${categoryName} categories`}</h2>
+                    <h2 className="visually-hidden">{`You're about to edit ${name} categories`}</h2>
                 }
                 Body={
                     <FormEditCategory
-                        categoryName={categoryName}
+                        id={id}
+                        name={name}
                         type={type}
-                        iconKey={iconKey}
-                        colorIcon={colorIcon}
+                        icon={icon}
+                        color={color}
                         onClose={handleCloseModal}
+                        isCreateModalShown={false}
                     />
                 }
                 submitButtonName={'Edit category'}
@@ -174,9 +187,7 @@ const CategoryItem: React.FC<Properties> = ({
                 isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
                 onSubmit={handelClickDelete}
-                Header={
-                    <h2>{`You're about to delete ${categoryName} categories`}</h2>
-                }
+                Header={<h2>{`You're about to delete ${name} categories`}</h2>}
                 Body={
                     <p>
                         This change is irreversible. Do you really want to

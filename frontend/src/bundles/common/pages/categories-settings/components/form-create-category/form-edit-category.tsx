@@ -1,4 +1,3 @@
-import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 
@@ -12,33 +11,38 @@ import {
     ButtonType,
     ButtonVariant,
     FaIcons,
+    IconSize,
     InputType,
 } from '~/bundles/common/enums/enums';
 import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
 
+import { DropdownItem } from '../dropdown-item/dropdown-item';
+import { categoriesType } from '../mock/caregories-type';
 import { iconColors } from '../mock/icons-color';
 import { iconList } from '../mock/icons-list';
 import styles from './styles.module.scss';
 
 interface FormValues {
-    icon: string;
-    color: string;
-    name: string;
-    type: string;
+    icon?: string;
+    color?: string;
+    name?: string;
+    type?: string;
 }
 
-interface DataType {
+type DataType = {
     value: string;
     name?: string;
     image?: string;
-}
+};
 
 type Properties = {
-    categoryName: string;
-    type: string;
-    iconKey: string;
-    colorIcon: string;
+    id?: string;
+    name?: string;
+    type?: string;
+    icon?: string;
+    color?: string;
     onClose: () => void;
+    isCreateModalShown: boolean;
 };
 
 type InputValues = {
@@ -46,31 +50,38 @@ type InputValues = {
 };
 
 const FormEditCategory: React.FC<Properties> = ({
-    categoryName,
+    name,
     type,
-    iconKey,
-    colorIcon,
+    icon,
+    color,
     onClose,
+    isCreateModalShown,
 }) => {
     const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const [form, setForm] = useState<FormValues>({
-        name: categoryName,
-        icon: iconKey,
-        color: colorIcon,
+    const [formData, setFormData] = useState<FormValues>({
+        name: name,
+        icon: icon,
+        color: color,
         type: type,
     });
     const [selectedIcon, setSelectedIcon] = useState<DataType>({
-        value: form.icon,
+        value: formData.icon ?? '',
     });
     const [selectedColorIcon, setSelectedColorIcon] = useState<DataType>({
-        value: form.color,
+        value: formData.color ?? '',
+    });
+    const [selectedType, setSelectedType] = useState<DataType>({
+        value: formData.type ?? '',
     });
 
     const handleDropdownIconChange = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const icon = selectedOption.value;
-                setForm((previousState) => ({ ...previousState, icon: icon }));
+                setFormData((previousState) => ({
+                    ...previousState,
+                    icon: icon,
+                }));
                 setSelectedIcon(selectedOption);
             }
         },
@@ -78,18 +89,7 @@ const FormEditCategory: React.FC<Properties> = ({
     );
     const iconFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
-            <div className={styles.item}>
-                {data.value && (
-                    <span
-                        className={styles.dropdownColorIcon}
-                        style={{
-                            background: `var(${selectedColorIcon.value})`,
-                        }}
-                    >
-                        <FontAwesomeIcon icon={data.value as IconProp} />
-                    </span>
-                )}
-            </div>
+            <DropdownItem selectedColorIcon={selectedColorIcon} data={data} />
         ),
         [selectedColorIcon],
     );
@@ -97,7 +97,7 @@ const FormEditCategory: React.FC<Properties> = ({
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 const colorIcon = selectedOption.value;
-                setForm((previousState) => ({
+                setFormData((previousState) => ({
                     ...previousState,
                     color: colorIcon,
                 }));
@@ -109,11 +109,15 @@ const FormEditCategory: React.FC<Properties> = ({
     const iconColorFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
-                {data.value && (
+                {data.value ? (
                     <span
                         className={styles.dropdownColorIcon}
                         style={{ background: `var(${data.value})` }}
                     ></span>
+                ) : (
+                    <span className={styles.dropdownColorIcon}>
+                        <FontAwesomeIcon icon={FaIcons.STOP} />
+                    </span>
                 )}
             </div>
         ),
@@ -122,8 +126,33 @@ const FormEditCategory: React.FC<Properties> = ({
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
-            setForm((previousState) => ({ ...previousState, name: value }));
+            setFormData((previousState) => ({ ...previousState, name: value }));
         },
+        [],
+    );
+    const handleDropdownTypeChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                const type = selectedOption.value;
+                setFormData((previousState) => ({
+                    ...previousState,
+                    type: type,
+                }));
+                setSelectedType(selectedOption);
+            }
+        },
+        [],
+    );
+    const typeFormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                {data.name ? (
+                    <span className={styles.inputLabel}>{data.name}</span>
+                ) : (
+                    <span className={styles.inputLabel}>Choose type</span>
+                )}
+            </div>
+        ),
         [],
     );
     const {
@@ -133,16 +162,21 @@ const FormEditCategory: React.FC<Properties> = ({
         defaultValues: { name: '' },
     });
     useEffect(() => {
-        const { name, icon, color } = form;
-        if (name && icon && color) {
+        const { name, icon, color, type } = formData;
+        if (isCreateModalShown && name && icon && color && type) {
+            setIsButtonVisible(false);
+            return;
+        }
+        if (!isCreateModalShown && name && icon && color) {
             setIsButtonVisible(false);
             return;
         }
         setIsButtonVisible(true);
-    }, [form]);
+    }, [formData, isCreateModalShown]);
     const handleClick = useCallback((): void => {
         onClose();
     }, [onClose]);
+    const buttonName = isCreateModalShown ? 'Create category' : 'Edit category';
     return (
         <div className={styles.form}>
             <form name="categoryEditForm" autoComplete="off">
@@ -179,9 +213,21 @@ const FormEditCategory: React.FC<Properties> = ({
                             labelClassName={styles.inputLabelColor}
                             isDisabled={false}
                             onChange={handleInputChange}
-                            value={form.name}
+                            value={formData.name}
                         />
                     </div>
+                    {isCreateModalShown && (
+                        <div className={styles.dropdownModal}>
+                            <Dropdown
+                                data={categoriesType}
+                                selectedOption={selectedType}
+                                handleChange={handleDropdownTypeChange}
+                                labelClassName={styles.inputLabel}
+                                label={'Type'}
+                                formatOptionLabel={typeFormatOptionLabel}
+                            />
+                        </div>
+                    )}
                     <div className={styles.wrapperModalBtn}>
                         <Button
                             onClick={handleClick}
@@ -193,11 +239,9 @@ const FormEditCategory: React.FC<Properties> = ({
                         >
                             <FontAwesomeIcon
                                 icon={FaIcons.FA_PEN}
-                                width="18px"
+                                width={IconSize.EIGHTEEN}
                             />
-                            <span className={styles.btnName}>
-                                Edit category
-                            </span>
+                            <span className={styles.btnName}>{buttonName}</span>
                         </Button>
                     </div>
                 </div>

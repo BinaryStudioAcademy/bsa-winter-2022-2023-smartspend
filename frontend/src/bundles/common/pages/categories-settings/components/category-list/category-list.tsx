@@ -3,18 +3,23 @@ import styles from './styles.module.scss';
 
 interface Data {
     id: string;
-    categoryName: string;
+    name: string;
     type: string;
     icon: string;
-    colorIcon: string;
+    color: string;
 }
 
 type Properties = {
     title: string;
     categories: Data[];
+    addIdCheckedCategories: (id: string, type: string) => void;
 };
 
-const CategoryList: React.FC<Properties> = ({ title, categories }) => {
+const CategoryList: React.FC<Properties> = ({
+    title,
+    categories,
+    addIdCheckedCategories,
+}) => {
     return (
         <div className={styles.wrapper}>
             <h2 className={styles.title}>{title}</h2>
@@ -22,10 +27,11 @@ const CategoryList: React.FC<Properties> = ({ title, categories }) => {
                 <CategoryItem
                     key={item.id}
                     id={item.id}
-                    categoryName={item.categoryName}
+                    name={item.name}
                     type={item.type}
-                    iconKey={item.icon}
-                    colorIcon={item.colorIcon}
+                    icon={item.icon}
+                    color={item.color}
+                    addIdCheckedCategories={addIdCheckedCategories}
                 />
             ))}
         </div>

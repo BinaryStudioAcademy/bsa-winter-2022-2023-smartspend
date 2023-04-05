@@ -34,7 +34,6 @@ const Checkbox: React.FC<CheckboxProperties> = ({
                     isChecked ? styles.boxСhecked : ''
                 }`}
                 id={id}
-                // onClick={()=>handleClick(id)}
                 onClick={handleClick}
                 role="checkbox"
                 aria-checked={isChecked}

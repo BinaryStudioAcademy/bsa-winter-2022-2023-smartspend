@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
 
 import { BaseModal, Button } from '~/bundles/common/components/components';
 import {
@@ -12,20 +11,17 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
 import styles from './styles.module.scss';
 
-type SelectedCategory = {
-    selectedCategory: string[];
+type Properties = {
+    isSelectedCategoriesIncome: string[];
+    isSelectedCategoriesExpense: string[];
 };
 
-type RootState = {
-    categories: SelectedCategory;
-};
-
-const ManageCategories: React.FC = () => {
+const ManageCategories: React.FC<Properties> = ({
+    isSelectedCategoriesIncome,
+    isSelectedCategoriesExpense,
+}) => {
     const [isMergeModalShown, setIsMergeModalShown] = useState(false);
     const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
-    const isCheckedCategories = useSelector(
-        (state: RootState) => state.categories.selectedCategory,
-    );
 
     const handelOpenModalMerge = useCallback(() => {
         setIsMergeModalShown(true);
@@ -49,17 +45,30 @@ const ManageCategories: React.FC = () => {
     }, []);
 
     const buttonIsCheckedCategoriesDeleteActive =
-        isCheckedCategories.length === 0 ? true : false;
+        isSelectedCategoriesExpense.length > 0 ||
+        isSelectedCategoriesIncome.length === 0
+            ? false
+            : true;
+
     const buttonIsCheckedCategoriesDeleteName =
-        isCheckedCategories.length === 0
-            ? 'Delete category'
-            : `Delete category ${isCheckedCategories.length}`;
+        isSelectedCategoriesIncome.length === 0
+            ? `Delete category ${isSelectedCategoriesIncome.length}`
+            : (isSelectedCategoriesExpense.length === 0
+            ? `Delete category ${isSelectedCategoriesExpense.length}`
+            : 'Delete category');
+
     const buttonIsCheckedCategoriesMergeActive =
-        isCheckedCategories.length >= 2 ? false : true;
+        isSelectedCategoriesExpense.length > 0 ||
+        isSelectedCategoriesIncome.length >= 2
+            ? false
+            : true;
+
     const buttonIsCheckedCategoriesMergeName =
-        isCheckedCategories.length >= 2
-            ? `Merge category ${isCheckedCategories.length}`
-            : 'Merge category';
+        isSelectedCategoriesIncome.length >= 2
+            ? `Merge ${isSelectedCategoriesIncome.length} categories`
+            : (isSelectedCategoriesExpense.length >= 2
+            ? `Merge ${isSelectedCategoriesExpense.length} categories`
+            : 'Merge category');
     return (
         <>
             <div className={styles.manageWrapper}>
@@ -102,7 +111,7 @@ const ManageCategories: React.FC = () => {
                 onClose={handleCloseModal}
                 onSubmit={handelClickMerge}
                 Header={
-                    <h2>{`You're about to merge ${isCheckedCategories.length} categories`}</h2>
+                    <h2>{`You're about to merge ${isSelectedCategoriesExpense.length} categories`}</h2>
                 }
                 Body={<p>Simple modal</p>}
                 submitButtonName={'Merge category'}
@@ -112,7 +121,7 @@ const ManageCategories: React.FC = () => {
                 onClose={handleCloseModal}
                 onSubmit={handelClickDelete}
                 Header={
-                    <h2>{`You're about to delete ${isCheckedCategories.length} categories`}</h2>
+                    <h2>{`You're about to delete ${isSelectedCategoriesExpense.length} categories`}</h2>
                 }
                 Body={
                     <p>

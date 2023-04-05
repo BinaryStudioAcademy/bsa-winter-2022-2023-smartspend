@@ -4,6 +4,15 @@
     --font-size-input: 1rem;
 }
 
+button {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border: none;
+}
+
 .title {
     color: var(--color-gray-400);
     font-weight: var(--font-weight-500);

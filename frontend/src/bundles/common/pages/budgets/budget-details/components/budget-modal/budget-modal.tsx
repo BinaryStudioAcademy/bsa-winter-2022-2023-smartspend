@@ -24,6 +24,7 @@ interface BudgetModalProperties {
     isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
+    onClick?: () => void;
     budget?: BudgetCreateRequestDto & { id: string };
 }
 
@@ -31,6 +32,7 @@ const BudgetModal = ({
     isEdit = false,
     isShown,
     onClose,
+    onClick,
     budget,
 }: BudgetModalProperties): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -135,7 +137,11 @@ const BudgetModal = ({
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
         >
             {isEdit && (
-                <Button variant={ButtonVariant.DELETE} size={ButtonSize.SMALL}>
+                <Button
+                    variant={ButtonVariant.DELETE}
+                    size={ButtonSize.SMALL}
+                    onClick={onClick}
+                >
                     Delete budget
                 </Button>
             )}

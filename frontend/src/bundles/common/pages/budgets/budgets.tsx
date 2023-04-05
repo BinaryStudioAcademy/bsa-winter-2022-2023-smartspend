@@ -73,11 +73,7 @@ const Budgets: React.FC = () => {
                 </div>
             </div>
             <div className={styles.modal}>
-                <BudgetModal
-                    isShown={active}
-                    onClose={handleCancel}
-                    // budget={budget}
-                />
+                <BudgetModal isShown={active} onClose={handleCancel} />
             </div>
         </div>
     );

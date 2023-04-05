@@ -192,9 +192,6 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.budgetInfoWrapper}>
                     <div className={styles.breadcrumbsWrapper}>{name}</div>
                     <div className={styles.editButtonWrapper}>
-                        <Button onClick={handleDeleteBudget}>
-                            Delete budget
-                        </Button>
                         <Button
                             className={styles.editButton}
                             variant={ButtonVariant.SECONDARY}
@@ -207,6 +204,7 @@ const BudgetDetails = (): JSX.Element => {
                                 isEdit
                                 isShown={active}
                                 onClose={handleCancel}
+                                onClick={handleDeleteBudget}
                                 budget={
                                     currentBudget as unknown as BudgetCreateRequestDto & {
                                         id: string;

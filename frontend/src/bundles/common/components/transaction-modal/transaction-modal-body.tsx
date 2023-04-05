@@ -1,6 +1,6 @@
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import { Input } from '~/bundles/common/components/components';
-import { Dropdown } from '~/bundles/common/components/dropdown/dropdown';
+import { Dropdown } from '~/bundles/common/components/dropdown/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionModalElement } from '~/bundles/common/components/transaction-modal/transaction-modal-element';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
@@ -77,7 +77,7 @@ const TransactionModalBody: React.FC<Properties> = ({
             <TransactionModalElement className={styles.date} label="Date">
                 <Calendar isRangeCalendar={false} />
             </TransactionModalElement>
-            <TransactionModalElement className={styles.note} label="By note">
+            <TransactionModalElement className={styles.note} label="Note">
                 <Input
                     inputClassName={styles.note}
                     type={InputType.TEXT}

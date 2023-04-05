@@ -1,8 +1,13 @@
 .body {
     display: grid;
     grid-template-columns: 130px 200px 1fr 120px 100px 110px;
-    gap: 5px;
+    gap: 10px;
     padding: var(--p-6) var(--p-4) var(--p-6);
+}
+
+.labelElement {
+    display: block;
+    margin-bottom: var(--m-2);
 }
 
 .note {

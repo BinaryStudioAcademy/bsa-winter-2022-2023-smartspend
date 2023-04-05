@@ -9,7 +9,7 @@ class TransactionEntity implements IEntity {
 
     private 'note': string;
 
-    private 'label': string;
+    private 'labelId': string;
 
     private 'amount': number;
 
@@ -22,7 +22,7 @@ class TransactionEntity implements IEntity {
         categoryId,
         date,
         note,
-        label,
+        labelId,
         amount,
         currencyId,
         ownerId,
@@ -31,7 +31,7 @@ class TransactionEntity implements IEntity {
         categoryId: string;
         date: Date;
         note: string;
-        label: string;
+        labelId: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
@@ -40,7 +40,7 @@ class TransactionEntity implements IEntity {
         this.categoryId = categoryId;
         this.date = date;
         this.note = note;
-        this.label = label;
+        this.labelId = labelId;
         this.amount = amount;
         this.currencyId = currencyId;
         this.ownerId = ownerId;
@@ -51,7 +51,7 @@ class TransactionEntity implements IEntity {
         categoryId,
         date,
         note,
-        label,
+        labelId,
         amount,
         currencyId,
         ownerId,
@@ -60,7 +60,7 @@ class TransactionEntity implements IEntity {
         categoryId: string;
         date: Date;
         note: string;
-        label: string;
+        labelId: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
@@ -70,7 +70,7 @@ class TransactionEntity implements IEntity {
             categoryId,
             date,
             note,
-            label,
+            labelId,
             amount,
             currencyId,
             ownerId,
@@ -81,7 +81,7 @@ class TransactionEntity implements IEntity {
         categoryId,
         date,
         note,
-        label,
+        labelId,
         amount,
         currencyId,
         ownerId,
@@ -89,7 +89,7 @@ class TransactionEntity implements IEntity {
         categoryId: string;
         date: Date;
         note: string;
-        label: string;
+        labelId: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
@@ -99,7 +99,7 @@ class TransactionEntity implements IEntity {
             categoryId,
             date,
             note,
-            label,
+            labelId,
             amount,
             currencyId,
             ownerId,
@@ -111,7 +111,7 @@ class TransactionEntity implements IEntity {
         categoryId: string;
         date: Date;
         note: string;
-        label: string;
+        labelId: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
@@ -121,7 +121,7 @@ class TransactionEntity implements IEntity {
             categoryId: this.categoryId,
             date: this.date,
             note: this.note,
-            label: this.label,
+            labelId: this.labelId,
             amount: this.amount,
             currencyId: this.currencyId,
             ownerId: this.ownerId,
@@ -132,7 +132,7 @@ class TransactionEntity implements IEntity {
         categoryId: string;
         date: Date;
         note: string;
-        label: string;
+        labelId: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
@@ -141,7 +141,7 @@ class TransactionEntity implements IEntity {
             categoryId: this.categoryId,
             date: this.date,
             note: this.note,
-            label: this.label,
+            labelId: this.labelId,
             amount: this.amount,
             currencyId: this.currencyId,
             ownerId: this.ownerId,

@@ -45,7 +45,7 @@ class TransactionService {
                 categoryId: payload.categoryId,
                 date: payload.date,
                 note: payload.note,
-                label: payload.label,
+                labelId: payload.labelId,
                 amount: payload.amount,
                 currencyId: payload.currencyId,
                 ownerId: userId,

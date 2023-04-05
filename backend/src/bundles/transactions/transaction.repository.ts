@@ -39,7 +39,7 @@ class TransactionRepository implements Partial<IRepository> {
     public async createTransaction(
         entity: TransactionEntity,
     ): Promise<TransactionEntity> {
-        const { categoryId, date, note, label, amount, currencyId } =
+        const { categoryId, date, note, labelId, amount, currencyId, ownerId } =
             entity.toNewObject();
         const item = await this.transactionModel
             .query()
@@ -47,9 +47,10 @@ class TransactionRepository implements Partial<IRepository> {
                 categoryId,
                 date,
                 note,
-                label,
+                labelId,
                 amount,
                 currencyId,
+                ownerId,
             })
             .returning('*')
             .execute();

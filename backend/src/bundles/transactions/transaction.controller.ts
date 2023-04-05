@@ -1,10 +1,3 @@
-/**
- * @swagger
- * tags:
- *   name: Transactions
- *   description: API endpoints for transactions
- */
-
 import { ApiPath } from 'shared/build/index.js';
 
 import {
@@ -36,10 +29,9 @@ import { createTransactionValidationSchema } from './validation-schemas/validati
  *          - category
  *          - date
  *          - note
- *          - label
+ *          - labelId
  *          - amount
  *          - currency
- *          - ownerID
  *        properties:
  *          id:
  *            type: string
@@ -55,20 +47,16 @@ import { createTransactionValidationSchema } from './validation-schemas/validati
  *          note:
  *            type: string
  *            format: text
- *            example: transaction note
- *          label:
+ *            example: Transaction Note
+ *          labelId:
  *            type: string
  *            format: uuid
- *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+ *            example: Food
  *          amount:
  *            type: number
  *            format: text
  *            example: 1000
  *          currency:
- *            type: string
- *            format: uuid
- *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
- *          ownerId:
  *            type: string
  *            format: uuid
  *            example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
@@ -108,7 +96,7 @@ class TransactionController extends Controller {
         });
 
         this.addRoute({
-            path: TransactionsApiPath.ROOT,
+            path: TransactionsApiPath.ID,
             method: 'PUT',
             handler: (options) => {
                 return this.update(options as TokenRequestTransactionDto);
@@ -116,7 +104,7 @@ class TransactionController extends Controller {
         });
 
         this.addRoute({
-            path: TransactionsApiPath.ROOT,
+            path: TransactionsApiPath.ID,
             method: 'DELETE',
             handler: (options) => this.delete(options as DeleteRequestTokenDto),
         });
@@ -154,7 +142,7 @@ class TransactionController extends Controller {
      * @swagger
      * /transactions:
      *   post:
-     *     tags: [Transaction]
+     *     tags: [Transactions]
      *     description: Create transaction
      *     security:
      *       - bearerAuth: []
@@ -165,9 +153,10 @@ class TransactionController extends Controller {
      *           schema:
      *             type: object
      *             properties:
-     *               category:
+     *               categoryId:
      *                 type: string
      *                 format: text
+     *                 example: 208da023-e7a9-4695-a40c-ba2580776878
      *               date:
      *                 type: date
      *                 format: text
@@ -176,22 +165,18 @@ class TransactionController extends Controller {
      *                 type: string
      *                 format: text
      *                 example: transaction note
-     *               label:
+     *               labelId:
      *                 type: string
      *                 format: uuid
-     *                 example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *                 example: 059dc814-89cc-4ba1-89da-b20c5bf78231
      *               amount:
      *                 type: float
      *                 format: text
      *                 example: 1000
-     *               currency:
+     *               currencyId:
      *                 type: string
      *                 format: uuid
-     *                 example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
-     *               ownerId:
-     *                 type: string
-     *                 format: uuid
-     *                 example: 4b7908cc-5581-4d74-8910-7f2bba8cb49b
+     *                 example: 053689b5-b84d-49b6-93ba-51e2cfc64edd
      *     responses:
      *       201:
      *         description: Successful transaction creation operation
@@ -224,7 +209,7 @@ class TransactionController extends Controller {
      *   put:
      *     tags: [Transactions]
      *     summary: Update a transaction
-     *     description: Update a transaction's category, date, note, amount, label.
+     *     description: Update a transaction's category, date, note, amount, labelId.
      *     security:
      *       - bearerAuth: []
      *     parameters:
@@ -262,10 +247,7 @@ class TransactionController extends Controller {
      *                 type: float
      *                 format: text
      *                 description: count
-     *               ownerId:
-     *                 type: string
-     *                 format: uuid
-     *                 description: Transaction owner Id
+     *
      *     responses:
      *       '200':
      *         description: Transaction updated successfully.
@@ -273,37 +255,6 @@ class TransactionController extends Controller {
      *           application/json:
      *             schema:
      *               $ref: '#/components/schemas/Transaction'
-     *     securitySchemes:
-     *       bearerAuth:
-     *         type: http
-     *         scheme: bearer
-     *         bearerFormat: JWT
-     * components:
-     *   schemas:
-     *     Transaction:
-     *       type: object
-     *       properties:
-     *         id:
-     *            type: string
-     *            format: uuid
-     *          category:
-     *            type: string
-     *            format: text
-     *          date:
-     *            type: date
-     *            format: text
-     *          note:
-     *            type: string
-     *            format: text
-     *          label:
-     *            type: string
-     *            format: uuid
-     *          amount:
-     *            type: number
-     *            format: text
-     *          ownerId:
-     *            type: string
-     *            format: uuid
      */
 
     private async update(

@@ -33,7 +33,7 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
 
             if (!request.headers.authorization) {
                 throw new HttpError({
-                    message: ExceptionMessage.JWT_MUST_BE_PROVIDED,
+                    message: ExceptionMessage.AUTHORIZE_ERROR,
                     status: HttpCode.UNAUTHORIZED,
                 });
             }

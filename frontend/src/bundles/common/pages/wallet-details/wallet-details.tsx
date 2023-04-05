@@ -1,6 +1,6 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
@@ -26,10 +26,12 @@ import {
     useAppForm,
     useAppSelector,
     useCallback,
+    useEffect,
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
+import { loadCategories } from '~/bundles/common/stores/categories/actions.js';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
@@ -70,35 +72,6 @@ const people = [
     },
 ];
 
-const categories = [
-    // props to Doughnut Chart
-    {
-        value: 'shopping',
-        name: 'Shopping',
-        image: 'https://img.freepik.com/free-photo/girl-holds-fashion-shopping-bag-beauty_1150-13673.jpg',
-    },
-    {
-        value: 'food',
-        name: 'Food',
-        image: 'https://media.istockphoto.com/id/153010865/uk/%D1%84%D0%BE%D1%82%D0%BE/%D1%87%D0%B5%D1%80%D0%B2%D0%BE%D0%BD%D0%B5-%D1%8F%D0%B1%D0%BB%D1%83%D0%BA%D0%BE.jpg?s=612x612&w=0&k=20&c=Hr4iJ9Taaiaz4SLEAX7BbFSvTsnSrgg-KlRV4IIHG4s=',
-    },
-    {
-        value: 'games',
-        name: 'Games',
-        image: 'https://img.freepik.com/free-vector/joystick-game-sport-technology_138676-2045.jpg?w=2000',
-    },
-    {
-        value: 'car',
-        name: 'Car',
-        image: 'https://store-images.microsoft.com/image/apps.27729.9007199266312409.d86b04ff-7ebb-4451-a920-9cfe5dbd05d7.ffd1ea39-da23-4062-936a-66afe45ffe14?mode=scale&q=90&h=200&w=200&background=%23000000',
-    },
-    {
-        value: 'travel',
-        name: 'Travel',
-        image: 'https://thumbs.dreamstime.com/b/travel-world-landmarks-background-blue-sky-46083021.jpg',
-    },
-];
-
 const WalletDetails: React.FC = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
@@ -112,6 +85,19 @@ const WalletDetails: React.FC = () => {
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
+
+    useEffect(() => {
+        void dispatch(loadCategories());
+    }, [dispatch]);
+
+    const category = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+
+    const newDataMenu = category.map((item) => ({
+        ...item,
+        value: item.id,
+    }));
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -194,6 +180,41 @@ const WalletDetails: React.FC = () => {
         void dispatch(walletsActions.loadAll());
     }, [dispatch]);
 
+    const formatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                <input
+                    type="checkbox"
+                    checked={(categoriesDropdown as MultiValue<DataType>).some(
+                        (option) => option.value === data.value,
+                    )}
+                    readOnly
+                    className={styles.checkbox}
+                />
+
+                {data.icon && (
+                    <span
+                        style={{
+                            background: `${data.color}`,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            height: '25px',
+                            width: '25px',
+                            borderRadius: '6px',
+                            color: '#fff',
+                        }}
+                    >
+                        <FontAwesomeIcon icon={data.icon as IconProp} />
+                    </span>
+                )}
+                {data.icon && <span className={styles.name}>{data.name}</span>}
+            </div>
+        ),
+        [categoriesDropdown],
+    );
+
     return (
         <div className={styles.app}>
             <div className={styles.body}>
@@ -257,7 +278,10 @@ const WalletDetails: React.FC = () => {
                                 <div className={styles.filter}>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
-                                            data={categories}
+                                            formatOptionLabel={
+                                                formatOptionLabel
+                                            }
+                                            data={newDataMenu}
                                             selectedOption={categoriesDropdown}
                                             handleChange={
                                                 handleCategoriesMultiDropdownChange

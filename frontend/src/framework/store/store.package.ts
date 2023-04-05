@@ -8,6 +8,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
+import { categoriesApi } from '~/bundles/common/stores/categories/categories.js';
+import { reducer as categoriesReducer } from '~/bundles/common/stores/categories/slice.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { reducer as walletsReducer } from '~/bundles/wallets/store/';
@@ -21,12 +23,14 @@ type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
     wallets: ReturnType<typeof walletsReducer>;
+    categories: ReturnType<typeof categoriesReducer>;
 };
 
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     walletsApi: typeof walletsApi;
+    categoriesApi: typeof categoriesApi;
     notification: typeof notification;
     storage: typeof storage;
 };
@@ -49,6 +53,7 @@ class Store {
                 auth: authReducer,
                 users: usersReducer,
                 wallets: walletsReducer,
+                categories: categoriesReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 return [
@@ -68,6 +73,7 @@ class Store {
             authApi,
             userApi,
             walletsApi,
+            categoriesApi,
             notification,
             storage,
         };

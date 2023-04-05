@@ -3,9 +3,15 @@
     flex-direction: row;
     justify-content: center;
     row-gap: 45px;
+    height: 100vh;
     padding-top: 120px;
     padding-bottom: var(--p-6);
     background-color: var(--color-blue-100);
+}
+
+.button {
+    align-self: start;
+    margin-top: 33px;
 }
 
 .tabsContainer {

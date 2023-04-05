@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Button } from '~/bundles/common/components/button/button';
-import { Icon } from '~/bundles/common/components/components';
-import { Calendar } from '~/bundles/common/components/components';
+import { Calendar, Icon } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';

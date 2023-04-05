@@ -1,6 +1,6 @@
 enum UsersApiPath {
     ROOT = '/',
-    GET_ONE_USER = '/user',
+    GET_USER = '/user',
 }
 
 export { UsersApiPath };

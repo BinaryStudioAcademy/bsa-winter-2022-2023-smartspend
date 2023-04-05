@@ -7,6 +7,7 @@ enum FaIcons {
     FA_REGULAR = 'far',
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
+    TRASH_CAN = 'trash-can',
 }
 
 export { FaIcons };

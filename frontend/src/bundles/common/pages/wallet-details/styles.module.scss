@@ -109,10 +109,14 @@
     height: 76px;
 }
 
-.applyFilters * {
+.applyFilters > * {
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
+}
+
+.dropdown > * {
+    color: var(--color-gray-200);
 }
 
 .fakeFilter {
@@ -164,6 +168,31 @@
 
 .transactionsContainer {
     width: 100%;
+}
+
+.item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.name {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.text {
+    margin: 0 var(--m-2);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+}
+
+.checkbox {
+    margin-right: var(--m-2);
+    transform: scale(1.5);
 }
 
 @media (max-width: $xl) {

@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .section {
     display: flex;
     width: 800px;
@@ -20,7 +22,7 @@
     display: none;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: $md) {
     .mobileBtn {
         display: block;
     }

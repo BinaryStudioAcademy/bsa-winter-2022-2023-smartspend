@@ -53,19 +53,19 @@ const CategoryItem: React.FC<Properties> = ({
         [id, type, addIdCheckedCategories],
     );
 
-    const handelOpenModalEdit = useCallback((): void => {
+    const handleOpenModalEdit = useCallback((): void => {
         setIsEditModalShown(true);
     }, []);
 
-    const handelClickEdit = useCallback((): void => {
+    const handleClickEdit = useCallback((): void => {
         // will be used
     }, []);
 
-    const handelOpenModalDelete = useCallback(() => {
+    const handleOpenModalDelete = useCallback(() => {
         setIsDeleteModalShown(true);
     }, []);
 
-    const handelClickDelete = useCallback((): void => {
+    const handleClickDelete = useCallback((): void => {
         setIsDeleteModalShown(true);
     }, []);
 
@@ -128,7 +128,7 @@ const CategoryItem: React.FC<Properties> = ({
                                     styles.btnEdit,
                                 )}
                                 disabled={false}
-                                onClick={handelOpenModalEdit}
+                                onClick={handleOpenModalEdit}
                             >
                                 <span
                                     className={classNames(
@@ -152,7 +152,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 size={ButtonSize.SMALL}
                                 className={styles.iconBtn}
                                 disabled={false}
-                                onClick={handelOpenModalDelete}
+                                onClick={handleOpenModalDelete}
                             >
                                 <span className={styles.btnName}>
                                     <FontAwesomeIcon icon={FaIcons.TRASH} />
@@ -165,7 +165,7 @@ const CategoryItem: React.FC<Properties> = ({
             <BaseModal
                 isShown={isEditModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handelClickEdit}
+                onSubmit={handleClickEdit}
                 Header={
                     <h2 className="visually-hidden">{`You're about to edit ${name} categories`}</h2>
                 }
@@ -186,7 +186,7 @@ const CategoryItem: React.FC<Properties> = ({
             <BaseModal
                 isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handelClickDelete}
+                onSubmit={handleClickDelete}
                 Header={<h2>{`You're about to delete ${name} categories`}</h2>}
                 Body={
                     <p>

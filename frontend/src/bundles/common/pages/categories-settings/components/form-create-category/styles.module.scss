@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 :root {
     --font-height-input: 2.25rem;
     --border-input: 1px;
@@ -99,7 +101,7 @@ button {
     display: none;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: $md) {
     .wrapperSettings {
         display: none;
     }

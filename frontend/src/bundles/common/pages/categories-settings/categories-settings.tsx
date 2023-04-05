@@ -33,7 +33,7 @@ const CategoriesSettings: React.FC = () => {
         useState<string[]>([]);
     const [isSelectedCategoriesExpense, setIsSelectedCategoriesExpense] =
         useState<string[]>([]);
-    const handelClickModalCreate = useCallback((): void => {
+    const handleClickModalCreate = useCallback((): void => {
         setIsCreateModalShown(true);
     }, []);
 
@@ -64,10 +64,10 @@ const CategoriesSettings: React.FC = () => {
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLButtonElement>): void => {
             if (event.key === 'Enter') {
-                handelClickModalCreate();
+                handleClickModalCreate();
             }
         },
-        [handelClickModalCreate],
+        [handleClickModalCreate],
     );
 
     const handleCloseModal = useCallback(() => {
@@ -88,12 +88,12 @@ const CategoriesSettings: React.FC = () => {
                     <h1 className={styles.title}>Create a new category</h1>
                     <div>
                         <FormUi
-                            onClick={handelClickModalCreate}
+                            onClick={handleClickModalCreate}
                             handleKeyDown={handleKeyDown}
                         />
                         <div className={styles.mobileBtn}>
                             <Button
-                                onClick={handelClickModalCreate}
+                                onClick={handleClickModalCreate}
                                 type={ButtonType.BUTTON}
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}

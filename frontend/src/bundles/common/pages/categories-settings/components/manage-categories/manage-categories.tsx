@@ -23,19 +23,19 @@ const ManageCategories: React.FC<Properties> = ({
     const [isMergeModalShown, setIsMergeModalShown] = useState(false);
     const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
 
-    const handelOpenModalMerge = useCallback(() => {
+    const handleOpenModalMerge = useCallback(() => {
         setIsMergeModalShown(true);
     }, []);
 
-    const handelClickMerge = useCallback(() => {
+    const handleClickMerge = useCallback(() => {
         // will be used
     }, []);
 
-    const handelOpenModalDelete = useCallback(() => {
+    const handleOpenModalDelete = useCallback(() => {
         setIsDeleteModalShown(true);
     }, []);
 
-    const handelClickDelete = useCallback(() => {
+    const handleClickDelete = useCallback(() => {
         // will be used
     }, []);
 
@@ -79,7 +79,7 @@ const ManageCategories: React.FC<Properties> = ({
                             size={ButtonSize.MEDIUM}
                             disabled={buttonIsCheckedCategoriesMergeActive}
                             className={styles.btn}
-                            onClick={handelOpenModalMerge}
+                            onClick={handleOpenModalMerge}
                         >
                             <FontAwesomeIcon icon={FaIcons.COPY} />
                             <span className={styles.btnName}>
@@ -94,7 +94,7 @@ const ManageCategories: React.FC<Properties> = ({
                             size={ButtonSize.MEDIUM}
                             disabled={buttonIsCheckedCategoriesDeleteActive}
                             className={styles.btn}
-                            onClick={handelOpenModalDelete}
+                            onClick={handleOpenModalDelete}
                         >
                             <FontAwesomeIcon icon={FaIcons.TRASH} />
                             <span className={styles.btnName}>
@@ -107,7 +107,7 @@ const ManageCategories: React.FC<Properties> = ({
             <BaseModal
                 isShown={isMergeModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handelClickMerge}
+                onSubmit={handleClickMerge}
                 Header={
                     <h2>{`You're about to merge ${isSelectedCategoriesExpense.length} categories`}</h2>
                 }
@@ -117,7 +117,7 @@ const ManageCategories: React.FC<Properties> = ({
             <BaseModal
                 isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handelClickDelete}
+                onSubmit={handleClickDelete}
                 Header={
                     <h2>{`You're about to delete ${isSelectedCategoriesExpense.length} categories`}</h2>
                 }

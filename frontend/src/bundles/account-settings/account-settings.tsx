@@ -7,9 +7,6 @@ const AccountSettings: React.FC = () => {
     const dataTabs = [
         { title: 'Account', to: AppRoute.USER },
         { title: 'All Categories', to: AppRoute.CATEGORIES },
-        // { title: 'Connected bank accounts', to: AppRoute.DASHBOARD },
-        // { title: 'Support', to: AppRoute.DASHBOARD },
-        // { title: 'Terms and Policies', to: AppRoute.DASHBOARD },
     ];
     return (
         <main className={styles.container}>

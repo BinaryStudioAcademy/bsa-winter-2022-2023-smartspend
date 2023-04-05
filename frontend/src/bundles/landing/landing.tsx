@@ -1,7 +1,9 @@
 import EmmaAvatar from '~/assets/img/emma-avatar.svg';
 import JoanAvatar from '~/assets/img/joan-avatar.svg';
 import JoyAvatar from '~/assets/img/joy-avatar.svg';
+import { useAppDocumentTitle } from '~/bundles/common/hooks/hooks';
 
+import { AppDocumentTitles } from '../common/enums/enums';
 import {
     FeedbacksPart,
     FirstStepPart,
@@ -15,6 +17,7 @@ import {
 import styles from './styles.module.scss';
 
 const Landing: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.LANDING);
     const feedbacksArray = [
         {
             name: 'Roy',

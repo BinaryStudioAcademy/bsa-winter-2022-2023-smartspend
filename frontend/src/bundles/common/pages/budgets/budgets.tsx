@@ -7,7 +7,11 @@ import {
     Button,
 } from '~/bundles/common/components/components.js';
 import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDocumentTitle,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
@@ -27,6 +31,7 @@ type Properties = {
 };
 
 const Budgets: React.FC<Properties> = ({ budgetCards }) => {
+    useAppDocumentTitle('Budgets');
     const [active, setActive] = useState(false);
 
     const handleClickOpen = useCallback((): void => {

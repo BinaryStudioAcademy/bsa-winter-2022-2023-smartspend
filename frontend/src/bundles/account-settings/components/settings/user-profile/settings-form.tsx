@@ -1,3 +1,8 @@
+import {
+    type UserUpdateRequestDto,
+    userUpdateRegValidationSchema,
+} from 'shared/build';
+
 import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
@@ -27,9 +32,14 @@ const sex = [
     { value: 'Female', name: 'Female' },
 ];
 
+// type Properties = {
+//     onSubmit: (payload: UserUpdateRequestDto) => void;
+// };
+
 const SettingsForm: React.FC = () => {
-    const { control, errors } = useAppForm({
+    const { control, errors } = useAppForm<UserUpdateRequestDto>({
         defaultValues: mockData,
+        validationSchema: userUpdateRegValidationSchema,
     });
 
     const newName = useFormController({ name: 'firstName', control }).field

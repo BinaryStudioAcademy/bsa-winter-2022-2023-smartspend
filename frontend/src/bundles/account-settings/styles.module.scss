@@ -1,9 +1,11 @@
 .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     row-gap: 45px;
-    padding-top: 130px;
+    padding: 0 var(--p-6);
+    padding-top: 120px;
     padding-bottom: var(--p-6);
     background-color: var(--color-blue-100);
 }

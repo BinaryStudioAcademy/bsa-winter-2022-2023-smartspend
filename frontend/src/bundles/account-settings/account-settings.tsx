@@ -1,5 +1,5 @@
 import { AppRoute } from '../common/enums/app-route.enum';
-import { Tabs, UserProfile } from './components/components';
+import { UserProfile, UserSettingsTabs } from './components/components';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -12,7 +12,7 @@ const AccountSettings: React.FC = () => {
     ];
     return (
         <main className={styles.container}>
-            <Tabs tabsData={dataTabs} />
+            <UserSettingsTabs tabsData={dataTabs} />
             <div className={styles.userProfileContainer}>
                 <UserProfile />
             </div>

@@ -9,6 +9,7 @@ export {
 } from './calendar-helpers/get-months-for-arrows';
 export { createGradients } from './create-gradient/create-gradient.js';
 export { dateToShortStringHelper } from './date-to-short-string/date-to-short-string.helper';
+export { getAppTitle } from './get-app-title/get-app-title.helper';
 export { getGradientColors } from './get-gradient-colors/get-gradient-colors.js';
 export { getText } from './get-text-to-path/get-text-to-path.js';
 export { handleScroll } from './handle-scroll/handle-scroll.js';

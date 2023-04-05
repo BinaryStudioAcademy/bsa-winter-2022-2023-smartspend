@@ -17,12 +17,14 @@ import {
     WalletCard,
 } from '~/bundles/common/components/components.js';
 import {
+    AppDocumentTitles,
     ButtonVariant,
     CardVariant,
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppForm,
     useAppSelector,
 } from '~/bundles/common/hooks/hooks.js';
@@ -101,6 +103,7 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
 };
 
 const Dashboard: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const [active, setActive] = useState(false);
     const [, setFilteredData] = useState(mockSliderData);
     const rangeLimits = { min: -100, max: 1000 };

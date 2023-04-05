@@ -6,6 +6,7 @@ import { BudgetCard, Button } from '~/bundles/common/components/components.js';
 import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppSelector,
     useCallback,
     useEffect,
@@ -18,6 +19,8 @@ import styles from './styles.module.scss';
 const Budgets: React.FC = () => {
     const dispatch = useAppDispatch();
     const { budgets } = useAppSelector((state) => state.budgets);
+
+    useAppDocumentTitle('Budgets');
     const [active, setActive] = useState(false);
 
     const handleCancel = useCallback(() => {

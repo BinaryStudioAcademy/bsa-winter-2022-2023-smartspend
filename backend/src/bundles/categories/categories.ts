@@ -9,7 +9,7 @@ const categoryRepository = new CategoryRepository(CategoryModel);
 const categoryService = new CategoryService(categoryRepository);
 const categoryController = new CategoryController(logger, categoryService);
 
-export { categoryController };
+export { categoryController, categoryService };
 export { CategoryModel } from './category.model.js';
 export {
     CategoriesApiPath,

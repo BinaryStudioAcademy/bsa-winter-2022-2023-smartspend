@@ -10,6 +10,7 @@ import {
     Input,
     MultiDropdown,
     RangeSlider,
+    TransactionTable,
 } from '~/bundles/common/components/components.js';
 import {
     ButtonSize,
@@ -166,12 +167,14 @@ const WalletDetails: React.FC = () => {
                             </Button>
                             <div className={styles.buttons}>
                                 <Button
+                                    className={styles.button}
                                     variant={ButtonVariant.SECONDARY}
                                     size={ButtonSize.MEDIUM}
                                 >
                                     Future
                                 </Button>
                                 <Button
+                                    className={styles.button}
                                     variant={ButtonVariant.SECONDARY}
                                     size={ButtonSize.MEDIUM}
                                 >
@@ -199,9 +202,6 @@ const WalletDetails: React.FC = () => {
                             </div>
                             <div className={styles.applyFilters}>
                                 <div className={styles.filter}>
-                                    <div className={styles.categoryText}>
-                                        By category
-                                    </div>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={categories}
@@ -209,13 +209,11 @@ const WalletDetails: React.FC = () => {
                                             handleChange={
                                                 handleCategoriesMultiDropdownChange
                                             }
+                                            label="By category"
                                         />
                                     </div>
                                 </div>
                                 <div className={styles.filter}>
-                                    <div className={styles.categoryText}>
-                                        By people
-                                    </div>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={people}
@@ -223,6 +221,7 @@ const WalletDetails: React.FC = () => {
                                             handleChange={
                                                 handlePeopleMultiDropdownChange
                                             }
+                                            label="By people"
                                         />
                                     </div>
                                 </div>
@@ -283,44 +282,92 @@ const WalletDetails: React.FC = () => {
                                     variant={CardVariant.VIOLET}
                                 />
                             </div>
-                            <div className={styles.futureTransactions}>
-                                <h1 className={styles.futureHeader}>
-                                    Till the end of period
-                                </h1>
-                                <div className={styles.futureBody}>
-                                    {/*there should be another button or dropdown*/}
-                                    <FontAwesomeIcon
-                                        icon={FaIcons.CHEVRON_DOWN}
-                                    />
-                                    <p className={styles.futureScheduled}>
-                                        Scheduled
-                                    </p>
-                                    <p className={styles.futureTransaction}>
-                                        1 Transaction
-                                    </p>
-                                    <p className={styles.futureWithdraw}>
-                                        -$200
-                                    </p>
-                                </div>
-                            </div>
-                            <div className={styles.expenses}>
-                                <h1 className={styles.futureHeader}>
-                                    Mar 02, 2023
-                                </h1>
-                                <div className={styles.categories}>
-                                    <div className={styles.category}>
-                                        <input
-                                            type="checkbox"
-                                            className={styles.checkbox}
-                                        />
-                                    </div>
-                                    <div className={styles.category}>
-                                        <input
-                                            type="checkbox"
-                                            className={styles.checkbox}
-                                        />
-                                    </div>
-                                </div>
+                            <div className={styles.transactionsContainer}>
+                                <TransactionTable
+                                    transactions={[
+                                        {
+                                            id: '1',
+                                            category: 'Food and drink',
+                                            name: 'faBagShopping',
+                                            date: '2022-03-23',
+                                            label: 'Supermarket',
+                                            amount: -35,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '2',
+                                            category: 'Transport',
+                                            name: 'faCarAlt',
+                                            date: '2022-03-23',
+                                            label: 'Gas Station',
+                                            amount: -50,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '3',
+                                            category: 'Shopping',
+                                            name: 'faStoreAltSlash',
+                                            date: '2022-04-22',
+                                            label: 'Clothing Store',
+                                            amount: 120,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '4',
+                                            category: 'Food',
+                                            name: 'faBowlFood',
+                                            date: '2022-03-22',
+                                            label: 'Cafeteria',
+                                            amount: -10,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '5',
+                                            category: 'Transport',
+                                            name: 'faCarAlt',
+                                            date: '2022-03-22',
+                                            label: 'Taxi Company',
+                                            amount: -25,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '6',
+                                            category: 'Salary',
+                                            name: 'faMoneyBill',
+                                            date: '2023-03-30',
+                                            label: 'Electronics Store',
+                                            amount: 3500,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '7',
+                                            category: 'Food',
+                                            name: 'faBowlFood',
+                                            date: '2024-03-21',
+                                            label: 'Restaurant',
+                                            amount: -60,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '8',
+                                            category: 'Transport',
+                                            name: 'faCarAlt',
+                                            date: '2022-03-21',
+                                            label: 'Public Transport',
+                                            amount: -5,
+                                            currency: '$',
+                                        },
+                                        {
+                                            id: '9',
+                                            category: 'Salary',
+                                            name: 'faMoneyBill',
+                                            date: '2023-04-30',
+                                            label: 'Electronics Store',
+                                            amount: 3500,
+                                            currency: '$',
+                                        },
+                                    ]}
+                                />
                             </div>
                         </div>
                     </div>

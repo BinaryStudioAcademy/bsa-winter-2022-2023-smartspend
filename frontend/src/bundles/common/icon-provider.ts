@@ -12,6 +12,7 @@ import {
     faMoneyBills,
     faPlane,
     faPlus,
+    faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
@@ -21,6 +22,7 @@ const iconProvider = {
     faEyeSlash,
     faPlus,
     faChevronRight,
+    faTrashCan,
     faArrowDown,
     faArrowUp,
     faMoneyBill,

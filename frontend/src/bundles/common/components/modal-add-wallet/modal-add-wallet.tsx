@@ -107,7 +107,7 @@ const NewWalletModal: React.FC<Properties> = ({
     const isFieldsChange =
         values?.name === fields.name &&
         values.balance === fields.balance &&
-        values.currencyId === currency?.value
+        values.currencyId === currency.value
             ? false
             : true;
 
@@ -136,6 +136,10 @@ const NewWalletModal: React.FC<Properties> = ({
         },
         [dispatch, fields, onClose, values],
     );
+
+    useEffect(() => {
+        setCurrency(mutableCurrencies[0]);
+    }, [mutableCurrencies]);
 
     useEffect(() => {
         values && setFields(values);

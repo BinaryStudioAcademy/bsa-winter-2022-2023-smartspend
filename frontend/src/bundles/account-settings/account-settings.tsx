@@ -12,7 +12,7 @@ const AccountSettings: React.FC = () => {
     ];
     return (
         <main className={styles.container}>
-            <div className={styles.tabsContainer} >
+            <div className={styles.tabsContainer}>
                 <UserSettingsTabs tabsData={dataTabs} />
             </div>
             <div className={styles.userProfileContainer}>

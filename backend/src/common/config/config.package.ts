@@ -96,6 +96,18 @@ class Config implements IConfig {
                     env: 'GMAIL_PASSWORD',
                     default: null,
                 },
+                DASHBOARD_LINK: {
+                    doc: 'dashboard link to redirect user in email',
+                    format: String,
+                    env: 'DASHBOARD_LINK',
+                    default: null,
+                },
+                APP_LOGO_LINK: {
+                    doc: 'logo link image',
+                    format: String,
+                    env: 'APP_LOGO_LINK',
+                    default: null,
+                },
             },
         });
     }

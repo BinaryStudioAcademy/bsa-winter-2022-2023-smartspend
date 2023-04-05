@@ -5,6 +5,7 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
+import { type IConfig } from '~/common/config/config.js';
 import { ExceptionMessage } from '~/common/enums/enums.js';
 import { HttpError } from '~/common/exceptions/exceptions.js';
 import { getTemplate } from '~/common/helpers/helpers.js';
@@ -18,19 +19,29 @@ type User = {
     email: string;
 };
 
+type ConstructorType = {
+    userService: UserService;
+    cryptService: CryptService;
+    tokenService: TokenService;
+    config: IConfig;
+};
+
 class AuthService {
     private userService: UserService;
     private cryptService: CryptService;
     private tokenService: TokenService;
+    private config: IConfig;
 
-    public constructor(
-        userService: UserService,
-        cryptService: CryptService,
-        tokenService: TokenService,
-    ) {
+    public constructor({
+        userService,
+        cryptService,
+        tokenService,
+        config,
+    }: ConstructorType) {
         this.userService = userService;
         this.cryptService = cryptService;
         this.tokenService = tokenService;
+        this.config = config;
     }
 
     public async signUp(
@@ -53,9 +64,8 @@ class AuthService {
             name: 'sign-up-email-template',
             context: {
                 title: 'SmartSpend',
-                dashboardLink: 'https://smartspend.netlify.app/dashboard',
-                logoLink:
-                    'https://i.gyazo.com/c708228fb8c0795f19eb5a37666f100c.png',
+                dashboardLink: this.config.ENV.EMAIL.DASHBOARD_LINK,
+                logoLink: this.config.ENV.EMAIL.APP_LOGO_LINK,
             },
         });
         await emailService.sendEmail({

@@ -29,9 +29,9 @@ const getBudget = {
     recurrence: 'monthly',
     categories: [
         {
-            id: '6b6510e3-7bd9-4952-9db4-e97a03dce2f6',
+            id: 'e1609c97-c997-4d90-b077-4cb0c00579f1',
             name: 'Food & Drink',
-            icon: 'burger-soda',
+            icon: 'burger',
             color: 'red',
             type: 'expense',
         },

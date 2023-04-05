@@ -1,69 +1,14 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { MultiDropdown } from '~/bundles/common/components/components';
+import { useAppDispatch, useAppSelector } from '~/bundles/common/hooks/hooks';
+import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
 import styles from './styles.module.scss';
-
-const dataMenu = [
-    {
-        id: '6b6510e3-7bd9-4952-9db4-e97a03dce2f6',
-        name: 'Food & Drink',
-        icon: 'burger',
-        color: 'red',
-        type: 'expense',
-    },
-    {
-        id: '0a478b81-0f6e-4e04-810d-13b18f210954',
-        name: 'Salary',
-        icon: 'money-bill',
-        color: 'green',
-        type: 'income',
-    },
-    {
-        id: 'd2303d78-9446-471d-80c2-6966b6ceed3b',
-        name: 'Car',
-        icon: 'car',
-        color: 'blue',
-        type: 'expense',
-    },
-    {
-        id: '5a832c55-954e-4def-8196-5854849b1977',
-        name: 'Travel',
-        icon: 'plane',
-        color: 'pink',
-        type: 'expense',
-    },
-    {
-        id: 'e4aec229-ff61-49b8-9da8-d4209427ac76',
-        name: 'Gifts',
-        icon: 'gifts',
-        color: 'green',
-        type: 'income',
-    },
-    {
-        id: '9ec27eab-1737-44eb-8e7b-56ab214dffc4',
-        name: 'Gifts',
-        icon: 'gifts',
-        color: 'red',
-        type: 'expense',
-    },
-    {
-        id: '2debaea0-d8d9-4c3d-9fb4-e1b375b62318',
-        name: 'Bills & Fees',
-        icon: 'money-bills',
-        color: 'red',
-        type: 'expense',
-    },
-] as DataType[];
-
-const newDataMenu = dataMenu.map((item) => ({
-    ...item,
-    value: item.id ?? '',
-}));
 
 const RenderMultiDropdown = ({
     field: { onChange },
@@ -75,6 +20,20 @@ const RenderMultiDropdown = ({
         }[];
     };
 }): JSX.Element => {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        void dispatch(loadCategories());
+    }, [dispatch]);
+
+    const category = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+    const newDataMenu = category.map((item) => ({
+        ...item,
+        value: item.id ?? '',
+    }));
+
     const [selectedMulti, setSelectedMulti] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
@@ -118,15 +77,9 @@ const RenderMultiDropdown = ({
 
                 {data.icon && (
                     <span
+                        className={styles.imageWrapper}
                         style={{
                             background: `${data.color}`,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: '25px',
-                            width: '25px',
-                            borderRadius: '6px',
-                            color: '#fff',
                         }}
                     >
                         <FontAwesomeIcon icon={data.icon as IconProp} />

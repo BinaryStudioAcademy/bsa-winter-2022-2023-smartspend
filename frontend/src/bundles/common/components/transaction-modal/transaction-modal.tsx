@@ -3,10 +3,15 @@ import { TransactionModalBody } from '~/bundles/common/components/transaction-mo
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonType } from '~/bundles/common/enums/button-type.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
+import { TransactionModalType } from '~/bundles/common/enums/transaction-modal-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
 import styles from './styles.module.scss';
+
+type Properties = {
+    type: TransactionModalType;
+};
 
 const categories: DataType[] = [
     { value: 'salary', name: 'salary' },
@@ -23,7 +28,7 @@ const labels: DataType[] = [
     { value: 'cafe', name: 'cafe' },
 ];
 
-const TransactionModal: React.FC = () => {
+const TransactionModal: React.FC<Properties> = ({ type }) => {
     const [active, setActive] = useState(true);
 
     const handleCancel = useCallback(() => {
@@ -44,14 +49,16 @@ const TransactionModal: React.FC = () => {
             }
             submitButtonName={'Save changes'}
         >
-            <Button
-                className={styles.delete}
-                type={ButtonType.SUBMIT}
-                size={ButtonSize.SMALL}
-                variant={ButtonVariant.SECONDARY}
-            >
-                Delete Transaction
-            </Button>
+            {type === TransactionModalType.CHANGE && (
+                <Button
+                    className={styles.delete}
+                    type={ButtonType.SUBMIT}
+                    size={ButtonSize.SMALL}
+                    variant={ButtonVariant.SECONDARY}
+                >
+                    Delete Transaction
+                </Button>
+            )}
         </BaseModal>
     );
 };

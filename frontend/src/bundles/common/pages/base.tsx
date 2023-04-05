@@ -5,7 +5,6 @@ import {
     userSignInValidationSchema,
 } from 'shared/build/index.js';
 
-import { UserProfile } from '~/bundles/account-settings/components/components';
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 

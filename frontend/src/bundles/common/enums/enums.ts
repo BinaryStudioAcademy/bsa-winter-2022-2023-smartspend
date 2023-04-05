@@ -14,6 +14,7 @@ export { InputType } from './input-type.enum.js';
 export { LineChartOptions } from './line-chart.enums.js';
 export { menuLinks } from './menu-links.enum.js';
 export { NotificationType } from './notification-type.enum';
+export { TransactionModalType } from './transaction-modal-type.enum.js';
 export { WalletCardSize } from './wallet-card-size.enum.js';
 export { WalletCardVariant } from './wallet-card-variant.enum.js';
 export {

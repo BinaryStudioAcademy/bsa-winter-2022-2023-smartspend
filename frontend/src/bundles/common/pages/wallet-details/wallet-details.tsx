@@ -21,6 +21,7 @@ import {
     FaIcons,
     InputType,
 } from '~/bundles/common/enums/enums.js';
+import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -81,6 +82,7 @@ const WalletDetails: React.FC = () => {
         WalletGetAllItemResponseDto | undefined
     >();
     const { wallets } = useAppSelector((state) => state.wallets);
+    const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
@@ -98,6 +100,11 @@ const WalletDetails: React.FC = () => {
         ...item,
         value: item.id,
     }));
+
+    const currency = findCurrencyById(
+        currencies,
+        currentWallet?.currencyId,
+    )?.symbol;
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -342,21 +349,25 @@ const WalletDetails: React.FC = () => {
                                     title="Total Balance"
                                     sum={currentWallet?.balance as number}
                                     variant={CardVariant.ORANGE}
+                                    currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Period Change"
                                     sum={504}
                                     variant={CardVariant.BLUE}
+                                    currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Period Expenses"
                                     sum={-9700.34}
                                     variant={CardVariant.WHITE}
+                                    currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Balance"
                                     sum={7600.34}
                                     variant={CardVariant.VIOLET}
+                                    currency={currency}
                                 />
                             </div>
                             <div className={styles.transactionsContainer}>
@@ -369,7 +380,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2022-03-23',
                                             label: 'Supermarket',
                                             amount: -35,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '2',
@@ -378,7 +389,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2022-03-23',
                                             label: 'Gas Station',
                                             amount: -50,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '3',
@@ -387,7 +398,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2022-04-22',
                                             label: 'Clothing Store',
                                             amount: 120,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '4',
@@ -396,7 +407,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2022-03-22',
                                             label: 'Cafeteria',
                                             amount: -10,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '5',
@@ -405,7 +416,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2022-03-22',
                                             label: 'Taxi Company',
                                             amount: -25,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '6',
@@ -414,7 +425,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2023-03-30',
                                             label: 'Electronics Store',
                                             amount: 3500,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '7',
@@ -423,7 +434,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2024-03-21',
                                             label: 'Restaurant',
                                             amount: -60,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '8',
@@ -432,7 +443,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2022-03-21',
                                             label: 'Public Transport',
                                             amount: -5,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                         {
                                             id: '9',
@@ -441,7 +452,7 @@ const WalletDetails: React.FC = () => {
                                             date: '2023-04-30',
                                             label: 'Electronics Store',
                                             amount: 3500,
-                                            currency: '$',
+                                            currency: currency,
                                         },
                                     ]}
                                 />

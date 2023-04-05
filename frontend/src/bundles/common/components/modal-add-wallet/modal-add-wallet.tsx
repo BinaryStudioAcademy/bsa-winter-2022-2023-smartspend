@@ -5,13 +5,14 @@ import {
     Dropdown,
     Input,
 } from '~/bundles/common/components/components';
-import { currencies } from '~/bundles/common/components/modal-add-wallet/constants/constants';
 import { InputType } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     useEffect,
+    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
@@ -39,6 +40,16 @@ const NewWalletModal: React.FC<Properties> = ({
     values,
 }) => {
     const dispatch = useAppDispatch();
+    const { currencies } = useAppSelector((state) => state.currencies);
+    const mutableCurrencies = useMemo(
+        () =>
+            currencies.map((currency) => ({
+                value: currency.id,
+                name: currency.name,
+            })),
+        [currencies],
+    );
+    const [currency, setCurrency] = useState<DataType>(mutableCurrencies[0]);
     const [fields, setFields] = useState<WalletGetAllItemResponseDto>({
         id: '',
         name: '',
@@ -55,8 +66,7 @@ const NewWalletModal: React.FC<Properties> = ({
         },
     });
 
-    const [currency, setCurrency] = useState<DataType>(currencies[0]);
-    const findCurrency = currencies.find(
+    const findCurrency = mutableCurrencies.find(
         (currency) => currency.value === fields.currencyId,
     );
 
@@ -97,7 +107,7 @@ const NewWalletModal: React.FC<Properties> = ({
     const isFieldsChange =
         values?.name === fields.name &&
         values.balance === fields.balance &&
-        values.currencyId === currency.value
+        values.currencyId === currency?.value
             ? false
             : true;
 
@@ -157,7 +167,7 @@ const NewWalletModal: React.FC<Properties> = ({
                     />
 
                     <Dropdown
-                        data={currencies}
+                        data={mutableCurrencies}
                         selectedOption={currency}
                         handleChange={handleChange}
                         label="Currency"

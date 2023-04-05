@@ -166,12 +166,14 @@ const WalletDetails: React.FC = () => {
                             </Button>
                             <div className={styles.buttons}>
                                 <Button
+                                    className={styles.button}
                                     variant={ButtonVariant.SECONDARY}
                                     size={ButtonSize.MEDIUM}
                                 >
                                     Future
                                 </Button>
                                 <Button
+                                    className={styles.button}
                                     variant={ButtonVariant.SECONDARY}
                                     size={ButtonSize.MEDIUM}
                                 >
@@ -199,9 +201,6 @@ const WalletDetails: React.FC = () => {
                             </div>
                             <div className={styles.applyFilters}>
                                 <div className={styles.filter}>
-                                    <div className={styles.categoryText}>
-                                        By category
-                                    </div>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={categories}
@@ -209,13 +208,11 @@ const WalletDetails: React.FC = () => {
                                             handleChange={
                                                 handleCategoriesMultiDropdownChange
                                             }
+                                            label="By category"
                                         />
                                     </div>
                                 </div>
                                 <div className={styles.filter}>
-                                    <div className={styles.categoryText}>
-                                        By people
-                                    </div>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={people}
@@ -223,6 +220,7 @@ const WalletDetails: React.FC = () => {
                                             handleChange={
                                                 handlePeopleMultiDropdownChange
                                             }
+                                            label="By people"
                                         />
                                     </div>
                                 </div>

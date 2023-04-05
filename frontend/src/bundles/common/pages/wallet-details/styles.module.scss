@@ -44,7 +44,18 @@
 .buttons {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--m-2);
+}
+
+.button {
+    background: transparent;
+    border: var(--border) solid;
+}
+
+.button:hover {
+    background: transparent;
+    border: var(--border) solid;
+    transition: all var(--transition-time);
 }
 
 .calendar {
@@ -60,7 +71,7 @@
     justify-content: center;
     align-items: start;
     width: 100vw;
-    min-height: 233px;
+    min-height: 160px;
     background: var(--color-white-100);
 }
 
@@ -98,13 +109,6 @@
 }
 
 .applyFilters * {
-    color: var(--color-gray-200);
-    font-weight: var(--font-weight-400);
-    font-size: var(--font-size-level-2-body);
-}
-
-.categoryText {
-    align-self: start;
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-2-body);
@@ -266,5 +270,11 @@
     .applyFilters {
         justify-content: center;
         align-items: center;
+    }
+}
+
+@media (min-width: $lg) {
+    .buttonsContainer {
+        margin-right: var(--m-2);
     }
 }

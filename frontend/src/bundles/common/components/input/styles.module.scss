@@ -46,7 +46,7 @@
     padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-400);
-    font-size: var(--font-size-1-button-text);
+    font-size: 1rem;
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-input);
@@ -54,6 +54,10 @@
     border-radius: var(--border-radius);
     outline: none;
     transition: box-shadow 0.2s linear;
+}
+
+.input:hover {
+    border-color: var(--color-blue-300);
 }
 
 .input:focus {

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { AppRoute } from '../common/enums/app-route.enum.js';
-import { Tabs, UserProfile } from './components/components';
+import { UserProfile, UserSettingsTabs } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -16,7 +16,9 @@ const AccountSettings: React.FC = () => {
     return (
         <main className={styles.body}>
             <div className={classNames(styles.container, 'container')}>
-                <Tabs tabsData={dataTabs} />
+                <div className={styles.tabsContainer}>
+                    <UserSettingsTabs tabsData={dataTabs} />
+                </div>
                 <div className={styles.userProfileContainer}>
                     <UserProfile />
                 </div>

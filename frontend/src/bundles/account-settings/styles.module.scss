@@ -11,11 +11,12 @@
 
 .container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--m-5);
     width: 1192px;
     padding-top: var(--p-5);
+}
+
+.tabsContainer {
+    margin-top: var(--m-4);
 }
 
 .userProfileContainer {

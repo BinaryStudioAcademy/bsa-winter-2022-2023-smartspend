@@ -15,6 +15,9 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
 
     fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
         try {
+            if (!request.routerPath) {
+                return;
+            }
             const routeConfig = {
                 endpoint: request.routerPath,
                 method: request.method,
@@ -27,7 +30,15 @@ const authorization = fp(async (fastify, { routesWhiteList, services }) => {
             if (isWhiteRoute) {
                 return;
             }
-            const token = getToken(request.headers.authorization as string);
+
+            if (!request.headers.authorization) {
+                throw new HttpError({
+                    message: ExceptionMessage.AUTHORIZE_ERROR,
+                    status: HttpCode.UNAUTHORIZED,
+                });
+            }
+
+            const token = getToken(request.headers.authorization);
             const { auth } = services;
 
             const authorizedUser = await auth.getUserByToken(token);

@@ -57,10 +57,10 @@
     width: 100%;
     height: 100%;
     padding: var(--p-2);
-    color: #01cacc;
+    color: var(--color-green);
     font-size: 12px;
     text-align: center;
-    border: 2px dashed #01cacc;
+    border: 2px dashed var(--color-green);
     border-radius: 50%;
 }
 

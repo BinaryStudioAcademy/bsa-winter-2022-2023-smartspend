@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { AppRoute } from '../common/enums/app-route.enum.js';
 import { UserProfile, UserSettingsTabs } from './components/components.js';

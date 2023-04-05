@@ -7,7 +7,7 @@ async function seed(knex: Knex): Promise<void> {
 
     await knex(CATEGORIES_TABLE).insert([
         {
-            icon: 'burger-soda',
+            icon: 'burger',
             color: 'red',
             name: 'Food & Drink',
             type: 'expense',

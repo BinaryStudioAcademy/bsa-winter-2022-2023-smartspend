@@ -3,7 +3,7 @@ import { Model } from 'objection';
 import { DatabaseTableName } from '~/common/database/database.js';
 
 class CurrencyModel extends Model {
-    public 'id': string | null;
+    public 'id': string;
 
     public 'name': string;
 

@@ -30,6 +30,8 @@ export {
 export {
     type CurrencyGetAllItemResponseDto,
     type CurrencyGetAllResponseDto,
+    CurrencyApiPath,
+    CurrencyValidationMessage,
 } from './bundles/currencies/currencies.js';
 export {
     type UpdateRequestDto,

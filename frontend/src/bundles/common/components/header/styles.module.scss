@@ -181,6 +181,14 @@ a:visited {
     .logoText {
         display: none;
     }
+
+    .menu {
+        right: 16px;
+    }
+
+    .menu::before {
+        right: 8px;
+    }
 }
 
 @media (max-width: $sm) {

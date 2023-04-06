@@ -34,7 +34,7 @@ export {
     CurrencyValidationMessage,
 } from './bundles/currencies/currencies.js';
 export {
-    type UpdateRequestDto,
+    type ApiUpdateUserOptions,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserLoadRequestDto,

@@ -28,6 +28,12 @@ export {
     categoryValidationSchema,
 } from './bundles/categories/categories.js';
 export {
+    type CurrencyGetAllItemResponseDto,
+    type CurrencyGetAllResponseDto,
+    CurrencyApiPath,
+    CurrencyValidationMessage,
+} from './bundles/currencies/currencies.js';
+export {
     type DeleteRequestTokenDto,
     type TokenRequestTransactionDto,
     type TransactionCreateRequestDto,
@@ -39,12 +45,6 @@ export {
     TransactionsApiPath,
     TransactionValidationMessage,
 } from './bundles/transactions/transactions.js';
-export {
-    type CurrencyGetAllItemResponseDto,
-    type CurrencyGetAllResponseDto,
-    CurrencyApiPath,
-    CurrencyValidationMessage,
-} from './bundles/currencies/currencies.js';
 export {
     type ApiUpdateUserOptions,
     type UserGetAllItemResponseDto,

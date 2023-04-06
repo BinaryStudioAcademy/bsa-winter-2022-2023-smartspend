@@ -2,10 +2,11 @@
 
 .tabs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: fit-content;
-    height: 36px;
+    min-height: 36px;
     margin: 0;
     padding: var(--p-1);
     font-family: var(--font-family);

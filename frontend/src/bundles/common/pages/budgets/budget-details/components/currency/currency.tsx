@@ -5,11 +5,6 @@ import { Dropdown } from '~/bundles/common/components/components';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
-// const currency = [
-//     { value: 'USD', name: 'USD' },
-//     { value: 'EUR', name: 'EUR' },
-// ];
-
 const RenderCurrency = ({
     field: { onChange },
 }: {

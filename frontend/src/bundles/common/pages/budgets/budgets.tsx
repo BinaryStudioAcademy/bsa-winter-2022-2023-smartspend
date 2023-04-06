@@ -43,15 +43,22 @@ const Budgets: React.FC = () => {
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
                         {budgets.map(
-                            ({ id, name, amount, currency, startDate }) => (
+                            ({
+                                id,
+                                name,
+                                amount,
+                                currency,
+                                startDate,
+                                recurrence,
+                            }) => (
                                 <BudgetCard
                                     key={id}
                                     id={id}
                                     title={name}
-                                    total={amount}
-                                    moneyLeft={amount}
+                                    amount={amount}
                                     currency={currency}
-                                    date={startDate}
+                                    recurrence={recurrence}
+                                    startDate={startDate}
                                 />
                             ),
                         )}

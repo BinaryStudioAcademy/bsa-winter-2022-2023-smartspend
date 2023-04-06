@@ -29,7 +29,7 @@ type Properties = {
     };
 };
 
-const budgetsRegex = /^\/budgets\/\d+$/;
+const budgetsRegex = /^\/budgets\/[\dA-Za-z-]+$/;
 
 const Header: React.FC<Properties> = ({
     name,

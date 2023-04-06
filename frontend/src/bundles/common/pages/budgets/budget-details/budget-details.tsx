@@ -1,11 +1,8 @@
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import {
-    type BudgetCreateRequestDto,
-    type BudgetResponseDto,
-} from '~/bundles/budgets/budgets';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
+import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
@@ -13,6 +10,10 @@ import {
     TransactionTable,
 } from '~/bundles/common/components/components';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
+import {
+    dateToShortStringHelper,
+    toCustomLocaleString,
+} from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -131,6 +132,7 @@ const BudgetDetails = (): JSX.Element => {
             currency: '$',
         },
     ];
+
     const spent = 500;
 
     const dispatch = useAppDispatch();
@@ -138,7 +140,7 @@ const BudgetDetails = (): JSX.Element => {
     const navigate = useNavigate();
     const [active, setActive] = useState(false);
     const [currentBudget, setCurrenBudget] = useState<
-        BudgetResponseDto | undefined
+        BudgetSliceResponseDto | undefined
     >();
     const { budgets } = useAppSelector((state) => state.budgets);
 
@@ -185,6 +187,11 @@ const BudgetDetails = (): JSX.Element => {
         spent,
     });
 
+    const canSpending =
+        canSpend > 0
+            ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
+            : 0;
+
     return (
         <div className={styles.container}>
             <div className={classNames(styles.contentWrapper, 'container')}>
@@ -207,11 +214,7 @@ const BudgetDetails = (): JSX.Element => {
                                 isShown={active}
                                 onClose={handleCancel}
                                 onClick={handleDeleteBudget}
-                                budget={
-                                    currentBudget as unknown as BudgetCreateRequestDto & {
-                                        id: string;
-                                    }
-                                }
+                                budget={currentBudget}
                             />
                         </div>
                     </div>
@@ -242,20 +245,19 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>
-                            You can spending
-                            {canSpend.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}
-                            {currency}/Day
-                        </div>
+                        <div>{`You can spending ${canSpending}/Day`}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={spent}
                         />
                         <div className={styles.periodBudgetWrapper}>
-                            <div>{startDate}</div>
+                            <div>
+                                {
+                                    dateToShortStringHelper([
+                                        { date: startDate },
+                                    ])[0].date
+                                }
+                            </div>
                             <div>{lastDate}</div>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { MultiDropdown } from '~/bundles/common/components/components';
@@ -19,22 +20,28 @@ const RenderMultiDropdown = ({
     };
 }): JSX.Element => {
     const dispatch = useAppDispatch();
+    const { id } = useParams();
 
     useEffect(() => {
         void dispatch(loadCategories());
     }, [dispatch]);
 
-    const category = useAppSelector(
+    const categories = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
     );
-    const newDataMenu = category.map((item) => ({
+    const budgets = useAppSelector((state) => state.budgets.budgets);
+    const currentBudget = budgets.find((budget) => budget.id === id);
+    const initialState = currentBudget?.categories;
+    const mutableInitialState =
+        initialState?.map((item) => ({ ...item, value: item.id })) ?? [];
+    const newDataMenu = categories.map((item) => ({
         ...item,
         value: item.id,
     }));
 
     const [selectedMulti, setSelectedMulti] = useState<
         MultiValue<DataType> | SingleValue<DataType>
-    >([]);
+    >(mutableInitialState as unknown as DataType[]);
 
     const handleMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {

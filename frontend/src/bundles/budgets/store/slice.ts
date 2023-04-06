@@ -1,13 +1,13 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { type BudgetResponseDto } from '~/bundles/budgets/budgets.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
+import { type BudgetSliceResponseDto } from '../types/types';
 import { create, loadAll, remove, update } from './actions';
 
 type State = {
-    budgets: BudgetResponseDto[];
+    budgets: BudgetSliceResponseDto[];
     dataStatus: ValueOf<typeof DataStatus>;
 };
 

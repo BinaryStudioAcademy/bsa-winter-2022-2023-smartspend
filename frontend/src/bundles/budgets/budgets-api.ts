@@ -6,7 +6,7 @@ import { type IStorage } from '~/framework/storage/storage.js';
 import { BudgetsApiPath } from './enums/enums.js';
 import {
     type BudgetCreateRequestDto,
-    type BudgetResponseDto,
+    type BudgetSliceResponseDto,
 } from './types/types.js';
 
 type Constructor = {
@@ -20,7 +20,7 @@ class BudgetsApi extends HttpApi {
         super({ path: ApiPath.BUDGETS, baseUrl, http, storage });
     }
 
-    public async getAll(): Promise<BudgetResponseDto[]> {
+    public async getAll(): Promise<BudgetSliceResponseDto[]> {
         const response = await this.load(
             this.getFullEndpoint(BudgetsApiPath.ROOT, {}),
             {
@@ -30,12 +30,12 @@ class BudgetsApi extends HttpApi {
             },
         );
 
-        return response.json<BudgetResponseDto[]>();
+        return response.json<BudgetSliceResponseDto[]>();
     }
 
     public async createBudget(
         payload: BudgetCreateRequestDto,
-    ): Promise<BudgetResponseDto> {
+    ): Promise<BudgetSliceResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(BudgetsApiPath.ROOT, {}),
             {
@@ -46,7 +46,7 @@ class BudgetsApi extends HttpApi {
             },
         );
 
-        return response.json<BudgetResponseDto>();
+        return response.json<BudgetSliceResponseDto>();
     }
 
     public async deleteBudget(id: string): Promise<void> {

@@ -1,15 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import {
-    type BudgetCreateRequestDto,
-    type BudgetResponseDto,
-} from '~/bundles/budgets/budgets.js';
+import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets.js';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
+import { type BudgetSliceResponseDto } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const loadAll = createAsyncThunk<
-    BudgetResponseDto[],
+    BudgetSliceResponseDto[],
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/load-all`, async (_, { extra }) => {

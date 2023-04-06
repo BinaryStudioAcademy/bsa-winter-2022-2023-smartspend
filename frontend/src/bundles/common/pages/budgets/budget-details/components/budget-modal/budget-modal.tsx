@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
+import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import {
     BaseModal,
     Button,
@@ -20,12 +21,20 @@ import {
 } from '../components';
 import styles from './styles.module.scss';
 
+type categoryType = {
+    id: string;
+    name: string;
+    icon: string;
+    color: string;
+    type: string;
+};
+
 interface BudgetModalProperties {
     isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
     onClick?: () => void;
-    budget?: BudgetCreateRequestDto & { id: string };
+    budget?: BudgetSliceResponseDto;
 }
 
 const BudgetModal = ({
@@ -36,16 +45,39 @@ const BudgetModal = ({
     budget,
 }: BudgetModalProperties): JSX.Element => {
     const dispatch = useAppDispatch();
-    const { control, errors, handleSubmit, trigger } = useAppForm({
-        defaultValues: budget ?? {
-            name: '',
-            amount: 0,
-            currency: '',
-            recurrence: '',
-            categories: [''],
-            startDate: '',
+    const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
+        {
+            defaultValues: budget as unknown as BudgetCreateRequestDto,
         },
-    });
+    );
+    const isReset = reset;
+
+    const watchCreateFielsd = [
+        Boolean(watch('name')),
+        Boolean(watch('amount')),
+        Boolean(watch('currency')),
+        Boolean(watch('recurrence')),
+        Boolean(watch('categories')),
+        Boolean(watch('startDate')),
+    ];
+
+    const categoriesId = budget?.categories.map((it) => it.id);
+    const watchCategoryId = (watch('categories') as unknown as categoryType[])
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        ?.map((it) => it.id);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const checkChangeCategory = watchCategoryId?.every((it) =>
+        categoriesId?.includes(it),
+    );
+
+    const watchEditFielsd = [
+        watch('name') === budget?.name ? false : true,
+        watch('amount') === budget?.amount ? false : true,
+        watch('currency') === budget?.currency ? false : true,
+        watch('recurrence') === budget?.recurrence ? false : true,
+        checkChangeCategory ? false : true,
+        watch('startDate') === budget?.startDate ? false : true,
+    ];
 
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
@@ -53,14 +85,15 @@ const BudgetModal = ({
                 void dispatch(
                     budgetsActions.update({
                         id: budget?.id as string,
-                        payload: { ...formData },
+                        payload: formData,
                     }),
                 );
             } else {
                 void dispatch(budgetsActions.create(formData));
             }
+            isReset && reset();
         },
-        [budget?.id, dispatch, isEdit],
+        [budget?.id, dispatch, isEdit, isReset, reset],
     );
 
     const handleFormSubmit = useCallback(
@@ -135,6 +168,11 @@ const BudgetModal = ({
                 </>
             }
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
+            disabled={
+                isEdit
+                    ? !watchEditFielsd.some(Boolean)
+                    : !watchCreateFielsd.every(Boolean)
+            }
         >
             {isEdit && (
                 <Button

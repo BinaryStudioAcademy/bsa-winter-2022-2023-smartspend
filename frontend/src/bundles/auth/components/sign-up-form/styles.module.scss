@@ -68,6 +68,14 @@
     text-align: center;
 }
 
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+    width: 100%;
+}
+
 .footerContainerClass {
     display: flex;
     flex-direction: row;

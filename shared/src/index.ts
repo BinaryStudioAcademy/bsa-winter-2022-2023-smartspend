@@ -34,7 +34,19 @@ export {
     CurrencyValidationMessage,
 } from './bundles/currencies/currencies.js';
 export {
-    type UpdateRequestDto,
+    type DeleteRequestTokenDto,
+    type TokenRequestTransactionDto,
+    type TransactionCreateRequestDto,
+    type TransactionFindRequestDto,
+    type TransactionGetAllItemResponseDto,
+    type TransactionGetAllResponseDto,
+    type TransactionUpdatePayloadDto,
+    createTransactionValidationSchema,
+    TransactionsApiPath,
+    TransactionValidationMessage,
+} from './bundles/transactions/transactions.js';
+export {
+    type ApiUpdateUserOptions,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserLoadRequestDto,

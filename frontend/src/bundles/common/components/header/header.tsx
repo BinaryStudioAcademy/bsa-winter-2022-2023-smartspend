@@ -29,6 +29,8 @@ type Properties = {
     };
 };
 
+const budgetsRegex = /^\/budgets\/\d+$/;
+
 const Header: React.FC<Properties> = ({
     name,
     avatar = defaultAvatar,
@@ -63,12 +65,12 @@ const Header: React.FC<Properties> = ({
                 </Link>
                 {token ? (
                     <div className={classNames(styles.headerBody, styles.tabs)}>
-                        {(pathname.includes(AppRoute.DASHBOARD) ||
-                            pathname.includes(AppRoute.BUDGETS)) && (
+                        {(pathname === AppRoute.DASHBOARD ||
+                            pathname === AppRoute.BUDGETS ||
+                            pathname.match(budgetsRegex)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {(pathname.includes(AppRoute.WALLET) ||
-                            pathname.includes(AppRoute.USER)) && (
+                        {pathname === `${AppRoute.WALLET}/${id}` && (
                             <Tabs
                                 tabsData={dataTabs.wallets}
                                 prefix={`/wallet/${id}`}

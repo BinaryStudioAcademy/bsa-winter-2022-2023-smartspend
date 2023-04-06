@@ -21,6 +21,7 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
+import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
 import { Budgets } from './bundles/common/pages/budgets/budgets';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -80,6 +81,18 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         <WalletDetails />
                                     </PrivateRoute>
                                 ),
+                            },
+                            {
+                                path: AppRoute.BUDGETS_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <BudgetDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFound />,
                             },
                             {
                                 path: AppRoute.USER,

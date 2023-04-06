@@ -83,6 +83,32 @@ class Config implements IConfig {
                     default: null,
                 },
             },
+            EMAIL: {
+                GMAIL_DOMAIN: {
+                    doc: 'gmail email address',
+                    format: String,
+                    env: 'GMAIL_DOMAIN',
+                    default: null,
+                },
+                GMAIL_PASSWORD: {
+                    doc: 'gmail email password',
+                    format: String,
+                    env: 'GMAIL_PASSWORD',
+                    default: null,
+                },
+                DASHBOARD_LINK: {
+                    doc: 'dashboard link to redirect user in email',
+                    format: String,
+                    env: 'DASHBOARD_LINK',
+                    default: null,
+                },
+                APP_LOGO_LINK: {
+                    doc: 'logo link image',
+                    format: String,
+                    env: 'APP_LOGO_LINK',
+                    default: null,
+                },
+            },
         });
     }
 }

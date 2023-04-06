@@ -3,9 +3,9 @@ import joi from 'joi';
 import { UserValidationMessage } from '../enums/enums.js';
 import { type UserUpdateRequestDto } from '../types/types.js';
 
-const emailRegExp =
-    /^[\w!#$%&'*+./=?^`{|}~-]+@[\dA-Za-z]+(?:[\w-]+\.)+[A-Za-z]{2,}$/;
+const emailRegExp = /^[^\s@]+(?:\.[^\s@]+)*@[\w-]+(?:\.[\w-]+)+$/;
 const nameRegExp = /^[\dA-Za-z]+(?:-[\dA-Za-z]+)*$/;
+const INVALID_EMAIL_ERROR = 'any.invalid';
 
 type UserUpdate = Omit<UserUpdateRequestDto, 'sex' | 'language' | 'currency'>;
 
@@ -13,16 +13,54 @@ const userUpdateReg = joi.object<UserUpdate, true>({
     email: joi
         .string()
         .pattern(emailRegExp)
-        .email({
-            tlds: {
-                allow: false,
-            },
-        })
         .required()
         .messages({
             'string.pattern.base': UserValidationMessage.EMAIL_WRONG,
-            'string.email': UserValidationMessage.EMAIL_WRONG,
             'string.empty': UserValidationMessage.EMAIL_REQUIRE,
+        })
+        .custom((value, helpers) => {
+            const [localPart, domainPart] = value.split('@');
+
+            if (localPart.length === 0) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            if (localPart.length > 15) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            if (
+                localPart.startsWith('.') ||
+                localPart.endsWith('.') ||
+                /\.+/g.test(localPart)
+            ) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            if (domainPart.length < 3 || domainPart.length > 15) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            if (!domainPart.includes('.')) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            if (
+                domainPart.startsWith('.') ||
+                domainPart.endsWith('.') ||
+                /(\.-)|(-\.)/g.test(domainPart)
+            ) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            if (value.split('@').length !== 2) {
+                return helpers.error(INVALID_EMAIL_ERROR);
+            }
+
+            return value;
+        })
+        .messages({
+            'any.invalid': UserValidationMessage.EMAIL_WRONG,
         }),
     firstName: joi
         .string()
@@ -54,10 +92,14 @@ const userUpdateReg = joi.object<UserUpdate, true>({
             'string.pattern.base': UserValidationMessage.LASTNAME_INCORRECT,
             'any.required': UserValidationMessage.LASTNAME_REQUIRE,
         }),
-    dateOfBirth: joi.string().valid(joi.ref('password')).required().messages({
-        'any.only': UserValidationMessage.PASSWORD_CONFIRM,
-        'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
-    }),
+    dateOfBirth: joi
+        .string()
+        .valid(joi.ref('dateOfBirth'))
+        .required()
+        .messages({
+            'any.only': UserValidationMessage.PASSWORD_CONFIRM,
+            'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+        }),
 });
 
 export { userUpdateReg };

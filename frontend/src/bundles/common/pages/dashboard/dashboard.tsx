@@ -7,18 +7,29 @@ import {
     CardTotal,
     Chart,
     DoughnutChart,
+    Dropdown,
     Input,
     LineChart,
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
-import { ButtonVariant, CardVariant } from '~/bundles/common/enums/enums.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    AppDocumentTitles,
+    ButtonVariant,
+    CardVariant,
+} from '~/bundles/common/enums/enums.js';
+import {
+    useAppDocumentTitle,
+    useAppForm,
+} from '~/bundles/common/hooks/hooks.js';
+import { type DataType } from '~/bundles/common/types/types';
 import { WalletCardSize } from '~/bundles/landing/enums/enums';
 
 import {
     type Wallet,
     barChartData,
+    byCategory,
+    byWallets,
     categories,
     lineChartData,
     mockSliderData,
@@ -81,6 +92,7 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
 };
 
 const Dashboard: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
@@ -96,6 +108,28 @@ const Dashboard: React.FC = () => {
                 (item) => item.amount >= range.min && item.amount <= range.max,
             );
             setFilteredData(newFilteredData);
+        },
+        [],
+    );
+
+    const [wallet, setWallet] = useState<DataType>(byWallets[0]);
+
+    const handleDropdownByWallets = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setWallet(selectedOption);
+            }
+        },
+        [],
+    );
+
+    const [category, setCategory] = useState<DataType>(byCategory[0]);
+
+    const handleDropdownByCategory = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setCategory(selectedOption);
+            }
         },
         [],
     );
@@ -156,21 +190,19 @@ const Dashboard: React.FC = () => {
                             </div>
                         </div>
                         <div className={styles.filters}>
-                            <Input
-                                labelClassName={styles.filterLabel}
-                                control={control}
-                                errors={errors}
-                                label={'By wallet'}
-                                name={'wallet'}
-                                placeholder={'Cash wallet'}
+                            <Dropdown
+                                data={byWallets}
+                                handleChange={handleDropdownByWallets}
+                                selectedOption={wallet}
+                                label="By wallet"
+                                labelClassName={styles.dropdownLabel}
                             />
-                            <Input
-                                labelClassName={styles.filterLabel}
-                                control={control}
-                                errors={errors}
-                                label={'All Categories'}
-                                name={'category'}
-                                placeholder={'Filter by specific name'}
+                            <Dropdown
+                                data={byCategory}
+                                handleChange={handleDropdownByCategory}
+                                selectedOption={category}
+                                label="By category"
+                                labelClassName={styles.dropdownLabel}
                             />
                             <Input
                                 labelClassName={styles.filterLabel}

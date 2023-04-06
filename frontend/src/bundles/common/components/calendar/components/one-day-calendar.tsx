@@ -5,11 +5,12 @@ import React, { useState } from 'react';
 import { Calendar } from 'react-date-range';
 
 import calendarIcon from '~/assets/img/calendar-icon.svg';
-import styles from '~/bundles/common/components/calendar/styles.module.scss';
-import { Button } from '~/bundles/common/components/components.js';
-import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
-import { formatOneDay } from '~/bundles/common/helpers/helpers.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { Button } from '~/bundles/common/components/components';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
+import { formatOneDay } from '~/bundles/common/helpers/helpers';
+import { useCallback } from '~/bundles/common/hooks/hooks';
+
+import styles from '../styles.module.scss';
 
 const OneDayCalendar: React.FC = () => {
     const [day, setDay] = useState<Date>(new Date());
@@ -25,7 +26,7 @@ const OneDayCalendar: React.FC = () => {
     }, []);
 
     return (
-        <div className={styles.calendar_wrapper}>
+        <>
             <Button
                 className={styles.calendar}
                 variant={ButtonVariant.PLAIN}
@@ -41,19 +42,23 @@ const OneDayCalendar: React.FC = () => {
             </Button>
 
             {isShowModal ? (
-                <>
+                <div className={styles.calendar_wrapper}>
                     <input
                         onClick={handleClick}
                         className={styles.overlay}
                     ></input>
                     <div className={styles.modal_one_day}>
-                        <Calendar date={day} onChange={handleSelectDay} />
+                        <Calendar
+                            date={day}
+                            onChange={handleSelectDay}
+                            color="#03bfd9"
+                        />
                     </div>
-                </>
+                </div>
             ) : (
                 <></>
             )}
-        </div>
+        </>
     );
 };
 

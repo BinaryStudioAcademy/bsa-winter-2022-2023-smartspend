@@ -8,7 +8,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    color: var(--color-gray-400);
+    color: var(--color-gray-200);
     font-weight: var(--font-weight-input-label);
     font-size: var(--font-size-1-button-text);
     font-family: var(--font-family);
@@ -46,7 +46,7 @@
     padding: 0 var(--p-3);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-400);
-    font-size: var(--font-size-1-button-text);
+    font-size: 1rem;
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-input);

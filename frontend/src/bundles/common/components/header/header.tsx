@@ -8,7 +8,12 @@ import {
     ButtonSize,
     ButtonType,
 } from '~/bundles/common/enums/enums.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { Button, Menu, Tabs } from '../components.js';
@@ -36,6 +41,31 @@ const Header: React.FC<Properties> = ({
     avatar = defaultAvatar,
     dataTabs,
 }) => {
+    const [openMenu, setOpenMenu] = useState(false);
+
+    const menuReference = useRef<HTMLDivElement>(null);
+
+    const toggleMenu = useCallback(() => {
+        setOpenMenu((previous) => !previous);
+    }, []);
+
+    useEffect(() => {
+        const handleClick = (event: MouseEvent): void => {
+            if (
+                menuReference.current &&
+                !menuReference.current.contains(event.target as Node)
+            ) {
+                setOpenMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+        };
+    }, [menuReference]);
+
     const { id } = useParams();
     const navigate = useNavigate();
     const { pathname } = useLocation();
@@ -45,6 +75,10 @@ const Header: React.FC<Properties> = ({
         (): void => navigate(AppRoute.SIGN_IN),
         [navigate],
     );
+
+    const logoutHandler = useCallback(() => {
+        localStorage.removeItem(StorageKey.TOKEN);
+    }, []);
 
     if (pathname === AppRoute.SIGN_IN || pathname === AppRoute.SIGN_UP) {
         return null;
@@ -80,7 +114,13 @@ const Header: React.FC<Properties> = ({
                     </div>
                 )}
                 {token ? (
-                    <Link className={styles.userLink} to={AppRoute.USER}>
+                    <div
+                        className={styles.userLink}
+                        onClick={toggleMenu}
+                        onKeyDown={toggleMenu}
+                        role="presentation"
+                        ref={menuReference}
+                    >
                         <div className={styles.headerLogo}>
                             <div className={styles.userLogo}>
                                 {avatar && (
@@ -91,9 +131,37 @@ const Header: React.FC<Properties> = ({
                                     />
                                 )}
                             </div>
-                            <span className={styles.logoText}>{name}</span>
+                            <span
+                                className={classNames(styles.logoText, {
+                                    [styles.active]: openMenu,
+                                })}
+                            >
+                                {name}
+                            </span>
                         </div>
-                    </Link>
+                        <div
+                            className={classNames(styles.menu, {
+                                [styles.active]: openMenu,
+                                [styles.inactive]: !openMenu,
+                            })}
+                        >
+                            <ul className={styles.list}>
+                                <Link
+                                    className={styles.link}
+                                    to={AppRoute.USER}
+                                >
+                                    Settings
+                                </Link>
+                                <Link
+                                    className={styles.link}
+                                    onClick={logoutHandler}
+                                    to={AppRoute.SIGN_IN}
+                                >
+                                    Logout
+                                </Link>
+                            </ul>
+                        </div>
+                    </div>
                 ) : (
                     <Button
                         type={ButtonType.BUTTON}

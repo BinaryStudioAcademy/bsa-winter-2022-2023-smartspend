@@ -5,6 +5,7 @@ interface Properties {
     tabsData: {
         title: string;
         to: string;
+        icon?: string;
     }[];
 }
 

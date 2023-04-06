@@ -127,3 +127,12 @@
         padding-left: var(--p-3);
     }
 }
+
+@media (max-width: $md) {
+    .headerBody {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+    }
+}

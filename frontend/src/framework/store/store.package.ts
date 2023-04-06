@@ -12,6 +12,8 @@ import { reducer as budgetsReducer } from '~/bundles/budgets/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { categoriesApi } from '~/bundles/common/stores/categories/categories.js';
 import { reducer as categoriesReducer } from '~/bundles/common/stores/categories/slice.js';
+import { currencyApi } from '~/bundles/currencies/currencies.js';
+import { reducer as currenciesReducer } from '~/bundles/currencies/store';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { type IConfig } from '~/framework/config/config.js';
@@ -24,6 +26,7 @@ type RootReducer = {
     users: ReturnType<typeof usersReducer>;
     budgets: ReturnType<typeof budgetsReducer>;
     categories: ReturnType<typeof categoriesReducer>;
+    currencies: ReturnType<typeof currenciesReducer>;
 };
 
 type ExtraArguments = {
@@ -33,6 +36,7 @@ type ExtraArguments = {
     categoriesApi: typeof categoriesApi;
     notification: typeof notification;
     storage: typeof storage;
+    currencyApi: typeof currencyApi;
 };
 
 class Store {
@@ -54,6 +58,7 @@ class Store {
                 users: usersReducer,
                 budgets: budgetsReducer,
                 categories: categoriesReducer,
+                currencies: currenciesReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 return [
@@ -76,6 +81,7 @@ class Store {
             categoriesApi,
             notification,
             storage,
+            currencyApi,
         };
     }
 }

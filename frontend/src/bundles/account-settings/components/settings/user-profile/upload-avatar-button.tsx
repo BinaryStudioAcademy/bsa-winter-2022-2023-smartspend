@@ -30,7 +30,7 @@ const UploadAvatarButton: React.FC<Properties> = ({ handleFileChange }) => {
             variant={ButtonVariant.SECONDARY}
             type={ButtonType.BUTTON}
         >
-            <span className={styles.uploadAvatarText}>Upload avatar</span>
+            <span className={styles.uploadAvatarText}>Upload Avatar</span>
             <input
                 type="file"
                 accept={'image/*'}

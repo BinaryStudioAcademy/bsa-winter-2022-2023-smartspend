@@ -38,51 +38,56 @@ const sex = [
     { value: 'Female', name: 'Female' },
 ];
 
-// uncomment above code if you want used validation
-// type Properties = {
-//     onSubmit: (payload: UserUpdateRequestDto) => void;
-// };
-// const SettingsForm: React.FC<Properties> = ({ onSubmit }) => {
-//     const { control, errors, handleSubmit, reset, watch, trigger } =
-//         useAppForm<UserUpdateRequestDto>({
-//             defaultValues: mockData,
-//             validationSchema: userUpdateRegValidationSchema,
-//         });
-// const inputReset = reset;
-//     const handleFormSubmit = useCallback(
-//         (event_: React.BaseSyntheticEvent): void => {
-//             event_.preventDefault();
-//             void trigger();
-//             const email = watch('email');
-//             const firstName = watch('firstName');
-//             const lastName = watch('lastName');
-//             if (!email || !firstName || !lastName) {
-//                 return;
-//             }
-//             void handleSubmit(onSubmit)(event_);
-//             inputReset && reset();
-//         },
-//         [handleSubmit, inputReset, onSubmit, reset, trigger, watch],
-//     );
+type Properties = {
+    onSubmit: (payload: UserUpdateRequestDto) => void;
+};
+const SettingsForm: React.FC<Properties> = ({ onSubmit }) => {
+    const { control, errors, handleSubmit, reset, watch, trigger } =
+        useAppForm<UserUpdateRequestDto>({
+            defaultValues: mockData,
+            validationSchema: userUpdateRegValidationSchema,
+        });
 
-const SettingsForm: React.FC = () => {
-    const { control, errors } = useAppForm<UserUpdateRequestDto>({
-        defaultValues: mockData,
-        validationSchema: userUpdateRegValidationSchema,
-    });
+    const inputReset = reset;
+    const handleFormSubmit = useCallback(
+        (event_: React.BaseSyntheticEvent): void => {
+            event_.preventDefault();
+            void trigger();
+            const email = watch('email');
+            const firstName = watch('firstName');
+            const lastName = watch('lastName');
+            const dateOfBirth = watch('dateOfBirth');
+            if (!email || !firstName || !lastName || !dateOfBirth) {
+                return;
+            }
+            void handleSubmit(onSubmit)(event_);
+            inputReset && reset();
+        },
+        [handleSubmit, inputReset, onSubmit, reset, trigger, watch],
+    );
 
     const newName = useFormController({ name: 'firstName', control }).field
         .value;
     const newSurname = useFormController({ name: 'lastName', control }).field
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
+    const newDate = useFormController({ name: 'dateOfBirth', control }).field
+        .value;
     const isChange = (): boolean => {
-        const { firstName, lastName, email, language, currency, sex } =
-            mockData;
+        const {
+            firstName,
+            lastName,
+            email,
+            language,
+            currency,
+            sex,
+            dateOfBirth,
+        } = mockData;
         return (
             newName !== firstName ||
             newSurname !== lastName ||
             newEmail !== email ||
+            newDate !== dateOfBirth ||
             language !== selectedSingleLanguage.name ||
             currency !== selectedSingleCurrency.name ||
             sex !== selectedSingleSex.name
@@ -127,8 +132,7 @@ const SettingsForm: React.FC = () => {
     );
 
     return (
-        <form className={styles.form}>
-            {/* adde onSubmit={handleFormSubmit} in form, if you want submit form */}
+        <form className={styles.form} onSubmit={handleFormSubmit}>
             <AvatarContainer />
             <Input
                 type={InputType.TEXT}

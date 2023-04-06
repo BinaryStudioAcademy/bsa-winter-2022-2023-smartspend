@@ -15,6 +15,8 @@ enum UserValidationMessage {
     LASTNAME_MIN = 'Minimum length for last name is 2 characters',
     LASTNAME_MAX = 'Maximum length for last name is 30 characters',
     LASTNAME_INCORRECT = 'Incorrect character in last name',
+    DATE_FORMAT_WRONG = 'Invalid Date',
+    DATE_REQUIRE = 'Date is required',
 }
 
 export { UserValidationMessage };

@@ -7,6 +7,10 @@ const emailRegExp = /^[^\s@]+(?:\.[^\s@]+)*@[\w-]+(?:\.[\w-]+)+$/;
 const nameRegExp = /^[\dA-Za-z]+(?:-[\dA-Za-z]+)*$/;
 const INVALID_EMAIL_ERROR = 'any.invalid';
 
+const currentDate = new Date();
+const minDate = new Date(currentDate.getFullYear() - 100, 0, 1);
+const maxDate = new Date(currentDate.getFullYear() + 0, 0, 1);
+
 type UserUpdate = Omit<UserUpdateRequestDto, 'sex' | 'language' | 'currency'>;
 
 const userUpdateReg = joi.object<UserUpdate, true>({
@@ -94,11 +98,19 @@ const userUpdateReg = joi.object<UserUpdate, true>({
         }),
     dateOfBirth: joi
         .string()
-        .valid(joi.ref('dateOfBirth'))
         .required()
+        .custom((value, helpers) => {
+            if (new Date(value) <= minDate) {
+                return helpers.error('any.required');
+            }
+            if (new Date(value) > maxDate) {
+                return helpers.error('any.required');
+            }
+        })
         .messages({
-            'any.only': UserValidationMessage.PASSWORD_CONFIRM,
-            'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+            'date.format': UserValidationMessage.DATE_FORMAT_WRONG,
+            'date.min': UserValidationMessage.DATE_FORMAT_WRONG,
+            'any.required': UserValidationMessage.DATE_REQUIRE,
         }),
 });
 

@@ -189,7 +189,6 @@ const Dashboard: React.FC = () => {
                         <WalletButton onClick={handleModal}>
                             Add new wallet
                         </WalletButton>
-                        <WalletButton>Connect a bank account</WalletButton>
                         <NewWalletModal
                             isShown={active}
                             onClose={handleCancel}

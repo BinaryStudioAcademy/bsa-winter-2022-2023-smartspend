@@ -5,10 +5,13 @@ import {
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
+import { type IConfig } from '~/common/config/config.js';
 import { ExceptionMessage } from '~/common/enums/enums.js';
 import { HttpError } from '~/common/exceptions/exceptions.js';
+import { getTemplate } from '~/common/helpers/helpers.js';
 import { HttpCode } from '~/common/http/enums/enums.js';
 import { type CryptService } from '~/common/services/crypt/crypt.service.js';
+import { emailService } from '~/common/services/services.js';
 import { type TokenService } from '~/common/services/token/token.service.js';
 
 type User = {
@@ -16,19 +19,29 @@ type User = {
     email: string;
 };
 
+type ConstructorType = {
+    userService: UserService;
+    cryptService: CryptService;
+    tokenService: TokenService;
+    config: IConfig;
+};
+
 class AuthService {
     private userService: UserService;
     private cryptService: CryptService;
     private tokenService: TokenService;
+    private config: IConfig;
 
-    public constructor(
-        userService: UserService,
-        cryptService: CryptService,
-        tokenService: TokenService,
-    ) {
+    public constructor({
+        userService,
+        cryptService,
+        tokenService,
+        config,
+    }: ConstructorType) {
         this.userService = userService;
         this.cryptService = cryptService;
         this.tokenService = tokenService;
+        this.config = config;
     }
 
     public async signUp(
@@ -37,12 +50,30 @@ class AuthService {
         const isVerifyUser = await this.verifySignUpCredentials(userRequestDto);
         if (isVerifyUser) {
             const newUser = await this.userService.create(userRequestDto);
-            const { id } = newUser.toObject();
+            const { id, email } = newUser.toObject();
             const token = this.tokenService.createToken({ id });
+            void this.sendAfterSignUpEmail(email);
             return {
                 token,
             };
         }
+    }
+
+    private async sendAfterSignUpEmail(email: string): Promise<void> {
+        const htmlToSend = getTemplate({
+            name: 'sign-up-email-template',
+            context: {
+                title: 'SmartSpend',
+                dashboardLink: this.config.ENV.EMAIL.DASHBOARD_LINK,
+                logoLink: this.config.ENV.EMAIL.APP_LOGO_LINK,
+            },
+        });
+        await emailService.sendEmail({
+            to: email,
+            subject: 'Welcome to SmartSpend',
+            text: 'Welcome to SmartSpend',
+            html: htmlToSend,
+        });
     }
 
     public async getUserByToken(token: string): Promise<User | undefined> {

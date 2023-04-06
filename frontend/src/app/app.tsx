@@ -14,7 +14,7 @@ import {
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
 import { iconProvider } from '~/bundles/common/icon-provider';
-// import { actions as currenciesActions } from '~/bundles/currencies/store';
+import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as userActions } from '~/bundles/users/store';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
@@ -40,11 +40,11 @@ const App: React.FC = () => {
         }
     }, [dispatch, token, user]);
 
-    // useEffect(() => {
-    //     if (token) {
-    //         void dispatch(currenciesActions.loadAll());
-    //     }
-    // }, [dispatch, token]);
+    useEffect(() => {
+        if (token) {
+            void dispatch(currenciesActions.loadAll());
+        }
+    }, [dispatch, token]);
 
     return (
         <>

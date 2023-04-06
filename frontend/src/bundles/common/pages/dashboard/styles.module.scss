@@ -24,7 +24,7 @@
 }
 
 .filtertBody {
-    margin: 0 0 var(--m-3);
+    margin: var(--m-2) 0 var(--m-3);
 }
 
 .filterLabel {
@@ -59,10 +59,31 @@
     gap: 15px;
 }
 
+.filter {
+    display: flex;
+    flex-direction: column;
+    height: 76px;
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
+    column-gap: 4px;
+}
+
 .filters {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.slider {
+    display: flex;
+    flex-grow: 1;
     align-items: center;
+    padding: 0 var(--p-2);
+}
+
+.slider > * {
+    width: 100%;
 }
 
 .filtersContainer {

@@ -188,12 +188,13 @@ const Dashboard: React.FC = () => {
                                     <Calendar isRangeCalendar={false} />
                                 </div>
                             </div>
-                            <div>
-                                <RangeSlider
-                                    rangeLimits={rangeLimits}
-                                    currentRange={currentRange}
-                                    onChange={handleSliderChange}
-                                />
+                            <div className={styles.buttonWrapper}>
+                                <Button
+                                    variant={ButtonVariant.PLAIN}
+                                    className={styles.resetButton}
+                                >
+                                    Reset filters
+                                </Button>
                             </div>
                         </div>
                         <div className={styles.filtersContainer}>
@@ -219,13 +220,17 @@ const Dashboard: React.FC = () => {
                                 name={'name'}
                                 placeholder={'Filter by specific keyword'}
                             />
-                            <div className={styles.buttonWrapper}>
-                                <Button
-                                    variant={ButtonVariant.PLAIN}
-                                    className={styles.resetButton}
-                                >
-                                    Reset filters
-                                </Button>
+                            <div className={styles.filter}>
+                                <span className={styles.categoryText}>
+                                    By amount
+                                </span>
+                                <div className={styles.slider}>
+                                    <RangeSlider
+                                        rangeLimits={rangeLimits}
+                                        currentRange={currentRange}
+                                        onChange={handleSliderChange}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

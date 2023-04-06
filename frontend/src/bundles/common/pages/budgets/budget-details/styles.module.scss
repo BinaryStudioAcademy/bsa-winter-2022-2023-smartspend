@@ -6,7 +6,7 @@
 }
 
 .contentWrapper {
-    display: flex;
+    display: grid;
     flex-direction: column;
     gap: 20px;
     width: 100%;
@@ -53,11 +53,9 @@
 }
 
 .cardsWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
     border-radius: 15px;
 }
 

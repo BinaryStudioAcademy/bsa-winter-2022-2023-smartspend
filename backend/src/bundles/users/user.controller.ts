@@ -1,4 +1,4 @@
-import { type UserUpdateRequestDto } from 'shared/build';
+import { type ApiUpdateUserOptions } from 'shared/build';
 
 import { type UserService } from '~/bundles/users/user.service.js';
 import { type ApiHandlerResponse } from '~/common/controller/controller.js';
@@ -26,10 +26,6 @@ import { UsersApiPath } from './enums/enums.js';
  *            format: email
  */
 
-type ApiUpdateUserOptions = {
-    body: UserUpdateRequestDto;
-    token: string;
-};
 class UserController extends Controller {
     private userService: UserService;
 

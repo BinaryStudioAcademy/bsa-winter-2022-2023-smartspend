@@ -4,12 +4,16 @@ import {
     faArrowUp,
     faBurger,
     faCar,
+    faChartSimple,
     faChevronDown,
     faChevronRight,
     faChevronUp,
+    faDollarSign,
+    faGear,
     faGifts,
     faMoneyBill,
     faMoneyBills,
+    faPiggyBank,
     faPlane,
     faPlus,
     faTrashCan,
@@ -31,6 +35,10 @@ const iconProvider = {
     faBurger,
     faGifts,
     faMoneyBills,
+    faChartSimple,
+    faPiggyBank,
+    faDollarSign,
+    faGear,
 };
 
 export { iconProvider };

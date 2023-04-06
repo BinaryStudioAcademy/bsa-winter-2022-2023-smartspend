@@ -14,6 +14,10 @@ enum FaIcons {
     BURGER = 'burger',
     GIFTS = 'gifts',
     TRASH_CAN = 'trash-can',
+    DASHBOARD = 'chart-simple',
+    BUDGET = 'piggy-bank',
+    TRANSACTION = 'dollar-sign',
+    SETTINGS = 'gear',
 }
 
 export { FaIcons };

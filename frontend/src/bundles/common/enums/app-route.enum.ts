@@ -10,6 +10,7 @@ const AppRoute = {
     WALLET_DETAILS_TRANSACTION: '/wallet/:id/transaction',
     NOT_FOUND: '*',
     WALLET: '/wallet',
+    TRANSACTION: '/transaction',
 } as const;
 
 export { AppRoute };

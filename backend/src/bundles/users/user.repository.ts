@@ -77,14 +77,15 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         return UserEntity.initialize(user);
     }
 
-    public async deleteUser(id: string): Promise<UserEntity | undefined> {
+    public async deleteUser(id: string): Promise<boolean> {
         const item = await this.userModel
             .query()
             .where({ id })
             .del()
             .returning('id')
             .execute();
-        return UserEntity.initialize(item[0]);
+        const deletedUser = UserEntity.initialize(item[0]);
+        return !!deletedUser;
     }
 }
 

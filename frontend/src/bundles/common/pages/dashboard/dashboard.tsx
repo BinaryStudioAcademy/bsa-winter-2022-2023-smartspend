@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 
@@ -17,6 +18,7 @@ import {
     AppDocumentTitles,
     ButtonVariant,
     CardVariant,
+    FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
     useAppDocumentTitle,
@@ -83,7 +85,12 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
         <div className={styles.walletButton}>
             {isButton && (
                 <Button variant={ButtonVariant.PLAIN}>
-                    <div className={styles.walletIcon}>+</div>
+                    <span className={styles.walletIcon}>
+                        <FontAwesomeIcon
+                            icon={FaIcons.PLUS}
+                            color={'var(--color-white-100)'}
+                        />
+                    </span>
                 </Button>
             )}
             <div className={styles.walletButtonTitle}>{children}</div>
@@ -156,7 +163,7 @@ const Dashboard: React.FC = () => {
                             </div>
                         ))}
 
-                        <WalletButton>Add new wallet</WalletButton>
+                        <WalletButton>Add New Wallet</WalletButton>
                         <WalletButton>Connect a bank account</WalletButton>
                     </div>
                     <h2 className={classNames(styles.title, styles.overview)}>
@@ -189,7 +196,7 @@ const Dashboard: React.FC = () => {
                                 />
                             </div>
                         </div>
-                        <div className={styles.filters}>
+                        <div className={styles.filtersContainer}>
                             <Dropdown
                                 data={byWallets}
                                 handleChange={handleDropdownByWallets}
@@ -210,14 +217,16 @@ const Dashboard: React.FC = () => {
                                 errors={errors}
                                 label={'By note'}
                                 name={'name'}
-                                placeholder={'Filter by specific name'}
+                                placeholder={'Filter by specific keyword'}
                             />
-                            <Button
-                                variant={ButtonVariant.PLAIN}
-                                className={styles.resetButton}
-                            >
-                                Reset filters
-                            </Button>
+                            <div className={styles.buttonWrapper}>
+                                <Button
+                                    variant={ButtonVariant.PLAIN}
+                                    className={styles.resetButton}
+                                >
+                                    Reset filters
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -242,7 +251,7 @@ const Dashboard: React.FC = () => {
                                 variant={CardVariant.WHITE}
                             />
                             <CardTotal
-                                title="Total Balance"
+                                title="Total Period Income"
                                 sum={7600.34}
                                 variant={CardVariant.VIOLET}
                             />

@@ -1,5 +1,12 @@
+import React from 'react';
+
+import { Button } from '~/bundles/common/components/button/button';
+import { Calendar, Icon } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
+import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
+import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
+import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
@@ -92,6 +99,7 @@ const SettingsForm: React.FC = () => {
             <AvatarContainer />
             <Input
                 type={InputType.TEXT}
+                labelClassName={styles.inputLabel}
                 label="First name"
                 placeholder="Enter your name"
                 name="firstName"
@@ -101,6 +109,7 @@ const SettingsForm: React.FC = () => {
             <Input
                 type={InputType.TEXT}
                 label="Last name"
+                labelClassName={styles.inputLabel}
                 placeholder="Enter your surname"
                 name="lastName"
                 control={control}
@@ -111,31 +120,46 @@ const SettingsForm: React.FC = () => {
                 handleChange={handleDropdownChangeSex}
                 selectedOption={selectedSingleSex}
                 label="Sex"
+                labelClassName={styles.dropdownLabel}
             />
+
+            <Calendar isRangeCalendar={false} />
+
             <Input
                 type={InputType.EMAIL}
                 label="E-mail address"
+                labelClassName={styles.inputLabel}
                 placeholder="Enter your email"
                 name="email"
                 control={control}
                 errors={errors}
             />
-            <Title>Account Settings</Title>
+            <Title>Localization settings</Title>
             <Dropdown
                 data={currency}
                 handleChange={handleDropdownChangeCurrency}
                 selectedOption={selectedSingleCurrency}
                 label="Account currency"
+                labelClassName={styles.dropdownLabel}
             />
             <Dropdown
                 data={language}
                 handleChange={handleDropdownChangeLanguage}
                 selectedOption={selectedSingleLanguage}
                 label="Language"
+                labelClassName={styles.dropdownLabel}
             />
             <SubmitButton isChange={isChange()}>
                 Update My Settings
             </SubmitButton>
+            <div className={styles.dltButton}>
+                <Button variant={ButtonVariant.DELETE} size={ButtonSize.MEDIUM}>
+                    <span className={styles.icon}>
+                        <Icon name={FaIcons.TRASH_CAN} />
+                    </span>
+                    <span>Delete Account</span>
+                </Button>
+            </div>
         </form>
     );
 };

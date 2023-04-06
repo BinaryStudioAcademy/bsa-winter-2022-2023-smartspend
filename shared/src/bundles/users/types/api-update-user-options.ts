@@ -1,8 +1,8 @@
 import { type UserUpdateRequestDto } from './types.js';
 
-type UpdateRequestDto = {
+type ApiUpdateUserOptions = {
     body: Partial<UserUpdateRequestDto>;
     token: string;
 };
 
-export { type UpdateRequestDto };
+export { type ApiUpdateUserOptions };

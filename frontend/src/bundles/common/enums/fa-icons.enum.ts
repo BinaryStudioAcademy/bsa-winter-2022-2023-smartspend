@@ -24,7 +24,6 @@ enum FaIcons {
     ARROW_UP = 'arrow-up',
     MONEY_BILL = 'money-bill',
     MONEY_BILLS = 'money-bills',
-    CAR = 'car',
     PLANE = 'plane',
     BURGER = 'burger',
     GIFTS = 'gifts',
@@ -32,7 +31,6 @@ enum FaIcons {
     DASHBOARD = 'chart-simple',
     BUDGET = 'piggy-bank',
     TRANSACTION = 'dollar-sign',
-    SETTINGS = 'gear',
 }
 
 export { FaIcons };

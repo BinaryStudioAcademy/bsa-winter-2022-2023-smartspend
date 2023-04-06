@@ -23,7 +23,6 @@ import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
 import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
-import { Budgets } from './bundles/common/pages/budgets/budgets';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>

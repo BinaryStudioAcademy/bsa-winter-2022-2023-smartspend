@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
+import { type Range } from 'react-date-range';
 
 import {
     Button,
@@ -21,19 +22,26 @@ import {
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
+    formatRangeGraph,
+    getInitialRange,
+} from '~/bundles/common/helpers/helpers';
+import {
     useAppDocumentTitle,
     useAppForm,
 } from '~/bundles/common/hooks/hooks.js';
 import { type DataType } from '~/bundles/common/types/types';
 import { WalletCardSize } from '~/bundles/landing/enums/enums';
 
+// import { getInitialRange } from '../../helpers/helpers';
+import {
+    filterCategories,
+    filterChart,
+    filterLineChart,
+} from './helpers/helpers';
 import {
     type Wallet,
-    barChartData,
     byCategory,
     byWallets,
-    categories,
-    lineChartData,
     mockSliderData,
     wallets,
 } from './mocks.dashboard';
@@ -106,6 +114,12 @@ const Dashboard: React.FC = () => {
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
+
+    const [day, setDay] = useState<Range>(getInitialRange());
+
+    const handleSelectDay = useCallback((day: Range): void => {
+        setDay(day);
+    }, []);
 
     const handleSliderChange = useCallback(
         (range: { min: number; max: number }): void => {
@@ -182,7 +196,11 @@ const Dashboard: React.FC = () => {
                         <div className={styles.filters}>
                             <div>
                                 <div className={styles.largeCalendar}>
-                                    <Calendar isRangeCalendar={true} />
+                                    <Calendar
+                                        isRangeCalendar
+                                        initialRange={day}
+                                        onRangeChange={handleSelectDay}
+                                    />
                                 </div>
                                 <div className={styles.smallCalendar}>
                                     <Calendar isRangeCalendar={false} />
@@ -263,24 +281,32 @@ const Dashboard: React.FC = () => {
                         </div>
                         <div className={styles.charts}>
                             <ChartBox
-                                title={'Chart 1'}
-                                date={'Dec 01-23'}
-                                controls={'Controls'}
+                                title={'Account Balance'}
+                                date={formatRangeGraph(day)}
                             >
-                                <LineChart dataArr={lineChartData} />
+                                <LineChart dataArr={filterLineChart(day)} />
                             </ChartBox>
                             <ChartBox
-                                title={'Chart 2'}
-                                date={'Dec 01-23'}
-                                controls={'Controls'}
+                                title={'Changes'}
+                                date={formatRangeGraph(day)}
                             >
-                                <Chart array={barChartData} />
+                                <Chart array={filterChart(day)} />
                             </ChartBox>
-                            <ChartBox title={'Chart 3'} date={'Dec 01-23'}>
-                                <DoughnutChart categories={categories} />
+                            <ChartBox
+                                title={'Period income'}
+                                date={formatRangeGraph(day)}
+                            >
+                                <DoughnutChart
+                                    categories={filterCategories(day)}
+                                />
                             </ChartBox>
-                            <ChartBox title={'Chart 4'} date={'Dec 01-23'}>
-                                <DoughnutChart categories={categories} />
+                            <ChartBox
+                                title={'Period Expenses'}
+                                date={formatRangeGraph(day)}
+                            >
+                                <DoughnutChart
+                                    categories={filterCategories(day)}
+                                />
                             </ChartBox>
                         </div>
                     </div>

@@ -20,9 +20,19 @@ import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import styles from '../styles.module.scss';
 
-const RangeCalendar: React.FC = () => {
+interface MyComponentProperties {
+    onRangeChange?: (day: Range) => void;
+    initialRange?: Range;
+}
+
+const RangeCalendar: React.FC<MyComponentProperties> = ({
+    onRangeChange,
+    initialRange,
+}) => {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [range, setRange] = useState<Range>(getInitialRange());
+    const [range, setRange] = useState<Range>(
+        initialRange ?? getInitialRange(),
+    );
 
     const handleClick = useCallback(
         (
@@ -37,12 +47,12 @@ const RangeCalendar: React.FC = () => {
                 }
                 case 'forward': {
                     setRange(getFutureDate(range));
-
+                    onRangeChange?.(getFutureDate(range));
                     break;
                 }
                 case 'backward': {
                     setRange(getPastDate(range));
-
+                    onRangeChange?.(getPastDate(range));
                     break;
                 }
                 default: {
@@ -50,18 +60,22 @@ const RangeCalendar: React.FC = () => {
                 }
             }
         },
-        [isShowModal, range],
+        [isShowModal, range, onRangeChange],
     );
 
-    const handleSelectRange = useCallback((range: RangeKeyDict): void => {
-        const newRange: Range = {
-            startDate: range.selection.startDate,
-            key: 'selection',
-            endDate: range.selection.endDate,
-            color: '#03bfd9',
-        };
-        setRange(newRange);
-    }, []);
+    const handleSelectRange = useCallback(
+        (range: RangeKeyDict): void => {
+            const newRange: Range = {
+                startDate: range.selection.startDate,
+                key: 'selection',
+                endDate: range.selection.endDate,
+                color: '#03bfd9',
+            };
+            setRange(newRange);
+            onRangeChange?.(newRange);
+        },
+        [onRangeChange],
+    );
 
     return (
         <div className={styles.calendar_wrapper}>

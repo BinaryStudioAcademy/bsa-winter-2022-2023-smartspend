@@ -1,3 +1,7 @@
+:root {
+    --mg-1-local: 1.125em;
+}
+
 .modal {
     position: fixed;
     top: 40px;
@@ -70,6 +74,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: var(--mg-1-local);
 }
 
 button:hover {

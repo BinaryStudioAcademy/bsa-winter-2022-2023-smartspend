@@ -3,15 +3,15 @@ const barChartData = [
         label: 'income',
         data: [
             {
-                date: '01 Jan 2022 00:00:00 GMT',
+                date: '01 Mar 2023 00:00:00 GMT',
                 value: 200_000,
             },
             {
-                date: '03 Jan 2022 00:00:00 GMT',
+                date: '25 Mar 2023 00:00:00 GMT',
                 value: 250_000,
             },
             {
-                date: '03 Feb 2023 00:00:00 GMT',
+                date: '15 Mar 2023 00:00:00 GMT',
                 value: 750_000,
             },
         ],
@@ -21,19 +21,19 @@ const barChartData = [
         label: 'outcome',
         data: [
             {
-                date: '01 Jan 2022 00:00:00 GMT',
+                date: '03 Mar 2023 00:00:00 GMT',
                 value: 100_000,
             },
             {
-                date: '03 Jan 2022 00:00:00 GMT',
+                date: '15 Mar 2023 00:00:00 GMT',
                 value: 150_000,
             },
             {
-                date: '01 Feb 2023 00:00:00 GMT',
+                date: '20 Mar 2023 00:00:00 GMT',
                 value: 350_000,
             },
             {
-                date: '05 Feb 2023 00:00:00 GMT',
+                date: '28 Mar 2023 00:00:00 GMT',
                 value: 250_000,
             },
         ],
@@ -48,27 +48,27 @@ const categories = [
         color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
     },
     {
-        date: 'Mar 02,2023',
+        date: 'Mar 05,2023',
         total: 1825,
         color: 'linear-gradient(96.2deg, #FECC66 -30.03%, #F83062 95.13%)',
     },
     {
-        date: 'Mar 04,2023',
+        date: 'Mar 10,2023',
         total: 1325,
         color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
     },
     {
-        date: 'Mar 03,2023',
+        date: 'Mar 15,2023',
         total: 2425,
         color: 'linear-gradient(91.64deg, #FCE302 -1.67%, #FE5C01 98.41%)',
     },
     {
-        date: 'Mar 05,2023',
+        date: 'Mar 20,2023',
         total: 1425,
         color: 'linear-gradient(95.77deg, #09F2D6 -14.06%, #09E1FF 101.51%)',
     },
     {
-        date: 'Mar 06,2023',
+        date: 'Mar 30,2023',
         total: 2225,
         color: 'linear-gradient(95.77deg, #00D7BD -14.06%, #03BFD9 101.51%)',
     },

@@ -25,12 +25,7 @@ import {
     filterChart,
     filterLineChart,
 } from './helpers/helpers';
-import {
-    type Wallet,
-    categories,
-    mockSliderData,
-    wallets,
-} from './mocks.dashboard';
+import { type Wallet, mockSliderData, wallets } from './mocks.dashboard';
 import styles from './styles.module.scss';
 
 type FormValues = {
@@ -249,7 +244,6 @@ const Dashboard: React.FC = () => {
                                 title={'Period income'}
                                 date={formatRangeGraph(day)}
                             >
-                                {/* <DoughnutChart categories={categories} /> */}
                                 <DoughnutChart
                                     categories={filterCategories(day)}
                                 />
@@ -258,7 +252,9 @@ const Dashboard: React.FC = () => {
                                 title={'Period Expenses'}
                                 date={formatRangeGraph(day)}
                             >
-                                <DoughnutChart categories={categories} />
+                                <DoughnutChart
+                                    categories={filterCategories(day)}
+                                />
                             </ChartBox>
                         </div>
                     </div>

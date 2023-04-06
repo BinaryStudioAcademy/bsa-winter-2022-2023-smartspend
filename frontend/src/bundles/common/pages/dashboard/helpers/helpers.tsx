@@ -4,6 +4,14 @@ import { type DataObject } from '~/bundles/common/types/chart-data.type';
 
 import { barChartData, categories, lineChartData } from '../mocks.dashboard';
 
+const DEFAULT_FILTER_CATEGORIES = [
+    {
+        date: '',
+        total: 100,
+        color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
+    },
+];
+
 type OneData = { date: string; value: number };
 type DataRangeObject = { label: string; data: OneData[] };
 type DataTotalObjects = { date: string; total: number; color: string }[];
@@ -40,31 +48,18 @@ const filterChart = (range: Range): DataRangeObject[][] => {
 const filterCategories = (range: Range): DataTotalObjects => {
     const startDate: Date | undefined = range.startDate;
     const endDate: Date | undefined = range.endDate;
-    // if (startDate == undefined) {
-    //     return categories.filter(
-    //         (date) =>
-    //             new Date(date.date) >= new Date('Mar 01,2023') &&
-    //             new Date(date.date) <= new Date('Mar 31,2023'),
-    //     );
-    // }
-    // if (endDate == undefined) {
-    //     return categories.filter(
-    //         (date) =>
-    //             new Date(date.date) >= new Date('Mar 01,2023') &&
-    //             new Date(date.date) <= new Date('Mar 31,2023'),
-    //     );
-    // }
-    // let waiting = true;
-    // while (waiting) {
-    //     waiting = startDate === undefined && endDate === undefined;
-    // }
-    return categories.filter(
+
+    const result = categories.filter(
         (date) =>
             startDate &&
             new Date(date.date) >= startDate &&
             endDate &&
             new Date(date.date) <= endDate,
     );
+    if (result.length === 0) {
+        return DEFAULT_FILTER_CATEGORIES;
+    }
+    return result;
 };
 
 export { filterCategories, filterChart, filterLineChart };

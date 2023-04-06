@@ -1,3 +1,4 @@
+export { type EmailProperties } from './email-properties.type';
 export { type WhiteRoute } from './white-route.type';
 export {
     type ServerCommonErrorResponse,

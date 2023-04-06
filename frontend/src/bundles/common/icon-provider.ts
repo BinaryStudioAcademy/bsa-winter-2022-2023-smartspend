@@ -21,11 +21,11 @@ import {
 
 const iconProvider = {
     faChevronDown,
-    faChevronUp,
     faEye,
     faEyeSlash,
     faPlus,
     faChevronRight,
+    faChevronUp,
     faTrashCan,
     faArrowDown,
     faArrowUp,

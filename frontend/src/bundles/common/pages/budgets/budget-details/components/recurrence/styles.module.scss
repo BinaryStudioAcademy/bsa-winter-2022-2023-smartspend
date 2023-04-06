@@ -1,0 +1,21 @@
+.recurrenceContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recurrenceButton {
+    display: inline-block;
+    margin: 5px;
+    padding: var(--p-2) var(--p-3);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.recurrenceButtonSelected {
+    background-color: var(--color-blue-500);
+}
+
+.recurrenceButtonUnselected {
+    background-color: var(--color-gray-100);
+}

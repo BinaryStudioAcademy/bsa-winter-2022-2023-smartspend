@@ -16,6 +16,12 @@ type EnvironmentSchema = {
         SECRET: string;
         EXPIRES_IN: string;
     };
+    EMAIL: {
+        GMAIL_DOMAIN: string;
+        GMAIL_PASSWORD: string;
+        DASHBOARD_LINK: string;
+        APP_LOGO_LINK: string;
+    };
 };
 
 export { type EnvironmentSchema };

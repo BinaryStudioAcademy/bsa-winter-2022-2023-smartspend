@@ -1,0 +1,28 @@
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 var(--p-3) var(--p-3) var(--p-3);
+}
+
+.formWrapper > * {
+    margin-bottom: 20px;
+}
+
+.sumRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.label {
+    color: var(--color-gray-300);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-6-heading);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-label-span);
+}

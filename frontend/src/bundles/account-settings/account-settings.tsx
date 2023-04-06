@@ -1,5 +1,7 @@
-import { AppRoute } from '../common/enums/app-route.enum';
-import { UserProfile, UserSettingsTabs } from './components/components';
+import classNames from 'classnames';
+
+import { AppRoute } from '../common/enums/app-route.enum.js';
+import { UserProfile, UserSettingsTabs } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -15,12 +17,14 @@ const AccountSettings: React.FC = () => {
         { title: 'Terms and Policies', to: AppRoute.DASHBOARD, icon: 'CHART' },
     ];
     return (
-        <main className={styles.container}>
-            <div className={styles.tabsContainer}>
-                <UserSettingsTabs tabsData={dataTabs} />
-            </div>
-            <div className={styles.userProfileContainer}>
-                <UserProfile />
+        <main className={styles.body}>
+            <div className={classNames(styles.container, 'container')}>
+                <div className={styles.tabsContainer}>
+                    <UserSettingsTabs tabsData={dataTabs} />
+                </div>
+                <div className={styles.userProfileContainer}>
+                    <UserProfile />
+                </div>
             </div>
         </main>
     );

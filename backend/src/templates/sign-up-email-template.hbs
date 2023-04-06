@@ -1,0 +1,81 @@
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>{{title}}</title>
+        <style type='text/css'>
+            * { margin: 0; padding: 0; box-sizing: border-box; } body {
+            font-family: Rubik, sans-serif; } .header-container {
+            background-color: #163676; height: 63px; width: 100%; }
+            .main-container { background-color: #EFF3FF; width: 100%; }
+            .information { background-color: #ffff; border-radius: 1.5rem;
+            width: 100%; padding: 40px 75px; text-align: start;}
+            .information-text { font-weight: 400; font-size: 16px; line-height:
+            27px; color: #163676; } .information-list { list-style: decimal;
+            padding-left: 18px; } .image-container { padding: 20px 0; }
+            .information-container { padding: 0 185px; padding-bottom: 40px;
+            box-shadow: 0px 2px 12px rgba(56, 109, 246, 0.12); }
+            .button-container { width: 100%; padding: 30px 0; text-align:
+            center; } .button { margin: auto auto; vertical-align:
+            middle;background-image: linear-gradient(95.77deg, #00D7BD -14.06%,
+            #03BFD9 101.51%); border: none; font-weight: 500; font-size: 18px;
+            line-height: 16px; width: 195px; height: 48px; text-align: center;
+            border-radius: 8px; color: #ffff; cursor: pointer } .link { color:
+            #00D7BD; text-decoration-line: underline; cursor: pointer; }
+        </style>
+    </head>
+    <body>
+        <table class='main-container'>
+            <tr>
+                <th class='header-container'></th>
+            </tr>
+            <tr>
+                <th class='image-container'>
+                    <img
+                        src={{logoLink}}
+                        alt='SmartSpend'
+                        width='223'
+                    />
+                </th>
+            </tr>
+            <tr>
+                <th class='information-container'>
+                    <div class='information'>
+                        <p class='information-text'>
+                            Hi, Well done! By signing up you took the first step
+                            to becoming a money management pro. My team and I
+                            will do our best to help you understand your
+                            finances so that you are more in control of your
+                            money. Start by tracking all your income and
+                            expenses.
+                        </p>
+                        <div class='button-container'>
+                            <a href={{dashboardLink}} target='_blank'>
+                                <button class='button'>
+                                    Open Dashboard
+                                </button>
+                            </a>
+                        </div>
+                        <p class='information-text'>
+                            How can SmartSpend make your life easier?
+                        </p>
+                        <ul class='information-list'>
+                            <li class='information-text'>Track your cash flow
+                                either manually or automatically by connecting
+                                your bank accounts</li>
+                            <li class='information-text'>Analyze and understand
+                                all your financial flows at a glance and in one
+                                place</li>
+                            <li class='information-text'>Make your spending
+                                stress-free by setting budgets that you can
+                                actually stick to</li>
+                        </ul>
+                        <p class='information-text'>Happy SmartSpending!</p>
+                        <p class='information-text'>DavidCEO of SmartSpend</p>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </body>
+</html>

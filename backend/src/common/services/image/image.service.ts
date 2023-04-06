@@ -1,4 +1,3 @@
-import { type AxiosHeaders } from 'axios';
 import FormData from 'form-data';
 
 import { type IConfig } from '~/common/config/config.js';
@@ -38,7 +37,7 @@ class ImageService {
                 method: 'POST',
                 data: formData,
                 headers,
-            } as unknown as AxiosHeaders,
+            } as unknown as RequestInit,
         );
 
         return { link: response.url };

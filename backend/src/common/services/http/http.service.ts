@@ -1,34 +1,25 @@
-import axios, {
-    type AxiosError,
-    type AxiosHeaders,
-    type AxiosInstance,
-} from 'axios';
-
 class HttpService {
-    private instance: AxiosInstance;
-
-    public constructor() {
-        this.instance = axios.create({
-            timeout: 5000,
-        });
-    }
-
     public async load(
         url: string,
-        options: AxiosHeaders = {} as AxiosHeaders,
+        options: RequestInit = {},
     ): Promise<{ url: string }> {
-        const { method = 'GET', data, headers } = options;
+        const { method = 'GET', body, headers } = options;
 
         try {
-            const response = await this.instance.request({
-                url,
+            const response = await fetch(url, {
                 method,
                 headers,
-                data,
+                body,
             });
-            return response.data;
+
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+
+            const data = await response.json();
+            return { url: data.url };
         } catch (error) {
-            throw new Error((error as AxiosError).response?.data?.toString());
+            throw new Error((error as Error).message);
         }
     }
 }

@@ -11,6 +11,7 @@ const AppRoute = {
     BUDGETS_DETAILS: '/budgets/:id',
     NOT_FOUND: '*',
     WALLET: '/wallet',
+    WALLET_SETTINGS: 'wallet-settings',
 } as const;
 
 export { AppRoute };

@@ -12,6 +12,7 @@ import {
     useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 
 import { BudgetModal } from './budget-details/components/components';
 import styles from './styles.module.scss';
@@ -32,6 +33,7 @@ const Budgets: React.FC = () => {
 
     useEffect(() => {
         void dispatch(budgetsActions.loadAll());
+        void dispatch(categoriesActions.loadCategories());
     }, [dispatch]);
 
     return (
@@ -40,19 +42,19 @@ const Budgets: React.FC = () => {
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
-                        {budgets.map((card) => (
-                            <BudgetCard
-                                key={card.id}
-                                id={card.id}
-                                title={card.name}
-                                total={card.amount}
-                                moneyLeft={card.amount}
-                                date={{
-                                    start: card.startDate,
-                                    end: card.startDate,
-                                }}
-                            />
-                        ))}
+                        {budgets.map(
+                            ({ id, name, amount, currency, startDate }) => (
+                                <BudgetCard
+                                    key={id}
+                                    id={id}
+                                    title={name}
+                                    total={amount}
+                                    moneyLeft={amount}
+                                    currency={currency}
+                                    date={startDate}
+                                />
+                            ),
+                        )}
                         <div
                             className={styles.cardCreate}
                             onClickCapture={handleModal}

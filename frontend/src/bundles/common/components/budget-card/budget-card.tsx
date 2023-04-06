@@ -10,10 +10,8 @@ type Properties = {
     title: string;
     total: number;
     moneyLeft: number;
-    date: {
-        start: string;
-        end: string;
-    };
+    currency: string;
+    date: string;
 };
 
 const BudgetCard: React.FC<Properties> = ({
@@ -21,6 +19,7 @@ const BudgetCard: React.FC<Properties> = ({
     title,
     total,
     moneyLeft,
+    currency,
     date,
 }) => {
     const value = Math.round((100 * moneyLeft) / total);
@@ -35,11 +34,11 @@ const BudgetCard: React.FC<Properties> = ({
                 </div>
                 <div className={styles.cardBody}>
                     <p className={styles.bodyAmount}>
-                        {toCustomLocaleString(moneyLeft)} USD
+                        {toCustomLocaleString(moneyLeft)} {currency}
                         <span className={styles.textSpan}>left</span>
                     </p>
                     <p className={styles.text}>
-                        from {toCustomLocaleString(total)} USD
+                        from {toCustomLocaleString(total)} {currency}
                     </p>
                 </div>
                 <div className={styles.cardFooter}>
@@ -50,8 +49,8 @@ const BudgetCard: React.FC<Properties> = ({
                         value={value}
                     ></progress>
                     <div className={styles.footerText}>
-                        <span className={styles.footerSpan}>{date.start}</span>
-                        <span className={styles.footerSpan}>{date.end}</span>
+                        <span className={styles.footerSpan}>{date}</span>
+                        <span className={styles.footerSpan}>{date}</span>
                     </div>
                 </div>
             </div>

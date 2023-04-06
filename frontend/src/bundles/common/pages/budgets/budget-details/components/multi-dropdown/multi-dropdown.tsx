@@ -4,66 +4,62 @@ import { useCallback, useState } from 'react';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { MultiDropdown } from '~/bundles/common/components/components';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
 import styles from './styles.module.scss';
 
-const dataMenu = [
-    {
-        id: '81b40a68-ebb8-4754-aa06-d9bc25a40a7e',
-        name: 'Food & Drink',
-        icon: 'burger',
-        color: 'red',
-        type: 'expense',
-    },
-    {
-        id: 'b18e66ff-dec7-4a08-a64a-c1eea7c4df4c',
-        name: 'Salary',
-        icon: 'money-bill',
-        color: 'green',
-        type: 'income',
-    },
-    {
-        id: '558f4a63-2ce5-4b40-b8b3-d92f670bea43',
-        name: 'Car',
-        icon: 'car',
-        color: 'blue',
-        type: 'expense',
-    },
-    {
-        id: '2713d6e5-3400-4658-86ab-4cea7088eb29',
-        name: 'Travel',
-        icon: 'plane',
-        color: 'pink',
-        type: 'expense',
-    },
-    {
-        id: '8d3ab5fc-5894-4357-b43f-55f8bb20063f',
-        name: 'Gifts',
-        icon: 'gifts',
-        color: 'green',
-        type: 'income',
-    },
-    {
-        id: '058aa82e-c19c-47b5-9c42-b70fda37cd8f',
-        name: 'Gifts',
-        icon: 'gifts',
-        color: 'red',
-        type: 'expense',
-    },
-    {
-        id: '7c52ce0f-6327-4a5c-8008-2f5467a387d4',
-        name: 'Bills & Fees',
-        icon: 'money-bills',
-        color: 'red',
-        type: 'expense',
-    },
-] as DataType[];
-
-const newDataMenu = dataMenu.map((item) => ({
-    ...item,
-    value: item.id ?? '',
-}));
+// const dataMenu = [
+//     {
+//         id: '81b40a68-ebb8-4754-aa06-d9bc25a40a7e',
+//         name: 'Food & Drink',
+//         icon: 'burger',
+//         color: 'red',
+//         type: 'expense',
+//     },
+//     {
+//         id: 'b18e66ff-dec7-4a08-a64a-c1eea7c4df4c',
+//         name: 'Salary',
+//         icon: 'money-bill',
+//         color: 'green',
+//         type: 'income',
+//     },
+//     {
+//         id: '558f4a63-2ce5-4b40-b8b3-d92f670bea43',
+//         name: 'Car',
+//         icon: 'car',
+//         color: 'blue',
+//         type: 'expense',
+//     },
+//     {
+//         id: '2713d6e5-3400-4658-86ab-4cea7088eb29',
+//         name: 'Travel',
+//         icon: 'plane',
+//         color: 'pink',
+//         type: 'expense',
+//     },
+//     {
+//         id: '8d3ab5fc-5894-4357-b43f-55f8bb20063f',
+//         name: 'Gifts',
+//         icon: 'gifts',
+//         color: 'green',
+//         type: 'income',
+//     },
+//     {
+//         id: '058aa82e-c19c-47b5-9c42-b70fda37cd8f',
+//         name: 'Gifts',
+//         icon: 'gifts',
+//         color: 'red',
+//         type: 'expense',
+//     },
+//     {
+//         id: '7c52ce0f-6327-4a5c-8008-2f5467a387d4',
+//         name: 'Bills & Fees',
+//         icon: 'money-bills',
+//         color: 'red',
+//         type: 'expense',
+//     },
+// ] as DataType[];
 
 const RenderMultiDropdown = ({
     field: { onChange },
@@ -73,9 +69,15 @@ const RenderMultiDropdown = ({
         value: { id: string }[] | string[];
     };
 }): JSX.Element => {
+    const { categories } = useAppSelector((state) => state.categories);
     const [selectedMulti, setSelectedMulti] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
+
+    const newDataMenu = categories?.items.map((item) => ({
+        ...item,
+        value: item.id || '',
+    }));
 
     const handleMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
@@ -130,7 +132,7 @@ const RenderMultiDropdown = ({
         <div className={styles.multiDropdown}>
             <MultiDropdown
                 formatOptionLabel={formatOptionLabel}
-                data={newDataMenu}
+                data={newDataMenu as DataType[]}
                 label={'Budgeted for'}
                 selectedOption={selectedMulti}
                 handleChange={handleMultiDropdownChangeWrapper}

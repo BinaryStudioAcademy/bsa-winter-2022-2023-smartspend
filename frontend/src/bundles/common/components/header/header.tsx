@@ -70,7 +70,7 @@ const Header: React.FC<Properties> = ({
                             pathname.match(budgetsRegex)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {(pathname === `${AppRoute.WALLET}/${id}` && (
+                        {pathname === `${AppRoute.WALLET}/${id}` && (
                             <Tabs tabsData={dataTabs.wallets} />
                         )}
                     </div>

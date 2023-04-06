@@ -27,7 +27,7 @@ import {
     BudgetModal,
     BudgetProgressBar,
     InfoCard,
-} from './components/components';
+} from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
 import { calculateBudgetDetails } from './helpers/helpers';

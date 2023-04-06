@@ -1,5 +1,5 @@
 .multiDropdown {
-    width: 250px;
+    width: 225px;
 }
 
 .multiDropdown > div > div {
@@ -10,6 +10,17 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-left: var(--m-1);
+    color: var(--color-white-100);
+    border-radius: 6px;
 }
 
 .image {

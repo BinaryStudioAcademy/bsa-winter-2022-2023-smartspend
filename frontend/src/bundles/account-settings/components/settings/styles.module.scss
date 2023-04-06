@@ -1,7 +1,9 @@
+@import "@assets/utils";
+
 .userProfile {
-    width: 800px;
-    margin: 0 auto;
-    text-align: left;
+    max-width: 920px;
+    padding: var(--p-3) calc(var(--p-5) + var(--p-2))
+        calc(var(--p-5) + var(--p-2));
 }
 
 .dropdownLabel {
@@ -10,21 +12,22 @@
 
 .title {
     grid-column: 1/-1;
-    margin-bottom: var(--m-3);
+    margin: 0 0 var(--m-4);
     color: var(--color-gray-400);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-3-heading);
+    line-height: 27px;
 }
 
 .avatarContainer {
     grid-column: 1/-1;
-    margin-top: var(--m-2);
 }
 
 .avatarContent {
     display: flex;
+    grid-column-start: 1;
     align-items: center;
-    margin-top: var(--m-3);
+    gap: 10px;
 }
 
 .avatar {
@@ -66,7 +69,6 @@
     flex-direction: column;
     justify-content: space-evenly;
     height: 100px;
-    margin-left: var(--m-2);
 }
 
 .uploadAvatarText {
@@ -97,4 +99,35 @@
 
 .icon {
     padding-right: 5px;
+}
+
+@media (max-width: $md) {
+    .userProfile {
+        padding: var(--p-3);
+    }
+
+    .title {
+        font-size: var(--font-size-level-3-heading);
+    }
+}
+
+@media (max-width: $sm) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+
+    .btnContainer > button {
+        padding: var(--p-1) var(--p-2);
+    }
+
+    .submitBtn,
+    .dltButton {
+        justify-self: center;
+        width: 100%;
+    }
+
+    .submitBtn > button,
+    .dltButton > button {
+        width: 100%;
+    }
 }

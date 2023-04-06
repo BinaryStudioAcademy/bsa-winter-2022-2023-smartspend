@@ -36,9 +36,7 @@ const WalletCard: React.FC<Properties> = ({
             <div>
                 <p className={styles.walletType}>{wallet_type}</p>
                 <p className={styles.balance}>
-                    {balance_value > 0 && '+'}
-                    {toCustomLocaleString(balance_value)}
-                    {currency}
+                    {toCustomLocaleString(balance_value, currency)}
                 </p>
             </div>
         </div>

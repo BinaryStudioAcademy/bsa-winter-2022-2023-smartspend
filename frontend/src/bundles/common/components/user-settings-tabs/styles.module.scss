@@ -1,8 +1,9 @@
+@import "@assets/utils";
+
 .tabs {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    padding: var(--p-3) 0 var(--p-3) var(--p-3);
     font-family: var(--font-family);
     background-color: var(--color-blue-100);
 }
@@ -20,6 +21,7 @@
 .title {
     padding: 0 var(--p-4) 0 var(--p-2);
     overflow: hidden;
+    line-height: 25px;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -32,4 +34,43 @@
 .active {
     color: var(--color-blue-500);
     background-color: var(--color-white-100);
+}
+
+@media (max-width: $lg) {
+    .title {
+        white-space: normal;
+    }
+}
+
+@media (max-width: $md) {
+    .tabs {
+        flex-flow: row wrap;
+        justify-content: center;
+        row-gap: var(--m-2);
+        width: auto;
+        column-gap: var(--m-3);
+    }
+
+    .tab {
+        height: auto;
+    }
+
+    .title {
+        padding: 0;
+    }
+
+    .active {
+        background-color: transparent;
+    }
+}
+
+@media (max-width: $sm) {
+    .tabs {
+        column-gap: var(--m-2);
+    }
+
+    .title {
+        font-size: var(--font-size-level-6-heading);
+        text-align: center;
+    }
 }

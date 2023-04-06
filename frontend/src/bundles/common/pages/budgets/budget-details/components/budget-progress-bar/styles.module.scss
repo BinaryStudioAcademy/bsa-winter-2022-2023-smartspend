@@ -1,0 +1,19 @@
+.budgetProgressBar {
+    width: 100%;
+    max-width: 800px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.budgetProgressBarSpent {
+    float: left;
+    height: 100%;
+    background: var(--gradient-5);
+}
+
+.budgetProgressBarRemaining {
+    float: right;
+    height: 100%;
+    background-color: var(--color-disable);
+}

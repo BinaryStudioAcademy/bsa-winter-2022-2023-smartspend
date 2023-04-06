@@ -3,21 +3,22 @@ import 'react-date-range/dist/theme/default.css';
 
 import React, { useState } from 'react';
 import { type Range, type RangeKeyDict } from 'react-date-range';
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import leftArrow from '~/assets/img/left-arrow.svg';
 import rightArrow from '~/assets/img/right-arrow.svg';
-import styles from '~/bundles/common/components/calendar/styles.module.scss';
-import { Button } from '~/bundles/common/components/components.js';
-import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
+import { Button } from '~/bundles/common/components/components';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
 import {
     formatRange,
-    getBackwardMonths,
-    getForwardMonths,
+    getFutureDate,
     getInitialRange,
+    getPastDate,
 } from '~/bundles/common/helpers/helpers';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { useCallback } from '~/bundles/common/hooks/hooks';
+
+import styles from '../styles.module.scss';
 
 const RangeCalendar: React.FC = () => {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
@@ -35,12 +36,12 @@ const RangeCalendar: React.FC = () => {
                     break;
                 }
                 case 'forward': {
-                    setRange(getForwardMonths(range));
+                    setRange(getFutureDate(range));
 
                     break;
                 }
                 case 'backward': {
-                    setRange(getBackwardMonths(range));
+                    setRange(getPastDate(range));
 
                     break;
                 }
@@ -52,21 +53,15 @@ const RangeCalendar: React.FC = () => {
         [isShowModal, range],
     );
 
-    const handleSelectRange = useCallback(
-        //з кастомного календаря DateRangePicker приходить один з кастомних типів(DateRange, RangeKeyDict) .
-        //FIX: спробувати прокинути всюди тип RangeKeyDict
-        //FIX: спробувати використовувати тип Range з бібліотеки. Лише тоді в данних що будуть передаватись прибрати, на самому початку, поле "selection"
-
-        (range: RangeKeyDict): void => {
-            const newRange: Range = {
-                startDate: range.selection.startDate,
-                key: 'selection',
-                endDate: range.selection.endDate,
-            };
-            setRange(newRange);
-        },
-        [],
-    );
+    const handleSelectRange = useCallback((range: RangeKeyDict): void => {
+        const newRange: Range = {
+            startDate: range.selection.startDate,
+            key: 'selection',
+            endDate: range.selection.endDate,
+            color: '#03bfd9',
+        };
+        setRange(newRange);
+    }, []);
 
     return (
         <div className={styles.calendar_wrapper}>
@@ -76,7 +71,7 @@ const RangeCalendar: React.FC = () => {
                 size={ButtonSize.MEDIUM}
                 onClick={handleClick}
             >
-                <div className={styles.range_display}>
+                <div className={styles.range_wrapper}>
                     <img
                         className={styles.arrow_left}
                         id="backward"
@@ -84,7 +79,9 @@ const RangeCalendar: React.FC = () => {
                         alt="left-arrow"
                     />
 
-                    <div id="range_date">{formatRange(range)}</div>
+                    <div className={styles.range_display} id="range_date">
+                        {formatRange(range)}
+                    </div>
 
                     <img
                         className={styles.arrow_right}
@@ -107,13 +104,13 @@ const RangeCalendar: React.FC = () => {
                         className={styles.overlay}
                     ></input>
                     <div className={styles.modal_range}>
-                        <DateRangePicker
+                        <DateRange
                             className={styles.modal}
                             ranges={[range]}
                             onChange={handleSelectRange}
                             months={2}
                             moveRangeOnFirstSelection={false}
-                            direction="horizontal"
+                            direction="vertical"
                         />
                         <Button
                             className={styles.button}
@@ -121,7 +118,7 @@ const RangeCalendar: React.FC = () => {
                             size={ButtonSize.SMALL}
                             onClick={handleClick}
                         >
-                            Close
+                            Select
                         </Button>
                     </div>
                 </>

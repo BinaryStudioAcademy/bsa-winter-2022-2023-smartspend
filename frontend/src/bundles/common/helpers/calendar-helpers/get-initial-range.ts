@@ -14,6 +14,7 @@ const getInitialRange = (): Range => {
         startDate: firstDayOfMonth,
         endDate: addDays(lastDayOfMonth, 0),
         key: 'selection',
+        color: '#03bfd9',
     };
 };
 

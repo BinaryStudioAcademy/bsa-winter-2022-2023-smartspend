@@ -1,14 +1,7 @@
-.calendars_wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+@import "@assets/utils";
 
 .calendar_wrapper {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: var(--p-3) 0;
 }
 
 .calendar {
@@ -16,27 +9,30 @@
     border: 1px solid var(--color-disable);
 }
 
-.range_display {
+.range_wrapper {
     display: flex;
     padding: var(--p-1);
     background-color: var(--color-white-100);
     border-radius: var(--b-1);
 }
 
+.range_display {
+    width: 270px;
+}
+
 .modal_one_day {
     position: absolute;
-    top: 52px;
-    left: 5px;
+    top: 1px;
+    left: 1px;
     z-index: 10000;
     margin-left: var(--m-2);
 }
 
 .modal_range {
     position: absolute;
-    top: 72px;
-    left: 10px;
+    top: 40px;
+    left: 1px;
     z-index: 10000;
-    margin-left: var(--m-2);
 }
 
 .icon {
@@ -56,6 +52,10 @@
 }
 
 .button {
+    position: absolute;
+    right: 1px;
+    bottom: -35px;
+    z-index: 10000;
     margin-top: var(--m-2);
 }
 
@@ -69,6 +69,26 @@
     height: 100%;
     background-color: var(--color-disable);
     cursor: default;
-    opacity: 0.7;
+    opacity: 0.8;
     pointer-events: auto;
+}
+
+@media (max-width: $md) {
+    .range_display {
+        width: 100%;
+    }
+
+    .arrow_left {
+        display: none;
+    }
+
+    .arrow_right {
+        display: none;
+    }
+}
+
+@media (max-width: $sm) {
+    .icon {
+        display: none;
+    }
 }

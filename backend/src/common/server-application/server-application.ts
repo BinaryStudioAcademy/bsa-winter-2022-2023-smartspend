@@ -22,7 +22,6 @@ const apiV1 = new ServerAppApi(
     ...budgetController.routes,
     ...transactionController.routes,
     ...currencyController.routes,
-
 );
 const serverApp = new ServerApp({
     config,

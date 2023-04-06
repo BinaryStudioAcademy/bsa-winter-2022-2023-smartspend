@@ -14,6 +14,7 @@ import {
 } from '~/bundles/common/components/components';
 import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
+import { BudgetDetails } from '~/bundles/common/pages/budgets/budget-details/budget-details';
 import { Budgets } from '~/bundles/common/pages/budgets/budgets';
 import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
 import { NotFound } from '~/bundles/common/pages/not-found/not-found';
@@ -21,8 +22,6 @@ import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-deta
 import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
-
-import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>

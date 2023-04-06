@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button } from '~/bundles/common/components/button/button';
-import { Icon } from '~/bundles/common/components/components';
+import { Calendar, Icon } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
 import { Input } from '~/bundles/common/components/input/input';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
@@ -99,6 +99,7 @@ const SettingsForm: React.FC = () => {
             <AvatarContainer />
             <Input
                 type={InputType.TEXT}
+                labelClassName={styles.inputLabel}
                 label="First name"
                 placeholder="Enter your name"
                 name="firstName"
@@ -108,6 +109,7 @@ const SettingsForm: React.FC = () => {
             <Input
                 type={InputType.TEXT}
                 label="Last name"
+                labelClassName={styles.inputLabel}
                 placeholder="Enter your surname"
                 name="lastName"
                 control={control}
@@ -118,10 +120,15 @@ const SettingsForm: React.FC = () => {
                 handleChange={handleDropdownChangeSex}
                 selectedOption={selectedSingleSex}
                 label="Sex"
+                labelClassName={styles.dropdownLabel}
             />
+
+            <Calendar isRangeCalendar={false} />
+
             <Input
                 type={InputType.EMAIL}
                 label="E-mail address"
+                labelClassName={styles.inputLabel}
                 placeholder="Enter your email"
                 name="email"
                 control={control}
@@ -133,12 +140,14 @@ const SettingsForm: React.FC = () => {
                 handleChange={handleDropdownChangeCurrency}
                 selectedOption={selectedSingleCurrency}
                 label="Account currency"
+                labelClassName={styles.dropdownLabel}
             />
             <Dropdown
                 data={language}
                 handleChange={handleDropdownChangeLanguage}
                 selectedOption={selectedSingleLanguage}
                 label="Language"
+                labelClassName={styles.dropdownLabel}
             />
             <SubmitButton isChange={isChange()}>
                 Update My Settings

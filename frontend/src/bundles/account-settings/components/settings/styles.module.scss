@@ -6,11 +6,16 @@
         calc(var(--p-5) + var(--p-2));
 }
 
+.dropdownLabel {
+    color: var(--color-gray-200);
+}
+
 .title {
     grid-column: 1/-1;
     margin: 0 0 var(--m-4);
     color: var(--color-gray-400);
-    font-weight: var(--font-weight-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
     line-height: 27px;
 }
 
@@ -25,11 +30,6 @@
     gap: 10px;
 }
 
-.label {
-    color: var(--color-gray-200);
-    font-size: 12px;
-}
-
 .avatar {
     width: 96px;
     height: 96px;
@@ -37,10 +37,6 @@
     background-color: var(--color-green-100);
     border-radius: 50%;
     cursor: pointer;
-}
-
-.avatar:hover {
-    background-color: var(--color-green-200);
 }
 
 .avatarImage {
@@ -62,6 +58,10 @@
     text-align: center;
     border: 2px dashed var(--color-green);
     border-radius: 50%;
+}
+
+.noImage:hover {
+    background-color: var(--color-green-200);
 }
 
 .btnContainer {

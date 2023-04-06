@@ -6,11 +6,15 @@ import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
     const dataTabs = [
-        { title: 'Account', to: AppRoute.USER },
-        { title: 'All Categories', to: AppRoute.DASHBOARD },
-        { title: 'Connected bank accounts', to: AppRoute.DASHBOARD },
-        { title: 'Support', to: AppRoute.DASHBOARD },
-        { title: 'Terms and Policies', to: AppRoute.DASHBOARD },
+        { title: 'Account', to: AppRoute.USER, icon: 'CHART' },
+        { title: 'All Categories', to: AppRoute.DASHBOARD, icon: 'CHART' },
+        {
+            title: 'Connected bank accounts',
+            to: AppRoute.DASHBOARD,
+            icon: 'CHART',
+        },
+        { title: 'Support', to: AppRoute.DASHBOARD, icon: 'CHART' },
+        { title: 'Terms and Policies', to: AppRoute.DASHBOARD, icon: 'CHART' },
     ];
     return (
         <main className={styles.body}>

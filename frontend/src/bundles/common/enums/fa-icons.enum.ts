@@ -8,6 +8,10 @@ enum FaIcons {
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
     TRASH_CAN = 'trash-can',
+    DASHBOARD = 'chart-simple',
+    BUDGET = 'piggy-bank',
+    TRANSACTION = 'dollar-sign',
+    SETTINGS = 'gear',
 }
 
 export { FaIcons };

@@ -17,6 +17,7 @@ import styles from './styles.module.scss';
 type TabsData = {
     title: string;
     to: string;
+    icon?: string;
 };
 
 type Properties = {

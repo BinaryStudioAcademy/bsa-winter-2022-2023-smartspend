@@ -131,13 +131,7 @@ const Header: React.FC<Properties> = ({
                                     />
                                 )}
                             </div>
-                            <span
-                                className={classNames(styles.logoText, {
-                                    [styles.active]: openMenu,
-                                })}
-                            >
-                                {name}
-                            </span>
+                            <span className={styles.logoText}>{name}</span>
                         </div>
                         <div
                             className={classNames(styles.menu, {

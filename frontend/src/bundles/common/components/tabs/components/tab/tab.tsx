@@ -23,7 +23,10 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
 
 const Tab: React.FC<Properties> = ({ title, to, icon, prefix }) => {
     return (
-        <NavLink to={prefix ? `${prefix}${to}` : to} className={getNavLinkClassName}>
+        <NavLink
+            to={prefix ? `${prefix}${to}` : to}
+            className={getNavLinkClassName}
+        >
             <FontAwesomeIcon
                 icon={FaIcons[icon as keyof typeof FaIcons] as IconProp}
                 className={styles.icon}

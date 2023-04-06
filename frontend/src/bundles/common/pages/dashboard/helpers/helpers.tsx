@@ -48,7 +48,6 @@ const filterChart = (range: Range): DataRangeObject[][] => {
 const filterCategories = (range: Range): DataTotalObjects => {
     const startDate: Date | undefined = range.startDate;
     const endDate: Date | undefined = range.endDate;
-
     const result = categories.filter(
         (date) =>
             startDate &&

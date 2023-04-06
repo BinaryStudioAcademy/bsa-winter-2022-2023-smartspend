@@ -201,7 +201,7 @@ const Dashboard: React.FC = () => {
                                 data={byCategory}
                                 handleChange={handleDropdownByCategory}
                                 selectedOption={category}
-                                label="By Categories"
+                                label="By category"
                                 labelClassName={styles.dropdownLabel}
                             />
                             <Input

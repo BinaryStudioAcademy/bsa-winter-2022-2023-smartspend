@@ -1,4 +1,4 @@
-import { type UpdateRequestDto } from 'shared/build';
+import { type UserUpdateRequestDto } from 'shared/build';
 
 import { type UserService } from '~/bundles/users/user.service.js';
 import { type ApiHandlerResponse } from '~/common/controller/controller.js';
@@ -26,6 +26,10 @@ import { UsersApiPath } from './enums/enums.js';
  *            format: email
  */
 
+type ApiUpdateUserOptions = {
+    body: UserUpdateRequestDto;
+    token: string;
+};
 class UserController extends Controller {
     private userService: UserService;
 
@@ -50,7 +54,7 @@ class UserController extends Controller {
             path: UsersApiPath.ROOT,
             method: 'PUT',
             handler: (options) => {
-                return this.update(options as UpdateRequestDto);
+                return this.update(options as ApiUpdateUserOptions);
             },
         });
     }
@@ -204,7 +208,7 @@ class UserController extends Controller {
      */
 
     private async update(
-        request: UpdateRequestDto,
+        request: ApiUpdateUserOptions,
     ): Promise<ApiHandlerResponse> {
         const userId = getUserIdFromToken(request.token);
         const updatedUser = await this.userService.update(userId, request.body);

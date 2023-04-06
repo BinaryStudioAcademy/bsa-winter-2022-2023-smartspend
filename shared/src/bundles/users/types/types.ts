@@ -1,4 +1,4 @@
-export { type UpdateRequestDto } from './update-request-dto';
+export { type ApiUpdateUserOptions } from './api-update-user-options.js';
 export { type UserGetAllItemResponseDto } from './user-get-all-item-response-dto.type.js';
 export { type UserGetAllResponseDto } from './user-get-all-response-dto.type.js';
 export { type UserProfileResponseDto } from './user-get-user-profile-response-dto.type.js';

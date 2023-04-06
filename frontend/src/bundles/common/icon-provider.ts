@@ -6,6 +6,7 @@ import {
     faBriefcase,
     faBurger,
     faCar,
+    faChartSimple,
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -14,6 +15,7 @@ import {
     faGasPump,
     faGear,
     faGift,
+    faDollarSign,
     faGifts,
     faGraduationCap,
     faLandmark,
@@ -21,6 +23,7 @@ import {
     faMoneyBills,
     faPaw,
     faPen,
+    faPiggyBank,
     faPlane,
     faPlus,
     faSackDollar,
@@ -31,7 +34,6 @@ import {
 
 const iconProvider = {
     faChevronDown,
-    faChevronUp,
     faEye,
     faEyeSlash,
     faGasPump,
@@ -51,6 +53,7 @@ const iconProvider = {
     faCloudArrowUp,
     faStop,
     faChevronRight,
+    faChevronUp,
     faTrashCan,
     faArrowDown,
     faArrowUp,
@@ -59,6 +62,9 @@ const iconProvider = {
     faBurger,
     faGifts,
     faMoneyBills,
+    faChartSimple,
+    faPiggyBank,
+    faDollarSign,
 };
 
 export { iconProvider };

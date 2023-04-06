@@ -22,7 +22,17 @@ enum FaIcons {
     STOP = 'stop',
     ARROW_DOWN = 'arrow-down',
     ARROW_UP = 'arrow-up',
+    MONEY_BILL = 'money-bill',
+    MONEY_BILLS = 'money-bills',
+    CAR = 'car',
+    PLANE = 'plane',
+    BURGER = 'burger',
+    GIFTS = 'gifts',
     TRASH_CAN = 'trash-can',
+    DASHBOARD = 'chart-simple',
+    BUDGET = 'piggy-bank',
+    TRANSACTION = 'dollar-sign',
+    SETTINGS = 'gear',
 }
 
 export { FaIcons };

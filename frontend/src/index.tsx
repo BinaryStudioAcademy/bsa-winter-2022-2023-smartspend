@@ -15,7 +15,6 @@ import {
 import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
 import { Budgets } from '~/bundles/common/pages/budgets/budgets';
-import { CategoriesSettings } from '~/bundles/common/pages/categories-settings/categories-settings';
 import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
 import { NotFound } from '~/bundles/common/pages/not-found/not-found';
 import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
@@ -23,7 +22,8 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
-import { UserProfile } from './bundles/account-settings/components/components';
+import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
+import { Budgets } from './bundles/common/pages/budgets/budgets';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -84,30 +84,24 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.ROOT,
+                                path: AppRoute.BUDGETS_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <BudgetDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFound />,
+                            },
+                            {
+                                path: AppRoute.USER,
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
                                     </PrivateRoute>
                                 ),
-                                children: [
-                                    {
-                                        path: AppRoute.USER,
-                                        element: (
-                                            <PrivateRoute>
-                                                <UserProfile />
-                                            </PrivateRoute>
-                                        ),
-                                    },
-                                    {
-                                        path: AppRoute.CATEGORIES,
-                                        element: (
-                                            <PrivateRoute>
-                                                <CategoriesSettings />
-                                            </PrivateRoute>
-                                        ),
-                                    },
-                                ],
                             },
                         ],
                     },

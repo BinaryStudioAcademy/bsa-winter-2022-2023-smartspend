@@ -5,6 +5,7 @@ type TabsData = {
     title: string;
     to: string;
     prefix?: string;
+    icon?: string;
 };
 
 type Properties = {
@@ -21,6 +22,7 @@ const Tabs: React.FC<Properties> = ({ tabsData, prefix }) => {
                     title={item.title}
                     to={item.to}
                     prefix={prefix}
+                    icon={item.icon}
                 />
             ))}
         </nav>

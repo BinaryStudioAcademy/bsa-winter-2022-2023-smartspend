@@ -1,15 +1,14 @@
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 const tabsDashboard = [
-    { title: 'Dashboard', to: AppRoute.DASHBOARD },
-    { title: 'Budgets', to: AppRoute.BUDGETS },
+    { title: 'Dashboard', to: AppRoute.DASHBOARD, icon: 'DASHBOARD' },
+    { title: 'Budgets', to: AppRoute.BUDGETS, icon: 'BUDGET' },
 ];
 
 const tabsData = [
-    { title: 'Transaction', to: '/transaction' },
-    { title: 'Overview', to: '/overview' },
-    { title: 'Budget', to: '/budget' },
-    { title: 'Wallet Settings', to: '/wallet-settings' },
+    { title: 'Transaction', to: '/transaction', icon: 'TRANSACTION' },
+    { title: 'Budget', to: '/budget', icon: 'BUDGET' },
+    { title: 'Wallet Settings', to: '/wallet-settings', icon: 'SETTINGS' },
 ];
 
 const dataTabs = {

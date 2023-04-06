@@ -1,0 +1,54 @@
+@import "@assets/utils";
+
+.body {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: var(--p-6);
+    background-color: var(--color-blue-100);
+}
+
+.container {
+    display: flex;
+    width: 1192px;
+    padding-top: var(--p-5);
+}
+
+.button {
+    align-self: start;
+    margin-top: 33px;
+}
+
+.tabsContainer {
+    margin-top: var(--m-5);
+}
+
+.userProfileContainer {
+    width: 100%;
+    background-color: var(--color-white-100);
+    border-radius: var(--b-5);
+}
+
+@media (max-width: $md) {
+    .container {
+        flex-direction: column;
+        gap: var(--m-3);
+    }
+
+    .tabsContainer {
+        order: 2;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: $sm) {
+    .body {
+        padding-bottom: var(--p-3);
+    }
+
+    .container {
+        gap: var(--m-2);
+        padding-top: var(--p-3);
+    }
+}

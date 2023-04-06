@@ -1,5 +1,6 @@
-export { UsersApiPath, UserValidationMessage } from './enums/enums.js';
+export { Gender, UsersApiPath, UserValidationMessage } from './enums/enums.js';
 export {
+    type ApiUpdateUserOptions,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserLoadRequestDto,
@@ -8,6 +9,8 @@ export {
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
+    type UserUpdateRequestDto,
+    type UserUpdateResponseDto,
 } from './types/types.js';
 export {
     userSignIn as userSignInValidationSchema,

@@ -1,16 +1,15 @@
+import { UserSettingsTab } from './components/components.js';
 import styles from './styles.module.scss';
-import { UserSettingsTab } from './user-settings-tab';
 
-interface SettingsTabsData {
-    title: string;
-    to: string;
+interface Properties {
+    tabsData: {
+        title: string;
+        to: string;
+        icon?: string;
+    }[];
 }
 
-interface SettingsTabsProperties {
-    tabsData: SettingsTabsData[];
-}
-
-const UserSettingsTabs: React.FC<SettingsTabsProperties> = ({ tabsData }) => {
+const UserSettingsTabs: React.FC<Properties> = ({ tabsData }) => {
     return (
         <nav className={styles.tabs}>
             {tabsData.map((item, index) => (

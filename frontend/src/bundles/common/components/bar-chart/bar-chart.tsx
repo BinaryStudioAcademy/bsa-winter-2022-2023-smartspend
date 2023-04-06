@@ -8,10 +8,11 @@ import {
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-import { BarColors } from '../../enums/enums';
-import { dateToShortStringHelper } from '../../helpers/helpers';
+import { BarColors } from '~/bundles/common/enums/enums.js';
+import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers.js';
+
 import styles from './bar.module.scss';
-import { options } from './config-bar';
+import { options } from './config-bar.js';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 

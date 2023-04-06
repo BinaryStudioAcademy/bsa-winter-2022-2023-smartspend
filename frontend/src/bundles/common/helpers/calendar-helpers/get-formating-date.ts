@@ -20,6 +20,9 @@ const formatRange = (range: Range): string => {
         day: '2-digit',
         year: 'numeric',
     }).format(endDate);
+    if (formatedStartDate === formatedEndDate) {
+        return `${formatedStartDate}`;
+    }
     return ` ${formatedStartDate} - ${formatedEndDate} `;
 };
 

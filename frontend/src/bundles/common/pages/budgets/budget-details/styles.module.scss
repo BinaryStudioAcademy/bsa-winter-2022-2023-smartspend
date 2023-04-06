@@ -1,0 +1,103 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+    background: #eff3ff;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: max-content;
+    margin: var(--m-2) auto;
+}
+
+.calendarWrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.budgetInfoWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-radius: 15px;
+}
+
+.breadcrumbsWrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: var(--p-3);
+    background: white;
+    border-radius: 15px;
+}
+
+.breadcrumbsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editButtonWrapper {
+    padding: var(--p-3);
+}
+
+.editButton {
+    color: var(--color-turquoise-600);
+    border-color: var(--color-turquoise-600);
+}
+
+.cardsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+}
+
+.progressWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: var(--p-3);
+    background: white;
+    border-radius: 15px;
+}
+
+.progressContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.periodBudgetWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+}
+
+.cartBoxWrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.chartWrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.transactionTable div {
+    margin-top: 0;
+}

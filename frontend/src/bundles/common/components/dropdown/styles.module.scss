@@ -20,11 +20,14 @@
     margin: 0 var(--m-2);
     overflow: hidden;
     color: var(--color-blue-600);
+    line-height: 30px;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .circle {
+    display: flex;
+    justify-content: center;
     width: 35px;
     height: 35px;
     color: var(--color-white-100);
@@ -47,7 +50,6 @@
 
 .label {
     display: block;
-    margin-bottom: var(--m-1);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-level-6-heading);
     font-family: var(--font-family);

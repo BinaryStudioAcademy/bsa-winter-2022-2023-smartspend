@@ -1,3 +1,4 @@
+export { AppDocumentTitles } from './app-document-titles.enum.js';
 export { AppRoute } from './app-route.enum.js';
 export { BarColors } from './bar-color.enum.js';
 export { Breakpoint } from './breakpoint.enum';
@@ -10,7 +11,9 @@ export { DataStatus } from './data-status.enum.js';
 export { DoughnutData } from './doughnut-data.enum.js';
 export { FaIcons } from './fa-icons.enum.js';
 export { InputType } from './input-type.enum.js';
+export { LineChartOptions } from './line-chart.enums.js';
 export { menuLinks } from './menu-links.enum.js';
+export { NotificationType } from './notification-type.enum';
 export { WalletCardSize } from './wallet-card-size.enum.js';
 export { WalletCardVariant } from './wallet-card-variant.enum.js';
 export {

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import defaultAvatar from '~/assets/img/default-avatar.jpg';
 import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
@@ -17,6 +17,7 @@ import styles from './styles.module.scss';
 type TabsData = {
     title: string;
     to: string;
+    icon?: string;
 };
 
 type Properties = {
@@ -28,11 +29,14 @@ type Properties = {
     };
 };
 
+const budgetsRegex = /^\/budgets\/\d+$/;
+
 const Header: React.FC<Properties> = ({
     name,
     avatar = defaultAvatar,
     dataTabs,
 }) => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const token = storage.getSync(StorageKey.TOKEN);
@@ -62,10 +66,11 @@ const Header: React.FC<Properties> = ({
                 {token ? (
                     <div className={classNames(styles.headerBody, styles.tabs)}>
                         {(pathname === AppRoute.DASHBOARD ||
-                            pathname === AppRoute.BUDGETS) && (
+                            pathname === AppRoute.BUDGETS ||
+                            pathname.match(budgetsRegex)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {pathname === AppRoute.WALLETS && (
+                        {pathname === `${AppRoute.WALLET}/${id}` && (
                             <Tabs tabsData={dataTabs.wallets} />
                         )}
                     </div>

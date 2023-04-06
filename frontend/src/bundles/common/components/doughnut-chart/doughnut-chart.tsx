@@ -9,13 +9,14 @@ import {
 import { ArcElement, Chart as ChartJS } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-import { DoughnutData } from '../../enums/enums.js';
+import { DoughnutData } from '~/bundles/common/enums/enums.js';
 import {
     createGradients,
     getGradientColors,
     sumArray,
-} from '../../helpers/helpers.js';
-import { type ItextCenter } from '../../types/types.js';
+} from '~/bundles/common/helpers/helpers.js';
+import { type ItextCenter } from '~/bundles/common/types/types.js';
+
 import styles from './styles.module.scss';
 
 type Properties = {

@@ -2,30 +2,47 @@ import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 import { type Range } from 'react-date-range';
 
-import { WalletCardSize } from '~/bundles/landing/enums/enums';
-
 import {
     Button,
     Calendar,
     CardTotal,
     Chart,
     DoughnutChart,
+    Dropdown,
     Input,
     LineChart,
     RangeSlider,
     WalletCard,
-} from '../../components/components';
-import { ButtonVariant } from '../../enums/button-variant.enum';
-import { CardVariant } from '../../enums/enums';
-import { formatRangeGraph } from '../../helpers/calendar-helpers/get-formating-date';
-import { getInitialRange } from '../../helpers/helpers';
-import { useAppForm } from '../../hooks/hooks';
+} from '~/bundles/common/components/components.js';
+import {
+    AppDocumentTitles,
+    ButtonVariant,
+    CardVariant,
+} from '~/bundles/common/enums/enums.js';
+import {
+    formatRangeGraph,
+    getInitialRange,
+} from '~/bundles/common/helpers/helpers';
+import {
+    useAppDocumentTitle,
+    useAppForm,
+} from '~/bundles/common/hooks/hooks.js';
+import { type DataType } from '~/bundles/common/types/types';
+import { WalletCardSize } from '~/bundles/landing/enums/enums';
+
+// import { getInitialRange } from '../../helpers/helpers';
 import {
     filterCategories,
     filterChart,
     filterLineChart,
 } from './helpers/helpers';
-import { type Wallet, mockSliderData, wallets } from './mocks.dashboard';
+import {
+    type Wallet,
+    byCategory,
+    byWallets,
+    mockSliderData,
+    wallets,
+} from './mocks.dashboard';
 import styles from './styles.module.scss';
 
 type FormValues = {
@@ -83,6 +100,7 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
 };
 
 const Dashboard: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
@@ -104,6 +122,28 @@ const Dashboard: React.FC = () => {
                 (item) => item.amount >= range.min && item.amount <= range.max,
             );
             setFilteredData(newFilteredData);
+        },
+        [],
+    );
+
+    const [wallet, setWallet] = useState<DataType>(byWallets[0]);
+
+    const handleDropdownByWallets = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setWallet(selectedOption);
+            }
+        },
+        [],
+    );
+
+    const [category, setCategory] = useState<DataType>(byCategory[0]);
+
+    const handleDropdownByCategory = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setCategory(selectedOption);
+            }
         },
         [],
     );
@@ -168,21 +208,19 @@ const Dashboard: React.FC = () => {
                             </div>
                         </div>
                         <div className={styles.filters}>
-                            <Input
-                                labelClassName={styles.filterLabel}
-                                control={control}
-                                errors={errors}
-                                label={'By wallet'}
-                                name={'wallet'}
-                                placeholder={'Cash wallet'}
+                            <Dropdown
+                                data={byWallets}
+                                handleChange={handleDropdownByWallets}
+                                selectedOption={wallet}
+                                label="By wallet"
+                                labelClassName={styles.dropdownLabel}
                             />
-                            <Input
-                                labelClassName={styles.filterLabel}
-                                control={control}
-                                errors={errors}
-                                label={'All Categories'}
-                                name={'category'}
-                                placeholder={'Filter by specific name'}
+                            <Dropdown
+                                data={byCategory}
+                                handleChange={handleDropdownByCategory}
+                                selectedOption={category}
+                                label="By category"
+                                labelClassName={styles.dropdownLabel}
                             />
                             <Input
                                 labelClassName={styles.filterLabel}

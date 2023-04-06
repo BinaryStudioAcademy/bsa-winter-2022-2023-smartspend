@@ -1,6 +1,10 @@
+:root {
+    --mg-1-local: 1.125em;
+}
+
 .modal {
     position: fixed;
-    top: 0;
+    top: 40px;
     left: 0;
     display: grid;
     width: 100%;
@@ -23,8 +27,8 @@
 
 .popup__close {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-sub-heading);
@@ -37,7 +41,7 @@
 
 .popup {
     position: relative;
-    width: 80vw;
+    width: fit-content;
     max-width: 970px;
     padding: var(--p-3);
     background-color: var(--color-white-100);
@@ -70,6 +74,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: var(--mg-1-local);
 }
 
 button:hover {

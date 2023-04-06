@@ -3,6 +3,7 @@ import '~/assets/css/styles.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { AccountSettings } from '~/bundles/account-settings/account-settings';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
@@ -20,6 +21,7 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
+import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
 import { Budgets } from './bundles/common/pages/budgets/budgets';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -81,14 +83,34 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
+                                path: AppRoute.BUDGETS_DETAILS,
+                                element: (
+                                    <PrivateRoute>
+                                        <BudgetDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
                                 path: AppRoute.NOT_FOUND,
                                 element: <NotFound />,
+                            },
+                            {
+                                path: AppRoute.USER,
+                                element: (
+                                    <PrivateRoute>
+                                        <AccountSettings />
+                                    </PrivateRoute>
+                                ),
                             },
                         ],
                     },
                     {
                         path: AppRoute.UI,
                         element: <StyleGuide />,
+                    },
+                    {
+                        path: AppRoute.NOT_FOUND,
+                        element: <NotFound />,
                     },
                 ]}
             />

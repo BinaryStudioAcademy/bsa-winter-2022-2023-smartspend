@@ -20,7 +20,11 @@ import { CardVariant } from '../../enums/enums';
 import { formatRangeGraph } from '../../helpers/calendar-helpers/get-formating-date';
 import { getInitialRange } from '../../helpers/helpers';
 import { useAppForm } from '../../hooks/hooks';
-import { filterChart, filterLineChart } from './helpers/helpers';
+import {
+    filterCategories,
+    filterChart,
+    filterLineChart,
+} from './helpers/helpers';
 import {
     type Wallet,
     categories,
@@ -245,7 +249,10 @@ const Dashboard: React.FC = () => {
                                 title={'Period income'}
                                 date={formatRangeGraph(day)}
                             >
-                                <DoughnutChart categories={categories} />
+                                {/* <DoughnutChart categories={categories} /> */}
+                                <DoughnutChart
+                                    categories={filterCategories(day)}
+                                />
                             </ChartBox>
                             <ChartBox
                                 title={'Period Expenses'}

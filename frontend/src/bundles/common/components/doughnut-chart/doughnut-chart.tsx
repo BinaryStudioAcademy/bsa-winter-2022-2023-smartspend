@@ -7,9 +7,10 @@ import {
     type ScriptableContext,
 } from 'chart.js';
 import { ArcElement, Chart as ChartJS } from 'chart.js';
-import { useRef } from 'react';
+// import { useEffect, useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
+// import { type ChartJSOrUndefined } from 'react-chartjs-2/dist/types.js';
 import { DoughnutData } from '../../enums/enums.js';
 import {
     createGradients,
@@ -33,8 +34,30 @@ const DoughnutChart: React.FC<Properties> = ({
     categories,
     tooltipDisplay = true,
 }) => {
+    // const reference =
+    //     useRef<
+    //         ChartJSOrUndefined<
+    //             'doughnut',
+    //             (number | [number, number] | Point | BubbleDataPoint | null)[]
+    //         >
+    //     >();
+
+    // useEffect(() => {
+    //     const chartReference = reference.current;
+    //     if (chartReference !== undefined) {
+    //         chartReference.stop();
+    //         chartReference.destroy();
+    //     }
+    //     return () => {
+    //         if (chartReference !== undefined) {
+    //             chartReference.stop();
+    //             chartReference.destroy();
+    //         }
+    //     };
+    // }, [reference]);
+
     const colors = categories.map((object) => getGradientColors(object.color));
-    const reference = useRef();
+
     const data: ChartData<
         'doughnut',
         (number | [number, number] | Point | BubbleDataPoint | null)[]
@@ -90,7 +113,7 @@ const DoughnutChart: React.FC<Properties> = ({
     return (
         <div className={styles.doughnut}>
             <Doughnut
-                ref={reference}
+                // ref={reference}
                 data={data}
                 options={options}
                 plugins={[textCenter]}

@@ -40,6 +40,24 @@ const filterChart = (range: Range): DataRangeObject[][] => {
 const filterCategories = (range: Range): DataTotalObjects => {
     const startDate: Date | undefined = range.startDate;
     const endDate: Date | undefined = range.endDate;
+    // if (startDate == undefined) {
+    //     return categories.filter(
+    //         (date) =>
+    //             new Date(date.date) >= new Date('Mar 01,2023') &&
+    //             new Date(date.date) <= new Date('Mar 31,2023'),
+    //     );
+    // }
+    // if (endDate == undefined) {
+    //     return categories.filter(
+    //         (date) =>
+    //             new Date(date.date) >= new Date('Mar 01,2023') &&
+    //             new Date(date.date) <= new Date('Mar 31,2023'),
+    //     );
+    // }
+    // let waiting = true;
+    // while (waiting) {
+    //     waiting = startDate === undefined && endDate === undefined;
+    // }
     return categories.filter(
         (date) =>
             startDate &&

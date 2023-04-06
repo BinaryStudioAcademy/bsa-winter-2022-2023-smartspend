@@ -64,20 +64,17 @@ const TransactionModalBody: React.FC<Properties> = ({
 
     return (
         <div className={styles.body}>
-            <TransactionModalElement
-                className={styles.category}
-                label="Category"
-            >
+            <TransactionModalElement label="Category">
                 <Dropdown
                     data={categories}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />
             </TransactionModalElement>
-            <TransactionModalElement className={styles.date} label="Date">
+            <TransactionModalElement label="Date">
                 <Calendar isRangeCalendar={false} />
             </TransactionModalElement>
-            <TransactionModalElement className={styles.note} label="Note">
+            <TransactionModalElement label="Note">
                 <Input
                     inputClassName={styles.note}
                     type={InputType.TEXT}
@@ -87,26 +84,24 @@ const TransactionModalBody: React.FC<Properties> = ({
                     errors={errors}
                 />
             </TransactionModalElement>
-            <TransactionModalElement className={styles.label} label="Label">
+            <TransactionModalElement label="Label">
                 <Dropdown
                     data={labels}
                     selectedOption={selectedSingleLabel}
                     handleChange={handleDropdownChangeLabel}
                 />
             </TransactionModalElement>
-            <TransactionModalElement className={styles.amount} label="Amount">
+            <TransactionModalElement label="Amount">
                 <Input
-                    type={InputType.TEXT}
+                    inputClassName={styles.amount}
+                    type={InputType.NUMBER}
                     placeholder="1000"
                     name="amount"
                     control={control}
                     errors={errors}
                 />
             </TransactionModalElement>
-            <TransactionModalElement
-                className={styles.currency}
-                label="Currency"
-            >
+            <TransactionModalElement label="Currency">
                 <Dropdown
                     data={currency}
                     selectedOption={selectedSingleCurrency}

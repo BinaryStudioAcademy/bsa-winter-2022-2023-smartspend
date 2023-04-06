@@ -2,8 +2,8 @@ import {
     type AnyAction,
     type MiddlewareArray,
     type ThunkMiddleware,
+    configureStore,
 } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
 
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/';
@@ -16,6 +16,8 @@ import { reducer as transactionsReducer } from '~/bundles/common/stores/transact
 import { transactionsApi } from '~/bundles/common/stores/transactions/transactions.js';
 import { currencyApi } from '~/bundles/currencies/currencies.js';
 import { reducer as currenciesReducer } from '~/bundles/currencies/store';
+import { reducer as transactionsReducer } from '~/bundles/transactions/store/';
+import { transactionApi } from '~/bundles/transactions/transactions.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { reducer as walletsReducer } from '~/bundles/wallets/store/';

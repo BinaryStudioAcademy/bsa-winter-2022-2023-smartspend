@@ -14,12 +14,14 @@ import {
     RangeSlider,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
+import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
 import {
     ButtonSize,
     ButtonVariant,
     CardVariant,
     FaIcons,
     InputType,
+    TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
 import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -142,6 +144,15 @@ const WalletDetails: React.FC = () => {
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
 
+    const [activeModal, setActiveModal] = useState(false);
+    const openTransactionModal = useCallback((): void => {
+        setActiveModal(true);
+    }, []);
+
+    const closeTransactionModal = useCallback(() => {
+        setActiveModal(false);
+    }, []);
+
     const handlePeopleMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
             if (selectedOption === null) {
@@ -245,6 +256,11 @@ const WalletDetails: React.FC = () => {
 
     return (
         <div className={styles.app}>
+            <TransactionModal
+                type={TransactionModalType.CHANGE}
+                handleCancel={closeTransactionModal}
+                active={activeModal}
+            />
             <div className={styles.body}>
                 <div className={classNames(styles.bodyContainer, 'container')}>
                     <div className={styles.buttonsDate}>
@@ -252,6 +268,7 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
+                                onClick={openTransactionModal}
                                 className={styles.transactionButton}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />

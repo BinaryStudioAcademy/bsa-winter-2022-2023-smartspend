@@ -17,6 +17,7 @@ import styles from './styles.module.scss';
 type TabsData = {
     title: string;
     to: string;
+    icon?: string;
 };
 
 type Properties = {
@@ -66,8 +67,7 @@ const Header: React.FC<Properties> = ({
                             pathname === AppRoute.BUDGETS) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {(pathname === `${AppRoute.WALLET}/${id}` ||
-                            pathname === AppRoute.USER) && (
+                        {pathname === `${AppRoute.WALLET}/${id}` && (
                             <Tabs tabsData={dataTabs.wallets} />
                         )}
                     </div>

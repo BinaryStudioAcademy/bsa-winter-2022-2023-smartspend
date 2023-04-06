@@ -40,6 +40,12 @@ export {
     TransactionValidationMessage,
 } from './bundles/transactions/transactions.js';
 export {
+    type CurrencyGetAllItemResponseDto,
+    type CurrencyGetAllResponseDto,
+    CurrencyApiPath,
+    CurrencyValidationMessage,
+} from './bundles/currencies/currencies.js';
+export {
     type UpdateRequestDto,
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,

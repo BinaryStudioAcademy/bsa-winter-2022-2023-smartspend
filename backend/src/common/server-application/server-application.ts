@@ -2,6 +2,7 @@ import { authController } from '~/bundles/auth/auth.js';
 import { budgetController } from '~/bundles/budgets/budgets.js';
 import { categoryController } from '~/bundles/categories/categories.js';
 import { transactionController } from '~/bundles/transactions/transactions.js';
+import { currencyController } from '~/bundles/currencies/currencies.js';
 import { userController } from '~/bundles/users/users.js';
 import { walletController } from '~/bundles/wallets/wallets.js';
 import { config } from '~/common/config/config.js';
@@ -20,6 +21,8 @@ const apiV1 = new ServerAppApi(
     ...walletController.routes,
     ...budgetController.routes,
     ...transactionController.routes,
+    ...currencyController.routes,
+
 );
 const serverApp = new ServerApp({
     config,

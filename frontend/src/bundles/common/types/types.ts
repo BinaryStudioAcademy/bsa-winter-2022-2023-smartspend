@@ -1,4 +1,5 @@
 export { type AsyncThunkConfig } from './async-thunk-config.type.js';
+export { type ButtonTab } from './button-tabs-type.js';
 export { type DataObject } from './chart-data.type.js';
 export { type ConfigBar } from './config-bar.type';
 export { type ItextCenter } from './doughnut-text-center.type.js';

@@ -22,6 +22,7 @@ export {
     getLabels,
 } from './line-chart-helper/line-chart-helper.js';
 export { numberToStringCurrencyHelper } from './number-to-string-currency/number-to-string-currency.helper';
+export { resetTabsActive } from './reset-tabs-active/reset-tabs-active.helper';
 export { sumArray } from './sum-array/sum-array.js';
 export { toCustomLocaleString } from './to-custom-locale-string/to-custom-locale-string.js';
 export { configureString } from 'shared/build/index.js';

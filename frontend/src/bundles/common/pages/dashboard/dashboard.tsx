@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import {
     Button,
+    ButtonTabs,
     Calendar,
     CardTotal,
     Chart,
@@ -33,6 +34,7 @@ import {
     useAppDocumentTitle,
     useAppForm,
     useAppSelector,
+    useButtonTabsState,
 } from '~/bundles/common/hooks/hooks.js';
 import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
@@ -107,6 +109,12 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     );
 };
 
+const tabsDashboard = [
+    { title: 'Days', isActive: true, disabled: false },
+    { title: 'Week', isActive: false, disabled: false },
+    { title: 'Months', isActive: false, disabled: true },
+];
+
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const [active, setActive] = useState(false);
@@ -120,6 +128,9 @@ const Dashboard: React.FC = () => {
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
+
+    const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
+    const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
 
     const [day, setDay] = useState<Range>(getInitialRange());
 
@@ -308,12 +319,24 @@ const Dashboard: React.FC = () => {
                             <ChartBox
                                 title={'Account Balance'}
                                 date={formatRangeGraph(day)}
+                                controls={
+                                    <ButtonTabs
+                                        tabsData={firstTabs}
+                                        onClick={setFirstTabs}
+                                    />
+                                }
                             >
                                 <LineChart dataArr={filterLineChart(day)} />
                             </ChartBox>
                             <ChartBox
                                 title={'Changes'}
                                 date={formatRangeGraph(day)}
+                                controls={
+                                    <ButtonTabs
+                                        tabsData={secondTabs}
+                                        onClick={setSecondTabs}
+                                    />
+                                }
                             >
                                 <Chart array={filterChart(day)} />
                             </ChartBox>

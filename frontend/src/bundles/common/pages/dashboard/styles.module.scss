@@ -118,7 +118,7 @@
 
 .charts {
     display: grid;
-    grid-template-rows: repeat(2, 300px);
+    grid-template-rows: repeat(2, 355px);
     grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
     justify-content: center;
     gap: 15px;
@@ -142,6 +142,7 @@
 }
 
 .chartTitle {
+    margin: var(--m-2) 0;
     color: var(--color-gray-400);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-4-heading);

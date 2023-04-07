@@ -21,11 +21,13 @@
 }
 
 .tabsContainer {
+    flex-basis: 24%;
     margin-top: var(--m-5);
 }
 
 .userProfileContainer {
     width: 100%;
+    height: fit-content;
     background-color: var(--color-white-100);
     border-radius: var(--b-5);
 }

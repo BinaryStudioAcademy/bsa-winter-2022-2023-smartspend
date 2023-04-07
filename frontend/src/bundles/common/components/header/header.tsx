@@ -139,19 +139,21 @@ const Header: React.FC<Properties> = ({
                                 [styles.inactive]: !openMenu,
                             })}
                         >
-                            <ul className={styles.list}>
-                                <li className={styles.link}>
-                                    <Link to={AppRoute.USER}>Settings</Link>
-                                </li>
-                                <li className={styles.link}>
-                                    <Link
-                                        onClick={logoutHandler}
-                                        to={AppRoute.SIGN_IN}
-                                    >
-                                        Logout
-                                    </Link>
-                                </li>
-                            </ul>
+                            <div className={styles.list}>
+                                <Link
+                                    to={AppRoute.USER}
+                                    className={styles.link}
+                                >
+                                    Settings
+                                </Link>
+                                <Link
+                                    onClick={logoutHandler}
+                                    to={AppRoute.SIGN_IN}
+                                    className={styles.link}
+                                >
+                                    Logout
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 ) : (

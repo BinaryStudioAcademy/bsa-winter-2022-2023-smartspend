@@ -1,4 +1,8 @@
-const toCustomLocaleString = (number_: number, currency = '$'): string => {
+const toCustomLocaleString = (
+    number_: number,
+    currency = '$',
+    space = false,
+): string => {
     const sign = number_ >= 0 ? '+' : '-';
     const absNumber = Math.abs(number_);
     return (
@@ -7,6 +11,7 @@ const toCustomLocaleString = (number_: number, currency = '$'): string => {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
         }) +
+        (space ? ' ' : '') +
         currency
     );
 };

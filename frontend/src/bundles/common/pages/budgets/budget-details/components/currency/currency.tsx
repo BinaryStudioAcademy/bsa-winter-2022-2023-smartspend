@@ -1,21 +1,29 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { type SingleValue } from 'react-select';
 
 import { Dropdown } from '~/bundles/common/components/components';
+import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
-
-const currency = [
-    { value: 'USD', name: 'USD' },
-    { value: 'UAH', name: 'UAH' },
-];
 
 const RenderCurrency = ({
     field: { onChange },
 }: {
     field: { onChange: (value: string) => void };
 }): JSX.Element => {
+    const { currencies } = useAppSelector((state) => state.currencies);
+
+    const mutableCurrencies = useMemo(
+        () =>
+            currencies.map((currency) => ({
+                value: currency.shortName,
+                name: currency.name,
+            })),
+        [currencies],
+    );
+
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
-        useState<DataType>(currency[0]);
+        useState<DataType>(mutableCurrencies[0]);
+
     const handleDropdownChangeCurrency = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
@@ -33,9 +41,14 @@ const RenderCurrency = ({
         },
         [handleDropdownChangeCurrency, onChange],
     );
+
+    useEffect(() => {
+        setSelectedSingleCurrency(mutableCurrencies[0]);
+    }, [mutableCurrencies]);
+
     return (
         <Dropdown
-            data={currency}
+            data={mutableCurrencies}
             handleChange={handleCurrencyChange}
             selectedOption={selectedSingleCurrency}
             label="Account currency"

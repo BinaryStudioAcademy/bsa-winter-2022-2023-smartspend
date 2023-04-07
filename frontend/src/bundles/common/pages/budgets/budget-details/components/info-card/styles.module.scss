@@ -23,14 +23,6 @@
     font-size: var(--font-size-level-4-heading);
 }
 
-.cardSpent .total::before {
-    content: "-";
-}
-
 .minus {
     color: var(--color-warning);
-}
-
-.cardLeft .total::before {
-    content: "+";
 }

@@ -5,6 +5,7 @@ export {
 export {
     formatOneDay,
     formatRange,
+    formatRangeGraph,
 } from './calendar-helpers/get-formating-date';
 export { getInitialRange } from './calendar-helpers/get-initial-range';
 export { createGradients } from './create-gradient/create-gradient.js';

@@ -62,6 +62,7 @@ class AuthApi extends HttpApi {
                 hasAuth: true,
             },
         );
+        setTimeout(() => false, 5000);
         return await response.json<UserLoadResponseDto>();
     }
 }

@@ -74,7 +74,7 @@ const EditBudgetModal = ({
             Body={
                 <>
                     <div className={styles.formWrapper}>
-                        <div>
+                        <div className={styles.wrapperHalf}>
                             <h2>General Info</h2>
                             <Input
                                 labelClassName={styles.label}
@@ -100,7 +100,7 @@ const EditBudgetModal = ({
                                 render={RenderCurrency}
                             />
                         </div>
-                        <div>
+                        <div className={styles.wrapperHalf}>
                             <h2>Filters</h2>
                             <Controller
                                 name="categories"
@@ -127,6 +127,7 @@ const EditBudgetModal = ({
                 </>
             }
             submitButtonName={'Save changes'}
+            footerContainerClass={styles.modalFooter}
         >
             <Button variant={ButtonVariant.DELETE} size={ButtonSize.SMALL}>
                 Delete budget

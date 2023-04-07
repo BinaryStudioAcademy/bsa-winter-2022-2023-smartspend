@@ -5,14 +5,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
+import { type TabsData } from '~/bundles/common/types/tabs-data.type';
 
 import styles from '../../styles.module.scss';
 
-type Properties = {
-    title: string;
-    to: string | RegExp;
-    icon?: string;
-};
+type Properties = TabsData;
 
 const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     return classNames(styles.tab, {

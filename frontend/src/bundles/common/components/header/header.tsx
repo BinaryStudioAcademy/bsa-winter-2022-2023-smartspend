@@ -16,14 +16,9 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
+import { type TabsData } from '../../types/types.js';
 import { Button, Menu, Tabs } from '../components.js';
 import styles from './styles.module.scss';
-
-type TabsData = {
-    title: string;
-    to: string | RegExp;
-    icon?: string;
-};
 
 type Properties = {
     name?: string | null;

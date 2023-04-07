@@ -17,7 +17,7 @@
         "migrate:dev:rollback": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:rollback --all",
         "seed:dev": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js seed:run",
         "seed:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js seed:make -x ts",
-        "build": "tsc && tsc-alias"
+        "build": "tsc && tsc-alias && copyfiles -u 1 src/**/*.hbs build/src"
     },
     "devDependencies": {
         "@types/bcrypt": "5.0.0",
@@ -25,6 +25,7 @@
         "@types/jsonwebtoken": "9.0.1",
         "@types/nodemailer": "6.4.7",
         "@types/swagger-jsdoc": "6.0.1",
+        "copyfiles": "2.4.1",
         "nodemon": "2.0.21",
         "ts-node": "10.9.1",
         "ts-paths-esm-loader": "1.4.1",

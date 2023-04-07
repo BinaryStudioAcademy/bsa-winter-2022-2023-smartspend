@@ -1,12 +1,6 @@
+import { type TabsData } from '../../types/types.js';
 import { Tab } from './components/components.js';
 import styles from './styles.module.scss';
-
-type TabsData = {
-    title: string;
-    to: string;
-    prefix?: string;
-    icon?: string;
-};
 
 type Properties = {
     tabsData: TabsData[];

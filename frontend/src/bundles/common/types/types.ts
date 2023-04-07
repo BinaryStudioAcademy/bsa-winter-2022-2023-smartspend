@@ -10,6 +10,7 @@ export {
 export { type MenuLinksType } from './menu-link.type.js';
 export { type FormValues } from './new-wallet-modal.type.js';
 export { type RangeLimits } from './range-slider.type.js';
+export { type TabsData } from './tabs-data.type.js';
 export {
     type ServerErrorDetail,
     type ServerErrorResponse,

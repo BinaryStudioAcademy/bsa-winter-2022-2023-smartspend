@@ -14,7 +14,6 @@ import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hoo
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
 import styles from '../styles.module.scss';
-import { Title } from '../title';
 import { AvatarContainer } from './avatar-container';
 import { mockData } from './mock-data';
 import { SubmitButton } from './submit-button';
@@ -22,11 +21,6 @@ import { SubmitButton } from './submit-button';
 const currency = [
     { value: 'USD', name: 'USD' },
     { value: 'UAH', name: 'UAH' },
-];
-
-const language = [
-    { value: 'English', name: 'English' },
-    { value: 'Ukrainian', name: 'Ukrainian' },
 ];
 
 const sex = [
@@ -45,13 +39,11 @@ const SettingsForm: React.FC = () => {
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { firstName, lastName, email, language, currency, sex } =
-            mockData;
+        const { firstName, lastName, email, currency, sex } = mockData;
         return (
             newName !== firstName ||
             newSurname !== lastName ||
             newEmail !== email ||
-            language !== selectedSingleLanguage.name ||
             currency !== selectedSingleCurrency.name ||
             sex !== selectedSingleSex.name
         );
@@ -64,18 +56,6 @@ const SettingsForm: React.FC = () => {
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setSelectedSingleCurrency(selectedOption);
-            }
-        },
-        [],
-    );
-
-    const [selectedSingleLanguage, setSelectedSingleLanguage] =
-        useState<DataType>(language[0]);
-
-    const handleDropdownChangeLanguage = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setSelectedSingleLanguage(selectedOption);
             }
         },
         [],
@@ -137,7 +117,7 @@ const SettingsForm: React.FC = () => {
                 control={control}
                 errors={errors}
             />
-            <Title>Localization settings</Title>
+
             <Dropdown
                 data={currency}
                 handleChange={handleDropdownChangeCurrency}
@@ -145,13 +125,7 @@ const SettingsForm: React.FC = () => {
                 label="Account currency"
                 labelClassName={styles.dropdownLabel}
             />
-            <Dropdown
-                data={language}
-                handleChange={handleDropdownChangeLanguage}
-                selectedOption={selectedSingleLanguage}
-                label="Language"
-                labelClassName={styles.dropdownLabel}
-            />
+
             <SubmitButton isChange={isChange()}>
                 Update My Settings
             </SubmitButton>

@@ -11,6 +11,7 @@ import styles from '../../styles.module.scss';
 type Properties = {
     title: string;
     to: string;
+    prefix?: string;
     icon?: string;
 };
 
@@ -20,9 +21,12 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     });
 };
 
-const Tab: React.FC<Properties> = ({ title, to, icon }) => {
+const Tab: React.FC<Properties> = ({ title, to, icon, prefix }) => {
     return (
-        <NavLink to={to} className={getNavLinkClassName}>
+        <NavLink
+            to={prefix ? `${prefix}${to}` : to}
+            className={getNavLinkClassName}
+        >
             <FontAwesomeIcon
                 icon={FaIcons[icon as keyof typeof FaIcons] as IconProp}
                 className={styles.icon}

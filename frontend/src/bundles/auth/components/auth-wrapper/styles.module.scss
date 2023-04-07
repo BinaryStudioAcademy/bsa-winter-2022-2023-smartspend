@@ -47,7 +47,8 @@
     font-size: var(--font-size-level-6-heading);
 }
 
-.headerLink {
+.headerLink,
+.headerLink:visited {
     color: var(--color-white-100);
     font-size: var(--font-size-level-6-heading);
     text-decoration: none;

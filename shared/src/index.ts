@@ -51,6 +51,7 @@ export {
     type UserGetAllResponseDto,
     type UserLoadRequestDto,
     type UserLoadResponseDto,
+    type UserProfileResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

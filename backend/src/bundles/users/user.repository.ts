@@ -1,4 +1,5 @@
 import { type PartialModelObject } from 'objection';
+import { type UserProfileResponseDto } from 'shared/build';
 
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
@@ -19,6 +20,21 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
             return undefined;
         }
         return UserEntity.initialize(user);
+    }
+
+    public async getCurrentUserDetails(
+        userId: string,
+    ): Promise<UserProfileResponseDto | undefined> {
+        const user = await this.userModel
+            .query()
+            .findById(userId)
+            .withGraphFetched('userProfile');
+
+        if (!user) {
+            return undefined;
+        }
+
+        return { email: user.email, ...user.userProfile };
     }
 
     public async findAll(): Promise<UserEntity[]> {
@@ -77,8 +93,15 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
         return UserEntity.initialize(user);
     }
 
-    public delete(): ReturnType<IRepository['delete']> {
-        return Promise.resolve(true);
+    public async deleteUser(id: string): Promise<boolean> {
+        const item = await this.userModel
+            .query()
+            .where({ id })
+            .del()
+            .returning('id')
+            .execute();
+        const deletedUser = UserEntity.initialize(item[0]);
+        return !!deletedUser;
     }
 }
 

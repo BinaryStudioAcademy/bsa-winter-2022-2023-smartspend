@@ -58,7 +58,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
                         {
                             urlPattern: ({ url }) =>
                                 url.pathname.startsWith('/api'),
-                            handler: 'CacheFirst',
+                            handler: 'NetworkFirst',
                             options: {
                                 cacheName: 'api-cache',
                                 cacheableResponse: {

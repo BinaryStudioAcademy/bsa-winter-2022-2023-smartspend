@@ -35,6 +35,8 @@ type Properties = {
 };
 
 const budgetsRegex = /^\/budgets\/\d+$/;
+const walletDetailsRegex =
+    /^\/wallet\/[\da-z-]+\/(transaction|budget|wallet-settings)$/;
 
 const Header: React.FC<Properties> = ({
     name,
@@ -104,8 +106,11 @@ const Header: React.FC<Properties> = ({
                             pathname.match(budgetsRegex)) && (
                             <Tabs tabsData={dataTabs.dashboard} />
                         )}
-                        {pathname === `${AppRoute.WALLET}/${id}` && (
-                            <Tabs tabsData={dataTabs.wallets} />
+                        {pathname.match(walletDetailsRegex) && (
+                            <Tabs
+                                tabsData={dataTabs.wallets}
+                                prefix={`${AppRoute.WALLET}/${id}`}
+                            />
                         )}
                     </div>
                 ) : (

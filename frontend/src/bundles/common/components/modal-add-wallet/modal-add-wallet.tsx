@@ -5,33 +5,70 @@ import {
     Dropdown,
     Input,
 } from '~/bundles/common/components/components';
-import { currencies } from '~/bundles/common/components/modal-add-wallet/constants/constants';
 import { InputType } from '~/bundles/common/enums/enums';
 import {
+    useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
+    useEffect,
+    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { type DataType, type FormValues } from '~/bundles/common/types/types';
+import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { actions as walletsActions } from '~/bundles/wallets/store';
+import {
+    type WalletCreateRequestDto,
+    type WalletGetAllItemResponseDto,
+} from '~/bundles/wallets/wallets';
 
 import styles from './styles.module.scss';
 
 interface Properties {
+    isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
+    values?: WalletGetAllItemResponseDto;
 }
 
 const NewWalletModal: React.FC<Properties> = ({
+    isEdit = false,
     isShown,
     onClose,
     onSubmit,
+    values,
 }) => {
-    const { control, errors, watch } = useAppForm<FormValues>({
-        defaultValues: { walletName: '', currency: '', balance: '' },
+    const dispatch = useAppDispatch();
+    const { currencies } = useAppSelector((state) => state.currencies);
+    const mutableCurrencies = useMemo(
+        () =>
+            currencies.map((currency) => ({
+                value: currency.id,
+                name: currency.name,
+            })),
+        [currencies],
+    );
+    const [currency, setCurrency] = useState<DataType>(mutableCurrencies[0]);
+    const [fields, setFields] = useState<WalletGetAllItemResponseDto>({
+        id: '',
+        name: '',
+        currencyId: '',
+        balance: 0,
+        ownerId: '',
     });
 
-    const [currency, setCurrency] = useState<DataType>(currencies[0]);
+    const { control, errors } = useAppForm<WalletCreateRequestDto>({
+        defaultValues: {
+            name: '',
+            currencyId: '',
+            balance: undefined,
+        },
+    });
+
+    const findCurrency = mutableCurrencies.find(
+        (currency) => currency.value === fields.currencyId,
+    );
 
     const handleChange = useCallback((selectedOption: DataType | null) => {
         if (selectedOption !== null) {
@@ -39,7 +76,40 @@ const NewWalletModal: React.FC<Properties> = ({
         }
     }, []);
 
-    const walletName = watch('walletName');
+    const handleNameInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = event.target;
+            setFields(
+                (previousState) =>
+                    ({
+                        ...previousState,
+                        name: value,
+                    } as WalletGetAllItemResponseDto),
+            );
+        },
+        [],
+    );
+
+    const handlebalanceInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = event.target;
+            setFields(
+                (previousState) =>
+                    ({
+                        ...previousState,
+                        balance: Number(value),
+                    } as WalletGetAllItemResponseDto),
+            );
+        },
+        [],
+    );
+
+    const isFieldsChange =
+        values?.name === fields.name &&
+        values.balance === fields.balance &&
+        values.currencyId === currency.value
+            ? false
+            : true;
 
     const walletDataHandler = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
@@ -49,10 +119,34 @@ const NewWalletModal: React.FC<Properties> = ({
             const formDataEntries = formData.entries();
             onClose();
 
-            return Object.fromEntries(formDataEntries);
+            const data = Object.fromEntries(
+                formDataEntries,
+            ) as unknown as WalletCreateRequestDto;
+
+            if (values) {
+                void dispatch(
+                    walletsActions.update({
+                        id: fields.id,
+                        payload: data,
+                    }),
+                );
+            } else {
+                void dispatch(walletsActions.create(data));
+            }
         },
-        [onClose],
+        [dispatch, fields, onClose, values],
     );
+
+    useEffect(() => {
+        setCurrency(mutableCurrencies[0]);
+    }, [mutableCurrencies]);
+
+    useEffect(() => {
+        values && setFields(values);
+        if (findCurrency) {
+            setCurrency(findCurrency);
+        }
+    }, [findCurrency, values]);
 
     return (
         <BaseModal
@@ -67,20 +161,22 @@ const NewWalletModal: React.FC<Properties> = ({
                         control={control}
                         errors={errors}
                         label="Wallet Name"
-                        name="walletName"
+                        name="name"
                         placeholder="Enter your wallet name"
                         type={InputType.TEXT}
                         inputClassName={styles.input}
                         labelClassName={styles.label}
+                        onChange={handleNameInputChange}
+                        value={fields.name}
                     />
 
                     <Dropdown
-                        data={currencies}
+                        data={mutableCurrencies}
                         selectedOption={currency}
                         handleChange={handleChange}
                         label="Currency"
                         labelClassName={styles.label}
-                        name="Dropdown"
+                        name="currencyId"
                     />
 
                     <Input
@@ -92,19 +188,24 @@ const NewWalletModal: React.FC<Properties> = ({
                         type={InputType.NUMBER}
                         inputClassName={styles.input}
                         labelClassName={styles.label}
+                        onChange={handlebalanceInputChange}
+                        value={fields.balance}
                     />
                     <button
                         className={classNames(
-                            walletName && styles.active,
+                            (isEdit ? isFieldsChange : fields.name) &&
+                                styles.active,
                             styles.button,
                         )}
                         style={{
-                            cursor: walletName ? 'pointer' : 'default',
+                            cursor: (isEdit ? isFieldsChange : fields.name)
+                                ? 'pointer'
+                                : 'default',
                         }}
                         type="submit"
-                        disabled={!walletName}
+                        disabled={isEdit ? !isFieldsChange : !fields.name}
                     >
-                        Create
+                        {isEdit ? 'Save' : 'Create'}
                     </button>
                 </form>
             }

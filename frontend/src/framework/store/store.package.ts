@@ -14,6 +14,8 @@ import { currencyApi } from '~/bundles/currencies/currencies.js';
 import { reducer as currenciesReducer } from '~/bundles/currencies/store';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
+import { reducer as walletsReducer } from '~/bundles/wallets/store/';
+import { walletsApi } from '~/bundles/wallets/wallets.js';
 import { type IConfig } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
 import { handleError } from '~/framework/store/middlewares/middlewares.js';
@@ -22,6 +24,7 @@ import { notification } from '~/services/services.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
+    wallets: ReturnType<typeof walletsReducer>;
     categories: ReturnType<typeof categoriesReducer>;
     currencies: ReturnType<typeof currenciesReducer>;
 };
@@ -29,6 +32,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    walletsApi: typeof walletsApi;
     categoriesApi: typeof categoriesApi;
     notification: typeof notification;
     storage: typeof storage;
@@ -52,6 +56,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 users: usersReducer,
+                wallets: walletsReducer,
                 categories: categoriesReducer,
                 currencies: currenciesReducer,
             },
@@ -72,6 +77,7 @@ class Store {
         return {
             authApi,
             userApi,
+            walletsApi,
             categoriesApi,
             notification,
             storage,

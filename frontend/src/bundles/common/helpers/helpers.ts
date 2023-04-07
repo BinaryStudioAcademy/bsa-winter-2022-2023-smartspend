@@ -10,6 +10,7 @@ export {
 export { getInitialRange } from './calendar-helpers/get-initial-range';
 export { createGradients } from './create-gradient/create-gradient.js';
 export { dateToShortStringHelper } from './date-to-short-string/date-to-short-string.helper';
+export { findCurrencyById } from './find-currency-by-id/find-currency-by-id.js';
 export { getAppTitle } from './get-app-title/get-app-title.helper';
 export { getGradientColors } from './get-gradient-colors/get-gradient-colors.js';
 export { getText } from './get-text-to-path/get-text-to-path.js';

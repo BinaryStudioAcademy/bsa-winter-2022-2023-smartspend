@@ -18,12 +18,10 @@ import {
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
-import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
 import {
     AppDocumentTitles,
     ButtonVariant,
     CardVariant,
-    TransactionModalType,
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
@@ -359,7 +357,6 @@ const Dashboard: React.FC = () => {
                                 />
                             </ChartBox>
                         </div>
-                        <TransactionModal type={TransactionModalType.ADD} />
                     </div>
                 </div>
             </div>

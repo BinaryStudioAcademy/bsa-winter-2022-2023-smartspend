@@ -7,7 +7,6 @@ const ColumnName = {
 };
 
 async function up(knex: Knex): Promise<void> {
-    await knex.schema.dropTableIfExists(TABLE_NAME);
     return knex.schema.alterTable(TABLE_NAME, (table) => {
         table.string(ColumnName.AVATAR_URL).nullable();
     });

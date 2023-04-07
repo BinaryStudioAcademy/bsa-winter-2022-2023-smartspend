@@ -59,9 +59,9 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                             {
                                 path: AppRoute.DASHBOARD,
                                 element: (
-                                    // <PrivateRoute>
-                                    <Dashboard />
-                                    // </PrivateRoute>
+                                    <PrivateRoute>
+                                        <Dashboard />
+                                    </PrivateRoute>
                                 ),
                             },
                             {

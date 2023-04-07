@@ -29,12 +29,22 @@ type categoryType = {
     type: string;
 };
 
+type NewBudget = {
+    name: string;
+    amount: number;
+    currency: string;
+    recurrence: string;
+    startDate: string;
+    ownerId: string;
+    categories: categoryType[];
+};
+
 interface BudgetModalProperties {
     isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
     onClick?: () => void;
-    budget?: BudgetSliceResponseDto;
+    budget?: BudgetSliceResponseDto | undefined;
 }
 
 const BudgetModal = ({
@@ -45,9 +55,16 @@ const BudgetModal = ({
     budget,
 }: BudgetModalProperties): JSX.Element => {
     const dispatch = useAppDispatch();
+
+    let id: string | undefined;
+    let newBudget: NewBudget | undefined;
+    if (budget) {
+        ({ id, ...newBudget } = budget);
+    }
+
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
-            defaultValues: budget as unknown as BudgetCreateRequestDto,
+            defaultValues: newBudget as unknown as BudgetCreateRequestDto,
         },
     );
     const isReset = reset;
@@ -62,10 +79,9 @@ const BudgetModal = ({
     ];
 
     const categoriesId = budget?.categories.map((it) => it.id);
-    const watchCategoryId = (watch('categories') as unknown as categoryType[])
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        ?.map((it) => it.id);
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const watchCategoryId = (
+        watch('categories') as unknown as categoryType[] | undefined
+    )?.map((it) => it.id);
     const checkChangeCategory = watchCategoryId?.every((it) =>
         categoriesId?.includes(it),
     );
@@ -84,7 +100,7 @@ const BudgetModal = ({
             if (isEdit) {
                 void dispatch(
                     budgetsActions.update({
-                        id: budget?.id as string,
+                        id: id as string,
                         payload: formData,
                     }),
                 );
@@ -93,7 +109,7 @@ const BudgetModal = ({
             }
             isReset && reset();
         },
-        [budget?.id, dispatch, isEdit, isReset, reset],
+        [id, dispatch, isEdit, isReset, reset],
     );
 
     const handleFormSubmit = useCallback(

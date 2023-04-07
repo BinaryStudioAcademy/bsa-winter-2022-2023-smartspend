@@ -2,7 +2,7 @@ type TransactionUpdatePayloadDto = {
     categoryId: string;
     date: Date;
     note: string;
-    labelId: string;
+    labelId?: string;
     amount: number;
 };
 export { type TransactionUpdatePayloadDto };

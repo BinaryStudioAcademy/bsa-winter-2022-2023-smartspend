@@ -131,6 +131,7 @@
     margin: 0;
     padding-top: var(--p-1);
     color: var(--color-pink-100);
+    font-size: 18px;
     background: none;
     border: none;
     cursor: pointer;
@@ -193,6 +194,14 @@
 .checkbox {
     margin-right: var(--m-2);
     transform: scale(1.5);
+}
+
+.transactionButton {
+    justify-content: space-between;
+    align-items: center;
+    width: 215px;
+    height: 40px;
+    padding: 0 var(--p-4);
 }
 
 @media (max-width: $xl) {

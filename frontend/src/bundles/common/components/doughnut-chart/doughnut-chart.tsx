@@ -1,3 +1,5 @@
+import 'chart.js/auto';
+
 import {
     type BubbleDataPoint,
     type ChartData,

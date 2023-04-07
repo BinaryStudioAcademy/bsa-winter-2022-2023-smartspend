@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import { toCustomLocaleString } from '~/bundles/common/helpers/helpers';
+
 import { InfoCardTypes } from '../../enums/enums';
 import styles from './styles.module.scss';
 
@@ -33,6 +35,11 @@ const InfoCard: React.FC<InfoCardProperties> = ({ type, total, currency }) => {
         }
     }
 
+    const spent =
+        type === InfoCardTypes.SPENT
+            ? toCustomLocaleString(total, currency, true).replace('+', '-')
+            : toCustomLocaleString(total, currency, true);
+
     return (
         <div className={classNames(styles.card, `${styles['card' + type]}`)}>
             <span className={styles.title}>{title}</span>
@@ -42,11 +49,7 @@ const InfoCard: React.FC<InfoCardProperties> = ({ type, total, currency }) => {
                     type === InfoCardTypes.SPENT ? styles.minus : '',
                 )}
             >
-                {total.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                })}{' '}
-                {currency}
+                {spent}
                 {type === InfoCardTypes.CAN ? '/Day' : ''}
             </span>
         </div>

@@ -9,6 +9,7 @@ import { dataTabs } from '~/bundles/common/config/header-tabs.config.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    UseAppPwaHook,
     useAppSelector,
     useEffect,
     useLocation,
@@ -27,6 +28,8 @@ const App: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const isRoot = pathname === AppRoute.ROOT;
+
+    const Modal = UseAppPwaHook(token);
 
     useEffect(() => {
         if (isRoot) {
@@ -50,6 +53,7 @@ const App: React.FC = () => {
         <>
             <Header name={user?.email} dataTabs={dataTabs} />
             <RouterOutlet />
+            {Modal}
         </>
     );
 };

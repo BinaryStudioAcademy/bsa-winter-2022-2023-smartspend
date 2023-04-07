@@ -1,4 +1,3 @@
-// import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
@@ -147,7 +146,6 @@ const BudgetDetails = (): JSX.Element => {
         setActive(true);
     }, []);
 
-    // const { id } = useLocation();
     const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails(budget);
 
     return (

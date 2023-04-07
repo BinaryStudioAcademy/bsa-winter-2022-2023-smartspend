@@ -14,11 +14,17 @@
 .contentWrapper {
     max-width: 1192px;
     margin: 0 auto;
-    padding: 0 var(--p-3);
+    padding: var(--p-3) var(--p-3) 0 var(--p-3);
+}
+
+.buttonWrapper {
+    justify-self: center;
+    align-self: center;
+    font-weight: var(--font-weight-400);
 }
 
 .filtertBody {
-    margin: 0 0 var(--m-3);
+    margin: var(--m-2) 0 var(--m-3);
 }
 
 .filterLabel {
@@ -53,21 +59,42 @@
     gap: 15px;
 }
 
+.filter {
+    display: flex;
+    flex-direction: column;
+    height: 76px;
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
+    column-gap: 4px;
+}
+
 .filters {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.slider {
+    display: flex;
+    flex-grow: 1;
     align-items: center;
-    gap: var(--m-3);
+    padding: 0 var(--p-2);
+}
+
+.slider > * {
+    width: 100%;
+}
+
+.filtersContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
+    width: 100%;
 }
 
 .filters label {
     color: var(--color-gray-200);
-}
-
-.resetButton {
-    padding-top: 25px;
-    font-weight: var(--font-weight-400);
 }
 
 .title {
@@ -156,10 +183,16 @@
     height: 30px;
     color: var(--color-white-100);
     font-weight: var(--font-weight-400);
-    font-size: var(--font-size-level-2-heading);
     line-height: 0;
     background: var(--color-blue-500);
     border-radius: var(--b-5);
+}
+
+.walletIcon > svg {
+    position: relative;
+    left: 0.5px;
+    width: 12px;
+    height: 12px;
 }
 
 .walletIcon:hover {

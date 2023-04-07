@@ -187,6 +187,7 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
+                                className={styles.transactionButton}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
@@ -259,7 +260,7 @@ const WalletDetails: React.FC = () => {
                                         <Input
                                             type={InputType.TEXT}
                                             label="By note"
-                                            placeholder="filter by specific keyword"
+                                            placeholder="Filter by specific keyword"
                                             name="note"
                                             control={control}
                                             errors={errors}
@@ -291,7 +292,7 @@ const WalletDetails: React.FC = () => {
                         <div className={styles.walletTransactionsContainer}>
                             <div className={styles.cards}>
                                 <CardTotal
-                                    title="Total Balance"
+                                    title="Total Wallet Balance"
                                     sum={40.45}
                                     variant={CardVariant.ORANGE}
                                 />
@@ -306,7 +307,7 @@ const WalletDetails: React.FC = () => {
                                     variant={CardVariant.WHITE}
                                 />
                                 <CardTotal
-                                    title="Total Balance"
+                                    title="Total Period Income"
                                     sum={7600.34}
                                     variant={CardVariant.VIOLET}
                                 />

@@ -10,7 +10,7 @@ import styles from '../../styles.module.scss';
 
 type Properties = {
     title: string;
-    to: string;
+    to: string | RegExp;
     icon?: string;
 };
 
@@ -22,7 +22,7 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
 
 const Tab: React.FC<Properties> = ({ title, to, icon }) => {
     return (
-        <NavLink to={to} className={getNavLinkClassName}>
+        <NavLink to={to as string} className={getNavLinkClassName}>
             <FontAwesomeIcon
                 icon={FaIcons[icon as keyof typeof FaIcons] as IconProp}
                 className={styles.icon}

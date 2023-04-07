@@ -16,7 +16,7 @@ import styles from './styles.module.scss';
 
 type TabsData = {
     title: string;
-    to: string;
+    to: string | RegExp;
     icon?: string;
 };
 

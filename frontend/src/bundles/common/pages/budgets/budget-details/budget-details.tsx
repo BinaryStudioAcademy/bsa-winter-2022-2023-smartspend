@@ -1,43 +1,38 @@
-// import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { actions as budgetsActions } from '~/bundles/budgets/store';
+import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
+    Loader,
     TransactionTable,
 } from '~/bundles/common/components/components';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    dateToShortStringHelper,
+    toCustomLocaleString,
+} from '~/bundles/common/helpers/helpers.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
 import {
+    BudgetModal,
     BudgetProgressBar,
-    EditBudgetModal,
     InfoCard,
-} from './components/components';
+} from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
 import { calculateBudgetDetails } from './helpers/helpers';
 import styles from './styles.module.scss';
-
-const getBudget = {
-    id: '1',
-    name: 'My first budget',
-    amount: 100_000,
-    spent: 12_500,
-    startDate: 'April 22, 2023',
-    recurrence: 'monthly',
-    categories: [
-        {
-            id: 'e1609c97-c997-4d90-b077-4cb0c00579f1',
-            name: 'Food & Drink',
-            icon: 'burger',
-            color: 'red',
-            type: 'expense',
-        },
-    ],
-    currency: 'USD',
-};
 
 const BudgetDetails = (): JSX.Element => {
     const doughnutData = [
@@ -137,8 +132,17 @@ const BudgetDetails = (): JSX.Element => {
             currency: '$',
         },
     ];
-    const budget = getBudget;
+
+    const spent = 500;
+
+    const dispatch = useAppDispatch();
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [active, setActive] = useState(false);
+    const [currentBudget, setCurrenBudget] = useState<
+        BudgetSliceResponseDto | undefined
+    >();
+    const { budgets } = useAppSelector((state) => state.budgets);
 
     const handleCancel = useCallback(() => {
         setActive(false);
@@ -147,8 +151,46 @@ const BudgetDetails = (): JSX.Element => {
         setActive(true);
     }, []);
 
-    // const { id } = useLocation();
-    const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails(budget);
+    const onClickDeleteBudget = useCallback(
+        (id: string): void => {
+            void dispatch(budgetsActions.remove(id));
+            navigate('/budgets');
+        },
+        [dispatch, navigate],
+    );
+
+    const handleDeleteBudget = useCallback(() => {
+        if (id) {
+            onClickDeleteBudget(id);
+        }
+    }, [id, onClickDeleteBudget]);
+
+    useEffect(() => {
+        setCurrenBudget(budgets.find((budget) => budget.id === id));
+    }, [budgets, id]);
+
+    useEffect(() => {
+        void dispatch(budgetsActions.loadAll());
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
+
+    if (!currentBudget) {
+        return <Loader />;
+    }
+
+    const { amount, startDate, recurrence, name, currency } = currentBudget;
+
+    const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails({
+        amount,
+        startDate,
+        recurrence,
+        spent,
+    });
+
+    const canSpending =
+        canSpend > 0
+            ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
+            : 0;
 
     return (
         <div className={styles.container}>
@@ -157,9 +199,7 @@ const BudgetDetails = (): JSX.Element => {
                     <Calendar isRangeCalendar={true} />
                 </div>
                 <div className={styles.budgetInfoWrapper}>
-                    <div className={styles.breadcrumbsWrapper}>
-                        {budget.name}
-                    </div>
+                    <div className={styles.breadcrumbsWrapper}>{name}</div>
                     <div className={styles.editButtonWrapper}>
                         <Button
                             className={styles.editButton}
@@ -169,10 +209,12 @@ const BudgetDetails = (): JSX.Element => {
                             Edit budget
                         </Button>
                         <div className={styles.modal}>
-                            <EditBudgetModal
+                            <BudgetModal
+                                isEdit
                                 isShown={active}
                                 onClose={handleCancel}
-                                budget={budget}
+                                onClick={handleDeleteBudget}
+                                budget={currentBudget}
                             />
                         </div>
                     </div>
@@ -180,43 +222,42 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.cardsWrapper}>
                     <InfoCard
                         type={InfoCardTypes.ORIGINALLY}
-                        total={budget.amount}
-                        currency={budget.currency}
+                        total={amount}
+                        currency={currency}
                     />
 
                     <InfoCard
                         type={InfoCardTypes.SPENT}
-                        total={budget.spent}
-                        currency={budget.currency}
+                        total={spent}
+                        currency={currency}
                     />
                     <InfoCard
                         type={InfoCardTypes.LEFT}
                         total={moneyLeft}
-                        currency={budget.currency}
+                        currency={currency}
                     />
                     <InfoCard
                         type={InfoCardTypes.CAN}
                         total={canSpend}
-                        currency={budget.currency}
+                        currency={currency}
                     />
                 </div>
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>
-                            You can spending{' '}
-                            {canSpend.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}{' '}
-                            {budget.currency}/Day
-                        </div>
+                        <div>{`You can spending ${canSpending}/Day`}</div>
                         <BudgetProgressBar
-                            totalBudget={budget.amount}
-                            spentSoFar={budget.spent}
+                            totalBudget={amount}
+                            spentSoFar={spent}
                         />
                         <div className={styles.periodBudgetWrapper}>
-                            <div>{budget.startDate}</div>
+                            <div>
+                                {
+                                    dateToShortStringHelper([
+                                        { date: startDate },
+                                    ])[0].date
+                                }
+                            </div>
                             <div>{lastDate}</div>
                         </div>
                     </div>
@@ -227,7 +268,7 @@ const BudgetDetails = (): JSX.Element => {
                         <DoughnutChartCard
                             variant={DoughnutChartCartVariant.SECONDARY}
                             title={'Accounted Categories'}
-                            date={budget.startDate}
+                            date={startDate}
                             transaction_num={0}
                             transaction_type={'some'}
                             transaction_sum={''}
@@ -237,7 +278,7 @@ const BudgetDetails = (): JSX.Element => {
                     <div className={styles.chartWrapper}>
                         <DoughnutChartCard
                             title={'Accounted Wallets'}
-                            date={budget.startDate}
+                            date={startDate}
                             transaction_num={0}
                             transaction_type={''}
                             transaction_sum={''}

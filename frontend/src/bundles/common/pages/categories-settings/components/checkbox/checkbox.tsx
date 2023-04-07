@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useCallback } from 'react';
 
 import styles from './styles.module.scss';
@@ -30,9 +31,10 @@ const Checkbox: React.FC<CheckboxProperties> = ({
     return (
         <div className={styles.checkbox}>
             <div
-                className={`${styles.box} ${
-                    isChecked ? styles.boxСhecked : ''
-                }`}
+                className={classNames(
+                    styles.box,
+                    isChecked ? styles.boxСhecked : '',
+                )}
                 id={id}
                 onClick={handleClick}
                 role="checkbox"

@@ -1,46 +1,40 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
-import {
-    BaseModal,
-    BudgetCard,
-    Button,
-} from '~/bundles/common/components/components.js';
+import { actions as budgetsActions } from '~/bundles/budgets/store';
+import { BudgetCard, Button } from '~/bundles/common/components/components.js';
 import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
 import {
+    useAppDispatch,
     useAppDocumentTitle,
+    useAppSelector,
     useCallback,
+    useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 
+import { BudgetModal } from './budget-details/components/components';
 import styles from './styles.module.scss';
 
-type CardType = {
-    id: string;
-    title: string;
-    total: number;
-    moneyLeft: number;
-    date: {
-        start: string;
-        end: string;
-    };
-};
+const Budgets: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { budgets } = useAppSelector((state) => state.budgets);
 
-type Properties = {
-    budgetCards?: CardType[];
-};
-
-const Budgets: React.FC<Properties> = ({ budgetCards }) => {
     useAppDocumentTitle('Budgets');
     const [active, setActive] = useState(false);
 
-    const handleClickOpen = useCallback((): void => {
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    const handleModal = useCallback(() => {
         setActive(true);
     }, []);
 
-    const handleClickClose = useCallback((): void => {
-        setActive(false);
-    }, []);
+    useEffect(() => {
+        void dispatch(budgetsActions.loadAll());
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
 
     return (
         <div className={styles.budgets}>
@@ -48,29 +42,29 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
                     <div className={styles.cards}>
-                        {budgetCards?.map((card, index) => (
-                            <BudgetCard
-                                key={index}
-                                id={card.id}
-                                title={card.title}
-                                total={card.total}
-                                moneyLeft={card.moneyLeft}
-                                date={card.date}
-                            />
-                        ))}
-                        <BudgetCard
-                            id={'12345'}
-                            title={'Four'}
-                            total={75_471}
-                            moneyLeft={20_456}
-                            date={{
-                                start: 'March 02, 2023',
-                                end: 'March 02, 2023',
-                            }}
-                        />
+                        {budgets.map(
+                            ({
+                                id,
+                                name,
+                                amount,
+                                currency,
+                                startDate,
+                                recurrence,
+                            }) => (
+                                <BudgetCard
+                                    key={id}
+                                    id={id}
+                                    title={name}
+                                    amount={amount}
+                                    currency={currency}
+                                    recurrence={recurrence}
+                                    startDate={startDate}
+                                />
+                            ),
+                        )}
                         <div
                             className={styles.cardCreate}
-                            onClickCapture={handleClickOpen}
+                            onClickCapture={handleModal}
                         >
                             <div className={styles.cardWrapper}>
                                 <Button
@@ -90,14 +84,9 @@ const Budgets: React.FC<Properties> = ({ budgetCards }) => {
                     </div>
                 </div>
             </div>
-            <BaseModal
-                isShown={active}
-                onClose={handleClickClose}
-                onSubmit={handleClickClose}
-                submitButtonName={'Create budget'}
-                Header={'Add new budget'}
-                Body={'New budget body...'}
-            />
+            <div className={styles.modal}>
+                <BudgetModal isShown={active} onClose={handleCancel} />
+            </div>
         </div>
     );
 };

@@ -23,6 +23,8 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
+import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
+
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
         <Toast />
@@ -74,7 +76,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.WALLET_DETAILS,
+                                path: AppRoute.WALLET_DETAILS_TRANSACTION,
                                 element: (
                                     <PrivateRoute>
                                         <WalletDetails />
@@ -98,6 +100,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.CATEGORIES,
+                                element: (
+                                    <PrivateRoute>
+                                        <CategoriesSettings />
                                     </PrivateRoute>
                                 ),
                             },

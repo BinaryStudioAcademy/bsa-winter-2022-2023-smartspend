@@ -17,14 +17,14 @@ import { options } from './config-bar.js';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 type OneData = { date: string; value: number };
-type DataObject = { data: OneData[]; label: string };
+type DataObject = { label: string; data: OneData[] };
 type ChartProperties = { array: DataObject[][] };
 
 const sortByDateAscending = (array: DataObject[][]): DataObject[][] => {
     return array.sort(
         (a, b) =>
-            new Date(a[0].data[0].date).getTime() -
-            new Date(b[0].data[0].date).getTime(),
+            new Date(a[0].data[0]?.date).getTime() -
+            new Date(b[0].data[0]?.date).getTime(),
     );
 };
 

@@ -1,3 +1,4 @@
+import { type IconName } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useCallback, useState } from 'react';
@@ -9,7 +10,6 @@ import {
     ButtonVariant,
     FaIcons,
 } from '~/bundles/common/enums/enums';
-import { Icon } from '~/bundles/common/helpers/find-icon';
 
 import { Checkbox } from '../checkbox/checkbox';
 import { FormEditCategory } from '../form-create-category/form-edit-category';
@@ -38,15 +38,8 @@ const CategoryItem: React.FC<Properties> = ({
     const [isEditModalShown, setIsEditModalShown] = useState(false);
     const [isCheckedItem, setIsCheckedItem] = useState(false);
 
-    const iconResult = Icon(icon);
-
     const handleCheckboxChange = useCallback(
         (isChecked: boolean): void => {
-            if (isChecked) {
-                setIsCheckedItem(isChecked);
-                addIdCheckedCategories(id, type);
-                return;
-            }
             setIsCheckedItem(isChecked);
             addIdCheckedCategories(id, type);
         },
@@ -93,7 +86,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 className={styles.icon}
                                 style={{ background: `var(${color})` }}
                             >
-                                {iconResult}
+                                <FontAwesomeIcon icon={icon as IconName} />
                             </span>
                         </div>
                         <div

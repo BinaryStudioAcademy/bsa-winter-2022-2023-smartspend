@@ -109,6 +109,25 @@ class Config implements IConfig {
                     default: null,
                 },
             },
+            GYAZO: {
+                FILE_SIZE: {
+                    doc: 'File size',
+                    format: Number,
+                    default: 10_000_000,
+                },
+                UPLOAD_API_URL: {
+                    doc: 'url to upload images',
+                    format: String,
+                    env: 'GYAZO_UPLOAD_API_URL',
+                    default: null,
+                },
+                ACCESS_TOKEN: {
+                    doc: 'access token',
+                    format: String,
+                    env: 'GYAZO_ACCESS_TOKEN',
+                    default: null,
+                },
+            },
         });
     }
 }

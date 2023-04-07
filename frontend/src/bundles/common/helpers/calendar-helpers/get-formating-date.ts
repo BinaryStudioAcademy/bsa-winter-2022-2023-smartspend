@@ -26,4 +26,41 @@ const formatRange = (range: Range): string => {
     return ` ${formatedStartDate} - ${formatedEndDate} `;
 };
 
-export { formatOneDay, formatRange };
+const formatRangeGraph = (range: Range): string => {
+    const startDate: Date | undefined = range.startDate;
+    const endDate: Date | undefined = range.endDate;
+    const startMonth = new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+    }).format(startDate);
+    const endMonth = new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+    }).format(endDate);
+    const startDay = new Intl.DateTimeFormat('en-US', {
+        day: '2-digit',
+    }).format(startDate);
+    const endDay = new Intl.DateTimeFormat('en-US', {
+        day: '2-digit',
+    }).format(endDate);
+
+    if (startDate && endDate) {
+        const monthDiff =
+            endDate.getMonth() -
+            startDate.getMonth() +
+            12 * (endDate.getFullYear() - startDate.getFullYear());
+        switch (monthDiff) {
+            case 0: {
+                return `${startMonth} ${startDay} - ${endDay}`;
+            }
+            case 1: {
+                return `${startMonth} ${startDay} - ${endMonth} ${endDay}`;
+            }
+            default: {
+                return `${startMonth} - ${endDay}`;
+            }
+        }
+    } else {
+        return `${startMonth} ${startDay} - ${endDay}`;
+    }
+};
+
+export { formatOneDay, formatRange, formatRangeGraph };

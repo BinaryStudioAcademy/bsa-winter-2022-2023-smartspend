@@ -24,9 +24,8 @@ type Properties<T extends FieldValues> = {
     labelClassName?: string;
     isDisabled?: boolean;
     eyeHidden?: boolean;
-    onFocus?: () => void;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value?: string;
+    value?: string | number;
 };
 
 const Input = <T extends FieldValues>({
@@ -40,7 +39,6 @@ const Input = <T extends FieldValues>({
     labelClassName = '',
     isDisabled = false,
     eyeHidden = false,
-    onFocus,
     onChange,
     value,
 }: Properties<T>): JSX.Element => {
@@ -86,16 +84,30 @@ const Input = <T extends FieldValues>({
     return (
         <label className={labelClasses}>
             <span className={styles.inputLabel}>{label}</span>
-            <input
-                {...field}
-                type={checkTypePassword ? InputType.TEXT : type}
-                placeholder={placeholder}
-                disabled={isDisabled}
-                className={`${hasError ? inputClassesWithError : inputClasses}`}
-                onFocus={onFocus}
-                onChange={onChange}
-                value={value}
-            />
+            {onChange && (
+                <input
+                    {...field}
+                    type={checkTypePassword ? InputType.TEXT : type}
+                    placeholder={placeholder}
+                    disabled={isDisabled}
+                    className={`${
+                        hasError ? inputClassesWithError : inputClasses
+                    }`}
+                    onChange={onChange}
+                    value={value}
+                />
+            )}
+            {!onChange && (
+                <input
+                    {...field}
+                    type={checkTypePassword ? InputType.TEXT : type}
+                    placeholder={placeholder}
+                    disabled={isDisabled}
+                    className={`${
+                        hasError ? inputClassesWithError : inputClasses
+                    }`}
+                />
+            )}
             {eyeHidden && (
                 <span
                     className={styles.inputIcon}

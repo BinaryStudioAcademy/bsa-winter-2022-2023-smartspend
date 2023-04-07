@@ -22,6 +22,11 @@ type EnvironmentSchema = {
         DASHBOARD_LINK: string;
         APP_LOGO_LINK: string;
     };
+    GYAZO: {
+        FILE_SIZE: number;
+        UPLOAD_API_URL: string;
+        ACCESS_TOKEN: string;
+    };
 };
 
 export { type EnvironmentSchema };

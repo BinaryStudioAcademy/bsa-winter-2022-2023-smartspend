@@ -83,15 +83,30 @@ const Input = <T extends FieldValues>({
     return (
         <label className={labelClasses}>
             <span className={styles.inputLabel}>{label}</span>
-            <input
-                {...field}
-                type={checkTypePassword ? InputType.TEXT : type}
-                placeholder={placeholder}
-                disabled={isDisabled}
-                className={`${hasError ? inputClassesWithError : inputClasses}`}
-                onChange={onChange}
-                value={value}
-            />
+            {onChange && (
+                <input
+                    {...field}
+                    type={checkTypePassword ? InputType.TEXT : type}
+                    placeholder={placeholder}
+                    disabled={isDisabled}
+                    className={`${
+                        hasError ? inputClassesWithError : inputClasses
+                    }`}
+                    onChange={onChange}
+                    value={value}
+                />
+            )}
+            {!onChange && (
+                <input
+                    {...field}
+                    type={checkTypePassword ? InputType.TEXT : type}
+                    placeholder={placeholder}
+                    disabled={isDisabled}
+                    className={`${
+                        hasError ? inputClassesWithError : inputClasses
+                    }`}
+                />
+            )}
             {eyeHidden && (
                 <span
                     className={styles.inputIcon}

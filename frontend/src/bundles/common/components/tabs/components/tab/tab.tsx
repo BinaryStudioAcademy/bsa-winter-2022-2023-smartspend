@@ -5,15 +5,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
+import { type TabsData } from '~/bundles/common/types/tabs-data.type';
 
 import styles from '../../styles.module.scss';
 
-type Properties = {
-    title: string;
-    to: string;
-    prefix?: string;
-    icon?: string;
-};
+type Properties = TabsData;
 
 const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
     return classNames(styles.tab, {
@@ -24,7 +20,7 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
 const Tab: React.FC<Properties> = ({ title, to, icon, prefix }) => {
     return (
         <NavLink
-            to={prefix ? `${prefix}${to}` : to}
+            to={prefix ? `${prefix}${to}` : (to as string)}
             className={getNavLinkClassName}
         >
             <FontAwesomeIcon

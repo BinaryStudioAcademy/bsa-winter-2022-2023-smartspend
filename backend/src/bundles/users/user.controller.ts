@@ -9,7 +9,6 @@ import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
-import { type UserSignInResponseDto } from './types/types.js';
 
 /**
  * @swagger

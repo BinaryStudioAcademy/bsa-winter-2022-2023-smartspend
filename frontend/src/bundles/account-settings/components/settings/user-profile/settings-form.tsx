@@ -23,10 +23,10 @@ const currency = [
     { value: 'UAH', name: 'UAH' },
 ];
 
-const language = [
-    { value: 'English', name: 'English' },
-    { value: 'Ukrainian', name: 'Ukrainian' },
-];
+// const language = [
+//     { value: 'English', name: 'English' },
+//     { value: 'Ukrainian', name: 'Ukrainian' },
+// ];
 
 const sex = [
     { value: 'Male', name: 'Male' },
@@ -44,8 +44,7 @@ const SettingsForm: React.FC = () => {
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { firstName, lastName, email, language, currency, sex } =
-            mockData;
+        const { firstName, lastName, email, currency, sex } = mockData;
         return (
             newName !== firstName ||
             newSurname !== lastName ||

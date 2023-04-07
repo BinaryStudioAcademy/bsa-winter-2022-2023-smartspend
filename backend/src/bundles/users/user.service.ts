@@ -1,5 +1,6 @@
 import {
     type UserGetAllResponseDto,
+    type UserProfileResponseDto,
     type UserSignUpRequestDto,
     type UserUpdateRequestDto,
     type UserUpdateResponseDto,
@@ -27,6 +28,12 @@ class UserService implements Partial<IService> {
 
     public async findById(id: string): Promise<UserEntity | undefined> {
         return await this.find({ id });
+    }
+
+    public async getCurrentUserDetails(
+        id: string,
+    ): Promise<UserProfileResponseDto | undefined> {
+        return await this.userRepository.getCurrentUserDetails(id);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {

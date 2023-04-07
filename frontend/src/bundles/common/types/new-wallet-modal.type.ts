@@ -1,6 +1,6 @@
 type FormValues = {
-    walletName: string;
-    currency: string;
+    name: string;
+    currencyId: string;
     balance: string;
 };
 

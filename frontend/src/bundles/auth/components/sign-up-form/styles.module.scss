@@ -23,7 +23,6 @@
     background: linear-gradient(var(--color-white-100), var(--color-white-100))
             padding-box,
         var(--gradient-10);
-    border: var(--border) solid transparent;
 }
 
 .inputPages:hover {
@@ -66,6 +65,14 @@
     font-size: var(--font-size-level-2-heading);
     line-height: var(--line-height-level-2-heading);
     text-align: center;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+    width: 100%;
 }
 
 .footerContainerClass {

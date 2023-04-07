@@ -101,7 +101,7 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
                     </span>
                 </Button>
             )}
-            <div className={styles.walletButtonTitle}>{children}</div>
+            {children}
         </div>
     );
 };

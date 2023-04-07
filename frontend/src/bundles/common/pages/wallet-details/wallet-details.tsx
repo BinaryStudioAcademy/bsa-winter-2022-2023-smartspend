@@ -114,7 +114,7 @@ const WalletDetails: React.FC = () => {
         currencies,
         currentWallet?.currencyId,
     )?.symbol;
-    
+
     const transactionData = transactions.map((item) => ({
         id: item.id,
         date: item.date,
@@ -155,7 +155,6 @@ const WalletDetails: React.FC = () => {
 
     const handleCategoriesMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
-            
             if (selectedOption === null) {
                 setCategoriesDropdown([]);
             } else {

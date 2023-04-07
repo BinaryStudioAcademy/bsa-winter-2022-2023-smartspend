@@ -123,7 +123,10 @@ const SettingsForm: React.FC = () => {
                 labelClassName={styles.dropdownLabel}
             />
 
-            <Calendar isRangeCalendar={false} />
+            <div className={styles.calendar}>
+                <div className={styles.label}>Date of birth</div>
+                <Calendar isRangeCalendar={false} />
+            </div>
 
             <Input
                 type={InputType.EMAIL}

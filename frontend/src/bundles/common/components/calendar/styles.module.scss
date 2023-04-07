@@ -6,6 +6,8 @@
 
 .calendar {
     color: var(--color-blue-600);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-1-button-text);
     border: 2px solid var(--color-blue-200);
 }
 
@@ -18,9 +20,6 @@
 
 .range_display {
     width: 270px;
-    color: var(--color-blue-600);
-    font-weight: var(--font-weight-400);
-    font-size: var(--font-size-1-button-text);
 }
 
 .modal_one_day {

@@ -115,7 +115,7 @@ const BudgetModal = ({
             Body={
                 <>
                     <div className={styles.formWrapper}>
-                        <div>
+                        <div className={styles.wrapperHalf}>
                             <h2>General Info</h2>
                             <Input
                                 labelClassName={styles.label}
@@ -141,7 +141,7 @@ const BudgetModal = ({
                                 render={RenderCurrency}
                             />
                         </div>
-                        <div>
+                        <div className={styles.wrapperHalf}>
                             <h2>Filters</h2>
                             <Controller
                                 name="categories"
@@ -173,6 +173,7 @@ const BudgetModal = ({
                     ? !watchEditFielsd.some(Boolean)
                     : !watchCreateFielsd.every(Boolean)
             }
+            footerContainerClass={styles.modalFooter}
         >
             {isEdit && (
                 <Button

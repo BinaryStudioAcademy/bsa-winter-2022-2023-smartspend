@@ -140,19 +140,17 @@ const Header: React.FC<Properties> = ({
                             })}
                         >
                             <ul className={styles.list}>
-                                <Link
-                                    className={styles.link}
-                                    to={AppRoute.USER}
-                                >
-                                    Settings
-                                </Link>
-                                <Link
-                                    className={styles.link}
-                                    onClick={logoutHandler}
-                                    to={AppRoute.SIGN_IN}
-                                >
-                                    Logout
-                                </Link>
+                                <li className={styles.link}>
+                                    <Link to={AppRoute.USER}>Settings</Link>
+                                </li>
+                                <li className={styles.link}>
+                                    <Link
+                                        onClick={logoutHandler}
+                                        to={AppRoute.SIGN_IN}
+                                    >
+                                        Logout
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>

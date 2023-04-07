@@ -44,7 +44,7 @@ export {
     createTransactionValidationSchema,
     TransactionsApiPath,
     TransactionValidationMessage,
-} from './bundles/transactions/transactions.js';
+} from './bundles/transactions//transactions.js';
 export {
     type ApiUpdateUserOptions,
     type UserGetAllItemResponseDto,

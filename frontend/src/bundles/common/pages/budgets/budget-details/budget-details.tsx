@@ -9,6 +9,7 @@ import {
     Loader,
     TransactionTable,
 } from '~/bundles/common/components/components';
+import { type ITransaction } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
@@ -22,6 +23,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { loadTransactions } from '~/bundles/common/stores/transactions/actions.js';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
 import {
@@ -49,89 +51,6 @@ const BudgetDetails = (): JSX.Element => {
             color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
         },
     ];
-    const transactionData = [
-        {
-            id: '1',
-            category: 'Food',
-            name: 'faBagShopping',
-            date: '2022-03-23',
-            label: 'Supermarket',
-            amount: -35,
-            currency: '$',
-        },
-        {
-            id: '2',
-            category: 'Transport',
-            name: 'faCarAlt',
-            date: '2022-03-23',
-            label: 'Gas Station',
-            amount: -50,
-            currency: '$',
-        },
-        {
-            id: '3',
-            category: 'Shopping',
-            name: 'faStoreAltSlash',
-            date: '2022-04-22',
-            label: 'Clothing Store',
-            amount: 120,
-            currency: '$',
-        },
-        {
-            id: '4',
-            category: 'Food',
-            name: 'faBowlFood',
-            date: '2022-03-22',
-            label: 'Cafeteria',
-            amount: -10,
-            currency: '$',
-        },
-        {
-            id: '5',
-            category: 'Transport',
-            name: 'faCarAlt',
-            date: '2022-03-22',
-            label: 'Taxi Company',
-            amount: -25,
-            currency: '$',
-        },
-        {
-            id: '6',
-            category: 'Salary',
-            name: 'faMoneyBill',
-            date: '2023-03-30',
-            label: 'Electronics Store',
-            amount: 3500,
-            currency: '$',
-        },
-        {
-            id: '7',
-            category: 'Food',
-            name: 'faBowlFood',
-            date: '2024-03-21',
-            label: 'Restaurant',
-            amount: -60,
-            currency: '$',
-        },
-        {
-            id: '8',
-            category: 'Transport',
-            name: 'faCarAlt',
-            date: '2022-03-21',
-            label: 'Public Transport',
-            amount: -5,
-            currency: '$',
-        },
-        {
-            id: '9',
-            category: 'Salary',
-            name: 'faMoneyBill',
-            date: '2023-04-30',
-            label: 'Electronics Store',
-            amount: 3500,
-            currency: '$',
-        },
-    ];
 
     const spent = 500;
 
@@ -143,10 +62,20 @@ const BudgetDetails = (): JSX.Element => {
         BudgetSliceResponseDto | undefined
     >();
     const { budgets } = useAppSelector((state) => state.budgets);
+    const { currencies } = useAppSelector((state) => state.currencies);
+
+    const categories = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
 
     const handleCancel = useCallback(() => {
         setActive(false);
     }, []);
+
     const handleModal = useCallback(() => {
         setActive(true);
     }, []);
@@ -172,6 +101,7 @@ const BudgetDetails = (): JSX.Element => {
     useEffect(() => {
         void dispatch(budgetsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
+        void dispatch(loadTransactions());
     }, [dispatch]);
 
     if (!currentBudget) {
@@ -186,6 +116,17 @@ const BudgetDetails = (): JSX.Element => {
         recurrence,
         spent,
     });
+    const transactionData = transactions.map((item) => ({
+        id: item.id,
+        date: item.date,
+        category: categories.find((cat) => cat.id === item.categoryId),
+        name: categories.find((cat) => cat.id === item.categoryId)?.name,
+        label: item.labelId,
+        amount: item.amount,
+        currency: currencies.find((current) => current.id === item.currencyId)
+            ?.symbol,
+        note: item.note,
+    })) as unknown as ITransaction[];
 
     const canSpending =
         canSpend > 0

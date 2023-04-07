@@ -8,9 +8,8 @@ const tabsDashboard = [
 ];
 
 const tabsData = [
-    { title: 'Transactions', to: walletDetailsRegex, icon: 'TRANSACTION' },
-    { title: 'Overview', to: '/overview', icon: 'DASHBOARD' },
-    { title: 'Budgets', to: '/budget', icon: 'BUDGET' },
+    { title: 'Transaction', to: AppRoute.TRANSACTION, icon: 'TRANSACTION' },
+    { title: 'Budget', to: '/budget', icon: 'BUDGET' },
     { title: 'Wallet Settings', to: '/wallet-settings', icon: 'SETTINGS' },
 ];
 

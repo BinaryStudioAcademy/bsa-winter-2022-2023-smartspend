@@ -5,7 +5,7 @@ interface ITransaction {
     name: string;
     label: string;
     amount: number;
-    currency: string;
+    currency: string | undefined;
     note?: string;
 }
 

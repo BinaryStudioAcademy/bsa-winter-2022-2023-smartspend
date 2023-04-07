@@ -23,6 +23,8 @@ class UserProfileModel extends AbstractModel {
 
     public 'currency': string;
 
+    public 'avatarUrl': string;
+
     public static override get tableName(): string {
         return DatabaseTableName.USER_PROFILE;
     }

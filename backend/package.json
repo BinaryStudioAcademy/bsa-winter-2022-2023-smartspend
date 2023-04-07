@@ -40,6 +40,7 @@
         "dotenv": "16.0.3",
         "fastify": "4.11.0",
         "handlebars": "4.7.7",
+        "fastify-multer": "2.0.3",
         "jsonwebtoken": "9.0.0",
         "knex": "2.4.2",
         "nodemailer": "6.9.1",

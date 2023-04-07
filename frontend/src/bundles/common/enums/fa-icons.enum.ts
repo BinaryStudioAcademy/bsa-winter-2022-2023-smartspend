@@ -18,6 +18,7 @@ enum FaIcons {
     BUDGET = 'piggy-bank',
     TRANSACTION = 'dollar-sign',
     SETTINGS = 'gear',
+    CAMERA = 'camera',
 }
 
 export { FaIcons };

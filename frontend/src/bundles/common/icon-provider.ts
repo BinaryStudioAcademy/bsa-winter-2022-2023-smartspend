@@ -3,6 +3,7 @@ import {
     faArrowDown,
     faArrowUp,
     faBurger,
+    faCamera,
     faCar,
     faChartSimple,
     faChevronDown,
@@ -39,6 +40,7 @@ const iconProvider = {
     faPiggyBank,
     faDollarSign,
     faGear,
+    faCamera,
 };
 
 export { iconProvider };

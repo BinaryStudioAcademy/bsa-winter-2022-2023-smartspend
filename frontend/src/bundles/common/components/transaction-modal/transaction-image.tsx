@@ -1,8 +1,8 @@
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 
+import { Icon } from '~/bundles/common/components/icon/icon';
 import { useCallback } from '~/bundles/common/hooks/hooks';
+import { FaIcons } from '~/bundles/ui/enums/enums';
 
 import styles from './styles.module.scss';
 
@@ -33,7 +33,7 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
                     alt="transaction"
                 />
             ) : (
-                <FontAwesomeIcon icon={faCamera} />
+                <Icon name={FaIcons.CAMERA} />
             )}
             <input
                 type="file"

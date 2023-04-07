@@ -1,5 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { type Range } from 'react-date-range';
+import { Link } from 'react-router-dom';
 
 import {
     Button,
@@ -10,6 +13,7 @@ import {
     Dropdown,
     Input,
     LineChart,
+    NewWalletModal,
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
@@ -17,24 +21,29 @@ import {
     AppDocumentTitles,
     ButtonVariant,
     CardVariant,
+    FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
+    findCurrencyById,
+    formatRangeGraph,
+    getInitialRange,
+} from '~/bundles/common/helpers/helpers.js';
+import {
+    useAppDispatch,
     useAppDocumentTitle,
     useAppForm,
+    useAppSelector,
 } from '~/bundles/common/hooks/hooks.js';
-import { type DataType } from '~/bundles/common/types/types';
-import { WalletCardSize } from '~/bundles/landing/enums/enums';
+import { type DataType } from '~/bundles/common/types/types.js';
+import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
+import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import {
-    type Wallet,
-    barChartData,
-    byCategory,
-    byWallets,
-    categories,
-    lineChartData,
-    mockSliderData,
-    wallets,
-} from './mocks.dashboard';
+    filterCategories,
+    filterChart,
+    filterLineChart,
+} from './helpers/helpers';
+import { byCategory, byWallets, mockSliderData } from './mocks.dashboard';
 import styles from './styles.module.scss';
 
 type FormValues = {
@@ -73,32 +82,50 @@ const ChartBox = ({
 interface WalletButtonProperties {
     children: JSX.Element | string;
     isButton?: boolean;
+    onClick?: () => void;
 }
 
 const WalletButton: React.FC<WalletButtonProperties> = ({
     children,
     isButton = true,
+    onClick,
 }) => {
     return (
-        <div className={styles.walletButton}>
+        <div onClickCapture={onClick} className={styles.walletButton}>
             {isButton && (
                 <Button variant={ButtonVariant.PLAIN}>
-                    <div className={styles.walletIcon}>+</div>
+                    <span className={styles.walletIcon}>
+                        <FontAwesomeIcon
+                            icon={FaIcons.PLUS}
+                            color={'var(--color-white-100)'}
+                        />
+                    </span>
                 </Button>
             )}
-            <div className={styles.walletButtonTitle}>{children}</div>
+            {children}
         </div>
     );
 };
 
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
+    const [active, setActive] = useState(false);
+    const [, setFilteredData] = useState(mockSliderData);
+    const rangeLimits = { min: -100, max: 1000 };
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
+
+    const dispatch = useAppDispatch();
+    const { wallets } = useAppSelector((state) => state.wallets);
+    const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
-    const rangeLimits = { min: -100, max: 1000 };
-    const [currentRange, setCurrentRange] = useState(rangeLimits);
-    const [, setFilteredData] = useState(mockSliderData);
+
+    const [day, setDay] = useState<Range>(getInitialRange());
+
+    const handleSelectDay = useCallback((day: Range): void => {
+        setDay(day);
+    }, []);
 
     const handleSliderChange = useCallback(
         (range: { min: number; max: number }): void => {
@@ -112,6 +139,17 @@ const Dashboard: React.FC = () => {
         [],
     );
 
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+    }, [dispatch]);
     const [wallet, setWallet] = useState<DataType>(byWallets[0]);
 
     const handleDropdownByWallets = useCallback(
@@ -140,24 +178,32 @@ const Dashboard: React.FC = () => {
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {wallets.map((wallet: Wallet) => (
-                            <div
-                                key={wallet.id}
+                        {wallets.map(({ id, name, balance, currencyId }) => (
+                            <Link
+                                to={`/wallet/${id}/transaction`}
+                                key={id}
                                 className={styles.walletWrapper}
                             >
-                                <WalletButton isButton={false}>
-                                    <WalletCard
-                                        title={wallet.title}
-                                        size={WalletCardSize.MEDIUM}
-                                        balance_value={wallet.value}
-                                        wallet_type={'Balance'}
-                                    />
-                                </WalletButton>
-                            </div>
+                                <WalletCard
+                                    title={name}
+                                    size={WalletCardSize.MEDIUM}
+                                    balance_value={balance}
+                                    wallet_type={'Balance'}
+                                    currency={
+                                        findCurrencyById(currencies, currencyId)
+                                            ?.symbol
+                                    }
+                                />
+                            </Link>
                         ))}
-
-                        <WalletButton>Add new wallet</WalletButton>
-                        <WalletButton>Connect a bank account</WalletButton>
+                        <WalletButton onClick={handleModal}>
+                            Add new wallet
+                        </WalletButton>
+                        <NewWalletModal
+                            isShown={active}
+                            onClose={handleCancel}
+                            onSubmit={handleModal}
+                        />
                     </div>
                     <h2 className={classNames(styles.title, styles.overview)}>
                         Overview
@@ -175,21 +221,26 @@ const Dashboard: React.FC = () => {
                         <div className={styles.filters}>
                             <div>
                                 <div className={styles.largeCalendar}>
-                                    <Calendar isRangeCalendar={true} />
+                                    <Calendar
+                                        isRangeCalendar
+                                        initialRange={day}
+                                        onRangeChange={handleSelectDay}
+                                    />
                                 </div>
                                 <div className={styles.smallCalendar}>
                                     <Calendar isRangeCalendar={false} />
                                 </div>
                             </div>
-                            <div>
-                                <RangeSlider
-                                    rangeLimits={rangeLimits}
-                                    currentRange={currentRange}
-                                    onChange={handleSliderChange}
-                                />
+                            <div className={styles.buttonWrapper}>
+                                <Button
+                                    variant={ButtonVariant.PLAIN}
+                                    className={styles.resetButton}
+                                >
+                                    Reset filters
+                                </Button>
                             </div>
                         </div>
-                        <div className={styles.filters}>
+                        <div className={styles.filtersContainer}>
                             <Dropdown
                                 data={byWallets}
                                 handleChange={handleDropdownByWallets}
@@ -210,14 +261,20 @@ const Dashboard: React.FC = () => {
                                 errors={errors}
                                 label={'By note'}
                                 name={'name'}
-                                placeholder={'Filter by specific name'}
+                                placeholder={'Filter by specific keyword'}
                             />
-                            <Button
-                                variant={ButtonVariant.PLAIN}
-                                className={styles.resetButton}
-                            >
-                                Reset filters
-                            </Button>
+                            <div className={styles.filter}>
+                                <span className={styles.categoryText}>
+                                    By amount
+                                </span>
+                                <div className={styles.slider}>
+                                    <RangeSlider
+                                        rangeLimits={rangeLimits}
+                                        currentRange={currentRange}
+                                        onChange={handleSliderChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -233,7 +290,7 @@ const Dashboard: React.FC = () => {
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={504_000.549}
+                                sum={504_000.54}
                                 variant={CardVariant.BLUE}
                             />
                             <CardTotal
@@ -242,31 +299,39 @@ const Dashboard: React.FC = () => {
                                 variant={CardVariant.WHITE}
                             />
                             <CardTotal
-                                title="Total Balance"
+                                title="Total Period Income"
                                 sum={7600.34}
                                 variant={CardVariant.VIOLET}
                             />
                         </div>
                         <div className={styles.charts}>
                             <ChartBox
-                                title={'Chart 1'}
-                                date={'Dec 01-23'}
-                                controls={'Controls'}
+                                title={'Account Balance'}
+                                date={formatRangeGraph(day)}
                             >
-                                <LineChart dataArr={lineChartData} />
+                                <LineChart dataArr={filterLineChart(day)} />
                             </ChartBox>
                             <ChartBox
-                                title={'Chart 2'}
-                                date={'Dec 01-23'}
-                                controls={'Controls'}
+                                title={'Changes'}
+                                date={formatRangeGraph(day)}
                             >
-                                <Chart array={barChartData} />
+                                <Chart array={filterChart(day)} />
                             </ChartBox>
-                            <ChartBox title={'Chart 3'} date={'Dec 01-23'}>
-                                <DoughnutChart categories={categories} />
+                            <ChartBox
+                                title={'Period income'}
+                                date={formatRangeGraph(day)}
+                            >
+                                <DoughnutChart
+                                    categories={filterCategories(day)}
+                                />
                             </ChartBox>
-                            <ChartBox title={'Chart 4'} date={'Dec 01-23'}>
-                                <DoughnutChart categories={categories} />
+                            <ChartBox
+                                title={'Period Expenses'}
+                                date={formatRangeGraph(day)}
+                            >
+                                <DoughnutChart
+                                    categories={filterCategories(day)}
+                                />
                             </ChartBox>
                         </div>
                     </div>

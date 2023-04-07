@@ -85,6 +85,20 @@
     margin-top: var(--m-3);
 }
 
+.calendar {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+}
+
+.label {
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-6-heading);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-label-span);
+}
+
 .divider {
     width: 100%;
     height: 1px;

@@ -1,4 +1,4 @@
-import { type TransactionUpdatePayloadDto } from 'shared/build/bundles/transactions/types/transaction-update-dto.type';
+import { type TransactionUpdatePayloadDto } from 'shared/build/bundles/transactions/types/transaction-update-dto.type.js';
 
 import { type TransactionModel } from '~/bundles/transactions/transactions.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';

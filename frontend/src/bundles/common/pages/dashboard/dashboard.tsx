@@ -87,7 +87,6 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
                 </Button>
             )}
             {children}
-            {/* <div className={styles.walletButtonTitle}>{children}</div> */}
         </div>
     );
 };

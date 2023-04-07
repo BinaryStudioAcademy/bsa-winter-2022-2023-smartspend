@@ -23,7 +23,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
-import { loadTransactions } from '~/bundles/common/stores/transactions/actions.js';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
 import {
@@ -101,7 +101,7 @@ const BudgetDetails = (): JSX.Element => {
     useEffect(() => {
         void dispatch(budgetsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
-        void dispatch(loadTransactions());
+        void dispatch(transactionsActions.loadTransactions());
     }, [dispatch]);
 
     if (!currentBudget) {

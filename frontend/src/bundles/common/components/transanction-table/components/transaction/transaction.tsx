@@ -62,23 +62,25 @@ const Transaction: React.FC<Properties> = ({
                         />
                     </form>
                     <div>
-                        <span
-                            style={{
-                                background: `${transaction.category.color}`,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                height: '25px',
-                                width: '25px',
-                                borderRadius: '6px',
-                                color: '#fff',
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={transaction.category.icon as IconProp}
-                            />
-                        </span>
+                        {transaction.category && (
+                            <span
+                                style={{
+                                    background: `${transaction.category.color}`,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    textAlign: 'center',
+                                    height: '25px',
+                                    width: '25px',
+                                    borderRadius: '6px',
+                                    color: '#fff',
+                                }}
+                            >
+                                <FontAwesomeIcon
+                                    icon={transaction.category.icon as IconProp}
+                                />
+                            </span>
+                        )}
                     </div>
                     <div>{transaction.name}</div>
                 </div>

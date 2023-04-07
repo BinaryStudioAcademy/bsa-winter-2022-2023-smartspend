@@ -32,15 +32,15 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
-import { loadCategories } from '~/bundles/common/stores/categories/actions.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
-import { loadAll } from '~/bundles/users/store/actions';
+import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
 import { type ITransaction } from '../../components/transanction-table/types';
-import { loadTransactions } from '../../stores/transactions/actions';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -92,9 +92,9 @@ const WalletDetails: React.FC = () => {
     });
 
     useEffect(() => {
-        void dispatch(loadTransactions());
-        void dispatch(loadCategories());
-        void dispatch(loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
 
     const category = useAppSelector(

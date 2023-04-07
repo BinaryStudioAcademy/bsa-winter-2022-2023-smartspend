@@ -5,6 +5,7 @@ import { type Range } from 'react-date-range';
 
 import {
     Button,
+    ButtonTabs,
     Calendar,
     CardTotal,
     Chart,
@@ -28,11 +29,11 @@ import {
 import {
     useAppDocumentTitle,
     useAppForm,
+    useButtonTabsState,
 } from '~/bundles/common/hooks/hooks.js';
 import { type DataType } from '~/bundles/common/types/types';
 import { WalletCardSize } from '~/bundles/landing/enums/enums';
 
-// import { getInitialRange } from '../../helpers/helpers';
 import {
     filterCategories,
     filterChart,
@@ -106,6 +107,12 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     );
 };
 
+const tabsDashboard = [
+    { title: 'Days', isActive: true, disabled: false },
+    { title: 'Week', isActive: false, disabled: false },
+    { title: 'Months', isActive: false, disabled: true },
+];
+
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const { control, errors } = useAppForm<FormValues>({
@@ -114,6 +121,9 @@ const Dashboard: React.FC = () => {
     const rangeLimits = { min: -100, max: 1000 };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
+
+    const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
+    const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
 
     const [day, setDay] = useState<Range>(getInitialRange());
 
@@ -283,12 +293,24 @@ const Dashboard: React.FC = () => {
                             <ChartBox
                                 title={'Account Balance'}
                                 date={formatRangeGraph(day)}
+                                controls={
+                                    <ButtonTabs
+                                        tabsData={firstTabs}
+                                        onClick={setFirstTabs}
+                                    />
+                                }
                             >
                                 <LineChart dataArr={filterLineChart(day)} />
                             </ChartBox>
                             <ChartBox
                                 title={'Changes'}
                                 date={formatRangeGraph(day)}
+                                controls={
+                                    <ButtonTabs
+                                        tabsData={secondTabs}
+                                        onClick={setSecondTabs}
+                                    />
+                                }
                             >
                                 <Chart array={filterChart(day)} />
                             </ChartBox>

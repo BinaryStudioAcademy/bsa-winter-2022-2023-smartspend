@@ -62,25 +62,29 @@ const Transaction: React.FC<Properties> = ({
                         />
                     </form>
                     <div>
-                        {transaction.category && (
-                            <span
-                                style={{
-                                    background: `${transaction.category.color}`,
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '25px',
-                                    width: '25px',
-                                    borderRadius: '6px',
-                                    color: '#fff',
-                                }}
-                            >
-                                <FontAwesomeIcon
-                                    icon={transaction.category.icon as IconProp}
-                                />
-                            </span>
-                        )}
+                        {transaction.category &&
+                            typeof transaction.category === 'object' && (
+                                <span
+                                    style={{
+                                        background: `${transaction.category.color}`,
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        textAlign: 'center',
+                                        height: '25px',
+                                        width: '25px',
+                                        borderRadius: '6px',
+                                        color: '#fff',
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={
+                                            transaction.category
+                                                .icon as IconProp
+                                        }
+                                    />
+                                </span>
+                            )}
                     </div>
                     <div>{transaction.name}</div>
                 </div>

@@ -59,7 +59,7 @@ class UserController extends Controller {
             path: UsersApiPath.ROOT,
             method: 'DELETE',
             handler: (options) => {
-                return this.delete(options as UserSignInResponseDto);
+                return this.delete(options.token as string);
             },
         });
     }
@@ -239,14 +239,14 @@ class UserController extends Controller {
      *                $ref: '#/components/schemas/Category'
      */
 
-    private async delete(
-        request: UserSignInResponseDto,
-    ): Promise<ApiHandlerResponse> {
-        const userId = getUserIdFromToken(request.token);
+    private async delete(token: string): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(token);
 
         return {
             status: HttpCode.OK,
-            payload: await this.userService.deleteUser(userId),
+            payload: {
+                success: await this.userService.deleteUser(userId),
+            },
         };
     }
 }

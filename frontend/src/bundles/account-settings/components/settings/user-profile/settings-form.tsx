@@ -8,10 +8,16 @@ import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { deleteUser } from '~/bundles/users/store/actions';
+import { storage, StorageKey } from '~/framework/storage/storage';
 
 import styles from '../styles.module.scss';
 import { Title } from '../title';
@@ -39,6 +45,8 @@ const SettingsForm: React.FC = () => {
         defaultValues: mockData,
     });
 
+    const dispatch = useAppDispatch();
+
     const newName = useFormController({ name: 'firstName', control }).field
         .value;
     const newSurname = useFormController({ name: 'lastName', control }).field
@@ -56,6 +64,14 @@ const SettingsForm: React.FC = () => {
             sex !== selectedSingleSex.name
         );
     };
+
+    const token = storage.getSync(StorageKey.TOKEN);
+
+    const handleDeleteAccount = useCallback(() => {
+        void dispatch(deleteUser(token as string));
+        void storage.drop(StorageKey.TOKEN);
+        void storage.drop(StorageKey.PWA);
+    }, [dispatch, token]);
 
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
         useState<DataType>(currency[0]);
@@ -156,7 +172,11 @@ const SettingsForm: React.FC = () => {
                 Update My Settings
             </SubmitButton>
             <div className={styles.dltButton}>
-                <Button variant={ButtonVariant.DELETE} size={ButtonSize.MEDIUM}>
+                <Button
+                    variant={ButtonVariant.DELETE}
+                    size={ButtonSize.MEDIUM}
+                    onClick={handleDeleteAccount}
+                >
                     <span className={styles.icon}>
                         <Icon name={FaIcons.TRASH_CAN} />
                     </span>

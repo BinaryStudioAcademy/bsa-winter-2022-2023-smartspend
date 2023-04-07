@@ -70,8 +70,8 @@ const BudgetModal = ({
     const isReset = reset;
 
     const watchCreateFielsd = [
-        Boolean(watch('name')),
-        Boolean(watch('amount')),
+        // Boolean(watch('name')),
+        // Boolean(watch('amount')),
         Boolean(watch('currency')),
         Boolean(watch('recurrence')),
         Boolean(watch('categories')),

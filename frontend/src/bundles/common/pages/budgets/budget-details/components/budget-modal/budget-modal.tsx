@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 
+import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
+import { actions as budgetsActions } from '~/bundles/budgets/store';
+import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import {
     BaseModal,
     Button,
@@ -8,7 +11,7 @@ import {
 } from '~/bundles/common/components/components';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { useAppForm } from '~/bundles/common/hooks/hooks';
+import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks';
 
 import {
     RenderCurrency,
@@ -18,51 +21,105 @@ import {
 } from '../components';
 import styles from './styles.module.scss';
 
-interface FormData {
+type categoryType = {
+    id: string;
+    name: string;
+    icon: string;
+    color: string;
+    type: string;
+};
+
+type NewBudget = {
     name: string;
     amount: number;
     currency: string;
     recurrence: string;
-    categories: {
-        id: string;
-    }[];
     startDate: string;
-}
+    ownerId: string;
+    categories: categoryType[];
+};
 
-interface EditBudgetModalProperties {
+interface BudgetModalProperties {
+    isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
-    budget: FormData;
+    onClick?: () => void;
+    budget?: BudgetSliceResponseDto | undefined;
 }
 
-const EditBudgetModal = ({
+const BudgetModal = ({
+    isEdit = false,
     isShown,
     onClose,
+    onClick,
     budget,
-}: EditBudgetModalProperties): JSX.Element => {
-    const { control, errors, handleSubmit, trigger } = useAppForm({
-        defaultValues: {
-            name: budget.name,
-            amount: budget.amount,
-            currency: budget.currency,
-            recurrence: budget.recurrence,
-            categories: budget.categories,
-            startDate: budget.startDate,
-        },
-    });
+}: BudgetModalProperties): JSX.Element => {
+    const dispatch = useAppDispatch();
 
-    const handleUpdateBudgetSubmit = useCallback((formData: FormData): void => {
-        // eslint-disable-next-line no-console
-        console.log(formData);
-    }, []);
+    let id: string | undefined;
+    let newBudget: NewBudget | undefined;
+    if (budget) {
+        ({ id, ...newBudget } = budget);
+    }
+
+    const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
+        {
+            defaultValues: newBudget as unknown as BudgetCreateRequestDto,
+        },
+    );
+    const isReset = reset;
+
+    const watchCreateFielsd = [
+        // Boolean(watch('name')),
+        // Boolean(watch('amount')),
+        Boolean(watch('currency')),
+        Boolean(watch('recurrence')),
+        Boolean(watch('categories')),
+        Boolean(watch('startDate')),
+    ];
+
+    const categoriesId = budget?.categories.map((it) => it.id);
+    const watchCategoryId = (
+        watch('categories') as unknown as categoryType[] | undefined
+    )?.map((it) => it.id);
+    const checkChangeCategory = watchCategoryId?.every((it) =>
+        categoriesId?.includes(it),
+    );
+
+    const watchEditFielsd = [
+        watch('name') === budget?.name ? false : true,
+        watch('amount') === budget?.amount ? false : true,
+        watch('currency') === budget?.currency ? false : true,
+        watch('recurrence') === budget?.recurrence ? false : true,
+        checkChangeCategory ? false : true,
+        watch('startDate') === budget?.startDate ? false : true,
+    ];
+
+    const handleBudgetSubmit = useCallback(
+        (formData: BudgetCreateRequestDto): void => {
+            if (isEdit) {
+                void dispatch(
+                    budgetsActions.update({
+                        id: id as string,
+                        payload: formData,
+                    }),
+                );
+            } else {
+                void dispatch(budgetsActions.create(formData));
+            }
+            isReset && reset();
+        },
+        [id, dispatch, isEdit, isReset, reset],
+    );
 
     const handleFormSubmit = useCallback(
         (event: React.BaseSyntheticEvent): void => {
             event.preventDefault();
             void trigger();
-            void handleSubmit(handleUpdateBudgetSubmit)(event);
+            void handleSubmit(handleBudgetSubmit)(event);
+            onClose();
         },
-        [handleSubmit, handleUpdateBudgetSubmit, trigger],
+        [trigger, handleSubmit, handleBudgetSubmit, onClose],
     );
 
     return (
@@ -70,7 +127,7 @@ const EditBudgetModal = ({
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}
-            Header={<h1>Edit Budget</h1>}
+            Header={<h1>{isEdit ? 'Edit Budget' : 'Create budget'}</h1>}
             Body={
                 <>
                     <div className={styles.formWrapper}>
@@ -126,14 +183,25 @@ const EditBudgetModal = ({
                     </div>
                 </>
             }
-            submitButtonName={'Save changes'}
+            submitButtonName={isEdit ? 'Save changes' : 'Create'}
+            disabled={
+                isEdit
+                    ? !watchEditFielsd.some(Boolean)
+                    : !watchCreateFielsd.every(Boolean)
+            }
             footerContainerClass={styles.modalFooter}
         >
-            <Button variant={ButtonVariant.DELETE} size={ButtonSize.SMALL}>
-                Delete budget
-            </Button>
+            {isEdit && (
+                <Button
+                    variant={ButtonVariant.DELETE}
+                    size={ButtonSize.SMALL}
+                    onClick={onClick}
+                >
+                    Delete budget
+                </Button>
+            )}
         </BaseModal>
     );
 };
 
-export { EditBudgetModal };
+export { BudgetModal };

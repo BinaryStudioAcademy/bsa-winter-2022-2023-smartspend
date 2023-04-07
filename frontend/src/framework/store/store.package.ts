@@ -7,6 +7,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/';
+import { budgetsApi } from '~/bundles/budgets/budgets.js';
+import { reducer as budgetsReducer } from '~/bundles/budgets/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { categoriesApi } from '~/bundles/common/stores/categories/categories.js';
 import { reducer as categoriesReducer } from '~/bundles/common/stores/categories/slice.js';
@@ -24,6 +26,7 @@ import { notification } from '~/services/services.js';
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     users: ReturnType<typeof usersReducer>;
+    budgets: ReturnType<typeof budgetsReducer>;
     wallets: ReturnType<typeof walletsReducer>;
     categories: ReturnType<typeof categoriesReducer>;
     currencies: ReturnType<typeof currenciesReducer>;
@@ -32,6 +35,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    budgetsApi: typeof budgetsApi;
     walletsApi: typeof walletsApi;
     categoriesApi: typeof categoriesApi;
     notification: typeof notification;
@@ -56,6 +60,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 users: usersReducer,
+                budgets: budgetsReducer,
                 wallets: walletsReducer,
                 categories: categoriesReducer,
                 currencies: currenciesReducer,
@@ -77,6 +82,7 @@ class Store {
         return {
             authApi,
             userApi,
+            budgetsApi,
             walletsApi,
             categoriesApi,
             notification,

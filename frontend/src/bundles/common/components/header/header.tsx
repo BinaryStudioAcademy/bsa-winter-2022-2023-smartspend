@@ -34,7 +34,7 @@ type Properties = {
     };
 };
 
-const budgetsRegex = /^\/budgets\/\d+$/;
+const budgetsRegex = /^\/budgets\/[\dA-Za-z-]+$/;
 const walletDetailsRegex =
     /^\/wallet\/[\da-z-]+\/(transaction|budget|wallet-settings)$/;
 

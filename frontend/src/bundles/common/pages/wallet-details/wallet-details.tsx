@@ -32,12 +32,15 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
-import { loadCategories } from '~/bundles/common/stores/categories/actions.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
+import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
+import { type ITransaction } from '../../components/transanction-table/types';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -89,11 +92,17 @@ const WalletDetails: React.FC = () => {
     });
 
     useEffect(() => {
-        void dispatch(loadCategories());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
+    );
+
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
     );
 
     const newDataMenu = category.map((item) => ({
@@ -105,6 +114,18 @@ const WalletDetails: React.FC = () => {
         currencies,
         currentWallet?.currencyId,
     )?.symbol;
+
+    const transactionData = transactions.map((item) => ({
+        id: item.id,
+        date: item.date,
+        category: category.find((cat) => cat.id === item.categoryId),
+        name: category.find((cat) => cat.id === item.categoryId)?.name,
+        label: item.labelId,
+        amount: item.amount,
+        currency: currencies.find((current) => current.id === item.currencyId)
+            ?.symbol,
+        note: item.note,
+    })) as unknown as ITransaction[];
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -373,89 +394,7 @@ const WalletDetails: React.FC = () => {
                             </div>
                             <div className={styles.transactionsContainer}>
                                 <TransactionTable
-                                    transactions={[
-                                        {
-                                            id: '1',
-                                            category: 'Food and drink',
-                                            name: 'faBagShopping',
-                                            date: '2022-03-23',
-                                            label: 'Supermarket',
-                                            amount: -35,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '2',
-                                            category: 'Transport',
-                                            name: 'faCarAlt',
-                                            date: '2022-03-23',
-                                            label: 'Gas Station',
-                                            amount: -50,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '3',
-                                            category: 'Shopping',
-                                            name: 'faStoreAltSlash',
-                                            date: '2022-04-22',
-                                            label: 'Clothing Store',
-                                            amount: 120,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '4',
-                                            category: 'Food',
-                                            name: 'faBowlFood',
-                                            date: '2022-03-22',
-                                            label: 'Cafeteria',
-                                            amount: -10,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '5',
-                                            category: 'Transport',
-                                            name: 'faCarAlt',
-                                            date: '2022-03-22',
-                                            label: 'Taxi Company',
-                                            amount: -25,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '6',
-                                            category: 'Salary',
-                                            name: 'faMoneyBill',
-                                            date: '2023-03-30',
-                                            label: 'Electronics Store',
-                                            amount: 3500,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '7',
-                                            category: 'Food',
-                                            name: 'faBowlFood',
-                                            date: '2024-03-21',
-                                            label: 'Restaurant',
-                                            amount: -60,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '8',
-                                            category: 'Transport',
-                                            name: 'faCarAlt',
-                                            date: '2022-03-21',
-                                            label: 'Public Transport',
-                                            amount: -5,
-                                            currency: currency,
-                                        },
-                                        {
-                                            id: '9',
-                                            category: 'Salary',
-                                            name: 'faMoneyBill',
-                                            date: '2023-04-30',
-                                            label: 'Electronics Store',
-                                            amount: 3500,
-                                            currency: currency,
-                                        },
-                                    ]}
+                                    transactions={transactionData}
                                 />
                             </div>
                         </div>

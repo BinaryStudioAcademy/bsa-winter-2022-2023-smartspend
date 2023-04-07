@@ -32,7 +32,7 @@
 .columns {
     display: flex;
     align-items: center;
-    min-width: 150px;
+    min-width: 160px;
     padding-left: var(--m-1);
 }
 
@@ -83,6 +83,10 @@
     margin: 10px 0;
     font-size: var(--font-size-level-6-heading);
     border-radius: 10px;
+}
+
+.hover:hover {
+    background: var(--color-blue-100);
 }
 
 .transaction div {
@@ -140,6 +144,50 @@
     margin-top: var(--m-4);
     color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+}
+
+.footerContainerClass {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footerContainerClass div > button:last-child {
+    padding: 8px 24px;
+    color: var(--color-warning);
+    background: white;
+    border: 2px solid var(--color-warning);
+}
+
+.footerContainerClass div > button:last-child:hover {
+    color: var(--color-red-300);
+    border: 2px solid var(--color-red-300);
+}
+
+.modalDetailsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modalDetails {
+    width: 280px;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
 }
 
 @media (max-width: $sm) {

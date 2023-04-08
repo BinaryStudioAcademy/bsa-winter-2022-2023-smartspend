@@ -86,10 +86,11 @@ const BaseModal: React.FC<Properties> = ({
                         <div className={styles.modalHeader}>{Header}</div>
                         <div className={styles.modalBody}>{Body}</div>
                         <div
-                            className={classNames(
-                                styles.modalFooter,
-                                footerContainerClass,
-                            )}
+                            className={
+                                footerContainerClass
+                                    ? classNames(footerContainerClass)
+                                    : classNames(styles.modalFooter)
+                            }
                         >
                             {children}
                             {hasActionButtons && (

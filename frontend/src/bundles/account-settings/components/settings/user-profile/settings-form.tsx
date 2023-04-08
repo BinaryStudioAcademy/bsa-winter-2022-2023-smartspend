@@ -37,6 +37,7 @@ const sex = [
 const SettingsForm: React.FC = () => {
     const { control, errors } = useAppForm({
         defaultValues: mockData,
+        mode: 'onBlur',
     });
 
     const dispatch = useAppDispatch();

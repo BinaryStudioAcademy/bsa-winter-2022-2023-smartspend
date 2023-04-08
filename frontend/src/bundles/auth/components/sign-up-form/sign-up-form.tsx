@@ -82,15 +82,15 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     <div className={styles.modalDetailsContainer}>
                         <p className={styles.modalDetails}>
                             Account with this email already registered in
-                            SmartSpend. Please login using this email
+                            SmartSpend. Please login using this email.
                         </p>
                     </div>
                 }
                 submitButtonName={'Login'}
                 onClose={onModalClose}
                 onSubmit={onModalSubmit}
+                footerContainerClass={styles.modalFooter}
                 width={450}
-                footerContainerClass={styles.footerContainerClass}
                 buttonsSize={ButtonSize.MEDIUM}
             />
             <form className={styles.form} onSubmit={handleFormSubmit}>

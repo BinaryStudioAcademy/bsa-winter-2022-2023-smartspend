@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { type CategoryGetAllItemResponseDto, type CategoryGetAllResponseDto  } from 'shared/build/index.js';
+import {
+    type CategoryGetAllItemResponseDto,
+    type CategoryGetAllResponseDto,
+} from 'shared/build/index.js';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';

@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { AccountSettings } from '~/bundles/account-settings/account-settings';
+import { UserProfile } from '~/bundles/account-settings/components/components';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
@@ -100,20 +101,30 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.USER,
+                                path: AppRoute.ROOT,
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
                                     </PrivateRoute>
                                 ),
-                            },
-                            {
-                                path: AppRoute.CATEGORIES,
-                                element: (
-                                    <PrivateRoute>
-                                        <CategoriesSettings />
-                                    </PrivateRoute>
-                                ),
+                                children: [
+                                    {
+                                        path: AppRoute.USER,
+                                        element: (
+                                            <PrivateRoute>
+                                                <UserProfile />
+                                            </PrivateRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.CATEGORIES,
+                                        element: (
+                                            <PrivateRoute>
+                                                <CategoriesSettings />
+                                            </PrivateRoute>
+                                        ),
+                                    },
+                                ],
                             },
                         ],
                     },

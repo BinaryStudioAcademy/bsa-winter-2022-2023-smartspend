@@ -17,9 +17,9 @@ import {
 import { useCallback, useEffect, useState } from '~/bundles/common/hooks/hooks';
 
 import { DropdownItem } from '../dropdown-item/dropdown-item';
-import { categoriesType } from '../mock/caregories-type';
-import { iconColors } from '../mock/icons-color';
-import { iconList } from '../mock/icons-list';
+import { categoriesType } from '../mock-for-dropdown/caregories-type';
+import { iconColors } from '../mock-for-dropdown/icons-color';
+import { iconList } from '../mock-for-dropdown/icons-list';
 import styles from './styles.module.scss';
 
 interface FormValues {

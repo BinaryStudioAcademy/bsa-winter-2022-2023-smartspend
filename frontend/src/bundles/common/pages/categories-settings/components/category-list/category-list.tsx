@@ -23,7 +23,7 @@ const CategoryList: React.FC<Properties> = ({
     return (
         <div className={styles.wrapper}>
             <h2 className={styles.title}>{title}</h2>
-            {categories?.map((item) => (
+            {Array.isArray(categories) && categories.map((item) => (
                 <CategoryItem
                     key={item.id}
                     id={item.id}

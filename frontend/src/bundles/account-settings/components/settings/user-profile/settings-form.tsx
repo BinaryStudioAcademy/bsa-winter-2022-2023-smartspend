@@ -1,97 +1,80 @@
-import React from 'react';
+import { Controller } from 'react-hook-form';
+import { type UserUpdateRequestDto } from 'shared/build';
 
-import { Button } from '~/bundles/common/components/button/button';
-import { Calendar, Icon } from '~/bundles/common/components/components';
-import { Dropdown } from '~/bundles/common/components/dropdown/components/dropdown.js';
-import { Input } from '~/bundles/common/components/input/input';
-import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
-import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
-import { InputType } from '~/bundles/common/enums/input-type.enum';
+import { Button, Icon, Input } from '~/bundles/common/components/components.js';
+import {
+    ButtonSize,
+    ButtonVariant,
+    FaIcons,
+    InputType,
+} from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppForm,
+    useAppSelector,
     useCallback,
-    useState,
 } from '~/bundles/common/hooks/hooks';
-import { useFormController } from '~/bundles/common/hooks/hooks.js';
-import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
-import { deleteUser } from '~/bundles/users/store/actions';
+import { actions as usersActions } from '~/bundles/users/store';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
 import styles from '../styles.module.scss';
-import { AvatarContainer } from './avatar-container';
-import { mockData } from './mock-data';
-import { SubmitButton } from './submit-button';
-
-const currency = [
-    { value: 'USD', name: 'USD' },
-    { value: 'UAH', name: 'UAH' },
-];
-
-const sex = [
-    { value: 'Male', name: 'Male' },
-    { value: 'Female', name: 'Female' },
-];
+import {
+    AvatarContainer,
+    RenderCurrency,
+    RenderDate,
+    RenderSex,
+    SubmitButton,
+} from './components/components.js';
 
 const SettingsForm: React.FC = () => {
-    const { control, errors } = useAppForm({
-        defaultValues: mockData,
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector((state) => state.users);
+
+    const { control, handleSubmit, errors, watch, trigger } = useAppForm({
+        defaultValues: user as UserUpdateRequestDto,
+        mode: 'onBlur',
     });
 
-    const dispatch = useAppDispatch();
+    const watchFields = watch();
 
-    const newName = useFormController({ name: 'firstName', control }).field
-        .value;
-    const newSurname = useFormController({ name: 'lastName', control }).field
-        .value;
-    const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { firstName, lastName, email, currency, sex } = mockData;
         return (
-            newName !== firstName ||
-            newSurname !== lastName ||
-            newEmail !== email ||
-            currency !== selectedSingleCurrency.name ||
-            sex !== selectedSingleSex.name
+            watchFields.firstName !== user?.firstName ||
+            watchFields.lastName !== user.lastName ||
+            watchFields.email !== user.email
         );
     };
 
     const token = storage.getSync(StorageKey.TOKEN);
 
     const handleDeleteAccount = useCallback(() => {
-        void dispatch(deleteUser(token as string));
+        void dispatch(usersActions.deleteUser(token as string));
         void storage.drop(StorageKey.TOKEN);
         void storage.drop(StorageKey.PWA);
     }, [dispatch, token]);
 
-    const [selectedSingleCurrency, setSelectedSingleCurrency] =
-        useState<DataType>(currency[0]);
-
-    const handleDropdownChangeCurrency = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setSelectedSingleCurrency(selectedOption);
-            }
+    const onSubmit = useCallback(
+        (formData: UserUpdateRequestDto): void => {
+            void dispatch(
+                usersActions.updateUser({
+                    payload: formData,
+                }),
+            );
         },
-        [],
+        [dispatch],
     );
 
-    const [selectedSingleSex, setSelectedSingleSex] = useState<DataType>(
-        sex[0],
-    );
-
-    const handleDropdownChangeSex = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setSelectedSingleSex(selectedOption);
-            }
+    const handleFormSubmit = useCallback(
+        (event_: React.BaseSyntheticEvent): void => {
+            event_.preventDefault();
+            void trigger();
+            void handleSubmit(onSubmit)(event_);
         },
-        [],
+        [handleSubmit, onSubmit, trigger],
     );
 
     return (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleFormSubmit}>
             <AvatarContainer />
             <Input
                 type={InputType.TEXT}
@@ -111,17 +94,16 @@ const SettingsForm: React.FC = () => {
                 control={control}
                 errors={errors}
             />
-            <Dropdown
-                data={sex}
-                handleChange={handleDropdownChangeSex}
-                selectedOption={selectedSingleSex}
-                label="Sex"
-                labelClassName={styles.dropdownLabel}
-            />
+
+            <Controller name="sex" control={control} render={RenderSex} />
 
             <div className={styles.calendar}>
                 <div className={styles.label}>Date of birth</div>
-                <Calendar isRangeCalendar={false} />
+                <Controller
+                    name="dateOfBirth"
+                    control={control}
+                    render={RenderDate}
+                />
             </div>
 
             <Input
@@ -134,12 +116,10 @@ const SettingsForm: React.FC = () => {
                 errors={errors}
             />
 
-            <Dropdown
-                data={currency}
-                handleChange={handleDropdownChangeCurrency}
-                selectedOption={selectedSingleCurrency}
-                label="Account currency"
-                labelClassName={styles.dropdownLabel}
+            <Controller
+                name="currency"
+                control={control}
+                render={RenderCurrency}
             />
 
             <SubmitButton isChange={isChange()}>

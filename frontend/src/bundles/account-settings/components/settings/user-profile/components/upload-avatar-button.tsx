@@ -8,7 +8,7 @@ import {
 } from '~/bundles/common/enums/enums.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

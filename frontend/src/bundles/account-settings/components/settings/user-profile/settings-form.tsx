@@ -28,7 +28,7 @@ import {
 
 const SettingsForm: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { user } = useAppSelector((state) => state.users);
+    const user = useAppSelector((state) => state.users.user);
 
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
         defaultValues: user as UserUpdateRequestDto,

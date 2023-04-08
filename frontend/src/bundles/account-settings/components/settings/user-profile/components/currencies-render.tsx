@@ -17,7 +17,7 @@ const RenderCurrency = ({
 }: {
     field: { onChange: (value: string) => void };
 }): JSX.Element => {
-    const { currencies } = useAppSelector((state) => state.currencies);
+    const currencies = useAppSelector((state) => state.currencies.currencies);
 
     const mutableCurrencies = useMemo(
         () =>

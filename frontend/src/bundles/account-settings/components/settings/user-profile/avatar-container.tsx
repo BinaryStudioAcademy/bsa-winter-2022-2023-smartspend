@@ -29,10 +29,8 @@ const AvatarContainer: React.FC = () => {
                 />
                 <div className={styles.btnContainer}>
                     <UploadAvatarButton handleFileChange={handleFileChange} />
-                    {selectedFile ? (
+                    {selectedFile && (
                         <DeleteAvatarButton deleteFile={deleteFIle} />
-                    ) : (
-                        ''
                     )}
                 </div>
             </div>

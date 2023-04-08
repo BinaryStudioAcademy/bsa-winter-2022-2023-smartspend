@@ -26,13 +26,13 @@ import {
 } from '../components';
 import styles from './styles.module.scss';
 
-interface Properties {
+type Properties = {
     isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
     onClick?: () => void;
     budget?: BudgetSliceResponseDto | undefined;
-}
+};
 
 const BudgetModal: React.FC<Properties> = ({
     isEdit = false,

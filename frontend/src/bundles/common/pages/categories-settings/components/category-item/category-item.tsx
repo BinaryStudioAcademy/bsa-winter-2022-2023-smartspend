@@ -1,9 +1,12 @@
-import { type IconName } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import classNames from 'classnames';
 import { useCallback, useState } from 'react';
 
-import { BaseModal, Button } from '~/bundles/common/components/components';
+import {
+    BaseModal,
+    Button,
+    Icon,
+} from '~/bundles/common/components/components';
 import {
     ButtonSize,
     ButtonType,
@@ -86,7 +89,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 className={styles.icon}
                                 style={{ background: `var(${color})` }}
                             >
-                                <FontAwesomeIcon icon={icon as IconName} />
+                                <Icon name={icon as IconProp} />
                             </span>
                         </div>
                         <div
@@ -129,7 +132,7 @@ const CategoryItem: React.FC<Properties> = ({
                                         styles.btnEdit,
                                     )}
                                 >
-                                    <FontAwesomeIcon icon={FaIcons.GEAR} />
+                                    <Icon name={FaIcons.GEAR} />
                                 </span>
                             </Button>
                         </div>
@@ -148,7 +151,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 onClick={handleOpenModalDelete}
                             >
                                 <span className={styles.btnName}>
-                                    <FontAwesomeIcon icon={FaIcons.TRASH} />
+                                    <Icon name={FaIcons.TRASH} />
                                 </span>
                             </Button>
                         </div>

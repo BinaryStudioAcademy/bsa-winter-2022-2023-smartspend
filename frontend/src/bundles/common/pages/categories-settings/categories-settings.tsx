@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {
     useAppDispatch,
     useAppSelector,
@@ -10,7 +8,7 @@ import {
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 
 import { Button } from '../../components/button/button';
-import { BaseModal } from '../../components/components';
+import { BaseModal, Icon } from '../../components/components';
 import {
     ButtonSize,
     ButtonType,
@@ -100,8 +98,8 @@ const CategoriesSettings: React.FC = () => {
                                 disabled={false}
                                 className={styles.btn}
                             >
-                                <FontAwesomeIcon
-                                    icon={FaIcons.FA_PEN}
+                                <Icon
+                                    name={FaIcons.FA_PEN}
                                     width={IconSize.EIGHTEEN}
                                 />
                                 <span className={styles.btnName}>

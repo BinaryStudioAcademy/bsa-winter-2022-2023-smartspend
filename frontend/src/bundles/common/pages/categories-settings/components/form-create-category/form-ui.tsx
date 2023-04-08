@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { Icon } from '~/bundles/common/components/components';
 import { FaIcons } from '~/bundles/common/enums/enums';
 
 import styles from './styles.module.scss';
@@ -26,10 +25,10 @@ const FormUi: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
                     <span className={styles.inputLabel}>Icon</span>
                     <div className={styles.dropdown}>
                         <span className={styles.dropdownColorIcon}>
-                            <FontAwesomeIcon icon={FaIcons.CLOUD_ARROW_UP} />
+                            <Icon name={FaIcons.CLOUD_ARROW_UP} />
                         </span>
                         <span className={styles.dropdownArrowIcon}>
-                            <FontAwesomeIcon icon={FaIcons.CHEVRON_DOWN} />
+                            <Icon name={FaIcons.CHEVRON_DOWN} />
                         </span>
                     </div>
                 </div>
@@ -37,10 +36,10 @@ const FormUi: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
                     <span className={styles.inputLabel}>Color</span>
                     <div className={styles.dropdown}>
                         <span className={styles.dropdownColorIcon}>
-                            <FontAwesomeIcon icon={FaIcons.STOP} />
+                            <Icon name={FaIcons.STOP} />
                         </span>
                         <span className={styles.dropdownArrowIcon}>
-                            <FontAwesomeIcon icon={FaIcons.CHEVRON_DOWN} />
+                            <Icon name={FaIcons.CHEVRON_DOWN} />
                         </span>
                     </div>
                 </div>
@@ -57,7 +56,7 @@ const FormUi: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
                     <div className={styles.dropdown}>
                         <span className={styles.inputLabel}>Choose type</span>
                         <span className={styles.dropdownArrowIcon}>
-                            <FontAwesomeIcon icon={FaIcons.CHEVRON_DOWN} />
+                            <Icon name={FaIcons.CHEVRON_DOWN} />
                         </span>
                     </div>
                 </div>

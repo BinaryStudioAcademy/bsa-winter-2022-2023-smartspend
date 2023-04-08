@@ -1,6 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { BaseModal, Button } from '~/bundles/common/components/components';
+import {
+    BaseModal,
+    Button,
+    Icon,
+} from '~/bundles/common/components/components';
 import {
     ButtonSize,
     ButtonType,
@@ -81,7 +83,7 @@ const ManageCategories: React.FC<Properties> = ({
                             className={styles.btn}
                             onClick={handleOpenModalMerge}
                         >
-                            <FontAwesomeIcon icon={FaIcons.COPY} />
+                            <Icon name={FaIcons.COPY} />
                             <span className={styles.btnName}>
                                 {buttonIsCheckedCategoriesMergeName}
                             </span>
@@ -96,7 +98,7 @@ const ManageCategories: React.FC<Properties> = ({
                             className={styles.btn}
                             onClick={handleOpenModalDelete}
                         >
-                            <FontAwesomeIcon icon={FaIcons.TRASH} />
+                            <Icon name={FaIcons.TRASH} />
                             <span className={styles.btnName}>
                                 {buttonIsCheckedCategoriesDeleteName}
                             </span>

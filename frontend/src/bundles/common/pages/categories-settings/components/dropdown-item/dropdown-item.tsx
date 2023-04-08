@@ -1,6 +1,6 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { Icon } from '~/bundles/common/components/components';
 import { FaIcons } from '~/bundles/common/enums/enums';
 
 import styles from './styles.module.scss';
@@ -35,11 +35,11 @@ const DropdownItem = ({
                         background: `var(${selectedColorIcon.value})`,
                     }}
                 >
-                    <FontAwesomeIcon icon={data.value as IconProp} />
+                    <Icon name={data.value as IconProp} />
                 </span>
             ) : (
                 <span className={styles.dropdownColorIcon}>
-                    <FontAwesomeIcon icon={FaIcons.CLOUD_ARROW_UP} />
+                    <Icon name={FaIcons.CLOUD_ARROW_UP} />
                 </span>
             )}
         </div>

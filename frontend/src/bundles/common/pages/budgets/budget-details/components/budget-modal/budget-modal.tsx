@@ -1,4 +1,3 @@
-import React, { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
@@ -11,8 +10,14 @@ import {
 } from '~/bundles/common/components/components';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
-import { useAppDispatch, useAppForm } from '~/bundles/common/hooks/hooks';
+import { compareObjects } from '~/bundles/common/helpers/helpers';
+import {
+    useAppDispatch,
+    useAppForm,
+    useCallback,
+} from '~/bundles/common/hooks/hooks';
 
+import { recurrences } from '../../enums/recurrences.enum';
 import {
     RenderCurrency,
     RenderDate,
@@ -21,25 +26,7 @@ import {
 } from '../components';
 import styles from './styles.module.scss';
 
-type categoryType = {
-    id: string;
-    name: string;
-    icon: string;
-    color: string;
-    type: string;
-};
-
-type NewBudget = {
-    name: string;
-    amount: number;
-    currency: string;
-    recurrence: string;
-    startDate: string;
-    ownerId: string;
-    categories: categoryType[];
-};
-
-interface BudgetModalProperties {
+interface Properties {
     isEdit?: boolean;
     isShown: boolean;
     onClose: () => void;
@@ -47,53 +34,43 @@ interface BudgetModalProperties {
     budget?: BudgetSliceResponseDto | undefined;
 }
 
-const BudgetModal = ({
+const BudgetModal: React.FC<Properties> = ({
     isEdit = false,
     isShown,
     onClose,
     onClick,
     budget,
-}: BudgetModalProperties): JSX.Element => {
+}): JSX.Element => {
     const dispatch = useAppDispatch();
+    const categoriesId = budget?.categories.map((it) => it.id);
 
-    let id: string | undefined;
-    let newBudget: NewBudget | undefined;
+    let budgetData;
+    let id: unknown;
     if (budget) {
-        ({ id, ...newBudget } = budget);
+        ({ id, ...budgetData } = budget);
+        budgetData.categories = categoriesId;
     }
+
+    const currentBudget: BudgetCreateRequestDto = budgetData;
+    const DEFAULT_VALUES = {
+        name: '',
+        amount: 0,
+        currency: '',
+        recurrence: recurrences[4].value,
+        startDate: new Date().toISOString(),
+        categories: [],
+    };
 
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
-            defaultValues: newBudget as unknown as BudgetCreateRequestDto,
+            defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
         },
     );
     const isReset = reset;
 
-    const watchCreateFielsd = [
-        // Boolean(watch('name')),
-        // Boolean(watch('amount')),
-        Boolean(watch('currency')),
-        Boolean(watch('recurrence')),
-        Boolean(watch('categories')),
-        Boolean(watch('startDate')),
-    ];
-
-    const categoriesId = budget?.categories.map((it) => it.id);
-    const watchCategoryId = (
-        watch('categories') as unknown as categoryType[] | undefined
-    )?.map((it) => it.id);
-    const checkChangeCategory = watchCategoryId?.every((it) =>
-        categoriesId?.includes(it),
-    );
-
-    const watchEditFielsd = [
-        watch('name') === budget?.name ? false : true,
-        watch('amount') === budget?.amount ? false : true,
-        watch('currency') === budget?.currency ? false : true,
-        watch('recurrence') === budget?.recurrence ? false : true,
-        checkChangeCategory ? false : true,
-        watch('startDate') === budget?.startDate ? false : true,
-    ];
+    const createFields =
+        Object.values(watch()).every(Boolean) && !!watch('categories')[0];
+    const editFields = isEdit && compareObjects(watch(), currentBudget);
 
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
@@ -109,7 +86,7 @@ const BudgetModal = ({
             }
             isReset && reset();
         },
-        [id, dispatch, isEdit, isReset, reset],
+        [dispatch, id, isEdit, isReset, reset],
     );
 
     const handleFormSubmit = useCallback(
@@ -129,65 +106,61 @@ const BudgetModal = ({
             onSubmit={handleFormSubmit as () => void}
             Header={<h1>{isEdit ? 'Edit Budget' : 'Create budget'}</h1>}
             Body={
-                <>
-                    <div className={styles.formWrapper}>
-                        <div className={styles.wrapperHalf}>
-                            <h2>General Info</h2>
-                            <Input
-                                labelClassName={styles.label}
-                                control={control}
-                                label={'Budget name'}
-                                name={'name'}
-                                placeholder={'Budget name'}
-                                errors={errors}
-                            />
-                        </div>
-                        <div className={styles.sumRow}>
-                            <Input
-                                labelClassName={styles.label}
-                                control={control}
-                                errors={errors}
-                                label={'Amount'}
-                                name={'amount'}
-                                placeholder={'Amount'}
-                            />
-                            <Controller
-                                name="currency"
-                                control={control}
-                                render={RenderCurrency}
-                            />
-                        </div>
-                        <div className={styles.wrapperHalf}>
-                            <h2>Filters</h2>
-                            <Controller
-                                name="categories"
-                                control={control}
-                                render={RenderMultiDropdown}
-                            />
-                        </div>
-                        <div>
-                            <h2>Budget Period</h2>
-                            <span className={styles.label}>Recurrence</span>
-                            <Controller
-                                name="recurrence"
-                                control={control}
-                                render={RenderRecurrence}
-                            />
-                            <span className={styles.label}>Start date</span>
-                            <Controller
-                                name="startDate"
-                                control={control}
-                                render={RenderDate}
-                            />
-                        </div>
+                <div className={styles.formWrapper}>
+                    <div className={styles.wrapperHalf}>
+                        <h2>General Info</h2>
+                        <Input
+                            labelClassName={styles.label}
+                            control={control}
+                            label={'Budget name'}
+                            name={'name'}
+                            placeholder={'Budget name'}
+                            errors={errors}
+                        />
                     </div>
-                </>
+                    <div className={styles.sumRow}>
+                        <Input
+                            labelClassName={styles.label}
+                            control={control}
+                            errors={errors}
+                            label={'Amount'}
+                            name={'amount'}
+                            placeholder={'Amount'}
+                        />
+                        <Controller
+                            name="currency"
+                            control={control}
+                            render={RenderCurrency}
+                        />
+                    </div>
+                    <div className={styles.wrapperHalf}>
+                        <h2>Filters</h2>
+                        <Controller
+                            name="categories"
+                            control={control}
+                            render={RenderMultiDropdown}
+                        />
+                    </div>
+                    <div>
+                        <h2>Budget Period</h2>
+                        <span className={styles.label}>Recurrence</span>
+                        <Controller
+                            name="recurrence"
+                            control={control}
+                            render={RenderRecurrence}
+                        />
+                        <span className={styles.label}>Start date</span>
+                        <Controller
+                            name="startDate"
+                            control={control}
+                            render={RenderDate}
+                        />
+                    </div>
+                </div>
             }
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
-                isEdit
-                    ? !watchEditFielsd.some(Boolean)
-                    : !watchCreateFielsd.every(Boolean)
+                isEdit ? editFields || !watch('categories')[0] : !createFields
             }
             footerContainerClass={styles.modalFooter}
         >

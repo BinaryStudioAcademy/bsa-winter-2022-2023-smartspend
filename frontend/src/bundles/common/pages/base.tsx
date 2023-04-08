@@ -12,7 +12,6 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { Calendar } from '../components/calendar/calendar';
 import {
     BaseModal,
-    BudgetCard,
     Button,
     CardTotal,
     Chart,
@@ -34,11 +33,6 @@ import { CardVariant } from '../enums/card-variant.enum';
 import { AppRoute, InputType } from '../enums/enums.js';
 import { useAppForm } from '../hooks/hooks.js';
 import { type DataType } from '../types/dropdown.type';
-
-const budgetDate = {
-    start: 'March 02, 2023',
-    end: 'March 02, 2023',
-};
 
 const tabsData = [
     { title: 'Transaction', to: '/ui/' },
@@ -567,7 +561,13 @@ const Base: React.FC = () => {
                     transactions={[
                         {
                             id: '1',
-                            category: 'Food',
+                            category: {
+                                id: 'c7bb6975-4b6c-4699-a4a6-d1f4fdd3d9d5',
+                                name: 'Food & Drink',
+                                icon: 'burger',
+                                color: 'red',
+                                type: 'expense',
+                            },
                             name: 'faBagShopping',
                             date: '2022-03-23',
                             label: 'Supermarket',
@@ -576,117 +576,21 @@ const Base: React.FC = () => {
                         },
                         {
                             id: '2',
-                            category: 'Transport',
+                            category: {
+                                id: '966ab7c8-b120-4db9-9cc3-2fff43a5143a',
+                                name: 'Salary',
+                                icon: 'money-bill',
+                                color: 'green',
+                                type: 'income',
+                            },
                             name: 'faCarAlt',
                             date: '2022-03-23',
                             label: 'Gas Station',
                             amount: -50,
                             currency: '$',
                         },
-                        {
-                            id: '3',
-                            category: 'Shopping',
-                            name: 'faStoreAltSlash',
-                            date: '2022-04-22',
-                            label: 'Clothing Store',
-                            amount: 120,
-                            currency: '$',
-                        },
-                        {
-                            id: '4',
-                            category: 'Food',
-                            name: 'faBowlFood',
-                            date: '2022-03-22',
-                            label: 'Cafeteria',
-                            amount: -10,
-                            currency: '$',
-                        },
-                        {
-                            id: '5',
-                            category: 'Transport',
-                            name: 'faCarAlt',
-                            date: '2022-03-22',
-                            label: 'Taxi Company',
-                            amount: -25,
-                            currency: '$',
-                        },
-                        {
-                            id: '6',
-                            category: 'Salary',
-                            name: 'faMoneyBill',
-                            date: '2023-03-30',
-                            label: 'Electronics Store',
-                            amount: 3500,
-                            currency: '$',
-                        },
-                        {
-                            id: '7',
-                            category: 'Food',
-                            name: 'faBowlFood',
-                            date: '2024-03-21',
-                            label: 'Restaurant',
-                            amount: -60,
-                            currency: '$',
-                        },
-                        {
-                            id: '8',
-                            category: 'Transport',
-                            name: 'faCarAlt',
-                            date: '2022-03-21',
-                            label: 'Public Transport',
-                            amount: -5,
-                            currency: '$',
-                        },
                     ]}
                 />
-            </div>
-            <div style={{ backgroundColor: '#EFF3FF', padding: '0 1rem 1rem' }}>
-                <h1
-                    style={{
-                        fontSize: '24px',
-                        lineHeight: '3rem',
-                        margin: '0',
-                    }}
-                >
-                    Budgets
-                </h1>
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns:
-                            'repeat(auto-fill, minmax(370px, 1fr))',
-                        gap: '20px',
-                    }}
-                >
-                    <BudgetCard
-                        id={'12345'}
-                        title={'One'}
-                        total={12_301.25}
-                        moneyLeft={824.56}
-                        date={budgetDate}
-                    />
-                    <BudgetCard
-                        id={'12345'}
-                        title={'Two'}
-                        total={1301}
-                        moneyLeft={135.45}
-                        date={budgetDate}
-                    />
-                    <BudgetCard
-                        id={'12345'}
-                        title={'Three'}
-                        total={15_381}
-                        moneyLeft={1025.26}
-                        date={budgetDate}
-                    />
-                    <BudgetCard
-                        id={'12345'}
-                        title={'Four'}
-                        total={75_471}
-                        moneyLeft={20_456}
-                        date={budgetDate}
-                    />
-                </div>
             </div>
             <Loader />
         </>

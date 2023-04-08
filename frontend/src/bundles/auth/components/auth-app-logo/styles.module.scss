@@ -1,0 +1,53 @@
+@import "@assets/utils";
+
+:root {
+    --p-10: 10px;
+}
+
+.logoLink {
+    display: flex;
+    margin: var(--m-2) auto 0;
+    text-decoration: none;
+}
+
+.authLogo {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: var(--p-10) var(--p-3);
+    overflow: hidden;
+    background: var(--gradient-6);
+    border-radius: 50%;
+}
+
+.logoImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logoText {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--p-3);
+    color: var(--color-white-100);
+    font-size: var(--font-size-level-2-heading);
+}
+
+@media (max-height: $md) {
+    .authLogo,
+    .logoText {
+        margin: var(--m-4) auto var(--m-2);
+    }
+}
+
+@media (max-height: $sm) {
+    .authLogo,
+    .logoText {
+        margin: var(--m-3) auto var(--m-1);
+    }
+}

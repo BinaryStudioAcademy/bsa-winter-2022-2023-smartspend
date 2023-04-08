@@ -5,17 +5,27 @@
     align-items: start;
     width: 100%;
     max-width: 600px;
-    padding: 0 var(--p-3) var(--p-3) var(--p-3);
 }
 
 .formWrapper > * {
     margin-bottom: 20px;
 }
 
+.wrapperHalf {
+    display: grid;
+    grid-template-columns: calc(50% - 8px);
+    width: 100%;
+}
+
+.wrapperHalf > div {
+    width: auto;
+}
+
 .sumRow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--m-3);
+    width: 100%;
 }
 
 .label {
@@ -25,4 +35,22 @@
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-label-span);
+}
+
+.modalFooter {
+    display: flex;
+    flex-direction: column;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.modalFooter > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.modalFooter > button,
+.modalFooter > div > button {
+    width: 100%;
 }

@@ -26,6 +26,11 @@ import {
     SubmitButton,
 } from './components/components.js';
 
+type uploadPayload = {
+    email: string;
+    userProfile: Partial<UserUpdateRequestDto>;
+};
+
 const SettingsForm: React.FC = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.users.user);
@@ -55,10 +60,12 @@ const SettingsForm: React.FC = () => {
 
     const onSubmit = useCallback(
         (formData: UserUpdateRequestDto): void => {
+            const { email, ...remainingData } = formData;
+
+            const uploadData: uploadPayload = { email, userProfile: remainingData };
+
             void dispatch(
-                usersActions.updateUser({
-                    payload: formData,
-                }),
+                usersActions.updateUser(uploadData),
             );
         },
         [dispatch],

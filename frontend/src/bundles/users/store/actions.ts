@@ -9,6 +9,11 @@ import { type UserGetAllResponseDto } from '~/bundles/users/users.js';
 
 import { name as sliceName } from './slice.js';
 
+type uploadPayload = {
+    email: string;
+    userProfile: Partial<UserUpdateRequestDto>;
+};
+
 const loadAll = createAsyncThunk<
     UserGetAllResponseDto,
     undefined,
@@ -31,7 +36,7 @@ const loadUser = createAsyncThunk<
 
 const updateUser = createAsyncThunk<
     Promise<void>,
-    { payload: UserUpdateRequestDto },
+    uploadPayload,
     AsyncThunkConfig
 >(`${sliceName}/update`, async (payload, { extra, dispatch }) => {
     const { userApi } = extra;

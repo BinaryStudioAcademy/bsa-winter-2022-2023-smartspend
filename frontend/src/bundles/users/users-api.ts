@@ -12,6 +12,11 @@ import { type IStorage } from '~/framework/storage/storage.js';
 import { UsersApiPath } from './enums/enums.js';
 import { type UserGetAllResponseDto } from './types/types.js';
 
+type uploadPayload = {
+    email: string;
+    userProfile: Partial<UserUpdateRequestDto>;
+};
+
 type Constructor = {
     baseUrl: string;
     http: IHttp;
@@ -49,11 +54,7 @@ class UserApi extends HttpApi {
         return await response.json<UserProfileResponseDto>();
     }
 
-    public async updateUser({
-        payload,
-    }: {
-        payload: Partial<UserUpdateRequestDto>;
-    }): Promise<UserUpdateResponseDto> {
+    public async updateUser(payload: uploadPayload): Promise<UserUpdateResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(UsersApiPath.ROOT, {}),
             {

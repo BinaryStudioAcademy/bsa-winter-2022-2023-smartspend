@@ -4,6 +4,7 @@ import { Calendar } from 'react-date-range';
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import { Button } from '~/bundles/common/components/components';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
+import { ButtonType } from '~/bundles/common/enums/button-type.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 import { formatOneDay } from '~/bundles/common/helpers/helpers';
 
@@ -54,6 +55,7 @@ const OneDayCalendar: React.FC<OneDayCalendarProperties> = ({
                 variant={ButtonVariant.PLAIN}
                 size={ButtonSize.MEDIUM}
                 onClick={handleClick}
+                type={ButtonType.BUTTON}
             >
                 {formatOneDay(day)}
                 <img

@@ -38,33 +38,12 @@ const sex = [
     { value: 'Female', name: 'Female' },
 ];
 
-type Properties = {
-    onSubmit: (payload: UserUpdateRequestDto) => void;
-};
-const SettingsForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { control, errors, handleSubmit, reset, watch, trigger } =
-        useAppForm<UserUpdateRequestDto>({
-            defaultValues: mockData,
-            validationSchema: userUpdateRegValidationSchema,
-        });
-
-    const inputReset = reset;
-    const handleFormSubmit = useCallback(
-        (event_: React.BaseSyntheticEvent): void => {
-            event_.preventDefault();
-            void trigger();
-            const email = watch('email');
-            const firstName = watch('firstName');
-            const lastName = watch('lastName');
-            const dateOfBirth = watch('dateOfBirth');
-            if (!email || !firstName || !lastName || !dateOfBirth) {
-                return;
-            }
-            void handleSubmit(onSubmit)(event_);
-            inputReset && reset();
-        },
-        [handleSubmit, inputReset, onSubmit, reset, trigger, watch],
-    );
+const SettingsForm: React.FC = () => {
+    const { control, errors } = useAppForm<UserUpdateRequestDto>({
+        defaultValues: mockData,
+        validationSchema: userUpdateRegValidationSchema,
+        mode: 'onBlur',
+    });
 
     const newName = useFormController({ name: 'firstName', control }).field
         .value;
@@ -73,6 +52,7 @@ const SettingsForm: React.FC<Properties> = ({ onSubmit }) => {
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const newDate = useFormController({ name: 'dateOfBirth', control }).field
         .value;
+
     const isChange = (): boolean => {
         const {
             firstName,
@@ -132,7 +112,7 @@ const SettingsForm: React.FC<Properties> = ({ onSubmit }) => {
     );
 
     return (
-        <form className={styles.form} onSubmit={handleFormSubmit}>
+        <form className={styles.form}>
             <AvatarContainer />
             <Input
                 type={InputType.TEXT}

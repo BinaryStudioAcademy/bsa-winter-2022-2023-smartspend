@@ -8,8 +8,9 @@ const nameRegExp = /^[\dA-Za-z]+(?:-[\dA-Za-z]+)*$/;
 const INVALID_EMAIL_ERROR = 'any.invalid';
 
 const currentDate = new Date();
-const minDate = new Date(currentDate.getFullYear() - 100, 0, 1);
-const maxDate = new Date(currentDate.getFullYear() + 0, 0, 1);
+const tomorrowDate = new Date();
+tomorrowDate.setDate(currentDate.getDate() + 1);
+const minDate = new Date(currentDate.getFullYear() - 50, 0, 1);
 
 type UserUpdate = Omit<UserUpdateRequestDto, 'sex' | 'language' | 'currency'>;
 
@@ -103,7 +104,7 @@ const userUpdateReg = joi.object<UserUpdate, true>({
             if (new Date(value) <= minDate) {
                 return helpers.error('any.required');
             }
-            if (new Date(value) > maxDate) {
+            if (new Date(value) > tomorrowDate) {
                 return helpers.error('any.required');
             }
         })

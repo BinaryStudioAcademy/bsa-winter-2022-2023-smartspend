@@ -1,5 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallback, useState } from 'react';
+
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 
 import { Button } from '../../components/button/button';
 import { BaseModal } from '../../components/components';
@@ -14,20 +22,11 @@ import { CategoryList } from './components/category-list/category-list';
 import { FormEditCategory } from './components/form-create-category/form-edit-category';
 import { FormUi } from './components/form-create-category/form-ui';
 import { ManageCategories } from './components/manage-categories/manage-categories';
-import { testDB } from './components/mock/test-database';
 import styles from './styles.module.scss';
 
-interface Data {
-    id: string;
-    name: string;
-    type: string;
-    icon: string;
-    color: string;
-}
-
-type GroupedData = Record<string, Data[]>;
-
 const CategoriesSettings: React.FC = () => {
+    const dispatch = useAppDispatch();
+
     const [isCreateModalShown, setIsCreateModalShown] = useState(false);
     const [isSelectedCategoriesIncome, setIsSelectedCategoriesIncome] =
         useState<string[]>([]);
@@ -36,6 +35,14 @@ const CategoriesSettings: React.FC = () => {
     const handleClickModalCreate = useCallback((): void => {
         setIsCreateModalShown(true);
     }, []);
+
+    useEffect(() => {
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
+
+    const categories = useAppSelector(
+        (state) => state.categories.categoriesSortByType ?? {},
+    );
 
     const addIdCheckedCategories = useCallback(
         (id: string, type: string): void => {
@@ -74,13 +81,6 @@ const CategoriesSettings: React.FC = () => {
         setIsCreateModalShown(false);
     }, []);
 
-    const sortByType: GroupedData = {};
-    for (const data of testDB) {
-        if (!(data.type in sortByType)) {
-            sortByType[data.type] = [];
-        }
-        sortByType[data.type].push(data);
-    }
     return (
         <div className={styles.section}>
             <div className={styles.wrapper}>
@@ -119,12 +119,12 @@ const CategoriesSettings: React.FC = () => {
                         />
                         <CategoryList
                             title={'Income Categories'}
-                            categories={sortByType.income}
+                            categories={categories.income}
                             addIdCheckedCategories={addIdCheckedCategories}
                         />
                         <CategoryList
                             title={'Expense category'}
-                            categories={sortByType.expense}
+                            categories={categories.expense}
                             addIdCheckedCategories={addIdCheckedCategories}
                         />
                     </div>

@@ -10,6 +10,8 @@ const AppRoute = {
     WALLET_DETAILS: '/wallet/:id',
     CATEGORIES: '/categories',
     WALLET_DETAILS_TRANSACTION: '/wallet/:id/transaction',
+    WALLET_DETAILS_BUDGETS: '/wallet/:id/budgets',
+    WALLET_SETTINGS: '/wallet-setings',
     BUDGETS_DETAILS: '/budgets/:id',
     NOT_FOUND: '*',
     WALLET: '/wallet',

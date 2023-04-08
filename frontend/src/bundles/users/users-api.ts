@@ -29,6 +29,20 @@ class UserApi extends HttpApi {
 
         return await response.json<UserGetAllResponseDto>();
     }
+
+    public async delete(
+        token: string,
+    ): Promise<Response & { json<T = unknown>(): Promise<T> }> {
+        return await this.load(
+            this.getFullEndpoint(UsersApiPath.ROOT, { token }),
+            {
+                method: 'DELETE',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+                payload: JSON.stringify({ token }),
+            },
+        );
+    }
 }
 
 export { UserApi };

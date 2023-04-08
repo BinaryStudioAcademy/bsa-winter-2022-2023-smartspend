@@ -1,15 +1,16 @@
 import { useRef } from 'react';
 
+import { FileInput } from '~/bundles/common/components/file-input/file-input';
 import { Icon } from '~/bundles/common/components/icon/icon';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 import { FaIcons } from '~/bundles/ui/enums/enums';
 
 import styles from './styles.module.scss';
 
-interface Properties {
+type Properties = {
     file?: File;
     handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
     const inputReference = useRef<HTMLInputElement>(null);
@@ -41,7 +42,11 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
                 ref={inputReference}
                 hidden
                 onChange={handleFileChange}
-                className={styles.inputFile}
+            />
+            <FileInput
+                ref={inputReference}
+                handleFileChange={handleFileChange}
+                accept={'image/*'}
             />
         </button>
     );

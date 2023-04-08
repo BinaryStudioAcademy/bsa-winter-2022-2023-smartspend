@@ -15,8 +15,8 @@ type Properties = {
 const LineChartCard: React.FC<Properties> = ({ dataArr, title, date }) => {
     const tabsDashboard = [
         { title: 'Days', isActive: true, disabled: false },
-        { title: 'Week', isActive: false, disabled: false },
-        { title: 'Months', isActive: false, disabled: true },
+        { title: 'Weeks', isActive: false, disabled: false },
+        { title: 'Months', isActive: false, disabled: false },
     ];
     return (
         <div className={styles.container}>

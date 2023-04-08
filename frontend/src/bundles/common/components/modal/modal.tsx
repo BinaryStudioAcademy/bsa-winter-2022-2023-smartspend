@@ -20,6 +20,7 @@ type Properties = {
     width?: number;
     footerContainerClass?: string;
     buttonsSize?: ButtonSize;
+    disabled?: boolean;
 };
 
 const BaseModal: React.FC<Properties> = ({
@@ -34,6 +35,7 @@ const BaseModal: React.FC<Properties> = ({
     footerContainerClass = '',
     width,
     buttonsSize = ButtonSize.SMALL,
+    disabled,
 }) => {
     const handleClose = useCallback(() => {
         onClose();
@@ -84,10 +86,11 @@ const BaseModal: React.FC<Properties> = ({
                         <div className={styles.modalHeader}>{Header}</div>
                         <div className={styles.modalBody}>{Body}</div>
                         <div
-                            className={classNames(
-                                styles.modalFooter,
-                                footerContainerClass,
-                            )}
+                            className={
+                                footerContainerClass
+                                    ? classNames(footerContainerClass)
+                                    : classNames(styles.modalFooter)
+                            }
                         >
                             {children}
                             {hasActionButtons && (
@@ -103,6 +106,7 @@ const BaseModal: React.FC<Properties> = ({
                                         variant={ButtonVariant.PRIMARY}
                                         size={buttonsSize}
                                         onClick={onSubmit}
+                                        disabled={disabled}
                                     >
                                         {submitButtonName}
                                     </Button>

@@ -1,6 +1,7 @@
 export { Chart } from './bar-chart/bar-chart';
 export { BudgetCard } from './budget-card/budget-card.js';
 export { Button } from './button/button.js';
+export { ButtonTabs } from './button-tabs/button-tabs.js';
 export { Calendar } from './calendar/calendar.js';
 export { CardTotal } from './card-total/card-total.js';
 export { DoughnutChart } from './doughnut-chart/doughnut-chart.js';

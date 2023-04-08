@@ -1,5 +1,6 @@
 import {
     type UserGetAllResponseDto,
+    type UserProfileResponseDto,
     type UserSignUpRequestDto,
     type UserUpdateRequestDto,
     type UserUpdateResponseDto,
@@ -10,7 +11,7 @@ import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { type IService } from '~/common/interfaces/interfaces.js';
 import { cryptService } from '~/common/services/services.js';
 
-class UserService implements IService {
+class UserService implements Partial<IService> {
     private userRepository: UserRepository;
 
     public constructor(userRepository: UserRepository) {
@@ -27,6 +28,12 @@ class UserService implements IService {
 
     public async findById(id: string): Promise<UserEntity | undefined> {
         return await this.find({ id });
+    }
+
+    public async getCurrentUserDetails(
+        id: string,
+    ): Promise<UserProfileResponseDto | undefined> {
+        return await this.userRepository.getCurrentUserDetails(id);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
@@ -63,8 +70,8 @@ class UserService implements IService {
         return updatedUser.toObject();
     }
 
-    public delete(): ReturnType<IService['delete']> {
-        return Promise.resolve(true);
+    public async deleteUser(id: string): Promise<boolean> {
+        return await this.userRepository.deleteUser(id);
     }
 }
 

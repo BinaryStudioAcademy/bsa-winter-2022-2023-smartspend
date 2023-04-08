@@ -1,11 +1,13 @@
+import { type CategoryGetAllItemResponseDto } from 'shared/build';
+
 interface ITransaction {
     id: string;
     date: string;
-    category: string;
-    name: string;
+    category: CategoryGetAllItemResponseDto;
+    name?: string;
     label: string;
     amount: number;
-    currency: string;
+    currency?: string;
     note?: string;
 }
 

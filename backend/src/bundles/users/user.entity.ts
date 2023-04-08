@@ -23,6 +23,8 @@ class UserEntity implements IEntity {
 
     private 'currency'?: string;
 
+    private 'avatarUrl'?: string;
+
     private constructor({
         id,
         email,
@@ -34,6 +36,7 @@ class UserEntity implements IEntity {
         dateOfBirth,
         language,
         currency,
+        avatarUrl,
     }: {
         id: string | null;
         email: string;
@@ -45,6 +48,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
+        avatarUrl?: string;
     }) {
         this.id = id;
         this.email = email;
@@ -56,6 +60,7 @@ class UserEntity implements IEntity {
         this.dateOfBirth = dateOfBirth;
         this.language = language;
         this.currency = currency;
+        this.avatarUrl = avatarUrl;
     }
 
     public static initialize({
@@ -69,6 +74,7 @@ class UserEntity implements IEntity {
         dateOfBirth,
         language,
         currency,
+        avatarUrl,
     }: {
         id: string;
         email: string;
@@ -80,6 +86,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
+        avatarUrl?: string;
     }): UserEntity {
         return new UserEntity({
             id,
@@ -92,6 +99,7 @@ class UserEntity implements IEntity {
             dateOfBirth,
             language,
             currency,
+            avatarUrl,
         });
     }
 
@@ -105,6 +113,7 @@ class UserEntity implements IEntity {
         dateOfBirth,
         language,
         currency,
+        avatarUrl,
     }: {
         email: string;
         passwordHash: string;
@@ -115,6 +124,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
+        avatarUrl?: string;
     }): UserEntity {
         return new UserEntity({
             id: null,
@@ -127,6 +137,7 @@ class UserEntity implements IEntity {
             dateOfBirth,
             language,
             currency,
+            avatarUrl,
         });
     }
 
@@ -139,6 +150,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
+        avatarUrl?: string;
     } {
         return {
             id: this.id as string,
@@ -149,6 +161,7 @@ class UserEntity implements IEntity {
             dateOfBirth: this.dateOfBirth,
             language: this.language,
             currency: this.currency,
+            avatarUrl: this.avatarUrl,
         };
     }
 
@@ -162,6 +175,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
+        avatarUrl?: string;
     } {
         return {
             email: this.email,
@@ -173,6 +187,7 @@ class UserEntity implements IEntity {
             dateOfBirth: this.dateOfBirth,
             language: this.language,
             currency: this.currency,
+            avatarUrl: this.avatarUrl,
         };
     }
 }

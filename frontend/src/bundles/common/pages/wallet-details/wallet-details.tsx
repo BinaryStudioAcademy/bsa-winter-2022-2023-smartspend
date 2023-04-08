@@ -1,7 +1,7 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
@@ -10,6 +10,7 @@ import {
     CardTotal,
     Input,
     MultiDropdown,
+    NewWalletModal,
     RangeSlider,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
@@ -20,6 +21,7 @@ import {
     FaIcons,
     InputType,
 } from '~/bundles/common/enums/enums.js';
+import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -30,10 +32,15 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
-import { loadCategories } from '~/bundles/common/stores/categories/actions.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
+import { actions as currenciesActions } from '~/bundles/currencies/store';
+import { actions as walletsActions } from '~/bundles/wallets/store';
+import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
+import { type ITransaction } from '../../components/transanction-table/types';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -70,25 +77,55 @@ const people = [
 ];
 
 const WalletDetails: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [active, setActive] = useState(false);
+    const [currentWallet, setCurrentWallet] = useState<
+        WalletGetAllItemResponseDto | undefined
+    >();
+    const { wallets } = useAppSelector((state) => state.wallets);
+    const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
 
-    const dispatch = useAppDispatch();
-
     useEffect(() => {
-        void dispatch(loadCategories());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
     );
 
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
+
     const newDataMenu = category.map((item) => ({
         ...item,
         value: item.id,
     }));
+
+    const currency = findCurrencyById(
+        currencies,
+        currentWallet?.currencyId,
+    )?.symbol;
+
+    const transactionData = transactions.map((item) => ({
+        id: item.id,
+        date: item.date,
+        category: category.find((cat) => cat.id === item.categoryId),
+        name: category.find((cat) => cat.id === item.categoryId)?.name,
+        label: item.labelId,
+        amount: item.amount,
+        currency: currencies.find((current) => current.id === item.currencyId)
+            ?.symbol,
+        note: item.note,
+    })) as unknown as ITransaction[];
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -143,6 +180,34 @@ const WalletDetails: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
+    const onClickDeleteWalet = useCallback(
+        (id: string): void => {
+            void dispatch(walletsActions.remove(id));
+            navigate('/dashboard');
+        },
+        [dispatch, navigate],
+    );
+
+    const handleDeleteWalet = useCallback(
+        () => onClickDeleteWalet(id as string),
+        [id, onClickDeleteWalet],
+    );
+
+    const handleModal = useCallback(() => {
+        setActive(true);
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        setActive(false);
+    }, []);
+    useEffect(() => {
+        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
+    }, [id, wallets]);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+    }, [dispatch]);
+
     const formatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
@@ -187,10 +252,15 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
+                                className={styles.transactionButton}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
                             </Button>
+                            <Button onClick={handleDeleteWalet}>
+                                Delete wallet
+                            </Button>
+                            <Button onClick={handleModal}>Edit wallet</Button>
                             <div className={styles.buttons}>
                                 <Button
                                     className={styles.button}
@@ -209,6 +279,13 @@ const WalletDetails: React.FC = () => {
                             </div>
                         </div>
                         <RangeCalendar />
+                        <NewWalletModal
+                            isEdit
+                            isShown={active}
+                            onClose={handleCancel}
+                            onSubmit={handleModal}
+                            values={currentWallet}
+                        />
                     </div>
                     <div className={styles.filters}>
                         <div
@@ -259,7 +336,7 @@ const WalletDetails: React.FC = () => {
                                         <Input
                                             type={InputType.TEXT}
                                             label="By note"
-                                            placeholder="filter by specific keyword"
+                                            placeholder="Filter by specific keyword"
                                             name="note"
                                             control={control}
                                             errors={errors}
@@ -291,111 +368,33 @@ const WalletDetails: React.FC = () => {
                         <div className={styles.walletTransactionsContainer}>
                             <div className={styles.cards}>
                                 <CardTotal
-                                    title="Total Balance"
-                                    sum={40.45}
+                                    title="Total Wallet Balance"
+                                    sum={currentWallet?.balance as number}
                                     variant={CardVariant.ORANGE}
+                                    currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Period Change"
                                     sum={504}
                                     variant={CardVariant.BLUE}
+                                    currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Period Expenses"
                                     sum={-9700.34}
                                     variant={CardVariant.WHITE}
+                                    currency={currency}
                                 />
                                 <CardTotal
-                                    title="Total Balance"
+                                    title="Total Period Income"
                                     sum={7600.34}
                                     variant={CardVariant.VIOLET}
+                                    currency={currency}
                                 />
                             </div>
                             <div className={styles.transactionsContainer}>
                                 <TransactionTable
-                                    transactions={[
-                                        {
-                                            id: '1',
-                                            category: 'Food and drink',
-                                            name: 'faBagShopping',
-                                            date: '2022-03-23',
-                                            label: 'Supermarket',
-                                            amount: -35,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '2',
-                                            category: 'Transport',
-                                            name: 'faCarAlt',
-                                            date: '2022-03-23',
-                                            label: 'Gas Station',
-                                            amount: -50,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '3',
-                                            category: 'Shopping',
-                                            name: 'faStoreAltSlash',
-                                            date: '2022-04-22',
-                                            label: 'Clothing Store',
-                                            amount: 120,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '4',
-                                            category: 'Food',
-                                            name: 'faBowlFood',
-                                            date: '2022-03-22',
-                                            label: 'Cafeteria',
-                                            amount: -10,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '5',
-                                            category: 'Transport',
-                                            name: 'faCarAlt',
-                                            date: '2022-03-22',
-                                            label: 'Taxi Company',
-                                            amount: -25,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '6',
-                                            category: 'Salary',
-                                            name: 'faMoneyBill',
-                                            date: '2023-03-30',
-                                            label: 'Electronics Store',
-                                            amount: 3500,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '7',
-                                            category: 'Food',
-                                            name: 'faBowlFood',
-                                            date: '2024-03-21',
-                                            label: 'Restaurant',
-                                            amount: -60,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '8',
-                                            category: 'Transport',
-                                            name: 'faCarAlt',
-                                            date: '2022-03-21',
-                                            label: 'Public Transport',
-                                            amount: -5,
-                                            currency: '$',
-                                        },
-                                        {
-                                            id: '9',
-                                            category: 'Salary',
-                                            name: 'faMoneyBill',
-                                            date: '2023-04-30',
-                                            label: 'Electronics Store',
-                                            amount: 3500,
-                                            currency: '$',
-                                        },
-                                    ]}
+                                    transactions={transactionData}
                                 />
                             </div>
                         </div>

@@ -75,7 +75,15 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.WALLET_DETAILS,
+                                path: AppRoute.WALLET_DETAILS_BUDGETS,
+                                element: (
+                                    <PrivateRoute>
+                                        <Budgets />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.WALLET_DETAILS_TRANSACTION,
                                 element: (
                                     <PrivateRoute>
                                         <WalletDetails />
@@ -89,10 +97,6 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         <BudgetDetails />
                                     </PrivateRoute>
                                 ),
-                            },
-                            {
-                                path: AppRoute.NOT_FOUND,
-                                element: <NotFound />,
                             },
                             {
                                 path: AppRoute.USER,

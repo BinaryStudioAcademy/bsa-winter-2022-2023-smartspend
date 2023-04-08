@@ -6,13 +6,15 @@
 
 .calendar {
     color: var(--color-blue-600);
-    border: 1px solid var(--color-disable);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-calendar);
+    border: 2px solid var(--color-blue-200);
 }
 
 .range_wrapper {
     display: flex;
     padding: var(--p-1);
-    background-color: var(--color-white-100);
+    background-color: var(--color-gray);
     border-radius: var(--b-1);
 }
 
@@ -42,12 +44,14 @@
 .arrow_left {
     padding-right: var(--p-4);
     padding-left: var(--p-4);
+    color: var(--color-blue-500);
     cursor: pointer;
 }
 
 .arrow_right {
     padding-right: var(--p-4);
     padding-left: var(--p-4);
+    color: var(--color-blue-500);
     cursor: pointer;
 }
 
@@ -71,6 +75,10 @@
     cursor: default;
     opacity: 0.8;
     pointer-events: auto;
+}
+
+.calendar:hover {
+    border: 2px solid var(--color-blue-300);
 }
 
 @media (max-width: $md) {

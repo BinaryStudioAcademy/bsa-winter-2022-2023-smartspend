@@ -19,31 +19,38 @@ const FirstStepPart: React.FC = () => {
     ];
 
     const CashWallets = 'Cash Wallet';
+    const FamilyWallet = 'Family Wallet';
+    const Account = 'Account';
+    const SavingAccount = 'Saving Account';
 
     const walletCardsArray = [
         {
             title: CashWallets,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 900,
             variant: WalletCardVariant.PRIMARY,
+            currency: '$',
         },
         {
-            title: CashWallets,
+            title: SavingAccount,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 550,
             variant: WalletCardVariant.SECONDARY,
+            currency: '€',
         },
         {
-            title: CashWallets,
+            title: Account,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 2000,
             variant: WalletCardVariant.TERTIARY,
+            currency: '¥',
         },
         {
-            title: CashWallets,
+            title: FamilyWallet,
             wallet_type: 'Balance',
-            balance_value: '+900.00$',
+            balance_value: 4500,
             variant: WalletCardVariant.QUATERNARY,
+            currency: '$',
         },
     ];
 
@@ -64,6 +71,7 @@ const FirstStepPart: React.FC = () => {
                             wallet_type={card.wallet_type}
                             balance_value={card.balance_value}
                             variant={card.variant}
+                            currency={card.currency}
                         />
                     ))}
                 </div>

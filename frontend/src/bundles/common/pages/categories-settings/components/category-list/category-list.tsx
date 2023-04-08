@@ -23,17 +23,18 @@ const CategoryList: React.FC<Properties> = ({
     return (
         <div className={styles.wrapper}>
             <h2 className={styles.title}>{title}</h2>
-            {Array.isArray(categories) && categories.map((item) => (
-                <CategoryItem
-                    key={item.id}
-                    id={item.id}
-                    name={item.name}
-                    type={item.type}
-                    icon={item.icon}
-                    color={item.color}
-                    addIdCheckedCategories={addIdCheckedCategories}
-                />
-            ))}
+            {Array.isArray(categories) &&
+                categories.map((item) => (
+                    <CategoryItem
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        type={item.type}
+                        icon={item.icon}
+                        color={item.color}
+                        addIdCheckedCategories={addIdCheckedCategories}
+                    />
+                ))}
         </div>
     );
 };

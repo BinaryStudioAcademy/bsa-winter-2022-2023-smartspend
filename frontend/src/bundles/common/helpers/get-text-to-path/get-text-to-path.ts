@@ -18,11 +18,6 @@ const getText = (pathname: string, type: string): string => {
         [AppRoute.SIGN_UP]: 'Log In',
     };
 
-    const footers: Properties = {
-        [AppRoute.SIGN_IN]: 'Or Log In with',
-        [AppRoute.SIGN_UP]: 'Or Sign Up with',
-    };
-
     switch (type) {
         case 'title': {
             return titles[pathname] || '';
@@ -32,9 +27,6 @@ const getText = (pathname: string, type: string): string => {
         }
         case 'authLink': {
             return authLink[pathname] || '';
-        }
-        case 'footers': {
-            return footers[pathname] || '';
         }
         default: {
             return '';

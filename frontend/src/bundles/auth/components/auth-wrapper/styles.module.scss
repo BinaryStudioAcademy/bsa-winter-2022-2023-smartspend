@@ -64,29 +64,6 @@
     margin-bottom: var(--m-5);
 }
 
-.authFooter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-.footerText {
-    margin: 0;
-    color: var(--color-white-60);
-    font-size: var(--font-size-level-6-heading);
-    line-height: var(--line-height-level-2-body-semi-bold);
-}
-
-.authSocial {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.socialImg {
-    cursor: pointer;
-}
-
 @media (max-width: $lg) {
     .authWrapper {
         padding: var(--p-6);

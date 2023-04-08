@@ -1,4 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+    type UserProfileResponseDto,
+    type UserUpdateRequestDto,
+} from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { type UserGetAllResponseDto } from '~/bundles/users/users.js';
@@ -15,6 +19,28 @@ const loadAll = createAsyncThunk<
     return userApi.getAll();
 });
 
+const loadUser = createAsyncThunk<
+    UserProfileResponseDto | undefined,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/authenticated-user`, async (_registerPayload, { extra }) => {
+    const { userApi } = extra;
+
+    return await userApi.loadUser();
+});
+
+const updateUser = createAsyncThunk<
+    Promise<void>,
+    { payload: UserUpdateRequestDto },
+    AsyncThunkConfig
+>(`${sliceName}/update`, async (payload, { extra, dispatch }) => {
+    const { userApi } = extra;
+
+    await userApi.updateUser(payload);
+
+    await dispatch(loadUser());
+});
+
 const deleteUser = createAsyncThunk<
     Response & { json<T = unknown>(): Promise<T> },
     string,
@@ -25,4 +51,4 @@ const deleteUser = createAsyncThunk<
     return userApi.delete(token);
 });
 
-export { deleteUser, loadAll };
+export { deleteUser, loadAll, loadUser, updateUser };

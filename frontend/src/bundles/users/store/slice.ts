@@ -1,19 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { type UserProfileResponseDto } from 'shared/build/index.js';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetAllItemResponseDto } from '~/bundles/users/users.js';
 
-import { deleteUser, loadAll } from './actions.js';
+import { deleteUser, loadAll, loadUser } from './actions.js';
 
 type State = {
     users: UserGetAllItemResponseDto[];
+    user: UserProfileResponseDto | undefined;
     dataStatus: ValueOf<typeof DataStatus>;
+    isLoaded: boolean;
 };
 
 const initialState: State = {
     users: [],
+    user: undefined,
     dataStatus: DataStatus.IDLE,
+    isLoaded: false,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -30,6 +35,11 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(loadAll.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(loadUser.fulfilled, (state, action) => {
+            state.user = action.payload;
+            state.dataStatus = DataStatus.FULFILLED;
+            state.isLoaded = true;
         });
         builder.addCase(deleteUser.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;

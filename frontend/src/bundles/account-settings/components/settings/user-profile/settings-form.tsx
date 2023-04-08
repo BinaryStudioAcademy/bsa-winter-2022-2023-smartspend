@@ -8,13 +8,18 @@ import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { useFormController } from '~/bundles/common/hooks/hooks.js';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { deleteUser } from '~/bundles/users/store/actions';
+import { storage, StorageKey } from '~/framework/storage/storage';
 
 import styles from '../styles.module.scss';
-import { Title } from '../title';
 import { AvatarContainer } from './avatar-container';
 import { mockData } from './mock-data';
 import { SubmitButton } from './submit-button';
@@ -22,11 +27,6 @@ import { SubmitButton } from './submit-button';
 const currency = [
     { value: 'USD', name: 'USD' },
     { value: 'UAH', name: 'UAH' },
-];
-
-const language = [
-    { value: 'English', name: 'English' },
-    { value: 'Ukrainian', name: 'Ukrainian' },
 ];
 
 const sex = [
@@ -37,7 +37,10 @@ const sex = [
 const SettingsForm: React.FC = () => {
     const { control, errors } = useAppForm({
         defaultValues: mockData,
+        mode: 'onBlur',
     });
+
+    const dispatch = useAppDispatch();
 
     const newName = useFormController({ name: 'firstName', control }).field
         .value;
@@ -45,17 +48,23 @@ const SettingsForm: React.FC = () => {
         .value;
     const newEmail = useFormController({ name: 'email', control }).field.value;
     const isChange = (): boolean => {
-        const { firstName, lastName, email, language, currency, sex } =
-            mockData;
+        const { firstName, lastName, email, currency, sex } = mockData;
         return (
             newName !== firstName ||
             newSurname !== lastName ||
             newEmail !== email ||
-            language !== selectedSingleLanguage.name ||
             currency !== selectedSingleCurrency.name ||
             sex !== selectedSingleSex.name
         );
     };
+
+    const token = storage.getSync(StorageKey.TOKEN);
+
+    const handleDeleteAccount = useCallback(() => {
+        void dispatch(deleteUser(token as string));
+        void storage.drop(StorageKey.TOKEN);
+        void storage.drop(StorageKey.PWA);
+    }, [dispatch, token]);
 
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
         useState<DataType>(currency[0]);
@@ -64,18 +73,6 @@ const SettingsForm: React.FC = () => {
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setSelectedSingleCurrency(selectedOption);
-            }
-        },
-        [],
-    );
-
-    const [selectedSingleLanguage, setSelectedSingleLanguage] =
-        useState<DataType>(language[0]);
-
-    const handleDropdownChangeLanguage = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setSelectedSingleLanguage(selectedOption);
             }
         },
         [],
@@ -137,7 +134,7 @@ const SettingsForm: React.FC = () => {
                 control={control}
                 errors={errors}
             />
-            <Title>Localization settings</Title>
+
             <Dropdown
                 data={currency}
                 handleChange={handleDropdownChangeCurrency}
@@ -145,18 +142,16 @@ const SettingsForm: React.FC = () => {
                 label="Account currency"
                 labelClassName={styles.dropdownLabel}
             />
-            <Dropdown
-                data={language}
-                handleChange={handleDropdownChangeLanguage}
-                selectedOption={selectedSingleLanguage}
-                label="Language"
-                labelClassName={styles.dropdownLabel}
-            />
+
             <SubmitButton isChange={isChange()}>
                 Update My Settings
             </SubmitButton>
             <div className={styles.dltButton}>
-                <Button variant={ButtonVariant.DELETE} size={ButtonSize.MEDIUM}>
+                <Button
+                    variant={ButtonVariant.DELETE}
+                    size={ButtonSize.MEDIUM}
+                    onClick={handleDeleteAccount}
+                >
                     <span className={styles.icon}>
                         <Icon name={FaIcons.TRASH_CAN} />
                     </span>

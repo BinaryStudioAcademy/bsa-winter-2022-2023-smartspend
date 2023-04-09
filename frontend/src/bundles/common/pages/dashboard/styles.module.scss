@@ -240,6 +240,16 @@
         max-width: 320px;
         margin: 0 auto;
     }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .largeCalendar {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 @media (min-width: $md) and (max-width: $lg) {
@@ -259,5 +269,15 @@
 
     .charts {
         grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .largeCalendar {
+        display: flex;
+        justify-content: center;
     }
 }

@@ -104,7 +104,11 @@ const BudgetModal: React.FC<Properties> = ({
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}
-            Header={<h1>{isEdit ? 'Edit Budget' : 'Create budget'}</h1>}
+            Header={
+                <p className={styles.header}>
+                    {isEdit ? 'Edit Budget' : 'Create new Budget'}
+                </p>
+            }
             Body={
                 <div className={styles.formWrapper}>
                     <div className={styles.wrapperHalf}>
@@ -114,7 +118,7 @@ const BudgetModal: React.FC<Properties> = ({
                             control={control}
                             label={'Budget name'}
                             name={'name'}
-                            placeholder={'Budget name'}
+                            placeholder={'Enter budget name'}
                             errors={errors}
                         />
                     </div>
@@ -125,7 +129,7 @@ const BudgetModal: React.FC<Properties> = ({
                             errors={errors}
                             label={'Amount'}
                             name={'amount'}
-                            placeholder={'Amount'}
+                            placeholder={'0.00'}
                         />
                         <Controller
                             name="currency"

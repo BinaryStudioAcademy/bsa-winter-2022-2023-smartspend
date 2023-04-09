@@ -3,15 +3,15 @@ import { CodeHighlight, Header } from '../components';
 import styles from './styles.module.scss';
 
 const tabsData = [
-    { title: 'Transaction', to: '/ui/' },
+    { title: 'Transactions', to: '/ui/' },
     { title: 'Overview', to: '/ui/overview' },
-    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Budgets', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
 ];
 
 const tabsDashboard = [
     { title: 'Dashboard', to: AppRoute.DASHBOARD },
-    { title: 'Budget', to: AppRoute.BUDGETS },
+    { title: 'Budgets', to: AppRoute.BUDGETS },
 ];
 
 const allTabsData = {
@@ -21,15 +21,15 @@ const allTabsData = {
 
 const exampleCode = `
 const tabsData = [
-    { title: 'Transaction', to: '/ui/' },
+    { title: 'Transactions', to: '/ui/' },
     { title: 'Overview', to: '/ui/overview' },
-    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Budgets', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
 ];
 
 const tabsDashboard = [
     { title: 'Dashboard', to: AppRoute.DASHBOARD },
-    { title: 'Budget', to: AppRoute.BUDGETS },
+    { title: 'Budgets', to: AppRoute.BUDGETS },
 ];
 
 const allTabsData = {

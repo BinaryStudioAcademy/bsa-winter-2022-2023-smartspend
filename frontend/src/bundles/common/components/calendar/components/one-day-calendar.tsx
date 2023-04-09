@@ -6,7 +6,11 @@ import { Calendar } from 'react-date-range';
 
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import { Button } from '~/bundles/common/components/components';
-import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
+import {
+    ButtonSize,
+    ButtonType,
+    ButtonVariant,
+} from '~/bundles/common/enums/enums';
 import { formatOneDay } from '~/bundles/common/helpers/helpers';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
@@ -28,6 +32,7 @@ const OneDayCalendar: React.FC = () => {
     return (
         <>
             <Button
+                type={ButtonType.BUTTON}
                 className={styles.calendar}
                 variant={ButtonVariant.PLAIN}
                 size={ButtonSize.MEDIUM}

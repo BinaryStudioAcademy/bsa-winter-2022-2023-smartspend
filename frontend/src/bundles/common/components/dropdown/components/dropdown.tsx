@@ -12,7 +12,7 @@ import styles from '../styles.module.scss';
 
 interface Properties {
     data: DataType[];
-    selectedOption: DataType;
+    selectedOption: DataType | undefined;
     handleChange: HandleSingleChange;
     handleFocus?: () => boolean;
     formatOptionLabel?: (data: DataType) => JSX.Element;
@@ -118,11 +118,13 @@ const Dropdown: React.FC<Properties> = ({
             </div>
             <Select
                 className={styles.select}
-                value={{
-                    value: selectedOption.value,
-                    name: selectedOption.name,
-                    image: selectedOption.image,
-                }}
+                value={
+                    {
+                        value: selectedOption?.value,
+                        name: selectedOption?.name,
+                        image: selectedOption?.image,
+                    } as DataType
+                }
                 onChange={handleChange as HandleMultiChange}
                 options={data}
                 formatOptionLabel={

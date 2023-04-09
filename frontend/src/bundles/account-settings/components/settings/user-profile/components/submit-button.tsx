@@ -1,6 +1,6 @@
 import { Button } from '~/bundles/common/components/components.js';
 
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     children: string;

@@ -6,11 +6,15 @@ import { ButtonVariant } from '~/bundles/common/enums/enums';
 
 import styles from './styles.module.scss';
 
-const ButtonsContainer: React.FC = () => {
+type Properties = {
+    onDelete: () => void;
+};
+
+const ButtonsContainer: React.FC<Properties> = ({ onDelete }) => {
     return (
         <div className={styles.container}>
             <Button variant={ButtonVariant.PRIMARY}>Update Setting</Button>
-            <Button variant={ButtonVariant.DELETE}>
+            <Button variant={ButtonVariant.DELETE} onClick={onDelete}>
                 <img
                     src={dumpIcon}
                     alt="icon"

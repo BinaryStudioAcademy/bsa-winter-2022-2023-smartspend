@@ -37,6 +37,7 @@ const OneDayCalendar: React.FC = () => {
                 variant={ButtonVariant.PLAIN}
                 size={ButtonSize.MEDIUM}
                 onClick={handleClick}
+                type={ButtonType.BUTTON}
             >
                 {formatOneDay(day)}
                 <img

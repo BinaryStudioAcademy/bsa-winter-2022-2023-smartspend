@@ -54,7 +54,9 @@ class UserApi extends HttpApi {
         return await response.json<UserProfileResponseDto>();
     }
 
-    public async updateUser(payload: uploadPayload): Promise<UserUpdateResponseDto> {
+    public async updateUser(
+        payload: uploadPayload,
+    ): Promise<UserUpdateResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(UsersApiPath.ROOT, {}),
             {

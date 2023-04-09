@@ -1,5 +1,8 @@
 import { Controller } from 'react-hook-form';
-import { type UserProfileResponseDto, type UserUpdateRequestDto } from 'shared/build';
+import {
+    type UserProfileResponseDto,
+    type UserUpdateRequestDto,
+} from 'shared/build';
 
 import { Button, Icon, Input } from '~/bundles/common/components/components.js';
 import {
@@ -58,11 +61,12 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         (formData: UserUpdateRequestDto): void => {
             const { email, ...remainingData } = formData;
 
-            const uploadData: uploadPayload = { email, userProfile: { ...remainingData } };
+            const uploadData: uploadPayload = {
+                email,
+                userProfile: { ...remainingData },
+            };
 
-            void dispatch(
-                usersActions.updateUser(uploadData),
-            );
+            void dispatch(usersActions.updateUser(uploadData));
         },
         [dispatch],
     );

@@ -73,19 +73,17 @@ class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
             return undefined;
         }
 
-        if (!user.userProfile) {
-            await user
-                .$relatedQuery('userProfile')
-                .insert({ ...data.userProfile })
-                .returning('*')
-                .execute();
-        }
-
-        await user
-            .$relatedQuery('userProfile')
-            .update({ ...data.userProfile })
-            .returning('*')
-            .execute();
+        await (user.userProfile
+            ? user
+                  .$relatedQuery('userProfile')
+                  .update({ ...data.userProfile })
+                  .returning('*')
+                  .execute()
+            : user
+                  .$relatedQuery('userProfile')
+                  .insert({ ...data.userProfile })
+                  .returning('*')
+                  .execute());
 
         await user.$query().update(data).returning('*').execute();
 

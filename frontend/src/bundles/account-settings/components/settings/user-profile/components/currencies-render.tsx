@@ -28,7 +28,9 @@ const RenderCurrency = ({
         [currencies],
     );
 
-    const userCurrency = mutableCurrencies.filter((currencies) => currencies.value === value);
+    const userCurrency = mutableCurrencies.filter(
+        (currencies) => currencies.value === value,
+    );
 
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
         useState<DataType>(userCurrency[0]);

@@ -1,6 +1,7 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
@@ -104,7 +105,7 @@ const WalletDetails: React.FC = () => {
     );
 
     const transactions = useAppSelector(
-        (state) => state.transactions.transactions?.items ?? [],
+        (state) => state.transactions.transactions,
     );
 
     const newDataMenu = category.map((item) => ({
@@ -257,7 +258,7 @@ const WalletDetails: React.FC = () => {
     return (
         <div className={styles.app}>
             <TransactionModal
-                type={TransactionModalType.CHANGE}
+                type={TransactionModalType.ADD}
                 handleCancel={closeTransactionModal}
                 active={activeModal}
             />

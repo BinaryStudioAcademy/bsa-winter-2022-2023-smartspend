@@ -1,12 +1,12 @@
-const DEFAULT_TRANSACTION = {
-    category: 'Salary',
-    date: Date.now(),
+import { type Transaction } from '~/bundles/common/types/transaction.type';
+
+const DEFAULT_TRANSACTION: Transaction = {
+    categoryId: '',
+    date: new Date(),
     note: '',
-    label: '',
-    amount: '',
-    currency: 'USD',
+    labelId: undefined,
+    amount: 1000,
+    currencyId: '',
 };
 
-const DROPDOWN_WIDTH = '190px';
-
-export { DEFAULT_TRANSACTION, DROPDOWN_WIDTH };
+export { DEFAULT_TRANSACTION };

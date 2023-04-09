@@ -1,4 +1,7 @@
+import React, { useEffect } from 'react';
+
 import { BaseModal, Button } from '~/bundles/common/components/components';
+import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionImage } from '~/bundles/common/components/transaction-modal/transaction-image';
 import { TransactionModalBody } from '~/bundles/common/components/transaction-modal/transaction-modal-body';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
@@ -7,13 +10,16 @@ import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
 import { TransactionModalType } from '~/bundles/common/enums/transaction-modal-type.enum';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks';
+import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type Transaction } from '~/bundles/common/types/transaction.type';
+import { loadAll } from '~/bundles/currencies/store/actions';
 import {
     createTransaction,
-    deleteTransaction,
     updateTransaction,
 } from '~/bundles/transactions/store/actions';
 
@@ -24,16 +30,6 @@ type Properties = {
     handleCancel: () => void;
     active: boolean;
 };
-
-const categories: DataType[] = [
-    { value: 'salary', name: 'salary' },
-    { value: 'freelance', name: 'freelance' },
-];
-
-const currency: DataType[] = [
-    { value: 'USD', name: 'USD' },
-    { value: 'UAH', name: 'UAH' },
-];
 
 const labels: DataType[] = [
     { value: 'food', name: 'food' },
@@ -46,6 +42,10 @@ const TransactionModal: React.FC<Properties> = ({
     active,
 }) => {
     const dispatch = useAppDispatch();
+
+    const [transaction, setTransaction] =
+        useState<Transaction>(DEFAULT_TRANSACTION);
+
     const [imageFile, setImageFile] = useState<File | undefined>();
 
     const handleFileChange = useCallback(
@@ -63,32 +63,31 @@ const TransactionModal: React.FC<Properties> = ({
 
     const handleSubmit = useCallback(() => {
         if (type === TransactionModalType.ADD) {
-            void dispatch(
-                createTransaction({
-                    categoryId: 'c1794d19-f31d-4a36-9d26-6f6c3c36db7d',
-                    date: new Date(),
-                    note: 'transaction note',
-                    labelId: '059dc814-89cc-4ba1-89da-b20c5bf78231',
-                    amount: 1000,
-                    currencyId: 'b96bc385-9f98-48f2-824a-c2e20823c563',
-                }),
-            );
+            void dispatch(createTransaction(transaction));
         }
         if (type === TransactionModalType.CHANGE) {
-            void dispatch(
-                updateTransaction({
-                    categoryId: 'c1794d19-f31d-4a36-9d26-6f6c3c36db7d',
-                    date: new Date(),
-                    note: 'string',
-                    labelId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-                    amount: 1000,
-                }),
-            );
+            void dispatch(updateTransaction(transaction));
         }
-    }, [dispatch, type]);
+        handleCancel();
+    }, [dispatch, handleCancel, transaction, type]);
 
-    const handleDeleteTransaction = useCallback(() => {
-        void dispatch(deleteTransaction({ id: 'kjashdflkjsdfh' }));
+    const category = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+    const categoryMenu = category.map((item) => ({
+        ...item,
+        value: item.id,
+    }));
+
+    const currency = useAppSelector((state) => state.currencies.currencies);
+    const currencyMenu = currency.map((item) => ({
+        ...item,
+        value: item.id,
+    }));
+
+    useEffect(() => {
+        void dispatch(loadCategories());
+        void dispatch(loadAll());
     }, [dispatch]);
 
     return (
@@ -98,9 +97,10 @@ const TransactionModal: React.FC<Properties> = ({
             onSubmit={handleSubmit}
             Body={
                 <TransactionModalBody
-                    categories={categories}
-                    currency={currency}
+                    categories={categoryMenu}
+                    currency={currencyMenu}
                     labels={labels}
+                    handleChangeTransaction={setTransaction}
                 />
             }
             submitButtonName={submitButtonName}
@@ -115,7 +115,6 @@ const TransactionModal: React.FC<Properties> = ({
                     type={ButtonType.BUTTON}
                     size={ButtonSize.SMALL}
                     variant={ButtonVariant.SECONDARY}
-                    onClick={handleDeleteTransaction}
                 >
                     Delete Transaction
                 </Button>

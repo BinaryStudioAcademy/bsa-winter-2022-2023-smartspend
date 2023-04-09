@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
@@ -14,10 +15,11 @@ const createTransaction = createAsyncThunk<
     Promise<void>,
     TransactionCreateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/transactions`, async (registerPayload, { extra }) => {
-    const { transactionApi } = extra;
+>(`${sliceName}/transactions`, async (registerPayload, { extra, dispatch }) => {
+    const { transactionsApi } = extra;
 
-    await transactionApi.createTransaction(registerPayload);
+    await transactionsApi.createTransaction(registerPayload);
+    await dispatch(transactionsActions.loadTransactions());
 });
 
 const updateTransaction = createAsyncThunk<
@@ -25,9 +27,9 @@ const updateTransaction = createAsyncThunk<
     TransactionUpdatePayloadDto,
     AsyncThunkConfig
 >(`${sliceName}/transactions`, async (registerPayload, { extra }) => {
-    const { transactionApi } = extra;
+    const { transactionsApi } = extra;
 
-    await transactionApi.updateTransaction(registerPayload);
+    await transactionsApi.updateTransaction(registerPayload);
 });
 
 const deleteTransaction = createAsyncThunk<

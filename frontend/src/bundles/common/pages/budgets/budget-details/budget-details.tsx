@@ -69,7 +69,7 @@ const BudgetDetails = (): JSX.Element => {
     );
 
     const transactions = useAppSelector(
-        (state) => state.transactions.transactions?.items ?? [],
+        (state) => state.transactions.transactions,
     );
 
     const handleCancel = useCallback(() => {

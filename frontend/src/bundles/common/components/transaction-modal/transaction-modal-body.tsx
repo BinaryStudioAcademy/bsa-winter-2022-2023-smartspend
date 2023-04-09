@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import { Input } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components';
@@ -7,23 +9,48 @@ import { InputType } from '~/bundles/common/enums/input-type.enum';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type Transaction } from '~/bundles/common/types/transaction.type';
 
 import styles from './styles.module.scss';
 
-interface Properties {
+type Properties = {
     categories: DataType[];
     currency: DataType[];
     labels: DataType[];
-}
+    handleChangeTransaction: React.Dispatch<React.SetStateAction<Transaction>>;
+};
 
 const TransactionModalBody: React.FC<Properties> = ({
     categories,
     currency,
     labels,
+    handleChangeTransaction,
 }) => {
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
     });
+
+    const handleNoteChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) =>
+            handleChangeTransaction((previousState) => {
+                return {
+                    ...previousState,
+                    note: event.target.value,
+                };
+            }),
+        [handleChangeTransaction],
+    );
+
+    const handleAmountChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) =>
+            handleChangeTransaction((previousState) => {
+                return {
+                    ...previousState,
+                    amount: +event.target.value,
+                };
+            }),
+        [handleChangeTransaction],
+    );
 
     const [selectedSingleCategory, setSelectedSingleCategory] =
         useState<DataType>(categories[0]);
@@ -32,9 +59,15 @@ const TransactionModalBody: React.FC<Properties> = ({
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setSelectedSingleCategory(selectedOption);
+                handleChangeTransaction((previousState) => {
+                    return {
+                        ...previousState,
+                        categoryId: selectedOption.value,
+                    };
+                });
             }
         },
-        [],
+        [handleChangeTransaction],
     );
 
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
@@ -44,9 +77,15 @@ const TransactionModalBody: React.FC<Properties> = ({
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setSelectedSingleCurrency(selectedOption);
+                handleChangeTransaction((previousState) => {
+                    return {
+                        ...previousState,
+                        currencyId: selectedOption.value,
+                    };
+                });
             }
         },
-        [],
+        [handleChangeTransaction],
     );
 
     const [selectedSingleLabel, setSelectedSingleLabel] = useState<DataType>(
@@ -82,6 +121,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                     name="note"
                     control={control}
                     errors={errors}
+                    onChange={handleNoteChange}
                 />
             </TransactionModalElement>
             <TransactionModalElement label="Label">
@@ -99,6 +139,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                     name="amount"
                     control={control}
                     errors={errors}
+                    onChange={handleAmountChange}
                 />
             </TransactionModalElement>
             <TransactionModalElement label="Currency">

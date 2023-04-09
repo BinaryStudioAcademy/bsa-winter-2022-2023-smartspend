@@ -1,0 +1,66 @@
+@import "@assets/utils";
+
+.body {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100%;
+    padding-top: 80px;
+    padding-bottom: var(--p-6);
+    background-color: var(--color-blue-100);
+}
+
+.container {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: start;
+    padding-top: var(--p-6);
+}
+
+.tabs_container {
+    padding-top: var(--b-5);
+}
+
+.main_board {
+    width: 70%;
+    padding: var(--p-6) var(--p-7);
+    background-color: var(--color-white-100);
+    border-radius: var(--b-5);
+}
+
+@media (min-width: $xl) {
+    .main_board {
+        max-width: 967px;
+    }
+}
+
+@media (max-width: $lg) {
+    .main_board {
+        margin-top: var(--p-3);
+        padding: var(--p-6) var(--p-5);
+    }
+
+    .tabs_container {
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: $md) {
+    .main_board {
+        margin-top: var(--p-6);
+        padding: var(--p-5) var(--p-6);
+    }
+
+    .tabs_container {
+        display: none;
+    }
+}
+
+@media (max-width: $sm) {
+    .main_board {
+        margin-top: var(--p-3);
+        padding: var(--p-4) var(--p-4);
+    }
+}

@@ -1,11 +1,8 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
+import { recurrences } from '../../enums/enums.js';
+import { type Recurrence } from '../../types/types.js';
 import styles from './styles.module.scss';
-
-type Recurrence = {
-    value: string;
-    label: string;
-};
 
 type RecurrenceProperties = {
     recurrences: Recurrence[];
@@ -76,15 +73,6 @@ const Recurrence = ({
         </div>
     );
 };
-
-const recurrences: Recurrence[] = [
-    { value: 'ONCE', label: 'Once' },
-    { value: 'DAILY', label: 'Daily' },
-    { value: 'WEEKLY', label: 'Weekly' },
-    { value: 'BIWEEKLY', label: 'Biweekly' },
-    { value: 'MONTHLY', label: 'Monthly' },
-    { value: 'YEARLY', label: 'Yearly' },
-];
 
 const RenderRecurrence = ({
     field: { onChange, value },

@@ -8,6 +8,7 @@ export {
     formatRangeGraph,
 } from './calendar-helpers/get-formating-date';
 export { getInitialRange } from './calendar-helpers/get-initial-range';
+export { compareObjects } from './compare-objects/compare-objects.js';
 export { createGradients } from './create-gradient/create-gradient.js';
 export { dateToShortStringHelper } from './date-to-short-string/date-to-short-string.helper';
 export { findCurrencyById } from './find-currency-by-id/find-currency-by-id.js';

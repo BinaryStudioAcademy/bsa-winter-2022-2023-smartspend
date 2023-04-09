@@ -86,7 +86,7 @@ const RenderDate = ({
 }: {
     field: { onChange: (value: Date) => void; value: string };
 }): JSX.Element => {
-    const [selectedDate, setSelectedDate] = useState<Date>(new Date(value));
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
     const handleDateChange = useCallback(
         (date: Date): void => {
@@ -95,6 +95,12 @@ const RenderDate = ({
         },
         [onChange],
     );
+
+    useEffect(() => {
+        if (value) {
+            setSelectedDate(new Date(value));
+        }
+    }, [value]);
 
     return (
         <OneDayCalendar

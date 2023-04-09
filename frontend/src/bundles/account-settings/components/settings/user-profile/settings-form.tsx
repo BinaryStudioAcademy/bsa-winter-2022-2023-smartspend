@@ -46,6 +46,9 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     });
 
     const isChange = (): boolean => {
+        if (watch(['firstName', 'lastName']).includes('')) {
+            return false;
+        }
         return !compareObjects(watch(), user as UserUpdateRequestDto);
     };
 

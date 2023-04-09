@@ -39,7 +39,11 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header name={user?.email} dataTabs={dataTabs} />
+            <Header
+                firstName={user?.firstName ?? user?.email}
+                lastName={user?.lastName}
+                dataTabs={dataTabs}
+            />
             <RouterOutlet />
             {Modal}
         </>

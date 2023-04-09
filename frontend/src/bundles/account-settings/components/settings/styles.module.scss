@@ -78,7 +78,7 @@
 .form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--m-2);
+    gap: var(--m-4);
 }
 
 .submitBtn {

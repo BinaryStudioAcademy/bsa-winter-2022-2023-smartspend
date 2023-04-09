@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 import { type Range } from 'react-date-range';
 import { Link } from 'react-router-dom';
+import { type TransactionGetAllItemResponseDto } from 'shared/build';
 
 import {
     Button,
@@ -36,16 +37,23 @@ import {
     useAppSelector,
     useButtonTabsState,
 } from '~/bundles/common/hooks/hooks.js';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import {
+    calculateLineChartData,
+    createCategoryDataArray,
+    createWalletCategoryDataArray,
     filterCategories,
     filterChart,
     filterLineChart,
+    getTotalPeriodAmount,
+    groupTransactionsByDate,
+    processTransactions,
 } from './helpers/helpers';
-import { byCategory, byWallets, mockSliderData } from './mocks.dashboard';
 import styles from './styles.module.scss';
 
 type FormValues = {
@@ -118,13 +126,26 @@ const tabsDashboard = [
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const [active, setActive] = useState(false);
-    const [, setFilteredData] = useState(mockSliderData);
-    const rangeLimits = { min: -100, max: 1000 };
-    const [currentRange, setCurrentRange] = useState(rangeLimits);
 
     const dispatch = useAppDispatch();
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
+
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
+
+    const amounts = transactions.map((transaction) => transaction.amount);
+    const minAmount = amounts.length > 0 ? Math.min(...amounts) : 0;
+    const maxAmount = amounts.length > 0 ? Math.max(...amounts) : 0;
+
+    const rangeLimits = { min: minAmount, max: maxAmount };
+
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
+    const categories = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
@@ -141,11 +162,6 @@ const Dashboard: React.FC = () => {
     const handleSliderChange = useCallback(
         (range: { min: number; max: number }): void => {
             setCurrentRange(range);
-
-            const newFilteredData = mockSliderData.filter(
-                (item) => item.amount >= range.min && item.amount <= range.max,
-            );
-            setFilteredData(newFilteredData);
         },
         [],
     );
@@ -160,8 +176,14 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
     }, [dispatch]);
-    const [wallet, setWallet] = useState<DataType>(byWallets[0]);
+
+    const [wallet, setWallet] = useState<DataType>({
+        value: '',
+        name: 'Find by name',
+    });
 
     const handleDropdownByWallets = useCallback(
         (selectedOption: DataType | null) => {
@@ -172,7 +194,10 @@ const Dashboard: React.FC = () => {
         [],
     );
 
-    const [category, setCategory] = useState<DataType>(byCategory[0]);
+    const [category, setCategory] = useState<DataType>({
+        value: '',
+        name: 'Find by category',
+    });
 
     const handleDropdownByCategory = useCallback(
         (selectedOption: DataType | null) => {
@@ -182,6 +207,56 @@ const Dashboard: React.FC = () => {
         },
         [],
     );
+
+    const [transactionsData, setTransactionsData] = useState<
+        TransactionGetAllItemResponseDto[]
+    >([]);
+
+    const lineChartData = calculateLineChartData(transactionsData);
+    const verticalChartData = groupTransactionsByDate(transactionsData);
+    const categoryDropdown = createCategoryDataArray(categories);
+    const { positiveResult, negativeResult } =
+        processTransactions(transactionsData);
+    const walletDropdown = createWalletCategoryDataArray(wallets);
+
+    useEffect(() => {
+        const filteredTransactions = transactions.filter((transaction) => {
+            const walletMatch = wallets.find(
+                (wallet) => wallet.name === transaction.note,
+            );
+            const categoryMatch = categories.find(
+                (category) => category.id === transaction.categoryId,
+            );
+            return (
+                (walletMatch && walletMatch.name === wallet.name) ||
+                (categoryMatch && categoryMatch.id === category.value) ||
+                (transaction.amount >= currentRange.min &&
+                    transaction.amount <= currentRange.max)
+            );
+        });
+        setTransactionsData(filteredTransactions);
+    }, [
+        wallet,
+        transactions,
+        wallets,
+        categories,
+        category,
+        currentRange.min,
+        currentRange.max,
+    ]);
+
+    const handleResetFilters = useCallback(() => {
+        setWallet({
+            value: '',
+            name: 'Find by name',
+        });
+        setCurrentRange({ min: 0, max: 0 });
+        setCategory({
+            value: '',
+            name: 'Find by category',
+        });
+        setTransactionsData([]);
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -246,6 +321,7 @@ const Dashboard: React.FC = () => {
                                 <Button
                                     variant={ButtonVariant.PLAIN}
                                     className={styles.resetButton}
+                                    onClick={handleResetFilters}
                                 >
                                     Reset filters
                                 </Button>
@@ -253,14 +329,14 @@ const Dashboard: React.FC = () => {
                         </div>
                         <div className={styles.filtersContainer}>
                             <Dropdown
-                                data={byWallets}
+                                data={walletDropdown}
                                 handleChange={handleDropdownByWallets}
                                 selectedOption={wallet}
                                 label="By wallet"
                                 labelClassName={styles.dropdownLabel}
                             />
                             <Dropdown
-                                data={byCategory}
+                                data={categoryDropdown}
                                 handleChange={handleDropdownByCategory}
                                 selectedOption={category}
                                 label="By category"
@@ -296,23 +372,38 @@ const Dashboard: React.FC = () => {
                         <div className={styles.cards}>
                             <CardTotal
                                 title="Total Balance"
-                                sum={40.45}
+                                sum={wallets.reduce(
+                                    (accumulator, wallet) =>
+                                        +accumulator + +wallet.balance,
+                                    0,
+                                )}
                                 variant={CardVariant.ORANGE}
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={504_000.54}
+                                sum={transactions.reduce(
+                                    (accumulator, transaction) =>
+                                        +accumulator + +transaction.amount,
+                                    0,
+                                )}
                                 variant={CardVariant.BLUE}
                             />
                             <CardTotal
-                                title="Total Period Expenses"
-                                sum={-9700.34}
-                                variant={CardVariant.WHITE}
-                            />
-                            <CardTotal
                                 title="Total Period Income"
-                                sum={7600.34}
+                                sum={getTotalPeriodAmount(
+                                    transactions,
+                                    'income',
+                                )}
                                 variant={CardVariant.VIOLET}
+                            />
+
+                            <CardTotal
+                                title="Total Period Expenses"
+                                sum={getTotalPeriodAmount(
+                                    transactions,
+                                    'expense',
+                                )}
+                                variant={CardVariant.WHITE}
                             />
                         </div>
                         <div className={styles.charts}>
@@ -326,7 +417,12 @@ const Dashboard: React.FC = () => {
                                     />
                                 }
                             >
-                                <LineChart dataArr={filterLineChart(day)} />
+                                <LineChart
+                                    dataArr={filterLineChart(
+                                        day,
+                                        lineChartData,
+                                    )}
+                                />
                             </ChartBox>
                             <ChartBox
                                 title={'Changes'}
@@ -338,14 +434,19 @@ const Dashboard: React.FC = () => {
                                     />
                                 }
                             >
-                                <Chart array={filterChart(day)} />
+                                <Chart
+                                    array={filterChart(day, verticalChartData)}
+                                />
                             </ChartBox>
                             <ChartBox
                                 title={'Period income'}
                                 date={formatRangeGraph(day)}
                             >
                                 <DoughnutChart
-                                    categories={filterCategories(day)}
+                                    categories={filterCategories(
+                                        day,
+                                        positiveResult,
+                                    )}
                                 />
                             </ChartBox>
                             <ChartBox
@@ -353,7 +454,10 @@ const Dashboard: React.FC = () => {
                                 date={formatRangeGraph(day)}
                             >
                                 <DoughnutChart
-                                    categories={filterCategories(day)}
+                                    categories={filterCategories(
+                                        day,
+                                        negativeResult,
+                                    )}
                                 />
                             </ChartBox>
                         </div>

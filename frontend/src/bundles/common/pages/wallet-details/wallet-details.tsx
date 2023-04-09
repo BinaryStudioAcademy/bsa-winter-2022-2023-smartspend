@@ -91,18 +91,12 @@ const WalletDetails: React.FC = () => {
         defaultValues: DEFAULT_INPUT,
     });
 
-    useEffect(() => {
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
-    );
-
-    const transactions = useAppSelector(
-        (state) => state.transactions.transactions?.items ?? [],
     );
 
     const newDataMenu = category.map((item) => ({
@@ -115,17 +109,24 @@ const WalletDetails: React.FC = () => {
         currentWallet?.currencyId,
     )?.symbol;
 
-    const transactionData = transactions.map((item) => ({
-        id: item.id,
-        date: item.date,
-        category: category.find((cat) => cat.id === item.categoryId),
-        name: category.find((cat) => cat.id === item.categoryId)?.name,
-        label: item.labelId,
-        amount: item.amount,
-        currency: currencies.find((current) => current.id === item.currencyId)
-            ?.symbol,
-        note: item.note,
-    })) as unknown as ITransaction[];
+    const [transactionData, setTransactionData] = useState<ITransaction[]>([]);
+
+    useEffect(() => {
+        const data = transactions.map((item) => ({
+            id: item.id,
+            date: item.date,
+            category: category.find((cat) => cat.id === item.categoryId),
+            name: category.find((cat) => cat.id === item.categoryId)?.name,
+            label: item.labelId,
+            amount: item.amount,
+            currency: currencies.find(
+                (current) => current.id === item.currencyId,
+            )?.symbol,
+            note: item.note,
+        })) as unknown as ITransaction[];
+
+        setTransactionData(data);
+    }, [transactions, category, currencies]);
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -206,6 +207,9 @@ const WalletDetails: React.FC = () => {
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
 
     const formatOptionLabel = useCallback(

@@ -11,7 +11,6 @@ const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
 }) => {
     const { isLoaded } = useAppSelector(({ users }) => ({
         isLoaded: users.isLoaded,
-        dataStatus: users.dataStatus,
     }));
     const token = storage.getSync(StorageKey.TOKEN);
 

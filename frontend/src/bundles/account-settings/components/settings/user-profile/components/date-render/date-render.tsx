@@ -82,11 +82,11 @@ const OneDayCalendar: React.FC<OneDayCalendarProperties> = ({
 };
 
 const RenderDate = ({
-    field: { onChange },
+    field: { onChange, value },
 }: {
     field: { onChange: (value: Date) => void; value: string };
 }): JSX.Element => {
-    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date(value));
 
     const handleDateChange = useCallback(
         (date: Date): void => {

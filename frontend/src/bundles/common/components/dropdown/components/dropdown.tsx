@@ -119,9 +119,9 @@ const Dropdown: React.FC<Properties> = ({
             <Select
                 className={styles.select}
                 value={{
-                    value: selectedOption.value,
-                    name: selectedOption.name,
-                    image: selectedOption.image,
+                    value: selectedOption?.value,
+                    name: selectedOption?.name,
+                    image: selectedOption?.image,
                 }}
                 onChange={handleChange as HandleMultiChange}
                 options={data}

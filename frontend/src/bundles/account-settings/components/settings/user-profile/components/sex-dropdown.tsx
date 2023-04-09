@@ -7,18 +7,17 @@ import { type DataType } from '~/bundles/common/types/dropdown.type';
 import styles from '../../styles.module.scss';
 
 const sex = [
-    { value: 'Male', name: 'Male' },
-    { value: 'Female', name: 'Female' },
+    { value: 'male', name: 'Male' },
+    { value: 'female', name: 'Female' },
 ];
 
 const RenderSex = ({
-    field: { onChange },
+    field: { onChange, value },
 }: {
-    field: { onChange: (value: string) => void };
+    field: { onChange: (value: string) => void; value: string; };
 }): JSX.Element => {
-    const [selectedSingleSex, setSelectedSingleSex] = useState<DataType>(
-        sex[0],
-    );
+    const userSex = sex.find((it) => it.value === value) as DataType;
+    const [selectedSingleSex, setSelectedSingleSex] = useState<DataType>(userSex);
 
     const handleDropdownChangeSex = useCallback(
         (selectedOption: DataType | null) => {

@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { type UserUpdateRequestDto } from 'shared/build';
+import { type UserProfileResponseDto, type UserUpdateRequestDto } from 'shared/build';
 
 import { Button, Icon, Input } from '~/bundles/common/components/components.js';
 import {
@@ -8,10 +8,10 @@ import {
     FaIcons,
     InputType,
 } from '~/bundles/common/enums/enums.js';
+import { compareObjects } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
-    useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks';
 import { actions as usersActions } from '~/bundles/users/store';
@@ -31,23 +31,19 @@ type uploadPayload = {
     userProfile: Partial<UserUpdateRequestDto>;
 };
 
-const SettingsForm: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const user = useAppSelector((state) => state.users.user);
+type Properties = {
+    user: UserProfileResponseDto | undefined;
+};
 
+const SettingsForm: React.FC<Properties> = ({ user }) => {
+    const dispatch = useAppDispatch();
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
         defaultValues: user as UserUpdateRequestDto,
         mode: 'onBlur',
     });
 
-    const watchFields = watch();
-
     const isChange = (): boolean => {
-        return (
-            watchFields.firstName !== user?.firstName ||
-            watchFields.lastName !== user.lastName ||
-            watchFields.email !== user.email
-        );
+        return !compareObjects(watch(), user as UserUpdateRequestDto);
     };
 
     const token = storage.getSync(StorageKey.TOKEN);
@@ -62,7 +58,7 @@ const SettingsForm: React.FC = () => {
         (formData: UserUpdateRequestDto): void => {
             const { email, ...remainingData } = formData;
 
-            const uploadData: uploadPayload = { email, userProfile: remainingData };
+            const uploadData: uploadPayload = { email, userProfile: { ...remainingData } };
 
             void dispatch(
                 usersActions.updateUser(uploadData),

@@ -13,9 +13,9 @@ import { type DataType } from '~/bundles/common/types/dropdown.type';
 import styles from '../../styles.module.scss';
 
 const RenderCurrency = ({
-    field: { onChange },
+    field: { onChange, value },
 }: {
-    field: { onChange: (value: string) => void };
+    field: { onChange: (value: string) => void; value: string };
 }): JSX.Element => {
     const currencies = useAppSelector((state) => state.currencies.currencies);
 
@@ -28,8 +28,10 @@ const RenderCurrency = ({
         [currencies],
     );
 
+    const userCurrency = mutableCurrencies.filter((currencies) => currencies.value === value);
+
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
-        useState<DataType>(mutableCurrencies[0]);
+        useState<DataType>(userCurrency[0]);
 
     const handleDropdownChangeCurrency = useCallback(
         (selectedOption: DataType | null) => {
@@ -50,8 +52,8 @@ const RenderCurrency = ({
     );
 
     useEffect(() => {
-        setSelectedSingleCurrency(mutableCurrencies[0]);
-    }, [mutableCurrencies]);
+        setSelectedSingleCurrency(userCurrency[0]);
+    }, [userCurrency]);
 
     return (
         <Dropdown

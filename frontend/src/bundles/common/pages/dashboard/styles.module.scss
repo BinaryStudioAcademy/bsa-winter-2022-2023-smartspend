@@ -23,6 +23,10 @@
     font-weight: var(--font-weight-400);
 }
 
+.resetButton {
+    padding: 0;
+}
+
 .filtertBody {
     margin: var(--m-2) 0 var(--m-3);
 }
@@ -91,6 +95,7 @@
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 15px;
     width: 100%;
+    margin-top: 20px;
 }
 
 .filters label {
@@ -98,6 +103,7 @@
 }
 
 .title {
+    margin: 0;
     color: var(--color-gray-400);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-sub-heading);
@@ -142,7 +148,7 @@
 }
 
 .chartTitle {
-    margin: var(--m-2) 0;
+    margin: var(--m-2) 0 0 0;
     color: var(--color-gray-400);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-4-heading);
@@ -153,7 +159,7 @@
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-caption);
-    font-family: Poppins, sans-serif;
+    font-family: var(--font-family);
     line-height: var(--line-height-caption);
 }
 

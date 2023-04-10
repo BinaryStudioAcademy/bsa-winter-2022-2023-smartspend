@@ -17,6 +17,7 @@ import {
     Input,
     LineChart,
     NewWalletModal,
+    Placeholder,
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
@@ -491,15 +492,10 @@ const Dashboard: React.FC = () => {
                                 </ChartBox>
                             </div>
                         ) : (
-                            <div className={styles.placeholder}>
-                                <img
-                                    width="200px"
-                                    height="200px"
-                                    src={DashboardPlaceholder}
-                                    alt="dashboard placeholder"
-                                />
-                                <div>You have not created a wallet yet.</div>
-                            </div>
+                            <Placeholder
+                                path={DashboardPlaceholder}
+                                body={'You have not created a wallet yet.'}
+                            />
                         )}
                     </div>
                 </div>

@@ -24,30 +24,39 @@ const createTransaction = createAsyncThunk<
     Promise<void>,
     TransactionCreateRequestDto,
     AsyncThunkConfig
->(`${sliceName}/create-transactions`, async (registerPayload, { extra }) => {
-    const { transactionsApi } = extra;
+>(
+    `${sliceName}/create-transactions`,
+    async (registerPayload, { extra, dispatch }) => {
+        const { transactionsApi } = extra;
 
-    await transactionsApi.createTransaction(registerPayload);
-    await transactionsApi.loadTransactions();
-});
+        await transactionsApi.createTransaction(registerPayload);
+        await dispatch(loadTransactions());
+    },
+);
 
 const updateTransaction = createAsyncThunk<
     Promise<void>,
     TransactionUpdatePayloadDto,
     AsyncThunkConfig
->(`${sliceName}/update-transactions`, async (registerPayload, { extra }) => {
-    const { transactionsApi } = extra;
+>(
+    `${sliceName}/update-transactions`,
+    async (registerPayload, { extra, dispatch }) => {
+        const { transactionsApi } = extra;
 
-    await transactionsApi.updateTransaction(registerPayload);
-    await transactionsApi.loadTransactions();
-});
+        await transactionsApi.updateTransaction(registerPayload);
+        await dispatch(loadTransactions());
+    },
+);
 
 const deleteTransaction = createAsyncThunk<
     DeleteTransactionResponseDto,
     string,
     AsyncThunkConfig
->(`${sliceName}/delete-transactions`, async (id, { extra }) => {
+>(`${sliceName}/delete-transactions`, async (id, { extra, dispatch }) => {
     const { transactionsApi } = extra;
+
+    await dispatch(loadTransactions());
+
     return await transactionsApi.deleteTransaction(id);
 });
 

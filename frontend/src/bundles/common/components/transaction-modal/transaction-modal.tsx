@@ -18,7 +18,7 @@ import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type Transaction } from '~/bundles/common/types/transaction.type';
-import { loadAll } from '~/bundles/currencies/store/actions';
+import { actions as currenciesActions } from '~/bundles/currencies/store/';
 
 import styles from './styles.module.scss';
 
@@ -65,6 +65,7 @@ const TransactionModal: React.FC<Properties> = ({
         if (type === TransactionModalType.CHANGE) {
             void dispatch(transactionActions.updateTransaction(transaction));
         }
+        void dispatch(transactionActions.loadTransactions());
         handleCancel();
     }, [dispatch, handleCancel, transaction, type]);
 
@@ -84,7 +85,7 @@ const TransactionModal: React.FC<Properties> = ({
 
     useEffect(() => {
         void dispatch(loadCategories());
-        void dispatch(loadAll());
+        void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
 
     return (

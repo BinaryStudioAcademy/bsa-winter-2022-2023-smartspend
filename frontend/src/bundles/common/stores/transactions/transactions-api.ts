@@ -52,13 +52,18 @@ class TransactionsApi extends HttpApi {
 
     public async createTransaction(
         payload: TransactionCreateRequestDto,
-    ): Promise<void> {
-        await this.load(this.getFullEndpoint(TransactionsApiPath.ROOT, {}), {
-            method: 'POST',
-            contentType: ContentType.JSON,
-            payload: JSON.stringify(payload),
-            hasAuth: true,
-        });
+    ): Promise<TransactionGetAllResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(TransactionsApiPath.ROOT, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<TransactionGetAllResponseDto>();
     }
 
     public async updateTransaction(

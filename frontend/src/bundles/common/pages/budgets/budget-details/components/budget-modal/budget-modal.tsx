@@ -16,6 +16,8 @@ import {
     useAppDispatch,
     useAppForm,
     useCallback,
+    useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks';
 
 import { recurrences } from '../../enums/recurrences.enum';
@@ -54,14 +56,17 @@ const BudgetModal: React.FC<Properties> = ({
     }
 
     const currentBudget: BudgetCreateRequestDto = budgetData;
-    const DEFAULT_VALUES = {
-        name: '',
-        amount: 0,
-        currency: '',
-        recurrence: recurrences[4].value,
-        startDate: new Date().toISOString(),
-        categories: [],
-    };
+    const DEFAULT_VALUES = useMemo(
+        () => ({
+            name: '',
+            amount: 0,
+            currency: '',
+            recurrence: recurrences[4].value,
+            startDate: new Date().toISOString(),
+            categories: [],
+        }),
+        [],
+    );
 
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
@@ -93,6 +98,21 @@ const BudgetModal: React.FC<Properties> = ({
         [dispatch, id, isEdit, isReset, reset],
     );
 
+    useEffect(() => {
+        if (
+            control._formValues.endDate &&
+            reset &&
+            control._formValues.recurrence !== recurrences[0].value
+        ) {
+            reset({ ...DEFAULT_VALUES, endDate: '' });
+        }
+    }, [
+        DEFAULT_VALUES,
+        control._formValues.endDate,
+        control._formValues.recurrence,
+        reset,
+    ]);
+
     const handleFormSubmit = useCallback(
         (event: React.BaseSyntheticEvent): void => {
             event.preventDefault();
@@ -102,6 +122,8 @@ const BudgetModal: React.FC<Properties> = ({
         },
         [trigger, handleSubmit, handleBudgetSubmit, onClose],
     );
+    const startDateIso = new Date(control._formValues.startDate);
+    const endDateIso = new Date(control._formValues.endDate);
 
     return (
         <BaseModal
@@ -181,7 +203,11 @@ const BudgetModal: React.FC<Properties> = ({
             }
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
-                isEdit ? editFields || !watch('categories')[0] : !createFields
+                (isEdit
+                    ? editFields || !watch('categories')[0]
+                    : !createFields) ||
+                (control._formValues.recurrence === recurrences[0].value &&
+                    endDateIso < startDateIso)
             }
             footerContainerClass={styles.modalFooter}
         >

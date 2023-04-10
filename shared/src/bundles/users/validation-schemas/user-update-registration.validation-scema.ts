@@ -113,6 +113,34 @@ const userUpdateReg = joi.object<UserUpdate, true>({
             'date.min': UserValidationMessage.DATE_FORMAT_WRONG,
             'any.required': UserValidationMessage.DATE_REQUIRE,
         }),
+    // dateOfBirth: joi
+    //     .string()
+    //     .required()
+    //     .custom((value, helpers) => {
+    //         const selectedDate = new Date(value);
+    //         const tomorrow = new Date();
+    //         tomorrow.setDate(tomorrow.getDate() + 1);
+    //         const tomorrowDate = new Date(
+    //             tomorrow.getFullYear(),
+    //             tomorrow.getMonth(),
+    //             tomorrow.getDate(),
+    //             0,
+    //             0,
+    //             0,
+    //             0,
+    //         );
+    //         if (selectedDate <= minDate) {
+    //             return helpers.error('any.required');
+    //         }
+    //         if (selectedDate > tomorrowDate) {
+    //             return helpers.error('any.required');
+    //         }
+    //     })
+    //     .messages({
+    //         'date.format': UserValidationMessage.DATE_FORMAT_WRONG,
+    //         'date.min': UserValidationMessage.DATE_FORMAT_WRONG,
+    //         'any.required': UserValidationMessage.DATE_REQUIRE,
+    //     }),
 });
 
 export { userUpdateReg };

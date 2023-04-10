@@ -237,16 +237,18 @@
     .filters {
         display: block;
         justify-content: center;
-        max-width: 300px;
+        max-width: 320px;
         margin: 0 auto;
     }
 
-    .smallCalendar {
-        display: block;
+    .buttonWrapper {
+        display: flex;
+        justify-content: center;
     }
 
     .largeCalendar {
-        display: block;
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -267,5 +269,15 @@
 
     .charts {
         grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .largeCalendar {
+        display: flex;
+        justify-content: center;
     }
 }

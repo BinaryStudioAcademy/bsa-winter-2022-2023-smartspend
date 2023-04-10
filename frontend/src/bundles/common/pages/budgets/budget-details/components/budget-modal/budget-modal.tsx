@@ -153,12 +153,14 @@ const BudgetModal: React.FC<Properties> = ({
                             control={control}
                             render={RenderRecurrence}
                         />
-                        <span className={styles.label}>Start date</span>
-                        <Controller
-                            name="startDate"
-                            control={control}
-                            render={RenderDate}
-                        />
+                        <div className={styles.calendar}>
+                            <span className={styles.label}>Start date</span>
+                            <Controller
+                                name="startDate"
+                                control={control}
+                                render={RenderDate}
+                            />
+                        </div>
                     </div>
                 </div>
             }

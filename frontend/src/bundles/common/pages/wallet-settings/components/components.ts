@@ -1,3 +1,2 @@
-export { ButtonsContainer } from './buttons-container/buttons-container';
-export { InputsContainer } from './inputs-container/inputs-container';
+export { FormContainer } from './inputs-container/form-container';
 export { Title } from './title/title';

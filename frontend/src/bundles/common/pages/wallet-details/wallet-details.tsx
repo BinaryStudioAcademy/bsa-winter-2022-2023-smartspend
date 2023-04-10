@@ -14,7 +14,7 @@ import {
     TransactionTable,
 } from '~/bundles/common/components/components.js';
 import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
-import { type ITransaction } from '~/bundles/common/components/transanction-table/types';
+import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
     ButtonVariant,
@@ -108,7 +108,9 @@ const WalletDetails: React.FC = () => {
         currentWallet?.currencyId,
     )?.symbol;
 
-    const [transactionData, setTransactionData] = useState<ITransaction[]>([]);
+    const [transactionData, setTransactionData] = useState<TransactionType[]>(
+        [],
+    );
 
     const data = useMemo(() => {
         return transactions.map((item) => ({
@@ -123,7 +125,7 @@ const WalletDetails: React.FC = () => {
             )?.symbol,
             note: item.note,
             walletsId: item.walletsId,
-        })) as unknown as ITransaction[];
+        })) as unknown as TransactionType[];
     }, [category, currencies, transactions]);
 
     const [peopleDropdown, setPeopleDropdown] = useState<

@@ -1,6 +1,6 @@
 import { type CategoryGetAllItemResponseDto } from 'shared/build';
 
-type ITransaction = {
+type TransactionType = {
     id: string;
     date: string;
     category: CategoryGetAllItemResponseDto;
@@ -12,4 +12,4 @@ type ITransaction = {
     walletsId: string;
 };
 
-export { type ITransaction };
+export { type TransactionType };

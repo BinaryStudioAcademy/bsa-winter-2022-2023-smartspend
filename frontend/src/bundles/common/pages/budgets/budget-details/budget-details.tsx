@@ -9,7 +9,7 @@ import {
     Loader,
     TransactionTable,
 } from '~/bundles/common/components/components';
-import { type ITransaction } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
+import { type TransactionType } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
 import { ButtonVariant } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
@@ -130,7 +130,7 @@ const BudgetDetails = (): JSX.Element => {
         currency: currencies.find((current) => current.id === item.currencyId)
             ?.symbol,
         note: item.note,
-    })) as unknown as ITransaction[];
+    })) as unknown as TransactionType[];
 
     const canSpending =
         canSpend > 0

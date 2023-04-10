@@ -12,11 +12,11 @@ import {
     groupTransactionsByDate,
 } from './helpers';
 import styles from './styles.module.scss';
-import { type ITransaction } from './types';
+import { type TransactionType } from './types';
 
 interface TransactionTableProperties {
     walletsId?: string;
-    transactions: ITransaction[];
+    transactions: TransactionType[];
 }
 
 const TransactionTable: React.FC<TransactionTableProperties> = ({

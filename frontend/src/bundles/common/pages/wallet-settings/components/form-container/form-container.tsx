@@ -85,6 +85,9 @@ const FormContainer: React.FC = () => {
     const handlebalanceInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
+            if (Number.isNaN(Number(value))) {
+                return;
+            }
             setFields(
                 (previousState) =>
                     ({
@@ -141,11 +144,14 @@ const FormContainer: React.FC = () => {
     }, [mutableCurrencies]);
 
     useEffect(() => {
-        currentWallet && setFields(currentWallet);
         if (findCurrency) {
             setCurrency(findCurrency);
         }
-    }, [findCurrency, currentWallet]);
+    }, [findCurrency]);
+
+    useEffect(() => {
+        currentWallet && setFields(currentWallet);
+    }, [currentWallet]);
 
     return (
         <>

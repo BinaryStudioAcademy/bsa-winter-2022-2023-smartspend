@@ -9,6 +9,7 @@ interface ITransaction {
     amount: number;
     currency?: string;
     note?: string;
+    walletsId: string;
 }
 
 export { type ITransaction };

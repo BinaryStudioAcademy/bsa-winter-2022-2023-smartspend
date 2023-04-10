@@ -149,7 +149,7 @@ const BudgetDetails = (): JSX.Element => {
                 Math.floor(Math.random() * gradientDoughnut.length)
             ];
 
-        if (doughnutData[category]) {
+        if (category in doughnutData) {
             doughnutData[category].total += amount;
             doughnutData[category].count += 1;
         } else {

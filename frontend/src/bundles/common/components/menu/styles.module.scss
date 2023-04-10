@@ -79,7 +79,9 @@
 
 @media (max-width: $md) {
     .button {
-        position: relative;
+        position: fixed;
+        top: 31px;
+        left: 70px;
         z-index: 3;
         display: flex;
         flex: 0 0 auto;

@@ -23,6 +23,7 @@ import { store } from '~/framework/store/store';
 
 import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
 import { Budgets } from './bundles/common/pages/budgets/budgets';
+import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -97,6 +98,18 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         <BudgetDetails />
                                     </PrivateRoute>
                                 ),
+                            },
+                            {
+                                path: AppRoute.WALLET_DETAILS_SETTINGS,
+                                element: (
+                                    <PrivateRoute>
+                                        <WalletSettings />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFound />,
                             },
                             {
                                 path: AppRoute.USER,

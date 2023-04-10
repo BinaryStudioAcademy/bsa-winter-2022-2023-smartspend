@@ -5,6 +5,7 @@ import calendarIcon from '~/assets/img/calendar-icon.svg';
 import { Button } from '~/bundles/common/components/components';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonVariant } from '~/bundles/common/enums/button-variant.enum';
+import { ButtonType } from '~/bundles/common/enums/enums';
 import { formatOneDay } from '~/bundles/common/helpers/helpers';
 
 import styles from './styles.module.scss';
@@ -50,6 +51,7 @@ const OneDayCalendar: React.FC<OneDayCalendarProperties> = ({
     return (
         <div className={styles.calendar_wrapper}>
             <Button
+                type={ButtonType.BUTTON}
                 className={styles.calendar}
                 variant={ButtonVariant.PLAIN}
                 size={ButtonSize.MEDIUM}
@@ -80,7 +82,7 @@ const OneDayCalendar: React.FC<OneDayCalendarProperties> = ({
 };
 
 const RenderDate = ({
-    field: { onChange },
+    field: { onChange, value },
 }: {
     field: { onChange: (value: Date) => void; value: string };
 }): JSX.Element => {
@@ -93,6 +95,12 @@ const RenderDate = ({
         },
         [onChange],
     );
+
+    useEffect(() => {
+        if (value) {
+            setSelectedDate(new Date(value));
+        }
+    }, [value]);
 
     return (
         <OneDayCalendar

@@ -21,7 +21,8 @@ import { Button, Menu, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    name?: string | null;
+    firstName?: string | undefined;
+    lastName?: string;
     avatar?: string;
     dataTabs: {
         dashboard: TabsData[];
@@ -34,7 +35,8 @@ const walletDetailsRegex =
     /^\/wallet\/[\da-z-]+\/(transaction|budgets|wallet-settings)$/;
 
 const Header: React.FC<Properties> = ({
-    name,
+    firstName = '',
+    lastName = '',
     avatar = defaultAvatar,
     dataTabs,
 }) => {
@@ -131,7 +133,9 @@ const Header: React.FC<Properties> = ({
                                     />
                                 )}
                             </div>
-                            <span className={styles.logoText}>{name}</span>
+                            <span
+                                className={styles.logoText}
+                            >{`${firstName} ${lastName}`}</span>
                         </div>
                         <div
                             className={classNames(styles.menu, {

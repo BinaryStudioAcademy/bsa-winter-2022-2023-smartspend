@@ -5,7 +5,7 @@ import { type Range } from 'react-date-range';
 import { Link } from 'react-router-dom';
 import { type TransactionGetAllItemResponseDto } from 'shared/build';
 
-import DashboardPlaceholder from '~/assets/img/dashboard_placeholder.png';
+import DashboardPlaceholder from '~/assets/img/dashboard_placeholder.jpg';
 import {
     Button,
     ButtonTabs,

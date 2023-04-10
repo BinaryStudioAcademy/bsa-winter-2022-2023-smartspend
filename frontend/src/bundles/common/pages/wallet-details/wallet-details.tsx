@@ -1,7 +1,7 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
@@ -10,7 +10,6 @@ import {
     CardTotal,
     Input,
     MultiDropdown,
-    NewWalletModal,
     RangeSlider,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
@@ -79,8 +78,6 @@ const people = [
 const WalletDetails: React.FC = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
-    const navigate = useNavigate();
-    const [active, setActive] = useState(false);
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
@@ -181,26 +178,6 @@ const WalletDetails: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
-    const onClickDeleteWalet = useCallback(
-        (id: string): void => {
-            void dispatch(walletsActions.remove(id));
-            navigate('/dashboard');
-        },
-        [dispatch, navigate],
-    );
-
-    const handleDeleteWalet = useCallback(
-        () => onClickDeleteWalet(id as string),
-        [id, onClickDeleteWalet],
-    );
-
-    const handleModal = useCallback(() => {
-        setActive(true);
-    }, []);
-
-    const handleCancel = useCallback(() => {
-        setActive(false);
-    }, []);
     useEffect(() => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
     }, [id, wallets]);
@@ -261,10 +238,6 @@ const WalletDetails: React.FC = () => {
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
                             </Button>
-                            <Button onClick={handleDeleteWalet}>
-                                Delete wallet
-                            </Button>
-                            <Button onClick={handleModal}>Edit wallet</Button>
                             <div className={styles.buttons}>
                                 <Button
                                     className={styles.button}
@@ -283,13 +256,6 @@ const WalletDetails: React.FC = () => {
                             </div>
                         </div>
                         <RangeCalendar />
-                        <NewWalletModal
-                            isEdit
-                            isShown={active}
-                            onClose={handleCancel}
-                            onSubmit={handleModal}
-                            values={currentWallet}
-                        />
                     </div>
                     <div className={styles.filters}>
                         <div

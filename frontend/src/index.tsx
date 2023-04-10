@@ -110,11 +110,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.NOT_FOUND,
-                                element: <NotFound />,
-                            },
-                            {
-                                path: AppRoute.ROOT,
+                                path: AppRoute.USER,
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
@@ -142,12 +138,12 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         ],
                     },
                     {
-                        path: AppRoute.UI,
-                        element: <StyleGuide />,
-                    },
-                    {
                         path: AppRoute.NOT_FOUND,
                         element: <NotFound />,
+                    },
+                    {
+                        path: AppRoute.UI,
+                        element: <StyleGuide />,
                     },
                 ]}
             />

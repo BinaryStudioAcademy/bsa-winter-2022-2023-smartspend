@@ -66,7 +66,6 @@ const iconProvider = {
     faChartSimple,
     faPiggyBank,
     faDollarSign,
-    faGear,
     faCamera,
 };
 

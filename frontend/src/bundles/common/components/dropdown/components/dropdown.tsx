@@ -119,17 +119,19 @@ const Dropdown: React.FC<Properties> = ({
         [],
     );
 
-    let value;
-
-    if (selectedOption) {
-        value = {
-            value: selectedOption.value,
-            name: selectedOption.name,
-            image: selectedOption.image,
-        };
-    } else {
-        value = [];
-    }
+    const getValue = (
+        selectedOption: DataType | undefined,
+    ): DataType | DataType[] => {
+        if (selectedOption) {
+            return {
+                value: selectedOption.value,
+                name: selectedOption.name,
+                image: selectedOption.image,
+            };
+        } else {
+            return [];
+        }
+    };
 
     return (
         <div>
@@ -138,7 +140,7 @@ const Dropdown: React.FC<Properties> = ({
             </div>
             <Select
                 className={styles.select}
-                value={value}
+                value={getValue(selectedOption)}
                 onChange={handleChange as HandleMultiChange}
                 options={data}
                 formatOptionLabel={

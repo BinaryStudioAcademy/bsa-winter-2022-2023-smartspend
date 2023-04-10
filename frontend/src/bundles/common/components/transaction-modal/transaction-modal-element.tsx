@@ -16,7 +16,7 @@ const TransactionModalElement: React.FC<Properties> = ({
 }) => {
     const elementClass = classNames(styles.element, className);
     return (
-        <div className={elementClass}>
+        <div>
             <span className={styles.labelElement}>{label}</span>
             {children}
         </div>

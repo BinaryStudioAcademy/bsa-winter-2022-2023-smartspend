@@ -12,6 +12,7 @@ import styles from './styles.module.scss';
 
 type Properties = {
     type: TransactionModalType;
+    onClose: () => void;
 };
 
 const categories: DataType[] = [
@@ -24,7 +25,7 @@ const currency: DataType[] = [
     { value: 'UAH', name: 'UAH' },
 ];
 
-const TransactionModal: React.FC<Properties> = ({ type }) => {
+const TransactionModal: React.FC<Properties> = ({ type, onClose }) => {
     const [active, setActive] = useState(true);
     const [imageFile, setImageFile] = useState<File | undefined>();
 
@@ -38,35 +39,38 @@ const TransactionModal: React.FC<Properties> = ({ type }) => {
 
     const handleCancel = useCallback(() => {
         setActive(false);
-    }, []);
+        onClose();
+    }, [onClose]);
 
     return (
         <BaseModal
             isShown={active}
             onClose={handleCancel}
             onSubmit={handleCancel}
+            submitButtonName={'Save changes'}
             Body={
                 <TransactionModalBody
                     categories={categories}
                     currency={currency}
                 />
             }
-            submitButtonName={'Save changes'}
         >
-            <TransactionImage
-                file={imageFile}
-                handleFileChange={handleFileChange}
-            />
-            {type === TransactionModalType.CHANGE && (
-                <Button
-                    className={styles.delete}
-                    type={ButtonType.SUBMIT}
-                    size={ButtonSize.SMALL}
-                    variant={ButtonVariant.SECONDARY}
-                >
-                    Delete Transaction
-                </Button>
-            )}
+            <div className={styles.buttons_container}>
+                <TransactionImage
+                    file={imageFile}
+                    handleFileChange={handleFileChange}
+                />
+                {type === TransactionModalType.CHANGE && (
+                    <Button
+                        className={styles.delete}
+                        type={ButtonType.SUBMIT}
+                        size={ButtonSize.SMALL}
+                        variant={ButtonVariant.SECONDARY}
+                    >
+                        Delete Transaction
+                    </Button>
+                )}
+            </div>
         </BaseModal>
     );
 };

@@ -33,7 +33,11 @@ import {
 } from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
-import { calculateBudgetDetails, getSpent, gradientDoughnut } from './helpers/helpers';
+import {
+    calculateBudgetDetails,
+    getSpent,
+    gradientDoughnut,
+} from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type DoughnutData = Record<

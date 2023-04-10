@@ -18,6 +18,8 @@ class TransactionModel extends AbstractModel {
 
     public 'ownerId': string;
 
+    public 'walletsId': string;
+
     public static override get tableName(): string {
         return DatabaseTableName.TRANSACTIONS;
     }

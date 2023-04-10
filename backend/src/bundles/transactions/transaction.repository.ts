@@ -65,11 +65,6 @@ class TransactionRepository implements Partial<IRepository> {
             .returning('*')
             .execute();
 
-        // console.log({
-        //     wallet_id: walletId,
-        //     transaction_id: item.id,
-        // });
-
         await WalletsTransactionModel.query()
             .insert({
                 walletId: walletsId,

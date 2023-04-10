@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 
+import { RouterOutlet } from '../common/components/components.js';
 import { AppRoute } from '../common/enums/app-route.enum.js';
-import { UserProfile, UserSettingsTabs } from './components/components.js';
+import { UserSettingsTabs } from './components/components.js';
 import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
@@ -13,7 +14,7 @@ const AccountSettings: React.FC = () => {
                     <UserSettingsTabs tabsData={dataTabs} />
                 </div>
                 <div className={styles.userProfileContainer}>
-                    <UserProfile />
+                    <RouterOutlet />
                 </div>
             </div>
         </main>

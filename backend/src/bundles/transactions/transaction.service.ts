@@ -49,7 +49,7 @@ class TransactionService {
                 amount: payload.amount,
                 currencyId: payload.currencyId,
                 ownerId: userId,
-                walletsId: payload.walletsId
+                walletsId: payload.walletsId,
             }),
         );
 

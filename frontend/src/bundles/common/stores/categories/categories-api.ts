@@ -1,4 +1,9 @@
-import { type CategoryGetAllResponseDto } from 'shared/build/index.js';
+import {
+    type CategoryGetAllItemResponseDto,
+    type CategoryGetAllResponseDto,
+    type CategoryRequestDto,
+    type CategoryUpdatePayloadDto,
+} from 'shared/build/index.js';
 import { CategoriesApiPath } from 'shared/build/index.js';
 
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
@@ -26,6 +31,54 @@ class CategoriesApi extends HttpApi {
             },
         );
         return await response.json<CategoryGetAllResponseDto>();
+    }
+
+    public async createCategory(
+        payload: CategoryRequestDto,
+    ): Promise<CategoryGetAllItemResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(CategoriesApiPath.ROOT, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return response.json<CategoryGetAllItemResponseDto>();
+    }
+
+    public async updateCategory({
+        id,
+        payload,
+    }: {
+        id: string;
+        payload: CategoryUpdatePayloadDto;
+    }): Promise<CategoryUpdatePayloadDto> {
+        const response = await this.load(
+            this.getFullEndpoint(`${CategoriesApiPath.ROOT}${id}`, {}),
+            {
+                method: 'PUT',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return response.json<CategoryGetAllItemResponseDto>();
+    }
+
+    public async deleteCategory(id: string): Promise<void> {
+        await this.load(
+            this.getFullEndpoint(`${CategoriesApiPath.ROOT}${id}`, {}),
+            {
+                method: 'DELETE',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(id),
+                hasAuth: true,
+            },
+        );
     }
 }
 

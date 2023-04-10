@@ -123,20 +123,22 @@ const Header: React.FC<Properties> = ({
                         role="presentation"
                         ref={menuReference}
                     >
-                        <div className={styles.headerLogo}>
-                            <div className={styles.userLogo}>
-                                {avatar && (
-                                    <img
-                                        className={styles.imgLogo}
-                                        src={avatar}
-                                        alt="user"
-                                    />
-                                )}
+                        {firstName && lastName && (
+                            <div className={styles.headerLogo}>
+                                <div className={styles.userLogo}>
+                                    {avatar && (
+                                        <img
+                                            className={styles.imgLogo}
+                                            src={avatar}
+                                            alt="user"
+                                        />
+                                    )}
+                                </div>
+                                <span
+                                    className={styles.logoText}
+                                >{`${firstName} ${lastName}`}</span>
                             </div>
-                            <span
-                                className={styles.logoText}
-                            >{`${firstName} ${lastName}`}</span>
-                        </div>
+                        )}
                         <div
                             className={classNames(styles.menu, {
                                 [styles.active]: openMenu,
@@ -145,7 +147,7 @@ const Header: React.FC<Properties> = ({
                         >
                             <div className={styles.list}>
                                 <Link
-                                    to={AppRoute.USER}
+                                    to={AppRoute.USER_PROFILE}
                                     className={styles.link}
                                 >
                                     Settings

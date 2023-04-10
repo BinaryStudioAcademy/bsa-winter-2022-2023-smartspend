@@ -1,3 +1,4 @@
+
 @import "@assets/utils";
 
 .body {
@@ -13,15 +14,12 @@
     margin-bottom: var(--m-2);
 }
 
-.note {
-    width: auto;
-}
-
 .buttons_container {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: var(--mg-1-local);
+    width: 100%;
 }
 
 .imageButton {
@@ -76,3 +74,4 @@
         padding: var(--p-5) var(--p-2);
     }
 }
+

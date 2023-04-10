@@ -41,6 +41,7 @@ const iconProvider = {
     faBasketShopping,
     faBriefcase,
     faCar,
+    faCamera,
     faGear,
     faGift,
     faGraduationCap,

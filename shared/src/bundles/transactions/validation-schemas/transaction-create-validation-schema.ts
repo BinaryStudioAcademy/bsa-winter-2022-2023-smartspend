@@ -12,6 +12,7 @@ const createTransactionValidationSchema = joi.object<
     labelId: joi.string(),
     amount: joi.number().required(),
     currencyId: joi.string().uuid().required(),
+    walletsId: joi.string().uuid().required(),
 });
 
 export { createTransactionValidationSchema };

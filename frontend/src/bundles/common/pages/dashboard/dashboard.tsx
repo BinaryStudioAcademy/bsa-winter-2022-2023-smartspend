@@ -5,6 +5,7 @@ import { type Range } from 'react-date-range';
 import { Link } from 'react-router-dom';
 import { type TransactionGetAllItemResponseDto } from 'shared/build';
 
+import DashboardPlaceholder from '~/assets/img/dashboard_placeholder.png';
 import {
     Button,
     ButtonTabs,
@@ -430,61 +431,76 @@ const Dashboard: React.FC = () => {
                                 variant={CardVariant.WHITE}
                             />
                         </div>
-                        <div className={styles.charts}>
-                            <ChartBox
-                                title={'Account Balance'}
-                                date={formatRangeGraph(day)}
-                                controls={
-                                    <ButtonTabs
-                                        tabsData={firstTabs}
-                                        onClick={setFirstTabs}
+                        {wallets.length > 0 ? (
+                            <div className={styles.charts}>
+                                <ChartBox
+                                    title={'Account Balance'}
+                                    date={formatRangeGraph(day)}
+                                    controls={
+                                        <ButtonTabs
+                                            tabsData={firstTabs}
+                                            onClick={setFirstTabs}
+                                        />
+                                    }
+                                >
+                                    <LineChart
+                                        dataArr={filterLineChart(
+                                            day,
+                                            lineChartData,
+                                        )}
                                     />
-                                }
-                            >
-                                <LineChart
-                                    dataArr={filterLineChart(
-                                        day,
-                                        lineChartData,
-                                    )}
-                                />
-                            </ChartBox>
-                            <ChartBox
-                                title={'Changes'}
-                                date={formatRangeGraph(day)}
-                                controls={
-                                    <ButtonTabs
-                                        tabsData={secondTabs}
-                                        onClick={setSecondTabs}
+                                </ChartBox>
+                                <ChartBox
+                                    title={'Changes'}
+                                    date={formatRangeGraph(day)}
+                                    controls={
+                                        <ButtonTabs
+                                            tabsData={secondTabs}
+                                            onClick={setSecondTabs}
+                                        />
+                                    }
+                                >
+                                    <Chart
+                                        array={filterChart(
+                                            day,
+                                            verticalChartData,
+                                        )}
                                     />
-                                }
-                            >
-                                <Chart
-                                    array={filterChart(day, verticalChartData)}
+                                </ChartBox>
+                                <ChartBox
+                                    title={'Period income'}
+                                    date={formatRangeGraph(day)}
+                                >
+                                    <DoughnutChart
+                                        categories={filterCategories(
+                                            day,
+                                            positiveResult,
+                                        )}
+                                    />
+                                </ChartBox>
+                                <ChartBox
+                                    title={'Period Expenses'}
+                                    date={formatRangeGraph(day)}
+                                >
+                                    <DoughnutChart
+                                        categories={filterCategories(
+                                            day,
+                                            negativeResult,
+                                        )}
+                                    />
+                                </ChartBox>
+                            </div>
+                        ) : (
+                            <div className={styles.placeholder}>
+                                <img
+                                    width="200px"
+                                    height="200px"
+                                    src={DashboardPlaceholder}
+                                    alt="dashboard placeholder"
                                 />
-                            </ChartBox>
-                            <ChartBox
-                                title={'Period income'}
-                                date={formatRangeGraph(day)}
-                            >
-                                <DoughnutChart
-                                    categories={filterCategories(
-                                        day,
-                                        positiveResult,
-                                    )}
-                                />
-                            </ChartBox>
-                            <ChartBox
-                                title={'Period Expenses'}
-                                date={formatRangeGraph(day)}
-                            >
-                                <DoughnutChart
-                                    categories={filterCategories(
-                                        day,
-                                        negativeResult,
-                                    )}
-                                />
-                            </ChartBox>
-                        </div>
+                                <div>You have not created a wallet yet.</div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

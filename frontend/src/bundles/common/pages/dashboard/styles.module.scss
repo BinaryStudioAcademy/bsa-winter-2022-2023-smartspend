@@ -63,6 +63,18 @@
     gap: 15px;
 }
 
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 100px auto;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
+}
+
 .filter {
     display: flex;
     flex-direction: column;

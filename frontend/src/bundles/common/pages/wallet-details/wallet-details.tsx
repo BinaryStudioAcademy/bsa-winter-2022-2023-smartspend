@@ -13,12 +13,15 @@ import {
     RangeSlider,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
+import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
+import { type ITransaction } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
     ButtonVariant,
     CardVariant,
     FaIcons,
     InputType,
+    TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
 import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -39,7 +42,6 @@ import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
-import { type ITransaction } from '../../components/transanction-table/types';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -108,8 +110,8 @@ const WalletDetails: React.FC = () => {
 
     const [transactionData, setTransactionData] = useState<ITransaction[]>([]);
 
-    useEffect(() => {
-        const data = transactions.map((item) => ({
+    const data = useMemo(() => {
+        return transactions.map((item) => ({
             id: item.id,
             date: item.date,
             category: category.find((cat) => cat.id === item.categoryId),
@@ -121,9 +123,7 @@ const WalletDetails: React.FC = () => {
             )?.symbol,
             note: item.note,
         })) as unknown as ITransaction[];
-
-        setTransactionData(data);
-    }, [transactions, category, currencies]);
+    }, [category, currencies, transactions]);
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -139,6 +139,15 @@ const WalletDetails: React.FC = () => {
 
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
+
+    const [activeModal, setActiveModal] = useState(false);
+    const openTransactionModal = useCallback((): void => {
+        setActiveModal(true);
+    }, []);
+
+    const closeTransactionModal = useCallback(() => {
+        setActiveModal(false);
+    }, []);
 
     const handlePeopleMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
@@ -178,17 +187,6 @@ const WalletDetails: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
-    useEffect(() => {
-        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
-    }, [id, wallets]);
-
-    useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
-
     const formatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
@@ -224,8 +222,28 @@ const WalletDetails: React.FC = () => {
         [categoriesDropdown],
     );
 
+    useEffect(() => {
+        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
+    }, [id, wallets]);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
+    }, [dispatch]);
+
+    useEffect(() => {
+        setTransactionData(data);
+    }, [data]);
+
     return (
         <div className={styles.app}>
+            <TransactionModal
+                type={TransactionModalType.ADD}
+                handleCancel={closeTransactionModal}
+                active={activeModal}
+            />
             <div className={styles.body}>
                 <div className={classNames(styles.bodyContainer, 'container')}>
                     <div className={styles.buttonsDate}>
@@ -233,6 +251,7 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
+                                onClick={openTransactionModal}
                                 className={styles.transactionButton}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />

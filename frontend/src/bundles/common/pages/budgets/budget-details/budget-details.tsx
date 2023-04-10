@@ -10,7 +10,7 @@ import {
     TransactionTable,
 } from '~/bundles/common/components/components';
 import { type ITransaction } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
-import { ButtonVariant } from '~/bundles/common/enums/enums';
+import { AppRoute, ButtonVariant } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
     toCustomLocaleString,
@@ -33,7 +33,7 @@ import {
 } from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
-import { calculateBudgetDetails, gradientDoughnut } from './helpers/helpers';
+import { calculateBudgetDetails, getSpent, gradientDoughnut } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type DoughnutData = Record<
@@ -78,7 +78,7 @@ const BudgetDetails = (): JSX.Element => {
     const onClickDeleteBudget = useCallback(
         (id: string): void => {
             void dispatch(budgetsActions.remove(id));
-            navigate('/budgets');
+            navigate(AppRoute.BUDGETS);
         },
         [dispatch, navigate],
     );
@@ -100,11 +100,7 @@ const BudgetDetails = (): JSX.Element => {
     }, [dispatch]);
 
     useEffect(() => {
-        let spentResult = 0;
-        for (const transaction of transactions) {
-            spentResult += transaction.amount;
-        }
-        setSpent(spentResult);
+        setSpent(getSpent(transactions));
     }, [transactions]);
 
     if (!currentBudget || transactions.length === 0) {

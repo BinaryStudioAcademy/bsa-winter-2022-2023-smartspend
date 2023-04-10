@@ -122,6 +122,7 @@ const WalletDetails: React.FC = () => {
                 (current) => current.id === item.currencyId,
             )?.symbol,
             note: item.note,
+            walletsId: item.walletsId,
         })) as unknown as ITransaction[];
     }, [category, currencies, transactions]);
 
@@ -383,6 +384,7 @@ const WalletDetails: React.FC = () => {
                             </div>
                             <div className={styles.transactionsContainer}>
                                 <TransactionTable
+                                    walletsId={id}
                                     transactions={transactionData}
                                 />
                             </div>

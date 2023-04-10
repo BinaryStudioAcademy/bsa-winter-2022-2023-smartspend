@@ -137,39 +137,6 @@ const BudgetDetails = (): JSX.Element => {
             ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
             : 0;
 
-    // const doughnutData = Object.values(
-    //     transactionData
-    //         .map((item) => ({
-    //             category: item.category.name,
-    //             amount: item.amount,
-    //             icon: item.category.icon,
-    //             name: item.category.name,
-    //             color: gradientDoughnut[
-    //                 Math.floor(Math.random() * gradientDoughnut.length)
-    //             ],
-    //         }))
-    //         .reduce((result: Result, current) => {
-    //             const category = current.category;
-    //             const amount = current.amount;
-    //             const color = current.color;
-    //             const icon = current.icon;
-    //             const name = current.name;
-    //             if (category in result) {
-    //                 result[category].total += amount;
-    //                 result[category].count += 1;
-    //                 return result;
-    //             }
-    //             result[category] = {
-    //                 total: amount,
-    //                 count: 1,
-    //                 color,
-    //                 name,
-    //                 icon,
-    //             };
-    //             return result;
-    //         }, {}),
-    // );
-
     const doughnutData: DoughnutData = {};
 
     for (const item of transactionData) {

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { type ReactElement } from 'react';
 
 import styles from './styles.module.scss';
@@ -9,12 +8,7 @@ interface Properties {
     className?: string;
 }
 
-const TransactionModalElement: React.FC<Properties> = ({
-    label,
-    children,
-    className,
-}) => {
-    const elementClass = classNames(styles.element, className);
+const TransactionModalElement: React.FC<Properties> = ({ label, children }) => {
     return (
         <div>
             <span className={styles.labelElement}>{label}</span>

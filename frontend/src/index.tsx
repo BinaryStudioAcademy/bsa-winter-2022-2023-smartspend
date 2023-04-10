@@ -38,7 +38,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         element: <App />,
                         children: [
                             {
-                                path: AppRoute.ROOT,
+                                index: true,
                                 element: (
                                     <PublicRoute>
                                         <Landing />
@@ -118,18 +118,18 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                                 children: [
                                     {
-                                        path: AppRoute.USER,
+                                        path: AppRoute.USER_CATEGORIES,
                                         element: (
                                             <PrivateRoute>
-                                                <UserProfile />
+                                                <CategoriesSettings />
                                             </PrivateRoute>
                                         ),
                                     },
                                     {
-                                        path: AppRoute.CATEGORIES,
+                                        path: AppRoute.USER_PROFILE,
                                         element: (
                                             <PrivateRoute>
-                                                <CategoriesSettings />
+                                                <UserProfile />
                                             </PrivateRoute>
                                         ),
                                     },

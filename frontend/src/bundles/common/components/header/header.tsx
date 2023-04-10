@@ -147,7 +147,7 @@ const Header: React.FC<Properties> = ({
                         >
                             <div className={styles.list}>
                                 <Link
-                                    to={AppRoute.USER}
+                                    to={AppRoute.USER_PROFILE}
                                     className={styles.link}
                                 >
                                     Settings

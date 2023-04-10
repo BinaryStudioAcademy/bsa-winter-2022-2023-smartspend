@@ -100,7 +100,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.WALLET_SETTINGS,
+                                path: AppRoute.WALLET_DETAILS_SETTINGS,
                                 element: (
                                     <PrivateRoute>
                                         <WalletSettings />

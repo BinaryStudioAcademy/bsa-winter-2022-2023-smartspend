@@ -62,6 +62,11 @@ type FormValues = {
     wallet: string;
 };
 
+interface Filters {
+    value: string;
+    name: string;
+}
+
 type ChartBoxProperties = {
     children: JSX.Element | JSX.Element[] | string;
     title: string;
@@ -208,6 +213,19 @@ const Dashboard: React.FC = () => {
         [],
     );
 
+    const [filters, setFilters] = useState<Filters>({ value: '', name: '' });
+
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { name, value } = event.target as HTMLInputElement;
+            setFilters((previousFilters) => ({
+                ...previousFilters,
+                [name]: value,
+            }));
+        },
+        [],
+    );
+
     const [transactionsData, setTransactionsData] = useState<
         TransactionGetAllItemResponseDto[]
     >([]);
@@ -255,6 +273,10 @@ const Dashboard: React.FC = () => {
             value: '',
             name: 'Find by category',
         });
+        setFilters({
+            value: '',
+            name: '',
+        });
         setTransactionsData([]);
     }, []);
 
@@ -283,7 +305,7 @@ const Dashboard: React.FC = () => {
                             </Link>
                         ))}
                         <WalletButton onClick={handleModal}>
-                            Add new wallet
+                            Add New Wallet
                         </WalletButton>
                         <NewWalletModal
                             isShown={active}
@@ -348,6 +370,8 @@ const Dashboard: React.FC = () => {
                                 errors={errors}
                                 label={'By note'}
                                 name={'name'}
+                                value={filters.name}
+                                onChange={handleChange}
                                 placeholder={'Filter by specific keyword'}
                             />
                             <div className={styles.filter}>

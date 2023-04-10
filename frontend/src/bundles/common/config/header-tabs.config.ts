@@ -10,7 +10,7 @@ const tabsData = [
     { title: 'Budgets', to: AppRoute.BUDGETS, icon: 'BUDGET' },
     {
         title: 'Wallet Settings',
-        to: AppRoute.WALLET_SETTINGS,
+        to: AppRoute.SETTINGS,
         icon: 'SETTINGS',
     },
 ];

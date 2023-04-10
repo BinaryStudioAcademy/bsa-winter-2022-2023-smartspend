@@ -14,6 +14,7 @@ const AppRoute = {
     NOT_FOUND: '*',
     WALLET: '/wallet',
     TRANSACTION: '/transaction',
+    SETTINGS: '/wallet-settings',
 } as const;
 
 export { AppRoute };

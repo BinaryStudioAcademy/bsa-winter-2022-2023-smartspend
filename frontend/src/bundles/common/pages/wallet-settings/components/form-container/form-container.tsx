@@ -26,6 +26,7 @@ const FormContainer: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const { wallets } = useAppSelector((state) => state.wallets);
+    const [isActive, setIsActive] = useState<boolean>(false);
     const { currencies } = useAppSelector((state) => state.currencies);
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
@@ -62,6 +63,7 @@ const FormContainer: React.FC = () => {
     const handleChange = useCallback((selectedOption: DataType | null) => {
         if (selectedOption !== null) {
             setCurrency(selectedOption);
+            setIsActive(true);
         }
     }, []);
 
@@ -75,6 +77,7 @@ const FormContainer: React.FC = () => {
                         name: value,
                     } as WalletGetAllItemResponseDto),
             );
+            setIsActive(true);
         },
         [],
     );
@@ -89,6 +92,7 @@ const FormContainer: React.FC = () => {
                         balance: Number(value),
                     } as WalletGetAllItemResponseDto),
             );
+            setIsActive(true);
         },
         [],
     );
@@ -185,6 +189,7 @@ const FormContainer: React.FC = () => {
                 <Button
                     variant={ButtonVariant.PRIMARY}
                     onClick={handleUpdateWalet}
+                    disabled={!isActive}
                 >
                     Update Setting
                 </Button>

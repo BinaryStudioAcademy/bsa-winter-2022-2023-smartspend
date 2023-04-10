@@ -17,7 +17,7 @@ class TransactionEntity implements IEntity {
 
     private 'ownerId': string;
 
-    private 'walletsId'?: string;
+    private 'walletsId': string;
 
     private constructor({
         id,
@@ -38,7 +38,7 @@ class TransactionEntity implements IEntity {
         amount: number;
         currencyId?: string;
         ownerId: string;
-        walletsId?: string;
+        walletsId: string;
     }) {
         this.id = id;
         this.categoryId = categoryId;
@@ -70,7 +70,7 @@ class TransactionEntity implements IEntity {
         amount: number;
         currencyId?: string;
         ownerId: string;
-        walletsId?: string;
+        walletsId: string;
     }): TransactionEntity {
         return new TransactionEntity({
             id,
@@ -102,7 +102,7 @@ class TransactionEntity implements IEntity {
         amount: number;
         currencyId?: string;
         ownerId: string;
-        walletsId?: string;
+        walletsId: string;
     }): TransactionEntity {
         return new TransactionEntity({
             id: null,
@@ -126,7 +126,7 @@ class TransactionEntity implements IEntity {
         amount: number;
         currencyId?: string;
         ownerId: string;
-        walletsId?: string;
+        walletsId: string;
     } {
         return {
             id: this.id as string,
@@ -149,7 +149,7 @@ class TransactionEntity implements IEntity {
         amount: number;
         currencyId?: string;
         ownerId: string;
-        walletsId?: string;
+        walletsId: string;
     } {
         return {
             categoryId: this.categoryId,

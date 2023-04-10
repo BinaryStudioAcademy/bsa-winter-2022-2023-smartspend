@@ -130,9 +130,8 @@ const tabsDashboard = [
 
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
-    const [active, setActive] = useState(false);
-
     const dispatch = useAppDispatch();
+    const [active, setActive] = useState(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
 
@@ -178,12 +177,6 @@ const Dashboard: React.FC = () => {
     const handleCancel = useCallback(() => {
         setActive(false);
     }, []);
-
-    useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-    }, [dispatch]);
 
     const [wallet, setWallet] = useState<DataType>({
         value: '',
@@ -237,6 +230,29 @@ const Dashboard: React.FC = () => {
         processTransactions(transactionsData);
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
+    const handleResetFilters = useCallback(() => {
+        setWallet({
+            value: '',
+            name: 'Find by name',
+        });
+        setCurrentRange({ min: 0, max: 0 });
+        setCategory({
+            value: '',
+            name: 'Find by category',
+        });
+        setFilters({
+            value: '',
+            name: '',
+        });
+        setTransactionsData([]);
+    }, []);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
+
     useEffect(() => {
         const filteredTransactions = transactions.filter((transaction) => {
             const walletMatch = wallets.find(
@@ -262,23 +278,6 @@ const Dashboard: React.FC = () => {
         currentRange.min,
         currentRange.max,
     ]);
-
-    const handleResetFilters = useCallback(() => {
-        setWallet({
-            value: '',
-            name: 'Find by name',
-        });
-        setCurrentRange({ min: 0, max: 0 });
-        setCategory({
-            value: '',
-            name: 'Find by category',
-        });
-        setFilters({
-            value: '',
-            name: '',
-        });
-        setTransactionsData([]);
-    }, []);
 
     return (
         <div className={styles.container}>

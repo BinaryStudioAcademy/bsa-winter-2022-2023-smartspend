@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { type TransactionCreateRequestDto } from 'shared/build';
 
 import { BaseModal, Button } from '~/bundles/common/components/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
@@ -17,7 +19,6 @@ import {
 import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
-import { type Transaction } from '~/bundles/common/types/transaction.type';
 import { actions as currenciesActions } from '~/bundles/currencies/store/';
 
 import styles from './styles.module.scss';
@@ -39,9 +40,10 @@ const TransactionModal: React.FC<Properties> = ({
     active,
 }) => {
     const dispatch = useAppDispatch();
+    const { id } = useParams();
 
     const [transaction, setTransaction] =
-        useState<Transaction>(DEFAULT_TRANSACTION);
+        useState<TransactionCreateRequestDto>(DEFAULT_TRANSACTION);
 
     const [imageFile, setImageFile] = useState<File | undefined>();
 
@@ -59,6 +61,9 @@ const TransactionModal: React.FC<Properties> = ({
             : 'Add transaction';
 
     const handleSubmit = useCallback(() => {
+        if (id) {
+            transaction.walletsId = id;
+        }
         if (type === TransactionModalType.ADD) {
             void dispatch(transactionActions.createTransaction(transaction));
         }
@@ -67,7 +72,7 @@ const TransactionModal: React.FC<Properties> = ({
         }
         void dispatch(transactionActions.loadTransactions());
         handleCancel();
-    }, [dispatch, handleCancel, transaction, type]);
+    }, [dispatch, handleCancel, id, transaction, type]);
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],

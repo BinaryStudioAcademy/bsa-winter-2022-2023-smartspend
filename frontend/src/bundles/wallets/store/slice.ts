@@ -22,7 +22,7 @@ const { reducer, actions, name } = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addCase(loadAll.fulfilled, (state, action) => {
-            state.wallets = action.payload.items;
+            state.wallets = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
         });
 

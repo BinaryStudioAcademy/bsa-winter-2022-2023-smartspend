@@ -124,7 +124,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                     {
                         path: AppRoute.UI,
                         element: <StyleGuide />,
-                    }
+                    },
                 ]}
             />
         </StoreProvider>

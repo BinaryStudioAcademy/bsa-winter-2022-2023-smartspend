@@ -106,7 +106,13 @@ const BudgetModal: React.FC<Properties> = ({
         ) {
             reset({ ...control._formValues, endDate: '' });
         }
-    }, [DEFAULT_VALUES, control._formValues, control._formValues.endDate, control._formValues.recurrence, reset]);
+    }, [
+        DEFAULT_VALUES,
+        control._formValues,
+        control._formValues.endDate,
+        control._formValues.recurrence,
+        reset,
+    ]);
 
     const handleFormSubmit = useCallback(
         (event: React.BaseSyntheticEvent): void => {

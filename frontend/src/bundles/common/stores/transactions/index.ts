@@ -1,9 +1,17 @@
-import { loadTransactions } from './actions.js';
+import {
+    createTransaction,
+    deleteTransaction,
+    loadTransactions,
+    updateTransaction,
+} from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     loadTransactions,
+    createTransaction,
+    updateTransaction,
+    deleteTransaction,
 };
 
 export { allActions as actions };

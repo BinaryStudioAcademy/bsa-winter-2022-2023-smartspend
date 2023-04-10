@@ -9,9 +9,8 @@ import { Loader } from '../components';
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     children,
 }) => {
-    const { isLoaded } = useAppSelector(({ auth }) => ({
-        isLoaded: auth.isLoaded,
-        dataStatus: auth.dataStatus,
+    const { isLoaded } = useAppSelector(({ users }) => ({
+        isLoaded: users.isLoaded,
     }));
     const token = storage.getSync(StorageKey.TOKEN);
 

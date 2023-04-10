@@ -69,7 +69,7 @@ const BudgetDetails = (): JSX.Element => {
     );
 
     const transactions = useAppSelector(
-        (state) => state.transactions.transactions,
+        (state) => state.transactions.transactions?.items,
     );
 
     const handleCancel = useCallback(() => {
@@ -116,7 +116,7 @@ const BudgetDetails = (): JSX.Element => {
         recurrence,
         spent,
     });
-    const transactionData = transactions.map((item) => ({
+    const transactionData = transactions?.map((item) => ({
         id: item.id,
         date: item.date,
         category: categories.find((cat) => cat.id === item.categoryId),

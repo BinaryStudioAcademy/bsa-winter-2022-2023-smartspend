@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type TransactionGetAllResponseDto } from 'shared/build/index.js';
+import {
+    type TransactionCreateRequestDto,
+    type TransactionGetAllResponseDto,
+    type TransactionUpdatePayloadDto,
+} from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -16,6 +20,28 @@ const loadTransactions = createAsyncThunk<
     return await transactionsApi.loadTransactions();
 });
 
+const createTransaction = createAsyncThunk<
+    Promise<void>,
+    TransactionCreateRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/create-transactions`, async (registerPayload, { extra }) => {
+    const { transactionsApi } = extra;
+
+    await transactionsApi.createTransaction(registerPayload);
+    await transactionsApi.loadTransactions();
+});
+
+const updateTransaction = createAsyncThunk<
+    Promise<void>,
+    TransactionUpdatePayloadDto,
+    AsyncThunkConfig
+>(`${sliceName}/update-transactions`, async (registerPayload, { extra }) => {
+    const { transactionsApi } = extra;
+
+    await transactionsApi.updateTransaction(registerPayload);
+    await transactionsApi.loadTransactions();
+});
+
 const deleteTransaction = createAsyncThunk<
     DeleteTransactionResponseDto,
     string,
@@ -25,4 +51,9 @@ const deleteTransaction = createAsyncThunk<
     return await transactionsApi.deleteTransaction(id);
 });
 
-export { deleteTransaction, loadTransactions };
+export {
+    createTransaction,
+    deleteTransaction,
+    loadTransactions,
+    updateTransaction,
+};

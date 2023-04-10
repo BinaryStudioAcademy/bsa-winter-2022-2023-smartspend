@@ -2,12 +2,12 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
-    type UserLoadResponseDto,
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
 import { StorageKey } from '~/framework/storage/storage.js';
 
+import { actions as userActions } from '../../users/store';
 import { name as sliceName } from './slice.js';
 
 const signUp = createAsyncThunk<
@@ -21,7 +21,7 @@ const signUp = createAsyncThunk<
 
     void storage.set(StorageKey.TOKEN, token);
 
-    await dispatch(loadUser());
+    await dispatch(userActions.loadUser());
 });
 
 const signIn = createAsyncThunk<
@@ -35,19 +35,9 @@ const signIn = createAsyncThunk<
 
     void storage.set(StorageKey.TOKEN, token);
 
-    await dispatch(loadUser());
-});
-
-const loadUser = createAsyncThunk<
-    UserLoadResponseDto,
-    undefined,
-    AsyncThunkConfig
->(`${sliceName}/authenticated-user`, async (_registerPayload, { extra }) => {
-    const { authApi } = extra;
-
-    return await authApi.loadUser();
+    await dispatch(userActions.loadUser());
 });
 
 const toggleSignUpModalOpen = createAction(`${sliceName}/sign-up-modal-state`);
 
-export { loadUser, signIn, signUp, toggleSignUpModalOpen };
+export { signIn, signUp, toggleSignUpModalOpen };

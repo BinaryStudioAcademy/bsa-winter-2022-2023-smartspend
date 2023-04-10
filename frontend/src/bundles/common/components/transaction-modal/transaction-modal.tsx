@@ -15,13 +15,10 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { loadCategories } from '~/bundles/common/stores/categories/actions';
+import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type Transaction } from '~/bundles/common/types/transaction.type';
 import { loadAll } from '~/bundles/currencies/store/actions';
-import {
-    createTransaction,
-    updateTransaction,
-} from '~/bundles/transactions/store/actions';
 
 import styles from './styles.module.scss';
 
@@ -63,10 +60,10 @@ const TransactionModal: React.FC<Properties> = ({
 
     const handleSubmit = useCallback(() => {
         if (type === TransactionModalType.ADD) {
-            void dispatch(createTransaction(transaction));
+            void dispatch(transactionActions.createTransaction(transaction));
         }
         if (type === TransactionModalType.CHANGE) {
-            void dispatch(updateTransaction(transaction));
+            void dispatch(transactionActions.updateTransaction(transaction));
         }
         handleCancel();
     }, [dispatch, handleCancel, transaction, type]);

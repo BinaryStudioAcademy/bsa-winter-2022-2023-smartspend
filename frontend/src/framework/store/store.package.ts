@@ -12,12 +12,10 @@ import { reducer as budgetsReducer } from '~/bundles/budgets/store/';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { categoriesApi } from '~/bundles/common/stores/categories/categories.js';
 import { reducer as categoriesReducer } from '~/bundles/common/stores/categories/slice.js';
+import { reducer as transactionsReducer } from '~/bundles/common/stores/transactions/';
 import { transactionsApi } from '~/bundles/common/stores/transactions/transactions.js';
 import { currencyApi } from '~/bundles/currencies/currencies.js';
 import { reducer as currenciesReducer } from '~/bundles/currencies/store';
-import { reducer as transactionReducer } from '~/bundles/transactions/store';
-import { reducer as transactionsReducer } from '~/bundles/transactions/store/';
-import { transactionApi } from '~/bundles/transactions/transactions.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { reducer as walletsReducer } from '~/bundles/wallets/store/';
@@ -35,7 +33,6 @@ type RootReducer = {
     categories: ReturnType<typeof categoriesReducer>;
     currencies: ReturnType<typeof currenciesReducer>;
     transactions: ReturnType<typeof transactionsReducer>;
-    transaction: ReturnType<typeof transactionReducer>;
 };
 
 type ExtraArguments = {
@@ -48,7 +45,6 @@ type ExtraArguments = {
     storage: typeof storage;
     currencyApi: typeof currencyApi;
     transactionsApi: typeof transactionsApi;
-    transactionApi: typeof transactionApi;
 };
 
 class Store {
@@ -73,7 +69,6 @@ class Store {
                 categories: categoriesReducer,
                 currencies: currenciesReducer,
                 transactions: transactionsReducer,
-                transaction: transactionReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 return [
@@ -99,7 +94,6 @@ class Store {
             storage,
             currencyApi,
             transactionsApi,
-            transactionApi,
         };
     }
 }

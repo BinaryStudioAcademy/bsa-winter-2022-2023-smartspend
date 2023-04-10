@@ -1,12 +1,14 @@
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
     Loader,
+    Placeholder,
     TransactionTable,
 } from '~/bundles/common/components/components';
 import { type ITransaction } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
@@ -107,7 +109,7 @@ const BudgetDetails = (): JSX.Element => {
         setSpent(spentResult);
     }, [transactions]);
 
-    if (!currentBudget || transactions.length === 0) {
+    if (!currentBudget) {
         return <Loader />;
     }
 
@@ -139,32 +141,31 @@ const BudgetDetails = (): JSX.Element => {
 
     const doughnutData: DoughnutData = {};
 
-    for (const item of transactionData) {
-        const category = item.category.name;
-        const amount = item.amount;
-        const icon = item.category.icon;
-        const name = item.category.name;
-        const color =
-            gradientDoughnut[
-                Math.floor(Math.random() * gradientDoughnut.length)
-            ];
-
-        if (category in doughnutData) {
-            doughnutData[category].total += amount;
-            doughnutData[category].count += 1;
-        } else {
-            doughnutData[category] = {
-                total: amount,
-                count: 1,
-                color,
-                name,
-                icon,
-            };
+    if (transactions.length > 0) {
+        for (const item of transactionData) {
+            const category = item.category.name;
+            const amount = item.amount;
+            const icon = item.category.icon;
+            const name = item.category.name;
+            const color =
+                gradientDoughnut[
+                    Math.floor(Math.random() * gradientDoughnut.length)
+                ];
+            if (category in doughnutData) {
+                doughnutData[category].total += amount;
+                doughnutData[category].count += 1;
+            } else {
+                doughnutData[category] = {
+                    total: amount,
+                    count: 1,
+                    color,
+                    name,
+                    icon,
+                };
+            }
         }
     }
-
     const doughnutChartData = Object.values(doughnutData);
-
     return (
         <div className={styles.container}>
             <div className={classNames(styles.contentWrapper, 'container')}>
@@ -236,29 +237,38 @@ const BudgetDetails = (): JSX.Element => {
                     </div>
                 </div>
 
-                <div className={styles.cartBoxWrapper}>
-                    <div className={styles.chartWrapper}>
-                        <DoughnutChartCard
-                            variant={DoughnutChartCartVariant.SECONDARY}
-                            title={'Accounted Categories'}
-                            date={startDate}
-                            categories={doughnutChartData}
-                        />
-                    </div>
-                    <div className={styles.chartWrapper}>
-                        <DoughnutChartCard
-                            title={'Accounted Wallets'}
-                            date={startDate}
-                            transaction_num={0}
-                            transaction_type={''}
-                            transaction_sum={''}
-                            categories={doughnutChartData}
-                        />
-                    </div>
-                </div>
-                <div className={styles.transactionTable}>
-                    <TransactionTable transactions={transactionData} />
-                </div>
+                {transactions.length === 0 ? (
+                    <Placeholder
+                        path={DashboardPlaceholder}
+                        body={'You have no transactions.'}
+                    />
+                ) : (
+                    <>
+                        <div className={styles.cartBoxWrapper}>
+                            <div className={styles.chartWrapper}>
+                                <DoughnutChartCard
+                                    variant={DoughnutChartCartVariant.SECONDARY}
+                                    title={'Accounted Categories'}
+                                    date={startDate}
+                                    categories={doughnutChartData}
+                                />
+                            </div>
+                            <div className={styles.chartWrapper}>
+                                <DoughnutChartCard
+                                    title={'Accounted Wallets'}
+                                    date={startDate}
+                                    transaction_num={0}
+                                    transaction_type={''}
+                                    transaction_sum={''}
+                                    categories={doughnutChartData}
+                                />
+                            </div>
+                        </div>
+                        <div className={styles.transactionTable}>
+                            <TransactionTable transactions={transactionData} />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

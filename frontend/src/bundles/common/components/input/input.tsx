@@ -73,6 +73,7 @@ const Input = <T extends FieldValues>({
         styles[isDisabled ? 'disabled' : ''],
         inputClassName,
     );
+
     let checkTypePassword;
     if (type !== InputType.CHECKBOX) {
         checkTypePassword =

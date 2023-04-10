@@ -21,7 +21,8 @@ import { Button, Menu, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
-    name?: string | null;
+    firstName?: string | undefined;
+    lastName?: string;
     avatar?: string;
     dataTabs: {
         dashboard: TabsData[];
@@ -34,7 +35,8 @@ const walletDetailsRegex =
     /^\/wallet\/[\da-z-]+\/(transaction|budgets|wallet-settings)$/;
 
 const Header: React.FC<Properties> = ({
-    name,
+    firstName = '',
+    lastName = '',
     avatar = defaultAvatar,
     dataTabs,
 }) => {
@@ -121,18 +123,22 @@ const Header: React.FC<Properties> = ({
                         role="presentation"
                         ref={menuReference}
                     >
-                        <div className={styles.headerLogo}>
-                            <div className={styles.userLogo}>
-                                {avatar && (
-                                    <img
-                                        className={styles.imgLogo}
-                                        src={avatar}
-                                        alt="user"
-                                    />
-                                )}
+                        {firstName && lastName && (
+                            <div className={styles.headerLogo}>
+                                <div className={styles.userLogo}>
+                                    {avatar && (
+                                        <img
+                                            className={styles.imgLogo}
+                                            src={avatar}
+                                            alt="user"
+                                        />
+                                    )}
+                                </div>
+                                <span
+                                    className={styles.logoText}
+                                >{`${firstName} ${lastName}`}</span>
                             </div>
-                            <span className={styles.logoText}>{name}</span>
-                        </div>
+                        )}
                         <div
                             className={classNames(styles.menu, {
                                 [styles.active]: openMenu,

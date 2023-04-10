@@ -33,27 +33,21 @@ import {
 } from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
-import { calculateBudgetDetails } from './helpers/helpers';
+import { calculateBudgetDetails, gradientDoughnut } from './helpers/helpers';
 import styles from './styles.module.scss';
 
+type DoughnutData = Record<
+    string,
+    {
+        total: number;
+        count: number;
+        color: string;
+        name: string;
+        icon: string;
+    }
+>;
+
 const BudgetDetails = (): JSX.Element => {
-    const doughnutData = [
-        {
-            total: 1150,
-            color: 'linear-gradient(95.5deg, #284B9F 0%, #102E68 100%)',
-        },
-        {
-            total: 1825,
-            color: 'linear-gradient(96.2deg, #FECC66 -30.03%, #F83062 95.13%)',
-        },
-        {
-            total: 1325,
-            color: 'linear-gradient(96.2deg, #FE66E6 -30.03%, #6933DD 95.13%)',
-        },
-    ];
-
-    const spent = 500;
-
     const dispatch = useAppDispatch();
     const { id } = useParams();
     const navigate = useNavigate();
@@ -61,6 +55,7 @@ const BudgetDetails = (): JSX.Element => {
     const [currentBudget, setCurrenBudget] = useState<
         BudgetSliceResponseDto | undefined
     >();
+    const [spent, setSpent] = useState(0);
     const { budgets } = useAppSelector((state) => state.budgets);
     const { currencies } = useAppSelector((state) => state.currencies);
 
@@ -104,7 +99,15 @@ const BudgetDetails = (): JSX.Element => {
         void dispatch(transactionsActions.loadTransactions());
     }, [dispatch]);
 
-    if (!currentBudget) {
+    useEffect(() => {
+        const spentResult = transactions.reduce(
+            (accumulator, current) => accumulator + current.amount,
+            0,
+        );
+        setSpent(spentResult);
+    }, [transactions]);
+
+    if (!currentBudget || transactions.length === 0) {
         return <Loader />;
     }
 
@@ -116,6 +119,7 @@ const BudgetDetails = (): JSX.Element => {
         recurrence,
         spent,
     });
+
     const transactionData = transactions.map((item) => ({
         id: item.id,
         date: item.date,
@@ -132,6 +136,34 @@ const BudgetDetails = (): JSX.Element => {
         canSpend > 0
             ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
             : 0;
+
+    const doughnutData: DoughnutData = {};
+
+    for (const item of transactionData) {
+        const category = item.category.name;
+        const amount = item.amount;
+        const icon = item.category.icon;
+        const name = item.category.name;
+        const color =
+            gradientDoughnut[
+                Math.floor(Math.random() * gradientDoughnut.length)
+            ];
+
+        if (category in doughnutData) {
+            doughnutData[category].total += amount;
+            doughnutData[category].count += 1;
+        } else {
+            doughnutData[category] = {
+                total: amount,
+                count: 1,
+                color,
+                name,
+                icon,
+            };
+        }
+    }
+
+    const doughnutChartData = Object.values(doughnutData);
 
     return (
         <div className={styles.container}>
@@ -210,10 +242,7 @@ const BudgetDetails = (): JSX.Element => {
                             variant={DoughnutChartCartVariant.SECONDARY}
                             title={'Accounted Categories'}
                             date={startDate}
-                            transaction_num={0}
-                            transaction_type={'some'}
-                            transaction_sum={''}
-                            categories={doughnutData}
+                            categories={doughnutChartData}
                         />
                     </div>
                     <div className={styles.chartWrapper}>
@@ -223,7 +252,7 @@ const BudgetDetails = (): JSX.Element => {
                             transaction_num={0}
                             transaction_type={''}
                             transaction_sum={''}
-                            categories={doughnutData}
+                            categories={doughnutChartData}
                         />
                     </div>
                 </div>

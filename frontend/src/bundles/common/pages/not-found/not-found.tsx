@@ -9,7 +9,7 @@ import {
 import styles from './styles.module.scss';
 
 const NotFound: React.FC = () => {
-    const { user } = useAppSelector((state) => state.auth);
+    const { user } = useAppSelector((state) => state.users);
     const redirectRoute = user ? AppRoute.DASHBOARD : AppRoute.ROOT;
     const navigate = useNavigate();
     const onRedirect = useCallback(() => {

@@ -35,9 +35,9 @@ import { useAppForm } from '../hooks/hooks.js';
 import { type DataType } from '../types/dropdown.type';
 
 const tabsData = [
-    { title: 'Transaction', to: '/ui/' },
+    { title: 'Transactions', to: '/ui/' },
     { title: 'Overview', to: '/ui/overview' },
-    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Budgets', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
 ];
 
@@ -195,7 +195,7 @@ const Base: React.FC = () => {
 
     return (
         <>
-            <Header dataTabs={allTabsData} />
+            <Header dataTabs={allTabsData} firstName={''} />
             <div style={{ textAlign: 'center', marginTop: '80px' }}>
                 <b>Style Guide</b>
                 <div>

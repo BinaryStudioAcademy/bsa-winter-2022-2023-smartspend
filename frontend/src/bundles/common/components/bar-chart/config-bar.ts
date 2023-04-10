@@ -10,11 +10,11 @@ const options: ConfigBar = {
             },
             ticks: {
                 callback: (value) => numberToStringCurrencyHelper(value),
-                stepSize: 250_000,
+                stepSize: 6000,
                 color: '#9AACBD',
                 padding: 5,
                 font: {
-                    size: 10,
+                    size: 12,
                     family: 'Rubik, arial',
                     weight: '400',
                 },

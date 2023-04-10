@@ -10,6 +10,7 @@ export { variantStyleMap } from './card-variant-style-map.js';
 export { DataStatus } from './data-status.enum.js';
 export { DoughnutData } from './doughnut-data.enum.js';
 export { FaIcons } from './fa-icons.enum.js';
+export { IconSize } from './icons-size.enum.js';
 export { InputType } from './input-type.enum.js';
 export { LineChartOptions } from './line-chart.enums.js';
 export { menuLinks } from './menu-links.enum.js';

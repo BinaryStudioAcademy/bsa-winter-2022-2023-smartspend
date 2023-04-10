@@ -29,11 +29,6 @@ const DoughnutChartCard: React.FC<Properties> = ({
     date,
     categories,
 }) => {
-    // const transactionSumClass = classNames(
-    //     styles.transactionSum,
-    //     transaction_sum?.includes('+') ? styles.blue : styles.red,
-    // );
-
     return (
         <div className={styles.container}>
             <div className={styles.topPart}>

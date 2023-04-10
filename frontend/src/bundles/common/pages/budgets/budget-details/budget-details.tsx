@@ -107,7 +107,7 @@ const BudgetDetails = (): JSX.Element => {
         setSpent(spentResult);
     }, [transactions]);
 
-    if (!currentBudget) {
+    if (!currentBudget || transactions.length === 0) {
         return <Loader />;
     }
 

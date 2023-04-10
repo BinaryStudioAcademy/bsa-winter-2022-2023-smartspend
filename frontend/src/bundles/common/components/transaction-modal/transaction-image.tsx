@@ -1,9 +1,8 @@
 import { useRef } from 'react';
 
+import cameraIcon from '~/assets/img/camera-icon.svg';
 import { FileInput } from '~/bundles/common/components/file-input/file-input';
-import { Icon } from '~/bundles/common/components/icon/icon';
 import { useCallback } from '~/bundles/common/hooks/hooks';
-import { FaIcons } from '~/bundles/ui/enums/enums';
 
 import styles from './styles.module.scss';
 
@@ -34,7 +33,7 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
                     alt="transaction"
                 />
             ) : (
-                <Icon name={FaIcons.CAMERA} />
+                <img src={cameraIcon} alt="camera-icon" />
             )}
             <input
                 type="file"

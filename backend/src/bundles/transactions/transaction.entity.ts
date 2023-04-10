@@ -149,7 +149,7 @@ class TransactionEntity implements IEntity {
         amount: number;
         currencyId?: string;
         ownerId: string;
-        walletsId?: string;
+        walletsId: string;
     } {
         return {
             categoryId: this.categoryId,

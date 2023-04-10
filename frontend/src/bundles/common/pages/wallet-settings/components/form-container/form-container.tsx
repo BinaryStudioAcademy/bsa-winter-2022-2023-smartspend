@@ -39,7 +39,10 @@ const FormContainer: React.FC = () => {
         [currencies],
     );
 
-    const [currency, setCurrency] = useState<DataType>(mutableCurrencies[0]);
+    const [currency, setCurrency] = useState<DataType>(
+        mutableCurrencies[0] ?? { value: '', name: '' },
+    );
+
     const [fields, setFields] = useState<WalletGetAllItemResponseDto>({
         id: '',
         name: '',
@@ -117,7 +120,7 @@ const FormContainer: React.FC = () => {
             );
             navigate(`/wallet/${id}/transaction`);
         },
-        [dispatch, navigate, currency?.value],
+        [dispatch, navigate, currency.value],
     );
 
     const handleUpdateWalet = useCallback(
@@ -173,7 +176,7 @@ const FormContainer: React.FC = () => {
                         placeholder="USD"
                         label="Wallet currency"
                         data={mutableCurrencies}
-                        selectedOption={currency || { value: '', name: '' }}
+                        selectedOption={currency}
                         handleChange={handleChange}
                     />
                 </div>

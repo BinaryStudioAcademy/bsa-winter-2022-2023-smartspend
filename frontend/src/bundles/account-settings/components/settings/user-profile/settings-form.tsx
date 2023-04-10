@@ -6,6 +6,7 @@ import {
 
 import { Button, Icon, Input } from '~/bundles/common/components/components.js';
 import {
+    AppRoute,
     ButtonSize,
     ButtonVariant,
     FaIcons,
@@ -16,6 +17,9 @@ import {
     useAppDispatch,
     useAppForm,
     useCallback,
+    useEffect,
+    useNavigate,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as usersActions } from '~/bundles/users/store';
 import { storage, StorageKey } from '~/framework/storage/storage';
@@ -40,17 +44,21 @@ type Properties = {
 
 const SettingsForm: React.FC<Properties> = ({ user }) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
         defaultValues: user as UserUpdateRequestDto,
         mode: 'onBlur',
     });
 
-    const isChange = (): boolean => {
-        if (watch(['firstName', 'lastName']).includes('')) {
+    const fieldsWatch = watch();
+
+    const isFieldsChange = useCallback((): boolean => {
+        if (!fieldsWatch.firstName || !fieldsWatch.lastName) {
             return false;
         }
-        return !compareObjects(watch(), user as UserUpdateRequestDto);
-    };
+        return !compareObjects(fieldsWatch, user as UserUpdateRequestDto);
+    }, [fieldsWatch, user]);
 
     const token = storage.getSync(StorageKey.TOKEN);
 
@@ -69,9 +77,15 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 userProfile: { ...remainingData },
             };
 
+            setTimeout(() => {
+                if (!user?.firstName) {
+                    navigate(AppRoute.DASHBOARD);
+                }
+            }, 500);
+
             void dispatch(usersActions.updateUser(uploadData));
         },
-        [dispatch],
+        [dispatch, navigate, user?.firstName],
     );
 
     const handleFormSubmit = useCallback(
@@ -82,6 +96,10 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         },
         [handleSubmit, onSubmit, trigger],
     );
+
+    useEffect(() => {
+        setIsChange(isFieldsChange());
+    }, [isFieldsChange]);
 
     return (
         <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -132,8 +150,10 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 render={RenderCurrency}
             />
 
-            <SubmitButton isChange={isChange()}>
-                Update My Settings
+            <SubmitButton isChange={isChange}>
+                {user?.firstName && user.lastName
+                    ? 'Update My Settings'
+                    : 'Get started'}
             </SubmitButton>
             <div className={styles.dltButton}>
                 <Button

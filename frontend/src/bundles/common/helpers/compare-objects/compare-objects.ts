@@ -1,4 +1,11 @@
-function compareObjects<T extends object>(object1: T, object2: T): boolean {
+function compareObjects<T extends object>(
+    object1: T | undefined,
+    object2: T | undefined,
+): boolean {
+    if (!object1 || !object2) {
+        return false;
+    }
+
     if (Object.keys(object1).length !== Object.keys(object2).length) {
         return false;
     }

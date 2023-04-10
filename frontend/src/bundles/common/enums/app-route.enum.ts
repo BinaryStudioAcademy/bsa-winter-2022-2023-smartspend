@@ -3,7 +3,7 @@ const AppRoute = {
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
     USER: '/user',
-    USER_CATEGORIES: 'categories',
+    USER_CATEGORIES: '/user/categories',
     USER_PROFILE: '/user/profile',
     DASHBOARD: '/dashboard',
     BUDGETS: '/budgets',

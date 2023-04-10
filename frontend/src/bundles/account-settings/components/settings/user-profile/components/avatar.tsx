@@ -1,6 +1,6 @@
 import { useCallback, useRef } from '~/bundles/common/hooks/hooks.js';
 
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 type Properties = {
     selectedFile: File | null;

@@ -25,6 +25,7 @@ import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
 import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
+import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
@@ -99,6 +100,18 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         <BudgetDetails />
                                     </PrivateRoute>
                                 ),
+                            },
+                            {
+                                path: AppRoute.WALLET_SETTINGS,
+                                element: (
+                                    <PrivateRoute>
+                                        <WalletSettings />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.NOT_FOUND,
+                                element: <NotFound />,
                             },
                             {
                                 path: AppRoute.ROOT,

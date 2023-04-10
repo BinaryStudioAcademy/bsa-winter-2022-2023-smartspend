@@ -1,6 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-import { actions as authActions } from '~/bundles/auth/store';
 import {
     Header,
     RouterOutlet,
@@ -14,20 +13,21 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { iconProvider } from '~/bundles/common/icon-provider';
 import { actions as currenciesActions } from '~/bundles/currencies/store';
+import { actions as usersActions } from '~/bundles/users/store';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
 library.add(iconProvider);
 
 const App: React.FC = () => {
     const token = storage.getSync(StorageKey.TOKEN);
-    const { user } = useAppSelector((state) => state.auth);
+    const { user } = useAppSelector((state) => state.users);
     const dispatch = useAppDispatch();
 
     const Modal = UseAppPwaHook(token);
 
     useEffect(() => {
         if (!user && token) {
-            void dispatch(authActions.loadUser());
+            void dispatch(usersActions.loadUser());
         }
     }, [dispatch, token, user]);
 
@@ -39,7 +39,11 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header name={user?.email} dataTabs={dataTabs} />
+            <Header
+                firstName={user?.firstName ?? user?.email}
+                lastName={user?.lastName}
+                dataTabs={dataTabs}
+            />
             <RouterOutlet />
             {Modal}
         </>

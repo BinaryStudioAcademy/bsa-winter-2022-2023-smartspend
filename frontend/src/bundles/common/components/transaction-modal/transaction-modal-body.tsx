@@ -13,13 +13,11 @@ import styles from './styles.module.scss';
 interface Properties {
     categories: DataType[];
     currency: DataType[];
-    labels: DataType[];
 }
 
 const TransactionModalBody: React.FC<Properties> = ({
     categories,
     currency,
-    labels,
 }) => {
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
@@ -49,19 +47,6 @@ const TransactionModalBody: React.FC<Properties> = ({
         [],
     );
 
-    const [selectedSingleLabel, setSelectedSingleLabel] = useState<DataType>(
-        labels[0],
-    );
-
-    const handleDropdownChangeLabel = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setSelectedSingleLabel(selectedOption);
-            }
-        },
-        [],
-    );
-
     return (
         <div className={styles.body}>
             <TransactionModalElement
@@ -85,13 +70,6 @@ const TransactionModalBody: React.FC<Properties> = ({
                     name="note"
                     control={control}
                     errors={errors}
-                />
-            </TransactionModalElement>
-            <TransactionModalElement className={styles.label} label="Label">
-                <Dropdown
-                    data={labels}
-                    selectedOption={selectedSingleLabel}
-                    handleChange={handleDropdownChangeLabel}
                 />
             </TransactionModalElement>
             <TransactionModalElement className={styles.amount} label="Amount">

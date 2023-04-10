@@ -104,7 +104,7 @@ const BudgetModal: React.FC<Properties> = ({
             reset &&
             control._formValues.recurrence !== recurrences[0].value
         ) {
-            reset({ ...DEFAULT_VALUES, endDate: '' });
+            reset({ ...control._formValues, endDate: '' });
         }
     }, [
         DEFAULT_VALUES,

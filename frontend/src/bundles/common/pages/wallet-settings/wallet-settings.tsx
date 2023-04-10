@@ -1,11 +1,7 @@
 import React from 'react';
 
 import { UserSettingsTabs as SettingsTabs } from '../../components/components';
-import {
-    ButtonsContainer,
-    InputsContainer,
-    Title,
-} from './components/components';
+import { FormContainer, Title } from './components/components';
 import styles from './styles.module.scss';
 
 const WalletSettings: React.FC = () => {
@@ -13,9 +9,9 @@ const WalletSettings: React.FC = () => {
         {
             title: 'Main Settings',
             to: '',
-            icon: 'SETTINGS',
         },
     ];
+
     return (
         <div className={styles.body}>
             <div className={styles.container}>
@@ -24,8 +20,7 @@ const WalletSettings: React.FC = () => {
                 </div>
                 <main className={styles.main_board}>
                     <Title>General Information</Title>
-                    <InputsContainer />
-                    <ButtonsContainer />
+                    <FormContainer />
                 </main>
             </div>
         </div>

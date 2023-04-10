@@ -2,17 +2,17 @@ import { CodeHighlight, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 const tabsData = [
-    { title: 'Transaction', to: '/ui/' },
+    { title: 'Transactions', to: '/ui/' },
     { title: 'Overview', to: '/ui/overview' },
-    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Budgets', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
 ];
 
 const codeExample = `
 const tabsData = [
-    { title: 'Transaction', to: '/ui/' },
+    { title: 'Transactions', to: '/ui/' },
     { title: 'Overview', to: '/ui/overview' },
-    { title: 'Budget', to: '/ui/budget' },
+    { title: 'Budgets', to: '/ui/budget' },
     { title: 'Wallet Settings', to: '/ui/wallet-settings' },
 ];
 

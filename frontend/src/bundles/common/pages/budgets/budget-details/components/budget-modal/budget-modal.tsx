@@ -112,7 +112,7 @@ const BudgetModal: React.FC<Properties> = ({
             Body={
                 <div className={styles.formWrapper}>
                     <div className={styles.wrapperHalf}>
-                        <h2>General Info</h2>
+                        <p className={styles.title}>General Info</p>
                         <Input
                             labelClassName={styles.label}
                             control={control}
@@ -138,7 +138,7 @@ const BudgetModal: React.FC<Properties> = ({
                         />
                     </div>
                     <div className={styles.wrapperHalf}>
-                        <h2>Filters</h2>
+                        <p className={styles.title}>Filters</p>
                         <Controller
                             name="categories"
                             control={control}
@@ -146,7 +146,7 @@ const BudgetModal: React.FC<Properties> = ({
                         />
                     </div>
                     <div>
-                        <h2>Budget Period</h2>
+                        <p className={styles.title}>Budget Period</p>
                         <span className={styles.label}>Recurrence</span>
                         <Controller
                             name="recurrence"

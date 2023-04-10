@@ -37,25 +37,25 @@
     line-height: var(--line-height-label-span);
 }
 
-.modalFooter {
-    display: flex;
-    flex-direction: column;
-    max-width: 420px;
-    margin: 0 auto;
-}
-
 .modalFooter > div {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
     width: 100%;
 }
 
 .modalFooter > button,
 .modalFooter > div > button {
-    width: 100%;
+    width: 150px;
+    height: 40px;
 }
 
 .header {
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-sub-heading);
+}
+
+.title {
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
 }

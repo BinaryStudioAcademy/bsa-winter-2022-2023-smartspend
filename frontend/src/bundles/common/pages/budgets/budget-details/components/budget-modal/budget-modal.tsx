@@ -1,4 +1,5 @@
 import { Controller } from 'react-hook-form';
+import { dateSchema } from 'shared/build/index.js';
 
 import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
@@ -20,9 +21,10 @@ import {
 import { recurrences } from '../../enums/recurrences.enum';
 import {
     RenderCurrency,
-    RenderDate,
+    RenderEndDate,
     RenderMultiDropdown,
     RenderRecurrence,
+    RenderStartDate,
 } from '../components';
 import styles from './styles.module.scss';
 
@@ -64,12 +66,14 @@ const BudgetModal: React.FC<Properties> = ({
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
+            validationSchema: dateSchema,
         },
     );
     const isReset = reset;
 
     const createFields =
-        Object.values(watch()).every(Boolean) && !!watch('categories')[0];
+        (Object.values(watch()).every(Boolean) && !!watch('categories')[0]) ||
+        watch('endDate');
     const editFields = isEdit && compareObjects(watch(), currentBudget);
 
     const handleBudgetSubmit = useCallback(
@@ -149,12 +153,29 @@ const BudgetModal: React.FC<Properties> = ({
                             control={control}
                             render={RenderRecurrence}
                         />
-                        <span className={styles.label}>Start date</span>
-                        <Controller
-                            name="startDate"
-                            control={control}
-                            render={RenderDate}
-                        />
+                        <div className={styles.dates}>
+                            <div className={styles.startDate}>
+                                <span className={styles.label}>Start date</span>
+                                <Controller
+                                    name="startDate"
+                                    control={control}
+                                    render={RenderStartDate}
+                                />
+                            </div>
+                            {control._formValues.recurrence ===
+                                recurrences[0].value && (
+                                <div>
+                                    <span className={styles.label}>
+                                        End date
+                                    </span>
+                                    <RenderEndDate
+                                        name="endDate"
+                                        control={control}
+                                        error={errors}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             }

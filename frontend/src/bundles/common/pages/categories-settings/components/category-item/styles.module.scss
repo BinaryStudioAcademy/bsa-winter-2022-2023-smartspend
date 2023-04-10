@@ -1,0 +1,106 @@
+:root {
+    --border: 1px;
+}
+
+.container {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    padding: 0 10px;
+    font-size: 14px;
+    background: var(--color-white-100);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.container:hover {
+    background: var(--color-blue-100);
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.item {
+    display: flex;
+    flex-flow: wrap;
+    margin: 0 -0.5rem;
+}
+
+.base {
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: 0.5rem;
+}
+
+.checkbox {
+    display: flex;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    max-height: 32px;
+    color: white;
+    background-color: #7b93a4;
+    border-radius: 6px;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+}
+
+.name {
+    flex: 0.75;
+    color: var(--color-blue-600);
+}
+
+.count {
+    flex: 1.5;
+    color: var(--color-gray-200);
+}
+
+.iconBtn {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 0 8px;
+    font-size: 16px;
+    line-height: 34px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.iconBtn:hover,
+.iconBtn:active,
+.iconBtn:focus {
+    border: none;
+}
+
+.btnEdit {
+    color: var(--color-pink-100);
+}
+
+.btnEdit:hover,
+.btnEdit:active,
+.btnEdit:focus {
+    color: #5063e4;
+}

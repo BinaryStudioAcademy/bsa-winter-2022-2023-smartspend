@@ -32,7 +32,6 @@
 .columns {
     display: flex;
     align-items: center;
-    min-width: 160px;
     padding-left: var(--m-1);
 }
 
@@ -42,6 +41,7 @@
 
 .rightColumn {
     justify-content: end;
+    margin-left: auto;
     font-size: var(--font-size-level-5-heading);
 }
 
@@ -85,6 +85,23 @@
     border-radius: 10px;
 }
 
+.transactionName {
+    display: flex;
+    align-items: center;
+    line-height: normal;
+}
+
+.transactionBody {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    width: 100%;
+}
+
+.transactionBody:hover {
+    cursor: pointer;
+}
+
 .hover:hover {
     background: var(--color-blue-100);
 }
@@ -102,7 +119,6 @@
 .checkbox {
     width: 20px;
     height: 20px;
-    margin-right: var(--m-2);
 }
 
 .checkbox:focus {
@@ -194,11 +210,6 @@
     .inDays {
         gap: 0;
         font-size: x-small;
-    }
-
-    .columns {
-        min-width: 70px;
-        max-width: 70px;
     }
 
     .smHide {

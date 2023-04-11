@@ -129,12 +129,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 disabled={false}
                                 onClick={handleOpenModalEdit}
                             >
-                                <span
-                                    className={classNames(
-                                        styles.btnName,
-                                        styles.btnEdit,
-                                    )}
-                                >
+                                <span className={classNames(styles.btnEdit)}>
                                     <Icon name={FaIcons.GEAR} />
                                 </span>
                             </Button>
@@ -153,7 +148,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 disabled={false}
                                 onClick={handleOpenModalDelete}
                             >
-                                <span className={styles.btnName}>
+                                <span>
                                     <Icon name={FaIcons.TRASH} />
                                 </span>
                             </Button>
@@ -185,15 +180,31 @@ const CategoryItem: React.FC<Properties> = ({
             <BaseModal
                 isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handleClickDelete}
+                onSubmit={handleCloseModal}
                 Header={<h2>{`You're about to delete ${name} categories`}</h2>}
                 Body={
-                    <p>
-                        This change is irreversible. Do you really want to
-                        delete them?
-                    </p>
+                    <>
+                        <p>
+                            This change is irreversible. Do you really want to
+                            delete them?
+                        </p>
+                        <Button
+                            type={ButtonType.BUTTON}
+                            variant={ButtonVariant.DELETE}
+                            size={ButtonSize.MEDIUM}
+                            disabled={false}
+                            className={styles.btn}
+                            onClick={handleClickDelete}
+                        >
+                            <Icon name={FaIcons.TRASH} />
+                            <span className={styles.btnName}>
+                                Delete category
+                            </span>
+                        </Button>
+                    </>
                 }
                 submitButtonName={'Delete category'}
+                hasActionButtons={false}
             />
         </div>
     );

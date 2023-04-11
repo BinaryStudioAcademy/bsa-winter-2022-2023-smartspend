@@ -1,7 +1,7 @@
 type TransactionUpdatePayloadDto = {
     categoryId: string;
     date: Date;
-    note: string;
+    note?: string;
     labelId?: string;
     amount: number;
 };

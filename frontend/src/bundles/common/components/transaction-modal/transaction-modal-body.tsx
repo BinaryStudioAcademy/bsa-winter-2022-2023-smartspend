@@ -28,6 +28,8 @@ const TransactionModalBody: React.FC<Properties> = ({
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
     });
+    const [selectedSingleCategory, setSelectedSingleCategory] =
+        useState<DataType>(categories[0]);
 
     const handleNoteChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -50,9 +52,6 @@ const TransactionModalBody: React.FC<Properties> = ({
             }),
         [handleChangeTransaction],
     );
-
-    const [selectedSingleCategory, setSelectedSingleCategory] =
-        useState<DataType>(categories[0]);
 
     const handleDropdownChangeCategory = useCallback(
         (selectedOption: DataType | null) => {
@@ -97,7 +96,10 @@ const TransactionModalBody: React.FC<Properties> = ({
                 />
             </TransactionModalElement>
             <TransactionModalElement label="Date">
-                <Calendar isRangeCalendar={false} />
+                <Calendar
+                    isRangeCalendar={false}
+                    onChange={handleChangeTransaction}
+                />
             </TransactionModalElement>
             <TransactionModalElement label="Note">
                 <Input

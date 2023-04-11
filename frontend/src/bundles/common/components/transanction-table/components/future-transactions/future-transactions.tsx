@@ -25,6 +25,9 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
     control,
     errors,
 }) => {
+    const sortDate = futureTransactions.sort(
+        (a, b) => Number(new Date(a.date)) - Number(new Date(b.date)),
+    );
     const [isShowFutureTransaction, setIsShowFutureTransaction] =
         useState(false);
 
@@ -85,7 +88,7 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                 }
             >
                 {futureTransactions.length > 0 ? (
-                    futureTransactions.map((transaction) => (
+                    sortDate.map((transaction) => (
                         <Transaction
                             key={transaction.id}
                             transaction={transaction}

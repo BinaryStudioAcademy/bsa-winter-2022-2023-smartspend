@@ -26,10 +26,10 @@ const CategoriesSettings: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const [isCreateModalShown, setIsCreateModalShown] = useState(false);
-    const [isSelectedCategoriesIncome, setIsSelectedCategoriesIncome] =
-        useState<string[]>([]);
-    const [isSelectedCategoriesExpense, setIsSelectedCategoriesExpense] =
-        useState<string[]>([]);
+    const [isSelectedCategories, setIsSelectedCategories] = useState<string[]>(
+        [],
+    );
+
     const handleClickModalCreate = useCallback((): void => {
         setIsCreateModalShown(true);
     }, []);
@@ -42,29 +42,16 @@ const CategoriesSettings: React.FC = () => {
         (state) => state.categories.categoriesSortByType ?? {},
     );
 
-    const addIdCheckedCategories = useCallback(
-        (id: string, type: string): void => {
-            if (type === 'income') {
-                setIsSelectedCategoriesIncome((previousState) => {
-                    if (previousState.includes(id)) {
-                        return previousState.filter(
-                            (previousState_) => previousState_ !== id,
-                        );
-                    }
-                    return [...previousState, id];
-                });
+    const addIdCheckedCategories = useCallback((id: string): void => {
+        setIsSelectedCategories((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
             }
-            setIsSelectedCategoriesExpense((previousState) => {
-                if (previousState.includes(id)) {
-                    return previousState.filter(
-                        (previousState_) => previousState_ !== id,
-                    );
-                }
-                return [...previousState, id];
-            });
-        },
-        [],
-    );
+            return [...previousState, id];
+        });
+    }, []);
 
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLButtonElement>): void => {
@@ -108,12 +95,7 @@ const CategoriesSettings: React.FC = () => {
                             </Button>
                         </div>
                         <ManageCategories
-                            isSelectedCategoriesIncome={
-                                isSelectedCategoriesIncome
-                            }
-                            isSelectedCategoriesExpense={
-                                isSelectedCategoriesExpense
-                            }
+                            isSelectedCategories={isSelectedCategories}
                         />
                         <CategoryList
                             title={'Income Categories'}

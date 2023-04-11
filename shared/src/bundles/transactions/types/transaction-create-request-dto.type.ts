@@ -5,6 +5,7 @@ type TransactionCreateRequestDto = {
     labelId?: string;
     amount: number;
     currencyId: string;
+    walletsId: string;
 };
 
 export { type TransactionCreateRequestDto };

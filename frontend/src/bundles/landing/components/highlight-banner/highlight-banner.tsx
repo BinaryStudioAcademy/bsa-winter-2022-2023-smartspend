@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 
-import AppStoreIcon from '~/assets/img/app-store-icon.svg';
-import GooglePlayIcon from '~/assets/img/google-play-icon.svg';
+import InstallAppIcon from '~/assets/img/install-app.svg';
 import LaptopPreview from '~/assets/img/laptop-preview.svg';
 
 import { StoreButton } from './components/components.js';
@@ -32,18 +31,8 @@ const HighlightBanner: React.FC<Properties> = ({ title, details }) => {
                 </div>
                 <div className={styles.buttonsContainer}>
                     <StoreButton
-                        url={'https://www.apple.com/app-store/'}
-                        title={'Download on the'}
-                        body={'App Store'}
-                        iconPath={AppStoreIcon}
-                        storeAlt={'app store'}
-                    />
-                    <StoreButton
-                        url={'https://play.google.com/'}
-                        title={'Download on the'}
-                        body={'Google Play'}
-                        iconPath={GooglePlayIcon}
-                        storeAlt={'google play'}
+                        iconPath={InstallAppIcon}
+                        storeAlt={'install app'}
                     />
                 </div>
             </div>

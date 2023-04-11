@@ -1,6 +1,6 @@
-import { type ITransaction } from '../types';
+import { type TransactionType } from '../types';
 
-const getDaysLeft = (transactions: ITransaction[]): number | undefined => {
+const getDaysLeft = (transactions: TransactionType[]): number | undefined => {
     const now = new Date();
     const nextTransaction = transactions.find((transaction) => {
         if (new Date(transaction.date) === now) {

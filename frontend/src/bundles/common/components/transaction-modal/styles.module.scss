@@ -1,0 +1,47 @@
+.body {
+    display: grid;
+    grid-template-columns: 130px 200px 1fr 120px 100px 110px;
+    gap: 10px;
+    padding: var(--p-6) var(--p-4) var(--p-6);
+}
+
+.labelElement {
+    display: block;
+    margin-bottom: var(--m-2);
+}
+
+.note {
+    width: 100%;
+}
+
+.imageButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    color: var(--color-blue-500);
+    font-size: 20px;
+    background-color: var(--color-blue-100);
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+}
+
+.image {
+    object-fit: cover;
+    width: 150%;
+    height: 150%;
+}
+
+.delete {
+    color: var(--color-warning);
+    border: var(--border) solid var(--color-warning);
+}
+
+.delete:hover {
+    color: var(--color-warning);
+    border: var(--border) solid var(--color-warning);
+}

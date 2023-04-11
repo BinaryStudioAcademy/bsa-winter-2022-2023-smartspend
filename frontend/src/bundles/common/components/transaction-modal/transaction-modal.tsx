@@ -24,7 +24,6 @@ import styles from './styles.module.scss';
 
 type Properties = {
     type: TransactionModalType;
-    onClose: () => void;
     handleCancel: () => void;
     active: boolean;
 };
@@ -38,7 +37,6 @@ const TransactionModal: React.FC<Properties> = ({
     type,
     handleCancel,
     active,
-    onClose,
 }) => {
     const dispatch = useAppDispatch();
 
@@ -68,8 +66,7 @@ const TransactionModal: React.FC<Properties> = ({
         }
         void dispatch(transactionActions.loadTransactions());
         handleCancel();
-        onClose();
-    }, [dispatch, handleCancel, transaction, type, onClose]);
+    }, [dispatch, handleCancel, transaction, type]);
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
@@ -105,21 +102,21 @@ const TransactionModal: React.FC<Properties> = ({
             }
             submitButtonName={submitButtonName}
         >
-        <div className={styles.buttons_container}>
-            <TransactionImage
-                file={imageFile}
-                handleFileChange={handleFileChange}
-            />
-            {type === TransactionModalType.CHANGE && (
-                <Button
-                    className={styles.delete}
-                    type={ButtonType.BUTTON}
-                    size={ButtonSize.SMALL}
-                    variant={ButtonVariant.SECONDARY}
-                >
-                    Delete Transaction
-                </Button>
-            )}
+            <div className={styles.buttons_container}>
+                <TransactionImage
+                    file={imageFile}
+                    handleFileChange={handleFileChange}
+                />
+                {type === TransactionModalType.CHANGE && (
+                    <Button
+                        className={styles.delete}
+                        type={ButtonType.BUTTON}
+                        size={ButtonSize.SMALL}
+                        variant={ButtonVariant.SECONDARY}
+                    >
+                        Delete Transaction
+                    </Button>
+                )}
             </div>
         </BaseModal>
     );

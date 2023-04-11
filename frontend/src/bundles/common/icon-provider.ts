@@ -67,7 +67,6 @@ const iconProvider = {
     faChartSimple,
     faPiggyBank,
     faDollarSign,
-    faCamera,
 };
 
 export { iconProvider };

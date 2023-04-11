@@ -1,19 +1,15 @@
-
 import { useRef } from 'react';
 
 import cameraIcon from '~/assets/img/camera-icon.svg';
 import { FileInput } from '~/bundles/common/components/file-input/file-input';
-
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import styles from './styles.module.scss';
-
 
 type Properties = {
     file?: File;
     handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
-
 
 const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
     const inputReference = useRef<HTMLInputElement>(null);
@@ -52,7 +48,6 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
                 accept={'image/*'}
             />
         </button>
-
     );
 };
 

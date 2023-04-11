@@ -14,7 +14,6 @@ import {
     TransactionModal,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
-import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
 import { type ITransaction } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
@@ -24,7 +23,6 @@ import {
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import { TransactionModalType } from '~/bundles/common/enums/transaction-modal-type.enum';
 import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
@@ -85,7 +83,6 @@ const WalletDetails: React.FC = () => {
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
-    const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors } = useAppForm<{ note: string }>({
@@ -189,14 +186,6 @@ const WalletDetails: React.FC = () => {
         setFilteredData(mockSliderData);
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
-    
-    const handleModal = useCallback(() => {
-        setIsShowModal(true);
-    }, []);
-
-    const handleCloseModal = useCallback(() => {
-        setIsShowModal(false);
-    }, []);
 
     useEffect(() => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
@@ -261,11 +250,6 @@ const WalletDetails: React.FC = () => {
 
     return (
         <div className={styles.app}>
-            <TransactionModal
-                type={TransactionModalType.ADD}
-                handleCancel={closeTransactionModal}
-                active={activeModal}
-            />
             <div className={styles.body}>
                 <div className={classNames(styles.bodyContainer, 'container')}>
                     <div className={styles.buttonsDate}>
@@ -273,9 +257,8 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
-                                onClick={openTransactionModal}
                                 className={styles.transactionButton}
-                                onClick={handleModal}
+                                onClick={openTransactionModal}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
@@ -410,12 +393,11 @@ const WalletDetails: React.FC = () => {
                                     transactions={transactionData}
                                 />
                             </div>
-                            {isShowModal && (
-                                <TransactionModal
-                                    type={TransactionModalType.ADD}
-                                    onClose={handleCloseModal}
-                                />
-                            )}
+                            <TransactionModal
+                                type={TransactionModalType.ADD}
+                                handleCancel={closeTransactionModal}
+                                active={activeModal}
+                            />
                         </div>
                     </div>
                 </div>

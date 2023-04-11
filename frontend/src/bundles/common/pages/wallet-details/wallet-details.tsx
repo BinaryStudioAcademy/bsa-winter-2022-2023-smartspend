@@ -277,13 +277,6 @@ const WalletDetails: React.FC = () => {
                                 >
                                     Future
                                 </Button>
-                                <Button
-                                    className={styles.button}
-                                    variant={ButtonVariant.SECONDARY}
-                                    size={ButtonSize.MEDIUM}
-                                >
-                                    Import
-                                </Button>
                             </div>
                         </div>
                         <RangeCalendar />

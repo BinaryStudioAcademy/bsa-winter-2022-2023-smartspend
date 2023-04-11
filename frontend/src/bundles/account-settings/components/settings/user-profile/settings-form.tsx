@@ -70,9 +70,10 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     }, []);
 
     const handleDeleteAccount = useCallback(() => {
+        void storage.drop(StorageKey.HAVE_NAME);
+        void storage.drop(StorageKey.PWA);
         void dispatch(usersActions.deleteUser(token as string));
         void storage.drop(StorageKey.TOKEN);
-        void storage.drop(StorageKey.PWA);
     }, [dispatch, token]);
 
     const onModalClose = useCallback(() => {
@@ -88,14 +89,14 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 userProfile: { ...remainingData },
             };
 
-            if (!user?.firstName || !user.lastName) {
+            if (!storage.getSync(StorageKey.HAVE_NAME)) {
                 void storage.set(StorageKey.HAVE_NAME, 'true');
                 navigate(AppRoute.DASHBOARD);
             }
 
             await dispatch(usersActions.updateUser(uploadData)).unwrap();
         },
-        [dispatch, navigate, user?.firstName, user?.lastName],
+        [dispatch, navigate],
     );
 
     const handleFormSubmit = useCallback(

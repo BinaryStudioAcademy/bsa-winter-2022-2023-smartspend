@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
@@ -6,13 +7,18 @@ import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
+    BaseModal,
     Button,
     Loader,
     Placeholder,
     TransactionTable,
 } from '~/bundles/common/components/components';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
-import { AppRoute, ButtonVariant } from '~/bundles/common/enums/enums';
+import {
+    AppRoute,
+    ButtonSize,
+    ButtonVariant,
+} from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
     toCustomLocaleString,
@@ -64,6 +70,7 @@ const BudgetDetails = (): JSX.Element => {
     const [spent, setSpent] = useState(0);
     const { budgets } = useAppSelector((state) => state.budgets);
     const { currencies } = useAppSelector((state) => state.currencies);
+    const [isModalShown, setIsModalShown] = useState(false);
 
     const categories = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
@@ -81,6 +88,14 @@ const BudgetDetails = (): JSX.Element => {
         setActive(true);
     }, []);
 
+    const handleCancelDelete = useCallback(() => {
+        setIsModalShown(false);
+    }, []);
+
+    const handleModalDelete = useCallback(() => {
+        setIsModalShown(true);
+    }, []);
+
     const onClickDeleteBudget = useCallback(
         (id: string): void => {
             void dispatch(budgetsActions.remove(id));
@@ -90,9 +105,7 @@ const BudgetDetails = (): JSX.Element => {
     );
 
     const handleDeleteBudget = useCallback(() => {
-        if (id) {
-            onClickDeleteBudget(id);
-        }
+        id && onClickDeleteBudget(id);
     }, [id, onClickDeleteBudget]);
 
     useEffect(() => {
@@ -170,6 +183,27 @@ const BudgetDetails = (): JSX.Element => {
 
     return (
         <div className={styles.container}>
+            <BaseModal
+                isShown={isModalShown}
+                onClose={handleCancelDelete}
+                onSubmit={handleDeleteBudget}
+                Header={
+                    <h1 className={styles.modalTitle}>
+                        Delete budget &quot;{name}&quot;
+                    </h1>
+                }
+                Body={
+                    <div className={styles.modalDetailsContainer}>
+                        <p className={styles.modalSubTitle}>
+                            Are you sure you want to delete the budget &quot;
+                            {name}&quot;?
+                        </p>
+                    </div>
+                }
+                submitButtonName={'Delete Budget'}
+                footerContainerClass={styles.modalFooter}
+                buttonsSize={ButtonSize.MEDIUM}
+            />
             <div className={classNames(styles.contentWrapper, 'container')}>
                 <div className={styles.calendarWrapper}>
                     <Calendar isRangeCalendar={true} />
@@ -189,7 +223,7 @@ const BudgetDetails = (): JSX.Element => {
                                 isEdit
                                 isShown={active}
                                 onClose={handleCancel}
-                                onClick={handleDeleteBudget}
+                                onClick={handleModalDelete}
                                 budget={currentBudget}
                             />
                         </div>

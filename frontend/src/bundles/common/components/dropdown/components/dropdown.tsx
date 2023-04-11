@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-ternary */
 import classNames from 'classnames';
 import Select, { type StylesConfig } from 'react-select';
 
@@ -91,6 +92,14 @@ const Dropdown: React.FC<Properties> = ({
                 ':active': {
                     backgroundColor: base.color,
                 },
+                fontSize: '16px',
+            };
+        },
+        placeholder: (defaultStyles) => {
+            return {
+                ...defaultStyles,
+                color: 'var(--color-gray-200)',
+                fontSize: '16px',
             };
         },
     };
@@ -111,6 +120,20 @@ const Dropdown: React.FC<Properties> = ({
         [],
     );
 
+    const getValue = (
+        selectedOption: DataType | undefined,
+    ): DataType | DataType[] => {
+        if (selectedOption) {
+            return {
+                value: selectedOption.value,
+                name: selectedOption.name,
+                image: selectedOption.image,
+            };
+        } else {
+            return [];
+        }
+    };
+
     return (
         <div>
             <div className={styles.labelContainer}>
@@ -118,13 +141,7 @@ const Dropdown: React.FC<Properties> = ({
             </div>
             <Select
                 className={styles.select}
-                value={
-                    {
-                        value: selectedOption?.value,
-                        name: selectedOption?.name,
-                        image: selectedOption?.image,
-                    } as DataType
-                }
+                value={getValue(selectedOption)}
                 onChange={handleChange as HandleMultiChange}
                 options={data}
                 formatOptionLabel={

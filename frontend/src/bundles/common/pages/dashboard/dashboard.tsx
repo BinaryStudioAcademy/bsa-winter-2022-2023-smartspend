@@ -45,6 +45,8 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
+import { Transaction } from '../../components/transanction-table/components/transaction/transaction';
+import { type TransactionType } from '../../components/transanction-table/types';
 import {
     calculateLineChartData,
     createCategoryDataArray,
@@ -74,6 +76,7 @@ type ChartBoxProperties = {
     title: string;
     date: string;
     controls?: JSX.Element | JSX.Element[] | string;
+    transactions?: TransactionType[];
 };
 
 const ChartBox = ({
@@ -81,6 +84,7 @@ const ChartBox = ({
     title,
     date,
     controls,
+    transactions,
 }: ChartBoxProperties): JSX.Element => {
     return (
         <div className={classNames(styles.chart)}>
@@ -92,6 +96,16 @@ const ChartBox = ({
                 <div>{controls}</div>
             </div>
             <div className={styles.chartBox}>{children}</div>
+            <div className={styles.transactions}>
+                {transactions?.map((transaction) => (
+                    <div key={transaction.id}>
+                        <Transaction
+                            transaction={transaction}
+                            isCheckbox={false}
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
@@ -136,21 +150,28 @@ const Dashboard: React.FC = () => {
     const [active, setActive] = useState(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
-
+    const categories = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
     );
 
     const amounts = transactions.map((transaction) => transaction.amount);
-    const minAmount = amounts.length > 0 ? Math.min(...amounts) : 0;
-    const maxAmount = amounts.length > 0 ? Math.max(...amounts) : 0;
+    let minAmount = amounts && Math.min(...amounts);
+    let maxAmount = amounts && Math.max(...amounts);
+
+    if (!Number.isFinite(minAmount)) {
+        minAmount = -1000;
+    }
+
+    if (!Number.isFinite(maxAmount)) {
+        maxAmount = 1000;
+    }
 
     const rangeLimits = { min: minAmount, max: maxAmount };
 
     const [currentRange, setCurrentRange] = useState(rangeLimits);
-    const categories = useAppSelector(
-        (state) => state.categories.categories?.items ?? [],
-    );
 
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
@@ -222,14 +243,19 @@ const Dashboard: React.FC = () => {
     );
 
     const [transactionsData, setTransactionsData] = useState<
-        TransactionGetAllItemResponseDto[]
+        TransactionGetAllItemResponseDto[] | undefined
     >([]);
 
-    const lineChartData = calculateLineChartData(transactionsData);
-    const verticalChartData = groupTransactionsByDate(transactionsData);
+    const lineChartData = calculateLineChartData(
+        transactionsData ?? transactions,
+    );
+    const verticalChartData = groupTransactionsByDate(
+        transactionsData ?? transactions,
+    );
     const categoryDropdown = createCategoryDataArray(categories);
-    const { positiveResult, negativeResult } =
-        processTransactions(transactionsData);
+    const { positiveResult, negativeResult } = processTransactions(
+        transactionsData ?? transactions,
+    );
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
     const handleResetFilters = useCallback(() => {
@@ -237,7 +263,7 @@ const Dashboard: React.FC = () => {
             value: '',
             name: 'Find by name',
         });
-        setCurrentRange({ min: 0, max: 0 });
+        setCurrentRange({ min: -1000, max: 3000 });
         setCategory({
             value: '',
             name: 'Find by category',
@@ -251,24 +277,30 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
         void dispatch(categoriesActions.loadCategories());
+        void dispatch(transactionsActions.loadTransactions());
     }, [dispatch]);
 
     useEffect(() => {
         const filteredTransactions = transactions.filter((transaction) => {
             const walletMatch = wallets.find(
-                (wallet) => wallet.name === transaction.note,
+                (wallet) => wallet.id === transaction.walletsId,
             );
             const categoryMatch = categories.find(
                 (category) => category.id === transaction.categoryId,
             );
-            return (
-                (walletMatch && walletMatch.name === wallet.name) ||
-                (categoryMatch && categoryMatch.id === category.value) ||
-                (transaction.amount >= currentRange.min &&
-                    transaction.amount <= currentRange.max)
-            );
+
+            return wallet
+                ? walletMatch &&
+                      walletMatch.name === wallet.name &&
+                      categoryMatch &&
+                      categoryMatch.id === category.value &&
+                      transaction.amount >= currentRange.min &&
+                      transaction.amount <= currentRange.max
+                : categoryMatch &&
+                      categoryMatch.id === category.value &&
+                      transaction.amount >= currentRange.min &&
+                      transaction.amount <= currentRange.max;
         });
         setTransactionsData(filteredTransactions);
     }, [
@@ -280,6 +312,21 @@ const Dashboard: React.FC = () => {
         currentRange.min,
         currentRange.max,
     ]);
+
+    const transactionData = transactionsData?.map((item) => ({
+        id: item.id,
+        date: item.date,
+        category: categories.find(
+            (category) => category.id === item.categoryId,
+        ),
+        name: categories.find((category) => category.id === item.categoryId)
+            ?.name,
+        label: item.labelId,
+        amount: item.amount,
+        currency: currencies.find((currency) => currency.id === item.currencyId)
+            ?.symbol,
+        note: item.note,
+    })) as unknown as TransactionType[];
 
     return (
         <div className={styles.container}>
@@ -470,6 +517,9 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Period income'}
                                     date={formatRangeGraph(day)}
+                                    transactions={transactionData.filter(
+                                        (transaction) => transaction.amount > 0,
+                                    )}
                                 >
                                     <DoughnutChart
                                         categories={filterCategories(
@@ -481,6 +531,9 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Period Expenses'}
                                     date={formatRangeGraph(day)}
+                                    transactions={transactionData.filter(
+                                        (transaction) => transaction.amount < 0,
+                                    )}
                                 >
                                     <DoughnutChart
                                         categories={filterCategories(

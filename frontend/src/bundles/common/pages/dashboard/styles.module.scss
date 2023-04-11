@@ -139,6 +139,31 @@
     border-radius: var(--b-4);
 }
 
+.transactions {
+    height: 100px;
+    padding-right: var(--p-3);
+    overflow: auto;
+}
+
+.transactions::-webkit-scrollbar {
+    display: none;
+}
+
+.transactions:hover::-webkit-scrollbar {
+    display: initial;
+}
+
+.transactions::-webkit-scrollbar-thumb {
+    width: 2px;
+    background-color: var(--color-gray-300);
+    border-radius: 2px;
+}
+
+.transactions::-webkit-scrollbar-track {
+    width: 2px;
+    background-color: var(--color-white-60);
+}
+
 .chartBox {
     display: flex;
     flex: 1 1 auto;

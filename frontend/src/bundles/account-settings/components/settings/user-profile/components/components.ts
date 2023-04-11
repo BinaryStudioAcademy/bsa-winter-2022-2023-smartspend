@@ -6,3 +6,4 @@ export { DeleteAvatarButton } from './delete-avatar-button.js';
 export { RenderSex } from './sex-dropdown.js';
 export { SubmitButton } from './submit-button.js';
 export { UploadAvatarButton } from './upload-avatar-button.js';
+export { UserDeleteModal } from './user-delete-modal/user-delete-modal.js';

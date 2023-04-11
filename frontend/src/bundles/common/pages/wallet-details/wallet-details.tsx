@@ -39,7 +39,6 @@ import {
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-// import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
@@ -56,34 +55,6 @@ const DEFAULT_INPUT: { note: string } = {
     //It needs to change
     note: '',
 };
-
-// const people = [
-//     {
-//         value: 'John Doe',
-//         name: 'John Doe',
-//         image: 'https://placekitten.com/50/50',
-//     },
-//     {
-//         value: 'Jane Smith',
-//         name: 'Jane Smith',
-//         image: 'https://placekitten.com/51/51',
-//     },
-//     {
-//         value: 'Alice Johnson',
-//         name: 'Alice Johnson',
-//         image: 'https://placekitten.com/52/52',
-//     },
-//     {
-//         value: 'Bob Brown',
-//         name: 'Bob Brown',
-//         image: 'https://placekitten.com/53/53',
-//     },
-//     {
-//         value: 'Charlie Green',
-//         name: 'Charlie Green',
-//         image: 'https://placekitten.com/54/54',
-//     },
-// ];
 
 const WalletDetails: React.FC = () => {
     const dispatch = useAppDispatch();

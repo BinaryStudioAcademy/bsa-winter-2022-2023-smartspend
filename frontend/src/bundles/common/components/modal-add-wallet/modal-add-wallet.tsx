@@ -90,7 +90,7 @@ const NewWalletModal: React.FC<Properties> = ({
         [],
     );
 
-    const handlebalanceInputChange = useCallback(
+    const handleBalanceInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
             setFields(
@@ -196,7 +196,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         type={InputType.NUMBER}
                         inputClassName={styles.input}
                         labelClassName={styles.label}
-                        onChange={handlebalanceInputChange}
+                        onChange={handleBalanceInputChange}
                         value={fields.balance}
                     />
                     <button

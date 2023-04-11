@@ -23,6 +23,7 @@ import { store } from '~/framework/store/store';
 
 import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
 import { Budgets } from './bundles/common/pages/budgets/budgets';
+import { FutureTransactions } from './bundles/common/pages/future-transactions/future-transactions';
 import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -88,6 +89,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 element: (
                                     <PrivateRoute>
                                         <WalletDetails />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.WALLET_DETAILS_FUTURE_TRANSACTION,
+                                element: (
+                                    <PrivateRoute>
+                                        <FutureTransactions />
                                     </PrivateRoute>
                                 ),
                             },

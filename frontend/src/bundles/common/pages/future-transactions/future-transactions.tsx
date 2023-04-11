@@ -75,7 +75,7 @@ const people = [
     },
 ];
 
-const WalletDetails: React.FC = () => {
+const FutureTransactions: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { id } = useParams();
@@ -180,7 +180,7 @@ const WalletDetails: React.FC = () => {
     }, [rangeLimits]);
 
     const handleNavidation = useCallback(() => {
-        navigate(`/wallet/${id}/transaction/future`);
+        navigate(`/wallet/${id}/transaction`);
     }, [id, navigate]);
 
     useEffect(() => {
@@ -246,18 +246,11 @@ const WalletDetails: React.FC = () => {
                             <div className={styles.buttons}>
                                 <Button
                                     className={styles.button}
-                                    variant={ButtonVariant.SECONDARY}
+                                    variant={ButtonVariant.PLAIN}
                                     size={ButtonSize.MEDIUM}
                                     onClick={handleNavidation}
                                 >
                                     Future
-                                </Button>
-                                <Button
-                                    className={styles.button}
-                                    variant={ButtonVariant.SECONDARY}
-                                    size={ButtonSize.MEDIUM}
-                                >
-                                    Import
                                 </Button>
                             </div>
                         </div>
@@ -381,4 +374,4 @@ const WalletDetails: React.FC = () => {
     );
 };
 
-export { WalletDetails };
+export { FutureTransactions };

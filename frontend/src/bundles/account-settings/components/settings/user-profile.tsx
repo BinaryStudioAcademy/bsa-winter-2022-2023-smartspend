@@ -12,9 +12,11 @@ const UserProfile: React.FC = () => {
     return (
         <div className={styles.userProfile}>
             <Title>Account Settings</Title>
-            {dataStatus === DataStatus.PENDING ? <Loader /> :
-                <SettingsForm user={user} status={dataStatus} />
-            }
+            {dataStatus === DataStatus.PENDING ? (
+                <Loader />
+            ) : (
+                <SettingsForm user={user} />
+            )}
         </div>
     );
 };

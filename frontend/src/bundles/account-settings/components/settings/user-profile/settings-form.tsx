@@ -4,17 +4,12 @@ import {
     type UserUpdateRequestDto,
 } from 'shared/build';
 
-import {
-    Button,
-    Icon,
-    Input,
-} from '~/bundles/common/components/components.js';
+import { Button, Icon, Input } from '~/bundles/common/components/components.js';
 import {
     AppRoute,
     ButtonSize,
     ButtonType,
     ButtonVariant,
-    DataStatus,
     FaIcons,
     InputType,
 } from '~/bundles/common/enums/enums.js';
@@ -47,10 +42,9 @@ type uploadPayload = {
 
 type Properties = {
     user: UserProfileResponseDto | undefined;
-    status: string;
 };
 
-const SettingsForm: React.FC<Properties> = ({ user, status }) => {
+const SettingsForm: React.FC<Properties> = ({ user }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [isChange, setIsChange] = useState(false);
@@ -94,16 +88,14 @@ const SettingsForm: React.FC<Properties> = ({ user, status }) => {
                 userProfile: { ...remainingData },
             };
 
-            if (
-                status === DataStatus.FULFILLED &&
-                (!user?.firstName || !user.lastName)
-            ) {
+            if (!user?.firstName || !user.lastName) {
+                void storage.set(StorageKey.HAVE_NAME, 'true');
                 navigate(AppRoute.DASHBOARD);
             }
 
             await dispatch(usersActions.updateUser(uploadData)).unwrap();
         },
-        [dispatch, navigate, status, user?.firstName, user?.lastName],
+        [dispatch, navigate, user?.firstName, user?.lastName],
     );
 
     const handleFormSubmit = useCallback(

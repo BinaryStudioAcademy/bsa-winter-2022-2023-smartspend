@@ -13,10 +13,15 @@ import {
 } from '~/bundles/common/enums/enums';
 import { formatOneDay } from '~/bundles/common/helpers/helpers';
 import { useCallback } from '~/bundles/common/hooks/hooks';
+import { type Transaction } from '~/bundles/common/types/transaction.type';
 
 import styles from '../styles.module.scss';
 
-const OneDayCalendar: React.FC = () => {
+type Properties = {
+    onChange?: React.Dispatch<React.SetStateAction<Transaction>>;
+};
+
+const OneDayCalendar: React.FC<Properties> = ({ onChange }) => {
     const [day, setDay] = useState<Date>(new Date());
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
@@ -24,10 +29,19 @@ const OneDayCalendar: React.FC = () => {
         setIsShowModal(!isShowModal);
     }, [isShowModal]);
 
-    const handleSelectDay = useCallback((day: Date): void => {
-        setIsShowModal(false);
-        setDay(day);
-    }, []);
+    const handleSelectDay = useCallback(
+        (day: Date): void => {
+            setIsShowModal(false);
+            setDay(day);
+            onChange?.((previousState) => {
+                return {
+                    ...previousState,
+                    date: day,
+                };
+            });
+        },
+        [onChange],
+    );
 
     return (
         <>
@@ -46,12 +60,9 @@ const OneDayCalendar: React.FC = () => {
                 />
             </Button>
 
-            {isShowModal ? (
+            {isShowModal && (
                 <div className={styles.calendar_wrapper}>
-                    <input
-                        onClick={handleClick}
-                        className={styles.overlay}
-                    ></input>
+                    <input onClick={handleClick} className={styles.overlay} />
                     <div className={styles.modal_one_day}>
                         <Calendar
                             date={day}
@@ -60,8 +71,6 @@ const OneDayCalendar: React.FC = () => {
                         />
                     </div>
                 </div>
-            ) : (
-                <></>
             )}
         </>
     );

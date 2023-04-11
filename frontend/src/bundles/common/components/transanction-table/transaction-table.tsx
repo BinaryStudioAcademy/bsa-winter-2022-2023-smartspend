@@ -26,6 +26,7 @@ const TransactionTable: React.FC<TransactionTableProperties> = ({
     const findTransactions = transactions.filter(
         (transaction) => transaction.walletsId === walletsId,
     );
+
     const transactionsData = walletsId ? findTransactions : transactions;
     const defaultValues = getDefaultValues(transactionsData);
     const { control, errors } = useAppForm({ defaultValues });

@@ -5,7 +5,6 @@ import {
     userSignInValidationSchema,
 } from 'shared/build/index.js';
 
-import { UserProfile } from '~/bundles/account-settings/components/components';
 import { DEFAULT_SIGN_UP_PAYLOAD } from '~/bundles/auth/components/sign-up-form/constants/constants.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks';
 
@@ -542,7 +541,6 @@ const Base: React.FC = () => {
                 </div>
             </div>
             <UserSettingsTabs tabsData={userSettingsData} />
-            <UserProfile />
             <div>
                 <RangeSlider
                     rangeLimits={rangeLimits}
@@ -573,6 +571,7 @@ const Base: React.FC = () => {
                             label: 'Supermarket',
                             amount: -35,
                             currency: '$',
+                            walletsId: '49cfd534-7c7f-438c-a6cd-3578b7dfd412',
                         },
                         {
                             id: '2',
@@ -588,6 +587,7 @@ const Base: React.FC = () => {
                             label: 'Gas Station',
                             amount: -50,
                             currency: '$',
+                            walletsId: '49cfd534-7c7f-438c-a6cd-3578b7dfd412',
                         },
                     ]}
                 />

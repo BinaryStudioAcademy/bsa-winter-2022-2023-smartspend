@@ -1,0 +1,30 @@
+.manageWrapper {
+    margin: 20px 0;
+    padding: 12px 0;
+}
+
+.title {
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(-line-height-level-3-heading);
+}
+
+.wrapperAllBtn {
+    display: flex;
+    flex: 0 1 auto;
+    flex-flow: wrap;
+    margin: 0 -0.5rem;
+}
+
+.wrapperBtn {
+    padding: var(--p-2);
+}
+
+.btn {
+    width: 100%;
+}
+
+.btnName {
+    padding-left: 10px;
+}

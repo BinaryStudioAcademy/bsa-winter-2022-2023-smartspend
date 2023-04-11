@@ -177,6 +177,10 @@ class TransactionController extends Controller {
      *                 type: string
      *                 format: uuid
      *                 example: 053689b5-b84d-49b6-93ba-51e2cfc64edd
+     *               walletsId:
+     *                 type: string
+     *                 format: uuid
+     *                 example: 060689b5-b84d-49b6-93ba-51e2cfc64edd
      *     responses:
      *       201:
      *         description: Successful transaction creation operation

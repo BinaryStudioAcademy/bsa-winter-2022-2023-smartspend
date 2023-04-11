@@ -10,6 +10,7 @@ import { getUserIdFromToken } from '~/common/helpers/get-id-from-token.helper.js
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
+import { transactionService } from '../transactions/transactions.js';
 import { WalletsApiPath, WalletValidationMessage } from './enums/enums.js';
 import {
     type TokenDeleteRequestDto,
@@ -126,9 +127,22 @@ class WalletController extends Controller {
             throw new Error(WalletValidationMessage.TOKEN_REQUIRE);
         }
         const userId = getUserIdFromToken(token);
+        const wallets = await this.walletService.findAllWallets(userId);
+
+        const response: unknown[] = [];
+        for (const wallet of wallets.items) {
+            const transactions = await transactionService.findAll(userId);
+            const transactionsIds: string[] = [];
+            for (const transaction of transactions.items) {
+                if (transaction.walletsId === wallet.id) {
+                    transactionsIds.push(transaction.id as string);
+                }
+            }
+            response.push({ ...wallet, transactionsIds });
+        }
         return {
             status: HttpCode.OK,
-            payload: await this.walletService.findAllWallets(userId),
+            payload: response,
         };
     }
 

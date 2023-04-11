@@ -1,15 +1,15 @@
 import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers';
 
-import { type ITransaction } from '../types';
+import { type TransactionType } from '../types';
 
 const groupTransactionsByDate = (
-    transactions: ITransaction[],
-): Record<string, ITransaction[]> => {
-    const groupedTransactions: Record<string, ITransaction[]> = {};
+    transactions: TransactionType[],
+): Record<string, TransactionType[]> => {
+    const groupedTransactions: Record<string, TransactionType[]> = {};
 
     for (const transaction of dateToShortStringHelper(
         transactions,
-    ) as ITransaction[]) {
+    ) as TransactionType[]) {
         const date = transaction.date;
         const groupedTransactionsDate = groupedTransactions[
             date

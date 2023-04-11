@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { AccountSettings } from '~/bundles/account-settings/account-settings';
+import { UserProfile } from '~/bundles/account-settings/components/components';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
@@ -14,6 +15,8 @@ import {
 } from '~/bundles/common/components/components';
 import { Toast } from '~/bundles/common/components/toast/toast';
 import { AppRoute } from '~/bundles/common/enums/enums';
+import { BudgetDetails } from '~/bundles/common/pages/budgets/budget-details/budget-details';
+import { Budgets } from '~/bundles/common/pages/budgets/budgets';
 import { Dashboard } from '~/bundles/common/pages/dashboard/dashboard';
 import { NotFound } from '~/bundles/common/pages/not-found/not-found';
 import { WalletDetails } from '~/bundles/common/pages/wallet-details/wallet-details';
@@ -24,6 +27,7 @@ import { store } from '~/framework/store/store';
 import { BudgetDetails } from './bundles/common/pages/budgets/budget-details/budget-details';
 import { Budgets } from './bundles/common/pages/budgets/budgets';
 import { FutureTransactions } from './bundles/common/pages/future-transactions/future-transactions';
+import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
 import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -37,7 +41,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         element: <App />,
                         children: [
                             {
-                                path: AppRoute.ROOT,
+                                index: true,
                                 element: (
                                     <PublicRoute>
                                         <Landing />
@@ -123,6 +127,24 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                         <AccountSettings />
                                     </PrivateRoute>
                                 ),
+                                children: [
+                                    {
+                                        path: AppRoute.USER_CATEGORIES,
+                                        element: (
+                                            <PrivateRoute>
+                                                <CategoriesSettings />
+                                            </PrivateRoute>
+                                        ),
+                                    },
+                                    {
+                                        path: AppRoute.USER_PROFILE,
+                                        element: (
+                                            <PrivateRoute>
+                                                <UserProfile />
+                                            </PrivateRoute>
+                                        ),
+                                    },
+                                ],
                             },
                         ],
                     },

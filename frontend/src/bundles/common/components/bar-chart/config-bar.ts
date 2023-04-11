@@ -14,7 +14,7 @@ const options: ConfigBar = {
                 color: '#9AACBD',
                 padding: 5,
                 font: {
-                    size: 10,
+                    size: 12,
                     family: 'Rubik, arial',
                     weight: '400',
                 },

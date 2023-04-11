@@ -42,13 +42,40 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    max-width: 372px;
+    max-width: 370px;
 }
 
 .transactionTypeContainer {
     display: flex;
     flex-direction: row;
     gap: var(--m-2);
+}
+
+.transactionTypeContainer.right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--m-2);
+    width: 50%;
+}
+
+.base {
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: 0.5rem;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    max-height: 32px;
+    color: white;
+    background-color: #7b93a4;
+    border-radius: 6px;
 }
 
 .transactionNum {

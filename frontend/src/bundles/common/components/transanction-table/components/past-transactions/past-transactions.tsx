@@ -22,35 +22,37 @@ const PastTransactions: React.FC<PastTransactionsProperties> = ({
     control,
     errors,
 }) => {
+    const sortedTransactions = Object.entries(groupedPastTransactions).sort(
+        (a, b) => Number(new Date(a[0])) - Number(new Date(b[0])),
+    );
+
     return (
         <>
-            {Object.entries(groupedPastTransactions).map(
-                ([date, transactions]) => (
-                    <div key={date} className={styles.group}>
-                        <div className={classNames(styles.dateRow)}>
-                            <span className={styles.date}>{date}</span>
-                            <span
-                                className={classNames(
-                                    dailyTotals[date] > 0
-                                        ? styles.plus
-                                        : styles.minus,
-                                )}
-                            >
-                                {dailyTotals[date].toFixed(2)}
-                                {transactions[0].currency}
-                            </span>
-                        </div>
-                        {transactions.map((transaction) => (
-                            <Transaction
-                                key={transaction.id}
-                                transaction={transaction}
-                                control={control}
-                                errors={errors}
-                            />
-                        ))}
+            {sortedTransactions.map(([date, transactions]) => (
+                <div key={date} className={styles.group}>
+                    <div className={classNames(styles.dateRow)}>
+                        <span className={styles.date}>{date}</span>
+                        <span
+                            className={classNames(
+                                dailyTotals[date] > 0
+                                    ? styles.plus
+                                    : styles.minus,
+                            )}
+                        >
+                            {dailyTotals[date].toFixed(2)}
+                            {transactions[0].currency}
+                        </span>
                     </div>
-                ),
-            )}
+                    {transactions.map((transaction) => (
+                        <Transaction
+                            key={transaction.id}
+                            transaction={transaction}
+                            control={control}
+                            errors={errors}
+                        />
+                    ))}
+                </div>
+            ))}
         </>
     );
 };

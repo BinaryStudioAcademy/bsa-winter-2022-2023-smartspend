@@ -113,9 +113,10 @@ const BudgetDetails = (): JSX.Element => {
         return <Loader />;
     }
 
-    const { amount, startDate, recurrence, name, currency } = currentBudget;
+    const { amount, startDate, endDate, recurrence, name, currency } =
+        currentBudget;
 
-    const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails({
+    const { canSpend, moneyLeft } = calculateBudgetDetails({
         amount,
         startDate,
         recurrence,
@@ -233,7 +234,13 @@ const BudgetDetails = (): JSX.Element => {
                                     ])[0].date
                                 }
                             </div>
-                            <div>{lastDate}</div>
+                            <div>
+                                {
+                                    dateToShortStringHelper([
+                                        { date: endDate as string },
+                                    ])[0].date
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

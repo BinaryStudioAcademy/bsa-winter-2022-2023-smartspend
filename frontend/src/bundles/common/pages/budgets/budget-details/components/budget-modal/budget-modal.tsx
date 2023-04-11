@@ -73,7 +73,7 @@ const BudgetModal: React.FC<Properties> = ({
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
-            validationSchema: dateSchema,
+            validationSchema: isEdit ? undefined : dateSchema,
         },
     );
     const isReset = reset;
@@ -82,7 +82,6 @@ const BudgetModal: React.FC<Properties> = ({
         (Object.values(watch()).every(Boolean) && !!watch('categories')[0]) ||
         watch('endDate');
     const editFields = isEdit && compareObjects(watch(), currentBudget);
-
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
             if (isEdit) {
@@ -134,17 +133,21 @@ const BudgetModal: React.FC<Properties> = ({
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}
-            Header={<h1>{isEdit ? 'Edit Budget' : 'Create budget'}</h1>}
+            Header={
+                <p className={styles.header}>
+                    {isEdit ? 'Edit Budget' : 'Create new Budget'}
+                </p>
+            }
             Body={
                 <div className={styles.formWrapper}>
                     <div className={styles.wrapperHalf}>
-                        <h2>General Info</h2>
+                        <p className={styles.title}>General Info</p>
                         <Input
                             labelClassName={styles.label}
                             control={control}
                             label={'Budget name'}
                             name={'name'}
-                            placeholder={'Budget name'}
+                            placeholder={'Enter budget name'}
                             errors={errors}
                         />
                     </div>
@@ -155,7 +158,7 @@ const BudgetModal: React.FC<Properties> = ({
                             errors={errors}
                             label={'Amount'}
                             name={'amount'}
-                            placeholder={'Amount'}
+                            placeholder={'0.00'}
                         />
                         <Controller
                             name="currency"
@@ -164,7 +167,7 @@ const BudgetModal: React.FC<Properties> = ({
                         />
                     </div>
                     <div className={styles.wrapperHalf}>
-                        <h2>Filters</h2>
+                        <p className={styles.title}>Filters</p>
                         <Controller
                             name="categories"
                             control={control}
@@ -172,7 +175,7 @@ const BudgetModal: React.FC<Properties> = ({
                         />
                     </div>
                     <div>
-                        <h2>Budget Period</h2>
+                        <p className={styles.title}>Budget Period</p>
                         <span className={styles.label}>Recurrence</span>
                         <Controller
                             name="recurrence"
@@ -208,7 +211,7 @@ const BudgetModal: React.FC<Properties> = ({
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
                 ((isEdit
-                    ? editFields || !watch('categories')[0]
+                    ? editFields || !watch('categories')[0] || !watch('endDate')
                     : !createFields) &&
                     show) ||
                 (control._formValues.recurrence === recurrences[0].value &&

@@ -119,6 +119,14 @@ const NewWalletModal: React.FC<Properties> = ({
             const formDataEntries = formData.entries();
             onClose();
 
+            setFields({
+                id: '',
+                name: '',
+                currencyId: '',
+                balance: 0,
+                ownerId: '',
+            });
+
             const data = Object.fromEntries(
                 formDataEntries,
             ) as unknown as WalletCreateRequestDto;

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { type TransactionCreateRequestDto } from 'shared/build';
 
 import { BaseModal, Button } from '~/bundles/common/components/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
@@ -19,6 +18,7 @@ import {
 import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type Transaction } from '~/bundles/common/types/transaction.type';
 import { actions as currenciesActions } from '~/bundles/currencies/store/';
 
 import styles from './styles.module.scss';
@@ -43,7 +43,7 @@ const TransactionModal: React.FC<Properties> = ({
     const { id } = useParams();
 
     const [transaction, setTransaction] =
-        useState<TransactionCreateRequestDto>(DEFAULT_TRANSACTION);
+        useState<Transaction>(DEFAULT_TRANSACTION);
 
     const [imageFile, setImageFile] = useState<File | undefined>();
 
@@ -108,20 +108,22 @@ const TransactionModal: React.FC<Properties> = ({
             }
             submitButtonName={submitButtonName}
         >
-            <TransactionImage
-                file={imageFile}
-                handleFileChange={handleFileChange}
-            />
-            {type === TransactionModalType.CHANGE && (
-                <Button
-                    className={styles.delete}
-                    type={ButtonType.BUTTON}
-                    size={ButtonSize.SMALL}
-                    variant={ButtonVariant.SECONDARY}
-                >
-                    Delete Transaction
-                </Button>
-            )}
+            <div className={styles.buttonsContainer}>
+                <TransactionImage
+                    file={imageFile}
+                    handleFileChange={handleFileChange}
+                />
+                {type === TransactionModalType.CHANGE && (
+                    <Button
+                        className={styles.delete}
+                        type={ButtonType.BUTTON}
+                        size={ButtonSize.SMALL}
+                        variant={ButtonVariant.SECONDARY}
+                    >
+                        Delete Transaction
+                    </Button>
+                )}
+            </div>
         </BaseModal>
     );
 };

@@ -73,7 +73,7 @@ const BudgetModal: React.FC<Properties> = ({
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
-            validationSchema: dateSchema,
+            validationSchema: isEdit ? undefined : dateSchema,
         },
     );
     const isReset = reset;
@@ -82,7 +82,6 @@ const BudgetModal: React.FC<Properties> = ({
         (Object.values(watch()).every(Boolean) && !!watch('categories')[0]) ||
         watch('endDate');
     const editFields = isEdit && compareObjects(watch(), currentBudget);
-
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
             if (isEdit) {
@@ -208,7 +207,7 @@ const BudgetModal: React.FC<Properties> = ({
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
                 ((isEdit
-                    ? editFields || !watch('categories')[0]
+                    ? editFields || !watch('categories')[0] || !watch('endDate')
                     : !createFields) &&
                     show) ||
                 (control._formValues.recurrence === recurrences[0].value &&

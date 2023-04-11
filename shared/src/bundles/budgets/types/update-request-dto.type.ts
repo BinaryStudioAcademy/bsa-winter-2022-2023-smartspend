@@ -4,6 +4,7 @@ type UpdateBudgetRequestDto = {
     currency: string;
     recurrence: string;
     startDate: string;
+    endDate?: string;
 };
 
 export { type UpdateBudgetRequestDto };

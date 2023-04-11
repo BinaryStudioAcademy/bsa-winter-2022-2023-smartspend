@@ -4,12 +4,14 @@ import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
     Button,
     CardTotal,
     Input,
     MultiDropdown,
+    Placeholder,
     RangeSlider,
     TransactionModal,
     TransactionTable,
@@ -391,12 +393,19 @@ const WalletDetails: React.FC = () => {
                                     currency={currency}
                                 />
                             </div>
-                            <div className={styles.transactionsContainer}>
-                                <TransactionTable
-                                    walletsId={id}
-                                    transactions={transactionData}
+                            {transactions.length > 0 ? (
+                                <div className={styles.transactionsContainer}>
+                                    <TransactionTable
+                                        walletsId={id}
+                                        transactions={transactionData}
+                                    />
+                                </div>
+                            ) : (
+                                <Placeholder
+                                    path={DashboardPlaceholder}
+                                    body={'You have no transactions yet.'}
                                 />
-                            </div>
+                            )}
                             <TransactionModal
                                 type={TransactionModalType.ADD}
                                 handleCancel={closeTransactionModal}

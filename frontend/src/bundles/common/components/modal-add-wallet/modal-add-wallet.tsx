@@ -54,7 +54,7 @@ const NewWalletModal: React.FC<Properties> = ({
         id: '',
         name: '',
         currencyId: '',
-        balance: 0,
+        balance: '' as unknown as number,
         ownerId: '',
     });
 
@@ -62,7 +62,7 @@ const NewWalletModal: React.FC<Properties> = ({
         defaultValues: {
             name: '',
             currencyId: '',
-            balance: undefined,
+            balance: '' as unknown as number,
         },
     });
 

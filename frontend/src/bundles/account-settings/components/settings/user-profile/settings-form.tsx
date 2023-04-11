@@ -4,11 +4,7 @@ import {
     type UserUpdateRequestDto,
 } from 'shared/build';
 
-import {
-    Button,
-    Icon,
-    Input,
-} from '~/bundles/common/components/components.js';
+import { Button, Icon, Input } from '~/bundles/common/components/components.js';
 import {
     AppRoute,
     ButtonSize,

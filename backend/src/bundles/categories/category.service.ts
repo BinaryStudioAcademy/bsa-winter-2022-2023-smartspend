@@ -77,6 +77,12 @@ class CategoryService implements Partial<IService> {
 
         return deletedCategory;
     }
+
+    public async deleteCategories(
+        idArray: string[],
+    ): Promise<CategoryEntity[] | undefined> {
+        return await this.categoryRepository.deleteCategories(idArray);
+    }
 }
 
 export { CategoryService };

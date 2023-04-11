@@ -1,5 +1,6 @@
 import {
     type CategoryIdRequestDto,
+    type CategoryIdsRequestDto,
     type CategoryRequestDto,
     type CategoryUpdatePayloadDto,
     CategoriesApiPath,
@@ -115,6 +116,17 @@ class CategoryController extends Controller {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: CategoriesApiPath.MANY,
+            method: 'DELETE',
+            handler: (options) =>
+                this.deleteMany(
+                    options as ApiHandlerOptions<{
+                        body: CategoryIdsRequestDto;
+                    }>,
+                ),
+        });
     }
 
     /**
@@ -177,7 +189,7 @@ class CategoryController extends Controller {
      *    post:
      *      tags: [Categories]
      *      description: Create category
-     *      requesBody:
+     *      requestBody:
      *        required: true
      *        content:
      *            application/json:
@@ -271,6 +283,39 @@ class CategoryController extends Controller {
             status: HttpCode.OK,
             payload: await this.categoryService.deleteCategory(
                 options.params.id,
+            ),
+        };
+    }
+
+    /**
+     * @swagger
+     * /categories/many:
+     *    delete:
+     *      tags: [Categories]
+     *      requestBody:
+     *        required: true
+     *        content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     *      description: Delete array of categories
+     *      responses:
+     *        200:
+     *          description: Successful delete categories operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Category'
+     */
+    private async deleteMany(
+        options: ApiHandlerOptions<{
+            body: CategoryIdsRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.categoryService.deleteCategories(
+                options.body.idArray,
             ),
         };
     }

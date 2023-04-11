@@ -65,6 +65,19 @@ class CategoryRepository implements Partial<IRepository> {
 
         return CategoryEntity.initialize(item[0]);
     }
+
+    public async deleteCategories(
+        idArray: string[],
+    ): Promise<CategoryEntity[] | undefined> {
+        const items = await this.categoryModel
+            .query()
+            .whereIn('id', idArray)
+            .del()
+            .returning('id')
+            .execute();
+
+        return items.map((it) => CategoryEntity.initialize(it));
+    }
 }
 
 export { CategoryRepository };

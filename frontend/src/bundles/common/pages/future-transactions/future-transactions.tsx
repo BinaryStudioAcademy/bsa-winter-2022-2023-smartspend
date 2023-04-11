@@ -265,12 +265,6 @@ const FutureTransactions: React.FC = () => {
                         >
                             <div className={styles.filterText}>
                                 <h2>Filters</h2>
-                                <button
-                                    className={styles.reset}
-                                    onClick={hangleReset}
-                                >
-                                    Reset filters
-                                </button>
                             </div>
                             <div className={styles.applyFilters}>
                                 <div className={styles.filter}>
@@ -285,18 +279,6 @@ const FutureTransactions: React.FC = () => {
                                                 handleCategoriesMultiDropdownChange
                                             }
                                             label="By category"
-                                        />
-                                    </div>
-                                </div>
-                                <div className={styles.filter}>
-                                    <div className={styles.dropdown}>
-                                        <MultiDropdown
-                                            data={people}
-                                            selectedOption={peopleDropdown}
-                                            handleChange={
-                                                handlePeopleMultiDropdownChange
-                                            }
-                                            label="By people"
                                         />
                                     </div>
                                 </div>
@@ -330,6 +312,12 @@ const FutureTransactions: React.FC = () => {
                                         />
                                     </div>
                                 </div>
+                                <button
+                                    className={styles.reset}
+                                    onClick={hangleReset}
+                                >
+                                    Reset filters
+                                </button>
                             </div>
                         </div>
                     </div>

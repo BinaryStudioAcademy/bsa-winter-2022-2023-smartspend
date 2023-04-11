@@ -91,6 +91,7 @@ const Dropdown: React.FC<Properties> = ({
                 ':active': {
                     backgroundColor: base.color,
                 },
+                fontSize: '16px',
             };
         },
     };

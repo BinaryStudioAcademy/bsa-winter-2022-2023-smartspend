@@ -22,6 +22,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 5px;
+    margin-top: 25px;
 }
 
 .startDate {
@@ -47,6 +48,10 @@
     font-family: var(--font-family);
     font-style: normal;
     line-height: var(--line-height-label-span);
+}
+
+.label span {
+    font-size: 16px;
 }
 
 .modalFooter > div {

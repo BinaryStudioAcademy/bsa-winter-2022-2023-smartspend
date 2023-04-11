@@ -17,9 +17,10 @@ import styles from '../styles.module.scss';
 
 type Properties = {
     transaction: TransactionType;
-    control: Control<FieldValues, null>;
-    errors: FieldErrors;
+    control?: Control<FieldValues, null>;
+    errors?: FieldErrors;
     isFutureTransaction?: boolean;
+    isCheckbox?: boolean;
 };
 
 const Transaction: React.FC<Properties> = ({
@@ -27,6 +28,7 @@ const Transaction: React.FC<Properties> = ({
     control,
     errors,
     isFutureTransaction = false,
+    isCheckbox = true,
 }) => {
     const [isChecked, setIsChecked] = useState(false);
 
@@ -52,17 +54,19 @@ const Transaction: React.FC<Properties> = ({
                 )}
             >
                 <div className={classNames(styles.columns, styles.leftColumn)}>
-                    <form className={styles.form} onChange={handleChange}>
-                        <Input
-                            type={InputType.CHECKBOX}
-                            name={`checkbox-${transaction.id}`}
-                            control={control}
-                            errors={errors}
-                            inputClassName={styles.checkbox}
-                        />
-                    </form>
+                    {isCheckbox && control && errors && (
+                        <form className={styles.form} onChange={handleChange}>
+                            <Input
+                                type={InputType.CHECKBOX}
+                                name={`checkbox-${transaction.id}`}
+                                control={control}
+                                errors={errors}
+                                inputClassName={styles.checkbox}
+                            />
+                        </form>
+                    )}
                     <div>
-                        {transaction.category.color && (
+                        {transaction.category && (
                             <span
                                 style={{
                                     background: `${transaction.category.color}`,

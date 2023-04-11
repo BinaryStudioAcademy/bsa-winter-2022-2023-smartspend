@@ -1,4 +1,3 @@
-
 import { type Transaction } from '~/bundles/common/types/transaction.type';
 
 const DEFAULT_TRANSACTION: Transaction = {

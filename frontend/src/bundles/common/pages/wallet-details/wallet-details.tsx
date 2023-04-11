@@ -14,7 +14,6 @@ import {
     TransactionModal,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
-import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,

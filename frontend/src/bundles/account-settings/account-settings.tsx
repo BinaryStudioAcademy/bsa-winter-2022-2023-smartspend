@@ -10,6 +10,7 @@ const AccountSettings: React.FC = () => {
         { title: 'Account', to: AppRoute.USER_PROFILE, icon: 'CHART' },
         { title: 'Settings', to: AppRoute.USER_CATEGORIES, icon: 'CHART' },
     ];
+
     return (
         <main className={styles.body}>
             <div className={classNames(styles.container, 'container')}>

@@ -289,18 +289,14 @@ const Dashboard: React.FC = () => {
             const categoryMatch = categories.find(
                 (category) => category.id === transaction.categoryId,
             );
-
-            return wallet
-                ? walletMatch &&
-                      walletMatch.name === wallet.name &&
-                      categoryMatch &&
-                      categoryMatch.id === category?.value &&
-                      transaction.amount >= currentRange.min &&
-                      transaction.amount <= currentRange.max
-                : categoryMatch &&
-                      categoryMatch.id === category?.value &&
-                      transaction.amount >= currentRange.min &&
-                      transaction.amount <= currentRange.max;
+            return (
+                walletMatch &&
+                walletMatch.name === wallet?.name &&
+                categoryMatch &&
+                categoryMatch.id === category?.value &&
+                transaction.amount >= currentRange.min &&
+                transaction.amount <= currentRange.max
+            );
         });
         setTransactionsData(filteredTransactions);
     }, [

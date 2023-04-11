@@ -11,3 +11,9 @@ const categoriesApi = new CategoriesApi({
 });
 
 export { categoriesApi };
+export {
+    type CategoryGetAllItemResponseDto,
+    type CategoryIdRequestDto,
+    type CategoryRequestDto,
+    type CategoryUpdatePayloadDto,
+} from './types/types.js';

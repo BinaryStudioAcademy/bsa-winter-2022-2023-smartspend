@@ -49,6 +49,7 @@ const Budgets: React.FC = () => {
                                 amount,
                                 currency,
                                 startDate,
+                                endDate,
                                 recurrence,
                             }) => (
                                 <BudgetCard
@@ -59,6 +60,7 @@ const Budgets: React.FC = () => {
                                     currency={currency}
                                     recurrence={recurrence}
                                     startDate={startDate}
+                                    endDate={endDate as string}
                                 />
                             ),
                         )}

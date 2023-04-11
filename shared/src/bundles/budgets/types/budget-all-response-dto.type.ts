@@ -5,6 +5,7 @@ type BudgetGetAllCategoriesResponseDto = {
     currency: string;
     recurrence: string;
     startDate: string;
+    endDate: string;
     ownerId: string;
     categoriesId: string[];
 };

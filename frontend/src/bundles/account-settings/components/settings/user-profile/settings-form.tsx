@@ -4,10 +4,15 @@ import {
     type UserUpdateRequestDto,
 } from 'shared/build';
 
-import { Button, Icon, Input } from '~/bundles/common/components/components.js';
+import {
+    Button,
+    Icon,
+    Input,
+} from '~/bundles/common/components/components.js';
 import {
     AppRoute,
     ButtonSize,
+    ButtonType,
     ButtonVariant,
     DataStatus,
     FaIcons,
@@ -32,6 +37,7 @@ import {
     RenderDate,
     RenderSex,
     SubmitButton,
+    UserDeleteModal,
 } from './components/components.js';
 
 type uploadPayload = {
@@ -52,6 +58,7 @@ const SettingsForm: React.FC<Properties> = ({ user, status }) => {
         defaultValues: user as UserUpdateRequestDto,
         mode: 'onBlur',
     });
+    const [modalOpen, setModalOpen] = useState(false);
 
     const fieldsWatch = watch();
 
@@ -64,11 +71,19 @@ const SettingsForm: React.FC<Properties> = ({ user, status }) => {
 
     const token = storage.getSync(StorageKey.TOKEN);
 
+    const onModalOpen = useCallback(() => {
+        setModalOpen(true);
+    }, []);
+
     const handleDeleteAccount = useCallback(() => {
         void dispatch(usersActions.deleteUser(token as string));
         void storage.drop(StorageKey.TOKEN);
         void storage.drop(StorageKey.PWA);
     }, [dispatch, token]);
+
+    const onModalClose = useCallback(() => {
+        setModalOpen(false);
+    }, []);
 
     const onSubmit = useCallback(
         async (formData: UserUpdateRequestDto): Promise<void> => {
@@ -105,72 +120,80 @@ const SettingsForm: React.FC<Properties> = ({ user, status }) => {
     }, [isFieldsChange]);
 
     return (
-        <form className={styles.form} onSubmit={handleFormSubmit}>
-            <AvatarContainer />
-            <Input
-                type={InputType.TEXT}
-                labelClassName={styles.inputLabel}
-                label="First name"
-                placeholder="Enter your name"
-                name="firstName"
-                control={control}
-                errors={errors}
-            />
-            <Input
-                type={InputType.TEXT}
-                label="Last name"
-                labelClassName={styles.inputLabel}
-                placeholder="Enter your surname"
-                name="lastName"
-                control={control}
-                errors={errors}
-            />
-
-            <Controller name="sex" control={control} render={RenderSex} />
-
-            <div className={styles.calendar}>
-                <div className={styles.label}>Date of birth</div>
-                <Controller
-                    name="dateOfBirth"
+        <>
+            <form className={styles.form} onSubmit={handleFormSubmit}>
+                <AvatarContainer />
+                <Input
+                    type={InputType.TEXT}
+                    labelClassName={styles.inputLabel}
+                    label="First name"
+                    placeholder="Enter your name"
+                    name="firstName"
                     control={control}
-                    render={RenderDate}
+                    errors={errors}
                 />
-            </div>
+                <Input
+                    type={InputType.TEXT}
+                    label="Last name"
+                    labelClassName={styles.inputLabel}
+                    placeholder="Enter your surname"
+                    name="lastName"
+                    control={control}
+                    errors={errors}
+                />
 
-            <Input
-                type={InputType.EMAIL}
-                label="E-mail address"
-                labelClassName={styles.inputLabel}
-                placeholder="Enter your email"
-                name="email"
-                control={control}
-                errors={errors}
+                <Controller name="sex" control={control} render={RenderSex} />
+
+                <div className={styles.calendar}>
+                    <div className={styles.label}>Date of birth</div>
+                    <Controller
+                        name="dateOfBirth"
+                        control={control}
+                        render={RenderDate}
+                    />
+                </div>
+
+                <Input
+                    type={InputType.EMAIL}
+                    label="E-mail address"
+                    labelClassName={styles.inputLabel}
+                    placeholder="Enter your email"
+                    name="email"
+                    control={control}
+                    errors={errors}
+                />
+
+                <Controller
+                    name="currency"
+                    control={control}
+                    render={RenderCurrency}
+                />
+
+                <SubmitButton isChange={isChange}>
+                    {user?.firstName && user.lastName
+                        ? 'Update My Settings'
+                        : 'Get started'}
+                </SubmitButton>
+                <div className={styles.dltButton}>
+                    <Button
+                        variant={ButtonVariant.DELETE}
+                        size={ButtonSize.MEDIUM}
+                        onClick={onModalOpen}
+                        type={ButtonType.BUTTON}
+                    >
+                        <span className={styles.icon}>
+                            <Icon name={FaIcons.TRASH_CAN} />
+                        </span>
+                        <span>Delete Account</span>
+                    </Button>
+                </div>
+            </form>
+            <UserDeleteModal
+                isShown={modalOpen}
+                onClose={onModalClose}
+                onDelete={handleDeleteAccount}
             />
-
-            <Controller
-                name="currency"
-                control={control}
-                render={RenderCurrency}
-            />
-
-            <SubmitButton isChange={isChange}>
-                {user?.firstName && user.lastName
-                    ? 'Update My Settings'
-                    : 'Get started'}
-            </SubmitButton>
-            <div className={styles.dltButton}>
-                <Button
-                    variant={ButtonVariant.DELETE}
-                    size={ButtonSize.MEDIUM}
-                    onClick={handleDeleteAccount}
-                >
-                    <span className={styles.icon}>
-                        <Icon name={FaIcons.TRASH_CAN} />
-                    </span>
-                    <span>Delete Account</span>
-                </Button>
-            </div>
-        </form>
+        </>
     );
 };
 

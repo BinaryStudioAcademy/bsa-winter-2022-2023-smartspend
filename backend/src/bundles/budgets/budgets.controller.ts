@@ -1,3 +1,5 @@
+import { dateSchema } from 'shared/build/index.js';
+
 import { type BudgetService } from '~/bundles/budgets/budgets.service.js';
 import { type CategoryEntity } from '~/bundles/categories/category.entity.js';
 import {
@@ -73,6 +75,9 @@ class BudgetController extends Controller {
         this.addRoute({
             path: BudgetsApiPath.ROOT,
             method: 'POST',
+            validation: {
+                body: dateSchema,
+            },
             handler: (options) => {
                 return this.create(options as TokenRequestDto);
             },
@@ -266,6 +271,7 @@ class BudgetController extends Controller {
             currency: request.body.currency,
             recurrence: request.body.recurrence,
             startDate: request.body.startDate,
+            endDate: request.body.endDate as string,
         };
         const budget = await this.budgetService.createBudget(payload, userId);
         const categoriesId = await budgetCategoriesService.createBudgetCategory(
@@ -389,6 +395,7 @@ class BudgetController extends Controller {
             currency: request.body.currency,
             recurrence: request.body.recurrence,
             startDate: request.body.startDate,
+            endDate: request.body.endDate as string,
         };
 
         const updatedBudget = await this.budgetService.updateBudget(

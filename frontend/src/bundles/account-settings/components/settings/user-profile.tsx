@@ -1,3 +1,4 @@
+import { Loader } from '~/bundles/common/components/components';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 
@@ -11,9 +12,9 @@ const UserProfile: React.FC = () => {
     return (
         <div className={styles.userProfile}>
             <Title>Account Settings</Title>
-            {dataStatus !== DataStatus.PENDING && (
+            {dataStatus === DataStatus.PENDING ? <Loader /> :
                 <SettingsForm user={user} status={dataStatus} />
-            )}
+            }
         </div>
     );
 };

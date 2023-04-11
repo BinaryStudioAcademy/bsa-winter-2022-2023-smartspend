@@ -130,13 +130,15 @@ class WalletController extends Controller {
         const wallets = await this.walletService.findAllWallets(userId);
 
         const response: unknown[] = [];
-        for (const item of wallets.items) {
+        for (const wallet of wallets.items) {
             const transactions = await transactionService.findAll(userId);
             const transactionsIds: string[] = [];
-            for (const item of transactions.items) {
-                transactionsIds.push(item.id as string);
+            for (const transaction of transactions.items) {
+                if (transaction.walletsId === wallet.id) {
+                    transactionsIds.push(transaction.id as string);
+                }
             }
-            response.push({ ...item, transactionsIds });
+            response.push({ ...wallet, transactionsIds });
         }
         return {
             status: HttpCode.OK,

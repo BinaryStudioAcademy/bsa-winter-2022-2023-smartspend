@@ -9,3 +9,4 @@ export {
     type TokenRequestDto,
     type UpdateBudgetRequestDto,
 } from './types/types.js';
+export { dateSchema } from './validation-schemas/validation-schemas.js';

@@ -1,16 +1,16 @@
 import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers';
 
-import { type ITransaction } from '../types';
+import { type TransactionType } from '../types';
 
 const getFutureTransactions = (
-    transactions: ITransaction[],
+    transactions: TransactionType[],
     today: Date,
-): ITransaction[] => {
+): TransactionType[] => {
     return dateToShortStringHelper(
         transactions.filter(
             (transaction) => new Date(transaction.date) > today,
         ),
-    ) as ITransaction[];
+    ) as TransactionType[];
 };
 
 export { getFutureTransactions };

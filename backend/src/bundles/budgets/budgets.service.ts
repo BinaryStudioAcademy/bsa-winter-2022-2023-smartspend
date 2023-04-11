@@ -1,6 +1,7 @@
 import { BudgetEntity } from '~/bundles/budgets/budgets.entity.js';
 import { type BudgetRepository } from '~/bundles/budgets/budgets.repository.js';
 import { BudgetValidationMessage } from '~/bundles/budgets/enums/enums.js';
+import { calculateEndDate } from '~/common/helpers/get-date/get-date.helper.js';
 
 import {
     type BudgetFindRequestDto,
@@ -36,6 +37,9 @@ class BudgetService {
         payload: UpdateBudgetRequestDto,
         userId: string,
     ): Promise<BudgetResponseDto> {
+        const newEndDate =
+            payload.endDate ??
+            calculateEndDate(payload.startDate, payload.recurrence);
         const budget = await this.budgetRepository.createBudget(
             BudgetEntity.initializeNew({
                 name: payload.name,
@@ -43,6 +47,7 @@ class BudgetService {
                 currency: payload.currency,
                 recurrence: payload.recurrence,
                 startDate: payload.startDate,
+                endDate: newEndDate,
                 ownerId: userId,
             }),
         );
@@ -54,9 +59,17 @@ class BudgetService {
         payload: UpdateBudgetRequestDto,
         ownerId: string,
     ): Promise<BudgetResponseDto | undefined> {
+        const newPayload = { ...payload };
+
+        const newEndDate =
+            payload.endDate ??
+            calculateEndDate(payload.startDate, payload.recurrence);
+
+        newPayload.endDate = newEndDate;
+
         const updatedBudget = await this.budgetRepository.updateBudget(
             id,
-            payload,
+            newPayload,
             ownerId,
         );
 

@@ -1,4 +1,5 @@
 import { Controller } from 'react-hook-form';
+import { dateSchema } from 'shared/build/index.js';
 
 import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
@@ -15,14 +16,18 @@ import {
     useAppDispatch,
     useAppForm,
     useCallback,
+    useEffect,
+    useMemo,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 
 import { recurrences } from '../../enums/recurrences.enum';
 import {
     RenderCurrency,
-    RenderDate,
+    RenderEndDate,
     RenderMultiDropdown,
     RenderRecurrence,
+    RenderStartDate,
 } from '../components';
 import styles from './styles.module.scss';
 
@@ -43,6 +48,7 @@ const BudgetModal: React.FC<Properties> = ({
 }): JSX.Element => {
     const dispatch = useAppDispatch();
     const categoriesId = budget?.categories.map((it) => it.id);
+    const [show, setShow] = useState(true);
 
     let budgetData;
     let id: unknown;
@@ -52,24 +58,29 @@ const BudgetModal: React.FC<Properties> = ({
     }
 
     const currentBudget: BudgetCreateRequestDto = budgetData;
-    const DEFAULT_VALUES = {
-        name: '',
-        amount: 0,
-        currency: '',
-        recurrence: recurrences[4].value,
-        startDate: new Date().toISOString(),
-        categories: [],
-    };
+    const DEFAULT_VALUES = useMemo(
+        () => ({
+            name: '',
+            amount: 0,
+            currency: '',
+            recurrence: recurrences[4].value,
+            startDate: new Date().toISOString(),
+            categories: [],
+        }),
+        [],
+    );
 
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
+            validationSchema: dateSchema,
         },
     );
     const isReset = reset;
 
     const createFields =
-        Object.values(watch()).every(Boolean) && !!watch('categories')[0];
+        (Object.values(watch()).every(Boolean) && !!watch('categories')[0]) ||
+        watch('endDate');
     const editFields = isEdit && compareObjects(watch(), currentBudget);
 
     const handleBudgetSubmit = useCallback(
@@ -89,6 +100,23 @@ const BudgetModal: React.FC<Properties> = ({
         [dispatch, id, isEdit, isReset, reset],
     );
 
+    useEffect(() => {
+        if (
+            control._formValues.endDate &&
+            reset &&
+            control._formValues.recurrence !== recurrences[0].value
+        ) {
+            reset({ ...control._formValues, endDate: undefined });
+            setShow(false);
+        }
+    }, [
+        DEFAULT_VALUES,
+        control._formValues,
+        control._formValues.endDate,
+        control._formValues.recurrence,
+        reset,
+    ]);
+
     const handleFormSubmit = useCallback(
         (event: React.BaseSyntheticEvent): void => {
             event.preventDefault();
@@ -98,6 +126,8 @@ const BudgetModal: React.FC<Properties> = ({
         },
         [trigger, handleSubmit, handleBudgetSubmit, onClose],
     );
+    const startDateIso = new Date(control._formValues.startDate);
+    const endDateIso = new Date(control._formValues.endDate);
 
     return (
         <BaseModal
@@ -149,18 +179,40 @@ const BudgetModal: React.FC<Properties> = ({
                             control={control}
                             render={RenderRecurrence}
                         />
-                        <span className={styles.label}>Start date</span>
-                        <Controller
-                            name="startDate"
-                            control={control}
-                            render={RenderDate}
-                        />
+                        <div className={styles.dates}>
+                            <div className={styles.startDate}>
+                                <span className={styles.label}>Start date</span>
+                                <Controller
+                                    name="startDate"
+                                    control={control}
+                                    render={RenderStartDate}
+                                />
+                            </div>
+                            {control._formValues.recurrence ===
+                                recurrences[0].value && (
+                                <div>
+                                    <span className={styles.label}>
+                                        End date
+                                    </span>
+                                    <RenderEndDate
+                                        name="endDate"
+                                        control={control}
+                                        error={errors}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             }
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
-                isEdit ? editFields || !watch('categories')[0] : !createFields
+                ((isEdit
+                    ? editFields || !watch('categories')[0]
+                    : !createFields) &&
+                    show) ||
+                (control._formValues.recurrence === recurrences[0].value &&
+                    endDateIso < startDateIso)
             }
             footerContainerClass={styles.modalFooter}
         >

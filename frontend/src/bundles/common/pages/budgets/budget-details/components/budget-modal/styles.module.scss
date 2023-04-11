@@ -17,6 +17,18 @@
     width: 100%;
 }
 
+.dates {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.startDate {
+    justify-self: start;
+    align-self: start;
+}
+
 .wrapperHalf > div {
     width: auto;
 }

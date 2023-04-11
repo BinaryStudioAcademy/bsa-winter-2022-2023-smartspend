@@ -53,6 +53,7 @@ const TransactionTablePart: React.FC = () => {
                             label: 'Supermarket',
                             amount: -35,
                             currency: '$',
+                            walletsId: '49cfd534-7c7f-438c-a6cd-3578b7dfd412',
                         },
                         {
                             id: '2',
@@ -68,6 +69,7 @@ const TransactionTablePart: React.FC = () => {
                             label: 'Gas Station',
                             amount: -50,
                             currency: '$',
+                            walletsId: '49cfd534-7c7f-438c-a6cd-3578b7dfd412',
                         },
                     ]}
                 />

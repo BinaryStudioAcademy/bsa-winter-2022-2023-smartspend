@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
-import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
     Loader,
@@ -50,6 +49,7 @@ type DoughnutData = Record<
         color: string;
         name: string;
         icon: string;
+        type: string;
     }
 >;
 
@@ -147,6 +147,7 @@ const BudgetDetails = (): JSX.Element => {
         const amount = item.amount;
         const icon = item.category.icon;
         const name = item.category.name;
+        const type = item.category.type;
         const color =
             gradientDoughnut[
                 Math.floor(Math.random() * gradientDoughnut.length)
@@ -162,18 +163,22 @@ const BudgetDetails = (): JSX.Element => {
                 color,
                 name,
                 icon,
+                type,
             };
         }
     }
 
-    const doughnutChartData = Object.values(doughnutData);
+    const doughnutChartExpense = Object.values(doughnutData).filter(
+        (data) => data.type === 'expense',
+    );
+    const doughnutChartIncome = Object.values(doughnutData).filter(
+        (data) => data.type === 'income',
+    );
 
     return (
         <div className={styles.container}>
             <div className={classNames(styles.contentWrapper, 'container')}>
-                <div className={styles.calendarWrapper}>
-                    <Calendar isRangeCalendar={true} />
-                </div>
+                <div className={styles.calendarWrapper}></div>
                 <div className={styles.budgetInfoWrapper}>
                     <div className={styles.breadcrumbsWrapper}>{name}</div>
                     <div className={styles.editButtonWrapper}>
@@ -251,19 +256,19 @@ const BudgetDetails = (): JSX.Element => {
                             <div className={styles.chartWrapper}>
                                 <DoughnutChartCard
                                     variant={DoughnutChartCartVariant.SECONDARY}
-                                    title={'Accounted Categories'}
+                                    title={'Accounted Categories Expense'}
                                     date={startDate}
-                                    categories={doughnutChartData}
+                                    categories={doughnutChartExpense}
                                 />
                             </div>
                             <div className={styles.chartWrapper}>
                                 <DoughnutChartCard
-                                    title={'Accounted Wallets'}
+                                    title={'Accounted Categories Income'}
                                     date={startDate}
                                     transaction_num={0}
                                     transaction_type={''}
                                     transaction_sum={''}
-                                    categories={doughnutChartData}
+                                    categories={doughnutChartIncome}
                                 />
                             </div>
                         </div>

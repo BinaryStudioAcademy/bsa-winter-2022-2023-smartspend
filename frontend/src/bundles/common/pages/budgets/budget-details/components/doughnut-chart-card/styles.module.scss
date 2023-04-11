@@ -8,7 +8,7 @@
     width: 100%;
     max-width: 600px;
     min-height: 300px;
-    max-height: 400px;
+    max-height: fit-content;
     padding: var(--p-2) var(--p-4);
     background-color: var(--color-white-100);
     border-radius: var(--b-4);
@@ -42,7 +42,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    max-width: 370px;
+    width: 100%;
 }
 
 .transactionTypeContainer {
@@ -56,7 +56,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: var(--m-2);
-    width: 50%;
+    width: 58%;
 }
 
 .base {
@@ -87,13 +87,13 @@
 }
 
 .transactionSum {
-    font-weight: var(--font-weight-400);
+    font-weight: var(--font-weight-600);
     font-size: var(--font-size-caption);
     line-height: 15px;
 }
 
 .transactionSum.blue {
-    background-image: var(--gradient-6);
+    color: var(--color-turquoise-600);
     background-repeat: repeat;
     background-size: 100%;
 }

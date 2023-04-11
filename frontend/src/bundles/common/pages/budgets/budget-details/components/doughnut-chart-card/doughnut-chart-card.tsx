@@ -21,6 +21,7 @@ type Properties = {
         color: string;
         name: string;
         icon: string;
+        type: string;
     }[];
 };
 
@@ -29,6 +30,10 @@ const DoughnutChartCard: React.FC<Properties> = ({
     date,
     categories,
 }) => {
+    // const transactionSumClass = classNames(
+    //     styles.transactionSum,
+    //     transaction_sum?.includes('+') ? styles.blue : styles.red,
+    // );
     return (
         <div className={styles.container}>
             <div className={styles.topPart}>
@@ -64,8 +69,16 @@ const DoughnutChartCard: React.FC<Properties> = ({
                         <p className={styles.transactionNum}>
                             {category.count} transaction
                         </p>
-                        <p className={styles.transactionSum}>
-                            {category.total}
+                        <p
+                            className={classNames(
+                                styles.transactionSum,
+                                category.type === 'income'
+                                    ? styles.blue
+                                    : styles.red,
+                            )}
+                        >
+                            {category.type === 'income' ? '+' : '-'}
+                            {category.total}$
                         </p>
                     </div>
                 </div>

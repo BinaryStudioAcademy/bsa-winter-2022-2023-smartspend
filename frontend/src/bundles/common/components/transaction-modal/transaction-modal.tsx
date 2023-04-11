@@ -27,6 +27,7 @@ type Properties = {
     type: TransactionModalType;
     handleCancel: () => void;
     active: boolean;
+    transactionId?: string;
 };
 
 const labels: DataType[] = [
@@ -38,10 +39,10 @@ const TransactionModal: React.FC<Properties> = ({
     type,
     handleCancel,
     active,
+    transactionId,
 }) => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
-
     const [transaction, setTransaction] =
         useState<Transaction>(DEFAULT_TRANSACTION);
 
@@ -54,6 +55,13 @@ const TransactionModal: React.FC<Properties> = ({
         },
         [],
     );
+
+    const handleDelete = useCallback(() => {
+        void dispatch(
+            transactionActions.deleteTransaction(transactionId as string),
+        );
+        handleCancel();
+    }, [dispatch, handleCancel, transactionId]);
 
     const submitButtonName =
         type === TransactionModalType.CHANGE
@@ -68,11 +76,16 @@ const TransactionModal: React.FC<Properties> = ({
             void dispatch(transactionActions.createTransaction(transaction));
         }
         if (type === TransactionModalType.CHANGE) {
-            void dispatch(transactionActions.updateTransaction(transaction));
+            void dispatch(
+                transactionActions.updateTransaction({
+                    id: transactionId as string,
+                    payload: transaction,
+                }),
+            );
         }
         void dispatch(transactionActions.loadTransactions());
         handleCancel();
-    }, [dispatch, handleCancel, id, transaction, type]);
+    }, [dispatch, handleCancel, id, transaction, transactionId, type]);
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
@@ -115,6 +128,7 @@ const TransactionModal: React.FC<Properties> = ({
                 />
                 {type === TransactionModalType.CHANGE && (
                     <Button
+                        onClick={handleDelete}
                         className={styles.delete}
                         type={ButtonType.BUTTON}
                         size={ButtonSize.SMALL}

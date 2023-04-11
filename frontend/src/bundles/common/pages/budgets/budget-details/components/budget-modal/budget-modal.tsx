@@ -18,6 +18,7 @@ import {
     useCallback,
     useEffect,
     useMemo,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 
 import { recurrences } from '../../enums/recurrences.enum';
@@ -47,6 +48,7 @@ const BudgetModal: React.FC<Properties> = ({
 }): JSX.Element => {
     const dispatch = useAppDispatch();
     const categoriesId = budget?.categories.map((it) => it.id);
+    const [show, setShow] = useState(true);
 
     let budgetData;
     let id: unknown;
@@ -104,7 +106,8 @@ const BudgetModal: React.FC<Properties> = ({
             reset &&
             control._formValues.recurrence !== recurrences[0].value
         ) {
-            reset({ ...control._formValues, endDate: '' });
+            reset({ ...control._formValues, endDate: undefined });
+            setShow(false);
         }
     }, [
         DEFAULT_VALUES,
@@ -204,9 +207,10 @@ const BudgetModal: React.FC<Properties> = ({
             }
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
-                (isEdit
+                ((isEdit
                     ? editFields || !watch('categories')[0]
-                    : !createFields) ||
+                    : !createFields) &&
+                    show) ||
                 (control._formValues.recurrence === recurrences[0].value &&
                     endDateIso < startDateIso)
             }

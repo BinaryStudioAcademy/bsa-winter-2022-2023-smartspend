@@ -9,12 +9,12 @@ import {
 
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 
-import { type ITransaction } from '../../types';
+import { type TransactionType } from '../../types';
 import styles from '../styles.module.scss';
 import { Transaction } from '../transaction/transaction';
 
 interface FutureTransactionsProperties {
-    futureTransactions: ITransaction[];
+    futureTransactions: TransactionType[];
     futureTotals: number;
     control: Control<FieldValues, null>;
     errors: FieldErrors;

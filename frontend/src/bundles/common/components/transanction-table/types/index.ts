@@ -1,1 +1,1 @@
-export { type ITransaction } from './transaction.type.js';
+export { type TransactionType } from './transaction.type.js';

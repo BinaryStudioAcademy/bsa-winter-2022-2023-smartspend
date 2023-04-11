@@ -1,6 +1,9 @@
 import classNames from 'classnames';
-import { type MouseEventHandler, type ReactNode } from 'react';
-import React, { useCallback } from 'react';
+import React, {
+    type MouseEventHandler,
+    type ReactNode,
+    useCallback,
+} from 'react';
 
 import { Button, Portal } from '~/bundles/common/components/components.js';
 import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums.js';
@@ -12,7 +15,7 @@ type Properties = {
     isShown: boolean;
     onClose: () => void;
     onSubmit: () => void;
-    Header: ReactNode;
+    Header?: ReactNode;
     Body: ReactNode;
     children?: ReactNode;
     hasActionButtons?: boolean;

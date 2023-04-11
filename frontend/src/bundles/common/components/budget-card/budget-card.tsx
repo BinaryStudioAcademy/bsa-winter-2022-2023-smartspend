@@ -16,6 +16,7 @@ type Properties = {
     currency: string;
     recurrence: string;
     startDate: string;
+    endDate: string;
 };
 
 const spent = 500;
@@ -27,9 +28,10 @@ const BudgetCard: React.FC<Properties> = ({
     currency,
     recurrence,
     startDate,
+    endDate,
 }) => {
     const budgetDetailRoute = `${AppRoute.BUDGETS}/${id}`;
-    const { moneyLeft, lastDate } = calculateBudgetDetails({
+    const { moneyLeft } = calculateBudgetDetails({
         amount,
         startDate,
         recurrence,
@@ -68,7 +70,12 @@ const BudgetCard: React.FC<Properties> = ({
                                 ])[0].date
                             }
                         </span>
-                        <span className={styles.footerSpan}>{lastDate}</span>
+                        <span className={styles.footerSpan}>
+                            {
+                                dateToShortStringHelper([{ date: endDate }])[0]
+                                    .date
+                            }
+                        </span>
                     </div>
                 </div>
             </div>

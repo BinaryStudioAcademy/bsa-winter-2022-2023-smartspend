@@ -4,21 +4,26 @@ import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
     Button,
     CardTotal,
     Input,
     MultiDropdown,
+    Placeholder,
     RangeSlider,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
+import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
+import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
     ButtonVariant,
     CardVariant,
     FaIcons,
     InputType,
+    TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
 import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
 import {
@@ -39,7 +44,6 @@ import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
-import { type ITransaction } from '../../components/transanction-table/types';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -106,10 +110,12 @@ const WalletDetails: React.FC = () => {
         currentWallet?.currencyId,
     )?.symbol;
 
-    const [transactionData, setTransactionData] = useState<ITransaction[]>([]);
+    const [transactionData, setTransactionData] = useState<TransactionType[]>(
+        [],
+    );
 
-    useEffect(() => {
-        const data = transactions.map((item) => ({
+    const data = useMemo(() => {
+        return transactions.map((item) => ({
             id: item.id,
             date: item.date,
             category: category.find((cat) => cat.id === item.categoryId),
@@ -120,10 +126,9 @@ const WalletDetails: React.FC = () => {
                 (current) => current.id === item.currencyId,
             )?.symbol,
             note: item.note,
-        })) as unknown as ITransaction[];
-
-        setTransactionData(data);
-    }, [transactions, category, currencies]);
+            walletsId: item.walletsId,
+        })) as unknown as TransactionType[];
+    }, [category, currencies, transactions]);
 
     const [peopleDropdown, setPeopleDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
@@ -139,6 +144,15 @@ const WalletDetails: React.FC = () => {
 
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [, setFilteredData] = useState(mockSliderData);
+
+    const [activeModal, setActiveModal] = useState(false);
+    const openTransactionModal = useCallback((): void => {
+        setActiveModal(true);
+    }, []);
+
+    const closeTransactionModal = useCallback(() => {
+        setActiveModal(false);
+    }, []);
 
     const handlePeopleMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
@@ -178,17 +192,6 @@ const WalletDetails: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
-    useEffect(() => {
-        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
-    }, [id, wallets]);
-
-    useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
-
     const formatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
@@ -224,8 +227,28 @@ const WalletDetails: React.FC = () => {
         [categoriesDropdown],
     );
 
+    useEffect(() => {
+        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
+    }, [id, wallets]);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
+    }, [dispatch]);
+
+    useEffect(() => {
+        setTransactionData(data);
+    }, [data]);
+
     return (
         <div className={styles.app}>
+            <TransactionModal
+                type={TransactionModalType.ADD}
+                handleCancel={closeTransactionModal}
+                active={activeModal}
+            />
             <div className={styles.body}>
                 <div className={classNames(styles.bodyContainer, 'container')}>
                     <div className={styles.buttonsDate}>
@@ -233,6 +256,7 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
+                                onClick={openTransactionModal}
                                 className={styles.transactionButton}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
@@ -362,11 +386,19 @@ const WalletDetails: React.FC = () => {
                                     currency={currency}
                                 />
                             </div>
-                            <div className={styles.transactionsContainer}>
-                                <TransactionTable
-                                    transactions={transactionData}
+                            {transactions.length > 0 ? (
+                                <div className={styles.transactionsContainer}>
+                                    <TransactionTable
+                                        walletsId={id}
+                                        transactions={transactionData}
+                                    />
+                                </div>
+                            ) : (
+                                <Placeholder
+                                    path={DashboardPlaceholder}
+                                    body={'You have no transactions yet.'}
                                 />
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

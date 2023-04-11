@@ -5,7 +5,6 @@ import {
 } from 'shared/build';
 
 import {
-    BaseModal,
     Button,
     Icon,
     Input,

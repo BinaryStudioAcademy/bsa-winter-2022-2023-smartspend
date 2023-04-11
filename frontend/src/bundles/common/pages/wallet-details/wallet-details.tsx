@@ -90,7 +90,7 @@ const WalletDetails: React.FC = () => {
     >();
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
-    const { control, errors } = useAppForm<{ note: string }>({
+    const { control, errors, watch } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
@@ -147,13 +147,18 @@ const WalletDetails: React.FC = () => {
 
     const categoriesIdDropdown = new Set(
         (categoriesDropdown as unknown as CategoryGetAllItemResponseDto[]).map(
-            (it) => it.id,
+            (category) => category.id,
         ),
     );
-
+    const getNoteFilter = watch('note');
     const transactionsByCategory = transactionData.filter((transaction) =>
         categoriesIdDropdown.has(transaction.category.id),
     );
+    const transactionsByNote = transactionData.filter((transaction) =>
+        transaction.note?.includes(getNoteFilter),
+    );
+    const categoryOrNoteFilter =
+        getNoteFilter.length > 0 ? transactionsByNote : transactionsByCategory;
 
     const rangeLimits = useMemo(() => {
         return { min: -100, max: 1000 };
@@ -416,11 +421,7 @@ const WalletDetails: React.FC = () => {
                                 <div className={styles.transactionsContainer}>
                                     <TransactionTable
                                         walletsId={id}
-                                        transactions={
-                                            transactionsByCategory.length > 0
-                                                ? transactionsByCategory
-                                                : transactionData
-                                        }
+                                        transactions={categoryOrNoteFilter}
                                     />
                                 </div>
                             ) : (

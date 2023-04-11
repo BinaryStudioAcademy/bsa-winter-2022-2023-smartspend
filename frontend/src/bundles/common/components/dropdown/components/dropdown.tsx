@@ -98,7 +98,7 @@ const Dropdown: React.FC<Properties> = ({
             return {
                 ...defaultStyles,
                 color: 'var(--color-gray-200)',
-                fontSize: '16px',
+                fontSize: '17px',
             };
         },
     };

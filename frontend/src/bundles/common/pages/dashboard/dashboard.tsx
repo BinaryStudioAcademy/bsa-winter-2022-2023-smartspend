@@ -431,7 +431,7 @@ const Dashboard: React.FC = () => {
                                 variant={CardVariant.WHITE}
                             />
                         </div>
-                        {wallets.length > 0 ? (
+                        {transactions.length > 0 ? (
                             <div className={styles.charts}>
                                 <ChartBox
                                     title={'Account Balance'}
@@ -493,7 +493,7 @@ const Dashboard: React.FC = () => {
                         ) : (
                             <Placeholder
                                 path={DashboardPlaceholder}
-                                body={'You have not created a wallet yet.'}
+                                body={'You have no transactions yet.'}
                             />
                         )}
                     </div>

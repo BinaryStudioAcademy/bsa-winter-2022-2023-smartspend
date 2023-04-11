@@ -180,10 +180,13 @@ const Dashboard: React.FC = () => {
         setActive(false);
     }, []);
 
-    const [wallet, setWallet] = useState<DataType>({
-        value: '',
-        name: 'Find by name',
-    });
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
+
+    const [wallet, setWallet] = useState<DataType>();
 
     const handleDropdownByWallets = useCallback(
         (selectedOption: DataType | null) => {
@@ -194,10 +197,7 @@ const Dashboard: React.FC = () => {
         [],
     );
 
-    const [category, setCategory] = useState<DataType>({
-        value: '',
-        name: 'Find by category',
-    });
+    const [category, setCategory] = useState<DataType>();
 
     const handleDropdownByCategory = useCallback(
         (selectedOption: DataType | null) => {
@@ -264,8 +264,8 @@ const Dashboard: React.FC = () => {
                 (category) => category.id === transaction.categoryId,
             );
             return (
-                (walletMatch && walletMatch.name === wallet.name) ||
-                (categoryMatch && categoryMatch.id === category.value) ||
+                (walletMatch && walletMatch.name === wallet?.name) ||
+                (categoryMatch && categoryMatch.id === category?.value) ||
                 (transaction.amount >= currentRange.min &&
                     transaction.amount <= currentRange.max)
             );
@@ -357,6 +357,7 @@ const Dashboard: React.FC = () => {
                                 selectedOption={wallet}
                                 label="By wallet"
                                 labelClassName={styles.dropdownLabel}
+                                placeholder={'Select...'}
                             />
                             <Dropdown
                                 data={categoryDropdown}
@@ -364,6 +365,7 @@ const Dashboard: React.FC = () => {
                                 selectedOption={category}
                                 label="By category"
                                 labelClassName={styles.dropdownLabel}
+                                placeholder={'Select...'}
                             />
                             <Input
                                 labelClassName={styles.filterLabel}

@@ -14,7 +14,7 @@ const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
         return <Navigate to={AppRoute.SIGN_IN} />;
     }
 
-    if (token && !haveName && pathname !== AppRoute.USER_PROFILE) {
+    if (!haveName && pathname !== AppRoute.USER_PROFILE) {
         return <Navigate to={AppRoute.USER_PROFILE} />;
     }
 

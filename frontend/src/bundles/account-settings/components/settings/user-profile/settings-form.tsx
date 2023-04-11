@@ -70,9 +70,9 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     }, []);
 
     const handleDeleteAccount = useCallback(() => {
+        void dispatch(usersActions.deleteUser(token as string));
         void storage.drop(StorageKey.HAVE_NAME);
         void storage.drop(StorageKey.PWA);
-        void dispatch(usersActions.deleteUser(token as string));
         void storage.drop(StorageKey.TOKEN);
     }, [dispatch, token]);
 

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
+import { type CategoryGetAllItemResponseDto } from 'shared/build';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
@@ -44,6 +45,8 @@ import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
+import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
+import { getTotalPeriodAmount } from '../dashboard/helpers/helpers';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
@@ -51,33 +54,33 @@ const DEFAULT_INPUT: { note: string } = {
     note: '',
 };
 
-const people = [
-    {
-        value: 'John Doe',
-        name: 'John Doe',
-        image: 'https://placekitten.com/50/50',
-    },
-    {
-        value: 'Jane Smith',
-        name: 'Jane Smith',
-        image: 'https://placekitten.com/51/51',
-    },
-    {
-        value: 'Alice Johnson',
-        name: 'Alice Johnson',
-        image: 'https://placekitten.com/52/52',
-    },
-    {
-        value: 'Bob Brown',
-        name: 'Bob Brown',
-        image: 'https://placekitten.com/53/53',
-    },
-    {
-        value: 'Charlie Green',
-        name: 'Charlie Green',
-        image: 'https://placekitten.com/54/54',
-    },
-];
+// const people = [
+//     {
+//         value: 'John Doe',
+//         name: 'John Doe',
+//         image: 'https://placekitten.com/50/50',
+//     },
+//     {
+//         value: 'Jane Smith',
+//         name: 'Jane Smith',
+//         image: 'https://placekitten.com/51/51',
+//     },
+//     {
+//         value: 'Alice Johnson',
+//         name: 'Alice Johnson',
+//         image: 'https://placekitten.com/52/52',
+//     },
+//     {
+//         value: 'Bob Brown',
+//         name: 'Bob Brown',
+//         image: 'https://placekitten.com/53/53',
+//     },
+//     {
+//         value: 'Charlie Green',
+//         name: 'Charlie Green',
+//         image: 'https://placekitten.com/54/54',
+//     },
+// ];
 
 const WalletDetails: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -114,6 +117,10 @@ const WalletDetails: React.FC = () => {
         [],
     );
 
+    const thisWalletTransactions = transactions.filter(
+        (it) => it.walletsId === id,
+    );
+
     const data = useMemo(() => {
         return transactions.map((item) => ({
             id: item.id,
@@ -130,13 +137,23 @@ const WalletDetails: React.FC = () => {
         })) as unknown as TransactionType[];
     }, [category, currencies, transactions]);
 
-    const [peopleDropdown, setPeopleDropdown] = useState<
-        MultiValue<DataType> | SingleValue<DataType>
-    >([]);
+    // const [peopleDropdown, setPeopleDropdown] = useState<
+    //     MultiValue<DataType> | SingleValue<DataType>
+    // >([]);
 
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
+
+    const categoriesIdDropdown = new Set(
+        (categoriesDropdown as unknown as CategoryGetAllItemResponseDto[]).map(
+            (it) => it.id,
+        ),
+    );
+
+    const transactionsByCategory = transactionData.filter((transaction) =>
+        categoriesIdDropdown.has(transaction.category.id),
+    );
 
     const rangeLimits = useMemo(() => {
         return { min: -100, max: 1000 };
@@ -154,16 +171,16 @@ const WalletDetails: React.FC = () => {
         setActiveModal(false);
     }, []);
 
-    const handlePeopleMultiDropdownChange = useCallback(
-        (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
-            if (selectedOption === null) {
-                setPeopleDropdown([]);
-            } else {
-                setPeopleDropdown(selectedOption);
-            }
-        },
-        [],
-    );
+    // const handlePeopleMultiDropdownChange = useCallback(
+    //     (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
+    //         if (selectedOption === null) {
+    //             setPeopleDropdown([]);
+    //         } else {
+    //             setPeopleDropdown(selectedOption);
+    //         }
+    //     },
+    //     [],
+    // );
 
     const handleCategoriesMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
@@ -186,7 +203,7 @@ const WalletDetails: React.FC = () => {
     }, []);
 
     const hangleReset = useCallback((): void => {
-        setPeopleDropdown([]);
+        // setPeopleDropdown([]);
         setCategoriesDropdown([]);
         setFilteredData(mockSliderData);
         setCurrentRange(rangeLimits);
@@ -313,7 +330,7 @@ const WalletDetails: React.FC = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className={styles.filter}>
+                                {/* <div className={styles.filter}>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={people}
@@ -324,7 +341,7 @@ const WalletDetails: React.FC = () => {
                                             label="By people"
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className={styles.filter}>
                                     <div className={styles.dropdown}>
                                         <Input
@@ -363,26 +380,35 @@ const WalletDetails: React.FC = () => {
                             <div className={styles.cards}>
                                 <CardTotal
                                     title="Total Wallet Balance"
-                                    sum={currentWallet?.balance as number}
+                                    sum={
+                                        (currentWallet?.balance as number) -
+                                        getSpent(thisWalletTransactions)
+                                    }
                                     variant={CardVariant.ORANGE}
                                     currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Period Change"
-                                    sum={504}
+                                    sum={getSpent(thisWalletTransactions)}
                                     variant={CardVariant.BLUE}
                                     currency={currency}
                                 />
                                 <CardTotal
-                                    title="Total Period Expenses"
-                                    sum={-9700.34}
-                                    variant={CardVariant.WHITE}
+                                    title="Total Period Income"
+                                    sum={getTotalPeriodAmount(
+                                        thisWalletTransactions,
+                                        'income',
+                                    )}
+                                    variant={CardVariant.VIOLET}
                                     currency={currency}
                                 />
                                 <CardTotal
-                                    title="Total Period Income"
-                                    sum={7600.34}
-                                    variant={CardVariant.VIOLET}
+                                    title="Total Period Expenses"
+                                    sum={getTotalPeriodAmount(
+                                        thisWalletTransactions,
+                                        'expense',
+                                    )}
+                                    variant={CardVariant.WHITE}
                                     currency={currency}
                                 />
                             </div>
@@ -390,7 +416,11 @@ const WalletDetails: React.FC = () => {
                                 <div className={styles.transactionsContainer}>
                                     <TransactionTable
                                         walletsId={id}
-                                        transactions={transactionData}
+                                        transactions={
+                                            transactionsByCategory.length > 0
+                                                ? transactionsByCategory
+                                                : transactionData
+                                        }
                                     />
                                 </div>
                             ) : (

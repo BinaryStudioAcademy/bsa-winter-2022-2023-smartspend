@@ -28,8 +28,7 @@ function up(knex: Knex): Promise<void> {
         .table(BUDGETS_TABLE, (table) => {
             table
                 .enum(BudgetsColumnName.CURRENCY, Object.values(newCurrency))
-                .notNullable()
-                .defaultTo(newCurrency.Usd);
+                .notNullable().defaultTo(newCurrency.Usd);
         });
 }
 

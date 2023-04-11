@@ -26,7 +26,10 @@ import {
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
+import {
+    findCurrencyById,
+    findMinMaxAmount,
+} from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -36,7 +39,7 @@ import {
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
+// import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
@@ -90,7 +93,7 @@ const WalletDetails: React.FC = () => {
     >();
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
-    const { control, errors, watch } = useAppForm<{ note: string }>({
+    const { control, errors, watch, reset } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
@@ -140,10 +143,16 @@ const WalletDetails: React.FC = () => {
     // const [peopleDropdown, setPeopleDropdown] = useState<
     //     MultiValue<DataType> | SingleValue<DataType>
     // >([]);
-
+    const [rangeLimits, setRangeLimits] = useState(
+        findMinMaxAmount(transactionData),
+    );
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
+    const [filteredData, setFilteredData] = useState(transactionData);
+
+    const [activeModal, setActiveModal] = useState(false);
 
     const categoriesIdDropdown = new Set(
         (categoriesDropdown as unknown as CategoryGetAllItemResponseDto[]).map(
@@ -151,23 +160,17 @@ const WalletDetails: React.FC = () => {
         ),
     );
     const getNoteFilter = watch('note');
-    const transactionsByCategory = transactionData.filter((transaction) =>
+    const transactionsByCategory = filteredData.filter((transaction) =>
         categoriesIdDropdown.has(transaction.category.id),
     );
-    const transactionsByNote = transactionData.filter((transaction) =>
+    const isFilterEmpty =
+        categoriesIdDropdown.size > 0 ? transactionsByCategory : filteredData;
+    const transactionsByNote = isFilterEmpty.filter((transaction) =>
         transaction.note?.includes(getNoteFilter),
     );
     const categoryOrNoteFilter =
-        getNoteFilter.length > 0 ? transactionsByNote : transactionsByCategory;
+        getNoteFilter.length > 0 ? transactionsByNote : isFilterEmpty;
 
-    const rangeLimits = useMemo(() => {
-        return { min: -100, max: 1000 };
-    }, []);
-
-    const [currentRange, setCurrentRange] = useState(rangeLimits);
-    const [, setFilteredData] = useState(mockSliderData);
-
-    const [activeModal, setActiveModal] = useState(false);
     const openTransactionModal = useCallback((): void => {
         setActiveModal(true);
     }, []);
@@ -198,32 +201,26 @@ const WalletDetails: React.FC = () => {
         [],
     );
 
-    const handleSliderChange = useCallback((range: RangeLimits): void => {
-        setCurrentRange(range);
+    const handleSliderChange = useCallback(
+        (range: RangeLimits): void => {
+            setCurrentRange(range);
 
-        const newFilteredData = mockSliderData.filter(
-            (item) => item.amount >= range.min && item.amount <= range.max,
-        );
-        setFilteredData(newFilteredData);
-    }, []);
+            const newFilteredData = transactionData.filter(
+                (item) => item.amount >= range.min && item.amount <= range.max,
+            );
+            setFilteredData(newFilteredData);
+        },
+        [transactionData],
+    );
 
     const hangleReset = useCallback((): void => {
         // setPeopleDropdown([]);
         setCategoriesDropdown([]);
-        setFilteredData(mockSliderData);
+        setFilteredData(transactionData);
         setCurrentRange(rangeLimits);
-    }, [rangeLimits]);
-
-    useEffect(() => {
-        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
-    }, [id, wallets]);
-
-    useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
+        const isReset = reset;
+        isReset && reset();
+    }, [rangeLimits, reset, transactionData]);
 
     const formatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
@@ -270,6 +267,18 @@ const WalletDetails: React.FC = () => {
         void dispatch(categoriesActions.loadCategories());
         void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
+
+    useEffect(() => {
+        setRangeLimits(findMinMaxAmount(transactionData));
+    }, [transactionData]);
+
+    useEffect(() => {
+        setCurrentRange(rangeLimits);
+    }, [rangeLimits]);
+
+    useEffect(() => {
+        setFilteredData(transactionData);
+    }, [transactionData]);
 
     useEffect(() => {
         setTransactionData(data);

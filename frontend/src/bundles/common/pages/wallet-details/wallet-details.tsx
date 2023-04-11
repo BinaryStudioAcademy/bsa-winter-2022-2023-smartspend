@@ -4,16 +4,18 @@ import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
     Button,
     CardTotal,
     Input,
     MultiDropdown,
+    Placeholder,
     RangeSlider,
+    TransactionModal,
     TransactionTable,
 } from '~/bundles/common/components/components.js';
-import { TransactionModal } from '~/bundles/common/components/transaction-modal/transaction-modal';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
@@ -190,6 +192,17 @@ const WalletDetails: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
+    useEffect(() => {
+        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
+    }, [id, wallets]);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+        void dispatch(currenciesActions.loadAll());
+    }, [dispatch]);
+
     const formatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
@@ -242,11 +255,6 @@ const WalletDetails: React.FC = () => {
 
     return (
         <div className={styles.app}>
-            <TransactionModal
-                type={TransactionModalType.ADD}
-                handleCancel={closeTransactionModal}
-                active={activeModal}
-            />
             <div className={styles.body}>
                 <div className={classNames(styles.bodyContainer, 'container')}>
                     <div className={styles.buttonsDate}>
@@ -254,12 +262,13 @@ const WalletDetails: React.FC = () => {
                             <Button
                                 variant={ButtonVariant.PRIMARY}
                                 size={ButtonSize.MEDIUM}
-                                onClick={openTransactionModal}
                                 className={styles.transactionButton}
+                                onClick={openTransactionModal}
                             >
                                 <FontAwesomeIcon icon={FaIcons.PLUS} />
                                 <span>Add transaction</span>
                             </Button>
+
                             <div className={styles.buttons}>
                                 <Button
                                     className={styles.button}
@@ -267,13 +276,6 @@ const WalletDetails: React.FC = () => {
                                     size={ButtonSize.MEDIUM}
                                 >
                                     Future
-                                </Button>
-                                <Button
-                                    className={styles.button}
-                                    variant={ButtonVariant.SECONDARY}
-                                    size={ButtonSize.MEDIUM}
-                                >
-                                    Import
                                 </Button>
                             </div>
                         </div>
@@ -384,12 +386,24 @@ const WalletDetails: React.FC = () => {
                                     currency={currency}
                                 />
                             </div>
-                            <div className={styles.transactionsContainer}>
-                                <TransactionTable
-                                    walletsId={id}
-                                    transactions={transactionData}
+                            {transactions.length > 0 ? (
+                                <div className={styles.transactionsContainer}>
+                                    <TransactionTable
+                                        walletsId={id}
+                                        transactions={transactionData}
+                                    />
+                                </div>
+                            ) : (
+                                <Placeholder
+                                    path={DashboardPlaceholder}
+                                    body={'You have no transactions yet.'}
                                 />
-                            </div>
+                            )}
+                            <TransactionModal
+                                type={TransactionModalType.ADD}
+                                handleCancel={closeTransactionModal}
+                                active={activeModal}
+                            />
                         </div>
                     </div>
                 </div>

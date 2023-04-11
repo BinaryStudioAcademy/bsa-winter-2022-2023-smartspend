@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type CategoryGetAllResponseDto } from 'shared/build/index.js';
+import {
+    type CategoryGetAllResponseDto,
+    type CategoryRequestDto,
+    type CategoryUpdatePayloadDto,
+} from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -15,4 +19,45 @@ const loadCategories = createAsyncThunk<
     return await categoriesApi.loadCategories();
 });
 
-export { loadCategories };
+const createCategory = createAsyncThunk<
+    Promise<void>,
+    CategoryRequestDto,
+    AsyncThunkConfig
+>(
+    `${sliceName}/create-category`,
+    async (categoryPayload, { extra, dispatch }) => {
+        const { categoriesApi } = extra;
+        await categoriesApi.createCategory(categoryPayload);
+
+        await dispatch(loadCategories());
+    },
+);
+
+const updateCategory = createAsyncThunk<
+    Promise<void>,
+    { id: string; payload: CategoryUpdatePayloadDto },
+    AsyncThunkConfig
+>(
+    `${sliceName}/update-category`,
+    async ({ id, payload }, { extra, dispatch }) => {
+        const { categoriesApi } = extra;
+
+        await categoriesApi.updateCategory({ id, payload });
+
+        await dispatch(loadCategories());
+    },
+);
+
+const removeCategory = createAsyncThunk<
+    Promise<void>,
+    string,
+    AsyncThunkConfig
+>(`${sliceName}/delete-category`, async (id, { extra, dispatch }) => {
+    const { categoriesApi } = extra;
+
+    await categoriesApi.deleteCategory(id);
+
+    await dispatch(loadCategories());
+});
+
+export { createCategory, loadCategories, removeCategory, updateCategory };

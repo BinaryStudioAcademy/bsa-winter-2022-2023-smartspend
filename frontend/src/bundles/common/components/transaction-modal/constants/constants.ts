@@ -1,4 +1,6 @@
-const DEFAULT_TRANSACTION = {
+import { type Transaction } from '~/bundles/common/types/transaction.type';
+
+const DEFAULT_TRANSACTION: Transaction = {
     categoryId: '',
     date: new Date(),
     note: '',

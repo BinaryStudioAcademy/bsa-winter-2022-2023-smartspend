@@ -1,12 +1,14 @@
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
     Loader,
+    Placeholder,
     TransactionTable,
 } from '~/bundles/common/components/components';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
@@ -107,7 +109,7 @@ const BudgetDetails = (): JSX.Element => {
         setSpent(getSpent(transactions));
     }, [transactions]);
 
-    if (!currentBudget || transactions.length === 0) {
+    if (!currentBudget) {
         return <Loader />;
     }
 
@@ -236,29 +238,38 @@ const BudgetDetails = (): JSX.Element => {
                     </div>
                 </div>
 
-                <div className={styles.cartBoxWrapper}>
-                    <div className={styles.chartWrapper}>
-                        <DoughnutChartCard
-                            variant={DoughnutChartCartVariant.SECONDARY}
-                            title={'Accounted Categories'}
-                            date={startDate}
-                            categories={doughnutChartData}
-                        />
-                    </div>
-                    <div className={styles.chartWrapper}>
-                        <DoughnutChartCard
-                            title={'Accounted Wallets'}
-                            date={startDate}
-                            transaction_num={0}
-                            transaction_type={''}
-                            transaction_sum={''}
-                            categories={doughnutChartData}
-                        />
-                    </div>
-                </div>
-                <div className={styles.transactionTable}>
-                    <TransactionTable transactions={transactionData} />
-                </div>
+                {transactions.length > 0 ? (
+                    <>
+                        <div className={styles.cartBoxWrapper}>
+                            <div className={styles.chartWrapper}>
+                                <DoughnutChartCard
+                                    variant={DoughnutChartCartVariant.SECONDARY}
+                                    title={'Accounted Categories'}
+                                    date={startDate}
+                                    categories={doughnutChartData}
+                                />
+                            </div>
+                            <div className={styles.chartWrapper}>
+                                <DoughnutChartCard
+                                    title={'Accounted Wallets'}
+                                    date={startDate}
+                                    transaction_num={0}
+                                    transaction_type={''}
+                                    transaction_sum={''}
+                                    categories={doughnutChartData}
+                                />
+                            </div>
+                        </div>
+                        <div className={styles.transactionTable}>
+                            <TransactionTable transactions={transactionData} />
+                        </div>
+                    </>
+                ) : (
+                    <Placeholder
+                        path={DashboardPlaceholder}
+                        body={'You have no transactions yet.'}
+                    />
+                )}
             </div>
         </div>
     );

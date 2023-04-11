@@ -33,7 +33,7 @@ const Checkbox: React.FC<CheckboxProperties> = ({
             <div
                 className={classNames(
                     styles.box,
-                    isChecked ? styles.boxСhecked : '',
+                    isChecked ? styles.boxChecked : '',
                 )}
                 id={id}
                 onClick={handleClick}
@@ -42,7 +42,7 @@ const Checkbox: React.FC<CheckboxProperties> = ({
                 tabIndex={0}
                 onKeyDown={onKeyDown}
             >
-                <div className={styles.checkboxСheck}></div>
+                <div className={styles.checkboxCheck}></div>
             </div>
         </div>
     );

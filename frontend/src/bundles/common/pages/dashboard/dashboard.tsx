@@ -158,8 +158,8 @@ const Dashboard: React.FC = () => {
     );
 
     const amounts = transactions.map((transaction) => transaction.amount);
-    let minAmount = amounts && Math.min(...amounts);
-    let maxAmount = amounts && Math.max(...amounts);
+    let minAmount = Math.min(...amounts);
+    let maxAmount = Math.max(...amounts);
 
     if (!Number.isFinite(minAmount)) {
         minAmount = -1000;

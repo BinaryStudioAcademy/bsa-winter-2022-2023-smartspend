@@ -57,7 +57,7 @@ class CategoriesApi extends HttpApi {
         payload: CategoryUpdatePayloadDto;
     }): Promise<CategoryUpdatePayloadDto> {
         const response = await this.load(
-            this.getFullEndpoint(`${CategoriesApiPath.ROOT}${id}`, {}),
+            this.getFullEndpoint(`${CategoriesApiPath.ROOT}/${id}`, {}),
             {
                 method: 'PUT',
                 contentType: ContentType.JSON,
@@ -71,7 +71,7 @@ class CategoriesApi extends HttpApi {
 
     public async deleteCategory(id: string): Promise<void> {
         await this.load(
-            this.getFullEndpoint(`${CategoriesApiPath.ROOT}${id}`, {}),
+            this.getFullEndpoint(`${CategoriesApiPath.ROOT}/${id}`, {}),
             {
                 method: 'DELETE',
                 contentType: ContentType.JSON,

@@ -1,6 +1,5 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import classNames from 'classnames';
-import { useCallback, useState } from 'react';
 
 import {
     BaseModal,
@@ -13,9 +12,15 @@ import {
     ButtonVariant,
     FaIcons,
 } from '~/bundles/common/enums/enums';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
+import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 
 import { Checkbox } from '../checkbox/checkbox';
-import { FormEditCategory } from '../form-create-category/form-edit-category';
+import { FormCategory } from '../form-category/form-category';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -37,6 +42,7 @@ const CategoryItem: React.FC<Properties> = ({
     color,
     addIdCheckedCategories,
 }) => {
+    const dispatch = useAppDispatch();
     const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
     const [isEditModalShown, setIsEditModalShown] = useState(false);
     const [isCheckedItem, setIsCheckedItem] = useState(false);
@@ -53,17 +59,14 @@ const CategoryItem: React.FC<Properties> = ({
         setIsEditModalShown(true);
     }, []);
 
-    const handleClickEdit = useCallback((): void => {
-        // will be used
-    }, []);
-
     const handleOpenModalDelete = useCallback(() => {
         setIsDeleteModalShown(true);
     }, []);
 
     const handleClickDelete = useCallback((): void => {
-        setIsDeleteModalShown(true);
-    }, []);
+        void dispatch(categoriesActions.removeCategory(id));
+        setIsDeleteModalShown(false);
+    }, [dispatch, id]);
 
     const handleCloseModal = useCallback(() => {
         setIsDeleteModalShown(false);
@@ -161,12 +164,12 @@ const CategoryItem: React.FC<Properties> = ({
             <BaseModal
                 isShown={isEditModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handleClickEdit}
+                onSubmit={handleCloseModal}
                 Header={
                     <h2 className="visually-hidden">{`You're about to edit ${name} categories`}</h2>
                 }
                 Body={
-                    <FormEditCategory
+                    <FormCategory
                         id={id}
                         name={name}
                         type={type}

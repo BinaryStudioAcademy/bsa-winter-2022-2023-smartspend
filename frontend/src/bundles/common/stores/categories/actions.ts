@@ -27,7 +27,6 @@ const createCategory = createAsyncThunk<
     `${sliceName}/create-category`,
     async (categoryPayload, { extra, dispatch }) => {
         const { categoriesApi } = extra;
-
         await categoriesApi.createCategory(categoryPayload);
 
         await dispatch(loadCategories());
@@ -53,10 +52,12 @@ const removeCategory = createAsyncThunk<
     Promise<void>,
     string,
     AsyncThunkConfig
->(`${sliceName}/delete-category`, async (id, { extra }) => {
+>(`${sliceName}/delete-category`, async (id, { extra, dispatch }) => {
     const { categoriesApi } = extra;
 
     await categoriesApi.deleteCategory(id);
+
+    await dispatch(loadCategories());
 });
 
 export { createCategory, loadCategories, removeCategory, updateCategory };

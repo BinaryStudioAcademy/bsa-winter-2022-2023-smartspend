@@ -17,8 +17,8 @@ import {
     IconSize,
 } from '../../enums/enums';
 import { CategoryList } from './components/category-list/category-list';
-import { FormEditCategory } from './components/form-create-category/form-edit-category';
-import { FormUi } from './components/form-create-category/form-ui';
+import { FormCategory } from './components/form-category/form-category';
+import { FormUiStub } from './components/form-category/form-ui-stub';
 import { ManageCategories } from './components/manage-categories/manage-categories';
 import styles from './styles.module.scss';
 
@@ -85,7 +85,7 @@ const CategoriesSettings: React.FC = () => {
                 <div className={styles.content}>
                     <h1 className={styles.title}>Create a new category</h1>
                     <div>
-                        <FormUi
+                        <FormUiStub
                             onClick={handleClickModalCreate}
                             handleKeyDown={handleKeyDown}
                         />
@@ -138,7 +138,7 @@ const CategoriesSettings: React.FC = () => {
                     </h2>
                 }
                 Body={
-                    <FormEditCategory
+                    <FormCategory
                         onClose={handleCloseModal}
                         isCreateModalShown={isCreateModalShown}
                     />

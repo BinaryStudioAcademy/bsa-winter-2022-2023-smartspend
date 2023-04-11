@@ -8,6 +8,7 @@ const DEFAULT_TRANSACTION: Transaction = {
     labelId: undefined,
     amount: 1000,
     currencyId: '',
+    walletsId: '',
 };
 
 export { DEFAULT_TRANSACTION };

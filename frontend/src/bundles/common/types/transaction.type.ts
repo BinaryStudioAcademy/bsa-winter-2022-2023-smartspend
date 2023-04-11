@@ -5,6 +5,7 @@ type Transaction = {
     labelId?: string;
     amount: number;
     currencyId: string;
+    walletsId: string;
 };
 
 export { type Transaction };

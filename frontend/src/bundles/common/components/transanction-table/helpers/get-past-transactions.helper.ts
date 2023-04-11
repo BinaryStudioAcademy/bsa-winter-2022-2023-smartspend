@@ -1,9 +1,9 @@
-import { type ITransaction } from '../types';
+import { type TransactionType } from '../types';
 
 const getPastTransactions = (
-    transactions: ITransaction[],
+    transactions: TransactionType[],
     today: Date,
-): ITransaction[] => {
+): TransactionType[] => {
     return transactions.filter(
         (transaction) => new Date(transaction.date) < today,
     );

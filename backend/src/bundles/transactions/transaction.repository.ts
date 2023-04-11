@@ -3,6 +3,7 @@ import { type TransactionUpdatePayloadDto } from 'shared/build/bundles/transacti
 import { type TransactionModel } from '~/bundles/transactions/transactions.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
+import { WalletsTransactionModel } from '../wallets-transactions/wallets-transactions.model.js';
 import { TransactionEntity } from './transactions.js';
 
 class TransactionRepository implements Partial<IRepository> {
@@ -39,8 +40,16 @@ class TransactionRepository implements Partial<IRepository> {
     public async createTransaction(
         entity: TransactionEntity,
     ): Promise<TransactionEntity> {
-        const { categoryId, date, note, labelId, amount, currencyId, ownerId } =
-            entity.toNewObject();
+        const {
+            categoryId,
+            date,
+            note,
+            labelId,
+            amount,
+            currencyId,
+            ownerId,
+            walletsId,
+        } = entity.toNewObject();
         const item = await this.transactionModel
             .query()
             .insert({
@@ -51,8 +60,16 @@ class TransactionRepository implements Partial<IRepository> {
                 amount,
                 currencyId,
                 ownerId,
+                walletsId,
             })
             .returning('*')
+            .execute();
+
+        await WalletsTransactionModel.query()
+            .insert({
+                walletId: walletsId,
+                transactionId: item.id,
+            })
             .execute();
         return TransactionEntity.initialize(item);
     }

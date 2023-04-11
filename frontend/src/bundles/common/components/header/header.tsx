@@ -32,7 +32,7 @@ type Properties = {
 
 const budgetsRegex = /^\/budgets\/[\dA-Za-z-]+$/;
 const walletDetailsRegex =
-    /^\/wallet\/[\da-z-]+\/(transaction|budgets|wallet-settings)$/;
+    /^\/wallet\/[\da-z-]+\/(transaction\/future|transaction|budgets|wallet-settings)$/;
 
 const Header: React.FC<Properties> = ({
     firstName = '',

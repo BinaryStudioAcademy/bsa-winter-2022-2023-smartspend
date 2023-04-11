@@ -84,7 +84,7 @@ const OneDayCalendar: React.FC<OneDayCalendarProperties> = ({
 const RenderDate = ({
     field: { onChange, value },
 }: {
-    field: { onChange: (value: Date) => void; value: string };
+    field: { onChange: (value: Date) => void; value: Date | null };
 }): JSX.Element => {
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
@@ -98,7 +98,7 @@ const RenderDate = ({
 
     useEffect(() => {
         if (value) {
-            setSelectedDate(new Date(value));
+            setSelectedDate(value);
         }
     }, [value]);
 

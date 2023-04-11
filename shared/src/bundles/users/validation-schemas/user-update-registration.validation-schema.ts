@@ -8,9 +8,11 @@ const nameRegExp = /^[\dA-Za-z]+(?:-[\dA-Za-z]+)*$/;
 const INVALID_EMAIL_ERROR = 'any.invalid';
 
 const currentDate = new Date();
-const tomorrowDate = new Date();
-tomorrowDate.setDate(currentDate.getDate() + 1);
-const minDate = new Date(currentDate.getFullYear() - 50, 0, 1);
+const minDate = new Date(
+    currentDate.getFullYear() - 16,
+    currentDate.getMonth(),
+    currentDate.getDate(),
+);
 
 type UserUpdate = Omit<UserUpdateRequestDto, 'sex' | 'language' | 'currency'>;
 
@@ -77,8 +79,8 @@ const userUpdateReg = joi.object<UserUpdate, true>({
         .messages({
             'string.base': UserValidationMessage.FIRSTNAME_INVALID,
             'string.empty': UserValidationMessage.FIRSTNAME_REQUIRE,
-            'string.min': UserValidationMessage.FIRSTNAME_MIN,
-            'string.max': UserValidationMessage.FIRSTNAME_MAX,
+            'string.min': UserValidationMessage.NAME_MIN,
+            'string.max': UserValidationMessage.NAME_MAX,
             'string.pattern.base': UserValidationMessage.FIRSTNAME_INCORRECT,
             'any.required': UserValidationMessage.FIRSTNAME_REQUIRE,
         }),
@@ -92,55 +94,24 @@ const userUpdateReg = joi.object<UserUpdate, true>({
         .messages({
             'string.base': UserValidationMessage.LASTNAME_INVALID,
             'string.empty': UserValidationMessage.LASTNAME_REQUIRE,
-            'string.min': UserValidationMessage.LASTNAME_MIN,
-            'string.max': UserValidationMessage.LASTNAME_MAX,
+            'string.min': UserValidationMessage.NAME_MIN,
+            'string.max': UserValidationMessage.NAME_MAX,
             'string.pattern.base': UserValidationMessage.LASTNAME_INCORRECT,
             'any.required': UserValidationMessage.LASTNAME_REQUIRE,
         }),
     dateOfBirth: joi
-        .string()
+        .date()
         .required()
         .custom((value, helpers) => {
-            if (new Date(value) <= minDate) {
-                return helpers.error('any.required');
-            }
-            if (new Date(value) > tomorrowDate) {
+            if (value >= minDate) {
                 return helpers.error('any.required');
             }
         })
         .messages({
-            'date.format': UserValidationMessage.DATE_FORMAT_WRONG,
-            'date.min': UserValidationMessage.DATE_FORMAT_WRONG,
+            'string.base': UserValidationMessage.DATE_FORMAT_WRONG,
+            'string.format': UserValidationMessage.DATE_FORMAT_WRONG,
             'any.required': UserValidationMessage.DATE_REQUIRE,
         }),
-    // dateOfBirth: joi
-    //     .string()
-    //     .required()
-    //     .custom((value, helpers) => {
-    //         const selectedDate = new Date(value);
-    //         const tomorrow = new Date();
-    //         tomorrow.setDate(tomorrow.getDate() + 1);
-    //         const tomorrowDate = new Date(
-    //             tomorrow.getFullYear(),
-    //             tomorrow.getMonth(),
-    //             tomorrow.getDate(),
-    //             0,
-    //             0,
-    //             0,
-    //             0,
-    //         );
-    //         if (selectedDate <= minDate) {
-    //             return helpers.error('any.required');
-    //         }
-    //         if (selectedDate > tomorrowDate) {
-    //             return helpers.error('any.required');
-    //         }
-    //     })
-    //     .messages({
-    //         'date.format': UserValidationMessage.DATE_FORMAT_WRONG,
-    //         'date.min': UserValidationMessage.DATE_FORMAT_WRONG,
-    //         'any.required': UserValidationMessage.DATE_REQUIRE,
-    //     }),
 });
 
 export { userUpdateReg };

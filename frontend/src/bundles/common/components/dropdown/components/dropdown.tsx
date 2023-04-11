@@ -59,7 +59,7 @@ const Dropdown: React.FC<Properties> = ({
             height: '48px',
             width: '100%',
             borderRadius: 'var(--b-2)',
-            borderWidth: '0.1rem',
+            borderWidth: '0.06rem',
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue500

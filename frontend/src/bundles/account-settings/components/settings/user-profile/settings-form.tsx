@@ -50,7 +50,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const navigate = useNavigate();
     const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
-        defaultValues: user as UserUpdateRequestDto,
+        defaultValues: user as unknown as UserUpdateRequestDto,
         validationSchema: userUpdateRegValidationSchema,
         mode: 'onBlur',
     });
@@ -62,7 +62,10 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         if (!fieldsWatch.firstName || !fieldsWatch.lastName) {
             return false;
         }
-        return !compareObjects(fieldsWatch, user as UserUpdateRequestDto);
+        return !compareObjects(
+            fieldsWatch,
+            user as unknown as UserUpdateRequestDto,
+        );
     }, [fieldsWatch, user]);
 
     const token = storage.getSync(StorageKey.TOKEN);
@@ -146,6 +149,11 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                         control={control}
                         render={RenderDate}
                     />
+                    {errors.dateOfBirth && (
+                        <span className={styles.calendarError}>
+                            {errors.dateOfBirth.message}
+                        </span>
+                    )}
                 </div>
 
                 <Input

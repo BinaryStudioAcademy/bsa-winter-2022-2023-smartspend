@@ -9,6 +9,7 @@ import {
     AppRoute,
     ButtonSize,
     ButtonVariant,
+    DataStatus,
     FaIcons,
     InputType,
 } from '~/bundles/common/enums/enums.js';
@@ -40,9 +41,10 @@ type uploadPayload = {
 
 type Properties = {
     user: UserProfileResponseDto | undefined;
+    status: string;
 };
 
-const SettingsForm: React.FC<Properties> = ({ user }) => {
+const SettingsForm: React.FC<Properties> = ({ user, status }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [isChange, setIsChange] = useState(false);
@@ -69,7 +71,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     }, [dispatch, token]);
 
     const onSubmit = useCallback(
-        (formData: UserUpdateRequestDto): void => {
+        async (formData: UserUpdateRequestDto): Promise<void> => {
             const { email, ...remainingData } = formData;
 
             const uploadData: uploadPayload = {
@@ -77,15 +79,16 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 userProfile: { ...remainingData },
             };
 
-            setTimeout(() => {
-                if (!user?.firstName) {
-                    navigate(AppRoute.DASHBOARD);
-                }
-            }, 500);
+            if (
+                status === DataStatus.FULFILLED &&
+                (!user?.firstName || !user.lastName)
+            ) {
+                navigate(AppRoute.DASHBOARD);
+            }
 
-            void dispatch(usersActions.updateUser(uploadData));
+            await dispatch(usersActions.updateUser(uploadData)).unwrap();
         },
-        [dispatch, navigate, user?.firstName],
+        [dispatch, navigate, status, user?.firstName, user?.lastName],
     );
 
     const handleFormSubmit = useCallback(

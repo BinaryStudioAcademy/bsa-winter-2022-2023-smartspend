@@ -21,13 +21,15 @@ const BudgetsColumnName = {
 const BUDGETS_TABLE = 'budgets';
 
 function up(knex: Knex): Promise<void> {
-    return knex.schema.alterTable(BUDGETS_TABLE, (table) => {
-        table.dropColumn(BudgetsColumnName.CURRENCY);
-    })
+    return knex.schema
+        .alterTable(BUDGETS_TABLE, (table) => {
+            table.dropColumn(BudgetsColumnName.CURRENCY);
+        })
         .table(BUDGETS_TABLE, (table) => {
             table
                 .enum(BudgetsColumnName.CURRENCY, Object.values(newCurrency))
-                .notNullable().defaultTo(newCurrency.Usd);
+                .notNullable()
+                .defaultTo(newCurrency.Usd);
         });
 }
 

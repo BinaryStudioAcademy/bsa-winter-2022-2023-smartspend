@@ -8,7 +8,7 @@ const createTransactionValidationSchema = joi.object<
 >({
     categoryId: joi.string().uuid().required(),
     date: joi.date().required(),
-    note: joi.string().required(),
+    note: joi.string(),
     labelId: joi.string(),
     amount: joi.number().required(),
     currencyId: joi.string().uuid().required(),

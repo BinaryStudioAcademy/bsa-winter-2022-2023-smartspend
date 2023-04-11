@@ -4,6 +4,7 @@ enum InputType {
     TEXT = 'text',
     CHECKBOX = 'checkbox',
     NUMBER = 'number',
+    FILE = 'file',
 }
 
 export { InputType };

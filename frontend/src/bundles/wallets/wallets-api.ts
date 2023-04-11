@@ -7,7 +7,6 @@ import { WalletsApiPath } from './enums/enums';
 import {
     type WalletCreateRequestDto,
     type WalletGetAllItemResponseDto,
-    type WalletGetAllResponseDto,
 } from './types/types';
 
 type Constructor = {
@@ -21,7 +20,7 @@ class WalletsApi extends HttpApi {
         super({ path: ApiPath.WALLETS, baseUrl, http, storage });
     }
 
-    public async getAll(): Promise<WalletGetAllResponseDto> {
+    public async getAll(): Promise<WalletGetAllItemResponseDto[]> {
         const response = await this.load(
             this.getFullEndpoint(WalletsApiPath.ROOT, {}),
             {
@@ -31,7 +30,7 @@ class WalletsApi extends HttpApi {
             },
         );
 
-        return await response.json<WalletGetAllResponseDto>();
+        return await response.json<WalletGetAllItemResponseDto[]>();
     }
 
     public async createWallet(

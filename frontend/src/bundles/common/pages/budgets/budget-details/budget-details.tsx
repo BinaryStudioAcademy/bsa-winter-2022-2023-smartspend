@@ -1,16 +1,18 @@
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     Button,
     Loader,
+    Placeholder,
     TransactionTable,
 } from '~/bundles/common/components/components';
-import { type ITransaction } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
-import { ButtonVariant } from '~/bundles/common/enums/enums';
+import { type TransactionType } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
+import { AppRoute, ButtonVariant } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
     toCustomLocaleString,
@@ -33,7 +35,11 @@ import {
 } from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
-import { calculateBudgetDetails, gradientDoughnut } from './helpers/helpers';
+import {
+    calculateBudgetDetails,
+    getSpent,
+    gradientDoughnut,
+} from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type DoughnutData = Record<
@@ -78,7 +84,7 @@ const BudgetDetails = (): JSX.Element => {
     const onClickDeleteBudget = useCallback(
         (id: string): void => {
             void dispatch(budgetsActions.remove(id));
-            navigate('/budgets');
+            navigate(AppRoute.BUDGETS);
         },
         [dispatch, navigate],
     );
@@ -100,20 +106,17 @@ const BudgetDetails = (): JSX.Element => {
     }, [dispatch]);
 
     useEffect(() => {
-        const spentResult = transactions.reduce(
-            (accumulator, current) => accumulator + current.amount,
-            0,
-        );
-        setSpent(spentResult);
+        setSpent(getSpent(transactions));
     }, [transactions]);
 
-    if (!currentBudget || transactions.length === 0) {
+    if (!currentBudget) {
         return <Loader />;
     }
 
-    const { amount, startDate, recurrence, name, currency } = currentBudget;
+    const { amount, startDate, endDate, recurrence, name, currency } =
+        currentBudget;
 
-    const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails({
+    const { canSpend, moneyLeft } = calculateBudgetDetails({
         amount,
         startDate,
         recurrence,
@@ -130,7 +133,7 @@ const BudgetDetails = (): JSX.Element => {
         currency: currencies.find((current) => current.id === item.currencyId)
             ?.symbol,
         note: item.note,
-    })) as unknown as ITransaction[];
+    })) as unknown as TransactionType[];
 
     const canSpending =
         canSpend > 0
@@ -231,34 +234,49 @@ const BudgetDetails = (): JSX.Element => {
                                     ])[0].date
                                 }
                             </div>
-                            <div>{lastDate}</div>
+                            <div>
+                                {
+                                    dateToShortStringHelper([
+                                        { date: endDate as string },
+                                    ])[0].date
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className={styles.cartBoxWrapper}>
-                    <div className={styles.chartWrapper}>
-                        <DoughnutChartCard
-                            variant={DoughnutChartCartVariant.SECONDARY}
-                            title={'Accounted Categories'}
-                            date={startDate}
-                            categories={doughnutChartData}
-                        />
-                    </div>
-                    <div className={styles.chartWrapper}>
-                        <DoughnutChartCard
-                            title={'Accounted Wallets'}
-                            date={startDate}
-                            transaction_num={0}
-                            transaction_type={''}
-                            transaction_sum={''}
-                            categories={doughnutChartData}
-                        />
-                    </div>
-                </div>
-                <div className={styles.transactionTable}>
-                    <TransactionTable transactions={transactionData} />
-                </div>
+                {transactions.length > 0 ? (
+                    <>
+                        <div className={styles.cartBoxWrapper}>
+                            <div className={styles.chartWrapper}>
+                                <DoughnutChartCard
+                                    variant={DoughnutChartCartVariant.SECONDARY}
+                                    title={'Accounted Categories'}
+                                    date={startDate}
+                                    categories={doughnutChartData}
+                                />
+                            </div>
+                            <div className={styles.chartWrapper}>
+                                <DoughnutChartCard
+                                    title={'Accounted Wallets'}
+                                    date={startDate}
+                                    transaction_num={0}
+                                    transaction_type={''}
+                                    transaction_sum={''}
+                                    categories={doughnutChartData}
+                                />
+                            </div>
+                        </div>
+                        <div className={styles.transactionTable}>
+                            <TransactionTable transactions={transactionData} />
+                        </div>
+                    </>
+                ) : (
+                    <Placeholder
+                        path={DashboardPlaceholder}
+                        body={'You have no transactions yet.'}
+                    />
+                )}
             </div>
         </div>
     );

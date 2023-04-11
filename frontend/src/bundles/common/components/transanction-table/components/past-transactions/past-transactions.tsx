@@ -6,12 +6,12 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import { type ITransaction } from '../../types/transaction.type';
+import { type TransactionType } from '../../types/transaction.type';
 import styles from '../styles.module.scss';
 import { Transaction } from '../transaction/transaction';
 
 interface PastTransactionsProperties {
-    groupedPastTransactions: Record<string, ITransaction[]>;
+    groupedPastTransactions: Record<string, TransactionType[]>;
     dailyTotals: Record<string, number>;
     control: Control<FieldValues, null>;
     errors: FieldErrors;

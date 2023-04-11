@@ -6,6 +6,7 @@ type TransactionGetAllItemResponseDto = {
     labelId?: string;
     amount: number;
     currencyId?: string;
+    walletsId: string;
 };
 
 export { type TransactionGetAllItemResponseDto };

@@ -33,8 +33,15 @@ class BudgetRepository implements Partial<IRepository> {
     }
 
     public async createBudget(entity: BudgetEntity): Promise<BudgetEntity> {
-        const { name, amount, currency, recurrence, startDate, ownerId } =
-            entity.toNewObject();
+        const {
+            name,
+            amount,
+            currency,
+            recurrence,
+            startDate,
+            endDate,
+            ownerId,
+        } = entity.toNewObject();
 
         const item = await this.budgetModel
             .query()
@@ -44,6 +51,7 @@ class BudgetRepository implements Partial<IRepository> {
                 currency,
                 recurrence,
                 startDate,
+                endDate,
                 ownerId,
             })
             .returning('*')

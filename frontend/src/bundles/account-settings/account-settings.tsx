@@ -8,8 +8,13 @@ import styles from './styles.module.scss';
 const AccountSettings: React.FC = () => {
     const dataTabs = [
         { title: 'Account', to: AppRoute.USER_PROFILE, icon: 'CHART' },
-        { title: 'Settings', to: AppRoute.USER_CATEGORIES, icon: 'CHART' },
+        {
+            title: 'Categories settings',
+            to: AppRoute.USER_CATEGORIES,
+            icon: 'CHART',
+        },
     ];
+
     return (
         <main className={styles.body}>
             <div className={classNames(styles.container, 'container')}>

@@ -37,6 +37,7 @@ const RangeSlider: React.FC<Properties> = ({
 
     const handleStyle = {
         borderColor: 'var(--color-blue-500)',
+        opacity: '1',
     };
 
     return (

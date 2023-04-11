@@ -5,6 +5,7 @@ import { type Range } from 'react-date-range';
 import { Link } from 'react-router-dom';
 import { type TransactionGetAllItemResponseDto } from 'shared/build';
 
+import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import {
     Button,
     ButtonTabs,
@@ -16,6 +17,7 @@ import {
     Input,
     LineChart,
     NewWalletModal,
+    Placeholder,
     RangeSlider,
     WalletCard,
 } from '~/bundles/common/components/components.js';
@@ -130,9 +132,8 @@ const tabsDashboard = [
 
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
-    const [active, setActive] = useState(false);
-
     const dispatch = useAppDispatch();
+    const [active, setActive] = useState(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
 
@@ -178,12 +179,6 @@ const Dashboard: React.FC = () => {
     const handleCancel = useCallback(() => {
         setActive(false);
     }, []);
-
-    useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-    }, [dispatch]);
 
     const [wallet, setWallet] = useState<DataType>({
         value: '',
@@ -237,6 +232,29 @@ const Dashboard: React.FC = () => {
         processTransactions(transactionsData);
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
+    const handleResetFilters = useCallback(() => {
+        setWallet({
+            value: '',
+            name: 'Find by name',
+        });
+        setCurrentRange({ min: 0, max: 0 });
+        setCategory({
+            value: '',
+            name: 'Find by category',
+        });
+        setFilters({
+            value: '',
+            name: '',
+        });
+        setTransactionsData([]);
+    }, []);
+
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
+
     useEffect(() => {
         const filteredTransactions = transactions.filter((transaction) => {
             const walletMatch = wallets.find(
@@ -262,23 +280,6 @@ const Dashboard: React.FC = () => {
         currentRange.min,
         currentRange.max,
     ]);
-
-    const handleResetFilters = useCallback(() => {
-        setWallet({
-            value: '',
-            name: 'Find by name',
-        });
-        setCurrentRange({ min: 0, max: 0 });
-        setCategory({
-            value: '',
-            name: 'Find by category',
-        });
-        setFilters({
-            value: '',
-            name: '',
-        });
-        setTransactionsData([]);
-    }, []);
 
     return (
         <div className={styles.container}>
@@ -430,61 +431,71 @@ const Dashboard: React.FC = () => {
                                 variant={CardVariant.WHITE}
                             />
                         </div>
-                        <div className={styles.charts}>
-                            <ChartBox
-                                title={'Account Balance'}
-                                date={formatRangeGraph(day)}
-                                controls={
-                                    <ButtonTabs
-                                        tabsData={firstTabs}
-                                        onClick={setFirstTabs}
+                        {transactions.length > 0 ? (
+                            <div className={styles.charts}>
+                                <ChartBox
+                                    title={'Account Balance'}
+                                    date={formatRangeGraph(day)}
+                                    controls={
+                                        <ButtonTabs
+                                            tabsData={firstTabs}
+                                            onClick={setFirstTabs}
+                                        />
+                                    }
+                                >
+                                    <LineChart
+                                        dataArr={filterLineChart(
+                                            day,
+                                            lineChartData,
+                                        )}
                                     />
-                                }
-                            >
-                                <LineChart
-                                    dataArr={filterLineChart(
-                                        day,
-                                        lineChartData,
-                                    )}
-                                />
-                            </ChartBox>
-                            <ChartBox
-                                title={'Changes'}
-                                date={formatRangeGraph(day)}
-                                controls={
-                                    <ButtonTabs
-                                        tabsData={secondTabs}
-                                        onClick={setSecondTabs}
+                                </ChartBox>
+                                <ChartBox
+                                    title={'Changes'}
+                                    date={formatRangeGraph(day)}
+                                    controls={
+                                        <ButtonTabs
+                                            tabsData={secondTabs}
+                                            onClick={setSecondTabs}
+                                        />
+                                    }
+                                >
+                                    <Chart
+                                        array={filterChart(
+                                            day,
+                                            verticalChartData,
+                                        )}
                                     />
-                                }
-                            >
-                                <Chart
-                                    array={filterChart(day, verticalChartData)}
-                                />
-                            </ChartBox>
-                            <ChartBox
-                                title={'Period income'}
-                                date={formatRangeGraph(day)}
-                            >
-                                <DoughnutChart
-                                    categories={filterCategories(
-                                        day,
-                                        positiveResult,
-                                    )}
-                                />
-                            </ChartBox>
-                            <ChartBox
-                                title={'Period Expenses'}
-                                date={formatRangeGraph(day)}
-                            >
-                                <DoughnutChart
-                                    categories={filterCategories(
-                                        day,
-                                        negativeResult,
-                                    )}
-                                />
-                            </ChartBox>
-                        </div>
+                                </ChartBox>
+                                <ChartBox
+                                    title={'Period income'}
+                                    date={formatRangeGraph(day)}
+                                >
+                                    <DoughnutChart
+                                        categories={filterCategories(
+                                            day,
+                                            positiveResult,
+                                        )}
+                                    />
+                                </ChartBox>
+                                <ChartBox
+                                    title={'Period Expenses'}
+                                    date={formatRangeGraph(day)}
+                                >
+                                    <DoughnutChart
+                                        categories={filterCategories(
+                                            day,
+                                            negativeResult,
+                                        )}
+                                    />
+                                </ChartBox>
+                            </div>
+                        ) : (
+                            <Placeholder
+                                path={DashboardPlaceholder}
+                                body={'You have no transactions yet.'}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

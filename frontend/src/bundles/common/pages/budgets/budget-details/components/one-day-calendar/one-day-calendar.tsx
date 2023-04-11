@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Calendar } from 'react-date-range';
+import {
+    type FieldErrors,
+    type FieldValues,
+    type UseControllerProps,
+} from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import calendarIcon from '~/assets/img/calendar-icon.svg';
 import { Button } from '~/bundles/common/components/components';
@@ -79,7 +85,7 @@ const OneDayCalendar: React.FC<OneDayCalendarProperties> = ({
     );
 };
 
-const RenderDate = ({
+const RenderStartDate = ({
     field: { onChange },
 }: {
     field: { onChange: (value: Date) => void; value: string };
@@ -102,4 +108,55 @@ const RenderDate = ({
     );
 };
 
-export { RenderDate };
+interface RenderEndDateProperties<T extends FieldValues>
+    extends UseControllerProps<T> {
+    error: FieldErrors<T>;
+}
+
+const RenderEndDate = <T extends FieldValues>({
+    name,
+    control,
+    error,
+}: RenderEndDateProperties<T>): JSX.Element => {
+    const defaultDate = new Date();
+    const [selectedDate, setSelectedDate] = useState<Date>(defaultDate);
+
+    const message = error.endDate?.message;
+
+    const hasError = Boolean(error);
+    interface Field {
+        onChange: (value: Date) => void;
+        value: string | undefined;
+    }
+
+    const handleDateChange = useCallback((date: Date): void => {
+        setSelectedDate(date);
+    }, []);
+
+    const handleChange = useCallback(
+        (field: Field) => (date: Date) => {
+            handleDateChange(date);
+            field.onChange(date);
+        },
+        [handleDateChange],
+    );
+
+    const handleRender = useCallback(
+        ({ field }: { field: Field }) => (
+            <div>
+                <OneDayCalendar
+                    selectedDate={selectedDate}
+                    onChange={handleChange(field)}
+                />
+                {hasError && (
+                    <span style={{ color: 'red' }}>{message as string}</span>
+                )}
+            </div>
+        ),
+        [selectedDate, handleChange, hasError, message],
+    );
+
+    return <Controller name={name} control={control} render={handleRender} />;
+};
+
+export { RenderEndDate, RenderStartDate };

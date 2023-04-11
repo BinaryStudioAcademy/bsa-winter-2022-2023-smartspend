@@ -1,15 +1,16 @@
-import { type ITransaction } from '../types';
+import { type TransactionType } from '../types';
 
 const getDailyTotals = (
-    groupedTransactions: Record<string, ITransaction[]>,
+    groupedTransactions: Record<string, TransactionType[]>,
 ): Record<string, number> => {
     const dailyTotals: Record<string, number> = {};
 
     for (const date in groupedTransactions) {
-        dailyTotals[date] = groupedTransactions[date].reduce(
-            (total, transaction) => total + transaction.amount,
-            0,
-        );
+        let total = 0;
+        for (const transaction of groupedTransactions[date]) {
+            total += transaction.amount;
+        }
+        dailyTotals[date] = total;
     }
 
     return dailyTotals;

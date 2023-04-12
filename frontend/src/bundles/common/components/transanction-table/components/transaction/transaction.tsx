@@ -1,5 +1,4 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 import {
@@ -9,6 +8,7 @@ import {
 } from 'react-hook-form';
 
 import {
+    Icon,
     Input,
     TransactionModal,
 } from '~/bundles/common/components/components';
@@ -83,7 +83,7 @@ const Transaction: React.FC<Properties> = ({
                         {transaction.category.color && (
                             <span
                                 style={{
-                                    background: `${transaction.category.color}`,
+                                    background: `var(${transaction.category.color})`,
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
@@ -94,8 +94,8 @@ const Transaction: React.FC<Properties> = ({
                                     color: '#fff',
                                 }}
                             >
-                                <FontAwesomeIcon
-                                    icon={transaction.category.icon as IconProp}
+                                <Icon
+                                    name={transaction.category.icon as IconProp}
                                 />
                             </span>
                         )}

@@ -1,5 +1,6 @@
 import {
     type CategoryIdRequestDto,
+    type CategoryIdsRequestDto,
     type CategoryRequestDto,
     type CategoryUpdatePayloadDto,
     CategoriesApiPath,
@@ -15,7 +16,7 @@ import { getUserIdFromToken } from '~/common/helpers/get-id-from-token.helper.js
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
-import { type CategoryService } from './category.service.js';
+import { type UserCategoryService } from './user-category.service.js';
 
 /**
  * @swagger
@@ -55,18 +56,19 @@ import { type CategoryService } from './category.service.js';
  *          $ref: '#/components/schemas/Category'
  *
  */
-class CategoryController extends Controller {
-    private categoryService: CategoryService;
+class UserCategoryController extends Controller {
+    private userCategoryService: UserCategoryService;
 
-    public constructor(logger: ILogger, categoryService: CategoryService) {
-        super(logger, ApiPath.CATEGORIES);
+    public constructor(logger: ILogger, categoryService: UserCategoryService) {
+        super(logger, ApiPath.USER_CATEGORIES);
 
-        this.categoryService = categoryService;
+        this.userCategoryService = categoryService;
 
         this.addRoute({
             path: CategoriesApiPath.ROOT,
             method: 'GET',
-            handler: () => this.findAll(),
+            handler: (options) =>
+                this.findAll(options as ApiHandlerOptions<{ token: string }>),
         });
 
         this.addRoute({
@@ -75,6 +77,7 @@ class CategoryController extends Controller {
             handler: (options) =>
                 this.findById(
                     options as ApiHandlerOptions<{
+                        token: string;
                         params: CategoryIdRequestDto;
                     }>,
                 ),
@@ -90,21 +93,7 @@ class CategoryController extends Controller {
                 this.create(
                     options as ApiHandlerOptions<{
                         body: CategoryRequestDto;
-                    }>,
-                ),
-        });
-
-        this.addRoute({
-            path: '/user',
-            method: 'POST',
-            validation: {
-                body: categoryValidationSchema,
-            },
-            handler: (options) =>
-                this.createUserCategory(
-                    options as ApiHandlerOptions<{
                         token: string;
-                        body: CategoryRequestDto;
                     }>,
                 ),
         });
@@ -116,6 +105,7 @@ class CategoryController extends Controller {
                 this.update(
                     options as ApiHandlerOptions<{
                         body: CategoryUpdatePayloadDto;
+                        token: string;
                         params: CategoryIdRequestDto;
                     }>,
                 ),
@@ -127,10 +117,34 @@ class CategoryController extends Controller {
             handler: (options) =>
                 this.delete(
                     options as ApiHandlerOptions<{
+                        token: string;
                         params: CategoryIdRequestDto;
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: CategoriesApiPath.MANY,
+            method: 'DELETE',
+            handler: (options) =>
+                this.deleteMany(
+                    options as ApiHandlerOptions<{
+                        token: string;
+                        body: CategoryIdsRequestDto;
+                    }>,
+                ),
+        });
+
+        // this.addRoute({
+        //     path: CategoriesApiPath.MANY,
+        //     method: 'DELETE',
+        //     handler: (options) =>
+        //         this.deleteMany(
+        //             options as ApiHandlerOptions<{
+        //                 body: CategoryIdsRequestDto;
+        //             }>,
+        //         ),
+        // });
     }
 
     /**
@@ -147,10 +161,15 @@ class CategoryController extends Controller {
      *              schema:
      *                $ref: '#/components/schemas/Categories'
      */
-    private async findAll(): Promise<ApiHandlerResponse> {
+    private async findAll(
+        options: ApiHandlerOptions<{
+            token: string;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
         return {
             status: HttpCode.OK,
-            payload: await this.categoryService.findAll(),
+            payload: await this.userCategoryService.findAllCategories(userId),
         };
     }
 
@@ -178,12 +197,17 @@ class CategoryController extends Controller {
      */
     private async findById(
         options: ApiHandlerOptions<{
+            token: string;
             params: CategoryIdRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
         return {
             status: HttpCode.OK,
-            payload: await this.categoryService.findById(options.params.id),
+            payload: await this.userCategoryService.findById(
+                userId,
+                options.params.id,
+            ),
         };
     }
 
@@ -209,12 +233,17 @@ class CategoryController extends Controller {
      */
     private async create(
         options: ApiHandlerOptions<{
+            token: string;
             body: CategoryRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
         return {
             status: HttpCode.CREATED,
-            payload: await this.categoryService.create(options.body),
+            payload: await this.userCategoryService.createCategory(
+                userId,
+                options.body,
+            ),
         };
     }
 
@@ -244,9 +273,12 @@ class CategoryController extends Controller {
         options: ApiHandlerOptions<{
             body: CategoryUpdatePayloadDto;
             params: CategoryIdRequestDto;
+            token: string;
         }>,
     ): Promise<ApiHandlerResponse> {
-        const updatedCategory = await this.categoryService.updateCategory(
+        const userId = getUserIdFromToken(options.token);
+        const updatedCategory = await this.userCategoryService.updateCategory(
+            userId,
             options.params.id,
             options.body,
         );
@@ -281,31 +313,34 @@ class CategoryController extends Controller {
     private async delete(
         options: ApiHandlerOptions<{
             params: CategoryIdRequestDto;
+            token: string;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
         return {
             status: HttpCode.OK,
-            payload: await this.categoryService.deleteCategory(
+            payload: await this.userCategoryService.deleteCategory(
+                userId,
                 options.params.id,
             ),
         };
     }
 
-    private async createUserCategory(
+    private async deleteMany(
         options: ApiHandlerOptions<{
+            body: CategoryIdsRequestDto;
             token: string;
-            body: CategoryRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         const userId = getUserIdFromToken(options.token);
         return {
-            status: HttpCode.CREATED,
-            payload: await this.categoryService.createUserCategory(
+            status: HttpCode.OK,
+            payload: await this.userCategoryService.deleteCategories(
                 userId,
-                options.body,
+                options.body.categoryIds,
             ),
         };
     }
 }
 
-export { CategoryController };
+export { UserCategoryController };

@@ -1,5 +1,5 @@
 type CategoryIdsRequestDto = {
-    idArray: string[];
+    categoryIds: string[];
 };
 
 export { type CategoryIdsRequestDto };

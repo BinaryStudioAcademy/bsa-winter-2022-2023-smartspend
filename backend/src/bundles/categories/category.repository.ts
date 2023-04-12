@@ -2,12 +2,18 @@ import { CategoryEntity } from '~/bundles/categories/category.entity.js';
 import { type CategoryModel } from '~/bundles/categories/category.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
+import { type UserCategoriesModel } from '../user-categories/user-category.model.js';
 import { type CategoryUpdatePayloadDto } from './categories.js';
 
 class CategoryRepository implements Partial<IRepository> {
+    private userCategoriesModel: typeof UserCategoriesModel;
     private categoryModel: typeof CategoryModel;
 
-    public constructor(categoryModel: typeof CategoryModel) {
+    public constructor(
+        categoryModel: typeof CategoryModel,
+        userCategoriesModel: typeof UserCategoriesModel,
+    ) {
+        this.userCategoriesModel = userCategoriesModel;
         this.categoryModel = categoryModel;
     }
 
@@ -77,6 +83,19 @@ class CategoryRepository implements Partial<IRepository> {
             .execute();
 
         return items.map((it) => CategoryEntity.initialize(it));
+    }
+
+    public async createUserCategory(
+        userId: string,
+        entity: CategoryEntity,
+    ): Promise<CategoryEntity> {
+        const category = await this.create(entity);
+        const { id } = category.toObject();
+        await this.userCategoriesModel.query().insert({
+            userId,
+            categoryId: id,
+        });
+        return category;
     }
 }
 

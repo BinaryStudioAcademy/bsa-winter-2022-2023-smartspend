@@ -83,6 +83,21 @@ class CategoryService implements Partial<IService> {
     ): Promise<CategoryEntity[] | undefined> {
         return await this.categoryRepository.deleteCategories(idArray);
     }
+
+    public async createUserCategory(
+        id: string,
+        payload: CategoryRequestDto,
+    ): Promise<CategoryEntity> {
+        return await this.categoryRepository.createUserCategory(
+            id,
+            CategoryEntity.initializeNew({
+                name: payload.name,
+                icon: payload.icon,
+                color: payload.color,
+                type: payload.type,
+            }),
+        );
+    }
 }
 
 export { CategoryService };

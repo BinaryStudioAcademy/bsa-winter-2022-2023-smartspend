@@ -26,4 +26,5 @@ export { numberToStringCurrencyHelper } from './number-to-string-currency/number
 export { resetTabsActive } from './reset-tabs-active/reset-tabs-active.helper';
 export { sumArray } from './sum-array/sum-array.js';
 export { toCustomLocaleString } from './to-custom-locale-string/to-custom-locale-string.js';
+export { transactionCountsByCategory } from './transaction-count-by-category/transaction-count-by-category.helper.js';
 export { configureString } from 'shared/build/index.js';

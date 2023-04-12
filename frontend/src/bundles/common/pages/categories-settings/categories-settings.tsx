@@ -1,5 +1,3 @@
-// import { type TransactionGetAllItemResponseDto } from 'shared/build';
-
 import {
     useAppDispatch,
     useAppSelector,
@@ -19,6 +17,7 @@ import {
     FaIcons,
     IconSize,
 } from '../../enums/enums';
+import { transactionCountsByCategory } from '../../helpers/transaction-count-by-category/transaction-count-by-category.helper';
 import { CategoryList } from './components/category-list/category-list';
 import { FormCategory } from './components/form-category/form-category';
 import { FormUiStub } from './components/form-category/form-ui-stub';
@@ -44,8 +43,10 @@ const CategoriesSettings: React.FC = () => {
     const categories = useAppSelector(
         (state) => state.categories.categoriesSortByType ?? {},
     );
-    // const transactions = useAppSelector(state => state.transactions.transactions?.items);
-    // const id = useAppSelector(state => state.users.user?.id);
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items,
+    );
+    const userId = useAppSelector((state) => state.users.user?.userId);
 
     const addIdCheckedCategories = useCallback((id: string): void => {
         setIsSelectedCategories((previousState) => {
@@ -71,37 +72,7 @@ const CategoriesSettings: React.FC = () => {
         setIsCreateModalShown(false);
     }, []);
 
-    // const transactionCountsByCategory = (
-    //     transactions: TransactionGetAllItemResponseDto[] | undefined,
-    //     userId: string
-    // ): Record<number, number> => {
-    //     // if (transactions) {
-    //         transactions?.reduce((accumulator, transaction) => {
-    //             if (transaction.ownerId === id) {
-    //                 const categoryId = transaction.categoryId;
-    //                 console.log('categoryId:', categoryId);
-    //                 if (categoryId in accumulator) {
-    //                     accumulator[categoryId]++;
-    //                 } else {
-    //                     accumulator[categoryId] = 1;
-    //                 }
-    //             }
-    //             return accumulator;
-    //         }, {});
-    //     // }
-    // };
-    // const transactionCountsByCategory = transactions?.reduce((accumulator, transaction) => {
-    //     if (transaction.ownerId === id) {
-    //         const categoryId = transaction.categoryId;
-    //         console.log('categoryId: ', categoryId);
-    //         if (categoryId in accumulator) {
-    //             accumulator[categoryId]++;
-    //         } else {
-    //             accumulator[categoryId] = 1;
-    //         }
-    //     }
-    //     return accumulator;
-    // }, {});
+    const countTransaction = transactionCountsByCategory(transactions, userId);
 
     useEffect(() => {
         void dispatch(transactionsActions.loadTransactions());
@@ -142,11 +113,13 @@ const CategoriesSettings: React.FC = () => {
                             title={'Income Categories'}
                             categories={categories.income}
                             addIdCheckedCategories={addIdCheckedCategories}
+                            count={countTransaction}
                         />
                         <CategoryList
                             title={'Expense category'}
                             categories={categories.expense}
                             addIdCheckedCategories={addIdCheckedCategories}
+                            count={countTransaction}
                         />
                     </div>
                 </div>

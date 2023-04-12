@@ -107,7 +107,7 @@ const CategoryItem: React.FC<Properties> = ({
                                 </div>
                                 <div className={styles.count}>
                                     <span className={styles.text}>
-                                        {count} operation
+                                        {count ?? '0'} operation
                                     </span>
                                 </div>
                             </div>

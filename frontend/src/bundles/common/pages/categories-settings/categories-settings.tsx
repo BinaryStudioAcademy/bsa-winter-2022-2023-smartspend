@@ -107,7 +107,8 @@ const CategoriesSettings: React.FC = () => {
                             </Button>
                         </div>
                         <ManageCategories
-                            isSelectedCategories={isSelectedCategories}
+                            selectedCategories={isSelectedCategories}
+                            setSelectedCategories={setIsSelectedCategories}
                         />
                         <CategoryList
                             title={'Income Categories'}

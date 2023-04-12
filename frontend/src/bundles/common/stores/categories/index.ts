@@ -1,6 +1,7 @@
 import {
     createCategory,
     loadCategories,
+    removeCategories,
     removeCategory,
     updateCategory,
 } from './actions.js';
@@ -12,6 +13,7 @@ const allActions = {
     createCategory,
     updateCategory,
     removeCategory,
+    removeCategories,
 };
 
 export { allActions as actions };

@@ -27,6 +27,12 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin-top: var(--p-2);
+    margin-left: var(--m-6);
+}
+
+.transactionCount {
+    margin-left: var(--m-6);
 }
 
 .columns {
@@ -94,6 +100,7 @@
 .transactionBody {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 4px;
     width: 100%;
 }

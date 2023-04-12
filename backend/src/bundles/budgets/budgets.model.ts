@@ -13,6 +13,7 @@ class BudgetModel extends AbstractModel {
     public 'recurrence': string;
 
     public 'startDate': string;
+
     public 'endDate': string;
 
     public 'ownerId': string;

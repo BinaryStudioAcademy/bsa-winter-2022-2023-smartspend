@@ -25,6 +25,7 @@ import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
 import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
+import { FutureTransactionsPage } from './bundles/common/pages/future-transactions/future-transactions-page';
 import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -106,6 +107,14 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 element: (
                                     <PrivateRoute>
                                         <WalletSettings />
+                                    </PrivateRoute>
+                                ),
+                            },
+                            {
+                                path: AppRoute.WALLET_DETAILS_FUTURE_TRANSACTIONS,
+                                element: (
+                                    <PrivateRoute>
+                                        <FutureTransactionsPage />
                                     </PrivateRoute>
                                 ),
                             },

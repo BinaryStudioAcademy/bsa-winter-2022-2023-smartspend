@@ -14,7 +14,8 @@ enum UserValidationMessage {
     LASTNAME_INVALID = 'Invalid last name format',
     LASTNAME_INCORRECT = 'Incorrect character in last name',
     DATE_FORMAT_WRONG = 'Invalid Date',
-    DATE_REQUIRE = 'Date is required',
+    DATE_REQUIRE = 'Invalid Date of birth',
+    DATE_MINIMUM = 'You must be at least 16 years old',
 }
 
 export { UserValidationMessage };

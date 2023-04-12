@@ -23,7 +23,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as usersActions } from '~/bundles/users/store';
-import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
+// import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
 import styles from '../styles.module.scss';
@@ -50,22 +50,23 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const navigate = useNavigate();
     const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
-        defaultValues: user as unknown as UserUpdateRequestDto,
-        validationSchema: userUpdateRegValidationSchema,
-        mode: 'onBlur',
+        defaultValues: user as UserUpdateRequestDto,
+        // validationSchema: userUpdateRegValidationSchema,
+        // mode: 'onBlur',
     });
     const [modalOpen, setModalOpen] = useState(false);
 
     const fieldsWatch = watch();
 
     const isFieldsChange = useCallback((): boolean => {
-        if (!fieldsWatch.firstName || !fieldsWatch.lastName) {
+        if (
+            !fieldsWatch.firstName ||
+            !fieldsWatch.lastName ||
+            !fieldsWatch.currency
+        ) {
             return false;
         }
-        return !compareObjects(
-            fieldsWatch,
-            user as unknown as UserUpdateRequestDto,
-        );
+        return !compareObjects(fieldsWatch, user as UserUpdateRequestDto);
     }, [fieldsWatch, user]);
 
     const token = storage.getSync(StorageKey.TOKEN);

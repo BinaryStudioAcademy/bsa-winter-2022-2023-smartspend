@@ -14,6 +14,8 @@ export { dateToShortStringHelper } from './date-to-short-string/date-to-short-st
 export { findCurrencyById } from './find-currency-by-id/find-currency-by-id.js';
 export { getAppTitle } from './get-app-title/get-app-title.helper';
 export { getGradientColors } from './get-gradient-colors/get-gradient-colors.js';
+export { findMinMaxAmount } from './get-max-min-transaction-amount/get-max-min-transaction-amount.helper.js';
+export { getSortedCategoriesByType } from './get-sorted-categories/get-sorted-categories.js';
 export { getText } from './get-text-to-path/get-text-to-path.js';
 export { handleScroll } from './handle-scroll/handle-scroll.js';
 export {
@@ -26,4 +28,5 @@ export { numberToStringCurrencyHelper } from './number-to-string-currency/number
 export { resetTabsActive } from './reset-tabs-active/reset-tabs-active.helper';
 export { sumArray } from './sum-array/sum-array.js';
 export { toCustomLocaleString } from './to-custom-locale-string/to-custom-locale-string.js';
+export { transactionCountsByCategory } from './transaction-count-by-category/transaction-count-by-category.helper.js';
 export { configureString } from 'shared/build/index.js';

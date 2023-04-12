@@ -8,7 +8,7 @@ import {
     useRef,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { StorageKey } from '~/framework/storage/storage.js';
+import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import styles from './styles.module.scss';
 
@@ -49,7 +49,7 @@ const HeaderUserButton: React.FC<Properties> = ({
     }, [menuReference]);
 
     const logoutHandler = useCallback(() => {
-        localStorage.removeItem(StorageKey.TOKEN);
+        void storage.drop(StorageKey.TOKEN);
     }, []);
 
     return (
@@ -91,7 +91,7 @@ const HeaderUserButton: React.FC<Properties> = ({
                         to={AppRoute.SIGN_IN}
                         className={styles.link}
                     >
-                        Logout
+                        Log Out
                     </Link>
                 </div>
             </div>

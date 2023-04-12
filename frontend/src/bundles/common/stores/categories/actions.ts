@@ -60,4 +60,25 @@ const removeCategory = createAsyncThunk<
     await dispatch(loadCategories());
 });
 
-export { createCategory, loadCategories, removeCategory, updateCategory };
+const removeCategories = createAsyncThunk<
+    Promise<void>,
+    string[],
+    AsyncThunkConfig
+>(
+    `${sliceName}/delete-categories`,
+    async (categoryIds, { extra, dispatch }) => {
+        const { categoriesApi } = extra;
+
+        await categoriesApi.deleteCategories(categoryIds);
+
+        await dispatch(loadCategories());
+    },
+);
+
+export {
+    createCategory,
+    loadCategories,
+    removeCategories,
+    removeCategory,
+    updateCategory,
+};

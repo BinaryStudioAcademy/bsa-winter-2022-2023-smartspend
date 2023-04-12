@@ -1,9 +1,10 @@
 import { type ChangeEvent } from 'react';
 
 import { BaseModal } from '~/bundles/common/components/components';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
 import { useState } from '~/bundles/common/hooks/hooks';
 
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 type Properties = {
     isShown: boolean;
@@ -71,8 +72,11 @@ const UserDeleteModal: React.FC<Properties> = ({
                 </ul>
             }
             submitButtonName={'Delete Account'}
+            submitButtonVariant={ButtonVariant.DELETE}
             onSubmit={onDelete}
             disabled={checkboxList.includes(false)}
+            footerContainerClass={styles.modalFooter}
+            buttonsSize={ButtonSize.MEDIUM}
         />
     );
 };

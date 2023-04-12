@@ -18,7 +18,7 @@ type Constructor = {
 };
 class CategoriesApi extends HttpApi {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: ApiPath.CATEGORIES, baseUrl, http, storage });
+        super({ path: ApiPath.USER_CATEGORIES, baseUrl, http, storage });
     }
 
     public async loadCategories(): Promise<CategoryGetAllResponseDto> {
@@ -79,6 +79,15 @@ class CategoriesApi extends HttpApi {
                 hasAuth: true,
             },
         );
+    }
+
+    public async deleteCategories(categoryIds: string[]): Promise<void> {
+        await this.load(this.getFullEndpoint(CategoriesApiPath.MANY, {}), {
+            method: 'DELETE',
+            contentType: ContentType.JSON,
+            payload: JSON.stringify({ categoryIds }),
+            hasAuth: true,
+        });
     }
 }
 

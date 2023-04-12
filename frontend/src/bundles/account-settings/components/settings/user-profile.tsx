@@ -13,7 +13,9 @@ const UserProfile: React.FC = () => {
         <div className={styles.userProfile}>
             <Title>Account Settings</Title>
             {dataStatus === DataStatus.PENDING ? (
-                <Loader />
+                <div className={styles.loaderContainer}>
+                    <Loader />
+                </div>
             ) : (
                 <SettingsForm user={user} />
             )}

@@ -15,11 +15,13 @@ import styles from './styles.module.scss';
 import { type TransactionType } from './types';
 
 interface TransactionTableProperties {
+    isOnlyFutureTransactions?: boolean;
     walletsId?: string;
     transactions: TransactionType[];
 }
 
 const TransactionTable: React.FC<TransactionTableProperties> = ({
+    isOnlyFutureTransactions = false,
     walletsId,
     transactions,
 }) => {
@@ -39,18 +41,30 @@ const TransactionTable: React.FC<TransactionTableProperties> = ({
 
     return (
         <div className={styles.transactionTable}>
-            <FutureTransactions
-                futureTotals={futureTotals}
-                futureTransactions={futureTransactions}
-                control={control}
-                errors={errors}
-            />
-            <PastTransactions
-                groupedPastTransactions={groupedPastTransactions}
-                dailyTotals={dailyTotals}
-                control={control}
-                errors={errors}
-            />
+            {isOnlyFutureTransactions ? (
+                <FutureTransactions
+                    futureTotals={futureTotals}
+                    futureTransactions={futureTransactions}
+                    control={control}
+                    errors={errors}
+                    isFutureTransactionPage={isOnlyFutureTransactions}
+                />
+            ) : (
+                <>
+                    <FutureTransactions
+                        futureTotals={futureTotals}
+                        futureTransactions={futureTransactions}
+                        control={control}
+                        errors={errors}
+                    />
+                    <PastTransactions
+                        groupedPastTransactions={groupedPastTransactions}
+                        dailyTotals={dailyTotals}
+                        control={control}
+                        errors={errors}
+                    />
+                </>
+            )}
         </div>
     );
 };

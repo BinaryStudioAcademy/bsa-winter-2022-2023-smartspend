@@ -11,6 +11,7 @@ import {
     Controller,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
+import { getUserIdFromToken } from '~/common/helpers/get-id-from-token.helper.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
@@ -88,6 +89,21 @@ class CategoryController extends Controller {
             handler: (options) =>
                 this.create(
                     options as ApiHandlerOptions<{
+                        body: CategoryRequestDto;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: '/user',
+            method: 'POST',
+            validation: {
+                body: categoryValidationSchema,
+            },
+            handler: (options) =>
+                this.createUserCategory(
+                    options as ApiHandlerOptions<{
+                        token: string;
                         body: CategoryRequestDto;
                     }>,
                 ),
@@ -177,7 +193,7 @@ class CategoryController extends Controller {
      *    post:
      *      tags: [Categories]
      *      description: Create category
-     *      requesBody:
+     *      requestBody:
      *        required: true
      *        content:
      *            application/json:
@@ -271,6 +287,22 @@ class CategoryController extends Controller {
             status: HttpCode.OK,
             payload: await this.categoryService.deleteCategory(
                 options.params.id,
+            ),
+        };
+    }
+
+    private async createUserCategory(
+        options: ApiHandlerOptions<{
+            token: string;
+            body: CategoryRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
+        return {
+            status: HttpCode.CREATED,
+            payload: await this.categoryService.createUserCategory(
+                userId,
+                options.body,
             ),
         };
     }

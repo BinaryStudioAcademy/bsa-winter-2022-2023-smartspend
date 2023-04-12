@@ -16,6 +16,7 @@ import {
     Dropdown,
     Input,
     LineChart,
+    Loader,
     NewWalletModal,
     Placeholder,
     RangeSlider,
@@ -25,6 +26,7 @@ import {
     AppDocumentTitles,
     ButtonVariant,
     CardVariant,
+    DataStatus,
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
@@ -45,8 +47,10 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
+import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
 import {
     calculateLineChartData,
+    calculateWalletBalances,
     createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
@@ -134,8 +138,13 @@ const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const dispatch = useAppDispatch();
     const [active, setActive] = useState(false);
-    const { wallets } = useAppSelector((state) => state.wallets);
+    const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
+
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
 
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
@@ -281,39 +290,50 @@ const Dashboard: React.FC = () => {
         currentRange.max,
     ]);
 
+    const walletsWithBalances = calculateWalletBalances(wallets, transactions);
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
-                    <div className={styles.wallets}>
-                        {wallets.map(({ id, name, balance, currencyId }) => (
-                            <Link
-                                to={`/wallet/${id}/transaction`}
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletCard
-                                    title={name}
-                                    size={WalletCardSize.MEDIUM}
-                                    balance_value={balance}
-                                    wallet_type={'Balance'}
-                                    currency={
-                                        findCurrencyById(currencies, currencyId)
-                                            ?.symbol
-                                    }
-                                />
-                            </Link>
-                        ))}
-                        <WalletButton onClick={handleModal}>
-                            Add New Wallet
-                        </WalletButton>
-                        <NewWalletModal
-                            isShown={active}
-                            onClose={handleCancel}
-                            onSubmit={handleModal}
-                        />
-                    </div>
+                    {dataStatus === DataStatus.PENDING ? (
+                        <div className={styles.loaderContainer}>
+                            <Loader />
+                        </div>
+                    ) : (
+                        <div className={styles.wallets}>
+                            {walletsWithBalances.map(
+                                ({ id, name, balance, currencyId }) => (
+                                    <Link
+                                        to={`/wallet/${id}/transaction`}
+                                        key={id}
+                                        className={styles.walletWrapper}
+                                    >
+                                        <WalletCard
+                                            title={name}
+                                            size={WalletCardSize.MEDIUM}
+                                            balance_value={balance}
+                                            wallet_type={'Balance'}
+                                            currency={
+                                                findCurrencyById(
+                                                    currencies,
+                                                    currencyId,
+                                                )?.symbol
+                                            }
+                                        />
+                                    </Link>
+                                ),
+                            )}
+                            <WalletButton onClick={handleModal}>
+                                Add New Wallet
+                            </WalletButton>
+                            <NewWalletModal
+                                isShown={active}
+                                onClose={handleCancel}
+                                onSubmit={handleModal}
+                            />
+                        </div>
+                    )}
                     <h2 className={classNames(styles.title, styles.overview)}>
                         Overview
                     </h2>
@@ -405,15 +425,13 @@ const Dashboard: React.FC = () => {
                                     0,
                                 )}
                                 variant={CardVariant.ORANGE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={transactions.reduce(
-                                    (accumulator, transaction) =>
-                                        +accumulator + +transaction.amount,
-                                    0,
-                                )}
+                                sum={getSpent(transactions)}
                                 variant={CardVariant.BLUE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Income"
@@ -422,6 +440,7 @@ const Dashboard: React.FC = () => {
                                     'income',
                                 )}
                                 variant={CardVariant.VIOLET}
+                                currency={matchingCurrency?.symbol as string}
                             />
 
                             <CardTotal
@@ -431,6 +450,7 @@ const Dashboard: React.FC = () => {
                                     'expense',
                                 )}
                                 variant={CardVariant.WHITE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                         </div>
                         {transactions.length > 0 ? (

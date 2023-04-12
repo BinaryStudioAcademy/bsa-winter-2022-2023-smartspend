@@ -13,7 +13,7 @@ const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({
     const haveName = storage.getSync(StorageKey.HAVE_NAME);
 
     useEffect(() => {
-        if (user && user.firstName?.length > 0) {
+        if (user?.firstName && user.firstName.length > 0) {
             void storage.set(StorageKey.HAVE_NAME, 'true');
         }
     }, [user, user?.firstName]);

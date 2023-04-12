@@ -51,34 +51,6 @@ const DEFAULT_INPUT: { note: string } = {
     note: '',
 };
 
-const people = [
-    {
-        value: 'John Doe',
-        name: 'John Doe',
-        image: 'https://placekitten.com/50/50',
-    },
-    {
-        value: 'Jane Smith',
-        name: 'Jane Smith',
-        image: 'https://placekitten.com/51/51',
-    },
-    {
-        value: 'Alice Johnson',
-        name: 'Alice Johnson',
-        image: 'https://placekitten.com/52/52',
-    },
-    {
-        value: 'Bob Brown',
-        name: 'Bob Brown',
-        image: 'https://placekitten.com/53/53',
-    },
-    {
-        value: 'Charlie Green',
-        name: 'Charlie Green',
-        image: 'https://placekitten.com/54/54',
-    },
-];
-
 const FutureTransactionsPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
@@ -130,10 +102,6 @@ const FutureTransactionsPage: React.FC = () => {
         })) as unknown as TransactionType[];
     }, [category, currencies, transactions]);
 
-    const [peopleDropdown, setPeopleDropdown] = useState<
-        MultiValue<DataType> | SingleValue<DataType>
-    >([]);
-
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
@@ -153,17 +121,6 @@ const FutureTransactionsPage: React.FC = () => {
     const closeTransactionModal = useCallback(() => {
         setActiveModal(false);
     }, []);
-
-    const handlePeopleMultiDropdownChange = useCallback(
-        (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
-            if (selectedOption === null) {
-                setPeopleDropdown([]);
-            } else {
-                setPeopleDropdown(selectedOption);
-            }
-        },
-        [],
-    );
 
     const handleCategoriesMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
@@ -186,7 +143,6 @@ const FutureTransactionsPage: React.FC = () => {
     }, []);
 
     const hangleReset = useCallback((): void => {
-        setPeopleDropdown([]);
         setCategoriesDropdown([]);
         setFilteredData(mockSliderData);
         setCurrentRange(rangeLimits);
@@ -310,18 +266,6 @@ const FutureTransactionsPage: React.FC = () => {
                                                 handleCategoriesMultiDropdownChange
                                             }
                                             label="By category"
-                                        />
-                                    </div>
-                                </div>
-                                <div className={styles.filter}>
-                                    <div className={styles.dropdown}>
-                                        <MultiDropdown
-                                            data={people}
-                                            selectedOption={peopleDropdown}
-                                            handleChange={
-                                                handlePeopleMultiDropdownChange
-                                            }
-                                            label="By people"
                                         />
                                     </div>
                                 </div>

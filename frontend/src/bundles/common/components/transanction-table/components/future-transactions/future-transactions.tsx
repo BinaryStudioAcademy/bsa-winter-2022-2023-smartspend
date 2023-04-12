@@ -66,7 +66,7 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                         />
                         <span className={styles.rowTitle}>Scheduled</span>
                     </div>
-                    <div>
+                    <div className={styles.transactionCount}>
                         {futureTransactions.length}
                         <span className={styles.smHide}> transaction(s)</span>
                     </div>

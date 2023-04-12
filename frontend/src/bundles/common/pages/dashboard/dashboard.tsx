@@ -286,7 +286,7 @@ const Dashboard: React.FC = () => {
             if (selectedOption !== null) {
                 setWallet(selectedOption);
                 setCurrentWallet(
-                    wallets?.find(
+                    wallets.find(
                         (wallet) => wallet.name === selectedOption.value,
                     ),
                 );

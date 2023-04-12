@@ -131,8 +131,8 @@ const calculateLineChartData = (
         year: 'numeric',
     });
 
-    // Group transactions by date and sum amounts
     const groupedTransactions: GroupedTransaction[] = [];
+    let previousAmount = 0;
     for (const transaction of transactions) {
         const date = new Date(transaction.date).toLocaleDateString('en-US', {
             month: 'short',
@@ -141,17 +141,24 @@ const calculateLineChartData = (
         });
         const index = groupedTransactions.findIndex((t) => t.date === date);
         if (index === -1) {
-            groupedTransactions.push({ date, amount: transaction.amount });
+            groupedTransactions.push({
+                date,
+                amount: previousAmount + transaction.amount,
+            });
         } else {
             groupedTransactions[index].amount += transaction.amount;
         }
+        previousAmount =
+            groupedTransactions.find((t) => t.date === date)?.amount ??
+            previousAmount;
     }
 
     const calculatedData: DataObject[] = [];
     for (const transaction of groupedTransactions) {
+        const initialValue = wallet ? +wallet.balance : 0;
         calculatedData.push({
             date: transaction.date,
-            value: transaction.amount,
+            value: initialValue + +transaction.amount,
         });
     }
 

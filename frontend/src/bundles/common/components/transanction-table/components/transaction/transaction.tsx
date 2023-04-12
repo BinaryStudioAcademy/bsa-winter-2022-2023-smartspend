@@ -66,17 +66,23 @@ const Transaction: React.FC<Properties> = ({
                 )}
             >
                 {isCheckbox && control && errors && (
-                <div className={classNames(styles.columns, styles.leftColumn)}>
-                    <form className={styles.form} onChange={handleChange}>
-                        <Input
-                            type={InputType.CHECKBOX}
-                            name={`checkbox-${transaction.id}`}
-                            control={control}
-                            errors={errors}
-                            inputClassName={styles.checkbox}
-                        />
-                    </form>
-                </div>)}
+                    <div
+                        className={classNames(
+                            styles.columns,
+                            styles.leftColumn,
+                        )}
+                    >
+                        <form className={styles.form} onChange={handleChange}>
+                            <Input
+                                type={InputType.CHECKBOX}
+                                name={`checkbox-${transaction.id}`}
+                                control={control}
+                                errors={errors}
+                                inputClassName={styles.checkbox}
+                            />
+                        </form>
+                    </div>
+                )}
                 <div
                     className={styles.transactionBody}
                     onClick={openTransactionModal}

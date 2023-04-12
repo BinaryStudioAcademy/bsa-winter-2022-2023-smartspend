@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 20px;
     width: 310px;
-    height: 200px;
+    height: 250px;
     padding: 0 var(--p-3) var(--p-3) var(--p-3);
 }
 

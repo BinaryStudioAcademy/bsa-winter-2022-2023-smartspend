@@ -74,7 +74,7 @@ class TransactionsApi extends HttpApi {
         payload: TransactionUpdatePayloadDto;
     }): Promise<TransactionUpdatePayloadDto> {
         const response = await this.load(
-            this.getFullEndpoint(`${TransactionsApiPath.ROOT}/${id}`, {}),
+            this.getFullEndpoint(`${TransactionsApiPath.ROOT}${id}`, {}),
             {
                 method: 'PUT',
                 contentType: ContentType.JSON,

@@ -15,14 +15,12 @@ import styles from './styles.module.scss';
 
 type Properties = {
     categories: DataType[];
-    currency: DataType[];
     labels: DataType[];
     handleChangeTransaction: React.Dispatch<React.SetStateAction<Transaction>>;
 };
 
 const TransactionModalBody: React.FC<Properties> = ({
     categories,
-    currency,
     handleChangeTransaction,
 }) => {
     const { control, errors } = useAppForm({
@@ -68,24 +66,6 @@ const TransactionModalBody: React.FC<Properties> = ({
         [handleChangeTransaction],
     );
 
-    const [selectedSingleCurrency, setSelectedSingleCurrency] =
-        useState<DataType>(currency[0]);
-
-    const handleDropdownChangeCurrency = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setSelectedSingleCurrency(selectedOption);
-                handleChangeTransaction((previousState) => {
-                    return {
-                        ...previousState,
-                        currencyId: selectedOption.value,
-                    };
-                });
-            }
-        },
-        [handleChangeTransaction],
-    );
-
     return (
         <div className={styles.body}>
             <TransactionModalElement label="Category">
@@ -121,13 +101,6 @@ const TransactionModalBody: React.FC<Properties> = ({
                     control={control}
                     errors={errors}
                     onChange={handleAmountChange}
-                />
-            </TransactionModalElement>
-            <TransactionModalElement label="Currency">
-                <Dropdown
-                    data={currency}
-                    selectedOption={selectedSingleCurrency}
-                    handleChange={handleDropdownChangeCurrency}
                 />
             </TransactionModalElement>
         </div>

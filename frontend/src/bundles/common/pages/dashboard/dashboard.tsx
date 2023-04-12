@@ -572,24 +572,24 @@ const Dashboard: React.FC = () => {
                                 sum={
                                     currentWallet
                                         ? (transactionsData
-                                              ?.filter(
-                                                  (transaction) =>
-                                                      transaction.walletsId ===
-                                                      currentWallet.id,
-                                              )
-                                              .reduce(
-                                                  (accumulator, transaction) =>
-                                                      +accumulator +
-                                                      +transaction.amount,
-                                                  0,
-                                              ) as number)
-                                        : transactionData.reduce(
-                                              (accumulator, transaction) =>
-                                                  +accumulator +
-                                                  +transaction.amount,
-                                              0,
-                                          )
-                                }
+                                                ?.filter(
+                                                    (transaction) =>
+                                                        transaction.walletsId ===
+                                                        currentWallet.id,
+                                                )
+                                                .reduce(
+                                                    (accumulator, transaction) =>
+                                                        +accumulator +
+                                                        +transaction.amount,
+                                                    0,
+                                                ) as number)
+                                            : transactionData.reduce(
+                                                (accumulator, transaction) =>
+                                                    +accumulator +
+                                                    +transaction.amount,
+                                                0,
+                                            )
+                                    }
                                 variant={CardVariant.BLUE}
                                 currency={matchingCurrency?.symbol as string}
                             />

@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    margin-top: var(--m-6);
+    margin-top: var(--m-5);
 }
 
 .button_delete_icon {
@@ -64,7 +64,7 @@
 
 @media (max-width: $lg) {
     .buttons_container {
-        margin-top: var(--m-5);
+        margin-top: var(--m-3);
     }
 }
 

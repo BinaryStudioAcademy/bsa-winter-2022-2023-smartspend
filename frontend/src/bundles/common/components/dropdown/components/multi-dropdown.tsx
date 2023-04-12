@@ -101,6 +101,13 @@ const MultiDropdown: React.FC<Properties> = ({
                 },
             };
         },
+        placeholder: (defaultStyles) => {
+            return {
+                ...defaultStyles,
+                color: 'var(--color-gray-200)',
+                fontSize: '16px',
+            };
+        },
     };
 
     const defaultFormatOptionLabel = useCallback(

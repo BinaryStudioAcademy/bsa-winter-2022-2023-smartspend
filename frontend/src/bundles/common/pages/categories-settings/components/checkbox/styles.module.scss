@@ -19,12 +19,12 @@
     border-color: var(--color-blue-600);
 }
 
-.boxСhecked {
+.boxChecked {
     background-color: var(--color-pink-100);
     border-color: var(--color-pink-100);
 }
 
-.checkboxСheck {
+.checkboxCheck {
     width: 12px;
     height: 7px;
     border: none;
@@ -34,6 +34,6 @@
     transition: all 0.2s ease-in-out;
 }
 
-.boxСhecked .checkboxСheck {
+.boxChecked .checkboxCheck {
     transform: rotate(135deg) scale(0.8);
 }

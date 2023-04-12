@@ -1,7 +1,9 @@
-const DEFAULT_TRANSACTION = {
+import { type Transaction } from '~/bundles/common/types/transaction.type';
+
+const DEFAULT_TRANSACTION: Transaction = {
     categoryId: '',
     date: new Date(),
-    note: '',
+    note: undefined,
     labelId: undefined,
     amount: 1000,
     currencyId: '',

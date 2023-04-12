@@ -14,6 +14,7 @@ const AccountSettings: React.FC = () => {
             icon: 'CHART',
         },
     ];
+
     return (
         <main className={styles.body}>
             <div className={classNames(styles.container, 'container')}>

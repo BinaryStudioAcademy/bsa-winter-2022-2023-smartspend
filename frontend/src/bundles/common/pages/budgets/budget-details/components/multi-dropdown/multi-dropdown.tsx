@@ -104,6 +104,7 @@ const RenderMultiDropdown = ({
                 label={'Budgeted for'}
                 selectedOption={selectedMulti}
                 handleChange={handleMultiDropdownChangeWrapper}
+                labelClassName={styles.dropdownLabel}
             />
         </div>
     );

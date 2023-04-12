@@ -36,14 +36,14 @@ const createTransaction = createAsyncThunk<
 
 const updateTransaction = createAsyncThunk<
     Promise<void>,
-    TransactionUpdatePayloadDto,
+    { id: string; payload: TransactionUpdatePayloadDto },
     AsyncThunkConfig
 >(
     `${sliceName}/update-transactions`,
-    async (registerPayload, { extra, dispatch }) => {
+    async ({ id, payload }, { extra, dispatch }) => {
         const { transactionsApi } = extra;
 
-        await transactionsApi.updateTransaction(registerPayload);
+        await transactionsApi.updateTransaction({ id, payload });
         await dispatch(loadTransactions());
     },
 );
@@ -55,9 +55,11 @@ const deleteTransaction = createAsyncThunk<
 >(`${sliceName}/delete-transactions`, async (id, { extra, dispatch }) => {
     const { transactionsApi } = extra;
 
+    const result = await transactionsApi.deleteTransaction(id);
+
     await dispatch(loadTransactions());
 
-    return await transactionsApi.deleteTransaction(id);
+    return result;
 });
 
 export {

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { type TransactionCreateRequestDto } from 'shared/build';
 
 import { BaseModal, Button } from '~/bundles/common/components/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
@@ -19,6 +18,7 @@ import {
 import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+import { type Transaction } from '~/bundles/common/types/transaction.type';
 import { actions as currenciesActions } from '~/bundles/currencies/store/';
 
 import styles from './styles.module.scss';
@@ -27,6 +27,7 @@ type Properties = {
     type: TransactionModalType;
     handleCancel: () => void;
     active: boolean;
+    transactionId?: string;
 };
 
 const labels: DataType[] = [
@@ -38,12 +39,12 @@ const TransactionModal: React.FC<Properties> = ({
     type,
     handleCancel,
     active,
+    transactionId,
 }) => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
-
     const [transaction, setTransaction] =
-        useState<TransactionCreateRequestDto>(DEFAULT_TRANSACTION);
+        useState<Transaction>(DEFAULT_TRANSACTION);
 
     const [imageFile, setImageFile] = useState<File | undefined>();
 
@@ -54,6 +55,13 @@ const TransactionModal: React.FC<Properties> = ({
         },
         [],
     );
+
+    const handleDelete = useCallback(() => {
+        void dispatch(
+            transactionActions.deleteTransaction(transactionId as string),
+        );
+        handleCancel();
+    }, [dispatch, handleCancel, transactionId]);
 
     const submitButtonName =
         type === TransactionModalType.CHANGE
@@ -68,11 +76,16 @@ const TransactionModal: React.FC<Properties> = ({
             void dispatch(transactionActions.createTransaction(transaction));
         }
         if (type === TransactionModalType.CHANGE) {
-            void dispatch(transactionActions.updateTransaction(transaction));
+            void dispatch(
+                transactionActions.updateTransaction({
+                    id: transactionId as string,
+                    payload: transaction,
+                }),
+            );
         }
         void dispatch(transactionActions.loadTransactions());
         handleCancel();
-    }, [dispatch, handleCancel, id, transaction, type]);
+    }, [dispatch, handleCancel, id, transaction, transactionId, type]);
 
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
@@ -108,20 +121,23 @@ const TransactionModal: React.FC<Properties> = ({
             }
             submitButtonName={submitButtonName}
         >
-            <TransactionImage
-                file={imageFile}
-                handleFileChange={handleFileChange}
-            />
-            {type === TransactionModalType.CHANGE && (
-                <Button
-                    className={styles.delete}
-                    type={ButtonType.BUTTON}
-                    size={ButtonSize.SMALL}
-                    variant={ButtonVariant.SECONDARY}
-                >
-                    Delete Transaction
-                </Button>
-            )}
+            <div className={styles.buttonsContainer}>
+                <TransactionImage
+                    file={imageFile}
+                    handleFileChange={handleFileChange}
+                />
+                {type === TransactionModalType.CHANGE && (
+                    <Button
+                        onClick={handleDelete}
+                        className={styles.delete}
+                        type={ButtonType.BUTTON}
+                        size={ButtonSize.SMALL}
+                        variant={ButtonVariant.SECONDARY}
+                    >
+                        Delete Transaction
+                    </Button>
+                )}
+            </div>
         </BaseModal>
     );
 };

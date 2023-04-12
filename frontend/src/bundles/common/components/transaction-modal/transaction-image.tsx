@@ -1,16 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef } from 'react';
 
-import { Button } from '~/bundles/common/components/components';
-import { ButtonType, FaIcons } from '~/bundles/common/enums/enums';
+import cameraIcon from '~/assets/img/camera-icon.svg';
+import { FileInput } from '~/bundles/common/components/file-input/file-input';
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
 import styles from './styles.module.scss';
 
-interface Properties {
+type Properties = {
     file?: File;
     handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
     const inputReference = useRef<HTMLInputElement>(null);
@@ -22,8 +21,8 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
     }, []);
 
     return (
-        <Button
-            type={ButtonType.BUTTON}
+        <button
+            type="button"
             className={styles.imageButton}
             onClick={handleClick}
         >
@@ -34,7 +33,7 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
                     alt="transaction"
                 />
             ) : (
-                <FontAwesomeIcon icon={FaIcons.CAMERA} />
+                <img src={cameraIcon} alt="camera-icon" />
             )}
             <input
                 type="file"
@@ -42,9 +41,13 @@ const TransactionImage: React.FC<Properties> = ({ file, handleFileChange }) => {
                 ref={inputReference}
                 hidden
                 onChange={handleFileChange}
-                className={styles.inputFile}
             />
-        </Button>
+            <FileInput
+                ref={inputReference}
+                handleFileChange={handleFileChange}
+                accept={'image/*'}
+            />
+        </button>
     );
 };
 

@@ -316,7 +316,6 @@ const BudgetDetails = (): JSX.Element => {
                         </div>
                     </div>
                 </div>
-
                 {transactions.length > 0 ? (
                     <>
                         <div className={styles.cartBoxWrapper}>

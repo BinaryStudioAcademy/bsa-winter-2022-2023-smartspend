@@ -13,7 +13,8 @@
 
 .wrapperHalf {
     display: grid;
-    grid-template-columns: calc(50% - 8px);
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
     width: 100%;
 }
 
@@ -32,13 +33,6 @@
 
 .wrapperHalf > div {
     width: auto;
-}
-
-.sumRow {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--m-3);
-    width: 100%;
 }
 
 .label {

@@ -1,7 +1,7 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
@@ -52,6 +52,7 @@ const DEFAULT_INPUT: { note: string } = {
 };
 
 const FutureTransactionsPage: React.FC = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { id } = useParams();
     const [currentWallet, setCurrentWallet] = useState<
@@ -148,6 +149,10 @@ const FutureTransactionsPage: React.FC = () => {
         setCurrentRange(rangeLimits);
     }, [rangeLimits]);
 
+    const handleNavidation = useCallback(() => {
+        navigate(`/wallet/${id}/transaction`);
+    }, [id, navigate]);
+
     useEffect(() => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
     }, [id, wallets]);
@@ -228,8 +233,9 @@ const FutureTransactionsPage: React.FC = () => {
                             <div className={styles.buttons}>
                                 <Button
                                     className={styles.button}
-                                    variant={ButtonVariant.SECONDARY}
+                                    variant={ButtonVariant.PLAIN}
                                     size={ButtonSize.MEDIUM}
+                                    onClick={handleNavidation}
                                 >
                                     Future
                                 </Button>

@@ -252,12 +252,6 @@ const FutureTransactionsPage: React.FC = () => {
                         >
                             <div className={styles.filterText}>
                                 <h2>Filters</h2>
-                                <button
-                                    className={styles.reset}
-                                    onClick={hangleReset}
-                                >
-                                    Reset filters
-                                </button>
                             </div>
                             <div className={styles.applyFilters}>
                                 <div className={styles.filter}>
@@ -305,6 +299,12 @@ const FutureTransactionsPage: React.FC = () => {
                                         />
                                     </div>
                                 </div>
+                                <button
+                                    className={styles.reset}
+                                    onClick={hangleReset}
+                                >
+                                    Reset filters
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -341,6 +341,7 @@ const FutureTransactionsPage: React.FC = () => {
                                     <TransactionTable
                                         walletsId={id}
                                         transactions={transactionData}
+                                        isOnlyFutureTransactions={true}
                                     />
                                 </div>
                             ) : (

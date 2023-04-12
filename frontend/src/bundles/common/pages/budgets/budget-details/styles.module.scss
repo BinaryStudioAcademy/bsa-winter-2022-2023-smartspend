@@ -108,6 +108,7 @@
     font-size: var(--font-size-level-2-heading);
     line-height: var(--line-height-level-2-heading);
     text-align: center;
+    word-wrap: break-word;
 }
 
 .modalDetailsContainer {
@@ -116,6 +117,7 @@
     align-items: center;
     margin-bottom: var(--m-2);
     padding: 0 var(--p-6);
+    word-wrap: break-word;
 }
 
 .modalSubTitle {

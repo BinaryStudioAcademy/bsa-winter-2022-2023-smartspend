@@ -201,6 +201,7 @@ const BudgetDetails = (): JSX.Element => {
                     </div>
                 }
                 submitButtonName={'Delete Budget'}
+                submitButtonVariant={ButtonVariant.DELETE}
                 footerContainerClass={styles.modalFooter}
                 buttonsSize={ButtonSize.MEDIUM}
             />

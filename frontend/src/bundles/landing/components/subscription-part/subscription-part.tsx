@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { InputType } from '~/bundles/common/enums/input-type.enum.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
 import { Button, Input } from '~/bundles/landing/components/components.js';
 
 import styles from './styles.module.scss';
@@ -15,9 +15,19 @@ const DEFAULT_INPUT: { email: string } = {
 };
 
 const SubscriptionPart: React.FC<Properties> = ({ title }) => {
-    const { control, errors } = useAppForm<{ email: string }>({
+    const { control, errors, reset } = useAppForm<{ email: string }>({
         defaultValues: DEFAULT_INPUT,
     });
+
+    const handleButtonClick = useCallback(
+        (event_: React.BaseSyntheticEvent): void => {
+            event_.preventDefault();
+            if (reset) {
+                reset({ email: '' });
+            }
+        },
+        [reset],
+    );
 
     return (
         <section id="subscription" className={styles.body}>
@@ -34,7 +44,12 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
                             labelClassName={styles.inputLabel}
                             inputClassName={styles.input}
                         />
-                        <Button className={styles.button}>Subscribe</Button>
+                        <Button
+                            className={styles.button}
+                            onClick={handleButtonClick}
+                        >
+                            Subscribe
+                        </Button>
                     </div>
                 </form>
             </div>

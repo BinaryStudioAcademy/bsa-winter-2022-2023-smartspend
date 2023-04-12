@@ -352,6 +352,20 @@ const calculateWalletBalances = (
     return walletBalances;
 };
 
+const getTotalTransactionSum = (
+    transactions: TransactionGetAllItemResponseDto[],
+    walletId?: string,
+): number => {
+    return transactions
+        .filter(
+            (transaction) => !walletId || transaction.walletsId === walletId,
+        )
+        .reduce(
+            (accumulator, transaction) => +accumulator + +transaction.amount,
+            0,
+        );
+};
+
 export {
     calculateLineChartData,
     calculateWalletBalances,
@@ -361,6 +375,7 @@ export {
     filterChart,
     filterLineChart,
     getTotalPeriodAmount,
+    getTotalTransactionSum,
     groupTransactionsByDate,
     processTransactions,
 };

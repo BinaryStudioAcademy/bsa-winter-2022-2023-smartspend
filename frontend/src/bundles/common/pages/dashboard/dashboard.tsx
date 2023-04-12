@@ -57,6 +57,7 @@ import {
     filterChart,
     filterLineChart,
     getTotalPeriodAmount,
+    getTotalTransactionSum,
     groupTransactionsByDate,
     processTransactions,
 } from './helpers/helpers';
@@ -569,27 +570,10 @@ const Dashboard: React.FC = () => {
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={
-                                    currentWallet
-                                        ? (transactionsData
-                                                ?.filter(
-                                                    (transaction) =>
-                                                        transaction.walletsId ===
-                                                        currentWallet.id,
-                                                )
-                                                .reduce(
-                                                    (accumulator, transaction) =>
-                                                        +accumulator +
-                                                        +transaction.amount,
-                                                    0,
-                                                ) as number)
-                                            : transactionData.reduce(
-                                                (accumulator, transaction) =>
-                                                    +accumulator +
-                                                    +transaction.amount,
-                                                0,
-                                            )
-                                    }
+                                sum={getTotalTransactionSum(
+                                    transactionsData as TransactionGetAllItemResponseDto[],
+                                    currentWallet?.id,
+                                )}
                                 variant={CardVariant.BLUE}
                                 currency={matchingCurrency?.symbol as string}
                             />

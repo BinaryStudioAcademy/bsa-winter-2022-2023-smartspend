@@ -23,6 +23,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as usersActions } from '~/bundles/users/store';
+import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
 import styles from '../styles.module.scss';
@@ -49,7 +50,8 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const navigate = useNavigate();
     const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
-        defaultValues: user as UserUpdateRequestDto,
+        defaultValues: user as unknown as UserUpdateRequestDto,
+        validationSchema: userUpdateRegValidationSchema,
         mode: 'onBlur',
     });
     const [modalOpen, setModalOpen] = useState(false);
@@ -60,7 +62,10 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         if (!fieldsWatch.firstName || !fieldsWatch.lastName) {
             return false;
         }
-        return !compareObjects(fieldsWatch, user as UserUpdateRequestDto);
+        return !compareObjects(
+            fieldsWatch,
+            user as unknown as UserUpdateRequestDto,
+        );
     }, [fieldsWatch, user]);
 
     const token = storage.getSync(StorageKey.TOKEN);
@@ -71,16 +76,18 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
 
     const handleDeleteAccount = useCallback(() => {
         void dispatch(usersActions.deleteUser(token as string));
-        void storage.drop(StorageKey.TOKEN);
+        void storage.drop(StorageKey.HAVE_NAME);
         void storage.drop(StorageKey.PWA);
-    }, [dispatch, token]);
+        void storage.drop(StorageKey.TOKEN);
+        navigate(AppRoute.SIGN_UP);
+    }, [dispatch, navigate, token]);
 
     const onModalClose = useCallback(() => {
         setModalOpen(false);
     }, []);
 
     const onSubmit = useCallback(
-        (formData: UserUpdateRequestDto): void => {
+        async (formData: UserUpdateRequestDto): Promise<void> => {
             const { email, ...remainingData } = formData;
 
             const uploadData: uploadPayload = {
@@ -88,15 +95,14 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 userProfile: { ...remainingData },
             };
 
-            setTimeout(() => {
-                if (!user?.firstName) {
-                    navigate(AppRoute.DASHBOARD);
-                }
-            }, 500);
+            if (!storage.getSync(StorageKey.HAVE_NAME)) {
+                void storage.set(StorageKey.HAVE_NAME, 'true');
+                navigate(AppRoute.DASHBOARD);
+            }
 
-            void dispatch(usersActions.updateUser(uploadData));
+            await dispatch(usersActions.updateUser(uploadData)).unwrap();
         },
-        [dispatch, navigate, user?.firstName],
+        [dispatch, navigate],
     );
 
     const handleFormSubmit = useCallback(
@@ -144,6 +150,11 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                         control={control}
                         render={RenderDate}
                     />
+                    {errors.dateOfBirth && (
+                        <span className={styles.calendarError}>
+                            {errors.dateOfBirth.message}
+                        </span>
+                    )}
                 </div>
 
                 <Input

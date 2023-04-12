@@ -125,7 +125,11 @@ const BudgetDetails = (): JSX.Element => {
     }, [transactions]);
 
     if (!currentBudget) {
-        return <Loader />;
+        return (
+            <div className={styles.loaderContainer}>
+                <Loader />
+            </div>
+        );
     }
 
     const { amount, startDate, endDate, recurrence, name, currency } =

@@ -50,7 +50,6 @@ const HeaderUserButton: React.FC<Properties> = ({
 
     const logoutHandler = useCallback(() => {
         void storage.drop(StorageKey.TOKEN);
-        void storage.drop(StorageKey.HAVE_NAME);
     }, []);
 
     return (

@@ -11,6 +11,7 @@ import {
     Button,
     CardTotal,
     Input,
+    Loader,
     MultiDropdown,
     Placeholder,
     RangeSlider,
@@ -22,6 +23,7 @@ import {
     ButtonSize,
     ButtonVariant,
     CardVariant,
+    DataStatus,
     FaIcons,
     InputType,
     TransactionModalType,
@@ -63,7 +65,7 @@ const WalletDetails: React.FC = () => {
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
-    const { wallets } = useAppSelector((state) => state.wallets);
+    const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors, watch, reset } = useAppForm<{ note: string }>({
         //It needs to change
@@ -270,6 +272,14 @@ const WalletDetails: React.FC = () => {
     useEffect(() => {
         setTransactionData(data);
     }, [data]);
+
+    if (dataStatus === DataStatus.PENDING) {
+        return (
+            <div className={styles.loaderContainer}>
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <div className={styles.app}>

@@ -4,11 +4,8 @@
     display: flex;
     flex-grow: 2;
     flex-direction: column;
-    justify-content: space-between;
     width: 100%;
-    max-width: 600px;
     min-height: 300px;
-    max-height: fit-content;
     padding: var(--p-2) var(--p-4);
     background-color: var(--color-white-100);
     border-radius: var(--b-4);

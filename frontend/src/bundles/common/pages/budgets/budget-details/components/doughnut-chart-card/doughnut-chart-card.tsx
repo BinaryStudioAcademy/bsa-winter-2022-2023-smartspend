@@ -41,7 +41,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                 </span>
             </div>
             <div className={styles.chartPart}>
-                <DoughnutChart tooltipDisplay={false} categories={categories} />
+                <DoughnutChart categories={categories} />
             </div>
             {categories.map((category) => (
                 <div key={category.name} className={styles.bottomPart}>

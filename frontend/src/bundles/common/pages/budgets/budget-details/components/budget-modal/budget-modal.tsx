@@ -161,6 +161,7 @@ const BudgetModal: React.FC<Properties> = ({
                             name={'amount'}
                             placeholder={'0.00'}
                         />
+                        {/*maybe it will be used in the future}*/}
                         {/*<Controller*/}
                         {/*    name="currency"*/}
                         {/*    control={control}*/}

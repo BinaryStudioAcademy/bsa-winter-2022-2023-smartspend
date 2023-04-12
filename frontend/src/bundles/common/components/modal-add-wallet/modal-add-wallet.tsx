@@ -54,6 +54,8 @@ const NewWalletModal: React.FC<Properties> = ({
             balance: '' as unknown as number,
         },
     });
+
+    // maybe it will be used in the future
     //
     // const findCurrency = mutableCurrencies.find(
     //     (currency) => currency.value === fields.currencyId,
@@ -132,6 +134,7 @@ const NewWalletModal: React.FC<Properties> = ({
         [dispatch, fields.id, matchingCurrency?.id, onClose, values],
     );
 
+    // maybe it will be used in the future
     //     useEffect(() => {
     //         setCurrency(mutableCurrencies[0]);
     // }, [mutableCurrencies]);
@@ -166,6 +169,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         maxLength={50}
                     />
 
+                    {/*{maybe we will need this in the future}*/}
                     {/*<Dropdown*/}
                     {/*    data={mutableCurrencies}*/}
                     {/*    selectedOption={currency}*/}

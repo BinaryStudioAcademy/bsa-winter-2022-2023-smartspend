@@ -7,10 +7,7 @@ import { Title } from './title';
 import { SettingsForm } from './user-profile/settings-form';
 
 const UserProfile: React.FC = () => {
-    const { user, dataStatus } = useAppSelector(({ users }) => ({
-        user: users.user,
-        dataStatus: users.dataStatus,
-    }));
+    const { user, dataStatus } = useAppSelector((state) => state.users);
 
     return (
         <div className={styles.userProfile}>

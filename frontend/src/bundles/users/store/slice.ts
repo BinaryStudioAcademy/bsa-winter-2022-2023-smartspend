@@ -12,7 +12,6 @@ type State = {
     user: UserProfileResponseDto | undefined;
     dataStatus: ValueOf<typeof DataStatus>;
     isLoaded: boolean;
-    isHaveName: boolean;
 };
 
 const initialState: State = {
@@ -20,7 +19,6 @@ const initialState: State = {
     user: undefined,
     dataStatus: DataStatus.IDLE,
     isLoaded: false,
-    isHaveName: false,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -36,9 +34,6 @@ const { reducer, actions, name } = createSlice({
             state.user = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
             state.isLoaded = true;
-            if (state.user && (state.user.firstName || state.user.lastName)) {
-                state.isHaveName = true;
-            }
         });
         builder.addCase(deleteUser.fulfilled, (state) => {
             state.dataStatus = DataStatus.FULFILLED;

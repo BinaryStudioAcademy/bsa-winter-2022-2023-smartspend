@@ -13,12 +13,14 @@ type Properties = {
     title: string;
     categories: Data[];
     addIdCheckedCategories: (id: string, type: string) => void;
+    count?: Record<string, number>;
 };
 
 const CategoryList: React.FC<Properties> = ({
     title,
     categories,
     addIdCheckedCategories,
+    count,
 }) => {
     return (
         <div className={styles.wrapper}>
@@ -33,6 +35,7 @@ const CategoryList: React.FC<Properties> = ({
                         icon={item.icon}
                         color={item.color}
                         addIdCheckedCategories={addIdCheckedCategories}
+                        count={count ? count[item.id] : undefined}
                     />
                 ))}
         </div>

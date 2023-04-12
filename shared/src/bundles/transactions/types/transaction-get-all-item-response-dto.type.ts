@@ -7,6 +7,7 @@ type TransactionGetAllItemResponseDto = {
     amount: number;
     currencyId?: string;
     walletsId: string;
+    ownerId: string;
 };
 
 export { type TransactionGetAllItemResponseDto };

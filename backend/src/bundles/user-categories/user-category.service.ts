@@ -17,8 +17,11 @@ class UserCategoryService {
 
     public async findAllCategories(
         userId: string,
-    ): Promise<CategoryEntity[] | undefined> {
-        return await this.userCategoryRepository.getAll(userId);
+    ): Promise<CategoryGetAllResponseDto | undefined> {
+        const items = await this.userCategoryRepository.getAll(userId);
+        return {
+            items: items?.map((it) => it.toObject()) ?? [],
+        };
     }
 
     public async findById(

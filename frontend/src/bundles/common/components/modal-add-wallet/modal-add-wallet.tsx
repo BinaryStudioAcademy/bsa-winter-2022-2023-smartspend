@@ -54,7 +54,7 @@ const NewWalletModal: React.FC<Properties> = ({
         id: '',
         name: '',
         currencyId: '',
-        balance: '' as unknown as number,
+        balance: 0,
         ownerId: '',
     });
 
@@ -62,7 +62,7 @@ const NewWalletModal: React.FC<Properties> = ({
         defaultValues: {
             name: '',
             currencyId: '',
-            balance: '' as unknown as number,
+            balance: undefined,
         },
     });
 
@@ -193,7 +193,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         label="Starting balance (optional)"
                         name="balance"
                         placeholder="0.00"
-                        type={InputType.NUMBER}
+                        type={InputType.TEXT}
                         inputClassName={styles.input}
                         labelClassName={styles.label}
                         onChange={handleBalanceInputChange}

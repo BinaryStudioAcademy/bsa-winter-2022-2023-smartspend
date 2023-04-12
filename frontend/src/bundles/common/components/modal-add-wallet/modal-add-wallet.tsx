@@ -90,26 +90,25 @@ const NewWalletModal: React.FC<Properties> = ({
         [],
     );
 
-    const handlebalanceInputChange = useCallback(
+    const handleBalanceInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
             setFields(
                 (previousState) =>
                     ({
                         ...previousState,
-                        balance: Number(value),
+                        balance: +value.replace(/\D/g, ''),
                     } as WalletGetAllItemResponseDto),
             );
         },
         [],
     );
 
-    const isFieldsChange =
+    const isFieldsChange = !(
         values?.name === fields.name &&
         values.balance === fields.balance &&
         values.currencyId === currency.value
-            ? false
-            : true;
+    );
 
     const walletDataHandler = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
@@ -176,6 +175,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         labelClassName={styles.label}
                         onChange={handleNameInputChange}
                         value={fields.name}
+                        maxLength={50}
                     />
 
                     <Dropdown
@@ -196,8 +196,9 @@ const NewWalletModal: React.FC<Properties> = ({
                         type={InputType.NUMBER}
                         inputClassName={styles.input}
                         labelClassName={styles.label}
-                        onChange={handlebalanceInputChange}
+                        onChange={handleBalanceInputChange}
                         value={fields.balance}
+                        maxLength={10}
                     />
                     <button
                         className={classNames(

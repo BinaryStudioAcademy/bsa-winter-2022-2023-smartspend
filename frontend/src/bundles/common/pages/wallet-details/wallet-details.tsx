@@ -257,7 +257,7 @@ const WalletDetails: React.FC = () => {
         setTransactionData(data);
     }, [data]);
 
-    if (dataStatus === DataStatus.PENDING || !data) {
+    if (dataStatus === DataStatus.PENDING) {
         return (
             <div className={styles.loaderContainer}>
                 <Loader />

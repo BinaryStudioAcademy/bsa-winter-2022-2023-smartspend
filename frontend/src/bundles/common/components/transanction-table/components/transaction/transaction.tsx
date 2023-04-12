@@ -62,7 +62,7 @@ const Transaction: React.FC<Properties> = ({
                         />
                     </form>
                     <div>
-                        {transaction.category.color && (
+                        {transaction.category && (
                             <span
                                 style={{
                                     background: `${transaction.category.color}`,

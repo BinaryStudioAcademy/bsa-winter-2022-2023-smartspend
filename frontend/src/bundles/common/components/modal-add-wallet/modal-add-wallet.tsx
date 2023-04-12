@@ -1,18 +1,12 @@
 import classNames from 'classnames';
 
-import {
-    BaseModal,
-    Dropdown,
-    Input,
-} from '~/bundles/common/components/components';
+import { BaseModal, Input } from '~/bundles/common/components/components';
 import { InputType } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppForm,
     useAppSelector,
     useCallback,
-    useEffect,
-    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';

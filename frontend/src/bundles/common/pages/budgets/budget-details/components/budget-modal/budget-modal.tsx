@@ -1,5 +1,4 @@
 import { Controller } from 'react-hook-form';
-import { dateSchema } from 'shared/build/index.js';
 
 import { type BudgetCreateRequestDto } from '~/bundles/budgets/budgets';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
@@ -24,7 +23,6 @@ import {
 
 import { recurrences } from '../../enums/recurrences.enum';
 import {
-    RenderCurrency,
     RenderEndDate,
     RenderMultiDropdown,
     RenderRecurrence,

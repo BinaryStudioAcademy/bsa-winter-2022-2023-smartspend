@@ -55,7 +55,7 @@ const FormContainer: React.FC = () => {
     });
 
     const { control, errors } = useAppForm({
-        defaultValues: { name: '', balance: '', currencyId: '' },
+        defaultValues: { name: '', balance: 0, currencyId: '' },
     });
 
     const findCurrency = mutableCurrencies.find(
@@ -68,11 +68,11 @@ const FormContainer: React.FC = () => {
                 setCurrency(selectedOption);
                 setIsActive(true);
             }
-            if (fields.name.length === 0) {
+            if (fields.name.length === 0 || fields.balance === 0) {
                 setIsActive(false);
             }
         },
-        [fields.name.length],
+        [fields.name.length, fields.balance],
     );
 
     const handleNameInputChange = useCallback(
@@ -86,13 +86,13 @@ const FormContainer: React.FC = () => {
                     } as WalletGetAllItemResponseDto),
             );
 
-            if (value.length === 0) {
+            if (value.length === 0 || fields.balance === 0) {
                 setIsActive(false);
             } else {
                 setIsActive(true);
             }
         },
-        [setIsActive],
+        [setIsActive, fields.balance],
     );
 
     const handleBalanceInputChange = useCallback(
@@ -101,6 +101,7 @@ const FormContainer: React.FC = () => {
             if (Number.isNaN(Number(value))) {
                 return;
             }
+
             setFields(
                 (previousState) =>
                     ({
@@ -109,7 +110,7 @@ const FormContainer: React.FC = () => {
                     } as WalletGetAllItemResponseDto),
             );
             setIsActive(true);
-            if (fields.name.length === 0) {
+            if (fields.name.length === 0 || value === '') {
                 setIsActive(false);
             }
         },

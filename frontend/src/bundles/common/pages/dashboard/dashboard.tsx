@@ -45,8 +45,10 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
+import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
 import {
     calculateLineChartData,
+    calculateWalletBalances,
     createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
@@ -132,11 +134,15 @@ const tabsDashboard = [
 
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
-    const [active, setActive] = useState(false);
-
     const dispatch = useAppDispatch();
+    const [active, setActive] = useState(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
+
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
 
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
@@ -187,10 +193,7 @@ const Dashboard: React.FC = () => {
         void dispatch(categoriesActions.loadCategories());
     }, [dispatch]);
 
-    const [wallet, setWallet] = useState<DataType>({
-        value: '',
-        name: 'Find by name',
-    });
+    const [wallet, setWallet] = useState<DataType>();
 
     const handleDropdownByWallets = useCallback(
         (selectedOption: DataType | null) => {
@@ -201,10 +204,7 @@ const Dashboard: React.FC = () => {
         [],
     );
 
-    const [category, setCategory] = useState<DataType>({
-        value: '',
-        name: 'Find by category',
-    });
+    const [category, setCategory] = useState<DataType>();
 
     const handleDropdownByCategory = useCallback(
         (selectedOption: DataType | null) => {
@@ -239,32 +239,6 @@ const Dashboard: React.FC = () => {
         processTransactions(transactionsData);
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
-    useEffect(() => {
-        const filteredTransactions = transactions.filter((transaction) => {
-            const walletMatch = wallets.find(
-                (wallet) => wallet.name === transaction.note,
-            );
-            const categoryMatch = categories.find(
-                (category) => category.id === transaction.categoryId,
-            );
-            return (
-                (walletMatch && walletMatch.name === wallet.name) ||
-                (categoryMatch && categoryMatch.id === category.value) ||
-                (transaction.amount >= currentRange.min &&
-                    transaction.amount <= currentRange.max)
-            );
-        });
-        setTransactionsData(filteredTransactions);
-    }, [
-        wallet,
-        transactions,
-        wallets,
-        categories,
-        category,
-        currentRange.min,
-        currentRange.max,
-    ]);
-
     const handleResetFilters = useCallback(() => {
         setWallet({
             value: '',
@@ -282,30 +256,67 @@ const Dashboard: React.FC = () => {
         setTransactionsData([]);
     }, []);
 
+    useEffect(() => {
+        void dispatch(walletsActions.loadAll());
+        void dispatch(transactionsActions.loadTransactions());
+        void dispatch(categoriesActions.loadCategories());
+    }, [dispatch]);
+
+    useEffect(() => {
+        const filteredTransactions = transactions.filter((transaction) => {
+            const walletMatch = wallets.find(
+                (wallet) => wallet.name === transaction.note,
+            );
+            const categoryMatch = categories.find(
+                (category) => category.id === transaction.categoryId,
+            );
+            return (
+                (walletMatch && walletMatch.name === wallet?.name) ||
+                (categoryMatch && categoryMatch.id === category?.value) ||
+                (transaction.amount >= currentRange.min &&
+                    transaction.amount <= currentRange.max)
+            );
+        });
+        setTransactionsData(filteredTransactions);
+    }, [
+        wallet,
+        transactions,
+        wallets,
+        categories,
+        category,
+        currentRange.min,
+        currentRange.max,
+    ]);
+
+    const walletsWithBalances = calculateWalletBalances(wallets, transactions);
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {wallets.map(({ id, name, balance, currencyId }) => (
-                            <Link
-                                to={`/wallet/${id}/transaction`}
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletCard
-                                    title={name}
-                                    size={WalletCardSize.MEDIUM}
-                                    balance_value={balance}
-                                    wallet_type={'Balance'}
-                                    currency={
-                                        findCurrencyById(currencies, currencyId)
-                                            ?.symbol
-                                    }
-                                />
-                            </Link>
-                        ))}
+                        {walletsWithBalances.map(
+                            ({ id, name, balance, currencyId }) => (
+                                <Link
+                                    to={`/wallet/${id}/transaction`}
+                                    key={id}
+                                    className={styles.walletWrapper}
+                                >
+                                    <WalletCard
+                                        title={name}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={balance}
+                                        wallet_type={'Balance'}
+                                        currency={
+                                            findCurrencyById(
+                                                currencies,
+                                                currencyId,
+                                            )?.symbol
+                                        }
+                                    />
+                                </Link>
+                            ),
+                        )}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>
@@ -358,6 +369,7 @@ const Dashboard: React.FC = () => {
                                 selectedOption={wallet}
                                 label="By wallet"
                                 labelClassName={styles.dropdownLabel}
+                                placeholder={'Select...'}
                             />
                             <Dropdown
                                 data={categoryDropdown}
@@ -365,6 +377,7 @@ const Dashboard: React.FC = () => {
                                 selectedOption={category}
                                 label="By category"
                                 labelClassName={styles.dropdownLabel}
+                                placeholder={'Select...'}
                             />
                             <Input
                                 labelClassName={styles.filterLabel}
@@ -404,15 +417,13 @@ const Dashboard: React.FC = () => {
                                     0,
                                 )}
                                 variant={CardVariant.ORANGE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={transactions.reduce(
-                                    (accumulator, transaction) =>
-                                        +accumulator + +transaction.amount,
-                                    0,
-                                )}
+                                sum={getSpent(transactions)}
                                 variant={CardVariant.BLUE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Income"
@@ -421,6 +432,7 @@ const Dashboard: React.FC = () => {
                                     'income',
                                 )}
                                 variant={CardVariant.VIOLET}
+                                currency={matchingCurrency?.symbol as string}
                             />
 
                             <CardTotal
@@ -430,9 +442,10 @@ const Dashboard: React.FC = () => {
                                     'expense',
                                 )}
                                 variant={CardVariant.WHITE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                         </div>
-                        {wallets.length > 0 ? (
+                        {transactions.length > 0 ? (
                             <div className={styles.charts}>
                                 <ChartBox
                                     title={'Account Balance'}
@@ -494,7 +507,7 @@ const Dashboard: React.FC = () => {
                         ) : (
                             <Placeholder
                                 path={DashboardPlaceholder}
-                                body={'You have not created a wallet yet.'}
+                                body={'You have no transactions yet.'}
                             />
                         )}
                     </div>

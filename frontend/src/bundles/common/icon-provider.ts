@@ -5,6 +5,7 @@ import {
     faBasketShopping,
     faBriefcase,
     faBurger,
+    faCamera,
     faCar,
     faChartSimple,
     faChevronDown,
@@ -30,6 +31,7 @@ import {
     faStop,
     faTrash,
     faTrashCan,
+    faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
@@ -40,6 +42,7 @@ const iconProvider = {
     faBasketShopping,
     faBriefcase,
     faCar,
+    faCamera,
     faGear,
     faGift,
     faGraduationCap,
@@ -65,6 +68,7 @@ const iconProvider = {
     faChartSimple,
     faPiggyBank,
     faDollarSign,
+    faWallet,
 };
 
 export { iconProvider };

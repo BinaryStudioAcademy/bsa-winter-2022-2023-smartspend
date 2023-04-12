@@ -12,38 +12,59 @@ import {
     groupTransactionsByDate,
 } from './helpers';
 import styles from './styles.module.scss';
-import { type ITransaction } from './types';
+import { type TransactionType } from './types';
 
 interface TransactionTableProperties {
-    transactions: ITransaction[];
+    isOnlyFutureTransactions?: boolean;
+    walletsId?: string;
+    transactions: TransactionType[];
 }
 
 const TransactionTable: React.FC<TransactionTableProperties> = ({
+    isOnlyFutureTransactions = false,
+    walletsId,
     transactions,
 }) => {
-    const defaultValues = getDefaultValues(transactions);
+    const findTransactions = transactions.filter(
+        (transaction) => transaction.walletsId === walletsId,
+    );
+
+    const transactionsData = walletsId ? findTransactions : transactions;
+    const defaultValues = getDefaultValues(transactionsData);
     const { control, errors } = useAppForm({ defaultValues });
     const today = new Date();
-    const pastTransactions = getPastTransactions(transactions, today);
-    const futureTransactions = getFutureTransactions(transactions, today);
+    const pastTransactions = getPastTransactions(transactionsData, today);
+    const futureTransactions = getFutureTransactions(transactionsData, today);
     const groupedPastTransactions = groupTransactionsByDate(pastTransactions);
     const dailyTotals = getDailyTotals(groupedPastTransactions);
     const futureTotals = getFutureTotals(futureTransactions);
 
     return (
         <div className={styles.transactionTable}>
-            <FutureTransactions
-                futureTotals={futureTotals}
-                futureTransactions={futureTransactions}
-                control={control}
-                errors={errors}
-            />
-            <PastTransactions
-                groupedPastTransactions={groupedPastTransactions}
-                dailyTotals={dailyTotals}
-                control={control}
-                errors={errors}
-            />
+            {isOnlyFutureTransactions ? (
+                <FutureTransactions
+                    futureTotals={futureTotals}
+                    futureTransactions={futureTransactions}
+                    control={control}
+                    errors={errors}
+                    isFutureTransactionPage={isOnlyFutureTransactions}
+                />
+            ) : (
+                <>
+                    <FutureTransactions
+                        futureTotals={futureTotals}
+                        futureTransactions={futureTransactions}
+                        control={control}
+                        errors={errors}
+                    />
+                    <PastTransactions
+                        groupedPastTransactions={groupedPastTransactions}
+                        dailyTotals={dailyTotals}
+                        control={control}
+                        errors={errors}
+                    />
+                </>
+            )}
         </div>
     );
 };

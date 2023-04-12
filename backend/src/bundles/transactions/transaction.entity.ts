@@ -7,7 +7,7 @@ class TransactionEntity implements IEntity {
 
     private 'date': Date;
 
-    private 'note': string;
+    private 'note'?: string;
 
     private 'labelId'?: string;
 
@@ -16,6 +16,8 @@ class TransactionEntity implements IEntity {
     private 'currencyId'?: string;
 
     private 'ownerId': string;
+
+    private 'walletsId': string;
 
     private constructor({
         id,
@@ -26,15 +28,17 @@ class TransactionEntity implements IEntity {
         amount,
         currencyId,
         ownerId,
+        walletsId,
     }: {
         id: string | null;
         categoryId: string;
         date: Date;
-        note: string;
+        note?: string;
         labelId?: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
+        walletsId: string;
     }) {
         this.id = id;
         this.categoryId = categoryId;
@@ -44,6 +48,7 @@ class TransactionEntity implements IEntity {
         this.amount = amount;
         this.currencyId = currencyId;
         this.ownerId = ownerId;
+        this.walletsId = walletsId;
     }
 
     public static initialize({
@@ -55,15 +60,17 @@ class TransactionEntity implements IEntity {
         amount,
         currencyId,
         ownerId,
+        walletsId,
     }: {
         id: string | null;
         categoryId: string;
         date: Date;
-        note: string;
+        note?: string;
         labelId?: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
+        walletsId: string;
     }): TransactionEntity {
         return new TransactionEntity({
             id,
@@ -74,6 +81,7 @@ class TransactionEntity implements IEntity {
             amount,
             currencyId,
             ownerId,
+            walletsId,
         });
     }
 
@@ -85,14 +93,16 @@ class TransactionEntity implements IEntity {
         amount,
         currencyId,
         ownerId,
+        walletsId,
     }: {
         categoryId: string;
         date: Date;
-        note: string;
+        note?: string;
         labelId?: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
+        walletsId: string;
     }): TransactionEntity {
         return new TransactionEntity({
             id: null,
@@ -103,6 +113,7 @@ class TransactionEntity implements IEntity {
             amount,
             currencyId,
             ownerId,
+            walletsId,
         });
     }
 
@@ -110,11 +121,12 @@ class TransactionEntity implements IEntity {
         id: string;
         categoryId: string;
         date: Date;
-        note: string;
+        note?: string;
         labelId?: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
+        walletsId: string;
     } {
         return {
             id: this.id as string,
@@ -125,17 +137,19 @@ class TransactionEntity implements IEntity {
             amount: this.amount,
             currencyId: this.currencyId,
             ownerId: this.ownerId,
+            walletsId: this.walletsId,
         };
     }
 
     public toNewObject(): {
         categoryId: string;
         date: Date;
-        note: string;
+        note?: string;
         labelId?: string;
         amount: number;
         currencyId?: string;
         ownerId: string;
+        walletsId: string;
     } {
         return {
             categoryId: this.categoryId,
@@ -145,6 +159,7 @@ class TransactionEntity implements IEntity {
             amount: this.amount,
             currencyId: this.currencyId,
             ownerId: this.ownerId,
+            walletsId: this.walletsId,
         };
     }
 }

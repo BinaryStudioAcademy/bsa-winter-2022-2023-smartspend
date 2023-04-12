@@ -5,10 +5,11 @@
 }
 
 .calendar {
+    height: 48px;
     color: var(--color-blue-600);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-calendar);
-    border: 2px solid var(--color-blue-200);
+    border: 1px solid var(--color-blue-200);
 }
 
 .range_wrapper {
@@ -78,7 +79,7 @@
 }
 
 .calendar:hover {
-    border: 2px solid var(--color-blue-300);
+    border: 1px solid var(--color-blue-300);
 }
 
 @media (max-width: $md) {

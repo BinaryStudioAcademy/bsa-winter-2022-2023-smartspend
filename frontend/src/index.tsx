@@ -25,6 +25,7 @@ import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
 import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
+import { FutureTransactionsPage } from './bundles/common/pages/future-transactions.tsx/future-transactions-page';
 import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
@@ -38,7 +39,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         element: <App />,
                         children: [
                             {
-                                path: AppRoute.ROOT,
+                                index: true,
                                 element: (
                                     <PublicRoute>
                                         <Landing />
@@ -110,11 +111,15 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.NOT_FOUND,
-                                element: <NotFound />,
+                                path: AppRoute.WALLET_DETAILS_FUTURE_TRANSACTIONS,
+                                element: (
+                                    <PrivateRoute>
+                                        <FutureTransactionsPage />
+                                    </PrivateRoute>
+                                ),
                             },
                             {
-                                path: AppRoute.ROOT,
+                                path: AppRoute.USER,
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
@@ -122,18 +127,18 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                                 children: [
                                     {
-                                        path: AppRoute.USER,
+                                        path: AppRoute.USER_CATEGORIES,
                                         element: (
                                             <PrivateRoute>
-                                                <UserProfile />
+                                                <CategoriesSettings />
                                             </PrivateRoute>
                                         ),
                                     },
                                     {
-                                        path: AppRoute.CATEGORIES,
+                                        path: AppRoute.USER_PROFILE,
                                         element: (
                                             <PrivateRoute>
-                                                <CategoriesSettings />
+                                                <UserProfile />
                                             </PrivateRoute>
                                         ),
                                     },
@@ -142,12 +147,12 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                         ],
                     },
                     {
-                        path: AppRoute.UI,
-                        element: <StyleGuide />,
-                    },
-                    {
                         path: AppRoute.NOT_FOUND,
                         element: <NotFound />,
+                    },
+                    {
+                        path: AppRoute.UI,
+                        element: <StyleGuide />,
                     },
                 ]}
             />

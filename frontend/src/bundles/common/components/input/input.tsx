@@ -26,6 +26,8 @@ type Properties<T extends FieldValues> = {
     eyeHidden?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     value?: string | number;
+    maxLength?: number;
+    minLength?: number;
 };
 
 const Input = <T extends FieldValues>({
@@ -41,6 +43,8 @@ const Input = <T extends FieldValues>({
     eyeHidden = false,
     onChange,
     value,
+    maxLength,
+    minLength,
 }: Properties<T>): JSX.Element => {
     const [passwordShown, setPasswordShown] = useState(false);
     const { field } = useFormController({ name, control });
@@ -75,7 +79,7 @@ const Input = <T extends FieldValues>({
     );
 
     let checkTypePassword;
-    if (type !== InputType.CHECKBOX) {
+    if (type !== InputType.CHECKBOX && type !== InputType.NUMBER) {
         checkTypePassword =
             passwordShown || (!field.value && InputType.PASSWORD);
     }
@@ -95,6 +99,8 @@ const Input = <T extends FieldValues>({
                     }`}
                     onChange={onChange}
                     value={value}
+                    maxLength={maxLength}
+                    minLength={minLength}
                 />
             )}
             {!onChange && (

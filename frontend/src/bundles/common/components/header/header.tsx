@@ -4,20 +4,20 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import defaultAvatar from '~/assets/img/default-avatar.jpg';
 import logoSmartSpend from '~/assets/img/logo-smartspend.svg';
 import {
+    Button,
+    HeaderUserButton,
+    Menu,
+    Tabs,
+} from '~/bundles/common/components/components';
+import {
     AppRoute,
     ButtonSize,
     ButtonType,
 } from '~/bundles/common/enums/enums.js';
-import {
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from '~/bundles/common/hooks/hooks.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { type TabsData } from '~/bundles/common/types/types.js';
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
-import { type TabsData } from '../../types/types.js';
-import { Button, Menu, Tabs } from '../components.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -32,7 +32,7 @@ type Properties = {
 
 const budgetsRegex = /^\/budgets\/[\dA-Za-z-]+$/;
 const walletDetailsRegex =
-    /^\/wallet\/[\da-z-]+\/(transaction|budgets|wallet-settings)$/;
+    /^\/wallet\/[\da-z-]+\/(transaction\/future|transaction|budgets|wallet-settings)$/;
 
 const Header: React.FC<Properties> = ({
     firstName = '',
@@ -40,31 +40,6 @@ const Header: React.FC<Properties> = ({
     avatar = defaultAvatar,
     dataTabs,
 }) => {
-    const [openMenu, setOpenMenu] = useState(false);
-
-    const menuReference = useRef<HTMLDivElement>(null);
-
-    const toggleMenu = useCallback(() => {
-        setOpenMenu((previous) => !previous);
-    }, []);
-
-    useEffect(() => {
-        const handleClick = (event: MouseEvent): void => {
-            if (
-                menuReference.current &&
-                !menuReference.current.contains(event.target as Node)
-            ) {
-                setOpenMenu(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClick);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClick);
-        };
-    }, [menuReference]);
-
     const { id } = useParams();
     const navigate = useNavigate();
     const { pathname } = useLocation();
@@ -74,10 +49,6 @@ const Header: React.FC<Properties> = ({
         (): void => navigate(AppRoute.SIGN_IN),
         [navigate],
     );
-
-    const logoutHandler = useCallback(() => {
-        localStorage.removeItem(StorageKey.TOKEN);
-    }, []);
 
     if (pathname === AppRoute.SIGN_IN || pathname === AppRoute.SIGN_UP) {
         return null;
@@ -116,50 +87,11 @@ const Header: React.FC<Properties> = ({
                     </div>
                 )}
                 {token ? (
-                    <div
-                        className={styles.userLink}
-                        onClick={toggleMenu}
-                        onKeyDown={toggleMenu}
-                        role="presentation"
-                        ref={menuReference}
-                    >
-                        <div className={styles.headerLogo}>
-                            <div className={styles.userLogo}>
-                                {avatar && (
-                                    <img
-                                        className={styles.imgLogo}
-                                        src={avatar}
-                                        alt="user"
-                                    />
-                                )}
-                            </div>
-                            <span
-                                className={styles.logoText}
-                            >{`${firstName} ${lastName}`}</span>
-                        </div>
-                        <div
-                            className={classNames(styles.menu, {
-                                [styles.active]: openMenu,
-                                [styles.inactive]: !openMenu,
-                            })}
-                        >
-                            <div className={styles.list}>
-                                <Link
-                                    to={AppRoute.USER}
-                                    className={styles.link}
-                                >
-                                    Settings
-                                </Link>
-                                <Link
-                                    onClick={logoutHandler}
-                                    to={AppRoute.SIGN_IN}
-                                    className={styles.link}
-                                >
-                                    Logout
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
+                    <HeaderUserButton
+                        firstName={firstName}
+                        lastName={lastName}
+                        avatar={avatar}
+                    />
                 ) : (
                     <Button
                         type={ButtonType.BUTTON}

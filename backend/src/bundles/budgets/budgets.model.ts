@@ -14,6 +14,8 @@ class BudgetModel extends AbstractModel {
 
     public 'startDate': string;
 
+    public 'endDate': string;
+
     public 'ownerId': string;
 
     public static override get tableName(): string {

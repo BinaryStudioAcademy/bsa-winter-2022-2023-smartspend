@@ -31,6 +31,8 @@ enum FaIcons {
     DASHBOARD = 'chart-simple',
     BUDGET = 'piggy-bank',
     TRANSACTION = 'dollar-sign',
+    CAMERA = 'camera',
+    WALLET = 'wallet',
 }
 
 export { FaIcons };

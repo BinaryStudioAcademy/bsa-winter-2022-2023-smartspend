@@ -14,15 +14,19 @@ import { compareObjects } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
+    useEffect,
+    useMemo,
+    useState,
 } from '~/bundles/common/hooks/hooks';
 
 import { recurrences } from '../../enums/recurrences.enum';
 import {
-    RenderCurrency,
-    RenderDate,
+    RenderEndDate,
     RenderMultiDropdown,
     RenderRecurrence,
+    RenderStartDate,
 } from '../components';
 import styles from './styles.module.scss';
 
@@ -43,6 +47,9 @@ const BudgetModal: React.FC<Properties> = ({
 }): JSX.Element => {
     const dispatch = useAppDispatch();
     const categoriesId = budget?.categories.map((it) => it.id);
+    const [show, setShow] = useState(true);
+
+    const { user } = useAppSelector((state) => state.users);
 
     let budgetData;
     let id: unknown;
@@ -52,14 +59,17 @@ const BudgetModal: React.FC<Properties> = ({
     }
 
     const currentBudget: BudgetCreateRequestDto = budgetData;
-    const DEFAULT_VALUES = {
-        name: '',
-        amount: 0,
-        currency: '',
-        recurrence: recurrences[4].value,
-        startDate: new Date().toISOString(),
-        categories: [],
-    };
+    const DEFAULT_VALUES = useMemo(
+        () => ({
+            name: '',
+            amount: 0,
+            currency: user?.currency as string,
+            recurrence: recurrences[4].value,
+            startDate: new Date().toISOString(),
+            categories: [],
+        }),
+        [user?.currency],
+    );
 
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
@@ -69,11 +79,12 @@ const BudgetModal: React.FC<Properties> = ({
     const isReset = reset;
 
     const createFields =
-        Object.values(watch()).every(Boolean) && !!watch('categories')[0];
+        (Object.values(watch()).every(Boolean) && !!watch('categories')[0]) ||
+        watch('endDate');
     const editFields = isEdit && compareObjects(watch(), currentBudget);
-
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
+            formData.currency = user?.currency as string;
             if (isEdit) {
                 void dispatch(
                     budgetsActions.update({
@@ -86,8 +97,25 @@ const BudgetModal: React.FC<Properties> = ({
             }
             isReset && reset();
         },
-        [dispatch, id, isEdit, isReset, reset],
+        [dispatch, id, isEdit, isReset, reset, user?.currency],
     );
+
+    useEffect(() => {
+        if (
+            control._formValues.endDate &&
+            reset &&
+            control._formValues.recurrence !== recurrences[0].value
+        ) {
+            reset({ ...control._formValues, endDate: undefined });
+            setShow(false);
+        }
+    }, [
+        DEFAULT_VALUES,
+        control._formValues,
+        control._formValues.endDate,
+        control._formValues.recurrence,
+        reset,
+    ]);
 
     const handleFormSubmit = useCallback(
         (event: React.BaseSyntheticEvent): void => {
@@ -98,23 +126,29 @@ const BudgetModal: React.FC<Properties> = ({
         },
         [trigger, handleSubmit, handleBudgetSubmit, onClose],
     );
+    const startDateIso = new Date(control._formValues.startDate);
+    const endDateIso = new Date(control._formValues.endDate);
 
     return (
         <BaseModal
             isShown={isShown}
             onClose={onClose}
             onSubmit={handleFormSubmit as () => void}
-            Header={<h1>{isEdit ? 'Edit Budget' : 'Create budget'}</h1>}
+            Header={
+                <p className={styles.header}>
+                    {isEdit ? 'Edit Budget' : 'Create new Budget'}
+                </p>
+            }
             Body={
                 <div className={styles.formWrapper}>
                     <div className={styles.wrapperHalf}>
-                        <h2>General Info</h2>
+                        <p className={styles.title}>General Info</p>
                         <Input
                             labelClassName={styles.label}
                             control={control}
                             label={'Budget name'}
                             name={'name'}
-                            placeholder={'Budget name'}
+                            placeholder={'Enter budget name'}
                             errors={errors}
                         />
                     </div>
@@ -125,16 +159,17 @@ const BudgetModal: React.FC<Properties> = ({
                             errors={errors}
                             label={'Amount'}
                             name={'amount'}
-                            placeholder={'Amount'}
+                            placeholder={'0.00'}
                         />
-                        <Controller
-                            name="currency"
-                            control={control}
-                            render={RenderCurrency}
-                        />
+                        {/*maybe it will be used in the future}*/}
+                        {/*<Controller*/}
+                        {/*    name="currency"*/}
+                        {/*    control={control}*/}
+                        {/*    render={RenderCurrency}*/}
+                        {/*/>*/}
                     </div>
                     <div className={styles.wrapperHalf}>
-                        <h2>Filters</h2>
+                        <p className={styles.title}>Filters</p>
                         <Controller
                             name="categories"
                             control={control}
@@ -142,25 +177,47 @@ const BudgetModal: React.FC<Properties> = ({
                         />
                     </div>
                     <div>
-                        <h2>Budget Period</h2>
+                        <p className={styles.title}>Budget Period</p>
                         <span className={styles.label}>Recurrence</span>
                         <Controller
                             name="recurrence"
                             control={control}
                             render={RenderRecurrence}
                         />
-                        <span className={styles.label}>Start date</span>
-                        <Controller
-                            name="startDate"
-                            control={control}
-                            render={RenderDate}
-                        />
+                        <div className={styles.dates}>
+                            <div className={styles.startDate}>
+                                <span className={styles.label}>Start date</span>
+                                <Controller
+                                    name="startDate"
+                                    control={control}
+                                    render={RenderStartDate}
+                                />
+                            </div>
+                            {control._formValues.recurrence ===
+                                recurrences[0].value && (
+                                <div>
+                                    <span className={styles.label}>
+                                        End date
+                                    </span>
+                                    <RenderEndDate
+                                        name="endDate"
+                                        control={control}
+                                        error={errors}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             }
             submitButtonName={isEdit ? 'Save changes' : 'Create'}
             disabled={
-                isEdit ? editFields || !watch('categories')[0] : !createFields
+                ((isEdit
+                    ? editFields || !watch('categories')[0] || !watch('endDate')
+                    : !createFields) &&
+                    show) ||
+                (control._formValues.recurrence === recurrences[0].value &&
+                    endDateIso < startDateIso)
             }
             footerContainerClass={styles.modalFooter}
         >

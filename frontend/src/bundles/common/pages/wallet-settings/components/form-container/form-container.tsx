@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import dumpIcon from '~/assets/img/dump-icon.svg';
 import {
+    BaseModal,
     Button,
     Dropdown,
     Input,
 } from '~/bundles/common/components/components';
-import { ButtonVariant } from '~/bundles/common/enums/enums';
+import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
 import {
     useAppDispatch,
@@ -31,6 +32,7 @@ const FormContainer: React.FC = () => {
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
+    const [isModalShown, setIsModalShown] = useState(false);
     const mutableCurrencies = useMemo(
         () =>
             currencies.map((currency) => ({
@@ -53,19 +55,25 @@ const FormContainer: React.FC = () => {
     });
 
     const { control, errors } = useAppForm({
-        defaultValues: { name: '', balance: '', currencyId: '' },
+        defaultValues: { name: '', balance: 0, currencyId: '' },
     });
 
     const findCurrency = mutableCurrencies.find(
         (currency) => currency.value === fields.currencyId,
     );
 
-    const handleChange = useCallback((selectedOption: DataType | null) => {
-        if (selectedOption !== null) {
-            setCurrency(selectedOption);
-            setIsActive(true);
-        }
-    }, []);
+    const handleChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setCurrency(selectedOption);
+                setIsActive(true);
+            }
+            if (fields.name.length === 0 || fields.balance === 0) {
+                setIsActive(false);
+            }
+        },
+        [fields.name.length, fields.balance],
+    );
 
     const handleNameInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,17 +85,23 @@ const FormContainer: React.FC = () => {
                         name: value,
                     } as WalletGetAllItemResponseDto),
             );
-            setIsActive(true);
+
+            if (value.length === 0 || fields.balance === 0) {
+                setIsActive(false);
+            } else {
+                setIsActive(true);
+            }
         },
-        [],
+        [setIsActive, fields.balance],
     );
 
-    const handlebalanceInputChange = useCallback(
+    const handleBalanceInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
             if (Number.isNaN(Number(value))) {
                 return;
             }
+
             setFields(
                 (previousState) =>
                     ({
@@ -96,8 +110,11 @@ const FormContainer: React.FC = () => {
                     } as WalletGetAllItemResponseDto),
             );
             setIsActive(true);
+            if (fields.name.length === 0 || value === '') {
+                setIsActive(false);
+            }
         },
-        [],
+        [fields.name.length],
     );
 
     const onClickDeleteWalet = useCallback(
@@ -113,7 +130,7 @@ const FormContainer: React.FC = () => {
         [id, onClickDeleteWalet],
     );
 
-    const onClickUpdateWalet = useCallback(
+    const onClickUpdateWallet = useCallback(
         (id: string, data: WalletGetAllItemResponseDto): void => {
             void dispatch(
                 walletsActions.update({
@@ -130,9 +147,9 @@ const FormContainer: React.FC = () => {
         [dispatch, navigate, currency.value],
     );
 
-    const handleUpdateWalet = useCallback(
-        () => onClickUpdateWalet(id as string, fields),
-        [id, onClickUpdateWalet, fields],
+    const handleUpdateWallet = useCallback(
+        () => onClickUpdateWallet(id as string, fields),
+        [id, onClickUpdateWallet, fields],
     );
 
     useEffect(() => {
@@ -155,6 +172,30 @@ const FormContainer: React.FC = () => {
 
     return (
         <>
+            <BaseModal
+                isShown={isModalShown}
+                onClose={useCallback(() => setIsModalShown(false), [])}
+                onSubmit={handleDeleteWalet}
+                Header={
+                    <h1 className={styles.modalTitle}>
+                        Delete wallet &quot;{currentWallet?.name}&quot;
+                    </h1>
+                }
+                Body={
+                    <div className={styles.modalDetailsContainer}>
+                        <p className={styles.modalSubTitle}>
+                            Are you sure you want to delete the wallet &quot;
+                            {currentWallet?.name}&quot;. You will lose all your
+                            transactions, budgets and overview inside of this
+                            wallet.
+                        </p>
+                    </div>
+                }
+                submitButtonName={'Delete Wallet'}
+                submitButtonVariant={ButtonVariant.DELETE}
+                footerContainerClass={styles.modalFooter}
+                buttonsSize={ButtonSize.MEDIUM}
+            />
             <div className={styles.inputs_container}>
                 <div className={styles.input_name}>
                     <Input
@@ -177,7 +218,7 @@ const FormContainer: React.FC = () => {
                         control={control}
                         errors={errors}
                         placeholder="Initial balance"
-                        onChange={handlebalanceInputChange}
+                        onChange={handleBalanceInputChange}
                     />
                 </div>
                 <div className={styles.input_currency}>
@@ -194,14 +235,14 @@ const FormContainer: React.FC = () => {
             <div className={styles.buttons_container}>
                 <Button
                     variant={ButtonVariant.PRIMARY}
-                    onClick={handleUpdateWalet}
+                    onClick={handleUpdateWallet}
                     disabled={!isActive}
                 >
                     Update Setting
                 </Button>
                 <Button
                     variant={ButtonVariant.DELETE}
-                    onClick={handleDeleteWalet}
+                    onClick={useCallback(() => setIsModalShown(true), [])}
                 >
                     <img
                         src={dumpIcon}

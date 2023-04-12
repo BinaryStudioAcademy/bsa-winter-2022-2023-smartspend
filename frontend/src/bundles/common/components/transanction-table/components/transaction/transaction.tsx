@@ -1,5 +1,4 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 import {
@@ -8,15 +7,19 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import { Input } from '~/bundles/common/components/components';
+import {
+    Icon,
+    Input,
+    TransactionModal,
+} from '~/bundles/common/components/components';
 import { getDaysLeft } from '~/bundles/common/components/transanction-table/helpers/index';
-import { InputType } from '~/bundles/common/enums/enums';
+import { InputType, TransactionModalType } from '~/bundles/common/enums/enums';
 
-import { type ITransaction } from '../../types';
+import { type TransactionType } from '../../types';
 import styles from '../styles.module.scss';
 
 type Properties = {
-    transaction: ITransaction;
+    transaction: TransactionType;
     control: Control<FieldValues, null>;
     errors: FieldErrors;
     isFutureTransaction?: boolean;
@@ -42,6 +45,15 @@ const Transaction: React.FC<Properties> = ({
         [],
     );
 
+    const [activeModal, setActiveModal] = useState(false);
+    const openTransactionModal = useCallback((): void => {
+        setActiveModal(true);
+    }, []);
+
+    const closeTransactionModal = useCallback(() => {
+        setActiveModal(false);
+    }, []);
+
     return (
         <>
             <div
@@ -61,11 +73,17 @@ const Transaction: React.FC<Properties> = ({
                             inputClassName={styles.checkbox}
                         />
                     </form>
+                </div>
+                <div
+                    className={styles.transactionBody}
+                    onClick={openTransactionModal}
+                    role="presentation"
+                >
                     <div>
                         {transaction.category.color && (
                             <span
                                 style={{
-                                    background: `${transaction.category.color}`,
+                                    background: `var(${transaction.category.color})`,
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
@@ -76,34 +94,42 @@ const Transaction: React.FC<Properties> = ({
                                     color: '#fff',
                                 }}
                             >
-                                <FontAwesomeIcon
-                                    icon={transaction.category.icon as IconProp}
+                                <Icon
+                                    name={transaction.category.icon as IconProp}
                                 />
                             </span>
                         )}
                     </div>
-                    <div>{transaction.name}</div>
-                </div>
-                {isFutureTransaction && (
-                    <div className={styles.inDays}>
-                        <span>{transaction.date}</span>
-                        <span className={styles.totals}>
-                            in {getDaysLeft([transaction])} days
-                        </span>
+                    <div className={styles.transactionName}>
+                        {transaction.name}
                     </div>
-                )}
-
-                <div
-                    className={classNames(
-                        styles.columns,
-                        styles.rightColumn,
-                        transaction.amount < 0 ? styles.minus : styles.plus,
+                    {isFutureTransaction && (
+                        <div className={styles.inDays}>
+                            <span>{transaction.date}</span>
+                            <span className={styles.totals}>
+                                in {getDaysLeft([transaction])} days
+                            </span>
+                        </div>
                     )}
-                >
-                    {transaction.amount.toFixed(2)}
-                    {transaction.currency}
+
+                    <div
+                        className={classNames(
+                            styles.columns,
+                            styles.rightColumn,
+                            transaction.amount < 0 ? styles.minus : styles.plus,
+                        )}
+                    >
+                        {transaction.amount.toFixed(2)}
+                        {transaction.currency}
+                    </div>
                 </div>
             </div>
+            <TransactionModal
+                type={TransactionModalType.CHANGE}
+                handleCancel={closeTransactionModal}
+                active={activeModal}
+                transactionId={transaction.id}
+            />
         </>
     );
 };

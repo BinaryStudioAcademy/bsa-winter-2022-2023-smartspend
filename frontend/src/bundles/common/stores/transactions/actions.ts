@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { type TransactionGetAllResponseDto } from 'shared/build/index.js';
+import {
+    type TransactionCreateRequestDto,
+    type TransactionGetAllResponseDto,
+    type TransactionUpdatePayloadDto,
+} from 'shared/build/index.js';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
@@ -16,13 +20,51 @@ const loadTransactions = createAsyncThunk<
     return await transactionsApi.loadTransactions();
 });
 
+const createTransaction = createAsyncThunk<
+    Promise<void>,
+    TransactionCreateRequestDto,
+    AsyncThunkConfig
+>(
+    `${sliceName}/create-transactions`,
+    async (registerPayload, { extra, dispatch }) => {
+        const { transactionsApi } = extra;
+
+        await transactionsApi.createTransaction(registerPayload);
+        await dispatch(loadTransactions());
+    },
+);
+
+const updateTransaction = createAsyncThunk<
+    Promise<void>,
+    { id: string; payload: TransactionUpdatePayloadDto },
+    AsyncThunkConfig
+>(
+    `${sliceName}/update-transactions`,
+    async ({ id, payload }, { extra, dispatch }) => {
+        const { transactionsApi } = extra;
+
+        await transactionsApi.updateTransaction({ id, payload });
+        await dispatch(loadTransactions());
+    },
+);
+
 const deleteTransaction = createAsyncThunk<
     DeleteTransactionResponseDto,
     string,
     AsyncThunkConfig
->(`${sliceName}/delete-transactions`, async (id, { extra }) => {
+>(`${sliceName}/delete-transactions`, async (id, { extra, dispatch }) => {
     const { transactionsApi } = extra;
-    return await transactionsApi.deleteTransaction(id);
+
+    const result = await transactionsApi.deleteTransaction(id);
+
+    await dispatch(loadTransactions());
+
+    return result;
 });
 
-export { deleteTransaction, loadTransactions };
+export {
+    createTransaction,
+    deleteTransaction,
+    loadTransactions,
+    updateTransaction,
+};

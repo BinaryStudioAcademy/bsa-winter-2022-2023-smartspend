@@ -4,15 +4,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
-import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
+    BaseModal,
     Button,
+    CardTotal,
     Loader,
     Placeholder,
     TransactionTable,
 } from '~/bundles/common/components/components';
-import { type ITransaction } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
-import { ButtonVariant } from '~/bundles/common/enums/enums';
+import { type TransactionType } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
+import {
+    AppRoute,
+    ButtonSize,
+    ButtonVariant,
+    CardVariant,
+} from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
     toCustomLocaleString,
@@ -27,15 +33,16 @@ import {
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
+import { actions as walletsActions } from '~/bundles/wallets/store';
 
-import {
-    BudgetModal,
-    BudgetProgressBar,
-    InfoCard,
-} from './components/components.js';
+import { BudgetModal, BudgetProgressBar } from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
-import { calculateBudgetDetails, gradientDoughnut } from './helpers/helpers';
+import {
+    calculateBudgetDetails,
+    getSpent,
+    gradientDoughnut,
+} from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type DoughnutData = Record<
@@ -44,8 +51,10 @@ type DoughnutData = Record<
         total: number;
         count: number;
         color: string;
+        currency: string;
         name: string;
-        icon: string;
+        icon?: string;
+        type?: string;
     }
 >;
 
@@ -60,6 +69,7 @@ const BudgetDetails = (): JSX.Element => {
     const [spent, setSpent] = useState(0);
     const { budgets } = useAppSelector((state) => state.budgets);
     const { currencies } = useAppSelector((state) => state.currencies);
+    const [isModalShown, setIsModalShown] = useState(false);
 
     const categories = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
@@ -69,6 +79,8 @@ const BudgetDetails = (): JSX.Element => {
         (state) => state.transactions.transactions?.items ?? [],
     );
 
+    const wallets = useAppSelector((state) => state.wallets.wallets);
+
     const handleCancel = useCallback(() => {
         setActive(false);
     }, []);
@@ -77,18 +89,24 @@ const BudgetDetails = (): JSX.Element => {
         setActive(true);
     }, []);
 
+    const handleCancelDelete = useCallback(() => {
+        setIsModalShown(false);
+    }, []);
+
+    const handleModalDelete = useCallback(() => {
+        setIsModalShown(true);
+    }, []);
+
     const onClickDeleteBudget = useCallback(
         (id: string): void => {
             void dispatch(budgetsActions.remove(id));
-            navigate('/budgets');
+            navigate(AppRoute.BUDGETS);
         },
         [dispatch, navigate],
     );
 
     const handleDeleteBudget = useCallback(() => {
-        if (id) {
-            onClickDeleteBudget(id);
-        }
+        id && onClickDeleteBudget(id);
     }, [id, onClickDeleteBudget]);
 
     useEffect(() => {
@@ -99,23 +117,21 @@ const BudgetDetails = (): JSX.Element => {
         void dispatch(budgetsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
+        void dispatch(walletsActions.loadAll());
     }, [dispatch]);
 
     useEffect(() => {
-        const spentResult = transactions.reduce(
-            (accumulator, current) => accumulator + current.amount,
-            0,
-        );
-        setSpent(spentResult);
+        setSpent(getSpent(transactions));
     }, [transactions]);
 
     if (!currentBudget) {
         return <Loader />;
     }
 
-    const { amount, startDate, recurrence, name, currency } = currentBudget;
+    const { amount, startDate, endDate, recurrence, name, currency } =
+        currentBudget;
 
-    const { canSpend, moneyLeft, lastDate } = calculateBudgetDetails({
+    const { canSpend, moneyLeft } = calculateBudgetDetails({
         amount,
         startDate,
         recurrence,
@@ -132,46 +148,101 @@ const BudgetDetails = (): JSX.Element => {
         currency: currencies.find((current) => current.id === item.currencyId)
             ?.symbol,
         note: item.note,
-    })) as unknown as ITransaction[];
+        walletsId: wallets.find((cat) => cat.id === item.walletsId)?.id,
+    })) as unknown as TransactionType[];
 
     const canSpending =
         canSpend > 0
             ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
             : 0;
 
-    const doughnutData: DoughnutData = {};
+    const transactionSortByType = transactionData.filter(
+        (item) => item.category.type === 'expense',
+    );
 
-    if (transactions.length > 0) {
-        for (const item of transactionData) {
-            const category = item.category.name;
-            const amount = item.amount;
-            const icon = item.category.icon;
-            const name = item.category.name;
-            const color =
-                gradientDoughnut[
-                    Math.floor(Math.random() * gradientDoughnut.length)
-                ];
-            if (category in doughnutData) {
-                doughnutData[category].total += amount;
-                doughnutData[category].count += 1;
-            } else {
-                doughnutData[category] = {
-                    total: amount,
-                    count: 1,
-                    color,
-                    name,
-                    icon,
-                };
-            }
+    const doughnutDataWallet: DoughnutData = {};
+
+    for (const item of transactionSortByType) {
+        const walletsId = item.walletsId;
+        const amount = item.amount;
+        const currency = item.currency as string;
+        const color = gradientDoughnut.find(
+            (color) => color.name === item.category.color,
+        )?.value as string;
+        const name = wallets.find((cat) => cat.id === item.walletsId)
+            ?.name as string;
+
+        if (walletsId in doughnutDataWallet) {
+            doughnutDataWallet[walletsId].total += amount;
+            doughnutDataWallet[walletsId].count += 1;
+        } else {
+            doughnutDataWallet[walletsId] = {
+                total: amount,
+                count: 1,
+                color,
+                currency,
+                name,
+            };
         }
     }
-    const doughnutChartData = Object.values(doughnutData);
+
+    const doughnutData: DoughnutData = {};
+
+    for (const item of transactionSortByType) {
+        const category = item.category.name;
+        const amount = item.amount;
+        const icon = item.category.icon;
+        const name = item.category.name;
+        const type = item.category.type;
+        const currency = item.currency as string;
+        const color = gradientDoughnut.find(
+            (color) => color.name === item.category.color,
+        )?.value as string;
+        if (category in doughnutData) {
+            doughnutData[category].total += amount;
+            doughnutData[category].count += 1;
+        } else {
+            doughnutData[category] = {
+                total: amount,
+                count: 1,
+                color,
+                name,
+                icon,
+                type,
+                currency,
+            };
+        }
+    }
+
+    const doughnutChartExpense = Object.values(doughnutData);
+    const doughnutChartWallets = Object.values(doughnutDataWallet);
+
     return (
         <div className={styles.container}>
+            <BaseModal
+                isShown={isModalShown}
+                onClose={handleCancelDelete}
+                onSubmit={handleDeleteBudget}
+                Header={
+                    <h1 className={styles.modalTitle}>
+                        Delete budget &quot;{name}&quot;
+                    </h1>
+                }
+                Body={
+                    <div className={styles.modalDetailsContainer}>
+                        <p className={styles.modalSubTitle}>
+                            Are you sure you want to delete the budget &quot;
+                            {name}&quot;?
+                        </p>
+                    </div>
+                }
+                submitButtonName={'Delete Budget'}
+                submitButtonVariant={ButtonVariant.DELETE}
+                footerContainerClass={styles.modalFooter}
+                buttonsSize={ButtonSize.MEDIUM}
+            />
             <div className={classNames(styles.contentWrapper, 'container')}>
-                <div className={styles.calendarWrapper}>
-                    <Calendar isRangeCalendar={true} />
-                </div>
+                <div className={styles.calendarWrapper}></div>
                 <div className={styles.budgetInfoWrapper}>
                     <div className={styles.breadcrumbsWrapper}>{name}</div>
                     <div className={styles.editButtonWrapper}>
@@ -187,33 +258,32 @@ const BudgetDetails = (): JSX.Element => {
                                 isEdit
                                 isShown={active}
                                 onClose={handleCancel}
-                                onClick={handleDeleteBudget}
+                                onClick={handleModalDelete}
                                 budget={currentBudget}
                             />
                         </div>
                     </div>
                 </div>
                 <div className={styles.cardsWrapper}>
-                    <InfoCard
-                        type={InfoCardTypes.ORIGINALLY}
-                        total={amount}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.ORIGINALLY}
+                        sum={amount}
+                        variant={CardVariant.ORANGE}
                     />
-
-                    <InfoCard
-                        type={InfoCardTypes.SPENT}
-                        total={spent}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.SPENT}
+                        sum={spent}
+                        variant={CardVariant.BLUE}
                     />
-                    <InfoCard
-                        type={InfoCardTypes.LEFT}
-                        total={moneyLeft}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.LEFT}
+                        sum={moneyLeft}
+                        variant={CardVariant.VIOLET}
                     />
-                    <InfoCard
-                        type={InfoCardTypes.CAN}
-                        total={canSpend}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.CAN}
+                        sum={canSpend}
+                        variant={CardVariant.WHITE}
                     />
                 </div>
                 <div className={styles.progressWrapper}>
@@ -232,17 +302,17 @@ const BudgetDetails = (): JSX.Element => {
                                     ])[0].date
                                 }
                             </div>
-                            <div>{lastDate}</div>
+                            <div>
+                                {
+                                    dateToShortStringHelper([
+                                        { date: endDate as string },
+                                    ])[0].date
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                {transactions.length === 0 ? (
-                    <Placeholder
-                        path={DashboardPlaceholder}
-                        body={'You have no transactions.'}
-                    />
-                ) : (
+                {transactions.length > 0 ? (
                     <>
                         <div className={styles.cartBoxWrapper}>
                             <div className={styles.chartWrapper}>
@@ -250,7 +320,7 @@ const BudgetDetails = (): JSX.Element => {
                                     variant={DoughnutChartCartVariant.SECONDARY}
                                     title={'Accounted Categories'}
                                     date={startDate}
-                                    categories={doughnutChartData}
+                                    categories={doughnutChartExpense}
                                 />
                             </div>
                             <div className={styles.chartWrapper}>
@@ -260,7 +330,7 @@ const BudgetDetails = (): JSX.Element => {
                                     transaction_num={0}
                                     transaction_type={''}
                                     transaction_sum={''}
-                                    categories={doughnutChartData}
+                                    categories={doughnutChartWallets}
                                 />
                             </div>
                         </div>
@@ -268,6 +338,11 @@ const BudgetDetails = (): JSX.Element => {
                             <TransactionTable transactions={transactionData} />
                         </div>
                     </>
+                ) : (
+                    <Placeholder
+                        path={DashboardPlaceholder}
+                        body={'You have no transactions yet.'}
+                    />
                 )}
             </div>
         </div>

@@ -6,6 +6,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 
 import { Button } from '../../components/button/button';
 import { BaseModal, Icon } from '../../components/components';
@@ -16,9 +17,10 @@ import {
     FaIcons,
     IconSize,
 } from '../../enums/enums';
+import { transactionCountsByCategory } from '../../helpers/transaction-count-by-category/transaction-count-by-category.helper';
 import { CategoryList } from './components/category-list/category-list';
-import { FormEditCategory } from './components/form-create-category/form-edit-category';
-import { FormUi } from './components/form-create-category/form-ui';
+import { FormCategory } from './components/form-category/form-category';
+import { FormUiStub } from './components/form-category/form-ui-stub';
 import { ManageCategories } from './components/manage-categories/manage-categories';
 import styles from './styles.module.scss';
 
@@ -26,10 +28,10 @@ const CategoriesSettings: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const [isCreateModalShown, setIsCreateModalShown] = useState(false);
-    const [isSelectedCategoriesIncome, setIsSelectedCategoriesIncome] =
-        useState<string[]>([]);
-    const [isSelectedCategoriesExpense, setIsSelectedCategoriesExpense] =
-        useState<string[]>([]);
+    const [isSelectedCategories, setIsSelectedCategories] = useState<string[]>(
+        [],
+    );
+
     const handleClickModalCreate = useCallback((): void => {
         setIsCreateModalShown(true);
     }, []);
@@ -41,30 +43,21 @@ const CategoriesSettings: React.FC = () => {
     const categories = useAppSelector(
         (state) => state.categories.categoriesSortByType ?? {},
     );
-
-    const addIdCheckedCategories = useCallback(
-        (id: string, type: string): void => {
-            if (type === 'income') {
-                setIsSelectedCategoriesIncome((previousState) => {
-                    if (previousState.includes(id)) {
-                        return previousState.filter(
-                            (previousState_) => previousState_ !== id,
-                        );
-                    }
-                    return [...previousState, id];
-                });
-            }
-            setIsSelectedCategoriesExpense((previousState) => {
-                if (previousState.includes(id)) {
-                    return previousState.filter(
-                        (previousState_) => previousState_ !== id,
-                    );
-                }
-                return [...previousState, id];
-            });
-        },
-        [],
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items,
     );
+    const userId = useAppSelector((state) => state.users.user?.userId);
+
+    const addIdCheckedCategories = useCallback((id: string): void => {
+        setIsSelectedCategories((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
 
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLButtonElement>): void => {
@@ -79,13 +72,19 @@ const CategoriesSettings: React.FC = () => {
         setIsCreateModalShown(false);
     }, []);
 
+    const countTransaction = transactionCountsByCategory(transactions, userId);
+
+    useEffect(() => {
+        void dispatch(transactionsActions.loadTransactions());
+    }, [dispatch]);
+
     return (
         <div className={styles.section}>
             <div className={styles.wrapper}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>Create a new category</h1>
                     <div>
-                        <FormUi
+                        <FormUiStub
                             onClick={handleClickModalCreate}
                             handleKeyDown={handleKeyDown}
                         />
@@ -108,22 +107,19 @@ const CategoriesSettings: React.FC = () => {
                             </Button>
                         </div>
                         <ManageCategories
-                            isSelectedCategoriesIncome={
-                                isSelectedCategoriesIncome
-                            }
-                            isSelectedCategoriesExpense={
-                                isSelectedCategoriesExpense
-                            }
+                            isSelectedCategories={isSelectedCategories}
                         />
                         <CategoryList
                             title={'Income Categories'}
                             categories={categories.income}
                             addIdCheckedCategories={addIdCheckedCategories}
+                            count={countTransaction}
                         />
                         <CategoryList
                             title={'Expense category'}
                             categories={categories.expense}
                             addIdCheckedCategories={addIdCheckedCategories}
+                            count={countTransaction}
                         />
                     </div>
                 </div>
@@ -138,7 +134,7 @@ const CategoriesSettings: React.FC = () => {
                     </h2>
                 }
                 Body={
-                    <FormEditCategory
+                    <FormCategory
                         onClose={handleCloseModal}
                         isCreateModalShown={isCreateModalShown}
                     />

@@ -1,7 +1,7 @@
-import { type ITransaction } from '../types';
+import { type TransactionType } from '../types';
 
 const getDefaultValues = (
-    transactions: ITransaction[],
+    transactions: TransactionType[],
 ): Record<string, boolean> => {
     const defaultValues: Record<string, boolean> = {};
 

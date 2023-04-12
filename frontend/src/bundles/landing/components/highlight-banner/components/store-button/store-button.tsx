@@ -1,27 +1,44 @@
 import { Button } from '~/bundles/common/components/components.js';
 import { ButtonVariant } from '~/bundles/common/enums/enums.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useCallback,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-    title: string;
-    body: string;
     iconPath: string;
     storeAlt: string;
-    url: string;
 };
 
-const StoreButton: React.FC<Properties> = ({
-    title,
-    body,
-    iconPath,
-    storeAlt,
-    url,
-}) => {
-    const onClick = useCallback(() => {
-        window.open(url, '_blank');
-    }, [url]);
+const StoreButton: React.FC<Properties> = ({ iconPath, storeAlt }) => {
+    const [deferredPrompt, setDeferredPrompt] = useState<Event | null>(null);
+
+    useEffect(() => {
+        const handleEvent = (event_: Event): void => {
+            event_.preventDefault();
+            setDeferredPrompt(event_);
+        };
+
+        window.addEventListener('beforeinstallprompt', handleEvent);
+
+        return (): void => {
+            window.removeEventListener('beforeinstallprompt', handleEvent);
+        };
+    }, []);
+
+    const onClick = useCallback(
+        (event_: { preventDefault: () => void }) => {
+            event_.preventDefault();
+            if (!deferredPrompt) {
+                return;
+            }
+            void (deferredPrompt as BeforeInstallPromptEvent).prompt();
+        },
+        [deferredPrompt],
+    );
 
     return (
         <Button
@@ -30,11 +47,12 @@ const StoreButton: React.FC<Properties> = ({
             className={styles.button}
         >
             <div className={styles.container}>
-                <img src={iconPath} alt={storeAlt} />
-                <div className={styles.detailsContainer}>
-                    <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.body}>{body}</p>
-                </div>
+                <img
+                    width="180px"
+                    height="70px"
+                    src={iconPath}
+                    alt={storeAlt}
+                />
             </div>
         </Button>
     );

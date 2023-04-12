@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
     type CategoryGetAllItemResponseDto,
     type CategoryGetAllResponseDto,
@@ -7,7 +7,12 @@ import {
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
-import { loadCategories } from './actions.js';
+import {
+    createCategory,
+    loadCategories,
+    removeCategory,
+    updateCategory,
+} from './actions.js';
 
 type State = {
     categories: CategoryGetAllResponseDto | null;
@@ -31,10 +36,6 @@ const { reducer, actions, name } = createSlice({
     name: 'categories',
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(loadCategories.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-            state.isLoaded = false;
-        });
         builder.addCase(loadCategories.fulfilled, (state, action) => {
             state.categories = action.payload;
             const sortByType: Record<string, CategoryGetAllItemResponseDto[]> =
@@ -49,10 +50,38 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
             state.isLoaded = true;
         });
-        builder.addCase(loadCategories.rejected, (state) => {
-            state.dataStatus = DataStatus.REJECTED;
-            state.isLoaded = false;
-        });
+        builder.addMatcher(
+            isAnyOf(
+                createCategory.fulfilled,
+                removeCategory.fulfilled,
+                updateCategory.fulfilled,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.FULFILLED;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(
+                loadCategories.pending,
+                createCategory.pending,
+                removeCategory.pending,
+                updateCategory.pending,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.PENDING;
+            },
+        );
+        builder.addMatcher(
+            isAnyOf(
+                loadCategories.rejected,
+                createCategory.rejected,
+                removeCategory.rejected,
+                updateCategory.rejected,
+            ),
+            (state) => {
+                state.dataStatus = DataStatus.REJECTED;
+            },
+        );
     },
 });
 

@@ -5,6 +5,8 @@ import { Dropdown } from '~/bundles/common/components/components';
 import { useAppSelector } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 
+import styles from './styles.module.scss';
+
 const RenderCurrency = ({
     field: { onChange },
 }: {
@@ -51,7 +53,8 @@ const RenderCurrency = ({
             data={mutableCurrencies}
             handleChange={handleCurrencyChange}
             selectedOption={selectedSingleCurrency}
-            label="Account currency"
+            label="Сurrency"
+            labelClassName={styles.dropdownLabel}
         />
     );
 };

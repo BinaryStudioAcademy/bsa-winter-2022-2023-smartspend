@@ -1,5 +1,9 @@
-import { type TransactionGetAllResponseDto } from 'shared/build/index.js';
-import { TransactionsApiPath } from 'shared/build/index.js';
+import {
+    type TransactionCreateRequestDto,
+    type TransactionGetAllResponseDto,
+    type TransactionUpdatePayloadDto,
+    TransactionsApiPath,
+} from 'shared/build/index.js';
 
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
 import { HttpApi } from '~/framework/api/api.js';
@@ -44,6 +48,41 @@ class TransactionsApi extends HttpApi {
             },
         );
         return response.json<DeleteTransactionResponseDto>();
+    }
+
+    public async createTransaction(
+        payload: TransactionCreateRequestDto,
+    ): Promise<TransactionGetAllResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(TransactionsApiPath.ROOT, {}),
+            {
+                method: 'POST',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<TransactionGetAllResponseDto>();
+    }
+
+    public async updateTransaction({
+        id,
+        payload,
+    }: {
+        id: string;
+        payload: TransactionUpdatePayloadDto;
+    }): Promise<TransactionUpdatePayloadDto> {
+        const response = await this.load(
+            this.getFullEndpoint(`${TransactionsApiPath.ROOT}${id}`, {}),
+            {
+                method: 'PUT',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+        return response.json<TransactionUpdatePayloadDto>();
     }
 }
 

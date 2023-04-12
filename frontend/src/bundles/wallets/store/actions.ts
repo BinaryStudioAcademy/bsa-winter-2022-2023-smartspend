@@ -3,13 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type WalletCreateRequestDto,
-    type WalletGetAllResponseDto,
+    type WalletGetAllItemResponseDto,
 } from '~/bundles/wallets/wallets.js';
 
 import { name as sliceName } from './slice.js';
 
 const loadAll = createAsyncThunk<
-    WalletGetAllResponseDto,
+    WalletGetAllItemResponseDto[],
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/load-all`, async (_, { extra }) => {

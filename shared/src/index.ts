@@ -15,11 +15,13 @@ export {
     type UpdateBudgetRequestDto,
     BudgetsApiPath,
     BudgetValidationMessage,
+    dateSchema,
 } from './bundles/budgets/budgets.js';
 export {
     type CategoryGetAllItemResponseDto,
     type CategoryGetAllResponseDto,
     type CategoryIdRequestDto,
+    type CategoryIdsRequestDto,
     type CategoryRequestDto,
     type CategoryUpdatePayloadDto,
     CategoriesApiPath,
@@ -62,6 +64,7 @@ export {
     UsersApiPath,
     userSignInValidationSchema,
     userSignUpValidationSchema,
+    userUpdateRegValidationSchema,
 } from './bundles/users/users.js';
 export {
     type WalletCreateRequestDto,

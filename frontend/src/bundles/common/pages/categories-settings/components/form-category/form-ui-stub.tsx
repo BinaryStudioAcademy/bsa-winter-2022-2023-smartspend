@@ -12,7 +12,7 @@ type Properties = {
     handleKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
 };
 
-const FormUi: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
+const FormUiStub: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
     return (
         <button
             className={styles.wrapperSettings}
@@ -65,4 +65,4 @@ const FormUi: React.FC<Properties> = ({ onClick, handleKeyDown }) => {
     );
 };
 
-export { FormUi };
+export { FormUiStub };

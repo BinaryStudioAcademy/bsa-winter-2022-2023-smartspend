@@ -15,6 +15,7 @@ export {
     type UpdateBudgetRequestDto,
     BudgetsApiPath,
     BudgetValidationMessage,
+    dateSchema,
 } from './bundles/budgets/budgets.js';
 export {
     type CategoryGetAllItemResponseDto,

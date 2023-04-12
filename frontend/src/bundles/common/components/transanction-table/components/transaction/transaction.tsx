@@ -12,11 +12,11 @@ import { Input } from '~/bundles/common/components/components';
 import { getDaysLeft } from '~/bundles/common/components/transanction-table/helpers/index';
 import { InputType } from '~/bundles/common/enums/enums';
 
-import { type ITransaction } from '../../types';
+import { type TransactionType } from '../../types';
 import styles from '../styles.module.scss';
 
 type Properties = {
-    transaction: ITransaction;
+    transaction: TransactionType;
     control: Control<FieldValues, null>;
     errors: FieldErrors;
     isFutureTransaction?: boolean;

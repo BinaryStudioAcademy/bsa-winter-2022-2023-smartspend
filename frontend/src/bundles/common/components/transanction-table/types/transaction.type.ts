@@ -1,6 +1,6 @@
 import { type CategoryGetAllItemResponseDto } from 'shared/build';
 
-interface ITransaction {
+type TransactionType = {
     id: string;
     date: string;
     category: CategoryGetAllItemResponseDto;
@@ -9,6 +9,7 @@ interface ITransaction {
     amount: number;
     currency?: string;
     note?: string;
-}
+    walletsId: string;
+};
 
-export { type ITransaction };
+export { type TransactionType };

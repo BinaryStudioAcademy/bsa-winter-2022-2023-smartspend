@@ -33,7 +33,7 @@ const RenderCurrency = ({
     );
 
     const [selectedSingleCurrency, setSelectedSingleCurrency] =
-        useState<DataType>(userCurrency[0]);
+        useState<DataType>(userCurrency[0] ?? mutableCurrencies[0]);
 
     const handleDropdownChangeCurrency = useCallback(
         (selectedOption: DataType | null) => {
@@ -54,8 +54,8 @@ const RenderCurrency = ({
     );
 
     useEffect(() => {
-        setSelectedSingleCurrency(userCurrency[0]);
-    }, [userCurrency]);
+        setSelectedSingleCurrency(userCurrency[0] ?? mutableCurrencies[0]);
+    }, [mutableCurrencies, userCurrency]);
 
     return (
         <Dropdown

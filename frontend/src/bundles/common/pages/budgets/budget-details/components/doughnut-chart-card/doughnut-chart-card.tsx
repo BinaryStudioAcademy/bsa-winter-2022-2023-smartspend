@@ -2,6 +2,7 @@ import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import classNames from 'classnames';
 
 import { DoughnutChart, Icon } from '~/bundles/common/components/components';
+import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers';
 import { type DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
@@ -20,8 +21,9 @@ type Properties = {
         count: number;
         color: string;
         name: string;
-        icon: string;
-        type: string;
+        currency: string;
+        icon?: string;
+        type?: string;
     }[];
 };
 
@@ -30,10 +32,6 @@ const DoughnutChartCard: React.FC<Properties> = ({
     date,
     categories,
 }) => {
-    // const transactionSumClass = classNames(
-    //     styles.transactionSum,
-    //     transaction_sum?.includes('+') ? styles.blue : styles.red,
-    // );
     return (
         <div className={styles.container}>
             <div className={styles.topPart}>
@@ -53,7 +51,13 @@ const DoughnutChartCard: React.FC<Properties> = ({
                                 className={styles.icon}
                                 style={{ background: `${category.color}` }}
                             >
-                                <Icon name={category.icon as IconProp} />
+                                <Icon
+                                    name={
+                                        category.icon
+                                            ? (category.icon as IconProp)
+                                            : FaIcons.WALLET
+                                    }
+                                />
                             </span>
                         </div>
                         <p className={styles.transactionType}>
@@ -78,7 +82,8 @@ const DoughnutChartCard: React.FC<Properties> = ({
                             )}
                         >
                             {category.type === 'income' ? '+' : '-'}
-                            {category.total}$
+                            {category.total}
+                            {category.currency}
                         </p>
                     </div>
                 </div>

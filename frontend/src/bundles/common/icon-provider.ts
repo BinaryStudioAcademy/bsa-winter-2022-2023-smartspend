@@ -31,6 +31,7 @@ import {
     faStop,
     faTrash,
     faTrashCan,
+    faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 
 const iconProvider = {
@@ -67,6 +68,7 @@ const iconProvider = {
     faChartSimple,
     faPiggyBank,
     faDollarSign,
+    faWallet,
 };
 
 export { iconProvider };

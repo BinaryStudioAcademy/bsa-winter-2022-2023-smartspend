@@ -2,6 +2,7 @@ import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import classNames from 'classnames';
 
 import { DoughnutChart, Icon } from '~/bundles/common/components/components';
+import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers';
 import { type DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
@@ -20,7 +21,9 @@ type Properties = {
         count: number;
         color: string;
         name: string;
-        icon: string;
+        currency: string;
+        icon?: string;
+        type?: string;
     }[];
 };
 
@@ -38,7 +41,7 @@ const DoughnutChartCard: React.FC<Properties> = ({
                 </span>
             </div>
             <div className={styles.chartPart}>
-                <DoughnutChart tooltipDisplay={false} categories={categories} />
+                <DoughnutChart categories={categories} />
             </div>
             {categories.map((category) => (
                 <div key={category.name} className={styles.bottomPart}>
@@ -48,7 +51,13 @@ const DoughnutChartCard: React.FC<Properties> = ({
                                 className={styles.icon}
                                 style={{ background: `${category.color}` }}
                             >
-                                <Icon name={category.icon as IconProp} />
+                                <Icon
+                                    name={
+                                        category.icon
+                                            ? (category.icon as IconProp)
+                                            : FaIcons.WALLET
+                                    }
+                                />
                             </span>
                         </div>
                         <p className={styles.transactionType}>
@@ -64,8 +73,17 @@ const DoughnutChartCard: React.FC<Properties> = ({
                         <p className={styles.transactionNum}>
                             {category.count} transaction
                         </p>
-                        <p className={styles.transactionSum}>
+                        <p
+                            className={classNames(
+                                styles.transactionSum,
+                                category.type === 'income'
+                                    ? styles.blue
+                                    : styles.red,
+                            )}
+                        >
+                            {category.type === 'income' ? '+' : '-'}
                             {category.total}
+                            {category.currency}
                         </p>
                     </div>
                 </div>

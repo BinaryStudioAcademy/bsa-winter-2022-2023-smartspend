@@ -1,11 +1,9 @@
 import classNames from 'classnames';
-import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
 import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
-import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     BaseModal,
     Button,
@@ -33,6 +31,7 @@ import {
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
+import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import {
     BudgetModal,
@@ -54,8 +53,10 @@ type DoughnutData = Record<
         total: number;
         count: number;
         color: string;
+        currency: string;
         name: string;
-        icon: string;
+        icon?: string;
+        type?: string;
     }
 >;
 
@@ -79,6 +80,8 @@ const BudgetDetails = (): JSX.Element => {
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
     );
+
+    const wallets = useAppSelector((state) => state.wallets.wallets);
 
     const handleCancel = useCallback(() => {
         setActive(false);
@@ -116,6 +119,7 @@ const BudgetDetails = (): JSX.Element => {
         void dispatch(budgetsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
+        void dispatch(walletsActions.loadAll());
     }, [dispatch]);
 
     useEffect(() => {
@@ -150,6 +154,7 @@ const BudgetDetails = (): JSX.Element => {
         currency: currencies.find((current) => current.id === item.currencyId)
             ?.symbol,
         note: item.note,
+        walletsId: wallets.find((cat) => cat.id === item.walletsId)?.id,
     })) as unknown as TransactionType[];
 
     const canSpending =
@@ -157,18 +162,48 @@ const BudgetDetails = (): JSX.Element => {
             ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
             : 0;
 
+    const transactionSortByType = transactionData.filter(
+        (item) => item.category.type === 'expense',
+    );
+
+    const doughnutDataWallet: DoughnutData = {};
+
+    for (const item of transactionSortByType) {
+        const walletsId = item.walletsId;
+        const amount = item.amount;
+        const currency = item.currency as string;
+        const color = gradientDoughnut.find(
+            (color) => color.name === item.category.color,
+        )?.value as string;
+        const name = wallets.find((cat) => cat.id === item.walletsId)
+            ?.name as string;
+
+        if (walletsId in doughnutDataWallet) {
+            doughnutDataWallet[walletsId].total += amount;
+            doughnutDataWallet[walletsId].count += 1;
+        } else {
+            doughnutDataWallet[walletsId] = {
+                total: amount,
+                count: 1,
+                color,
+                currency,
+                name,
+            };
+        }
+    }
+
     const doughnutData: DoughnutData = {};
 
-    for (const item of transactionData) {
+    for (const item of transactionSortByType) {
         const category = item.category.name;
         const amount = item.amount;
         const icon = item.category.icon;
         const name = item.category.name;
-        const color =
-            gradientDoughnut[
-                Math.floor(Math.random() * gradientDoughnut.length)
-            ];
-
+        const type = item.category.type;
+        const currency = item.currency as string;
+        const color = gradientDoughnut.find(
+            (color) => color.name === item.category.color,
+        )?.value as string;
         if (category in doughnutData) {
             doughnutData[category].total += amount;
             doughnutData[category].count += 1;
@@ -179,11 +214,14 @@ const BudgetDetails = (): JSX.Element => {
                 color,
                 name,
                 icon,
+                type,
+                currency,
             };
         }
     }
 
-    const doughnutChartData = Object.values(doughnutData);
+    const doughnutChartExpense = Object.values(doughnutData);
+    const doughnutChartWallets = Object.values(doughnutDataWallet);
 
     return (
         <div className={styles.container}>
@@ -209,9 +247,7 @@ const BudgetDetails = (): JSX.Element => {
                 buttonsSize={ButtonSize.MEDIUM}
             />
             <div className={classNames(styles.contentWrapper, 'container')}>
-                <div className={styles.calendarWrapper}>
-                    <Calendar isRangeCalendar={true} />
-                </div>
+                <div className={styles.calendarWrapper}></div>
                 <div className={styles.budgetInfoWrapper}>
                     <div className={styles.breadcrumbsWrapper}>{name}</div>
                     <div className={styles.editButtonWrapper}>
@@ -291,7 +327,7 @@ const BudgetDetails = (): JSX.Element => {
                                     variant={DoughnutChartCartVariant.SECONDARY}
                                     title={'Accounted Categories'}
                                     date={startDate}
-                                    categories={doughnutChartData}
+                                    categories={doughnutChartExpense}
                                 />
                             </div>
                             <div className={styles.chartWrapper}>
@@ -301,7 +337,7 @@ const BudgetDetails = (): JSX.Element => {
                                     transaction_num={0}
                                     transaction_type={''}
                                     transaction_sum={''}
-                                    categories={doughnutChartData}
+                                    categories={doughnutChartWallets}
                                 />
                             </div>
                         </div>

@@ -9,6 +9,7 @@ import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import {
     BaseModal,
     Button,
+    CardTotal,
     Loader,
     Placeholder,
     TransactionTable,
@@ -18,6 +19,7 @@ import {
     AppRoute,
     ButtonSize,
     ButtonVariant,
+    CardVariant,
 } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
@@ -34,11 +36,7 @@ import { actions as categoriesActions } from '~/bundles/common/stores/categories
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
-import {
-    BudgetModal,
-    BudgetProgressBar,
-    InfoCard,
-} from './components/components.js';
+import { BudgetModal, BudgetProgressBar } from './components/components.js';
 import { DoughnutChartCard } from './components/doughnut-chart-card/doughnut-chart-card';
 import { InfoCardTypes } from './enums/enums';
 import {
@@ -230,26 +228,25 @@ const BudgetDetails = (): JSX.Element => {
                     </div>
                 </div>
                 <div className={styles.cardsWrapper}>
-                    <InfoCard
-                        type={InfoCardTypes.ORIGINALLY}
-                        total={amount}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.ORIGINALLY}
+                        sum={amount}
+                        variant={CardVariant.ORANGE}
                     />
-
-                    <InfoCard
-                        type={InfoCardTypes.SPENT}
-                        total={spent}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.SPENT}
+                        sum={spent}
+                        variant={CardVariant.BLUE}
                     />
-                    <InfoCard
-                        type={InfoCardTypes.LEFT}
-                        total={moneyLeft}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.LEFT}
+                        sum={moneyLeft}
+                        variant={CardVariant.VIOLET}
                     />
-                    <InfoCard
-                        type={InfoCardTypes.CAN}
-                        total={canSpend}
-                        currency={currency}
+                    <CardTotal
+                        title={InfoCardTypes.CAN}
+                        sum={canSpend}
+                        variant={CardVariant.WHITE}
                     />
                 </div>
                 <div className={styles.progressWrapper}>

@@ -59,7 +59,11 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const fieldsWatch = watch();
 
     const isFieldsChange = useCallback((): boolean => {
-        if (!fieldsWatch.firstName || !fieldsWatch.lastName) {
+        if (
+            !fieldsWatch.firstName ||
+            !fieldsWatch.lastName ||
+            !fieldsWatch.currency
+        ) {
             return false;
         }
         return !compareObjects(fieldsWatch, user as UserUpdateRequestDto);

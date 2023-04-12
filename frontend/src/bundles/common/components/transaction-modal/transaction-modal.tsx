@@ -84,6 +84,7 @@ const TransactionModal: React.FC<Properties> = ({
             );
         }
         void dispatch(transactionActions.loadTransactions());
+        setTransaction(DEFAULT_TRANSACTION);
         handleCancel();
     }, [dispatch, handleCancel, id, transaction, transactionId, type]);
 

@@ -13,10 +13,10 @@ import { DoughnutData } from '~/bundles/common/enums/enums.js';
 import {
     createGradients,
     getGradientColors,
-    sumArray,
+    // sumArray,
 } from '~/bundles/common/helpers/helpers.js';
-import { type ItextCenter } from '~/bundles/common/types/types.js';
 
+// import { type ItextCenter } from '~/bundles/common/types/types.js';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -64,32 +64,32 @@ const DoughnutChart: React.FC<Properties> = ({
     };
 
     //test in center - features
-    const textCenter: ItextCenter = {
-        id: 'textCenter',
-        afterDatasetsDraw(chart) {
-            const { ctx, data } = chart;
+    // const textCenter: ItextCenter = {
+    //     id: 'textCenter',
+    //     afterDatasetsDraw(chart) {
+    //         const { ctx, data } = chart;
 
-            let text: number;
-            if (data.datasets.length > 1) {
-                const sum = sumArray(data.datasets[0].data as number[]);
-                text = ((data.datasets[0].data[1] as number) * 100) / sum;
-            }
-            text = 100;
-            const x = chart.getDatasetMeta(0).data[0].x;
-            const y = chart.getDatasetMeta(0).data[0].y;
+    //         let text: number;
+    //         if (data.datasets.length > 1) {
+    //             const sum = sumArray(data.datasets[0].data as number[]);
+    //             text = ((data.datasets[0].data[1] as number) * 100) / sum;
+    //         }
+    //         text = 100;
+    //         const x = chart.getDatasetMeta(0).data[0].x;
+    //         const y = chart.getDatasetMeta(0).data[0].y;
 
-            ctx.save();
-            ctx.font = '700 12px sans-serif';
-            ctx.fillStyle = '#163676';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(`${Math.round(text)}%`, x, y);
-        },
-    };
+    //         ctx.save();
+    //         ctx.font = '700 12px sans-serif';
+    //         ctx.fillStyle = '#163676';
+    //         ctx.textAlign = 'center';
+    //         ctx.textBaseline = 'middle';
+    //         ctx.fillText(`${Math.round(text)}%`, x, y);
+    //     },
+    // };
 
     return (
         <div className={styles.doughnut}>
-            <Doughnut data={data} options={options} plugins={[textCenter]} />
+            <Doughnut data={data} options={options} />
         </div>
     );
 };

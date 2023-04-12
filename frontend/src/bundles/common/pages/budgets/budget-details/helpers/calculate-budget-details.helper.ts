@@ -11,7 +11,7 @@ const calculateBudgetDetails = ({
 }): { moneyLeft: number; canSpend: number; lastDate: string } => {
     const startPeriod = new Date(startDate);
     let endDate;
-    switch (recurrence) {
+    switch (recurrence.toLowerCase()) {
         case 'daily': {
             endDate = new Date(startPeriod.getTime() + 86_400_000);
             break;

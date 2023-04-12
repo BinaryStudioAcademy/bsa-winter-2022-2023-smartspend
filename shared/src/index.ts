@@ -63,6 +63,7 @@ export {
     UsersApiPath,
     userSignInValidationSchema,
     userSignUpValidationSchema,
+    userUpdateRegValidationSchema,
 } from './bundles/users/users.js';
 export {
     type WalletCreateRequestDto,

@@ -47,6 +47,7 @@ import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import {
     calculateLineChartData,
+    calculateWalletBalances,
     createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
@@ -281,30 +282,35 @@ const Dashboard: React.FC = () => {
         currentRange.max,
     ]);
 
+    const walletsWithBalances = calculateWalletBalances(wallets, transactions);
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {wallets.map(({ id, name, balance, currencyId }) => (
-                            <Link
-                                to={`/wallet/${id}/transaction`}
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletCard
-                                    title={name}
-                                    size={WalletCardSize.MEDIUM}
-                                    balance_value={balance}
-                                    wallet_type={'Balance'}
-                                    currency={
-                                        findCurrencyById(currencies, currencyId)
-                                            ?.symbol
-                                    }
-                                />
-                            </Link>
-                        ))}
+                        {walletsWithBalances.map(
+                            ({ id, name, balance, currencyId }) => (
+                                <Link
+                                    to={`/wallet/${id}/transaction`}
+                                    key={id}
+                                    className={styles.walletWrapper}
+                                >
+                                    <WalletCard
+                                        title={name}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={balance}
+                                        wallet_type={'Balance'}
+                                        currency={
+                                            findCurrencyById(
+                                                currencies,
+                                                currencyId,
+                                            )?.symbol
+                                        }
+                                    />
+                                </Link>
+                            ),
+                        )}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>

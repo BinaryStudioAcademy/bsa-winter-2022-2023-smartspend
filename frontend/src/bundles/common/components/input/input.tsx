@@ -79,7 +79,7 @@ const Input = <T extends FieldValues>({
     );
 
     let checkTypePassword;
-    if (type !== InputType.CHECKBOX) {
+    if (type !== InputType.CHECKBOX && type !== InputType.NUMBER) {
         checkTypePassword =
             passwordShown || (!field.value && InputType.PASSWORD);
     }

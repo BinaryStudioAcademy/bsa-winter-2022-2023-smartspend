@@ -14,6 +14,7 @@ export { dateToShortStringHelper } from './date-to-short-string/date-to-short-st
 export { findCurrencyById } from './find-currency-by-id/find-currency-by-id.js';
 export { getAppTitle } from './get-app-title/get-app-title.helper';
 export { getGradientColors } from './get-gradient-colors/get-gradient-colors.js';
+export { findMinMaxAmount } from './get-max-min-transaction-amount/get-max-min-transaction-amount.helper.js';
 export { getText } from './get-text-to-path/get-text-to-path.js';
 export { handleScroll } from './handle-scroll/handle-scroll.js';
 export {

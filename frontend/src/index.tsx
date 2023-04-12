@@ -25,7 +25,7 @@ import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
 import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
-import { FutureTransactionsPage } from './bundles/common/pages/future-transactions.tsx/future-transactions-page';
+import { FutureTransactionsPage } from './bundles/common/pages/future-transactions/future-transactions-page';
 import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(

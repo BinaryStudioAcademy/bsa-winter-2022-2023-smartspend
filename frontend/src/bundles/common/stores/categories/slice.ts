@@ -7,9 +7,11 @@ import {
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
+import { getSortedCategoriesByType } from '../../helpers/helpers.js';
 import {
     createCategory,
     loadCategories,
+    removeCategories,
     removeCategory,
     updateCategory,
 } from './actions.js';
@@ -38,15 +40,9 @@ const { reducer, actions, name } = createSlice({
     extraReducers(builder) {
         builder.addCase(loadCategories.fulfilled, (state, action) => {
             state.categories = action.payload;
-            const sortByType: Record<string, CategoryGetAllItemResponseDto[]> =
-                {};
-            for (const data of state.categories.items) {
-                if (!(data.type in sortByType)) {
-                    sortByType[data.type] = [];
-                }
-                sortByType[data.type].push(data);
-            }
-            state.categoriesSortByType = sortByType;
+            state.categoriesSortByType = getSortedCategoriesByType(
+                state.categories,
+            );
             state.dataStatus = DataStatus.FULFILLED;
             state.isLoaded = true;
         });
@@ -55,6 +51,7 @@ const { reducer, actions, name } = createSlice({
                 createCategory.fulfilled,
                 removeCategory.fulfilled,
                 updateCategory.fulfilled,
+                removeCategories.fulfilled,
             ),
             (state) => {
                 state.dataStatus = DataStatus.FULFILLED;
@@ -66,6 +63,7 @@ const { reducer, actions, name } = createSlice({
                 createCategory.pending,
                 removeCategory.pending,
                 updateCategory.pending,
+                removeCategories.pending,
             ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
@@ -77,6 +75,7 @@ const { reducer, actions, name } = createSlice({
                 createCategory.rejected,
                 removeCategory.rejected,
                 updateCategory.rejected,
+                removeCategories.rejected,
             ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;

@@ -9,36 +9,49 @@ import {
     ButtonVariant,
     FaIcons,
 } from '~/bundles/common/enums/enums';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
+import { actions as categoryActions } from '~/bundles/common/stores/categories';
 
 import styles from './styles.module.scss';
 
 type Properties = {
-    isSelectedCategories: string[];
+    selectedCategories: string[];
+    setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const ManageCategories: React.FC<Properties> = ({ isSelectedCategories }) => {
+const ManageCategories: React.FC<Properties> = ({
+    selectedCategories,
+    setSelectedCategories,
+}) => {
+    const dispatch = useAppDispatch();
+
     const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
 
     const handleOpenModalDelete = useCallback(() => {
         setIsDeleteModalShown(true);
     }, []);
 
-    const handleClickDelete = useCallback(() => {
-        // will be used
-    }, []);
+    const handleClickDeleteCategories = useCallback(() => {
+        void dispatch(categoryActions.removeCategories(selectedCategories));
+        setIsDeleteModalShown(false);
+        setSelectedCategories([]);
+    }, [dispatch, selectedCategories, setSelectedCategories]);
 
     const handleCloseModal = useCallback(() => {
         setIsDeleteModalShown(false);
     }, []);
 
     const buttonIsCheckedCategoriesDeleteActive =
-        isSelectedCategories.length > 0 ? false : true;
+        selectedCategories.length > 0 ? false : true;
 
     const buttonIsCheckedCategoriesDeleteName =
-        isSelectedCategories.length === 0
+        selectedCategories.length === 0
             ? 'Delete category'
-            : `Delete category ${isSelectedCategories.length}`;
+            : `Delete category ${selectedCategories.length}`;
 
     return (
         <>
@@ -65,9 +78,9 @@ const ManageCategories: React.FC<Properties> = ({ isSelectedCategories }) => {
             <BaseModal
                 isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handleClickDelete}
+                onSubmit={handleClickDeleteCategories}
                 Header={
-                    <h2>{`You're about to delete ${isSelectedCategories.length} categories`}</h2>
+                    <h2>{`You're about to delete ${selectedCategories.length} categories`}</h2>
                 }
                 Body={
                     <>
@@ -81,7 +94,7 @@ const ManageCategories: React.FC<Properties> = ({ isSelectedCategories }) => {
                             size={ButtonSize.MEDIUM}
                             disabled={buttonIsCheckedCategoriesDeleteActive}
                             className={styles.btn}
-                            onClick={handleOpenModalDelete}
+                            onClick={handleClickDeleteCategories}
                         >
                             <Icon name={FaIcons.TRASH} />
                             <span className={styles.btnName}>

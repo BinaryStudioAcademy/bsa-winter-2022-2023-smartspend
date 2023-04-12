@@ -62,12 +62,18 @@ const FormContainer: React.FC = () => {
         (currency) => currency.value === fields.currencyId,
     );
 
-    const handleChange = useCallback((selectedOption: DataType | null) => {
-        if (selectedOption !== null) {
-            setCurrency(selectedOption);
-            setIsActive(true);
-        }
-    }, []);
+    const handleChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setCurrency(selectedOption);
+                setIsActive(true);
+            }
+            if (fields.name.length === 0) {
+                setIsActive(false);
+            }
+        },
+        [fields.name.length],
+    );
 
     const handleNameInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,9 +85,14 @@ const FormContainer: React.FC = () => {
                         name: value,
                     } as WalletGetAllItemResponseDto),
             );
-            setIsActive(true);
+
+            if (value.length === 0) {
+                setIsActive(false);
+            } else {
+                setIsActive(true);
+            }
         },
-        [],
+        [setIsActive],
     );
 
     const handleBalanceInputChange = useCallback(

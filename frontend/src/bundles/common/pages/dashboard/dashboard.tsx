@@ -137,6 +137,11 @@ const Dashboard: React.FC = () => {
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
 
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
+
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
     );
@@ -405,6 +410,7 @@ const Dashboard: React.FC = () => {
                                     0,
                                 )}
                                 variant={CardVariant.ORANGE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Change"
@@ -414,6 +420,7 @@ const Dashboard: React.FC = () => {
                                     0,
                                 )}
                                 variant={CardVariant.BLUE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Income"
@@ -422,6 +429,7 @@ const Dashboard: React.FC = () => {
                                     'income',
                                 )}
                                 variant={CardVariant.VIOLET}
+                                currency={matchingCurrency?.symbol as string}
                             />
 
                             <CardTotal
@@ -431,6 +439,7 @@ const Dashboard: React.FC = () => {
                                     'expense',
                                 )}
                                 variant={CardVariant.WHITE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                         </div>
                         {transactions.length > 0 ? (

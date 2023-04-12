@@ -15,6 +15,7 @@ import { compareObjects } from '~/bundles/common/helpers/helpers';
 import {
     useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
     useEffect,
     useMemo,
@@ -50,6 +51,8 @@ const BudgetModal: React.FC<Properties> = ({
     const categoriesId = budget?.categories.map((it) => it.id);
     const [show, setShow] = useState(true);
 
+    const { user } = useAppSelector((state) => state.users);
+
     let budgetData;
     let id: unknown;
     if (budget) {
@@ -62,18 +65,17 @@ const BudgetModal: React.FC<Properties> = ({
         () => ({
             name: '',
             amount: 0,
-            currency: '',
+            currency: user?.currency as string,
             recurrence: recurrences[4].value,
             startDate: new Date().toISOString(),
             categories: [],
         }),
-        [],
+        [user?.currency],
     );
 
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
-            validationSchema: isEdit ? undefined : dateSchema,
         },
     );
     const isReset = reset;
@@ -84,6 +86,7 @@ const BudgetModal: React.FC<Properties> = ({
     const editFields = isEdit && compareObjects(watch(), currentBudget);
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
+            formData.currency = user?.currency as string;
             if (isEdit) {
                 void dispatch(
                     budgetsActions.update({
@@ -96,7 +99,7 @@ const BudgetModal: React.FC<Properties> = ({
             }
             isReset && reset();
         },
-        [dispatch, id, isEdit, isReset, reset],
+        [dispatch, id, isEdit, isReset, reset, user?.currency],
     );
 
     useEffect(() => {
@@ -160,11 +163,11 @@ const BudgetModal: React.FC<Properties> = ({
                             name={'amount'}
                             placeholder={'0.00'}
                         />
-                        <Controller
-                            name="currency"
-                            control={control}
-                            render={RenderCurrency}
-                        />
+                        {/*<Controller*/}
+                        {/*    name="currency"*/}
+                        {/*    control={control}*/}
+                        {/*    render={RenderCurrency}*/}
+                        {/*/>*/}
                     </div>
                     <div className={styles.wrapperHalf}>
                         <p className={styles.title}>Filters</p>

@@ -92,7 +92,7 @@ const HeaderUserButton: React.FC<Properties> = ({
                         to={AppRoute.SIGN_IN}
                         className={styles.link}
                     >
-                        Logout
+                        Log Out
                     </Link>
                 </div>
             </div>

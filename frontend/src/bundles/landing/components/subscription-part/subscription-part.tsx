@@ -1,4 +1,7 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import classNames from 'classnames';
+import { toast } from 'react-toastify';
 
 import { InputType } from '~/bundles/common/enums/input-type.enum.js';
 import { useAppForm, useCallback } from '~/bundles/common/hooks/hooks.js';
@@ -15,18 +18,24 @@ const DEFAULT_INPUT: { email: string } = {
 };
 
 const SubscriptionPart: React.FC<Properties> = ({ title }) => {
-    const { control, errors, reset } = useAppForm<{ email: string }>({
+    const { control, errors, reset, watch } = useAppForm<{ email: string }>({
         defaultValues: DEFAULT_INPUT,
     });
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
-            if (reset) {
-                reset({ email: '' });
+            const email = watch('email');
+            if (email) {
+                toast.success('You have successfully subscribed!');
+                if (reset) {
+                    reset({ email: '' });
+                }
+            } else {
+                toast.error('Please enter your email address.');
             }
         },
-        [reset],
+        [reset, watch],
     );
 
     return (

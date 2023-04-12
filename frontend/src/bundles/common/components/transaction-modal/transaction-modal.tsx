@@ -108,6 +108,7 @@ const TransactionModal: React.FC<Properties> = ({
         value: item.id,
     }));
 
+    // maybe we will need this in the future
     // const currency = useAppSelector((state) => state.currencies.currencies);
     // const currencyMenu = currency.map((item) => ({
     //     ...item,

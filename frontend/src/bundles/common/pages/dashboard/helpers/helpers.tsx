@@ -102,18 +102,66 @@ const createWalletCategoryDataArray = (
     });
 };
 
+interface GroupedTransaction {
+    date: string;
+    amount: number;
+}
+
 const calculateLineChartData = (
     transactions: TransactionGetAllItemResponseDto[],
+    wallet?: WalletGetAllItemResponseDto,
 ): DataObject[] => {
-    const calculatedData: DataObject[] = [];
+    let minDate: Date = new Date();
+    if (transactions.length > 0) {
+        minDate = new Date(transactions[0].date);
+        for (let index = 1; index < transactions.length; index++) {
+            const transaction = transactions[index];
+            const date = new Date(transaction.date);
+            if (date < minDate) {
+                minDate = date;
+            }
+        }
+    }
+
+    minDate.setDate(minDate.getDate() - 1);
+
+    const formattedDate = minDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+    });
+
+    // Group transactions by date and sum amounts
+    const groupedTransactions: GroupedTransaction[] = [];
     for (const transaction of transactions) {
         const date = new Date(transaction.date).toLocaleDateString('en-US', {
             month: 'short',
             day: '2-digit',
             year: 'numeric',
         });
-        calculatedData.push({ date, value: transaction.amount });
+        const index = groupedTransactions.findIndex((t) => t.date === date);
+        if (index === -1) {
+            groupedTransactions.push({ date, amount: transaction.amount });
+        } else {
+            groupedTransactions[index].amount += transaction.amount;
+        }
     }
+
+    const calculatedData: DataObject[] = [];
+    for (const transaction of groupedTransactions) {
+        calculatedData.push({
+            date: transaction.date,
+            value: transaction.amount,
+        });
+    }
+
+    if (wallet) {
+        calculatedData.push({
+            value: wallet.balance,
+            date: formattedDate,
+        });
+    }
+
     return calculatedData.sort((a, b) => +new Date(a.date) - +new Date(b.date));
 };
 
@@ -258,11 +306,21 @@ type TransactionType = 'income' | 'expense';
 const getTotalPeriodAmount = (
     transactions: TransactionGetAllItemResponseDto[],
     type: TransactionType,
+    walletId?: string,
 ): number => {
-    const filteredTransactions = transactions.filter((transaction) =>
-        type === 'income' ? transaction.amount < 0 : transaction.amount > 0,
+    let filteredTransactions = [];
+    if (walletId) {
+        filteredTransactions = transactions
+            .filter((transaction) => transaction.walletsId === walletId)
+            .filter((transaction) =>
+                type === 'expense'
+                    ? transaction.amount < 0
+                    : transaction.amount > 0,
+            );
+    }
+    filteredTransactions = transactions.filter((transaction) =>
+        type === 'expense' ? transaction.amount < 0 : transaction.amount > 0,
     );
-
     const total = filteredTransactions.reduce((accumulator, transaction) => {
         return accumulator + transaction.amount;
     }, 0);
@@ -270,8 +328,33 @@ const getTotalPeriodAmount = (
     return Math.abs(total);
 };
 
+const calculateWalletBalances = (
+    wallets: WalletGetAllItemResponseDto[],
+    transactions: TransactionGetAllItemResponseDto[],
+): WalletGetAllItemResponseDto[] => {
+    const walletBalances: WalletGetAllItemResponseDto[] = [];
+
+    for (const wallet of wallets) {
+        let balance = wallet.balance;
+
+        for (const transaction of transactions) {
+            if (transaction.walletsId === wallet.id) {
+                balance += transaction.amount;
+            }
+        }
+
+        walletBalances.push({
+            ...wallet,
+            balance,
+        });
+    }
+
+    return walletBalances;
+};
+
 export {
     calculateLineChartData,
+    calculateWalletBalances,
     createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,

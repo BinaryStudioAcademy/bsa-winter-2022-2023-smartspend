@@ -1,14 +1,17 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 import { type Range } from 'react-date-range';
 import { Link } from 'react-router-dom';
-import { type TransactionGetAllItemResponseDto } from 'shared/build';
+import {
+    type TransactionGetAllItemResponseDto,
+    type WalletGetAllItemResponseDto,
+} from 'shared/build';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import {
     Button,
-    ButtonTabs,
     Calendar,
     CardTotal,
     Chart,
@@ -37,7 +40,6 @@ import {
     useAppDocumentTitle,
     useAppForm,
     useAppSelector,
-    useButtonTabsState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
@@ -45,10 +47,10 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
-import { Transaction } from '../../components/transanction-table/components/transaction/transaction';
 import { type TransactionType } from '../../components/transanction-table/types';
 import {
     calculateLineChartData,
+    calculateWalletBalances,
     createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
@@ -76,7 +78,7 @@ type ChartBoxProperties = {
     title: string;
     date: string;
     controls?: JSX.Element | JSX.Element[] | string;
-    transactions?: TransactionType[];
+    transactions?: TransactionType[] | undefined;
 };
 
 const ChartBox = ({
@@ -84,8 +86,24 @@ const ChartBox = ({
     title,
     date,
     controls,
-    transactions,
+    transactions = [],
 }: ChartBoxProperties): JSX.Element => {
+    const transactionsByCategory: Record<
+        string,
+        { total: number; transactions: TransactionType[] }
+    > = {};
+    for (const transaction of transactions) {
+        const categoryName = transaction.category.name;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!transactionsByCategory[categoryName]) {
+            transactionsByCategory[categoryName] = {
+                total: 0,
+                transactions: [],
+            };
+        }
+        transactionsByCategory[categoryName].total += transaction.amount;
+        transactionsByCategory[categoryName].transactions.push(transaction);
+    }
     return (
         <div className={classNames(styles.chart)}>
             <div className={styles.totals}>
@@ -93,18 +111,71 @@ const ChartBox = ({
                     <h3 className={styles.chartTitle}>{title}</h3>
                     <span className={styles.chartDate}>{date}</span>
                 </div>
-                <div>{controls}</div>
+                {controls && <div>{controls}</div>}
             </div>
             <div className={styles.chartBox}>{children}</div>
             <div className={styles.transactions}>
-                {transactions?.map((transaction) => (
-                    <div key={transaction.id}>
-                        <Transaction
-                            transaction={transaction}
-                            isCheckbox={false}
-                        />
-                    </div>
-                ))}
+                {Object.values(transactionsByCategory).map((transaction) => {
+                    return (
+                        <div
+                            key={transaction.transactions[0].id}
+                            className={styles.transactionBody}
+                        >
+                            {transaction.transactions[0] && (
+                                <div
+                                    className={classNames(
+                                        styles.columns,
+                                        styles.leftColumn,
+                                    )}
+                                >
+                                    <div
+                                        style={{
+                                            background: `${transaction.transactions[0].category.color}`,
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            textAlign: 'center',
+                                            height: '25px',
+                                            minWidth: '25px',
+                                            borderRadius: '6px',
+                                            color: '#fff',
+                                        }}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={
+                                                transaction.transactions[0]
+                                                    .category.icon as IconProp
+                                            }
+                                        />
+                                    </div>
+                                    <div className={styles.transactionName}>
+                                        {
+                                            transaction.transactions[0].category
+                                                .name
+                                        }
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className={styles.inDays}>
+                                {transaction.transactions.length} transaction(s)
+                            </div>
+
+                            <div
+                                className={classNames(
+                                    styles.columns,
+                                    styles.rightColumn,
+                                    transaction.transactions[0].amount < 0
+                                        ? styles.minus
+                                        : styles.plus,
+                                )}
+                            >
+                                {transaction.total.toFixed(2)}
+                                {transaction.transactions[0].currency}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
@@ -138,11 +209,18 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     );
 };
 
-const tabsDashboard = [
-    { title: 'Days', isActive: true, disabled: false },
-    { title: 'Week', isActive: false, disabled: false },
-    { title: 'Months', isActive: false, disabled: true },
-];
+// const tabsDashboard = [
+//     { title: 'Days', isActive: true, disabled: false },
+//     { title: 'Week', isActive: false, disabled: false },
+//     { title: 'Months', isActive: false, disabled: true },
+// ];
+
+interface TransactionFilter {
+    walletName?: string;
+    categoryName?: string;
+    amountRange?: { min: number; max: number };
+    note?: string;
+}
 
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
@@ -157,28 +235,12 @@ const Dashboard: React.FC = () => {
         (state) => state.transactions.transactions?.items ?? [],
     );
 
-    const amounts = transactions.map((transaction) => transaction.amount);
-    let minAmount = Math.min(...amounts);
-    let maxAmount = Math.max(...amounts);
-
-    if (!Number.isFinite(minAmount)) {
-        minAmount = -1000;
-    }
-
-    if (!Number.isFinite(maxAmount)) {
-        maxAmount = 1000;
-    }
-
-    const rangeLimits = { min: minAmount, max: maxAmount };
-
-    const [currentRange, setCurrentRange] = useState(rangeLimits);
-
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
 
-    const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
-    const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
+    // const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
+    // const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
 
     const [day, setDay] = useState<Range>(getInitialRange());
 
@@ -208,14 +270,21 @@ const Dashboard: React.FC = () => {
     }, [dispatch]);
 
     const [wallet, setWallet] = useState<DataType>();
+    const [currentWallet, setCurrentWallet] =
+        useState<WalletGetAllItemResponseDto>();
 
     const handleDropdownByWallets = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setWallet(selectedOption);
+                setCurrentWallet(
+                    wallets?.find(
+                        (wallet) => wallet.name === selectedOption.value,
+                    ),
+                );
             }
         },
-        [],
+        [wallets],
     );
 
     const [category, setCategory] = useState<DataType>();
@@ -248,7 +317,9 @@ const Dashboard: React.FC = () => {
 
     const lineChartData = calculateLineChartData(
         transactionsData ?? transactions,
+        currentWallet,
     );
+
     const verticalChartData = groupTransactionsByDate(
         transactionsData ?? transactions,
     );
@@ -258,56 +329,80 @@ const Dashboard: React.FC = () => {
     );
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
+    const amounts = transactions.map((transaction) => transaction.amount);
+    const minAmount = Math.min(...amounts);
+    const maxAmount = Math.max(...amounts);
+    const rangeLimits = { min: minAmount, max: maxAmount };
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
     const handleResetFilters = useCallback(() => {
         setWallet({
             value: '',
-            name: 'Find by name',
+            name: 'Select...',
         });
-        setCurrentRange({ min: -1000, max: 3000 });
+        setCurrentRange({ min: minAmount, max: maxAmount });
         setCategory({
             value: '',
-            name: 'Find by category',
+            name: 'Select...',
         });
         setFilters({
             value: '',
             name: '',
         });
+        setCurrentWallet({} as WalletGetAllItemResponseDto);
         setTransactionsData([]);
-    }, []);
+    }, [maxAmount, minAmount]);
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
-    }, [dispatch]);
+        setCurrentRange({ min: minAmount, max: maxAmount });
+    }, [dispatch, maxAmount, minAmount]);
+
+    const filterTransactions = (
+        transactions: TransactionGetAllItemResponseDto[],
+        filter: TransactionFilter,
+    ): TransactionGetAllItemResponseDto[] => {
+        const { walletName, categoryName, amountRange, note } = filter;
+
+        return transactions.filter((transaction) => {
+            const walletMatch =
+                walletName === undefined ||
+                transaction.walletsId ===
+                    wallets.find((wallet) => wallet.name === walletName)?.id;
+
+            const categoryMatch =
+                categoryName === undefined ||
+                transaction.categoryId ===
+                    categories.find(
+                        (category) => category.name === categoryName,
+                    )?.id;
+
+            const amountMatch =
+                amountRange === undefined ||
+                (transaction.amount >= amountRange.min &&
+                    transaction.amount <= amountRange.max);
+
+            const noteMatch =
+                note === undefined ||
+                transaction.note?.toLowerCase().includes(note.toLowerCase());
+
+            return walletMatch && categoryMatch && amountMatch && noteMatch;
+        });
+    };
 
     useEffect(() => {
-        const filteredTransactions = transactions.filter((transaction) => {
-            const walletMatch = wallets.find(
-                (wallet) => wallet.id === transaction.walletsId,
-            );
-            const categoryMatch = categories.find(
-                (category) => category.id === transaction.categoryId,
-            );
-            return (
-                walletMatch &&
-                walletMatch.name === wallet?.name &&
-                categoryMatch &&
-                categoryMatch.id === category?.value &&
-                transaction.amount >= currentRange.min &&
-                transaction.amount <= currentRange.max
-            );
-        });
+        const filter: TransactionFilter = {
+            walletName: wallet?.name,
+            categoryName: category?.name,
+            amountRange: currentRange,
+            note: filters.name,
+        };
+
+        const filteredTransactions = filterTransactions(transactions, filter);
         setTransactionsData(filteredTransactions);
-    }, [
-        wallet,
-        transactions,
-        wallets,
-        categories,
-        category,
-        currentRange.min,
-        currentRange.max,
-    ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [transactions, wallet, category, currentRange, filters]);
 
     const transactionData = transactionsData?.map((item) => ({
         id: item.id,
@@ -324,30 +419,36 @@ const Dashboard: React.FC = () => {
         note: item.note,
     })) as unknown as TransactionType[];
 
+    const walletsWithBalances = calculateWalletBalances(wallets, transactions);
+
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {wallets.map(({ id, name, balance, currencyId }) => (
-                            <Link
-                                to={`/wallet/${id}/transaction`}
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletCard
-                                    title={name}
-                                    size={WalletCardSize.MEDIUM}
-                                    balance_value={balance}
-                                    wallet_type={'Balance'}
-                                    currency={
-                                        findCurrencyById(currencies, currencyId)
-                                            ?.symbol
-                                    }
-                                />
-                            </Link>
-                        ))}
+                        {walletsWithBalances.map(
+                            ({ id, name, balance, currencyId }) => (
+                                <Link
+                                    to={`/wallet/${id}/transaction`}
+                                    key={id}
+                                    className={styles.walletWrapper}
+                                >
+                                    <WalletCard
+                                        title={name}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={balance}
+                                        wallet_type={'Balance'}
+                                        currency={
+                                            findCurrencyById(
+                                                currencies,
+                                                currencyId,
+                                            )?.symbol
+                                        }
+                                    />
+                                </Link>
+                            ),
+                        )}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>
@@ -442,27 +543,55 @@ const Dashboard: React.FC = () => {
                         <div className={styles.cards}>
                             <CardTotal
                                 title="Total Balance"
-                                sum={wallets.reduce(
-                                    (accumulator, wallet) =>
-                                        +accumulator + +wallet.balance,
-                                    0,
-                                )}
+                                sum={
+                                    walletsWithBalances.find(
+                                        (wallet) =>
+                                            wallet.id === currentWallet?.id,
+                                    )?.balance ??
+                                    walletsWithBalances.reduce(
+                                        (accumulator, wallet) => {
+                                            return (
+                                                +accumulator + +wallet.balance
+                                            );
+                                        },
+                                        0,
+                                    )
+                                }
                                 variant={CardVariant.ORANGE}
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={transactions.reduce(
-                                    (accumulator, transaction) =>
-                                        +accumulator + +transaction.amount,
-                                    0,
-                                )}
+                                sum={
+                                    currentWallet
+                                        ? (transactionsData
+                                              ?.filter(
+                                                  (transaction) =>
+                                                      transaction.walletsId ===
+                                                      currentWallet.id,
+                                              )
+                                              .reduce(
+                                                  (accumulator, transaction) =>
+                                                      +accumulator +
+                                                      +transaction.amount,
+                                                  0,
+                                              ) as number)
+                                        : transactionData.reduce(
+                                              (accumulator, transaction) =>
+                                                  +accumulator +
+                                                  +transaction.amount,
+                                              0,
+                                          )
+                                }
                                 variant={CardVariant.BLUE}
                             />
                             <CardTotal
                                 title="Total Period Income"
                                 sum={getTotalPeriodAmount(
-                                    transactions,
+                                    transactionsData as TransactionGetAllItemResponseDto[],
                                     'income',
+                                    currentWallet
+                                        ? currentWallet.id
+                                        : undefined,
                                 )}
                                 variant={CardVariant.VIOLET}
                             />
@@ -470,8 +599,9 @@ const Dashboard: React.FC = () => {
                             <CardTotal
                                 title="Total Period Expenses"
                                 sum={getTotalPeriodAmount(
-                                    transactions,
+                                    transactionsData as TransactionGetAllItemResponseDto[],
                                     'expense',
+                                    currentWallet?.id,
                                 )}
                                 variant={CardVariant.WHITE}
                             />
@@ -481,12 +611,12 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Account Balance'}
                                     date={formatRangeGraph(day)}
-                                    controls={
-                                        <ButtonTabs
-                                            tabsData={firstTabs}
-                                            onClick={setFirstTabs}
-                                        />
-                                    }
+                                    // controls={
+                                    //     <ButtonTabs
+                                    //         tabsData={firstTabs}
+                                    //         onClick={setFirstTabs}
+                                    //     />
+                                    // }
                                 >
                                     <LineChart
                                         dataArr={filterLineChart(
@@ -498,12 +628,12 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Changes'}
                                     date={formatRangeGraph(day)}
-                                    controls={
-                                        <ButtonTabs
-                                            tabsData={secondTabs}
-                                            onClick={setSecondTabs}
-                                        />
-                                    }
+                                    // controls={
+                                    //     <ButtonTabs
+                                    //         tabsData={secondTabs}
+                                    //         onClick={setSecondTabs}
+                                    //     />
+                                    // }
                                 >
                                     <Chart
                                         array={filterChart(

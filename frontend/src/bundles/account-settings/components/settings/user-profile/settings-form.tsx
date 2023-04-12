@@ -74,7 +74,8 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         void storage.drop(StorageKey.HAVE_NAME);
         void storage.drop(StorageKey.PWA);
         void storage.drop(StorageKey.TOKEN);
-    }, [dispatch, token]);
+        navigate(AppRoute.SIGN_UP);
+    }, [dispatch, navigate, token]);
 
     const onModalClose = useCallback(() => {
         setModalOpen(false);

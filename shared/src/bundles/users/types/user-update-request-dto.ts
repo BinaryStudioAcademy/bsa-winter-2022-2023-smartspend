@@ -5,7 +5,7 @@ type UserUpdateRequestDto = {
     firstName: string;
     lastName: string;
     sex: Gender;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     language: string;
     currency: string;
 };

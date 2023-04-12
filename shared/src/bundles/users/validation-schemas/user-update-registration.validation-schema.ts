@@ -8,6 +8,8 @@ const nameRegExp = /^[\dA-Za-z]+(?:-[\dA-Za-z]+)*$/;
 const INVALID_EMAIL_ERROR = 'any.invalid';
 
 const currentDate = new Date();
+const yesterday = new Date();
+yesterday.setDate(currentDate.getDate() - 1);
 const minDate = new Date(
     currentDate.getFullYear() - 16,
     currentDate.getMonth(),
@@ -100,16 +102,20 @@ const userUpdateReg = joi.object<UserUpdate, true>({
             'any.required': UserValidationMessage.LASTNAME_REQUIRE,
         }),
     dateOfBirth: joi
-        .date()
+        .string()
         .required()
         .custom((value, helpers) => {
-            if (value >= minDate) {
+            if (value > minDate && value < yesterday) {
+                return helpers.error('string.min');
+            }
+            if (value >= yesterday) {
                 return helpers.error('any.required');
             }
         })
         .messages({
             'string.base': UserValidationMessage.DATE_FORMAT_WRONG,
             'string.format': UserValidationMessage.DATE_FORMAT_WRONG,
+            'string.min': UserValidationMessage.DATE_MINIMUM,
             'any.required': UserValidationMessage.DATE_REQUIRE,
         }),
 });

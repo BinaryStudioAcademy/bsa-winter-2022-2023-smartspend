@@ -177,6 +177,7 @@ const FormContainer: React.FC = () => {
                     </div>
                 }
                 submitButtonName={'Delete Wallet'}
+                submitButtonVariant={ButtonVariant.DELETE}
                 footerContainerClass={styles.modalFooter}
                 buttonsSize={ButtonSize.MEDIUM}
             />

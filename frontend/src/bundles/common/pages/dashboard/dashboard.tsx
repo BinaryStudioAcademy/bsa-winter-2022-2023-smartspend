@@ -228,11 +228,18 @@ const Dashboard: React.FC = () => {
     const [active, setActive] = useState(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
-    const categories = useAppSelector(
-        (state) => state.categories.categories?.items ?? [],
+
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
     );
+
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
+    );
+
+    const categories = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
     );
 
     const { control, errors } = useAppForm<FormValues>({
@@ -558,6 +565,7 @@ const Dashboard: React.FC = () => {
                                     )
                                 }
                                 variant={CardVariant.ORANGE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Change"
@@ -583,6 +591,7 @@ const Dashboard: React.FC = () => {
                                           )
                                 }
                                 variant={CardVariant.BLUE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Income"
@@ -594,6 +603,7 @@ const Dashboard: React.FC = () => {
                                         : undefined,
                                 )}
                                 variant={CardVariant.VIOLET}
+                                currency={matchingCurrency?.symbol as string}
                             />
 
                             <CardTotal
@@ -604,6 +614,7 @@ const Dashboard: React.FC = () => {
                                     currentWallet?.id,
                                 )}
                                 variant={CardVariant.WHITE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                         </div>
                         {transactions.length > 0 ? (

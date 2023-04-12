@@ -24,4 +24,5 @@ export {
 export {
     userSignInValidationSchema,
     userSignUpValidationSchema,
+    userUpdateRegValidationSchema,
 } from './validation-schemas/validation-schemas.js';

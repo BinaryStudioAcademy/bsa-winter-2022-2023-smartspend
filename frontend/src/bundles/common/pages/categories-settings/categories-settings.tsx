@@ -6,6 +6,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 
 import { Button } from '../../components/button/button';
 import { BaseModal, Icon } from '../../components/components';
@@ -16,6 +17,7 @@ import {
     FaIcons,
     IconSize,
 } from '../../enums/enums';
+import { transactionCountsByCategory } from '../../helpers/transaction-count-by-category/transaction-count-by-category.helper';
 import { CategoryList } from './components/category-list/category-list';
 import { FormCategory } from './components/form-category/form-category';
 import { FormUiStub } from './components/form-category/form-ui-stub';
@@ -41,6 +43,10 @@ const CategoriesSettings: React.FC = () => {
     const categories = useAppSelector(
         (state) => state.categories.categoriesSortByType ?? {},
     );
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items,
+    );
+    const userId = useAppSelector((state) => state.users.user?.userId);
 
     const addIdCheckedCategories = useCallback((id: string): void => {
         setIsSelectedCategories((previousState) => {
@@ -65,6 +71,12 @@ const CategoriesSettings: React.FC = () => {
     const handleCloseModal = useCallback(() => {
         setIsCreateModalShown(false);
     }, []);
+
+    const countTransaction = transactionCountsByCategory(transactions, userId);
+
+    useEffect(() => {
+        void dispatch(transactionsActions.loadTransactions());
+    }, [dispatch]);
 
     return (
         <div className={styles.section}>
@@ -101,11 +113,13 @@ const CategoriesSettings: React.FC = () => {
                             title={'Income Categories'}
                             categories={categories.income}
                             addIdCheckedCategories={addIdCheckedCategories}
+                            count={countTransaction}
                         />
                         <CategoryList
                             title={'Expense category'}
                             categories={categories.expense}
                             addIdCheckedCategories={addIdCheckedCategories}
+                            count={countTransaction}
                         />
                     </div>
                 </div>

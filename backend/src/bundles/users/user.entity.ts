@@ -23,7 +23,7 @@ class UserEntity implements IEntity {
 
     private 'currency'?: string;
 
-    private 'avatarUrl'?: string;
+    private 'imageId'?: string;
 
     private constructor({
         id,
@@ -36,7 +36,7 @@ class UserEntity implements IEntity {
         dateOfBirth,
         language,
         currency,
-        avatarUrl,
+        imageId,
     }: {
         id: string | null;
         email: string;
@@ -48,7 +48,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
-        avatarUrl?: string;
+        imageId?: string;
     }) {
         this.id = id;
         this.email = email;
@@ -60,7 +60,7 @@ class UserEntity implements IEntity {
         this.dateOfBirth = dateOfBirth;
         this.language = language;
         this.currency = currency;
-        this.avatarUrl = avatarUrl;
+        this.imageId = imageId;
     }
 
     public static initialize({
@@ -74,7 +74,7 @@ class UserEntity implements IEntity {
         dateOfBirth,
         language,
         currency,
-        avatarUrl,
+        imageId,
     }: {
         id: string;
         email: string;
@@ -86,7 +86,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
-        avatarUrl?: string;
+        imageId?: string;
     }): UserEntity {
         return new UserEntity({
             id,
@@ -99,7 +99,7 @@ class UserEntity implements IEntity {
             dateOfBirth,
             language,
             currency,
-            avatarUrl,
+            imageId,
         });
     }
 
@@ -113,7 +113,7 @@ class UserEntity implements IEntity {
         dateOfBirth,
         language,
         currency,
-        avatarUrl,
+        imageId,
     }: {
         email: string;
         passwordHash: string;
@@ -124,7 +124,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
-        avatarUrl?: string;
+        imageId?: string;
     }): UserEntity {
         return new UserEntity({
             id: null,
@@ -137,7 +137,7 @@ class UserEntity implements IEntity {
             dateOfBirth,
             language,
             currency,
-            avatarUrl,
+            imageId,
         });
     }
 
@@ -150,7 +150,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
-        avatarUrl?: string;
+        imageId?: string;
     } {
         return {
             id: this.id as string,
@@ -161,7 +161,7 @@ class UserEntity implements IEntity {
             dateOfBirth: this.dateOfBirth,
             language: this.language,
             currency: this.currency,
-            avatarUrl: this.avatarUrl,
+            imageId: this.imageId,
         };
     }
 
@@ -175,7 +175,7 @@ class UserEntity implements IEntity {
         dateOfBirth?: string;
         language?: string;
         currency?: string;
-        avatarUrl?: string;
+        imageId?: string;
     } {
         return {
             email: this.email,
@@ -187,7 +187,7 @@ class UserEntity implements IEntity {
             dateOfBirth: this.dateOfBirth,
             language: this.language,
             currency: this.currency,
-            avatarUrl: this.avatarUrl,
+            imageId: this.imageId,
         };
     }
 }

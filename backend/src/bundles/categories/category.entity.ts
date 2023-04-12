@@ -3,7 +3,7 @@ import { type IEntity } from '~/common/interfaces/interfaces.js';
 import { type CategoryType } from './categories.js';
 
 class CategoryEntity implements IEntity {
-    private 'id': string | null;
+    public 'id': string | null;
 
     private 'name': string;
 

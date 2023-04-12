@@ -23,7 +23,7 @@ const PastTransactions: React.FC<PastTransactionsProperties> = ({
     errors,
 }) => {
     const sortedTransactions = Object.entries(groupedPastTransactions).sort(
-        (a, b) => Number(new Date(a[0])) - Number(new Date(b[0])),
+        (a, b) => Number(new Date(b[0])) - Number(new Date(a[0])),
     );
 
     return (

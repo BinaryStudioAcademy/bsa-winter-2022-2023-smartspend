@@ -10,6 +10,7 @@ enum DatabaseTableName {
     CURRENCIES = 'currencies',
     IMAGES = 'images',
     WALLETS_TRANSACTIONS = 'wallets_transactions',
+    USERS_CATEGORIES = 'users_categories',
 }
 
 export { DatabaseTableName };

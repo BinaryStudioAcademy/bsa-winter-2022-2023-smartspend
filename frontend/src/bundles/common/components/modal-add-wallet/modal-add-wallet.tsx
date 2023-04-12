@@ -1,21 +1,14 @@
 import classNames from 'classnames';
 
-import {
-    BaseModal,
-    Dropdown,
-    Input,
-} from '~/bundles/common/components/components';
+import { BaseModal, Input } from '~/bundles/common/components/components';
 import { InputType } from '~/bundles/common/enums/enums';
 import {
     useAppDispatch,
     useAppForm,
     useAppSelector,
     useCallback,
-    useEffect,
-    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import {
     type WalletCreateRequestDto,
@@ -41,19 +34,15 @@ const NewWalletModal: React.FC<Properties> = ({
 }) => {
     const dispatch = useAppDispatch();
     const { currencies } = useAppSelector((state) => state.currencies);
-    const mutableCurrencies = useMemo(
-        () =>
-            currencies.map((currency) => ({
-                value: currency.id,
-                name: currency.name,
-            })),
-        [currencies],
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
     );
-    const [currency, setCurrency] = useState<DataType>(mutableCurrencies[0]);
+
     const [fields, setFields] = useState<WalletGetAllItemResponseDto>({
         id: '',
         name: '',
-        currencyId: '',
+        currencyId: matchingCurrency?.id as string,
         balance: 0,
         ownerId: '',
     });
@@ -66,15 +55,17 @@ const NewWalletModal: React.FC<Properties> = ({
         },
     });
 
-    const findCurrency = mutableCurrencies.find(
-        (currency) => currency.value === fields.currencyId,
-    );
-
-    const handleChange = useCallback((selectedOption: DataType | null) => {
-        if (selectedOption !== null) {
-            setCurrency(selectedOption);
-        }
-    }, []);
+    // maybe it will be used in the future
+    //
+    // const findCurrency = mutableCurrencies.find(
+    //     (currency) => currency.value === fields.currencyId,
+    // );
+    //
+    // const handleChange = useCallback((selectedOption: DataType | null) => {
+    //     if (selectedOption !== null) {
+    //         setCurrency(selectedOption);
+    //     }
+    // }, []);
 
     const handleNameInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,15 +96,12 @@ const NewWalletModal: React.FC<Properties> = ({
     );
 
     const isFieldsChange = !(
-        values?.name === fields.name &&
-        values.balance === fields.balance &&
-        values.currencyId === currency.value
+        values?.name === fields.name && values.balance === fields.balance
     );
 
     const walletDataHandler = useCallback(
         (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-
             const formData = new FormData(event.target as HTMLFormElement);
             const formDataEntries = formData.entries();
             onClose();
@@ -121,7 +109,7 @@ const NewWalletModal: React.FC<Properties> = ({
             setFields({
                 id: '',
                 name: '',
-                currencyId: '',
+                currencyId: matchingCurrency?.id as string,
                 balance: 0,
                 ownerId: '',
             });
@@ -129,6 +117,8 @@ const NewWalletModal: React.FC<Properties> = ({
             const data = Object.fromEntries(
                 formDataEntries,
             ) as unknown as WalletCreateRequestDto;
+
+            data.currencyId = matchingCurrency?.id as string;
 
             if (values) {
                 void dispatch(
@@ -141,19 +131,20 @@ const NewWalletModal: React.FC<Properties> = ({
                 void dispatch(walletsActions.create(data));
             }
         },
-        [dispatch, fields, onClose, values],
+        [dispatch, fields.id, matchingCurrency?.id, onClose, values],
     );
 
-    useEffect(() => {
-        setCurrency(mutableCurrencies[0]);
-    }, [mutableCurrencies]);
-
-    useEffect(() => {
-        values && setFields(values);
-        if (findCurrency) {
-            setCurrency(findCurrency);
-        }
-    }, [findCurrency, values]);
+    // maybe it will be used in the future
+    //     useEffect(() => {
+    //         setCurrency(mutableCurrencies[0]);
+    // }, [mutableCurrencies]);
+    //
+    // useEffect(() => {
+    //     values && setFields(values);
+    //     if (findCurrency) {
+    //         setCurrency(findCurrency);
+    //     }
+    // }, [findCurrency, values]);
 
     return (
         <BaseModal
@@ -178,14 +169,15 @@ const NewWalletModal: React.FC<Properties> = ({
                         maxLength={50}
                     />
 
-                    <Dropdown
-                        data={mutableCurrencies}
-                        selectedOption={currency}
-                        handleChange={handleChange}
-                        label="Currency"
-                        labelClassName={styles.label}
-                        name="currencyId"
-                    />
+                    {/*{maybe we will need this in the future}*/}
+                    {/*<Dropdown*/}
+                    {/*    data={mutableCurrencies}*/}
+                    {/*    selectedOption={currency}*/}
+                    {/*    handleChange={handleChange}*/}
+                    {/*    label="Currency"*/}
+                    {/*    labelClassName={styles.label}*/}
+                    {/*    name="currencyId"*/}
+                    {/*/>*/}
 
                     <Input
                         control={control}
@@ -193,7 +185,7 @@ const NewWalletModal: React.FC<Properties> = ({
                         label="Starting balance (optional)"
                         name="balance"
                         placeholder="0.00"
-                        type={InputType.NUMBER}
+                        type={InputType.TEXT}
                         inputClassName={styles.input}
                         labelClassName={styles.label}
                         onChange={handleBalanceInputChange}

@@ -20,6 +20,7 @@ type Properties = {
     children?: ReactNode;
     hasActionButtons?: boolean;
     submitButtonName?: string;
+    submitButtonVariant?: ButtonVariant;
     width?: number;
     footerContainerClass?: string;
     buttonsSize?: ButtonSize;
@@ -35,6 +36,7 @@ const BaseModal: React.FC<Properties> = ({
     onSubmit,
     hasActionButtons = true,
     submitButtonName,
+    submitButtonVariant = ButtonVariant.PRIMARY,
     footerContainerClass = '',
     width,
     buttonsSize = ButtonSize.SMALL,
@@ -106,7 +108,7 @@ const BaseModal: React.FC<Properties> = ({
                                         Cancel
                                     </Button>
                                     <Button
-                                        variant={ButtonVariant.PRIMARY}
+                                        variant={submitButtonVariant}
                                         size={buttonsSize}
                                         onClick={onSubmit}
                                         disabled={disabled}

@@ -55,19 +55,25 @@ const FormContainer: React.FC = () => {
     });
 
     const { control, errors } = useAppForm({
-        defaultValues: { name: '', balance: '', currencyId: '' },
+        defaultValues: { name: '', balance: 0, currencyId: '' },
     });
 
     const findCurrency = mutableCurrencies.find(
         (currency) => currency.value === fields.currencyId,
     );
 
-    const handleChange = useCallback((selectedOption: DataType | null) => {
-        if (selectedOption !== null) {
-            setCurrency(selectedOption);
-            setIsActive(true);
-        }
-    }, []);
+    const handleChange = useCallback(
+        (selectedOption: DataType | null) => {
+            if (selectedOption !== null) {
+                setCurrency(selectedOption);
+                setIsActive(true);
+            }
+            if (fields.name.length === 0 || fields.balance === 0) {
+                setIsActive(false);
+            }
+        },
+        [fields.name.length, fields.balance],
+    );
 
     const handleNameInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,9 +85,14 @@ const FormContainer: React.FC = () => {
                         name: value,
                     } as WalletGetAllItemResponseDto),
             );
-            setIsActive(true);
+
+            if (value.length === 0 || fields.balance === 0) {
+                setIsActive(false);
+            } else {
+                setIsActive(true);
+            }
         },
-        [],
+        [setIsActive, fields.balance],
     );
 
     const handleBalanceInputChange = useCallback(
@@ -90,6 +101,7 @@ const FormContainer: React.FC = () => {
             if (Number.isNaN(Number(value))) {
                 return;
             }
+
             setFields(
                 (previousState) =>
                     ({
@@ -98,8 +110,11 @@ const FormContainer: React.FC = () => {
                     } as WalletGetAllItemResponseDto),
             );
             setIsActive(true);
+            if (fields.name.length === 0 || value === '') {
+                setIsActive(false);
+            }
         },
-        [],
+        [fields.name.length],
     );
 
     const onClickDeleteWalet = useCallback(
@@ -177,6 +192,7 @@ const FormContainer: React.FC = () => {
                     </div>
                 }
                 submitButtonName={'Delete Wallet'}
+                submitButtonVariant={ButtonVariant.DELETE}
                 footerContainerClass={styles.modalFooter}
                 buttonsSize={ButtonSize.MEDIUM}
             />

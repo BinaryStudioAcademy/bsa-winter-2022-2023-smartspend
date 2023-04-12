@@ -57,7 +57,12 @@
 .modalFooter > div {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
+    width: 360px;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .modalFooter > button,

@@ -109,8 +109,11 @@ const FormContainer: React.FC = () => {
                     } as WalletGetAllItemResponseDto),
             );
             setIsActive(true);
+            if (fields.name.length === 0) {
+                setIsActive(false);
+            }
         },
-        [],
+        [fields.name.length],
     );
 
     const onClickDeleteWalet = useCallback(

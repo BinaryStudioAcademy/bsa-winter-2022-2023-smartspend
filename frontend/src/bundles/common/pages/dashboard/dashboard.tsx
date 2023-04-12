@@ -45,6 +45,7 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
+import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
 import {
     calculateLineChartData,
     createCategoryDataArray,
@@ -408,11 +409,7 @@ const Dashboard: React.FC = () => {
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={transactions.reduce(
-                                    (accumulator, transaction) =>
-                                        +accumulator + +transaction.amount,
-                                    0,
-                                )}
+                                sum={getSpent(transactions)}
                                 variant={CardVariant.BLUE}
                             />
                             <CardTotal

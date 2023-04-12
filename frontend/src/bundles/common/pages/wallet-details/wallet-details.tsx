@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useNavigate, useParams } from 'react-router-dom';
 import { type MultiValue, type SingleValue } from 'react-select';
+import { type CategoryGetAllItemResponseDto } from 'shared/build';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
@@ -25,7 +26,10 @@ import {
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
+import {
+    findCurrencyById,
+    findMinMaxAmount,
+} from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -35,7 +39,6 @@ import {
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
@@ -44,40 +47,14 @@ import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
+import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
+import { getTotalPeriodAmount } from '../dashboard/helpers/helpers';
 import styles from './styles.module.scss';
 
 const DEFAULT_INPUT: { note: string } = {
     //It needs to change
     note: '',
 };
-
-const people = [
-    {
-        value: 'John Doe',
-        name: 'John Doe',
-        image: 'https://placekitten.com/50/50',
-    },
-    {
-        value: 'Jane Smith',
-        name: 'Jane Smith',
-        image: 'https://placekitten.com/51/51',
-    },
-    {
-        value: 'Alice Johnson',
-        name: 'Alice Johnson',
-        image: 'https://placekitten.com/52/52',
-    },
-    {
-        value: 'Bob Brown',
-        name: 'Bob Brown',
-        image: 'https://placekitten.com/53/53',
-    },
-    {
-        value: 'Charlie Green',
-        name: 'Charlie Green',
-        image: 'https://placekitten.com/54/54',
-    },
-];
 
 const WalletDetails: React.FC = () => {
     const navigate = useNavigate();
@@ -88,7 +65,7 @@ const WalletDetails: React.FC = () => {
     >();
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
-    const { control, errors } = useAppForm<{ note: string }>({
+    const { control, errors, watch, reset } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
@@ -115,6 +92,10 @@ const WalletDetails: React.FC = () => {
         [],
     );
 
+    const thisWalletTransactions = transactions.filter(
+        (it) => it.walletsId === id,
+    );
+
     const data = useMemo(() => {
         return transactions.map((item) => ({
             id: item.id,
@@ -131,22 +112,37 @@ const WalletDetails: React.FC = () => {
         })) as unknown as TransactionType[];
     }, [category, currencies, transactions]);
 
-    const [peopleDropdown, setPeopleDropdown] = useState<
-        MultiValue<DataType> | SingleValue<DataType>
-    >([]);
-
+    // const [peopleDropdown, setPeopleDropdown] = useState<
+    //     MultiValue<DataType> | SingleValue<DataType>
+    // >([]);
+    const [rangeLimits, setRangeLimits] = useState(
+        findMinMaxAmount(transactionData),
+    );
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
-
-    const rangeLimits = useMemo(() => {
-        return { min: -100, max: 1000 };
-    }, []);
-
     const [currentRange, setCurrentRange] = useState(rangeLimits);
-    const [, setFilteredData] = useState(mockSliderData);
+    const [filteredData, setFilteredData] = useState(transactionData);
 
     const [activeModal, setActiveModal] = useState(false);
+
+    const categoriesIdDropdown = new Set(
+        (categoriesDropdown as unknown as CategoryGetAllItemResponseDto[]).map(
+            (category) => category.id,
+        ),
+    );
+    const getNoteFilter = watch('note');
+    const transactionsByCategory = filteredData.filter((transaction) =>
+        categoriesIdDropdown.has(transaction.category.id),
+    );
+    const isFilterEmpty =
+        categoriesIdDropdown.size > 0 ? transactionsByCategory : filteredData;
+    const transactionsByNote = isFilterEmpty.filter((transaction) =>
+        transaction.note?.includes(getNoteFilter),
+    );
+    const categoryOrNoteFilter =
+        getNoteFilter.length > 0 ? transactionsByNote : isFilterEmpty;
+
     const openTransactionModal = useCallback((): void => {
         setActiveModal(true);
     }, []);
@@ -155,16 +151,16 @@ const WalletDetails: React.FC = () => {
         setActiveModal(false);
     }, []);
 
-    const handlePeopleMultiDropdownChange = useCallback(
-        (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
-            if (selectedOption === null) {
-                setPeopleDropdown([]);
-            } else {
-                setPeopleDropdown(selectedOption);
-            }
-        },
-        [],
-    );
+    // const handlePeopleMultiDropdownChange = useCallback(
+    //     (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
+    //         if (selectedOption === null) {
+    //             setPeopleDropdown([]);
+    //         } else {
+    //             setPeopleDropdown(selectedOption);
+    //         }
+    //     },
+    //     [],
+    // );
 
     const handleCategoriesMultiDropdownChange = useCallback(
         (selectedOption: MultiValue<DataType> | SingleValue<DataType>) => {
@@ -177,21 +173,26 @@ const WalletDetails: React.FC = () => {
         [],
     );
 
-    const handleSliderChange = useCallback((range: RangeLimits): void => {
-        setCurrentRange(range);
+    const handleSliderChange = useCallback(
+        (range: RangeLimits): void => {
+            setCurrentRange(range);
 
-        const newFilteredData = mockSliderData.filter(
-            (item) => item.amount >= range.min && item.amount <= range.max,
-        );
-        setFilteredData(newFilteredData);
-    }, []);
+            const newFilteredData = transactionData.filter(
+                (item) => item.amount >= range.min && item.amount <= range.max,
+            );
+            setFilteredData(newFilteredData);
+        },
+        [transactionData],
+    );
 
     const hangleReset = useCallback((): void => {
-        setPeopleDropdown([]);
+        // setPeopleDropdown([]);
         setCategoriesDropdown([]);
-        setFilteredData(mockSliderData);
+        setFilteredData(transactionData);
         setCurrentRange(rangeLimits);
-    }, [rangeLimits]);
+        const isReset = reset;
+        isReset && reset();
+    }, [rangeLimits, reset, transactionData]);
 
     const handleNavidation = useCallback(() => {
         navigate(`/wallet/${id}/transaction/future`);
@@ -253,6 +254,18 @@ const WalletDetails: React.FC = () => {
         void dispatch(categoriesActions.loadCategories());
         void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
+
+    useEffect(() => {
+        setRangeLimits(findMinMaxAmount(transactionData));
+    }, [transactionData]);
+
+    useEffect(() => {
+        setCurrentRange(rangeLimits);
+    }, [rangeLimits]);
+
+    useEffect(() => {
+        setFilteredData(transactionData);
+    }, [transactionData]);
 
     useEffect(() => {
         setTransactionData(data);
@@ -319,7 +332,7 @@ const WalletDetails: React.FC = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className={styles.filter}>
+                                {/* <div className={styles.filter}>
                                     <div className={styles.dropdown}>
                                         <MultiDropdown
                                             data={people}
@@ -330,7 +343,7 @@ const WalletDetails: React.FC = () => {
                                             label="By people"
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className={styles.filter}>
                                     <div className={styles.dropdown}>
                                         <Input
@@ -369,26 +382,35 @@ const WalletDetails: React.FC = () => {
                             <div className={styles.cards}>
                                 <CardTotal
                                     title="Total Wallet Balance"
-                                    sum={currentWallet?.balance as number}
+                                    sum={
+                                        (currentWallet?.balance as number) -
+                                        getSpent(thisWalletTransactions)
+                                    }
                                     variant={CardVariant.ORANGE}
                                     currency={currency}
                                 />
                                 <CardTotal
                                     title="Total Period Change"
-                                    sum={504}
+                                    sum={getSpent(thisWalletTransactions)}
                                     variant={CardVariant.BLUE}
                                     currency={currency}
                                 />
                                 <CardTotal
-                                    title="Total Period Expenses"
-                                    sum={-9700.34}
-                                    variant={CardVariant.WHITE}
+                                    title="Total Period Income"
+                                    sum={getTotalPeriodAmount(
+                                        thisWalletTransactions,
+                                        'income',
+                                    )}
+                                    variant={CardVariant.VIOLET}
                                     currency={currency}
                                 />
                                 <CardTotal
-                                    title="Total Period Income"
-                                    sum={7600.34}
-                                    variant={CardVariant.VIOLET}
+                                    title="Total Period Expenses"
+                                    sum={getTotalPeriodAmount(
+                                        thisWalletTransactions,
+                                        'expense',
+                                    )}
+                                    variant={CardVariant.WHITE}
                                     currency={currency}
                                 />
                             </div>
@@ -396,7 +418,7 @@ const WalletDetails: React.FC = () => {
                                 <div className={styles.transactionsContainer}>
                                     <TransactionTable
                                         walletsId={id}
-                                        transactions={transactionData}
+                                        transactions={categoryOrNoteFilter}
                                     />
                                 </div>
                             ) : (

@@ -9,7 +9,6 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import {
     type WalletCreateRequestDto,

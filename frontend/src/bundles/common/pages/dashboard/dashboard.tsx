@@ -45,6 +45,7 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
+import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
 import {
     calculateLineChartData,
     createCategoryDataArray,
@@ -136,6 +137,11 @@ const Dashboard: React.FC = () => {
     const [active, setActive] = useState(false);
     const { wallets } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
+
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
 
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
@@ -405,15 +411,13 @@ const Dashboard: React.FC = () => {
                                     0,
                                 )}
                                 variant={CardVariant.ORANGE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={transactions.reduce(
-                                    (accumulator, transaction) =>
-                                        +accumulator + +transaction.amount,
-                                    0,
-                                )}
+                                sum={getSpent(transactions)}
                                 variant={CardVariant.BLUE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Income"
@@ -422,6 +426,7 @@ const Dashboard: React.FC = () => {
                                     'income',
                                 )}
                                 variant={CardVariant.VIOLET}
+                                currency={matchingCurrency?.symbol as string}
                             />
 
                             <CardTotal
@@ -431,6 +436,7 @@ const Dashboard: React.FC = () => {
                                     'expense',
                                 )}
                                 variant={CardVariant.WHITE}
+                                currency={matchingCurrency?.symbol as string}
                             />
                         </div>
                         {transactions.length > 0 ? (

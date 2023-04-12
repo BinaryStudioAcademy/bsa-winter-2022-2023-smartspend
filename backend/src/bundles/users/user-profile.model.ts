@@ -6,6 +6,7 @@ import {
     DatabaseTableName,
 } from '~/common/database/database.js';
 
+import { ImageModel } from '../images/images.model.js';
 import { UserModel } from './user.model.js';
 
 class UserProfileModel extends AbstractModel {
@@ -23,7 +24,7 @@ class UserProfileModel extends AbstractModel {
 
     public 'currency': string;
 
-    public 'avatarUrl': string;
+    public 'imageId': string;
 
     public static override get tableName(): string {
         return DatabaseTableName.USER_PROFILE;
@@ -37,6 +38,14 @@ class UserProfileModel extends AbstractModel {
                 join: {
                     from: 'user_profile.userId',
                     to: 'users.id',
+                },
+            },
+            image: {
+                relation: Model.HasOneRelation,
+                modelClass: ImageModel,
+                join: {
+                    from: 'user_profile.imageId',
+                    to: 'image.id',
                 },
             },
         };

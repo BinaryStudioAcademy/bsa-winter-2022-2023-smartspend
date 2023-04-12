@@ -76,16 +76,18 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
 
     const handleDeleteAccount = useCallback(() => {
         void dispatch(usersActions.deleteUser(token as string));
-        void storage.drop(StorageKey.TOKEN);
+        void storage.drop(StorageKey.HAVE_NAME);
         void storage.drop(StorageKey.PWA);
-    }, [dispatch, token]);
+        void storage.drop(StorageKey.TOKEN);
+        navigate(AppRoute.SIGN_UP);
+    }, [dispatch, navigate, token]);
 
     const onModalClose = useCallback(() => {
         setModalOpen(false);
     }, []);
 
     const onSubmit = useCallback(
-        (formData: UserUpdateRequestDto): void => {
+        async (formData: UserUpdateRequestDto): Promise<void> => {
             const { email, ...remainingData } = formData;
 
             const uploadData: uploadPayload = {
@@ -93,15 +95,14 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 userProfile: { ...remainingData },
             };
 
-            setTimeout(() => {
-                if (!user?.firstName) {
-                    navigate(AppRoute.DASHBOARD);
-                }
-            }, 500);
+            if (!storage.getSync(StorageKey.HAVE_NAME)) {
+                void storage.set(StorageKey.HAVE_NAME, 'true');
+                navigate(AppRoute.DASHBOARD);
+            }
 
-            void dispatch(usersActions.updateUser(uploadData));
+            await dispatch(usersActions.updateUser(uploadData)).unwrap();
         },
-        [dispatch, navigate, user?.firstName],
+        [dispatch, navigate],
     );
 
     const handleFormSubmit = useCallback(

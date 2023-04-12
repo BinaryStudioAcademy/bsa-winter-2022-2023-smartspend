@@ -19,7 +19,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
         defaultValues: DEFAULT_INPUT,
     });
 
-    const handleButtonClick = useCallback(
+    const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
             event_.preventDefault();
             if (reset) {
@@ -33,7 +33,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
         <section id="subscription" className={styles.body}>
             <div className={classNames('container', styles.container)}>
                 <h1 className={styles.title}>{title}</h1>
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={handleFormSubmit}>
                     <div className={styles.formContainer}>
                         <Input
                             type={InputType.TEXT}
@@ -44,12 +44,7 @@ const SubscriptionPart: React.FC<Properties> = ({ title }) => {
                             labelClassName={styles.inputLabel}
                             inputClassName={styles.input}
                         />
-                        <Button
-                            className={styles.button}
-                            onClick={handleButtonClick}
-                        >
-                            Subscribe
-                        </Button>
+                        <Button className={styles.button}>Subscribe</Button>
                     </div>
                 </form>
             </div>

@@ -49,23 +49,6 @@ const FormContainer: React.FC = () => {
         defaultValues: { name: '', balance: 0, currencyId: '' },
     });
 
-    const findCurrency = mutableCurrencies.find(
-        (currency) => currency.value === fields.currencyId,
-    );
-
-    const handleChange = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setCurrency(selectedOption);
-                setIsActive(true);
-            }
-            if (fields.name.length === 0 || fields.balance === 0) {
-                setIsActive(false);
-            }
-        },
-        [fields.name.length, fields.balance],
-    );
-
     const handleNameInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;

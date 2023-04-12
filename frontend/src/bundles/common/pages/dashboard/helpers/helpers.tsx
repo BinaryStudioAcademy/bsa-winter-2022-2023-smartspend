@@ -270,8 +270,33 @@ const getTotalPeriodAmount = (
     return Math.abs(total);
 };
 
+const calculateWalletBalances = (
+    wallets: WalletGetAllItemResponseDto[],
+    transactions: TransactionGetAllItemResponseDto[],
+): WalletGetAllItemResponseDto[] => {
+    const walletBalances: WalletGetAllItemResponseDto[] = [];
+
+    for (const wallet of wallets) {
+        let balance = wallet.balance;
+
+        for (const transaction of transactions) {
+            if (transaction.walletsId === wallet.id) {
+                balance += transaction.amount;
+            }
+        }
+
+        walletBalances.push({
+            ...wallet,
+            balance,
+        });
+    }
+
+    return walletBalances;
+};
+
 export {
     calculateLineChartData,
+    calculateWalletBalances,
     createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,

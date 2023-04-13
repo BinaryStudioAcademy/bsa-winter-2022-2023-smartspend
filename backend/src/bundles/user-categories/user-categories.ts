@@ -21,3 +21,5 @@ const userCategoryController = new UserCategoryController(
 );
 
 export { userCategoryController, userCategoryRepository, userCategoryService };
+export { defaultCategories } from './constants/default-categories.js';
+export { UserCategoriesEntity } from './user-categories.entity.js';

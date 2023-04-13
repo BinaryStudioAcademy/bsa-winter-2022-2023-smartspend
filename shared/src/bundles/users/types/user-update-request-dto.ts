@@ -8,6 +8,7 @@ type UserUpdateRequestDto = {
     dateOfBirth: string;
     language: string;
     currency: string;
+    avatar?: File;
 };
 
 export { type UserUpdateRequestDto };

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { type Control, Controller } from 'react-hook-form';
+import { type UserUpdateRequestDto } from 'shared/build';
 
 import { useCallback } from '~/bundles/common/hooks/hooks';
 
@@ -9,7 +11,11 @@ import {
     UploadAvatarButton,
 } from './components.js';
 
-const AvatarContainer: React.FC = () => {
+type Properties = {
+    control: Control<UserUpdateRequestDto, null>;
+};
+
+const AvatarContainer: React.FC<Properties> = ({ control }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleFileChange = useCallback(
@@ -20,19 +26,27 @@ const AvatarContainer: React.FC = () => {
         [],
     );
 
-    const deleteFIle = useCallback((): void => setSelectedFile(null), []);
+    const deleteFile = useCallback((): void => setSelectedFile(null), []);
 
     return (
         <div className={styles.avatarContainer}>
             <div className={styles.avatarContent}>
-                <Avatar
-                    selectedFile={selectedFile}
-                    handleFileChange={handleFileChange}
+                <Controller
+                    name="avatar"
+                    control={control}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    render={({ field }): JSX.Element => (
+                        <Avatar
+                            selectedFile={selectedFile}
+                            handleFileChange={field.onChange}
+                            {...field}
+                        />
+                    )}
                 />
                 <div className={styles.btnContainer}>
                     <UploadAvatarButton handleFileChange={handleFileChange} />
                     {selectedFile && (
-                        <DeleteAvatarButton deleteFile={deleteFIle} />
+                        <DeleteAvatarButton deleteFile={deleteFile} />
                     )}
                 </div>
             </div>

@@ -16,6 +16,7 @@ import { reducer as transactionsReducer } from '~/bundles/common/stores/transact
 import { transactionsApi } from '~/bundles/common/stores/transactions/transactions.js';
 import { currencyApi } from '~/bundles/currencies/currencies.js';
 import { reducer as currenciesReducer } from '~/bundles/currencies/store';
+import { imageApi } from '~/bundles/image/image.js';
 import { reducer as usersReducer } from '~/bundles/users/store/';
 import { userApi } from '~/bundles/users/users.js';
 import { reducer as walletsReducer } from '~/bundles/wallets/store/';
@@ -45,6 +46,7 @@ type ExtraArguments = {
     storage: typeof storage;
     currencyApi: typeof currencyApi;
     transactionsApi: typeof transactionsApi;
+    imageApi: typeof imageApi;
 };
 
 class Store {
@@ -94,6 +96,7 @@ class Store {
             storage,
             currencyApi,
             transactionsApi,
+            imageApi,
         };
     }
 }

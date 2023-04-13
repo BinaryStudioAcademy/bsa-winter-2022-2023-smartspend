@@ -1,4 +1,5 @@
 import cors from '@fastify/cors';
+import { fastifyMultipart } from '@fastify/multipart';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import Fastify, { type FastifyError } from 'fastify';
@@ -17,7 +18,7 @@ import {
 
 import { authService } from '../../bundles/auth/auth.js';
 import { WHITE_ROUTES } from '../constants/constants.js';
-import { authorization } from '../plugins/plugins.js';
+import { authorization, file } from '../plugins/plugins.js';
 import {
     type IServerApp,
     type IServerAppApi,
@@ -77,6 +78,12 @@ class ServerApp implements IServerApp {
             services: { auth: authService },
             routesWhiteList: WHITE_ROUTES,
         });
+        await this.app.register(fastifyMultipart, {
+            limits: { fileSize: 1024 * 1024 * 3 },
+            attachFieldsToBody: true,
+            throwFileSizeLimit: false,
+        });
+        await this.app.register(file);
     }
 
     public initRoutes(): void {

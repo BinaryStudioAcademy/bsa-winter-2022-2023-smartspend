@@ -39,7 +39,9 @@ const updateUser = createAsyncThunk<
     uploadPayload,
     AsyncThunkConfig
 >(`${sliceName}/update`, async (payload, { extra, dispatch }) => {
-    const { userApi } = extra;
+    const { userApi, imageApi } = extra;
+
+    await imageApi.createImage(payload.userProfile.avatar as File);
 
     await userApi.updateUser(payload);
 

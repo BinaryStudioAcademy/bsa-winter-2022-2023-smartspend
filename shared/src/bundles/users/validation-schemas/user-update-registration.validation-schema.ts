@@ -118,6 +118,7 @@ const userUpdateReg = joi.object<UserUpdate, true>({
             'string.min': UserValidationMessage.DATE_MINIMUM,
             'any.required': UserValidationMessage.DATE_REQUIRE,
         }),
+    avatar: joi.string().required(),
 });
 
 export { userUpdateReg };

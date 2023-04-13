@@ -9,6 +9,7 @@ type UserUpdateResponseDto = {
     dateOfBirth?: string;
     language?: string;
     currency?: string;
+    avatar?: string;
 };
 
 export { type UserUpdateResponseDto };

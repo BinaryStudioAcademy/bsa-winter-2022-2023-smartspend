@@ -10,6 +10,7 @@ type UserProfileResponseDto = {
     dateOfBirth?: string;
     language?: string;
     currency?: string;
+    avatar?: string;
 };
 
 export { type UserProfileResponseDto };

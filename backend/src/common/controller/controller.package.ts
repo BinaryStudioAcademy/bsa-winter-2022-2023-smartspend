@@ -33,6 +33,7 @@ class Controller implements IController {
         });
     }
 
+    // eslint-disable-next-line max-params
     private async mapHandler(
         handler: ApiHandler,
         request: Parameters<ServerAppRouteParameters['handler']>[0],
@@ -49,13 +50,28 @@ class Controller implements IController {
     private mapRequest(
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
-        const { body, query, params, headers } = request;
+        const {
+            body,
+            query,
+            params,
+            headers,
+            file,
+            files,
+            raw,
+            multipart,
+            parts,
+        } = request;
 
         return {
             body,
             query,
             params,
             token: headers.authorization,
+            file,
+            files,
+            raw,
+            multipart,
+            parts,
         };
     }
 }

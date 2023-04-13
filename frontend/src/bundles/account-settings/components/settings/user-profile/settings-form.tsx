@@ -58,6 +58,11 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
 
     const fieldsWatch = watch();
 
+    // useEffect(() => {
+    //     console.log(fieldsWatch);
+
+    // }, [fieldsWatch]);
+
     const isFieldsChange = useCallback((): boolean => {
         if (
             !fieldsWatch.firstName ||
@@ -91,6 +96,8 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         async (formData: UserUpdateRequestDto): Promise<void> => {
             const { email, ...remainingData } = formData;
 
+            remainingData.avatar = fieldsWatch.avatar;
+
             const uploadData: uploadPayload = {
                 email,
                 userProfile: { ...remainingData },
@@ -103,7 +110,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
 
             await dispatch(usersActions.updateUser(uploadData)).unwrap();
         },
-        [dispatch, navigate],
+        [dispatch, fieldsWatch.avatar, navigate],
     );
 
     const handleFormSubmit = useCallback(
@@ -122,7 +129,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     return (
         <>
             <form className={styles.form} onSubmit={handleFormSubmit}>
-                <AvatarContainer />
+                <AvatarContainer control={control} />
                 <Input
                     type={InputType.TEXT}
                     labelClassName={styles.inputLabel}

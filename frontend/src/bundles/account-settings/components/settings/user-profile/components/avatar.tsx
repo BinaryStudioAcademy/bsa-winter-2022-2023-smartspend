@@ -1,47 +1,59 @@
+import { forwardRef, useEffect } from 'react';
+
 import { useCallback, useRef } from '~/bundles/common/hooks/hooks.js';
 
 import styles from '../../styles.module.scss';
 
 type Properties = {
     selectedFile: File | null;
-    handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleFileChange: (
+        event: React.ChangeEvent<HTMLInputElement> | File,
+    ) => void;
 };
 
-const Avatar: React.FC<Properties> = ({ selectedFile, handleFileChange }) => {
-    const inputReference = useRef<HTMLInputElement>(null);
+const Avatar: React.FC<Properties> = forwardRef<HTMLDivElement, Properties>(
+    ({ selectedFile, handleFileChange }, reference) => {
+        useEffect(() => {
+            handleFileChange(selectedFile as File);
+        }, [handleFileChange, selectedFile]);
 
-    const handleClick = useCallback((): void => {
-        if (inputReference.current) {
-            inputReference.current.click();
-        }
-    }, []);
+        const inputReference = useRef<HTMLInputElement>(null);
 
-    return (
-        <div className={styles.avatar}>
-            {selectedFile ? (
-                <img
-                    className={styles.avatarImage}
-                    src={URL.createObjectURL(selectedFile)}
-                    alt="Selected file"
-                />
-            ) : (
-                <button
-                    className={styles.noImage}
-                    onClick={handleClick}
-                    type="button"
-                >
-                    Upload image here
-                    <input
-                        type="file"
-                        accept={'image/*'}
-                        ref={inputReference}
-                        hidden
-                        onChange={handleFileChange}
+        const handleClick = useCallback((): void => {
+            if (inputReference.current) {
+                inputReference.current.click();
+            }
+        }, []);
+
+        return (
+            <div ref={reference} className={styles.avatar}>
+                {selectedFile ? (
+                    <img
+                        className={styles.avatarImage}
+                        src={URL.createObjectURL(selectedFile)}
+                        alt="Selected file"
                     />
-                </button>
-            )}
-        </div>
-    );
-};
+                ) : (
+                    <button
+                        className={styles.noImage}
+                        onClick={handleClick}
+                        type="button"
+                    >
+                        Upload image here
+                        <input
+                            type="file"
+                            accept={'image/*'}
+                            ref={inputReference}
+                            hidden
+                            onChange={handleFileChange}
+                        />
+                    </button>
+                )}
+            </div>
+        );
+    },
+);
+
+Avatar.displayName = 'Avatar';
 
 export { Avatar };

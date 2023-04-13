@@ -96,6 +96,8 @@ const RenderDate = ({
         [onChange],
     );
 
+    // console.log(typeof selectedDate.toDateString());
+
     useEffect(() => {
         if (value) {
             setSelectedDate(new Date(value));
@@ -104,6 +106,11 @@ const RenderDate = ({
 
     return (
         <OneDayCalendar
+            // selectedDate={selectedDate.toLocaleDateString('en-US', {
+            //     month: 'short',
+            //     day: '2-digit',
+            //     year: 'numeric',
+            // })}
             selectedDate={selectedDate}
             onChange={handleDateChange}
         />

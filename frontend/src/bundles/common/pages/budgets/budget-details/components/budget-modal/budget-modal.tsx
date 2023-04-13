@@ -71,6 +71,8 @@ const BudgetModal: React.FC<Properties> = ({
         [user?.currency],
     );
 
+    const [, setValues] = useState(DEFAULT_VALUES);
+
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
@@ -129,6 +131,28 @@ const BudgetModal: React.FC<Properties> = ({
     const startDateIso = new Date(control._formValues.startDate);
     const endDateIso = new Date(control._formValues.endDate);
 
+    const handleBalanceInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = event.target;
+            setValues((previousState) => ({
+                ...previousState,
+                amount: +value.replace(/\D/g, ''),
+            }));
+        },
+        [],
+    );
+
+    // const handleNameInputChange = useCallback(
+    //     (event: React.ChangeEvent<HTMLInputElement>) => {
+    //         const { value } = event.target;
+    //         setValues((previousState) => ({
+    //             ...previousState,
+    //             name: value,
+    //         }));
+    //     },
+    //     [],
+    // );
+
     return (
         <BaseModal
             isShown={isShown}
@@ -150,6 +174,9 @@ const BudgetModal: React.FC<Properties> = ({
                             name={'name'}
                             placeholder={'Enter budget name'}
                             errors={errors}
+                            // onChange={handleNameInputChange}
+                            minLength={1}
+                            maxLength={10}
                         />
                     </div>
                     <div className={styles.sumRow}>
@@ -160,6 +187,9 @@ const BudgetModal: React.FC<Properties> = ({
                             label={'Amount'}
                             name={'amount'}
                             placeholder={'0.00'}
+                            onChange={handleBalanceInputChange}
+                            minLength={1}
+                            maxLength={10}
                         />
                         {/*maybe it will be used in the future}*/}
                         {/*<Controller*/}

@@ -16,6 +16,7 @@ const categoryController = new CategoryController(logger, categoryService);
 export { categoryController, categoryService };
 export { UserCategoriesEntity } from '../user-categories/user-categories.entity.js';
 export { UserCategoriesModel } from '../user-categories/user-category.model.js';
+export { CategoryEntity } from './category.entity.js';
 export { CategoryModel } from './category.model.js';
 export {
     CategoriesApiPath,

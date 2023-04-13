@@ -50,7 +50,6 @@ const HeaderUserButton: React.FC<Properties> = ({
 
     const logoutHandler = useCallback(() => {
         void storage.drop(StorageKey.TOKEN);
-        void storage.drop(StorageKey.HAVE_NAME);
     }, []);
 
     return (
@@ -92,7 +91,7 @@ const HeaderUserButton: React.FC<Properties> = ({
                         to={AppRoute.SIGN_IN}
                         className={styles.link}
                     >
-                        Logout
+                        Log Out
                     </Link>
                 </div>
             </div>

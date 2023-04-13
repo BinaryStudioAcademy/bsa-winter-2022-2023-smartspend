@@ -19,6 +19,7 @@ import {
     Dropdown,
     Input,
     LineChart,
+    Loader,
     NewWalletModal,
     Placeholder,
     RangeSlider,
@@ -28,6 +29,7 @@ import {
     AppDocumentTitles,
     ButtonVariant,
     CardVariant,
+    DataStatus,
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
@@ -227,7 +229,7 @@ const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const dispatch = useAppDispatch();
     const [active, setActive] = useState(false);
-    const { wallets } = useAppSelector((state) => state.wallets);
+    const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
 
     const { user } = useAppSelector((state) => state.users);
@@ -434,38 +436,44 @@ const Dashboard: React.FC = () => {
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
-                    <div className={styles.wallets}>
-                        {walletsWithBalances.map(
-                            ({ id, name, balance, currencyId }) => (
-                                <Link
-                                    to={`/wallet/${id}/transaction`}
-                                    key={id}
-                                    className={styles.walletWrapper}
-                                >
-                                    <WalletCard
-                                        title={name}
-                                        size={WalletCardSize.MEDIUM}
-                                        balance_value={balance}
-                                        wallet_type={'Balance'}
-                                        currency={
-                                            findCurrencyById(
-                                                currencies,
-                                                currencyId,
-                                            )?.symbol
-                                        }
-                                    />
-                                </Link>
-                            ),
-                        )}
-                        <WalletButton onClick={handleModal}>
-                            Add New Wallet
-                        </WalletButton>
-                        <NewWalletModal
-                            isShown={active}
-                            onClose={handleCancel}
-                            onSubmit={handleModal}
-                        />
-                    </div>
+                    {dataStatus === DataStatus.PENDING ? (
+                        <div className={styles.loaderContainer}>
+                            <Loader />
+                        </div>
+                    ) : (
+                        <div className={styles.wallets}>
+                            {walletsWithBalances.map(
+                                ({ id, name, balance, currencyId }) => (
+                                    <Link
+                                        to={`/wallet/${id}/transaction`}
+                                        key={id}
+                                        className={styles.walletWrapper}
+                                    >
+                                        <WalletCard
+                                            title={name}
+                                            size={WalletCardSize.MEDIUM}
+                                            balance_value={balance}
+                                            wallet_type={'Balance'}
+                                            currency={
+                                                findCurrencyById(
+                                                    currencies,
+                                                    currencyId,
+                                                )?.symbol
+                                            }
+                                        />
+                                    </Link>
+                                ),
+                            )}
+                            <WalletButton onClick={handleModal}>
+                                Add New Wallet
+                            </WalletButton>
+                            <NewWalletModal
+                                isShown={active}
+                                onClose={handleCancel}
+                                onSubmit={handleModal}
+                            />
+                        </div>
+                    )}
                     <h2 className={classNames(styles.title, styles.overview)}>
                         Overview
                     </h2>

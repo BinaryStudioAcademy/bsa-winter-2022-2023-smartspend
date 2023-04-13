@@ -23,6 +23,7 @@ import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
+import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.scss';
@@ -66,6 +67,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                 return;
             }
             void handleSubmit(onSubmit)(event_);
+            void storage.drop(StorageKey.HAVE_NAME);
             inputReset && reset();
         },
         [handleSubmit, inputReset, onSubmit, reset, trigger, watch],

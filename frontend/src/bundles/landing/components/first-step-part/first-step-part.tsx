@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import classNames from 'classnames';
 
 import {
@@ -13,9 +14,9 @@ import styles from './styles.module.scss';
 
 const FirstStepPart: React.FC = () => {
     const listItems = [
-        'Connect your bank accounts and all your transactions will get automatically imported to SmartSpend.',
-        'Connect your crypto wallet and E-Wallet for complete overview of your cash flow.',
-        'Add your cash expenses manually.',
+        'Record your cash expenses manually and categorize them.',
+        "Set budgets and get alerts when you're close to overspending.",
+        'Analyze your spending habits with customizable reports and graphs.',
     ];
 
     const CashWallets = 'Cash Wallet';

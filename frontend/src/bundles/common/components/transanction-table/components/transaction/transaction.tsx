@@ -17,8 +17,8 @@ import styles from '../styles.module.scss';
 
 type Properties = {
     transaction: TransactionType;
-    control: Control<FieldValues, null>;
-    errors: FieldErrors;
+    control?: Control<FieldValues, null>;
+    errors?: FieldErrors;
     isFutureTransaction?: boolean;
     addIdCheckedTransactions: (id: string) => void;
 };

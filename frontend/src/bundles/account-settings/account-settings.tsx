@@ -15,6 +15,8 @@ const AccountSettings: React.FC = () => {
         },
     ];
 
+    // console.log(dataTabs[0].icon);
+
     return (
         <main className={styles.body}>
             <div className={classNames(styles.container, 'container')}>

@@ -32,7 +32,6 @@ import {
     RenderCurrency,
     RenderDate,
     RenderSex,
-    SubmitButton,
     UserDeleteModal,
 } from './components/components.js';
 
@@ -174,13 +173,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                     control={control}
                     render={RenderCurrency}
                 />
-
-                <SubmitButton isChange={isChange}>
-                    {user?.firstName && user.lastName
-                        ? 'Update My Settings'
-                        : 'Get started'}
-                </SubmitButton>
-                <div className={styles.dltButton}>
+                <div className={styles.buttonsContainer}>
                     <Button
                         variant={ButtonVariant.DELETE}
                         size={ButtonSize.MEDIUM}
@@ -191,6 +184,11 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                             <Icon name={FaIcons.TRASH_CAN} />
                         </span>
                         <span>Delete Account</span>
+                    </Button>
+                    <Button disabled={!isChange}>
+                        {user?.firstName && user.lastName
+                            ? 'Update My Settings'
+                            : 'Get started'}
                     </Button>
                 </div>
             </form>

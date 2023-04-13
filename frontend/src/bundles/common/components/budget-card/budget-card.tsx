@@ -5,8 +5,18 @@ import {
     dateToShortStringHelper,
     toCustomLocaleString,
 } from '~/bundles/common/helpers/helpers.js';
+import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 
-import { calculateBudgetDetails } from '../../pages/budgets/budget-details/helpers/helpers';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+    useState,
+} from '../../hooks/hooks';
+import {
+    calculateBudgetDetails,
+    getSpent,
+} from '../../pages/budgets/budget-details/helpers/helpers';
 import styles from './styles.module.scss';
 
 type Properties = {
@@ -19,8 +29,6 @@ type Properties = {
     endDate: string;
 };
 
-const spent = 500;
-
 const BudgetCard: React.FC<Properties> = ({
     id,
     title,
@@ -30,6 +38,21 @@ const BudgetCard: React.FC<Properties> = ({
     startDate,
     endDate,
 }) => {
+    const dispatch = useAppDispatch();
+    const [spent, setSpent] = useState(0);
+
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
+
+    useEffect(() => {
+        void dispatch(transactionsActions.loadTransactions());
+    }, [dispatch]);
+
+    useEffect(() => {
+        setSpent(getSpent(transactions));
+    }, [transactions]);
+
     const budgetDetailRoute = `${AppRoute.BUDGETS}/${id}`;
     const { moneyLeft } = calculateBudgetDetails({
         amount,
@@ -37,14 +60,13 @@ const BudgetCard: React.FC<Properties> = ({
         recurrence,
         spent,
     });
-    const value = Math.round((100 * moneyLeft) / amount);
+    const value = Math.min((100 * spent) / amount, 100).toFixed(1);
 
     return (
         <Link className={styles.card} to={budgetDetailRoute}>
             <div className={styles.cardWrapper}>
                 <div className={styles.cardHeader}>
                     <h2 className={styles.headerTitle}>{title}</h2>
-                    <p className={styles.headerSubtext}>All wallets</p>
                 </div>
                 <div className={styles.cardBody}>
                     <p className={styles.bodyAmount}>

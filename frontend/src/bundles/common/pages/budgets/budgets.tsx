@@ -2,8 +2,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
 import { actions as budgetsActions } from '~/bundles/budgets/store';
-import { BudgetCard, Button } from '~/bundles/common/components/components.js';
-import { ButtonVariant, FaIcons } from '~/bundles/common/enums/enums.js';
+import {
+    BudgetCard,
+    Button,
+    Loader,
+} from '~/bundles/common/components/components.js';
+import {
+    ButtonVariant,
+    DataStatus,
+    FaIcons,
+} from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppDocumentTitle,
@@ -19,7 +27,9 @@ import styles from './styles.module.scss';
 
 const Budgets: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { budgets } = useAppSelector((state) => state.budgets);
+    const { budgets, dataStatus } = useAppSelector((state) => state.budgets);
+
+    const { user } = useAppSelector((state) => state.users);
 
     useAppDocumentTitle('Budgets');
     const [active, setActive] = useState(false);
@@ -41,49 +51,54 @@ const Budgets: React.FC = () => {
             <div className={classNames(styles.container, 'container')}>
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Budgets</h1>
-                    <div className={styles.cards}>
-                        {budgets.map(
-                            ({
-                                id,
-                                name,
-                                amount,
-                                currency,
-                                startDate,
-                                endDate,
-                                recurrence,
-                            }) => (
-                                <BudgetCard
-                                    key={id}
-                                    id={id}
-                                    title={name}
-                                    amount={amount}
-                                    currency={currency}
-                                    recurrence={recurrence}
-                                    startDate={startDate}
-                                    endDate={endDate as string}
-                                />
-                            ),
-                        )}
-                        <div
-                            className={styles.cardCreate}
-                            onClickCapture={handleModal}
-                        >
-                            <div className={styles.cardWrapper}>
-                                <Button
-                                    variant={ButtonVariant.ROUND}
-                                    className={styles.button}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={FaIcons.PLUS}
-                                        color={'var(--color-white-100)'}
+                    {dataStatus === DataStatus.PENDING ? (
+                        <div className={styles.loaderContainer}>
+                            <Loader />
+                        </div>
+                    ) : (
+                        <div className={styles.cards}>
+                            {budgets.map(
+                                ({
+                                    id,
+                                    name,
+                                    amount,
+                                    startDate,
+                                    endDate,
+                                    recurrence,
+                                }) => (
+                                    <BudgetCard
+                                        key={id}
+                                        id={id}
+                                        title={name}
+                                        amount={amount}
+                                        currency={user?.currency as string}
+                                        recurrence={recurrence}
+                                        startDate={startDate}
+                                        endDate={endDate as string}
                                     />
-                                </Button>
-                                <p className={styles.createText}>
-                                    Create a New Budget
-                                </p>
+                                ),
+                            )}
+                            <div
+                                className={styles.cardCreate}
+                                onClickCapture={handleModal}
+                            >
+                                <div className={styles.cardWrapper}>
+                                    <Button
+                                        variant={ButtonVariant.ROUND}
+                                        className={styles.button}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={FaIcons.PLUS}
+                                            color={'var(--color-white-100)'}
+                                        />
+                                    </Button>
+                                    <p className={styles.createText}>
+                                        Create a New Budget
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
             <div className={styles.modal}>

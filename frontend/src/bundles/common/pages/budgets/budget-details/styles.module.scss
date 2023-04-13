@@ -7,6 +7,10 @@
     background: #eff3ff;
 }
 
+.loaderContainer {
+    height: 100vh;
+}
+
 .contentWrapper {
     display: grid;
     flex-direction: column;
@@ -14,6 +18,19 @@
     width: 100%;
     height: max-content;
     margin: 0 auto;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    width: 100%;
 }
 
 .calendarWrapper {
@@ -26,6 +43,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: var(--font-weight-500);
+    font-size: 20px;
     background: white;
     border-radius: 15px;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { type Range } from 'react-date-range';
 import {
     type CategoryGetAllItemResponseDto,
@@ -5,8 +6,11 @@ import {
     type WalletGetAllItemResponseDto,
 } from 'shared/build';
 
+import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import { type DataObject } from '~/bundles/common/types/chart-data.type';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
+
+import { gradientDoughnut } from '../../budgets/budget-details/helpers/helpers';
 
 const DEFAULT_FILTER_CATEGORIES = [
     {
@@ -102,18 +106,73 @@ const createWalletCategoryDataArray = (
     });
 };
 
+interface GroupedTransaction {
+    date: string;
+    amount: number;
+}
+
 const calculateLineChartData = (
     transactions: TransactionGetAllItemResponseDto[],
+    wallet?: WalletGetAllItemResponseDto,
 ): DataObject[] => {
-    const calculatedData: DataObject[] = [];
+    let minDate: Date = new Date();
+    if (transactions.length > 0) {
+        minDate = new Date(transactions[0].date);
+        for (let index = 1; index < transactions.length; index++) {
+            const transaction = transactions[index];
+            const date = new Date(transaction.date);
+            if (date < minDate) {
+                minDate = date;
+            }
+        }
+    }
+
+    minDate.setDate(minDate.getDate() - 1);
+
+    const formattedDate = minDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+    });
+
+    const groupedTransactions: GroupedTransaction[] = [];
+    let previousAmount = 0;
     for (const transaction of transactions) {
         const date = new Date(transaction.date).toLocaleDateString('en-US', {
             month: 'short',
             day: '2-digit',
             year: 'numeric',
         });
-        calculatedData.push({ date, value: transaction.amount });
+        const index = groupedTransactions.findIndex((t) => t.date === date);
+        if (index === -1) {
+            groupedTransactions.push({
+                date,
+                amount: previousAmount + transaction.amount,
+            });
+        } else {
+            groupedTransactions[index].amount += transaction.amount;
+        }
+        previousAmount =
+            groupedTransactions.find((t) => t.date === date)?.amount ??
+            previousAmount;
     }
+
+    const calculatedData: DataObject[] = [];
+    for (const transaction of groupedTransactions) {
+        const initialValue = wallet ? +wallet.balance : 0;
+        calculatedData.push({
+            date: transaction.date,
+            value: initialValue + +transaction.amount,
+        });
+    }
+
+    if (wallet) {
+        calculatedData.push({
+            value: wallet.balance,
+            date: formattedDate,
+        });
+    }
+
     return calculatedData.sort((a, b) => +new Date(a.date) - +new Date(b.date));
 };
 
@@ -161,7 +220,6 @@ const groupTransactionsByDate = (
         },
     ];
 };
-
 interface ProcessedTransaction {
     date: string;
     total: number;
@@ -200,7 +258,7 @@ const findOrCreateItem = ({
 };
 
 const processTransactions = (
-    transactions: TransactionGetAllItemResponseDto[],
+    transactions: TransactionType[],
 ): ProcessedTransactions => {
     const gradientMap: GradientMap = {};
     let negativeTotal = 0;
@@ -208,20 +266,13 @@ const processTransactions = (
     const negativeResult: ProcessedTransaction[] = [];
 
     for (const current of transactions) {
-        const categoryId = current.categoryId;
-        let gradient = gradientMap[categoryId];
+        const categoryId = current.category?.id;
+        let gradient = gradientMap[current.category.id];
 
         if (!gradient) {
-            // eslint-disable-next-line unicorn/number-literal-case
-            const randomColor1 = Math.floor(Math.random() * 0xff_ff_ff)
-                .toString(16)
-                .padStart(6, '0');
-            // eslint-disable-next-line unicorn/number-literal-case
-            const randomColor2 = Math.floor(Math.random() * 0xff_ff_ff)
-                .toString(16)
-                .padStart(6, '0');
-            const randomStop1 = Math.floor(Math.random() * 30);
-            gradient = `linear-gradient(95.5deg, #${randomColor1} ${randomStop1}, #${randomColor2} 100%)`;
+            gradient = gradientDoughnut.find(
+                (color) => color.name === current.category?.color,
+            )?.value as string;
             gradientMap[categoryId] = gradient;
         }
 
@@ -238,7 +289,9 @@ const processTransactions = (
                 result: negativeResult,
                 date: current.date.toString(),
                 amount: current.amount,
-                gradient,
+                gradient: gradientDoughnut.find(
+                    (color) => color.name === current.category?.color,
+                )?.value as string,
             });
         }
     }
@@ -253,16 +306,26 @@ const processTransactions = (
 
     return { positiveResult, negativeResult };
 };
-type TransactionType = 'income' | 'expense';
+type TransactionTypes = 'income' | 'expense';
 
 const getTotalPeriodAmount = (
     transactions: TransactionGetAllItemResponseDto[],
-    type: TransactionType,
+    type: TransactionTypes,
+    walletId?: string,
 ): number => {
-    const filteredTransactions = transactions.filter((transaction) =>
-        type === 'income' ? transaction.amount < 0 : transaction.amount > 0,
+    let filteredTransactions = [];
+    if (walletId) {
+        filteredTransactions = transactions
+            .filter((transaction) => transaction.walletsId === walletId)
+            .filter((transaction) =>
+                type === 'expense'
+                    ? transaction.amount < 0
+                    : transaction.amount > 0,
+            );
+    }
+    filteredTransactions = transactions.filter((transaction) =>
+        type === 'expense' ? transaction.amount < 0 : transaction.amount > 0,
     );
-
     const total = filteredTransactions.reduce((accumulator, transaction) => {
         return accumulator + transaction.amount;
     }, 0);
@@ -294,6 +357,44 @@ const calculateWalletBalances = (
     return walletBalances;
 };
 
+const getTotalTransactionSum = (
+    transactions: TransactionGetAllItemResponseDto[],
+    walletId?: string,
+): number => {
+    return transactions
+        .filter(
+            (transaction) => !walletId || transaction.walletsId === walletId,
+        )
+        .reduce(
+            (accumulator, transaction) => +accumulator + +transaction.amount,
+            0,
+        );
+};
+
+type TransactionsByCategoryType = Record<
+    string,
+    { total: number; transactions: TransactionType[] }
+>;
+
+const groupTransactionsByCategory = (
+    transactions: TransactionType[],
+): TransactionsByCategoryType => {
+    const transactionsByCategory: TransactionsByCategoryType = {};
+    for (const transaction of transactions) {
+        const categoryName = transaction.category.name;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!transactionsByCategory[categoryName]) {
+            transactionsByCategory[categoryName] = {
+                total: 0,
+                transactions: [],
+            };
+        }
+        transactionsByCategory[categoryName].total += transaction.amount;
+        transactionsByCategory[categoryName].transactions.push(transaction);
+    }
+    return transactionsByCategory;
+};
+
 export {
     calculateLineChartData,
     calculateWalletBalances,
@@ -303,6 +404,8 @@ export {
     filterChart,
     filterLineChart,
     getTotalPeriodAmount,
+    getTotalTransactionSum,
+    groupTransactionsByCategory,
     groupTransactionsByDate,
     processTransactions,
 };

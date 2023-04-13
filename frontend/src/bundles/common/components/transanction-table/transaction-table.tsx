@@ -18,12 +18,14 @@ interface TransactionTableProperties {
     isOnlyFutureTransactions?: boolean;
     walletsId?: string;
     transactions: TransactionType[];
+    addIdCheckedTransactions: (id: string) => void;
 }
 
 const TransactionTable: React.FC<TransactionTableProperties> = ({
     isOnlyFutureTransactions = false,
     walletsId,
     transactions,
+    addIdCheckedTransactions,
 }) => {
     const findTransactions = transactions.filter(
         (transaction) => transaction.walletsId === walletsId,
@@ -48,6 +50,7 @@ const TransactionTable: React.FC<TransactionTableProperties> = ({
                     control={control}
                     errors={errors}
                     isFutureTransactionPage={isOnlyFutureTransactions}
+                    addIdCheckedTransactions={addIdCheckedTransactions}
                 />
             ) : (
                 <>
@@ -56,12 +59,14 @@ const TransactionTable: React.FC<TransactionTableProperties> = ({
                         futureTransactions={futureTransactions}
                         control={control}
                         errors={errors}
+                        addIdCheckedTransactions={addIdCheckedTransactions}
                     />
                     <PastTransactions
                         groupedPastTransactions={groupedPastTransactions}
                         dailyTotals={dailyTotals}
                         control={control}
                         errors={errors}
+                        addIdCheckedTransactions={addIdCheckedTransactions}
                     />
                 </>
             )}

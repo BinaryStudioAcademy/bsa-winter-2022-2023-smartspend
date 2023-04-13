@@ -165,8 +165,8 @@ const BudgetModal: React.FC<Properties> = ({
             }
             Body={
                 <div className={styles.formWrapper}>
+                    <p className={styles.title}>General Info</p>
                     <div className={styles.wrapperHalf}>
-                        <p className={styles.title}>General Info</p>
                         <Input
                             labelClassName={styles.label}
                             control={control}
@@ -178,8 +178,6 @@ const BudgetModal: React.FC<Properties> = ({
                             minLength={1}
                             maxLength={10}
                         />
-                    </div>
-                    <div className={styles.sumRow}>
                         <Input
                             labelClassName={styles.label}
                             control={control}
@@ -191,15 +189,15 @@ const BudgetModal: React.FC<Properties> = ({
                             minLength={1}
                             maxLength={10}
                         />
-                        {/*maybe it will be used in the future}*/}
-                        {/*<Controller*/}
-                        {/*    name="currency"*/}
-                        {/*    control={control}*/}
-                        {/*    render={RenderCurrency}*/}
-                        {/*/>*/}
                     </div>
+                    {/*maybe it will be used in the future}*/}
+                    {/*<Controller*/}
+                    {/*    name="currency"*/}
+                    {/*    control={control}*/}
+                    {/*    render={RenderCurrency}*/}
+                    {/*/>*/}
+                    <p className={styles.title}>Filters</p>
                     <div className={styles.wrapperHalf}>
-                        <p className={styles.title}>Filters</p>
                         <Controller
                             name="categories"
                             control={control}

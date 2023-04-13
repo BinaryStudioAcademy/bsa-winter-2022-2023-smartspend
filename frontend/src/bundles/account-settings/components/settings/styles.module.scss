@@ -6,6 +6,10 @@
         calc(var(--p-5) + var(--p-2));
 }
 
+.loaderContainer {
+    height: 500px;
+}
+
 .dropdownLabel {
     color: var(--color-gray-200);
 }
@@ -81,10 +85,6 @@
     gap: var(--m-4);
 }
 
-.submitBtn {
-    margin-top: var(--m-3);
-}
-
 .calendar {
     position: relative;
     display: grid;
@@ -119,8 +119,10 @@
     background-color: var(--color-gray-200);
 }
 
-.dltButton {
-    justify-self: end;
+.buttonsContainer {
+    display: flex;
+    grid-column: 1/-1;
+    justify-content: space-between;
     margin-top: var(--m-3);
 }
 
@@ -147,14 +149,8 @@
         padding: var(--p-1) var(--p-2);
     }
 
-    .submitBtn,
-    .dltButton {
-        justify-self: center;
-        width: 100%;
-    }
-
-    .submitBtn > button,
-    .dltButton > button {
-        width: 100%;
+    .buttonsContainer {
+        flex-direction: column;
+        gap: 20px;
     }
 }

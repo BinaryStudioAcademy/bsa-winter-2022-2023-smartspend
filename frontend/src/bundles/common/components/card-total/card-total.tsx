@@ -19,6 +19,7 @@ const CardTotal: React.FC<Properties> = ({ title, sum, variant, currency }) => {
                 <h4 className={styles.title}>{title}</h4>
                 <p className={styles.sum}>
                     {toCustomLocaleString(sum, currency)}
+                    {title === 'You can spend' && '/Day'}
                 </p>
             </div>
         </div>

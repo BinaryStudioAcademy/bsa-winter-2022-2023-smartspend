@@ -5,7 +5,7 @@ const DEFAULT_TRANSACTION: Transaction = {
     date: new Date(),
     note: undefined,
     labelId: undefined,
-    amount: 1000,
+    amount: 0,
     currencyId: '',
     walletsId: '',
 };

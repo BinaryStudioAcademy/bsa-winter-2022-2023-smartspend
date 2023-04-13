@@ -8,9 +8,12 @@ import { type CategoryGetAllItemResponseDto } from 'shared/build';
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
+    BaseModal,
     Button,
     CardTotal,
+    Icon,
     Input,
+    Loader,
     MultiDropdown,
     Placeholder,
     RangeSlider,
@@ -20,16 +23,15 @@ import {
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
+    ButtonType,
     ButtonVariant,
     CardVariant,
+    DataStatus,
     FaIcons,
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import {
-    findCurrencyById,
-    findMinMaxAmount,
-} from '~/bundles/common/helpers/helpers.js';
+import { findMinMaxAmount } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -63,12 +65,40 @@ const WalletDetails: React.FC = () => {
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
-    const { wallets } = useAppSelector((state) => state.wallets);
+    const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
     const { control, errors, watch, reset } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
+
+    const [isSelectedTransactions, setIsSelectedTransactions] = useState<
+        string[]
+    >([]);
+    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+
+    const handleOpenModalDelete = useCallback(() => {
+        setIsDeleteModalShown(true);
+    }, []);
+
+    const handleCloseModalDelete = useCallback(() => {
+        setIsDeleteModalShown(false);
+    }, []);
+
+    const addIdCheckedTransactions = useCallback((id: string): void => {
+        setIsSelectedTransactions((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
 
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
@@ -83,17 +113,18 @@ const WalletDetails: React.FC = () => {
         value: item.id,
     }));
 
-    const currency = findCurrencyById(
-        currencies,
-        currentWallet?.currencyId,
-    )?.symbol;
+    // const currency = findCurrencyById(
+    //     currencies,
+    //     currentWallet?.currencyId,
+    // )?.symbol;
 
     const [transactionData, setTransactionData] = useState<TransactionType[]>(
         [],
     );
 
-    const thisWalletTransactions = transactions.filter(
-        (it) => it.walletsId === id,
+    const thisWalletTransactions = useMemo(
+        () => transactions.filter((it) => it.walletsId === id),
+        [id, transactions],
     );
 
     const data = useMemo(() => {
@@ -104,26 +135,23 @@ const WalletDetails: React.FC = () => {
             name: category.find((cat) => cat.id === item.categoryId)?.name,
             label: item.labelId,
             amount: item.amount,
-            currency: currencies.find(
-                (current) => current.id === item.currencyId,
-            )?.symbol,
+            currency: matchingCurrency?.symbol as string,
             note: item.note,
             walletsId: item.walletsId,
         })) as unknown as TransactionType[];
-    }, [category, currencies, transactions]);
+    }, [category, matchingCurrency?.symbol, transactions]);
 
     // const [peopleDropdown, setPeopleDropdown] = useState<
     //     MultiValue<DataType> | SingleValue<DataType>
     // >([]);
     const [rangeLimits, setRangeLimits] = useState(
-        findMinMaxAmount(transactionData),
+        findMinMaxAmount(thisWalletTransactions),
     );
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [filteredData, setFilteredData] = useState(transactionData);
-
     const [activeModal, setActiveModal] = useState(false);
 
     const categoriesIdDropdown = new Set(
@@ -224,7 +252,7 @@ const WalletDetails: React.FC = () => {
                 {data.icon && (
                     <span
                         style={{
-                            background: `${data.color}`,
+                            background: `var(${data.color})`,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -244,6 +272,14 @@ const WalletDetails: React.FC = () => {
         [categoriesDropdown],
     );
 
+    const handleClickDeleteTransactions = useCallback(() => {
+        void dispatch(
+            transactionsActions.removeTransactions(isSelectedTransactions),
+        );
+        setIsSelectedTransactions([]);
+        setIsDeleteModalShown(false);
+    }, [dispatch, isSelectedTransactions]);
+
     useEffect(() => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
     }, [id, wallets]);
@@ -256,8 +292,8 @@ const WalletDetails: React.FC = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        setRangeLimits(findMinMaxAmount(transactionData));
-    }, [transactionData]);
+        setRangeLimits(findMinMaxAmount(thisWalletTransactions));
+    }, [thisWalletTransactions]);
 
     useEffect(() => {
         setCurrentRange(rangeLimits);
@@ -270,6 +306,14 @@ const WalletDetails: React.FC = () => {
     useEffect(() => {
         setTransactionData(data);
     }, [data]);
+
+    if (dataStatus === DataStatus.PENDING) {
+        return (
+            <div className={styles.loaderContainer}>
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <div className={styles.app}>
@@ -288,6 +332,16 @@ const WalletDetails: React.FC = () => {
                             </Button>
 
                             <div className={styles.buttons}>
+                                {isSelectedTransactions.length > 0 && (
+                                    <Button
+                                        className={styles.button}
+                                        variant={ButtonVariant.DELETE}
+                                        size={ButtonSize.MEDIUM}
+                                        onClick={handleOpenModalDelete}
+                                    >
+                                        Delete
+                                    </Button>
+                                )}
                                 <Button
                                     className={styles.button}
                                     variant={ButtonVariant.SECONDARY}
@@ -387,13 +441,17 @@ const WalletDetails: React.FC = () => {
                                         getSpent(thisWalletTransactions)
                                     }
                                     variant={CardVariant.ORANGE}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                                 <CardTotal
                                     title="Total Period Change"
                                     sum={getSpent(thisWalletTransactions)}
                                     variant={CardVariant.BLUE}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                                 <CardTotal
                                     title="Total Period Income"
@@ -402,7 +460,9 @@ const WalletDetails: React.FC = () => {
                                         'income',
                                     )}
                                     variant={CardVariant.VIOLET}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                                 <CardTotal
                                     title="Total Period Expenses"
@@ -411,7 +471,9 @@ const WalletDetails: React.FC = () => {
                                         'expense',
                                     )}
                                     variant={CardVariant.WHITE}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                             </div>
                             {transactions.length > 0 ? (
@@ -419,6 +481,9 @@ const WalletDetails: React.FC = () => {
                                     <TransactionTable
                                         walletsId={id}
                                         transactions={categoryOrNoteFilter}
+                                        addIdCheckedTransactions={
+                                            addIdCheckedTransactions
+                                        }
                                     />
                                 </div>
                             ) : (
@@ -431,6 +496,38 @@ const WalletDetails: React.FC = () => {
                                 type={TransactionModalType.ADD}
                                 handleCancel={closeTransactionModal}
                                 active={activeModal}
+                            />
+                            <BaseModal
+                                isShown={isDeleteModalShown}
+                                onClose={handleCloseModalDelete}
+                                onSubmit={handleClickDeleteTransactions}
+                                Header={
+                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                }
+                                Body={
+                                    <>
+                                        <p>
+                                            This change is irreversible. Do you
+                                            really want to delete them?
+                                        </p>
+                                        <Button
+                                            type={ButtonType.BUTTON}
+                                            variant={ButtonVariant.DELETE}
+                                            size={ButtonSize.MEDIUM}
+                                            className={styles.btn}
+                                            onClick={
+                                                handleClickDeleteTransactions
+                                            }
+                                        >
+                                            <Icon name={FaIcons.TRASH} />
+                                            <span className={styles.btnName}>
+                                                Delete
+                                            </span>
+                                        </Button>
+                                    </>
+                                }
+                                submitButtonName={'Delete category'}
+                                hasActionButtons={false}
                             />
                         </div>
                     </div>

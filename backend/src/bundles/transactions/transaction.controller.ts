@@ -1,9 +1,11 @@
+import { type TransactionIdsRequestDto } from 'shared/build/index.js';
 import { ApiPath } from 'shared/build/index.js';
 
 import {
+    type ApiHandlerOptions,
     type ApiHandlerResponse,
-    Controller,
 } from '~/common/controller/controller.js';
+import { Controller } from '~/common/controller/controller.js';
 import { getUserIdFromToken } from '~/common/helpers/get-id-from-token.helper.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
@@ -107,6 +109,18 @@ class TransactionController extends Controller {
             path: TransactionsApiPath.ID,
             method: 'DELETE',
             handler: (options) => this.delete(options as DeleteRequestTokenDto),
+        });
+
+        this.addRoute({
+            path: TransactionsApiPath.MANY,
+            method: 'DELETE',
+            handler: (options) =>
+                this.deleteMany(
+                    options as ApiHandlerOptions<{
+                        token: string;
+                        body: TransactionIdsRequestDto;
+                    }>,
+                ),
         });
     }
 
@@ -319,6 +333,22 @@ class TransactionController extends Controller {
         return {
             status: HttpCode.OK,
             payload: deletedTransaction,
+        };
+    }
+
+    private async deleteMany(
+        options: ApiHandlerOptions<{
+            body: TransactionIdsRequestDto;
+            token: string;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
+        return {
+            status: HttpCode.OK,
+            payload: await this.transactionService.deleteAll(
+                userId,
+                options.body.ids,
+            ),
         };
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import React from 'react';
 
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
@@ -77,7 +78,6 @@ const TransactionModalBody: React.FC<Properties> = ({
     const categoryGroups: Record<string, Category[]> = {};
 
     for (const category of categories) {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!categoryGroups[category.type]) {
             categoryGroups[category.type] = [];
         }
@@ -88,18 +88,24 @@ const TransactionModalBody: React.FC<Properties> = ({
         <div className={styles.body}>
             <TransactionModalElement label="Category">
                 <Dropdown
-                    data={
-                        [
-                            {
-                                label: 'Income',
-                                options: categoryGroups.income,
-                            },
-                            {
-                                label: 'Expense',
-                                options: categoryGroups.expense,
-                            },
-                        ] as unknown as DataType[]
-                    }
+                    data={[
+                        ...(categoryGroups.income
+                            ? ([
+                                  {
+                                      label: 'Income',
+                                      options: categoryGroups.income,
+                                  },
+                              ] as unknown as DataType[])
+                            : []),
+                        ...(categoryGroups.expense
+                            ? ([
+                                  {
+                                      label: 'Expense',
+                                      options: categoryGroups.expense,
+                                  },
+                              ] as unknown as DataType[])
+                            : []),
+                    ]}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />

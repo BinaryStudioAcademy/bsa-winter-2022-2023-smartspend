@@ -46,7 +46,7 @@ const ManageCategories: React.FC<Properties> = ({
     }, []);
 
     const buttonIsCheckedCategoriesDeleteActive =
-        selectedCategories.length > 0 ? false : true;
+        selectedCategories.length <= 0;
 
     const buttonIsCheckedCategoriesDeleteName =
         selectedCategories.length === 0
@@ -80,31 +80,20 @@ const ManageCategories: React.FC<Properties> = ({
                 onClose={handleCloseModal}
                 onSubmit={handleClickDeleteCategories}
                 Header={
-                    <h2>{`You're about to delete ${selectedCategories.length} categories`}</h2>
+                    <h2
+                        className={styles.modalTitle}
+                    >{`You're about to delete ${selectedCategories.length} categories`}</h2>
                 }
                 Body={
-                    <>
-                        <p>
-                            This change is irreversible. Do you really want to
-                            delete them?
-                        </p>
-                        <Button
-                            type={ButtonType.BUTTON}
-                            variant={ButtonVariant.DELETE}
-                            size={ButtonSize.MEDIUM}
-                            disabled={buttonIsCheckedCategoriesDeleteActive}
-                            className={styles.btn}
-                            onClick={handleClickDeleteCategories}
-                        >
-                            <Icon name={FaIcons.TRASH} />
-                            <span className={styles.btnName}>
-                                Delete categories
-                            </span>
-                        </Button>
-                    </>
+                    <p className={styles.modalDetailsContainer}>
+                        This change is irreversible. Do you really want to
+                        delete them?
+                    </p>
                 }
                 submitButtonName={'Delete categories'}
-                hasActionButtons={false}
+                footerContainerClass={styles.modalFooter}
+                submitButtonVariant={ButtonVariant.DELETE}
+                buttonsSize={ButtonSize.MEDIUM}
             />
         </>
     );

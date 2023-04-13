@@ -134,20 +134,14 @@
 }
 
 .modalDetailsContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: var(--m-2);
     padding: 0 var(--p-6);
-    word-wrap: break-word;
-}
-
-.modalSubTitle {
     color: var(--color-blue-600);
     font-weight: var(--font-weight-500);
     font-size: var(--font-size-level-2-body);
     line-height: var(--line-height-caption);
     text-align: center;
+    word-wrap: break-word;
 }
 
 .modalFooter {
@@ -156,6 +150,7 @@
     align-self: center;
     gap: 15px;
     width: 100%;
+    margin-top: var(--m-4);
 }
 
 @media screen and (max-width: $md) {

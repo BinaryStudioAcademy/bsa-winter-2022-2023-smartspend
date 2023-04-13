@@ -31,10 +31,7 @@ import {
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import {
-    findCurrencyById,
-    findMinMaxAmount,
-} from '~/bundles/common/helpers/helpers.js';
+import { findMinMaxAmount } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -70,6 +67,10 @@ const WalletDetails: React.FC = () => {
     >();
     const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
     const { control, errors, watch, reset } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
@@ -112,10 +113,10 @@ const WalletDetails: React.FC = () => {
         value: item.id,
     }));
 
-    const currency = findCurrencyById(
-        currencies,
-        currentWallet?.currencyId,
-    )?.symbol;
+    // const currency = findCurrencyById(
+    //     currencies,
+    //     currentWallet?.currencyId,
+    // )?.symbol;
 
     const [transactionData, setTransactionData] = useState<TransactionType[]>(
         [],
@@ -134,13 +135,11 @@ const WalletDetails: React.FC = () => {
             name: category.find((cat) => cat.id === item.categoryId)?.name,
             label: item.labelId,
             amount: item.amount,
-            currency: currencies.find(
-                (current) => current.id === item.currencyId,
-            )?.symbol,
+            currency: matchingCurrency?.symbol as string,
             note: item.note,
             walletsId: item.walletsId,
         })) as unknown as TransactionType[];
-    }, [category, currencies, transactions]);
+    }, [category, matchingCurrency?.symbol, transactions]);
 
     // const [peopleDropdown, setPeopleDropdown] = useState<
     //     MultiValue<DataType> | SingleValue<DataType>
@@ -442,13 +441,17 @@ const WalletDetails: React.FC = () => {
                                         getSpent(thisWalletTransactions)
                                     }
                                     variant={CardVariant.ORANGE}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                                 <CardTotal
                                     title="Total Period Change"
                                     sum={getSpent(thisWalletTransactions)}
                                     variant={CardVariant.BLUE}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                                 <CardTotal
                                     title="Total Period Income"
@@ -457,7 +460,9 @@ const WalletDetails: React.FC = () => {
                                         'income',
                                     )}
                                     variant={CardVariant.VIOLET}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                                 <CardTotal
                                     title="Total Period Expenses"
@@ -466,7 +471,9 @@ const WalletDetails: React.FC = () => {
                                         'expense',
                                     )}
                                     variant={CardVariant.WHITE}
-                                    currency={currency}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
                                 />
                             </div>
                             {transactions.length > 0 ? (

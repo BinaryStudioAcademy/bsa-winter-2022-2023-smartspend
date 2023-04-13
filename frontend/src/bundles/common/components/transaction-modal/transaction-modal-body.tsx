@@ -85,28 +85,21 @@ const TransactionModalBody: React.FC<Properties> = ({
         categoryGroups[category.type].push(category);
     }
 
+    const data = [];
+
+    if (categoryGroups.income) {
+        data.push({ label: 'Income', options: categoryGroups.income });
+    }
+
+    if (categoryGroups.expense) {
+        data.push({ label: 'Expense', options: categoryGroups.expense });
+    }
+
     return (
         <div className={styles.body}>
             <TransactionModalElement label="Category">
                 <Dropdown
-                    data={[
-                        ...(categoryGroups.income
-                            ? ([
-                                  {
-                                      label: 'Income',
-                                      options: categoryGroups.income,
-                                  },
-                              ] as unknown as DataType[])
-                            : []),
-                        ...(categoryGroups.expense
-                            ? ([
-                                  {
-                                      label: 'Expense',
-                                      options: categoryGroups.expense,
-                                  },
-                              ] as unknown as DataType[])
-                            : []),
-                    ]}
+                    data={data as unknown as DataType[]}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />

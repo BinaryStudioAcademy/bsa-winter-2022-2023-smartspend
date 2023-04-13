@@ -23,6 +23,10 @@
     font-size: var(--font-size-level-4-heading);
 }
 
+.transactionInfo {
+    display: flex;
+}
+
 .inDays {
     display: flex;
     flex-direction: column;
@@ -43,12 +47,6 @@
 
 .leftColumn {
     justify-content: start;
-}
-
-.rightColumn {
-    justify-content: end;
-    margin-left: auto;
-    font-size: var(--font-size-level-5-heading);
 }
 
 .plus {

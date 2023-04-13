@@ -184,13 +184,6 @@ const FormContainer: React.FC = () => {
             </div>
             <div className={styles.buttons_container}>
                 <Button
-                    variant={ButtonVariant.PRIMARY}
-                    onClick={handleUpdateWallet}
-                    disabled={!isActive}
-                >
-                    Update Setting
-                </Button>
-                <Button
                     variant={ButtonVariant.DELETE}
                     onClick={useCallback(() => setIsModalShown(true), [])}
                 >
@@ -200,6 +193,13 @@ const FormContainer: React.FC = () => {
                         className={styles.button_delete_icon}
                     />
                     Delete Wallet
+                </Button>
+                <Button
+                    variant={ButtonVariant.PRIMARY}
+                    onClick={handleUpdateWallet}
+                    disabled={!isActive}
+                >
+                    Update Setting
                 </Button>
             </div>
         </>

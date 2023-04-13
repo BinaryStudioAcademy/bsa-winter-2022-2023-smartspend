@@ -1,8 +1,9 @@
+import { type AppDocumentTitles } from '../../enums/app-document-titles.enum';
 import { getAppTitle } from '../../helpers/helpers';
 import { useEffect, useRef as useReference } from '../hooks';
 
 const useAppDocumentTitle = (
-    title?: string,
+    title?: AppDocumentTitles,
     prevailOnUnmount = false,
 ): void => {
     const defaultTitle = useReference(document.title);

@@ -22,6 +22,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
+    AppDocumentTitles,
     ButtonSize,
     ButtonType,
     ButtonVariant,
@@ -34,6 +35,7 @@ import {
 import { findMinMaxAmount } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppForm,
     useAppSelector,
     useCallback,
@@ -59,6 +61,7 @@ const DEFAULT_INPUT: { note: string } = {
 };
 
 const WalletDetails: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.TRANSACTIONS);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { id } = useParams();

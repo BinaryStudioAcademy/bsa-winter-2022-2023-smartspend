@@ -1,5 +1,3 @@
-@import url("./variables/breakpoint-variables.scss");
-
 * {
     box-sizing: border-box;
 }
@@ -38,10 +36,4 @@ body {
 .container {
     max-width: 1192px;
     padding: 0 var(--p-3);
-}
-
-@media (max-width: $md) {
-    body {
-        padding-bottom: 50px;
-    }
 }

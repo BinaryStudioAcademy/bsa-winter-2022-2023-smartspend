@@ -136,8 +136,7 @@ const BudgetDetails = (): JSX.Element => {
         );
     }
 
-    const { amount, startDate, endDate, recurrence, name, currency } =
-        currentBudget;
+    const { amount, startDate, endDate, recurrence, name } = currentBudget;
 
     const { canSpend, moneyLeft } = calculateBudgetDetails({
         amount,

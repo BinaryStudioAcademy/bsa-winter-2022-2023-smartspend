@@ -30,7 +30,6 @@ import {
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
-    findCurrencyById,
     formatRangeGraph,
     getInitialRange,
 } from '~/bundles/common/helpers/helpers.js';
@@ -303,7 +302,7 @@ const Dashboard: React.FC = () => {
                     ) : (
                         <div className={styles.wallets}>
                             {walletsWithBalances.map(
-                                ({ id, name, balance, currencyId }) => (
+                                ({ id, name, balance }) => (
                                     <Link
                                         to={`/wallet/${id}/transaction`}
                                         key={id}

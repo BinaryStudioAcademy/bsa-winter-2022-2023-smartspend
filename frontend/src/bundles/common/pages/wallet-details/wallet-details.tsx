@@ -28,10 +28,7 @@ import {
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import {
-    findCurrencyById,
-    findMinMaxAmount,
-} from '~/bundles/common/helpers/helpers.js';
+import { findMinMaxAmount } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -114,7 +111,7 @@ const WalletDetails: React.FC = () => {
             note: item.note,
             walletsId: item.walletsId,
         })) as unknown as TransactionType[];
-    }, [category, currencies, transactions]);
+    }, [category, matchingCurrency?.symbol, transactions]);
 
     // const [peopleDropdown, setPeopleDropdown] = useState<
     //     MultiValue<DataType> | SingleValue<DataType>

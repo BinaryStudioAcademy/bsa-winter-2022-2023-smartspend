@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { type Range } from 'react-date-range';
 import {
     type CategoryGetAllItemResponseDto,

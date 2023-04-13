@@ -35,6 +35,7 @@ const TransactionModalBody: React.FC<Properties> = ({
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
     });
+    const [amountValue, setAmountValue] = useState<number>();
     const [selectedSingleCategory, setSelectedSingleCategory] =
         useState<DataType>(categories[0]);
 
@@ -50,13 +51,22 @@ const TransactionModalBody: React.FC<Properties> = ({
     );
 
     const handleAmountChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) =>
-            handleChangeTransaction((previousState) => {
-                return {
-                    ...previousState,
-                    amount: +event.target.value,
-                };
-            }),
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const inputString = event.target.value;
+            const formattedValue = inputString;
+            const newAmount = Number.parseFloat(formattedValue);
+            if (!Number.isNaN(newAmount) && newAmount >= 0) {
+                setAmountValue(newAmount);
+                handleChangeTransaction((previousState) => {
+                    return {
+                        ...previousState,
+                        amount: newAmount,
+                    };
+                });
+            } else {
+                setAmountValue('' as unknown as number);
+            }
+        },
         [handleChangeTransaction],
     );
 
@@ -123,11 +133,12 @@ const TransactionModalBody: React.FC<Properties> = ({
             <TransactionModalElement label="Amount">
                 <Input
                     inputClassName={styles.amount}
-                    type={InputType.NUMBER}
+                    type={InputType.TEXT}
                     placeholder="0.00"
                     name="amount"
                     control={control}
                     errors={errors}
+                    value={amountValue === 0 ? '' : amountValue}
                     onChange={handleAmountChange}
                 />
             </TransactionModalElement>

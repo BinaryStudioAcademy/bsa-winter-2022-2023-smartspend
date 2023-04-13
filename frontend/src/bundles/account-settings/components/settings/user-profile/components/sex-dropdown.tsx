@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { type SingleValue } from 'react-select';
 
 import { Dropdown } from '~/bundles/common/components/components';
@@ -29,11 +29,6 @@ const RenderSex = ({
         },
         [],
     );
-
-    useEffect(() => {
-        onChange('male');
-        handleDropdownChangeSex({ value: 'male', name: 'Male' });
-    }, [handleDropdownChangeSex, onChange]);
 
     const handleCurrencyChange = useCallback(
         (selectedOption: SingleValue<DataType>): void => {

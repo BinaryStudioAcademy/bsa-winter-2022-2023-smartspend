@@ -60,8 +60,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const isFieldsChange = useCallback((): boolean => {
         if (
             !fieldsWatch.firstName ||
-            !fieldsWatch.lastName ||
-            !fieldsWatch.currency
+            !fieldsWatch.lastName
         ) {
             return false;
         }

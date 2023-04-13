@@ -8,6 +8,7 @@ import {
     BaseModal,
     Button,
     CardTotal,
+    Icon,
     Loader,
     Placeholder,
     TransactionTable,
@@ -16,8 +17,10 @@ import { type TransactionType } from '~/bundles/common/components/transanction-t
 import {
     AppRoute,
     ButtonSize,
+    ButtonType,
     ButtonVariant,
     CardVariant,
+    FaIcons,
 } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
@@ -75,6 +78,21 @@ const BudgetDetails = (): JSX.Element => {
     );
     const [isModalShown, setIsModalShown] = useState(false);
 
+    const [isSelectedTransactions, setIsSelectedTransactions] = useState<
+        string[]
+    >([]);
+
+    const addIdCheckedTransactions = useCallback((id: string): void => {
+        setIsSelectedTransactions((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
+
     const categories = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
     );
@@ -84,6 +102,24 @@ const BudgetDetails = (): JSX.Element => {
     );
 
     const wallets = useAppSelector((state) => state.wallets.wallets);
+
+    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+
+    const handleOpenModalDelete = useCallback(() => {
+        setIsDeleteModalShown(true);
+    }, []);
+
+    const handleCloseModalDelete = useCallback(() => {
+        setIsDeleteModalShown(false);
+    }, []);
+
+    const handleClickDeleteTransactions = useCallback(() => {
+        void dispatch(
+            transactionsActions.removeTransactions(isSelectedTransactions),
+        );
+        setIsSelectedTransactions([]);
+        setIsDeleteModalShown(false);
+    }, [dispatch, isSelectedTransactions]);
 
     const handleCancel = useCallback(() => {
         setActive(false);
@@ -254,13 +290,25 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.budgetInfoWrapper}>
                     <div className={styles.breadcrumbsWrapper}>{name}</div>
                     <div className={styles.editButtonWrapper}>
-                        <Button
-                            className={styles.editButton}
-                            variant={ButtonVariant.SECONDARY}
-                            onClick={handleModal}
-                        >
-                            Edit budget
-                        </Button>
+                        <div className={styles.buttonsContainer}>
+                            {isSelectedTransactions.length > 0 && (
+                                <Button
+                                    className={styles.button}
+                                    variant={ButtonVariant.DELETE}
+                                    size={ButtonSize.MEDIUM}
+                                    onClick={handleOpenModalDelete}
+                                >
+                                    Delete
+                                </Button>
+                            )}
+                            <Button
+                                className={styles.editButton}
+                                variant={ButtonVariant.SECONDARY}
+                                onClick={handleModal}
+                            >
+                                Edit budget
+                            </Button>
+                        </div>
                         <div className={styles.modal}>
                             <BudgetModal
                                 isEdit
@@ -268,6 +316,38 @@ const BudgetDetails = (): JSX.Element => {
                                 onClose={handleCancel}
                                 onClick={handleModalDelete}
                                 budget={currentBudget}
+                            />
+                            <BaseModal
+                                isShown={isDeleteModalShown}
+                                onClose={handleCloseModalDelete}
+                                onSubmit={handleClickDeleteTransactions}
+                                Header={
+                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                }
+                                Body={
+                                    <>
+                                        <p>
+                                            This change is irreversible. Do you
+                                            really want to delete them?
+                                        </p>
+                                        <Button
+                                            type={ButtonType.BUTTON}
+                                            variant={ButtonVariant.DELETE}
+                                            size={ButtonSize.MEDIUM}
+                                            className={styles.btn}
+                                            onClick={
+                                                handleClickDeleteTransactions
+                                            }
+                                        >
+                                            <Icon name={FaIcons.TRASH} />
+                                            <span className={styles.btnName}>
+                                                Delete
+                                            </span>
+                                        </Button>
+                                    </>
+                                }
+                                submitButtonName={'Delete category'}
+                                hasActionButtons={false}
                             />
                         </div>
                     </div>
@@ -347,7 +427,12 @@ const BudgetDetails = (): JSX.Element => {
                             </div>
                         </div>
                         <div className={styles.transactionTable}>
-                            <TransactionTable transactions={transactionData} />
+                            <TransactionTable
+                                transactions={transactionData}
+                                addIdCheckedTransactions={
+                                    addIdCheckedTransactions
+                                }
+                            />
                         </div>
                     </>
                 ) : (

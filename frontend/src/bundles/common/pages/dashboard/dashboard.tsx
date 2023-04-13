@@ -33,7 +33,6 @@ import {
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
-    findCurrencyById,
     formatRangeGraph,
     getInitialRange,
 } from '~/bundles/common/helpers/helpers.js';
@@ -425,28 +424,23 @@ const Dashboard: React.FC = () => {
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {walletsWithBalances.map(
-                            ({ id, name, balance, currencyId }) => (
-                                <Link
-                                    to={`/wallet/${id}/transaction`}
-                                    key={id}
-                                    className={styles.walletWrapper}
-                                >
-                                    <WalletCard
-                                        title={name}
-                                        size={WalletCardSize.MEDIUM}
-                                        balance_value={balance}
-                                        wallet_type={'Balance'}
-                                        currency={
-                                            findCurrencyById(
-                                                currencies,
-                                                currencyId,
-                                            )?.symbol
-                                        }
-                                    />
-                                </Link>
-                            ),
-                        )}
+                        {walletsWithBalances.map(({ id, name, balance }) => (
+                            <Link
+                                to={`/wallet/${id}/transaction`}
+                                key={id}
+                                className={styles.walletWrapper}
+                            >
+                                <WalletCard
+                                    title={name}
+                                    size={WalletCardSize.MEDIUM}
+                                    balance_value={balance}
+                                    wallet_type={'Balance'}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
+                                />
+                            </Link>
+                        ))}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>

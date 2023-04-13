@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
 
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
-import { Input } from '~/bundles/common/components/components';
+import { Icon, Input } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionModalElement } from '~/bundles/common/components/transaction-modal/transaction-modal-element';
@@ -36,7 +37,7 @@ const TransactionModalBody: React.FC<Properties> = ({
         defaultValues: DEFAULT_TRANSACTION,
     });
     const [selectedSingleCategory, setSelectedSingleCategory] =
-        useState<DataType>(categories[0]);
+        useState<DataType>();
 
     const handleNoteChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -84,6 +85,7 @@ const TransactionModalBody: React.FC<Properties> = ({
         categoryGroups[category.type].push(category);
     }
 
+    // eslint-disable-next-line sonarjs/no-unused-collection
     const data = [];
 
     if (categoryGroups.income) {
@@ -94,11 +96,46 @@ const TransactionModalBody: React.FC<Properties> = ({
         data.push({ label: 'Expense', options: categoryGroups.expense });
     }
 
+    const FormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.dropdownCategoryItem}>
+                {data.icon && (
+                    <span
+                        className={styles.dropdownCategoryIcon}
+                        style={{
+                            background: `var(${data.color})`,
+                        }}
+                    >
+                        <Icon name={data.icon as IconProp} />
+                    </span>
+                )}
+                {data.name && (
+                    <span className={styles.dropdownCategoryName}>
+                        {data.name}
+                    </span>
+                )}
+            </div>
+        ),
+        [],
+    );
+
     return (
         <div className={styles.body}>
             <TransactionModalElement label="Category">
                 <Dropdown
-                    data={data as unknown as DataType[]}
+                    data={
+                        [
+                            {
+                                label: 'Income',
+                                options: categoryGroups.income,
+                            },
+                            {
+                                label: 'Expense',
+                                options: categoryGroups.expense,
+                            },
+                        ] as unknown as DataType[]
+                    }
+                    formatOptionLabel={FormatOptionLabel}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />

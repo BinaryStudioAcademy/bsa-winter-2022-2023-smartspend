@@ -33,6 +33,7 @@ enum FaIcons {
     TRANSACTION = 'dollar-sign',
     CAMERA = 'camera',
     WALLET = 'wallet',
+    MONEY_CHECK_DOLLAR = 'money-check-dollar',
 }
 
 export { FaIcons };

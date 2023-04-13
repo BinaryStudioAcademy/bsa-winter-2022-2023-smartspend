@@ -80,24 +80,26 @@ const TransactionModal: React.FC<Properties> = ({
         type === TransactionModalType.CHANGE ? 'Save' : 'Add';
 
     const handleSubmit = useCallback(() => {
-        const expenseCategories = new Set(category
-            .filter((item) => item.type === 'expense')
-            .map((item) => item.id));
-            
+        const expenseCategories = new Set(
+            category
+                .filter((item) => item.type === 'expense')
+                .map((item) => item.id),
+        );
+
         if (id) {
             transaction.walletsId = id;
         }
         transaction.currencyId = matchingCurrency?.id as string;
 
         if (type === TransactionModalType.ADD) {
-            void dispatch(transactionActions.createTransaction({
-                ...transaction,
-                amount: expenseCategories.has(
-                    transaction.categoryId,
-                )
-                    ? -transaction.amount
-                    : transaction.amount,
-            }));
+            void dispatch(
+                transactionActions.createTransaction({
+                    ...transaction,
+                    amount: expenseCategories.has(transaction.categoryId)
+                        ? -transaction.amount
+                        : transaction.amount,
+                }),
+            );
         }
         if (type === TransactionModalType.CHANGE) {
             void dispatch(
@@ -105,9 +107,7 @@ const TransactionModal: React.FC<Properties> = ({
                     id: transactionId as string,
                     payload: {
                         ...transaction,
-                        amount: expenseCategories.has(
-                            transaction.categoryId,
-                        )
+                        amount: expenseCategories.has(transaction.categoryId)
                             ? -transaction.amount
                             : transaction.amount,
                     },
@@ -117,7 +117,16 @@ const TransactionModal: React.FC<Properties> = ({
         void dispatch(transactionActions.loadTransactions());
         setTransaction(DEFAULT_TRANSACTION);
         handleCancel();
-    }, [category, dispatch, handleCancel, id, matchingCurrency?.id, transaction, transactionId, type]);
+    }, [
+        category,
+        dispatch,
+        handleCancel,
+        id,
+        matchingCurrency?.id,
+        transaction,
+        transactionId,
+        type,
+    ]);
 
     // maybe we will need this in the future
     // const currency = useAppSelector((state) => state.currencies.currencies);

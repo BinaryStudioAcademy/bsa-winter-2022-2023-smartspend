@@ -265,7 +265,7 @@ const processTransactions = (
     const negativeResult: ProcessedTransaction[] = [];
 
     for (const current of transactions) {
-        const categoryId = current.category.id;
+        const categoryId = current.category?.id;
         let gradient = gradientMap[current.category.id];
 
         if (!gradient) {
@@ -288,7 +288,7 @@ const processTransactions = (
                 result: negativeResult,
                 date: current.date.toString(),
                 amount: current.amount,
-                gradient:gradientDoughnut.find(
+                gradient: gradientDoughnut.find(
                     (color) => color.name === current.category?.color,
                 )?.value as string,
             });
@@ -302,7 +302,7 @@ const processTransactions = (
             color: 'linear-gradient(95.5deg, #ff0000 0%, #ff6666 100%)',
         });
     }
-    
+
     return { positiveResult, negativeResult };
 };
 type TransactionTypes = 'income' | 'expense';
@@ -375,9 +375,9 @@ type TransactionsByCategoryType = Record<
     { total: number; transactions: TransactionType[] }
 >;
 
-const  groupTransactionsByCategory =(
-    transactions: TransactionType[]
-): TransactionsByCategoryType =>{
+const groupTransactionsByCategory = (
+    transactions: TransactionType[],
+): TransactionsByCategoryType => {
     const transactionsByCategory: TransactionsByCategoryType = {};
     for (const transaction of transactions) {
         const categoryName = transaction.category.name;

@@ -19,7 +19,7 @@ interface Category {
     value: string;
     text?: string;
     label?: string;
-  }
+}
 
 type Properties = {
     categories: Category[];
@@ -62,7 +62,6 @@ const TransactionModalBody: React.FC<Properties> = ({
     const handleDropdownChangeCategory = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
-                
                 setSelectedSingleCategory(selectedOption);
                 handleChangeTransaction((previousState) => {
                     return {
@@ -78,27 +77,29 @@ const TransactionModalBody: React.FC<Properties> = ({
     const categoryGroups: Record<string, Category[]> = {};
 
     for (const category of categories) {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (!categoryGroups[category.type]) {
-        categoryGroups[category.type] = [];
-      }
-      categoryGroups[category.type].push(category);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!categoryGroups[category.type]) {
+            categoryGroups[category.type] = [];
+        }
+        categoryGroups[category.type].push(category);
     }
 
     return (
         <div className={styles.body}>
-           <TransactionModalElement label="Category">
+            <TransactionModalElement label="Category">
                 <Dropdown
-                    data={[
-                        {
-                            label: 'Income',
-                            options: categoryGroups.income,
-                        },
-                        {
-                            label: 'Expense',
-                            options: categoryGroups.expense,
-                        },
-                    ] as unknown as DataType[]}
+                    data={
+                        [
+                            {
+                                label: 'Income',
+                                options: categoryGroups.income,
+                            },
+                            {
+                                label: 'Expense',
+                                options: categoryGroups.expense,
+                            },
+                        ] as unknown as DataType[]
+                    }
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />

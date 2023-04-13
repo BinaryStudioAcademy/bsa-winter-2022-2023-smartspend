@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import dumpIcon from '~/assets/img/dump-icon.svg';
 import {
     BaseModal,
     Button,
-    Dropdown,
     Input,
 } from '~/bundles/common/components/components';
 import { ButtonSize, ButtonVariant } from '~/bundles/common/enums/enums';
@@ -16,7 +15,6 @@ import {
     useCallback,
 } from '~/bundles/common/hooks/hooks';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
-import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
@@ -33,23 +31,16 @@ const FormContainer: React.FC = () => {
         WalletGetAllItemResponseDto | undefined
     >();
     const [isModalShown, setIsModalShown] = useState(false);
-    const mutableCurrencies = useMemo(
-        () =>
-            currencies.map((currency) => ({
-                value: currency.id,
-                name: currency.name,
-            })),
-        [currencies],
-    );
 
-    const [currency, setCurrency] = useState<DataType>(
-        mutableCurrencies[0] ?? { value: '', name: '' },
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
     );
 
     const [fields, setFields] = useState<WalletGetAllItemResponseDto>({
         id: '',
         name: '',
-        currencyId: '',
+        currencyId: matchingCurrency?.id as string,
         balance: 0,
         ownerId: '',
     });
@@ -57,23 +48,6 @@ const FormContainer: React.FC = () => {
     const { control, errors } = useAppForm({
         defaultValues: { name: '', balance: 0, currencyId: '' },
     });
-
-    const findCurrency = mutableCurrencies.find(
-        (currency) => currency.value === fields.currencyId,
-    );
-
-    const handleChange = useCallback(
-        (selectedOption: DataType | null) => {
-            if (selectedOption !== null) {
-                setCurrency(selectedOption);
-                setIsActive(true);
-            }
-            if (fields.name.length === 0 || fields.balance === 0) {
-                setIsActive(false);
-            }
-        },
-        [fields.name.length, fields.balance],
-    );
 
     const handleNameInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,15 +72,11 @@ const FormContainer: React.FC = () => {
     const handleBalanceInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
-            if (Number.isNaN(Number(value))) {
-                return;
-            }
-
             setFields(
                 (previousState) =>
                     ({
                         ...previousState,
-                        balance: Number(value),
+                        balance: +value.replace(/\D/g, ''),
                     } as WalletGetAllItemResponseDto),
             );
             setIsActive(true);
@@ -137,14 +107,14 @@ const FormContainer: React.FC = () => {
                     id: id,
                     payload: {
                         name: data.name,
-                        currencyId: currency.value,
+                        currencyId: data.currencyId,
                         balance: data.balance,
                     },
                 }),
             );
             navigate(`/wallet/${id}/transaction`);
         },
-        [dispatch, navigate, currency.value],
+        [dispatch, navigate],
     );
 
     const handleUpdateWallet = useCallback(
@@ -155,16 +125,6 @@ const FormContainer: React.FC = () => {
     useEffect(() => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
     }, [id, wallets]);
-
-    useEffect(() => {
-        setCurrency(mutableCurrencies[0]);
-    }, [mutableCurrencies]);
-
-    useEffect(() => {
-        if (findCurrency) {
-            setCurrency(findCurrency);
-        }
-    }, [findCurrency]);
 
     useEffect(() => {
         currentWallet && setFields(currentWallet);
@@ -219,16 +179,6 @@ const FormContainer: React.FC = () => {
                         errors={errors}
                         placeholder="Initial balance"
                         onChange={handleBalanceInputChange}
-                    />
-                </div>
-                <div className={styles.input_currency}>
-                    <Dropdown
-                        name="currencyId"
-                        placeholder="USD"
-                        label="Wallet currency"
-                        data={mutableCurrencies}
-                        selectedOption={currency}
-                        handleChange={handleChange}
                     />
                 </div>
             </div>

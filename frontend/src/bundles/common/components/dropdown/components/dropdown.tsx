@@ -13,7 +13,7 @@ import {
 
 import styles from '../styles.module.scss';
 
-interface Properties {
+type Properties = {
     data: DataType[];
     selectedOption: DataType | undefined;
     handleChange: HandleSingleChange;
@@ -23,7 +23,7 @@ interface Properties {
     labelClassName?: string;
     name?: string;
     placeholder?: string;
-}
+};
 
 const Dropdown: React.FC<Properties> = ({
     data,

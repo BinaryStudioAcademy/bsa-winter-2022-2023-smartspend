@@ -84,11 +84,23 @@ class UserCategoryController extends Controller {
         });
 
         this.addRoute({
-            path: CategoriesApiPath.ROOT,
+            path: CategoriesApiPath.DEFAULT,
             method: 'POST',
             validation: {
                 body: categoryValidationSchema,
             },
+            handler: (options) =>
+                this.createDefault(
+                    options as ApiHandlerOptions<{
+                        body: CategoryRequestDto[];
+                        token: string;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: CategoriesApiPath.ROOT,
+            method: 'POST',
             handler: (options) =>
                 this.create(
                     options as ApiHandlerOptions<{
@@ -241,6 +253,22 @@ class UserCategoryController extends Controller {
         return {
             status: HttpCode.CREATED,
             payload: await this.userCategoryService.createCategory(
+                userId,
+                options.body,
+            ),
+        };
+    }
+
+    private async createDefault(
+        options: ApiHandlerOptions<{
+            token: string;
+            body: CategoryRequestDto[];
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const userId = getUserIdFromToken(options.token);
+        return {
+            status: HttpCode.CREATED,
+            payload: await this.userCategoryService.createDefaultCategories(
                 userId,
                 options.body,
             ),

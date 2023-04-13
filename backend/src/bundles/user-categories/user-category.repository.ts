@@ -46,6 +46,24 @@ class UserCategoryRepository {
         return category;
     }
 
+    public async createDefaultUserCategory(
+        userId: string,
+        entities: CategoryEntity[],
+    ): Promise<CategoryEntity[]> {
+        const defaultCategories: CategoryEntity[] = [];
+        for (const entity of entities) {
+            const createdCategory = await this.createCategory(entity);
+            defaultCategories.push(createdCategory);
+        }
+
+        const defaultCategoriesIds = defaultCategories.map((category) => ({ userId, categoryId: category.toObject().id }));
+        for (const defaultCategoryId of defaultCategoriesIds) {
+            await this.userCategoriesModel.query().insert(defaultCategoryId);
+        }
+
+        return defaultCategories;
+    }
+
     public async getAll(id: string): Promise<CategoryEntity[] | undefined> {
         const categories = await this.userModel
             .query()

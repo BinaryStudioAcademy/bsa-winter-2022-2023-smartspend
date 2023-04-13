@@ -60,6 +60,7 @@ import {
     filterLineChart,
     getTotalPeriodAmount,
     getTotalTransactionSum,
+    groupTransactionsByCategory,
     groupTransactionsByDate,
     processTransactions,
 } from './helpers/helpers';
@@ -91,22 +92,8 @@ const ChartBox = ({
     controls,
     transactions = [],
 }: ChartBoxProperties): JSX.Element => {
-    const transactionsByCategory: Record<
-        string,
-        { total: number; transactions: TransactionType[] }
-    > = {};
-    for (const transaction of transactions) {
-        const categoryName = transaction.category.name;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (!transactionsByCategory[categoryName]) {
-            transactionsByCategory[categoryName] = {
-                total: 0,
-                transactions: [],
-            };
-        }
-        transactionsByCategory[categoryName].total += transaction.amount;
-        transactionsByCategory[categoryName].transactions.push(transaction);
-    }
+    const transactionsByCategory = groupTransactionsByCategory(transactions);
+
     return (
         <div className={classNames(styles.chart)}>
             <div className={styles.totals}>
@@ -133,7 +120,7 @@ const ChartBox = ({
                                 >
                                     <div
                                         style={{
-                                            background: `${transaction.transactions[0].category.color}`,
+                                            background: `var(${transaction.transactions[0].category.color})`,
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
@@ -212,12 +199,6 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     );
 };
 
-// const tabsDashboard = [
-//     { title: 'Days', isActive: true, disabled: false },
-//     { title: 'Week', isActive: false, disabled: false },
-//     { title: 'Months', isActive: false, disabled: true },
-// ];
-
 interface TransactionFilter {
     walletName?: string;
     categoryName?: string;
@@ -248,9 +229,6 @@ const Dashboard: React.FC = () => {
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
-
-    // const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
-    // const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
 
     const [day, setDay] = useState<Range>(getInitialRange());
 
@@ -324,7 +302,20 @@ const Dashboard: React.FC = () => {
     const [transactionsData, setTransactionsData] = useState<
         TransactionGetAllItemResponseDto[] | undefined
     >([]);
-
+    const transactionData = transactionsData?.map((item) => ({
+        id: item.id,
+        date: item.date,
+        category: categories.find(
+            (category) => category.id === item.categoryId,
+        ),
+        name: categories.find((category) => category.id === item.categoryId)
+            ?.name,
+        label: item.labelId,
+        amount: item.amount,
+        currency: currencies.find((currency) => currency.id === item.currencyId)
+            ?.symbol,
+        note: item.note,
+    })) as unknown as TransactionType[];
     const lineChartData = calculateLineChartData(
         transactionsData ?? transactions,
         currentWallet,
@@ -335,7 +326,8 @@ const Dashboard: React.FC = () => {
     );
     const categoryDropdown = createCategoryDataArray(categories);
     const { positiveResult, negativeResult } = processTransactions(
-        transactionsData ?? transactions,
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        transactionData ?? transactions,
     );
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
@@ -394,8 +386,10 @@ const Dashboard: React.FC = () => {
                     transaction.amount <= amountRange.max);
 
             const noteMatch =
-                note === undefined ||
-                transaction.note?.toLowerCase().includes(note.toLowerCase());
+                note === '' ||
+                transaction.note
+                    ?.toLowerCase()
+                    .includes(note?.toLowerCase() as string);
 
             return walletMatch && categoryMatch && amountMatch && noteMatch;
         });
@@ -410,24 +404,10 @@ const Dashboard: React.FC = () => {
         };
 
         const filteredTransactions = filterTransactions(transactions, filter);
+
         setTransactionsData(filteredTransactions);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactions, wallet, category, currentRange, filters]);
-
-    const transactionData = transactionsData?.map((item) => ({
-        id: item.id,
-        date: item.date,
-        category: categories.find(
-            (category) => category.id === item.categoryId,
-        ),
-        name: categories.find((category) => category.id === item.categoryId)
-            ?.name,
-        label: item.labelId,
-        amount: item.amount,
-        currency: currencies.find((currency) => currency.id === item.currencyId)
-            ?.symbol,
-        note: item.note,
-    })) as unknown as TransactionType[];
 
     const walletsWithBalances = calculateWalletBalances(wallets, transactions);
 
@@ -614,12 +594,6 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Account Balance'}
                                     date={formatRangeGraph(day)}
-                                    // controls={
-                                    //     <ButtonTabs
-                                    //         tabsData={firstTabs}
-                                    //         onClick={setFirstTabs}
-                                    //     />
-                                    // }
                                 >
                                     <LineChart
                                         dataArr={filterLineChart(
@@ -631,12 +605,6 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Changes'}
                                     date={formatRangeGraph(day)}
-                                    // controls={
-                                    //     <ButtonTabs
-                                    //         tabsData={secondTabs}
-                                    //         onClick={setSecondTabs}
-                                    //     />
-                                    // }
                                 >
                                     <Chart
                                         array={filterChart(

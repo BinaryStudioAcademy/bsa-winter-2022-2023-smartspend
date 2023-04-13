@@ -55,11 +55,20 @@ const TransactionModal: React.FC<Properties> = ({
         ...item,
         value: item.id,
     }));
+    const [isModalDeleteShown, setIsModalDeleteShown] = useState(false);
 
     const [transaction, setTransaction] =
         useState<Transaction>(DEFAULT_TRANSACTION);
 
     const [imageFile, setImageFile] = useState<File | undefined>();
+
+    const handleCancelDelete = useCallback(() => {
+        setIsModalDeleteShown(false);
+    }, []);
+
+    const handleModalDelete = useCallback(() => {
+        setIsModalDeleteShown(true);
+    }, []);
 
     const handleFileChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -160,15 +169,37 @@ const TransactionModal: React.FC<Properties> = ({
                     handleFileChange={handleFileChange}
                 />
                 {type === TransactionModalType.CHANGE && (
-                    <Button
-                        onClick={handleDelete}
-                        className={styles.delete}
-                        type={ButtonType.BUTTON}
-                        size={ButtonSize.SMALL}
-                        variant={ButtonVariant.SECONDARY}
-                    >
-                        Delete Transaction
-                    </Button>
+                    <>
+                        <Button
+                            onClick={handleModalDelete}
+                            className={styles.delete}
+                            type={ButtonType.BUTTON}
+                            size={ButtonSize.SMALL}
+                            variant={ButtonVariant.SECONDARY}
+                        >
+                            Delete Transaction
+                        </Button>
+                        <BaseModal
+                            isShown={isModalDeleteShown}
+                            onClose={handleCancelDelete}
+                            onSubmit={handleDelete}
+                            Header={
+                                <h1 className={styles.modalTitle}>
+                                    Delete transaction
+                                </h1>
+                            }
+                            Body={
+                                <p className={styles.modalDetailsContainer}>
+                                    This change is irreversible. Do you really
+                                    want to delete them?
+                                </p>
+                            }
+                            submitButtonName={'Delete Budget'}
+                            submitButtonVariant={ButtonVariant.DELETE}
+                            footerContainerClass={styles.modalFooter}
+                            buttonsSize={ButtonSize.MEDIUM}
+                        />
+                    </>
                 )}
             </div>
         </BaseModal>

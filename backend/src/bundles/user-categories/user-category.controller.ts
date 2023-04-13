@@ -134,17 +134,6 @@ class UserCategoryController extends Controller {
                     }>,
                 ),
         });
-
-        // this.addRoute({
-        //     path: CategoriesApiPath.MANY,
-        //     method: 'DELETE',
-        //     handler: (options) =>
-        //         this.deleteMany(
-        //             options as ApiHandlerOptions<{
-        //                 body: CategoryIdsRequestDto;
-        //             }>,
-        //         ),
-        // });
     }
 
     /**

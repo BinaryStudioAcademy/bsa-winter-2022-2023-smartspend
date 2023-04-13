@@ -46,6 +46,16 @@ class UserCategoryService {
         );
     }
 
+    public async createDefaultCategories(
+        userId: string,
+        payload: CategoryRequestDto[],
+    ): Promise<CategoryEntity[]> {
+        return await this.userCategoryRepository.createDefaultUserCategory(
+            userId,
+            payload.map((item) => CategoryEntity.initializeNew(item)),
+        );
+    }
+
     public async updateCategory(
         userId: string,
         categoryId: string,

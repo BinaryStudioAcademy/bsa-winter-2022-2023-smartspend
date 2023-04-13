@@ -263,7 +263,7 @@ const Dashboard: React.FC = () => {
         void dispatch(categoriesActions.loadCategories());
     }, [dispatch]);
 
-    const [wallet, setWallet] = useState<DataType>();
+    const [wallet, setWallet] = useState<DataType | null>();
     const [currentWallet, setCurrentWallet] =
         useState<WalletGetAllItemResponseDto>();
 
@@ -281,7 +281,7 @@ const Dashboard: React.FC = () => {
         [wallets],
     );
 
-    const [category, setCategory] = useState<DataType>();
+    const [category, setCategory] = useState<DataType | null>();
 
     const handleDropdownByCategory = useCallback(
         (selectedOption: DataType | null) => {
@@ -343,15 +343,9 @@ const Dashboard: React.FC = () => {
     const rangeLimits = { min: minAmount, max: maxAmount };
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const handleResetFilters = useCallback(() => {
-        setWallet({
-            value: '',
-            name: 'Select...',
-        });
+        setWallet(null);
         setCurrentRange({ min: minAmount, max: maxAmount });
-        setCategory({
-            value: '',
-            name: 'Select...',
-        });
+        setCategory(null);
         setFilters({
             value: '',
             name: '',

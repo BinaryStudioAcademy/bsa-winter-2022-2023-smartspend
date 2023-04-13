@@ -13,7 +13,12 @@ const UserSettingsTabs: React.FC<Properties> = ({ tabsData }) => {
     return (
         <nav className={styles.tabs}>
             {tabsData.map((item, index) => (
-                <UserSettingsTab key={index} title={item.title} to={item.to} />
+                <UserSettingsTab
+                    key={index}
+                    title={item.title}
+                    to={item.to}
+                    icon={item.icon}
+                />
             ))}
         </nav>
     );

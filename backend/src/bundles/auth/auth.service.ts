@@ -1,3 +1,8 @@
+import { CategoryEntity } from '~/bundles/categories/categories.js';
+import {
+    defaultCategories,
+    userCategoryRepository,
+} from '~/bundles/user-categories/user-categories.js';
 import {
     type UserSignInRequestDto,
     type UserSignInResponseDto,
@@ -53,6 +58,14 @@ class AuthService {
             const { id, email } = newUser.toObject();
             const token = this.tokenService.createToken({ id });
             void this.sendAfterSignUpEmail(email);
+
+            await userCategoryRepository.createDefaultUserCategory(
+                id,
+                defaultCategories.map((item) =>
+                    CategoryEntity.initializeNew(item),
+                ),
+            );
+
             return {
                 token,
             };

@@ -437,7 +437,7 @@ const WalletDetails: React.FC = () => {
                                 <CardTotal
                                     title="Total Wallet Balance"
                                     sum={
-                                        (currentWallet?.balance as number) -
+                                        (currentWallet?.balance as number) +
                                         getSpent(thisWalletTransactions)
                                     }
                                     variant={CardVariant.ORANGE}

@@ -53,7 +53,7 @@ const calculateBudgetDetails = ({
     const MILLISECONDS_PER_DAY = 86_400_000;
     const timeRemainingMs = endDate.getTime() - Date.now();
     const daysRemaining = Math.ceil(timeRemainingMs / MILLISECONDS_PER_DAY);
-    const moneyLeft = amount - spent;
+    const moneyLeft = amount + spent;
     const canSpend = daysRemaining > 0 ? moneyLeft / daysRemaining : 0;
     return { moneyLeft, canSpend, lastDate };
 };

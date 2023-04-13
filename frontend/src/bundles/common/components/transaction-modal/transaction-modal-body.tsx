@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable unicorn/prefer-ternary */
 import React from 'react';
 
 import { Calendar } from '~/bundles/common/components/calendar/calendar';

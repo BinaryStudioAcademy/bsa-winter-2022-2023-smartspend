@@ -53,7 +53,6 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
         // validationSchema: userUpdateRegValidationSchema,
         // mode: 'onBlur',
     });
-    // console.log(errors);
     const [modalOpen, setModalOpen] = useState(false);
 
     const fieldsWatch = watch();

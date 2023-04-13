@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import React from 'react';
 
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
@@ -13,8 +14,16 @@ import { type Transaction } from '~/bundles/common/types/transaction.type';
 
 import styles from './styles.module.scss';
 
+interface Category {
+    id: string;
+    type: string;
+    value: string;
+    text?: string;
+    label?: string;
+}
+
 type Properties = {
-    categories: DataType[];
+    categories: Category[];
     labels: DataType[];
     handleChangeTransaction: React.Dispatch<React.SetStateAction<Transaction>>;
 };
@@ -66,11 +75,30 @@ const TransactionModalBody: React.FC<Properties> = ({
         [handleChangeTransaction],
     );
 
+    const categoryGroups: Record<string, Category[]> = {};
+
+    for (const category of categories) {
+        if (!categoryGroups[category.type]) {
+            categoryGroups[category.type] = [];
+        }
+        categoryGroups[category.type].push(category);
+    }
+
+    const data = [];
+
+    if (categoryGroups.income) {
+        data.push({ label: 'Income', options: categoryGroups.income });
+    }
+
+    if (categoryGroups.expense) {
+        data.push({ label: 'Expense', options: categoryGroups.expense });
+    }
+
     return (
         <div className={styles.body}>
             <TransactionModalElement label="Category">
                 <Dropdown
-                    data={categories}
+                    data={data as unknown as DataType[]}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />
@@ -96,7 +124,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                 <Input
                     inputClassName={styles.amount}
                     type={InputType.NUMBER}
-                    placeholder="1000"
+                    placeholder="0.00"
                     name="amount"
                     control={control}
                     errors={errors}

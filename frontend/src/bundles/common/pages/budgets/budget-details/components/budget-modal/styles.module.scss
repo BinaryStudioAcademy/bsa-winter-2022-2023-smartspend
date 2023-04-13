@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .formWrapper {
     display: flex;
     flex-direction: column;
@@ -50,19 +52,22 @@
 
 .modalFooter > div {
     display: flex;
+    flex: 1 1 auto;
     justify-content: flex-end;
-    width: 360px;
+    gap: 9.24%;
+    width: 100%;
 }
 
 .modalFooter {
     display: flex;
-    justify-content: flex-end;
+    gap: 5.97%;
 }
 
 .modalFooter > button,
 .modalFooter > div > button {
     width: 150px;
     height: 40px;
+    white-space: nowrap;
 }
 
 .header {
@@ -78,4 +83,37 @@
 
 .calendar {
     margin-top: 20px;
+}
+
+.delete {
+    width: 150px;
+    white-space: nowrap;
+}
+
+@media (max-width: $sm) {
+    .modalFooter > div,
+    .modalFooter {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--m-3);
+        margin: 0;
+    }
+
+    .modalFooter > button,
+    .modalFooter > div > button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .wrapperHalf {
+        grid-template-columns: 1fr;
+    }
+
+    .dates {
+        flex-direction: column;
+    }
+
+    .dates > div {
+        width: 100%;
+    }
 }

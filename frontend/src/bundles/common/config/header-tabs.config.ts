@@ -11,7 +11,7 @@ const tabsData = [
     {
         title: 'Wallet Settings',
         to: AppRoute.WALLET_SETTINGS,
-        icon: 'SETTINGS',
+        icon: 'GEAR',
     },
 ];
 

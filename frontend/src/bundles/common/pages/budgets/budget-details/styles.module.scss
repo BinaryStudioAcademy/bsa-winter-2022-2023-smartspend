@@ -20,10 +20,23 @@
     margin: 0 auto;
 }
 
-.calendarWrapper {
+// .calendarWrapper {
+//     display: flex;
+//     justify-content: flex-end;
+//     margin-top: calc(var(--m-1) + var(--m-3));
+// }
+
+.buttonsContainer {
     display: flex;
-    justify-content: flex-end;
-    margin-top: calc(var(--m-1) + var(--m-3));
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    width: 100%;
 }
 
 .budgetInfoWrapper {

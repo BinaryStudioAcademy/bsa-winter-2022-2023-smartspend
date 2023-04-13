@@ -5,3 +5,4 @@ export { type TransactionFindRequestDto } from './transaction-find-request-dto.t
 export { type TransactionGetAllItemResponseDto } from './transaction-get-all-item-response-dto.type.js';
 export { type TransactionGetAllResponseDto } from './transaction-get-all-response-dto.type.js';
 export { type TransactionUpdatePayloadDto } from './transaction-update-dto.type.js';
+export { type TransactionIdsRequestDto } from './transactions-delete-request-dto.type.js';

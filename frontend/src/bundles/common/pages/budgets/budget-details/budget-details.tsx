@@ -69,6 +69,10 @@ const BudgetDetails = (): JSX.Element => {
     const [spent, setSpent] = useState(0);
     const { budgets } = useAppSelector((state) => state.budgets);
     const { currencies } = useAppSelector((state) => state.currencies);
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
     const [isModalShown, setIsModalShown] = useState(false);
 
     const categories = useAppSelector(
@@ -149,15 +153,18 @@ const BudgetDetails = (): JSX.Element => {
         name: categories.find((cat) => cat.id === item.categoryId)?.name,
         label: item.labelId,
         amount: item.amount,
-        currency: currencies.find((current) => current.id === item.currencyId)
-            ?.symbol,
+        currency: matchingCurrency?.symbol as string,
         note: item.note,
         walletsId: wallets.find((cat) => cat.id === item.walletsId)?.id,
     })) as unknown as TransactionType[];
 
     const canSpending =
         canSpend > 0
-            ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
+            ? toCustomLocaleString(
+                  canSpend,
+                  matchingCurrency?.shortName as string,
+                  true,
+              ).replace('+', '')
             : 0;
 
     const transactionSortByType = transactionData.filter(
@@ -273,27 +280,31 @@ const BudgetDetails = (): JSX.Element => {
                         title={InfoCardTypes.ORIGINALLY}
                         sum={amount}
                         variant={CardVariant.ORANGE}
+                        currency={matchingCurrency?.symbol as string}
                     />
                     <CardTotal
                         title={InfoCardTypes.SPENT}
                         sum={spent}
                         variant={CardVariant.BLUE}
+                        currency={matchingCurrency?.symbol as string}
                     />
                     <CardTotal
                         title={InfoCardTypes.LEFT}
                         sum={moneyLeft}
                         variant={CardVariant.VIOLET}
+                        currency={matchingCurrency?.symbol as string}
                     />
                     <CardTotal
                         title={InfoCardTypes.CAN}
                         sum={canSpend}
                         variant={CardVariant.WHITE}
+                        currency={matchingCurrency?.symbol as string}
                     />
                 </div>
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>{`You can spending ${canSpending}/Day`}</div>
+                        <div>{`You can spend ${canSpending}/Day`}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={spent}

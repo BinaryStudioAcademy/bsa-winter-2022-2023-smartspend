@@ -315,10 +315,7 @@ const Dashboard: React.FC = () => {
                                             balance_value={balance}
                                             wallet_type={'Balance'}
                                             currency={
-                                                findCurrencyById(
-                                                    currencies,
-                                                    currencyId,
-                                                )?.symbol
+                                                matchingCurrency?.symbol as string
                                             }
                                         />
                                     </Link>

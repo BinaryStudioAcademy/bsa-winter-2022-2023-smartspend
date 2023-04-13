@@ -106,6 +106,7 @@ class AuthController extends Controller {
         }>,
     ): Promise<ApiHandlerResponse> {
         const token = await this.authService.signUp(options.body);
+
         return {
             status: HttpCode.CREATED,
             payload: token,

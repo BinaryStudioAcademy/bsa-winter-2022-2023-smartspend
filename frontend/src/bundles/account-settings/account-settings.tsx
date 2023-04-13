@@ -7,11 +7,11 @@ import styles from './styles.module.scss';
 
 const AccountSettings: React.FC = () => {
     const dataTabs = [
-        { title: 'Account', to: AppRoute.USER_PROFILE, icon: 'CHART' },
+        { title: 'Account', to: AppRoute.USER_PROFILE, icon: 'DASHBOARD' },
         {
             title: 'Categories settings',
             to: AppRoute.USER_CATEGORIES,
-            icon: 'CHART',
+            icon: 'GEAR',
         },
     ];
 

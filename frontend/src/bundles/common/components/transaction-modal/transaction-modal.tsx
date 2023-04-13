@@ -48,6 +48,13 @@ const TransactionModal: React.FC<Properties> = ({
     const matchingCurrency = currencies.find(
         (currency) => currency.shortName === user?.currency,
     );
+    const category = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+    const categoryMenu = category.map((item) => ({
+        ...item,
+        value: item.id,
+    }));
 
     const [transaction, setTransaction] =
         useState<Transaction>(DEFAULT_TRANSACTION);
@@ -73,41 +80,44 @@ const TransactionModal: React.FC<Properties> = ({
         type === TransactionModalType.CHANGE ? 'Save' : 'Add';
 
     const handleSubmit = useCallback(() => {
+        const expenseCategories = new Set(category
+            .filter((item) => item.type === 'expense')
+            .map((item) => item.id));
+            
         if (id) {
             transaction.walletsId = id;
         }
         transaction.currencyId = matchingCurrency?.id as string;
+
         if (type === TransactionModalType.ADD) {
-            void dispatch(transactionActions.createTransaction(transaction));
+            void dispatch(transactionActions.createTransaction({
+                ...transaction,
+                amount: expenseCategories.has(
+                    transaction.categoryId,
+                )
+                    ? -transaction.amount
+                    : transaction.amount,
+            }));
         }
         if (type === TransactionModalType.CHANGE) {
             void dispatch(
                 transactionActions.updateTransaction({
                     id: transactionId as string,
-                    payload: transaction,
+                    payload: {
+                        ...transaction,
+                        amount: expenseCategories.has(
+                            transaction.categoryId,
+                        )
+                            ? -transaction.amount
+                            : transaction.amount,
+                    },
                 }),
             );
         }
         void dispatch(transactionActions.loadTransactions());
         setTransaction(DEFAULT_TRANSACTION);
         handleCancel();
-    }, [
-        dispatch,
-        handleCancel,
-        id,
-        matchingCurrency?.id,
-        transaction,
-        transactionId,
-        type,
-    ]);
-
-    const category = useAppSelector(
-        (state) => state.categories.categories?.items ?? [],
-    );
-    const categoryMenu = category.map((item) => ({
-        ...item,
-        value: item.id,
-    }));
+    }, [category, dispatch, handleCancel, id, matchingCurrency?.id, transaction, transactionId, type]);
 
     // maybe we will need this in the future
     // const currency = useAppSelector((state) => state.currencies.currencies);

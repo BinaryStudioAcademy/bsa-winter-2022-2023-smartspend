@@ -13,8 +13,16 @@ import { type Transaction } from '~/bundles/common/types/transaction.type';
 
 import styles from './styles.module.scss';
 
+interface Category {
+    id: string;
+    type: string;
+    value: string;
+    text?: string;
+    label?: string;
+  }
+
 type Properties = {
-    categories: DataType[];
+    categories: Category[];
     labels: DataType[];
     handleChangeTransaction: React.Dispatch<React.SetStateAction<Transaction>>;
 };
@@ -54,6 +62,7 @@ const TransactionModalBody: React.FC<Properties> = ({
     const handleDropdownChangeCategory = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
+                
                 setSelectedSingleCategory(selectedOption);
                 handleChangeTransaction((previousState) => {
                     return {
@@ -66,11 +75,30 @@ const TransactionModalBody: React.FC<Properties> = ({
         [handleChangeTransaction],
     );
 
+    const categoryGroups: Record<string, Category[]> = {};
+
+    for (const category of categories) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (!categoryGroups[category.type]) {
+        categoryGroups[category.type] = [];
+      }
+      categoryGroups[category.type].push(category);
+    }
+
     return (
         <div className={styles.body}>
-            <TransactionModalElement label="Category">
+           <TransactionModalElement label="Category">
                 <Dropdown
-                    data={categories}
+                    data={[
+                        {
+                            label: 'Income',
+                            options: categoryGroups.income,
+                        },
+                        {
+                            label: 'Expense',
+                            options: categoryGroups.expense,
+                        },
+                    ] as unknown as DataType[]}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />
@@ -96,7 +124,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                 <Input
                     inputClassName={styles.amount}
                     type={InputType.NUMBER}
-                    placeholder="1000"
+                    placeholder="0.00"
                     name="amount"
                     control={control}
                     errors={errors}

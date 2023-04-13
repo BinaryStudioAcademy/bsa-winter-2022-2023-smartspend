@@ -67,7 +67,7 @@ const MultiDropdown: React.FC<Properties> = ({
             height: '48px',
             width: '100%',
             borderRadius: 'var(--b-2)',
-            borderWidth: '0.1rem',
+            borderWidth: '1px',
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue500

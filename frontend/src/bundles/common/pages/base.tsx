@@ -129,6 +129,18 @@ const mockData = [
 ];
 
 const Base: React.FC = () => {
+    const [, setIsSelectedTransactions] = useState<string[]>([]);
+
+    const addIdCheckedTransactions = useCallback((id: string): void => {
+        setIsSelectedTransactions((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
     const [active, setActive] = useState(false);
 
     const handleCancel = useCallback(() => {
@@ -590,6 +602,7 @@ const Base: React.FC = () => {
                             walletsId: '49cfd534-7c7f-438c-a6cd-3578b7dfd412',
                         },
                     ]}
+                    addIdCheckedTransactions={addIdCheckedTransactions}
                 />
             </div>
             <Loader />

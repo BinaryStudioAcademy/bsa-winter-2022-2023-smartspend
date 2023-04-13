@@ -29,6 +29,8 @@ const Budgets: React.FC = () => {
     const dispatch = useAppDispatch();
     const { budgets, dataStatus } = useAppSelector((state) => state.budgets);
 
+    const { user } = useAppSelector((state) => state.users);
+
     useAppDocumentTitle('Budgets');
     const [active, setActive] = useState(false);
 
@@ -60,7 +62,6 @@ const Budgets: React.FC = () => {
                                     id,
                                     name,
                                     amount,
-                                    currency,
                                     startDate,
                                     endDate,
                                     recurrence,
@@ -70,7 +71,7 @@ const Budgets: React.FC = () => {
                                         id={id}
                                         title={name}
                                         amount={amount}
-                                        currency={currency}
+                                        currency={user?.currency as string}
                                         recurrence={recurrence}
                                         startDate={startDate}
                                         endDate={endDate as string}

@@ -87,6 +87,15 @@ class TransactionService {
         }
         return deletedTransaction;
     }
+    public async deleteAll(
+        ownerId: string,
+        transactionIds: string[],
+    ): Promise<{ categoryIds: string[] } | undefined> {
+        return await this.transactionRepository.deleteTransactions(
+            ownerId,
+            transactionIds,
+        );
+    }
 }
 
 export { TransactionService };

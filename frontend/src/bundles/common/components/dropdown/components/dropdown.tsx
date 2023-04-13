@@ -1,4 +1,6 @@
 /* eslint-disable unicorn/prefer-ternary */
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import Select, { type StylesConfig } from 'react-select';
 
@@ -25,7 +27,6 @@ interface Properties {
 
 const Dropdown: React.FC<Properties> = ({
     data,
-    selectedOption,
     handleChange,
     handleFocus,
     formatOptionLabel,
@@ -60,7 +61,7 @@ const Dropdown: React.FC<Properties> = ({
             height: '48px',
             width: '100%',
             borderRadius: 'var(--b-2)',
-            borderWidth: '0.06rem',
+            borderWidth: '1px',
             borderColor:
                 state.isFocused || state.menuIsOpen
                     ? blue500
@@ -107,32 +108,28 @@ const Dropdown: React.FC<Properties> = ({
     const defaultFormatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
-                {data.image && (
-                    <img
-                        className={styles.image}
-                        src={data.image}
-                        alt={data.name ?? ''}
-                    />
+                {data.icon && (
+                    <span
+                        style={{
+                            background: `${data.color}`,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            height: '25px',
+                            width: '25px',
+                            borderRadius: '6px',
+                            color: '#fff',
+                        }}
+                    >
+                        <FontAwesomeIcon icon={data.icon as IconProp} />
+                    </span>
                 )}
                 {data.name && <span className={styles.name}>{data.name}</span>}
             </div>
         ),
         [],
     );
-
-    const getValue = (
-        selectedOption: DataType | undefined,
-    ): DataType | DataType[] => {
-        if (selectedOption) {
-            return {
-                value: selectedOption.value,
-                name: selectedOption.name,
-                image: selectedOption.image,
-            };
-        } else {
-            return [];
-        }
-    };
 
     return (
         <div>
@@ -141,7 +138,6 @@ const Dropdown: React.FC<Properties> = ({
             </div>
             <Select
                 className={styles.select}
-                value={getValue(selectedOption)}
                 onChange={handleChange as HandleMultiChange}
                 options={data}
                 formatOptionLabel={

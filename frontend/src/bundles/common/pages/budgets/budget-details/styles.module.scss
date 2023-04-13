@@ -26,6 +26,19 @@
 //     margin-top: calc(var(--m-1) + var(--m-3));
 // }
 
+.buttonsContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    width: 100%;
+}
+
 .budgetInfoWrapper {
     display: flex;
     justify-content: space-between;

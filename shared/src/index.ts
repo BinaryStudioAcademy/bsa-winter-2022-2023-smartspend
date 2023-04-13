@@ -42,6 +42,7 @@ export {
     type TransactionFindRequestDto,
     type TransactionGetAllItemResponseDto,
     type TransactionGetAllResponseDto,
+    type TransactionIdsRequestDto,
     type TransactionUpdatePayloadDto,
     createTransactionValidationSchema,
     TransactionsApiPath,

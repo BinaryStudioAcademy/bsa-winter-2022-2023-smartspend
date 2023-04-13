@@ -1,14 +1,17 @@
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 import { type Range } from 'react-date-range';
 import { Link } from 'react-router-dom';
-import { type TransactionGetAllItemResponseDto } from 'shared/build';
+import {
+    type TransactionGetAllItemResponseDto,
+    type WalletGetAllItemResponseDto,
+} from 'shared/build';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import {
     Button,
-    ButtonTabs,
     Calendar,
     CardTotal,
     Chart,
@@ -30,7 +33,6 @@ import {
     FaIcons,
 } from '~/bundles/common/enums/enums.js';
 import {
-    findCurrencyById,
     formatRangeGraph,
     getInitialRange,
 } from '~/bundles/common/helpers/helpers.js';
@@ -39,7 +41,6 @@ import {
     useAppDocumentTitle,
     useAppForm,
     useAppSelector,
-    useButtonTabsState,
 } from '~/bundles/common/hooks/hooks.js';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
@@ -47,7 +48,7 @@ import { type DataType } from '~/bundles/common/types/types.js';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
-import { getSpent } from '../budgets/budget-details/helpers/get-spent.helper';
+import { type TransactionType } from '../../components/transanction-table/types';
 import {
     calculateLineChartData,
     calculateWalletBalances,
@@ -57,6 +58,8 @@ import {
     filterChart,
     filterLineChart,
     getTotalPeriodAmount,
+    getTotalTransactionSum,
+    groupTransactionsByCategory,
     groupTransactionsByDate,
     processTransactions,
 } from './helpers/helpers';
@@ -78,6 +81,7 @@ type ChartBoxProperties = {
     title: string;
     date: string;
     controls?: JSX.Element | JSX.Element[] | string;
+    transactions?: TransactionType[] | undefined;
 };
 
 const ChartBox = ({
@@ -85,7 +89,10 @@ const ChartBox = ({
     title,
     date,
     controls,
+    transactions = [],
 }: ChartBoxProperties): JSX.Element => {
+    const transactionsByCategory = groupTransactionsByCategory(transactions);
+
     return (
         <div className={classNames(styles.chart)}>
             <div className={styles.totals}>
@@ -93,9 +100,72 @@ const ChartBox = ({
                     <h3 className={styles.chartTitle}>{title}</h3>
                     <span className={styles.chartDate}>{date}</span>
                 </div>
-                <div>{controls}</div>
+                {controls && <div>{controls}</div>}
             </div>
             <div className={styles.chartBox}>{children}</div>
+            <div className={styles.transactions}>
+                {Object.values(transactionsByCategory).map((transaction) => {
+                    return (
+                        <div
+                            key={transaction.transactions[0].id}
+                            className={styles.transactionBody}
+                        >
+                            {transaction.transactions[0] && (
+                                <div
+                                    className={classNames(
+                                        styles.columns,
+                                        styles.leftColumn,
+                                    )}
+                                >
+                                    <div
+                                        style={{
+                                            background: `var(${transaction.transactions[0].category.color})`,
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            textAlign: 'center',
+                                            height: '25px',
+                                            minWidth: '25px',
+                                            borderRadius: '6px',
+                                            color: '#fff',
+                                        }}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={
+                                                transaction.transactions[0]
+                                                    .category.icon as IconProp
+                                            }
+                                        />
+                                    </div>
+                                    <div className={styles.transactionName}>
+                                        {
+                                            transaction.transactions[0].category
+                                                .name
+                                        }
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className={styles.inDays}>
+                                {transaction.transactions.length} transaction(s)
+                            </div>
+
+                            <div
+                                className={classNames(
+                                    styles.columns,
+                                    styles.rightColumn,
+                                    transaction.transactions[0].amount < 0
+                                        ? styles.minus
+                                        : styles.plus,
+                                )}
+                            >
+                                {transaction.total.toFixed(2)}
+                                {transaction.transactions[0].currency}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };
@@ -128,11 +198,12 @@ const WalletButton: React.FC<WalletButtonProperties> = ({
     );
 };
 
-const tabsDashboard = [
-    { title: 'Days', isActive: true, disabled: false },
-    { title: 'Week', isActive: false, disabled: false },
-    { title: 'Months', isActive: false, disabled: true },
-];
+interface TransactionFilter {
+    walletName?: string;
+    categoryName?: string;
+    amountRange?: { min: number; max: number };
+    note?: string;
+}
 
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
@@ -150,13 +221,6 @@ const Dashboard: React.FC = () => {
         (state) => state.transactions.transactions?.items ?? [],
     );
 
-    const amounts = transactions.map((transaction) => transaction.amount);
-    const minAmount = amounts.length > 0 ? Math.min(...amounts) : 0;
-    const maxAmount = amounts.length > 0 ? Math.max(...amounts) : 0;
-
-    const rangeLimits = { min: minAmount, max: maxAmount };
-
-    const [currentRange, setCurrentRange] = useState(rangeLimits);
     const categories = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
     );
@@ -164,9 +228,6 @@ const Dashboard: React.FC = () => {
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
-
-    const [firstTabs, setFirstTabs] = useButtonTabsState(tabsDashboard);
-    const [secondTabs, setSecondTabs] = useButtonTabsState(tabsDashboard);
 
     const [day, setDay] = useState<Range>(getInitialRange());
 
@@ -196,14 +257,21 @@ const Dashboard: React.FC = () => {
     }, [dispatch]);
 
     const [wallet, setWallet] = useState<DataType>();
+    const [currentWallet, setCurrentWallet] =
+        useState<WalletGetAllItemResponseDto>();
 
     const handleDropdownByWallets = useCallback(
         (selectedOption: DataType | null) => {
             if (selectedOption !== null) {
                 setWallet(selectedOption);
+                setCurrentWallet(
+                    wallets.find(
+                        (wallet) => wallet.name === selectedOption.value,
+                    ),
+                );
             }
         },
-        [],
+        [wallets],
     );
 
     const [category, setCategory] = useState<DataType>();
@@ -231,64 +299,114 @@ const Dashboard: React.FC = () => {
     );
 
     const [transactionsData, setTransactionsData] = useState<
-        TransactionGetAllItemResponseDto[]
+        TransactionGetAllItemResponseDto[] | undefined
     >([]);
+    const transactionData = transactionsData?.map((item) => ({
+        id: item.id,
+        date: item.date,
+        category: categories.find(
+            (category) => category.id === item.categoryId,
+        ),
+        name: categories.find((category) => category.id === item.categoryId)
+            ?.name,
+        label: item.labelId,
+        amount: item.amount,
+        currency: currencies.find((currency) => currency.id === item.currencyId)
+            ?.symbol,
+        note: item.note,
+    })) as unknown as TransactionType[];
+    const lineChartData = calculateLineChartData(
+        transactionsData ?? transactions,
+        currentWallet,
+    );
 
-    const lineChartData = calculateLineChartData(transactionsData);
-    const verticalChartData = groupTransactionsByDate(transactionsData);
+    const verticalChartData = groupTransactionsByDate(
+        transactionsData ?? transactions,
+    );
     const categoryDropdown = createCategoryDataArray(categories);
-    const { positiveResult, negativeResult } =
-        processTransactions(transactionsData);
+    const { positiveResult, negativeResult } = processTransactions(
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        transactionData ?? transactions,
+    );
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
+    const amounts = transactions.map((transaction) => transaction.amount);
+    const minAmount = Math.min(...amounts);
+    const maxAmount = Math.max(...amounts);
+    const rangeLimits = { min: minAmount, max: maxAmount };
+    const [currentRange, setCurrentRange] = useState(rangeLimits);
     const handleResetFilters = useCallback(() => {
         setWallet({
             value: '',
-            name: 'Find by name',
+            name: 'Select...',
         });
-        setCurrentRange({ min: 0, max: 0 });
+        setCurrentRange({ min: minAmount, max: maxAmount });
         setCategory({
             value: '',
-            name: 'Find by category',
+            name: 'Select...',
         });
         setFilters({
             value: '',
             name: '',
         });
+        setCurrentWallet({} as WalletGetAllItemResponseDto);
         setTransactionsData([]);
-    }, []);
+    }, [maxAmount, minAmount]);
 
     useEffect(() => {
         void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
         void dispatch(categoriesActions.loadCategories());
-    }, [dispatch]);
+        void dispatch(transactionsActions.loadTransactions());
+        setCurrentRange({ min: minAmount, max: maxAmount });
+    }, [dispatch, maxAmount, minAmount]);
+
+    const filterTransactions = (
+        transactions: TransactionGetAllItemResponseDto[],
+        filter: TransactionFilter,
+    ): TransactionGetAllItemResponseDto[] => {
+        const { walletName, categoryName, amountRange, note } = filter;
+
+        return transactions.filter((transaction) => {
+            const walletMatch =
+                walletName === undefined ||
+                transaction.walletsId ===
+                    wallets.find((wallet) => wallet.name === walletName)?.id;
+
+            const categoryMatch =
+                categoryName === undefined ||
+                transaction.categoryId ===
+                    categories.find(
+                        (category) => category.name === categoryName,
+                    )?.id;
+
+            const amountMatch =
+                amountRange === undefined ||
+                (transaction.amount >= amountRange.min &&
+                    transaction.amount <= amountRange.max);
+
+            const noteMatch =
+                note === '' ||
+                transaction.note
+                    ?.toLowerCase()
+                    .includes(note?.toLowerCase() as string);
+
+            return walletMatch && categoryMatch && amountMatch && noteMatch;
+        });
+    };
 
     useEffect(() => {
-        const filteredTransactions = transactions.filter((transaction) => {
-            const walletMatch = wallets.find(
-                (wallet) => wallet.name === transaction.note,
-            );
-            const categoryMatch = categories.find(
-                (category) => category.id === transaction.categoryId,
-            );
-            return (
-                (walletMatch && walletMatch.name === wallet?.name) ||
-                (categoryMatch && categoryMatch.id === category?.value) ||
-                (transaction.amount >= currentRange.min &&
-                    transaction.amount <= currentRange.max)
-            );
-        });
+        const filter: TransactionFilter = {
+            walletName: wallet?.name,
+            categoryName: category?.name,
+            amountRange: currentRange,
+            note: filters.name,
+        };
+
+        const filteredTransactions = filterTransactions(transactions, filter);
+
         setTransactionsData(filteredTransactions);
-    }, [
-        wallet,
-        transactions,
-        wallets,
-        categories,
-        category,
-        currentRange.min,
-        currentRange.max,
-    ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [transactions, wallet, category, currentRange, filters]);
 
     const walletsWithBalances = calculateWalletBalances(wallets, transactions);
 
@@ -306,28 +424,23 @@ const Dashboard: React.FC = () => {
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {walletsWithBalances.map(
-                            ({ id, name, balance, currencyId }) => (
-                                <Link
-                                    to={`/wallet/${id}/transaction`}
-                                    key={id}
-                                    className={styles.walletWrapper}
-                                >
-                                    <WalletCard
-                                        title={name}
-                                        size={WalletCardSize.MEDIUM}
-                                        balance_value={balance}
-                                        wallet_type={'Balance'}
-                                        currency={
-                                            findCurrencyById(
-                                                currencies,
-                                                currencyId,
-                                            )?.symbol
-                                        }
-                                    />
-                                </Link>
-                            ),
-                        )}
+                        {walletsWithBalances.map(({ id, name, balance }) => (
+                            <Link
+                                to={`/wallet/${id}/transaction`}
+                                key={id}
+                                className={styles.walletWrapper}
+                            >
+                                <WalletCard
+                                    title={name}
+                                    size={WalletCardSize.MEDIUM}
+                                    balance_value={balance}
+                                    wallet_type={'Balance'}
+                                    currency={
+                                        matchingCurrency?.symbol as string
+                                    }
+                                />
+                            </Link>
+                        ))}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>
@@ -422,25 +535,40 @@ const Dashboard: React.FC = () => {
                         <div className={styles.cards}>
                             <CardTotal
                                 title="Total Balance"
-                                sum={wallets.reduce(
-                                    (accumulator, wallet) =>
-                                        +accumulator + +wallet.balance,
-                                    0,
-                                )}
+                                sum={
+                                    walletsWithBalances.find(
+                                        (wallet) =>
+                                            wallet.id === currentWallet?.id,
+                                    )?.balance ??
+                                    walletsWithBalances.reduce(
+                                        (accumulator, wallet) => {
+                                            return (
+                                                +accumulator + +wallet.balance
+                                            );
+                                        },
+                                        0,
+                                    )
+                                }
                                 variant={CardVariant.ORANGE}
                                 currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Change"
-                                sum={getSpent(transactions)}
+                                sum={getTotalTransactionSum(
+                                    transactionsData as TransactionGetAllItemResponseDto[],
+                                    currentWallet?.id,
+                                )}
                                 variant={CardVariant.BLUE}
                                 currency={matchingCurrency?.symbol as string}
                             />
                             <CardTotal
                                 title="Total Period Income"
                                 sum={getTotalPeriodAmount(
-                                    transactions,
+                                    transactionsData as TransactionGetAllItemResponseDto[],
                                     'income',
+                                    currentWallet
+                                        ? currentWallet.id
+                                        : undefined,
                                 )}
                                 variant={CardVariant.VIOLET}
                                 currency={matchingCurrency?.symbol as string}
@@ -449,8 +577,9 @@ const Dashboard: React.FC = () => {
                             <CardTotal
                                 title="Total Period Expenses"
                                 sum={getTotalPeriodAmount(
-                                    transactions,
+                                    transactionsData as TransactionGetAllItemResponseDto[],
                                     'expense',
+                                    currentWallet?.id,
                                 )}
                                 variant={CardVariant.WHITE}
                                 currency={matchingCurrency?.symbol as string}
@@ -461,12 +590,6 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Account Balance'}
                                     date={formatRangeGraph(day)}
-                                    controls={
-                                        <ButtonTabs
-                                            tabsData={firstTabs}
-                                            onClick={setFirstTabs}
-                                        />
-                                    }
                                 >
                                     <LineChart
                                         dataArr={filterLineChart(
@@ -478,12 +601,6 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Changes'}
                                     date={formatRangeGraph(day)}
-                                    controls={
-                                        <ButtonTabs
-                                            tabsData={secondTabs}
-                                            onClick={setSecondTabs}
-                                        />
-                                    }
                                 >
                                     <Chart
                                         array={filterChart(
@@ -495,6 +612,9 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Period income'}
                                     date={formatRangeGraph(day)}
+                                    transactions={transactionData.filter(
+                                        (transaction) => transaction.amount > 0,
+                                    )}
                                 >
                                     <DoughnutChart
                                         categories={filterCategories(
@@ -506,6 +626,9 @@ const Dashboard: React.FC = () => {
                                 <ChartBox
                                     title={'Period Expenses'}
                                     date={formatRangeGraph(day)}
+                                    transactions={transactionData.filter(
+                                        (transaction) => transaction.amount < 0,
+                                    )}
                                 >
                                     <DoughnutChart
                                         categories={filterCategories(

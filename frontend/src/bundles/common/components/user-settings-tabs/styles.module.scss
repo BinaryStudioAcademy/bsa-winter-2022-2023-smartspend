@@ -45,28 +45,39 @@
 @media (max-width: $md) {
     .tabs {
         flex-flow: row wrap;
-        justify-content: center;
+        justify-content: space-around;
         row-gap: var(--m-2);
-        width: auto;
+        width: 100vw;
+        height: 50px;
         column-gap: var(--m-3);
+        background-color: var(--color-blue-300);
     }
 
     .tab {
-        height: auto;
-    }
-
-    .title {
-        padding: 0;
+        width: 250px;
     }
 
     .active {
         background-color: transparent;
     }
+
+    .tabs .active {
+        color: var(--color-blue-500);
+        font-weight: var(--font-weight-600);
+        background-color: var(--color-white-100);
+        border-radius: var(--b-2);
+    }
+
+    .title {
+        padding: 0;
+    }
 }
 
 @media (max-width: $sm) {
     .tabs {
+        height: 50px;
         column-gap: var(--m-2);
+        border: 2px solid black;
     }
 
     .title {

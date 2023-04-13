@@ -23,7 +23,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { actions as usersActions } from '~/bundles/users/store';
-import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
+// import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
 import { storage, StorageKey } from '~/framework/storage/storage';
 
 import styles from '../styles.module.scss';
@@ -50,8 +50,8 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
         defaultValues: user as UserUpdateRequestDto,
-        validationSchema: userUpdateRegValidationSchema,
-        mode: 'onBlur',
+        // validationSchema: userUpdateRegValidationSchema,
+        // mode: 'onBlur',
     });
     // console.log(errors);
     const [modalOpen, setModalOpen] = useState(false);
@@ -61,8 +61,8 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const isFieldsChange = useCallback((): boolean => {
         if (
             !fieldsWatch.firstName ||
-            !fieldsWatch.lastName
-            // !fieldsWatch.currency
+            !fieldsWatch.lastName ||
+            !fieldsWatch.currency
         ) {
             return false;
         }

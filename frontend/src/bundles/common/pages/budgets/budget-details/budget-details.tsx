@@ -384,7 +384,7 @@ const BudgetDetails = (): JSX.Element => {
                         <div>{`You can spend ${canSpending}/Day`}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
-                            spentSoFar={spent}
+                            spentSoFar={moneyLeft}
                         />
                         <div className={styles.periodBudgetWrapper}>
                             <div>

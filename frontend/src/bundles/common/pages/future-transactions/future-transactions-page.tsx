@@ -406,32 +406,6 @@ const FutureTransactionsPage: React.FC = () => {
                     </div>
                     <div className={styles.walletTransactions}>
                         <div className={styles.walletTransactionsContainer}>
-                            <div className={styles.cards}>
-                                <CardTotal
-                                    title="Total Wallet Balance"
-                                    sum={currentWallet?.balance as number}
-                                    variant={CardVariant.ORANGE}
-                                    currency={currency}
-                                />
-                                <CardTotal
-                                    title="Total Period Change"
-                                    sum={504}
-                                    variant={CardVariant.BLUE}
-                                    currency={currency}
-                                />
-                                <CardTotal
-                                    title="Total Period Expenses"
-                                    sum={-9700.34}
-                                    variant={CardVariant.WHITE}
-                                    currency={currency}
-                                />
-                                <CardTotal
-                                    title="Total Period Income"
-                                    sum={7600.34}
-                                    variant={CardVariant.VIOLET}
-                                    currency={currency}
-                                />
-                            </div>
                             {transactions.length > 0 ? (
                                 <div className={styles.transactionsContainer}>
                                     <TransactionTable

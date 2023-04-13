@@ -103,6 +103,31 @@ class TransactionRepository implements Partial<IRepository> {
 
         return TransactionEntity.initialize(item[0]);
     }
+    public async deleteTransactions(
+        ownerId: string,
+        transactionIds: string[],
+    ): Promise<{ categoryIds: string[] } | undefined> {
+        const transactions = await this.transactionModel
+            .query()
+            .whereIn('Id', transactionIds)
+            .andWhere('ownerId', ownerId);
+
+        if (transactions.length === 0) {
+            return;
+        }
+
+        const deletedCategoryIds = transactions.map(
+            (transaction) => transaction.categoryId,
+        );
+
+        await this.transactionModel
+            .query()
+            .whereIn('Id', transactionIds)
+            .andWhere('ownerId', ownerId)
+            .delete();
+
+        return { categoryIds: deletedCategoryIds };
+    }
 }
 
 export { TransactionRepository };

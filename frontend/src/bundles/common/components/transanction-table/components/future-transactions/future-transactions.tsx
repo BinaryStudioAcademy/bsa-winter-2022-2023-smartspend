@@ -19,6 +19,7 @@ interface FutureTransactionsProperties {
     control: Control<FieldValues, null>;
     errors: FieldErrors;
     isFutureTransactionPage?: boolean;
+    addIdCheckedTransactions: (id: string) => void;
 }
 const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
     futureTransactions,
@@ -26,6 +27,7 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
     control,
     errors,
     isFutureTransactionPage = false,
+    addIdCheckedTransactions,
 }) => {
     const sortDate = futureTransactions.sort(
         (a, b) => Number(new Date(a.date)) - Number(new Date(b.date)),
@@ -108,6 +110,7 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                             control={control}
                             errors={errors}
                             isFutureTransaction={true}
+                            addIdCheckedTransactions={addIdCheckedTransactions}
                         />
                     ))
                 ) : (

@@ -8,9 +8,8 @@
 }
 
 .buttons_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    justify-content: space-between;
     margin-top: var(--m-5);
 }
 
@@ -58,7 +57,7 @@
     display: flex;
     justify-content: center;
     align-self: center;
-    gap: 15px;
+    gap: 20px;
     width: 100%;
 }
 
@@ -85,6 +84,7 @@
     }
 
     .buttons_container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 20px;
     }
 }

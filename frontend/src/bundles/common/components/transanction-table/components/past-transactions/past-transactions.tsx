@@ -15,12 +15,14 @@ interface PastTransactionsProperties {
     dailyTotals: Record<string, number>;
     control: Control<FieldValues, null>;
     errors: FieldErrors;
+    addIdCheckedTransactions: (id: string) => void;
 }
 const PastTransactions: React.FC<PastTransactionsProperties> = ({
     groupedPastTransactions,
     dailyTotals,
     control,
     errors,
+    addIdCheckedTransactions,
 }) => {
     const sortedTransactions = Object.entries(groupedPastTransactions).sort(
         (a, b) => Number(new Date(b[0])) - Number(new Date(a[0])),
@@ -49,6 +51,7 @@ const PastTransactions: React.FC<PastTransactionsProperties> = ({
                             transaction={transaction}
                             control={control}
                             errors={errors}
+                            addIdCheckedTransactions={addIdCheckedTransactions}
                         />
                     ))}
                 </div>

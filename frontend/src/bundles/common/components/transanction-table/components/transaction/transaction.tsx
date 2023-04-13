@@ -7,13 +7,10 @@ import {
     type FieldValues,
 } from 'react-hook-form';
 
-import {
-    Icon,
-    Input,
-    TransactionModal,
-} from '~/bundles/common/components/components';
+import { Icon, TransactionModal } from '~/bundles/common/components/components';
 import { getDaysLeft } from '~/bundles/common/components/transanction-table/helpers/index';
-import { InputType, TransactionModalType } from '~/bundles/common/enums/enums';
+import { TransactionModalType } from '~/bundles/common/enums/enums';
+import { Checkbox } from '~/bundles/common/pages/categories-settings/components/checkbox/checkbox';
 
 import { type TransactionType } from '../../types';
 import styles from '../styles.module.scss';
@@ -23,26 +20,22 @@ type Properties = {
     control: Control<FieldValues, null>;
     errors: FieldErrors;
     isFutureTransaction?: boolean;
+    addIdCheckedTransactions: (id: string) => void;
 };
 
 const Transaction: React.FC<Properties> = ({
     transaction,
-    control,
-    errors,
     isFutureTransaction = false,
+    addIdCheckedTransactions,
 }) => {
     const [isChecked, setIsChecked] = useState(false);
 
     const handleChange = useCallback(
-        (event: React.FormEvent<HTMLFormElement>): void => {
-            const target = event.target as HTMLInputElement;
-            if (target.checked) {
-                setIsChecked(true);
-            } else {
-                setIsChecked(false);
-            }
+        (isChecked: boolean): void => {
+            setIsChecked(isChecked);
+            addIdCheckedTransactions(transaction.id);
         },
-        [],
+        [addIdCheckedTransactions, transaction.id],
     );
 
     const [activeModal, setActiveModal] = useState(false);
@@ -64,15 +57,13 @@ const Transaction: React.FC<Properties> = ({
                 )}
             >
                 <div className={classNames(styles.columns, styles.leftColumn)}>
-                    <form className={styles.form} onChange={handleChange}>
-                        <Input
-                            type={InputType.CHECKBOX}
-                            name={`checkbox-${transaction.id}`}
-                            control={control}
-                            errors={errors}
-                            inputClassName={styles.checkbox}
+                    <div className={styles.form}>
+                        <Checkbox
+                            id={transaction.id}
+                            isChecked={isChecked}
+                            onChange={handleChange}
                         />
-                    </form>
+                    </div>
                 </div>
                 <div
                     className={styles.transactionBody}

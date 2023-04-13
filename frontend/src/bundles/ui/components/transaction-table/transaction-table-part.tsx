@@ -1,3 +1,5 @@
+import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+
 import { CodeHighlight, TransactionTable } from '../components';
 
 const codeExample = `
@@ -33,6 +35,19 @@ const TransactionTable: React.FC<TransactionTableProperties> = ({
 `;
 
 const TransactionTablePart: React.FC = () => {
+    const [, setIsSelectedTransactions] = useState<string[]>([]);
+
+    const addIdCheckedTransactions = useCallback((id: string): void => {
+        setIsSelectedTransactions((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
+
     return (
         <div>
             <CodeHighlight code={codeExample} />
@@ -72,8 +87,12 @@ const TransactionTablePart: React.FC = () => {
                             walletsId: '49cfd534-7c7f-438c-a6cd-3578b7dfd412',
                         },
                     ]}
+                    addIdCheckedTransactions={addIdCheckedTransactions}
                 />
-                <TransactionTable transactions={[]} />
+                <TransactionTable
+                    transactions={[]}
+                    addIdCheckedTransactions={addIdCheckedTransactions}
+                />
             </div>
         </div>
     );

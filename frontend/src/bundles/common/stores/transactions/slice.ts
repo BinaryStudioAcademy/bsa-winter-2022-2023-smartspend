@@ -8,6 +8,7 @@ import {
     createTransaction,
     deleteTransaction,
     loadTransactions,
+    removeTransactions,
     updateTransaction,
 } from './actions.js';
 
@@ -48,6 +49,8 @@ const { reducer, actions, name } = createSlice({
                 createTransaction.pending,
                 deleteTransaction.pending,
                 updateTransaction.pending,
+                deleteTransaction.pending,
+                removeTransactions.pending,
             ),
             (state) => {
                 state.dataStatus = DataStatus.PENDING;
@@ -59,6 +62,8 @@ const { reducer, actions, name } = createSlice({
                 createTransaction.fulfilled,
                 deleteTransaction.fulfilled,
                 updateTransaction.fulfilled,
+                deleteTransaction.fulfilled,
+                removeTransactions.fulfilled,
             ),
             (state) => {
                 state.dataStatus = DataStatus.FULFILLED;
@@ -70,6 +75,8 @@ const { reducer, actions, name } = createSlice({
                 createTransaction.rejected,
                 deleteTransaction.rejected,
                 updateTransaction.rejected,
+                deleteTransaction.rejected,
+                removeTransactions.rejected,
             ),
             (state) => {
                 state.dataStatus = DataStatus.REJECTED;

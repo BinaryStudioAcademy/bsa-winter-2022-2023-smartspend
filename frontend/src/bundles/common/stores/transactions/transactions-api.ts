@@ -84,6 +84,14 @@ class TransactionsApi extends HttpApi {
         );
         return response.json<TransactionUpdatePayloadDto>();
     }
+    public async deleteTransactions(ids: string[]): Promise<void> {
+        await this.load(this.getFullEndpoint(TransactionsApiPath.MANY, {}), {
+            method: 'DELETE',
+            contentType: ContentType.JSON,
+            payload: JSON.stringify({ ids }),
+            hasAuth: true,
+        });
+    }
 }
 
 export { type DeleteTransactionResponseDto, TransactionsApi };

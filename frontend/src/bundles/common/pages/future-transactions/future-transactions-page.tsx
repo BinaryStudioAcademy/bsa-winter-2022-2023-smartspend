@@ -7,8 +7,10 @@ import { type MultiValue, type SingleValue } from 'react-select';
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
+    BaseModal,
     Button,
     CardTotal,
+    Icon,
     Input,
     Loader,
     MultiDropdown,
@@ -20,6 +22,7 @@ import {
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
+    ButtonType,
     ButtonVariant,
     CardVariant,
     DataStatus,
@@ -63,6 +66,39 @@ const FutureTransactionsPage: React.FC = () => {
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
+    const [isSelectedTransactions, setIsSelectedTransactions] = useState<
+        string[]
+    >([]);
+
+    const addIdCheckedTransactions = useCallback((id: string): void => {
+        setIsSelectedTransactions((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
+
+    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+
+    const handleOpenModalDelete = useCallback(() => {
+        setIsDeleteModalShown(true);
+    }, []);
+
+    const handleCloseModalDelete = useCallback(() => {
+        setIsDeleteModalShown(false);
+    }, []);
+
+    const handleClickDeleteTransactions = useCallback(() => {
+        void dispatch(
+            transactionsActions.removeTransactions(isSelectedTransactions),
+        );
+        setIsSelectedTransactions([]);
+        setIsDeleteModalShown(false);
+    }, [dispatch, isSelectedTransactions]);
+
     const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
     const { control, errors, watch, reset } = useAppForm<{ note: string }>({
@@ -281,6 +317,16 @@ const FutureTransactionsPage: React.FC = () => {
                             </Button>
 
                             <div className={styles.buttons}>
+                                {isSelectedTransactions.length > 0 && (
+                                    <Button
+                                        className={styles.button}
+                                        variant={ButtonVariant.DELETE}
+                                        size={ButtonSize.MEDIUM}
+                                        onClick={handleOpenModalDelete}
+                                    >
+                                        Delete
+                                    </Button>
+                                )}
                                 <Button
                                     className={styles.button}
                                     variant={ButtonVariant.PLAIN}
@@ -392,6 +438,9 @@ const FutureTransactionsPage: React.FC = () => {
                                         walletsId={id}
                                         transactions={categoryOrNoteFilter}
                                         isOnlyFutureTransactions={true}
+                                        addIdCheckedTransactions={
+                                            addIdCheckedTransactions
+                                        }
                                     />
                                 </div>
                             ) : (
@@ -404,6 +453,38 @@ const FutureTransactionsPage: React.FC = () => {
                                 type={TransactionModalType.ADD}
                                 handleCancel={closeTransactionModal}
                                 active={activeModal}
+                            />
+                            <BaseModal
+                                isShown={isDeleteModalShown}
+                                onClose={handleCloseModalDelete}
+                                onSubmit={handleClickDeleteTransactions}
+                                Header={
+                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                }
+                                Body={
+                                    <>
+                                        <p>
+                                            This change is irreversible. Do you
+                                            really want to delete them?
+                                        </p>
+                                        <Button
+                                            type={ButtonType.BUTTON}
+                                            variant={ButtonVariant.DELETE}
+                                            size={ButtonSize.MEDIUM}
+                                            className={styles.btn}
+                                            onClick={
+                                                handleClickDeleteTransactions
+                                            }
+                                        >
+                                            <Icon name={FaIcons.TRASH} />
+                                            <span className={styles.btnName}>
+                                                Delete
+                                            </span>
+                                        </Button>
+                                    </>
+                                }
+                                submitButtonName={'Delete category'}
+                                hasActionButtons={false}
                             />
                         </div>
                     </div>

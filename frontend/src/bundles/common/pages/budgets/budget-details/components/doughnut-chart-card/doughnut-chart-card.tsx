@@ -1,7 +1,12 @@
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import classNames from 'classnames';
 
-import { DoughnutChart, Icon } from '~/bundles/common/components/components';
+import {
+    DoughnutChart,
+    Icon,
+    Placeholder,
+} from '~/bundles/common/components/components';
+import { IconSize } from '~/bundles/common/enums/enums';
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
 import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers';
 import { type DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
@@ -41,7 +46,16 @@ const DoughnutChartCard: React.FC<Properties> = ({
                 </span>
             </div>
             <div className={styles.chartPart}>
-                <DoughnutChart categories={categories} />
+                {categories.length === 0 ? (
+                    <Placeholder
+                        icon={FaIcons.MONEY_CHECK_DOLLAR}
+                        iconSize={IconSize.ONE_HUNDRED}
+                        margin={'30px auto'}
+                        body={'You have no expense transactions yet'}
+                    />
+                ) : (
+                    <DoughnutChart categories={categories} />
+                )}
             </div>
             {categories.map((category) => (
                 <div key={category.name} className={styles.bottomPart}>

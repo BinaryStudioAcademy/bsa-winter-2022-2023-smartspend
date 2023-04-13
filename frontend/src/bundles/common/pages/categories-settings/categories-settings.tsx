@@ -15,7 +15,6 @@ import {
     ButtonType,
     ButtonVariant,
     FaIcons,
-    IconSize,
 } from '../../enums/enums';
 import { transactionCountsByCategory } from '../../helpers/transaction-count-by-category/transaction-count-by-category.helper';
 import { CategoryList } from './components/category-list/category-list';
@@ -97,10 +96,7 @@ const CategoriesSettings: React.FC = () => {
                                 disabled={false}
                                 className={styles.btn}
                             >
-                                <Icon
-                                    name={FaIcons.FA_PEN}
-                                    width={IconSize.EIGHTEEN}
-                                />
+                                <Icon name={FaIcons.FA_PEN} />
                                 <span className={styles.btnName}>
                                     Create category
                                 </span>
@@ -117,7 +113,7 @@ const CategoriesSettings: React.FC = () => {
                             count={countTransaction}
                         />
                         <CategoryList
-                            title={'Expense category'}
+                            title={'Expense Categories'}
                             categories={categories.expense}
                             addIdCheckedCategories={addIdCheckedCategories}
                             count={countTransaction}

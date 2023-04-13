@@ -8,8 +8,10 @@ import { type CategoryGetAllItemResponseDto } from 'shared/build';
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { RangeCalendar } from '~/bundles/common/components/calendar/components/components.js';
 import {
+    BaseModal,
     Button,
     CardTotal,
+    Icon,
     Input,
     Loader,
     MultiDropdown,
@@ -21,6 +23,7 @@ import {
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
     ButtonSize,
+    ButtonType,
     ButtonVariant,
     CardVariant,
     DataStatus,
@@ -72,6 +75,30 @@ const WalletDetails: React.FC = () => {
         defaultValues: DEFAULT_INPUT,
     });
 
+    const [isSelectedTransactions, setIsSelectedTransactions] = useState<
+        string[]
+    >([]);
+    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+
+    const handleOpenModalDelete = useCallback(() => {
+        setIsDeleteModalShown(true);
+    }, []);
+
+    const handleCloseModalDelete = useCallback(() => {
+        setIsDeleteModalShown(false);
+    }, []);
+
+    const addIdCheckedTransactions = useCallback((id: string): void => {
+        setIsSelectedTransactions((previousState) => {
+            if (previousState.includes(id)) {
+                return previousState.filter(
+                    (previousState_) => previousState_ !== id,
+                );
+            }
+            return [...previousState, id];
+        });
+    }, []);
+
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
     );
@@ -94,8 +121,9 @@ const WalletDetails: React.FC = () => {
         [],
     );
 
-    const thisWalletTransactions = transactions.filter(
-        (it) => it.walletsId === id,
+    const thisWalletTransactions = useMemo(
+        () => transactions.filter((it) => it.walletsId === id),
+        [id, transactions],
     );
 
     const data = useMemo(() => {
@@ -118,14 +146,13 @@ const WalletDetails: React.FC = () => {
     //     MultiValue<DataType> | SingleValue<DataType>
     // >([]);
     const [rangeLimits, setRangeLimits] = useState(
-        findMinMaxAmount(transactionData),
+        findMinMaxAmount(thisWalletTransactions),
     );
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [filteredData, setFilteredData] = useState(transactionData);
-
     const [activeModal, setActiveModal] = useState(false);
 
     const categoriesIdDropdown = new Set(
@@ -246,6 +273,14 @@ const WalletDetails: React.FC = () => {
         [categoriesDropdown],
     );
 
+    const handleClickDeleteTransactions = useCallback(() => {
+        void dispatch(
+            transactionsActions.removeTransactions(isSelectedTransactions),
+        );
+        setIsSelectedTransactions([]);
+        setIsDeleteModalShown(false);
+    }, [dispatch, isSelectedTransactions]);
+
     useEffect(() => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
     }, [id, wallets]);
@@ -258,8 +293,8 @@ const WalletDetails: React.FC = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        setRangeLimits(findMinMaxAmount(transactionData));
-    }, [transactionData]);
+        setRangeLimits(findMinMaxAmount(thisWalletTransactions));
+    }, [thisWalletTransactions]);
 
     useEffect(() => {
         setCurrentRange(rangeLimits);
@@ -298,6 +333,16 @@ const WalletDetails: React.FC = () => {
                             </Button>
 
                             <div className={styles.buttons}>
+                                {isSelectedTransactions.length > 0 && (
+                                    <Button
+                                        className={styles.button}
+                                        variant={ButtonVariant.DELETE}
+                                        size={ButtonSize.MEDIUM}
+                                        onClick={handleOpenModalDelete}
+                                    >
+                                        Delete
+                                    </Button>
+                                )}
                                 <Button
                                     className={styles.button}
                                     variant={ButtonVariant.SECONDARY}
@@ -429,6 +474,9 @@ const WalletDetails: React.FC = () => {
                                     <TransactionTable
                                         walletsId={id}
                                         transactions={categoryOrNoteFilter}
+                                        addIdCheckedTransactions={
+                                            addIdCheckedTransactions
+                                        }
                                     />
                                 </div>
                             ) : (
@@ -441,6 +489,38 @@ const WalletDetails: React.FC = () => {
                                 type={TransactionModalType.ADD}
                                 handleCancel={closeTransactionModal}
                                 active={activeModal}
+                            />
+                            <BaseModal
+                                isShown={isDeleteModalShown}
+                                onClose={handleCloseModalDelete}
+                                onSubmit={handleClickDeleteTransactions}
+                                Header={
+                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                }
+                                Body={
+                                    <>
+                                        <p>
+                                            This change is irreversible. Do you
+                                            really want to delete them?
+                                        </p>
+                                        <Button
+                                            type={ButtonType.BUTTON}
+                                            variant={ButtonVariant.DELETE}
+                                            size={ButtonSize.MEDIUM}
+                                            className={styles.btn}
+                                            onClick={
+                                                handleClickDeleteTransactions
+                                            }
+                                        >
+                                            <Icon name={FaIcons.TRASH} />
+                                            <span className={styles.btnName}>
+                                                Delete
+                                            </span>
+                                        </Button>
+                                    </>
+                                }
+                                submitButtonName={'Delete category'}
+                                hasActionButtons={false}
                             />
                         </div>
                     </div>

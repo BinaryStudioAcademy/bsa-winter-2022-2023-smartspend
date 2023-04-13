@@ -20,6 +20,19 @@
     margin: 0 auto;
 }
 
+.buttonsContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    width: 100%;
+}
+
 .calendarWrapper {
     display: flex;
     justify-content: flex-end;

@@ -273,12 +273,10 @@ const BudgetDetails = (): JSX.Element => {
                     </h1>
                 }
                 Body={
-                    <div className={styles.modalDetailsContainer}>
-                        <p className={styles.modalSubTitle}>
-                            Are you sure you want to delete the budget &quot;
-                            {name}&quot;?
-                        </p>
-                    </div>
+                    <p className={styles.modalDetailsContainer}>
+                        Are you sure you want to delete the budget &quot;
+                        {name}&quot;?
+                    </p>
                 }
                 submitButtonName={'Delete Budget'}
                 submitButtonVariant={ButtonVariant.DELETE}

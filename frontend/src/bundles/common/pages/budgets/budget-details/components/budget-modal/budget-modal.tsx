@@ -224,6 +224,7 @@ const BudgetModal: React.FC<Properties> = ({
                     variant={ButtonVariant.DELETE}
                     size={ButtonSize.SMALL}
                     onClick={onClick}
+                    className={styles.delete}
                 >
                     Delete budget
                 </Button>

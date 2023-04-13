@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 .budgets {
     display: flex;
     flex: 1 1 auto;
@@ -36,7 +38,7 @@
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 20px;
 }
 
@@ -77,4 +79,16 @@
 .button > svg {
     position: relative;
     left: 0.5px;
+}
+
+@media (max-width: $md) {
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: $sm) {
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    }
 }

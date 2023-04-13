@@ -160,7 +160,11 @@ const BudgetDetails = (): JSX.Element => {
 
     const canSpending =
         canSpend > 0
-            ? toCustomLocaleString(canSpend, matchingCurrency?.shortName as string, true).replace('+', '')
+            ? toCustomLocaleString(
+                  canSpend,
+                  matchingCurrency?.shortName as string,
+                  true,
+              ).replace('+', '')
             : 0;
 
     const transactionSortByType = transactionData.filter(

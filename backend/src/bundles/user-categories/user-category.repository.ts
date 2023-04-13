@@ -56,7 +56,10 @@ class UserCategoryRepository {
             defaultCategories.push(createdCategory);
         }
 
-        const defaultCategoriesIds = defaultCategories.map((category) => ({ userId, categoryId: category.toObject().id }));
+        const defaultCategoriesIds = defaultCategories.map((category) => ({
+            userId,
+            categoryId: category.toObject().id,
+        }));
         for (const defaultCategoryId of defaultCategoriesIds) {
             await this.userCategoriesModel.query().insert(defaultCategoryId);
         }

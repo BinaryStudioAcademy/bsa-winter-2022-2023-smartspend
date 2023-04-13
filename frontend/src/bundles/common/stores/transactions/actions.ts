@@ -62,9 +62,22 @@ const deleteTransaction = createAsyncThunk<
     return result;
 });
 
+const removeTransactions = createAsyncThunk<
+    Promise<void>,
+    string[],
+    AsyncThunkConfig
+>(`${sliceName}/delete-transactions`, async (ids, { extra, dispatch }) => {
+    const { transactionsApi } = extra;
+
+    await transactionsApi.deleteTransactions(ids);
+
+    await dispatch(loadTransactions());
+});
+
 export {
     createTransaction,
     deleteTransaction,
     loadTransactions,
+    removeTransactions,
     updateTransaction,
 };

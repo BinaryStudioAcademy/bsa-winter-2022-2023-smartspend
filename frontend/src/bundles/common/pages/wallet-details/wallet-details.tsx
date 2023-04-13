@@ -94,8 +94,9 @@ const WalletDetails: React.FC = () => {
         [],
     );
 
-    const thisWalletTransactions = transactions.filter(
-        (it) => it.walletsId === id,
+    const thisWalletTransactions = useMemo(
+        () => transactions.filter((it) => it.walletsId === id),
+        [id, transactions],
     );
 
     const data = useMemo(() => {
@@ -118,14 +119,13 @@ const WalletDetails: React.FC = () => {
     //     MultiValue<DataType> | SingleValue<DataType>
     // >([]);
     const [rangeLimits, setRangeLimits] = useState(
-        findMinMaxAmount(transactionData),
+        findMinMaxAmount(thisWalletTransactions),
     );
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
     const [currentRange, setCurrentRange] = useState(rangeLimits);
     const [filteredData, setFilteredData] = useState(transactionData);
-
     const [activeModal, setActiveModal] = useState(false);
 
     const categoriesIdDropdown = new Set(
@@ -258,8 +258,8 @@ const WalletDetails: React.FC = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        setRangeLimits(findMinMaxAmount(transactionData));
-    }, [transactionData]);
+        setRangeLimits(findMinMaxAmount(thisWalletTransactions));
+    }, [thisWalletTransactions]);
 
     useEffect(() => {
         setCurrentRange(rangeLimits);

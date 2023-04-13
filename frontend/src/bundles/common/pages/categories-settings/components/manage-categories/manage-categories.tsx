@@ -50,13 +50,13 @@ const ManageCategories: React.FC<Properties> = ({
 
     const buttonIsCheckedCategoriesDeleteName =
         selectedCategories.length === 0
-            ? 'Delete category'
-            : `Delete category ${selectedCategories.length}`;
+            ? 'Delete categories'
+            : `Delete categories  (${selectedCategories.length})`;
 
     return (
         <>
             <div className={styles.manageWrapper}>
-                <h2 className={styles.title}>Manage categories</h2>
+                <h2 className={styles.title}>Manage Categories</h2>
                 <div className={styles.wrapperAllBtn}>
                     <div className={styles.wrapperBtn}>
                         <Button
@@ -98,12 +98,12 @@ const ManageCategories: React.FC<Properties> = ({
                         >
                             <Icon name={FaIcons.TRASH} />
                             <span className={styles.btnName}>
-                                {buttonIsCheckedCategoriesDeleteName}
+                                Delete categories
                             </span>
                         </Button>
                     </>
                 }
-                submitButtonName={'Delete category'}
+                submitButtonName={'Delete categories'}
                 hasActionButtons={false}
             />
         </>

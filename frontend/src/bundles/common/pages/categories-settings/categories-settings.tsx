@@ -113,7 +113,7 @@ const CategoriesSettings: React.FC = () => {
                             count={countTransaction}
                         />
                         <CategoryList
-                            title={'Expense category'}
+                            title={'Expense Categories'}
                             categories={categories.expense}
                             addIdCheckedCategories={addIdCheckedCategories}
                             count={countTransaction}

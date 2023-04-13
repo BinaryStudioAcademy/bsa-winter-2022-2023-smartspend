@@ -1,5 +1,8 @@
 .sliderWrapper {
-    width: 217px;
+    position: relative;
+    top: calc(25% - 4px);
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
 }
 
@@ -7,7 +10,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: var(--m-1);
     color: var(--color-gray-200);
     font-weight: var(--font-weight-400);
     font-size: var(--font-size-caption);

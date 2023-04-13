@@ -10,6 +10,7 @@ import {
     Button,
     CardTotal,
     Input,
+    Loader,
     MultiDropdown,
     Placeholder,
     RangeSlider,
@@ -21,11 +22,15 @@ import {
     ButtonSize,
     ButtonVariant,
     CardVariant,
+    DataStatus,
     FaIcons,
     InputType,
     TransactionModalType,
 } from '~/bundles/common/enums/enums.js';
-import { findCurrencyById } from '~/bundles/common/helpers/helpers.js';
+import {
+    findCurrencyById,
+    findMinMaxAmount,
+} from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -35,8 +40,8 @@ import {
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { mockSliderData } from '~/bundles/common/pages/dashboard/mocks.dashboard';
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
+import { type CategoryGetAllItemResponseDto } from '~/bundles/common/stores/categories/types/types';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
@@ -58,9 +63,9 @@ const FutureTransactionsPage: React.FC = () => {
     const [currentWallet, setCurrentWallet] = useState<
         WalletGetAllItemResponseDto | undefined
     >();
-    const { wallets } = useAppSelector((state) => state.wallets);
+    const { wallets, dataStatus } = useAppSelector((state) => state.wallets);
     const { currencies } = useAppSelector((state) => state.currencies);
-    const { control, errors } = useAppForm<{ note: string }>({
+    const { control, errors, watch, reset } = useAppForm<{ note: string }>({
         //It needs to change
         defaultValues: DEFAULT_INPUT,
     });
@@ -87,6 +92,11 @@ const FutureTransactionsPage: React.FC = () => {
         [],
     );
 
+    const thisWalletTransactions = useMemo(
+        () => transactions.filter((it) => it.walletsId === id),
+        [id, transactions],
+    );
+
     const data = useMemo(() => {
         return transactions.map((item) => ({
             id: item.id,
@@ -103,18 +113,33 @@ const FutureTransactionsPage: React.FC = () => {
         })) as unknown as TransactionType[];
     }, [category, currencies, transactions]);
 
+    const [rangeLimits, setRangeLimits] = useState(
+        findMinMaxAmount(thisWalletTransactions),
+    );
     const [categoriesDropdown, setCategoriesDropdown] = useState<
         MultiValue<DataType> | SingleValue<DataType>
     >([]);
-
-    const rangeLimits = useMemo(() => {
-        return { min: -100, max: 1000 };
-    }, []);
-
     const [currentRange, setCurrentRange] = useState(rangeLimits);
-    const [, setFilteredData] = useState(mockSliderData);
-
+    const [filteredData, setFilteredData] = useState(transactionData);
     const [activeModal, setActiveModal] = useState(false);
+
+    const categoriesIdDropdown = new Set(
+        (categoriesDropdown as unknown as CategoryGetAllItemResponseDto[]).map(
+            (category) => category.id,
+        ),
+    );
+    const getNoteFilter = watch('note');
+    const transactionsByCategory = filteredData.filter((transaction) =>
+        categoriesIdDropdown.has(transaction.category.id),
+    );
+    const isFilterEmpty =
+        categoriesIdDropdown.size > 0 ? transactionsByCategory : filteredData;
+    const transactionsByNote = isFilterEmpty.filter((transaction) =>
+        transaction.note?.includes(getNoteFilter),
+    );
+    const categoryOrNoteFilter =
+        getNoteFilter.length > 0 ? transactionsByNote : isFilterEmpty;
+
     const openTransactionModal = useCallback((): void => {
         setActiveModal(true);
     }, []);
@@ -134,20 +159,25 @@ const FutureTransactionsPage: React.FC = () => {
         [],
     );
 
-    const handleSliderChange = useCallback((range: RangeLimits): void => {
-        setCurrentRange(range);
+    const handleSliderChange = useCallback(
+        (range: RangeLimits): void => {
+            setCurrentRange(range);
 
-        const newFilteredData = mockSliderData.filter(
-            (item) => item.amount >= range.min && item.amount <= range.max,
-        );
-        setFilteredData(newFilteredData);
-    }, []);
+            const newFilteredData = transactionData.filter(
+                (item) => item.amount >= range.min && item.amount <= range.max,
+            );
+            setFilteredData(newFilteredData);
+        },
+        [transactionData],
+    );
 
     const hangleReset = useCallback((): void => {
         setCategoriesDropdown([]);
-        setFilteredData(mockSliderData);
+        setFilteredData(transactionData);
         setCurrentRange(rangeLimits);
-    }, [rangeLimits]);
+        const isReset = reset;
+        isReset && reset();
+    }, [rangeLimits, reset, transactionData]);
 
     const handleNavidation = useCallback(() => {
         navigate(`/wallet/${id}/transaction`);
@@ -211,8 +241,28 @@ const FutureTransactionsPage: React.FC = () => {
     }, [dispatch]);
 
     useEffect(() => {
+        setRangeLimits(findMinMaxAmount(thisWalletTransactions));
+    }, [thisWalletTransactions]);
+
+    useEffect(() => {
+        setCurrentRange(rangeLimits);
+    }, [rangeLimits]);
+
+    useEffect(() => {
+        setFilteredData(transactionData);
+    }, [transactionData]);
+
+    useEffect(() => {
         setTransactionData(data);
     }, [data]);
+
+    if (dataStatus === DataStatus.PENDING) {
+        return (
+            <div className={styles.loaderContainer}>
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <div className={styles.app}>
@@ -252,6 +302,12 @@ const FutureTransactionsPage: React.FC = () => {
                         >
                             <div className={styles.filterText}>
                                 <h2>Filters</h2>
+                                <button
+                                    className={styles.reset}
+                                    onClick={hangleReset}
+                                >
+                                    Reset filters
+                                </button>
                             </div>
                             <div className={styles.applyFilters}>
                                 <div className={styles.filter}>
@@ -299,12 +355,6 @@ const FutureTransactionsPage: React.FC = () => {
                                         />
                                     </div>
                                 </div>
-                                <button
-                                    className={styles.reset}
-                                    onClick={hangleReset}
-                                >
-                                    Reset filters
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -340,7 +390,7 @@ const FutureTransactionsPage: React.FC = () => {
                                 <div className={styles.transactionsContainer}>
                                     <TransactionTable
                                         walletsId={id}
-                                        transactions={transactionData}
+                                        transactions={categoryOrNoteFilter}
                                         isOnlyFutureTransactions={true}
                                     />
                                 </div>

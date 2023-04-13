@@ -22,6 +22,7 @@ import {
     faLandmark,
     faMoneyBill,
     faMoneyBills,
+    faMoneyCheckDollar,
     faPaw,
     faPen,
     faPiggyBank,
@@ -69,6 +70,7 @@ const iconProvider = {
     faPiggyBank,
     faDollarSign,
     faWallet,
+    faMoneyCheckDollar,
 };
 
 export { iconProvider };

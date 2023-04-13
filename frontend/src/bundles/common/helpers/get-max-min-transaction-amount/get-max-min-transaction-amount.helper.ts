@@ -4,12 +4,8 @@ function findMinMaxAmount<T extends { amount: number }[]>(
     max: number;
     min: number;
 } {
-    if (!Array.isArray(array) || array.length === 0) {
-        return { min: -1000, max: 1_000_000 };
-    }
-
-    let max = array[0].amount;
-    let min = array[0].amount;
+    let max = 0;
+    let min = 0;
 
     for (const object of array) {
         if (object.amount > max) {

@@ -84,7 +84,7 @@ const RenderMultiDropdown = ({
                     <span
                         className={styles.imageWrapper}
                         style={{
-                            background: `${data.color}`,
+                            background: `var(${data.color})`,
                         }}
                     >
                         <FontAwesomeIcon icon={data.icon as IconProp} />

@@ -168,8 +168,7 @@ const BudgetDetails = (): JSX.Element => {
         );
     }
 
-    const { amount, startDate, endDate, recurrence, name, currency } =
-        currentBudget;
+    const { amount, startDate, endDate, recurrence, name } = currentBudget;
 
     const { canSpend, moneyLeft } = calculateBudgetDetails({
         amount,
@@ -192,9 +191,7 @@ const BudgetDetails = (): JSX.Element => {
     })) as unknown as TransactionType[];
 
     const canSpending =
-        canSpend > 0
-            ? toCustomLocaleString(canSpend, currency, true).replace('+', '')
-            : 0;
+        canSpend > 0 ? toCustomLocaleString(canSpend).replace('+', '') : 0;
 
     const transactionSortByType = transactionData.filter(
         (item) => item.category.type === 'expense',
@@ -373,7 +370,7 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>{`You can spending ${canSpending}/Day`}</div>
+                        <div>{`You can spend ${canSpending}/Day`}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={spent}

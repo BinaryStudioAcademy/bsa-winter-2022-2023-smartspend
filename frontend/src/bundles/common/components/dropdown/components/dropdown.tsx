@@ -111,7 +111,7 @@ const Dropdown: React.FC<Properties> = ({
                 {data.icon && (
                     <span
                         style={{
-                            background: `${data.color}`,
+                            background: `var(${data.color})`,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',

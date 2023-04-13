@@ -226,6 +226,7 @@
     .filters,
     .buttonsDate,
     .walletTransactionsContainer {
+        margin-top: 0;
         padding: 20px;
     }
 }
@@ -238,6 +239,7 @@
     .buttonsDate {
         justify-content: center;
         align-items: center;
+        gap: var(--m-3);
     }
 
     .cards {
@@ -252,6 +254,7 @@
 
 @media (max-width: $sm) {
     .applyFilters {
+        grid-template-columns: 1fr;
         justify-content: center;
         align-items: center;
     }

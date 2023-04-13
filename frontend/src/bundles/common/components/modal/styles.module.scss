@@ -1,3 +1,5 @@
+@import "@assets/utils";
+
 :root {
     --mg-1-local: 1.125em;
 }
@@ -80,4 +82,15 @@
 
 button:hover {
     cursor: pointer;
+}
+
+@media (max-width: $sm) {
+    .popup {
+        padding: var(--p-3);
+    }
+
+    .modalHeader > p {
+        margin-top: var(--m-3);
+        margin-bottom: var(--m-3);
+    }
 }

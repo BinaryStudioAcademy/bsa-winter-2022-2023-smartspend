@@ -33,6 +33,14 @@
     min-height: 115px;
 }
 
+.buttonsDate button > div {
+    background-color: var(--color-white-100);
+}
+
+.buttonsDate button {
+    height: 40px;
+}
+
 .buttonsContainer {
     display: flex;
     flex-grow: 1;
@@ -90,7 +98,7 @@
 
 .applyFilters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     gap: 15px;
     width: 100%;
 }
@@ -131,7 +139,9 @@
     margin: 0;
     padding-top: var(--p-1);
     color: var(--color-pink-100);
+    font-weight: var(--font-weight-500);
     font-size: 18px;
+    font-family: var(--font-family);
     background: none;
     border: none;
     cursor: pointer;

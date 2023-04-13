@@ -291,49 +291,52 @@ const Dashboard: React.FC = () => {
     ]);
 
     const walletsWithBalances = calculateWalletBalances(wallets, transactions);
+
+    if (dataStatus === DataStatus.PENDING) {
+        return (
+            <div className={styles.loaderContainer}>
+                <Loader />
+            </div>
+        );
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
-                    {dataStatus === DataStatus.PENDING ? (
-                        <div className={styles.loaderContainer}>
-                            <Loader />
-                        </div>
-                    ) : (
-                        <div className={styles.wallets}>
-                            {walletsWithBalances.map(
-                                ({ id, name, balance, currencyId }) => (
-                                    <Link
-                                        to={`/wallet/${id}/transaction`}
-                                        key={id}
-                                        className={styles.walletWrapper}
-                                    >
-                                        <WalletCard
-                                            title={name}
-                                            size={WalletCardSize.MEDIUM}
-                                            balance_value={balance}
-                                            wallet_type={'Balance'}
-                                            currency={
-                                                findCurrencyById(
-                                                    currencies,
-                                                    currencyId,
-                                                )?.symbol
-                                            }
-                                        />
-                                    </Link>
-                                ),
-                            )}
-                            <WalletButton onClick={handleModal}>
-                                Add New Wallet
-                            </WalletButton>
-                            <NewWalletModal
-                                isShown={active}
-                                onClose={handleCancel}
-                                onSubmit={handleModal}
-                            />
-                        </div>
-                    )}
+                    <div className={styles.wallets}>
+                        {walletsWithBalances.map(
+                            ({ id, name, balance, currencyId }) => (
+                                <Link
+                                    to={`/wallet/${id}/transaction`}
+                                    key={id}
+                                    className={styles.walletWrapper}
+                                >
+                                    <WalletCard
+                                        title={name}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={balance}
+                                        wallet_type={'Balance'}
+                                        currency={
+                                            findCurrencyById(
+                                                currencies,
+                                                currencyId,
+                                            )?.symbol
+                                        }
+                                    />
+                                </Link>
+                            ),
+                        )}
+                        <WalletButton onClick={handleModal}>
+                            Add New Wallet
+                        </WalletButton>
+                        <NewWalletModal
+                            isShown={active}
+                            onClose={handleCancel}
+                            onSubmit={handleModal}
+                        />
+                    </div>
                     <h2 className={classNames(styles.title, styles.overview)}>
                         Overview
                     </h2>

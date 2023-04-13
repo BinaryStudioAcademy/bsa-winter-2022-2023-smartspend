@@ -60,14 +60,13 @@ const BudgetCard: React.FC<Properties> = ({
         recurrence,
         spent,
     });
-    const value = Math.round((100 * moneyLeft) / amount);
+    const value = Math.min((100 * spent) / amount, 100).toFixed(1);
 
     return (
         <Link className={styles.card} to={budgetDetailRoute}>
             <div className={styles.cardWrapper}>
                 <div className={styles.cardHeader}>
                     <h2 className={styles.headerTitle}>{title}</h2>
-                    <p className={styles.headerSubtext}>All wallets</p>
                 </div>
                 <div className={styles.cardBody}>
                     <p className={styles.bodyAmount}>

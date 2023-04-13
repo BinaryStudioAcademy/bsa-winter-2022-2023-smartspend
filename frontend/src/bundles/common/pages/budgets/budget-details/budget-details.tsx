@@ -158,13 +158,11 @@ const BudgetDetails = (): JSX.Element => {
         walletsId: wallets.find((cat) => cat.id === item.walletsId)?.id,
     })) as unknown as TransactionType[];
 
+    const shortName = matchingCurrency?.shortName as string;
+
     const canSpending =
         canSpend > 0
-            ? toCustomLocaleString(
-                  canSpend,
-                  matchingCurrency?.shortName as string,
-                  true,
-              ).replace('+', '')
+            ? toCustomLocaleString(canSpend, shortName, true).replace('+', '')
             : 0;
 
     const transactionSortByType = transactionData.filter(

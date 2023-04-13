@@ -93,6 +93,13 @@ const ChartBox = ({
 }: ChartBoxProperties): JSX.Element => {
     const transactionsByCategory = groupTransactionsByCategory(transactions);
 
+    const { currencies } = useAppSelector((state) => state.currencies);
+
+    const { user } = useAppSelector((state) => state.users);
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
+
     return (
         <div className={classNames(styles.chart)}>
             <div className={styles.totals}>
@@ -160,7 +167,7 @@ const ChartBox = ({
                                 )}
                             >
                                 {transaction.total.toFixed(2)}
-                                {transaction.transactions[0].currency}
+                                {matchingCurrency?.symbol as string}
                             </div>
                         </div>
                     );

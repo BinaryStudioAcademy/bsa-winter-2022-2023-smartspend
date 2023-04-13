@@ -21,15 +21,13 @@ const getNavLinkClassName = ({ isActive }: { isActive: boolean }): string => {
 };
 
 const UserSettingsTab: React.FC<Properties> = ({ title, to, icon }) => {
-    // console.log(icon);
-
     return (
         <NavLink to={to} className={getNavLinkClassName}>
             <FontAwesomeIcon
                 icon={FaIcons[icon as keyof typeof FaIcons] as IconProp}
                 className={styles.icon}
             />
-            q<span className={styles.title}>{title}</span>
+            <span className={styles.title}>{title}</span>
         </NavLink>
     );
 };

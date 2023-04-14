@@ -3,8 +3,7 @@
 .section {
     display: flex;
     max-width: 920px;
-    padding: var(--p-3) calc(var(--p-5) + var(--p-2))
-        calc(var(--p-5) + var(--p-2));
+    padding: var(--p-3) calc(var(--p-5) + var(--p-2));
     background: var(--color-white-100);
     border-radius: 25px;
 }

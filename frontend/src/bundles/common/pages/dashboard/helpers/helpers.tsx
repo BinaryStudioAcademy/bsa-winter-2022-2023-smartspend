@@ -266,8 +266,8 @@ const processTransactions = (
     const negativeResult: ProcessedTransaction[] = [];
 
     for (const current of transactions) {
-        const categoryId = current.category?.id;
-        let gradient = gradientMap[current.category.id];
+        const categoryId = current.category.id;
+        let gradient = gradientMap[categoryId];
 
         if (!gradient) {
             gradient = gradientDoughnut.find(

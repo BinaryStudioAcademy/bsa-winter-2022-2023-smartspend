@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-unnecessary-condition
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -53,6 +54,7 @@ import { type TransactionType } from '../../components/transanction-table/types'
 import {
     calculateLineChartData,
     calculateWalletBalances,
+    createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
     filterChart,
@@ -217,6 +219,14 @@ interface TransactionFilter {
     note?: string;
 }
 
+interface Category {
+    id: string;
+    type: string;
+    value: string;
+    text?: string;
+    label?: string;
+}
+
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const dispatch = useAppDispatch();
@@ -240,9 +250,7 @@ const Dashboard: React.FC = () => {
         (state) => state.categories.categories?.items ?? [],
     );
 
-    const categoriesSortByType = useAppSelector(
-        (state) => state.categories.categoriesSortByType ?? {},
-    );
+    const categoryDropdown = createCategoryDataArray(categories);
 
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
@@ -318,15 +326,25 @@ const Dashboard: React.FC = () => {
         [],
     );
 
-    const data = [];
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (categoriesSortByType.income) {
-        data.push({ label: 'Income', options: categoriesSortByType.income });
+    const categoryGroups: Record<string, Category[]> = {};
+
+    /* eslint-disable @typescript-eslint/no-unnecessary-condition*/
+    for (const category of categoryDropdown as Category[]) {
+        if (!categoryGroups[category.type]) {
+            categoryGroups[category.type] = [];
+        }
+        categoryGroups[category.type].push(category);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (categoriesSortByType.expense) {
-        data.push({ label: 'Expense', options: categoriesSortByType.expense });
+    // eslint-disable-next-line sonarjs/no-unused-collection
+    const data = [];
+
+    if (categoryGroups.income) {
+        data.push({ label: 'Income', options: categoryGroups.income });
+    }
+
+    if (categoryGroups.expense) {
+        data.push({ label: 'Expense', options: categoryGroups.expense });
     }
 
     const [filters, setFilters] = useState<Filters>({ value: '', name: '' });
@@ -453,7 +471,7 @@ const Dashboard: React.FC = () => {
 
         setTransactionsData(filteredTransactions);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [wallet, currentRange, filters]);
+    }, [transactions, category, wallet, currentRange, filters]);
 
     const walletsWithBalances = calculateWalletBalances(wallets, transactions);
 

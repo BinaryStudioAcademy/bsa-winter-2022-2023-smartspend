@@ -36,7 +36,7 @@ const TransactionModalBody: React.FC<Properties> = ({
         defaultValues: DEFAULT_TRANSACTION,
     });
     const [selectedSingleCategory, setSelectedSingleCategory] =
-        useState<DataType>(categories[0]);
+        useState<DataType>();
 
     const handleNoteChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -109,7 +109,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                     onChange={handleChangeTransaction}
                 />
             </TransactionModalElement>
-            <TransactionModalElement label="Note">
+            <TransactionModalElement label="Note (optional)">
                 <Input
                     inputClassName={styles.note}
                     type={InputType.TEXT}

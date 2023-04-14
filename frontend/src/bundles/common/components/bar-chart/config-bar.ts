@@ -33,6 +33,8 @@ const options: ConfigBar = {
                     family: 'Rubik, arial',
                     weight: '400',
                 },
+                maxRotation: 25,
+                minRotation: 25,
             },
         },
     },

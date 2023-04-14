@@ -6,7 +6,6 @@ import {
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { type UserGetAllResponseDto } from '~/bundles/users/users.js';
-import { StorageKey } from '~/framework/storage/storage.js';
 
 import { name as sliceName } from './slice.js';
 

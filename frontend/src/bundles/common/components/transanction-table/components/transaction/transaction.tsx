@@ -65,43 +65,48 @@ const Transaction: React.FC<Properties> = ({
                         />
                     </div>
                 </div>
+                <div>
+                    {transaction.category.color && (
+                        <span
+                            style={{
+                                background: `var(${transaction.category.color})`,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                height: '25px',
+                                width: '25px',
+                                borderRadius: '6px',
+                                color: '#fff',
+                            }}
+                        >
+                            <Icon
+                                name={transaction.category.icon as IconProp}
+                            />
+                        </span>
+                    )}
+                </div>
                 <div
                     className={styles.transactionBody}
                     onClick={openTransactionModal}
                     role="presentation"
                 >
-                    <div>
-                        {transaction.category.color && (
-                            <span
-                                style={{
-                                    background: `var(${transaction.category.color})`,
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '25px',
-                                    width: '25px',
-                                    borderRadius: '6px',
-                                    color: '#fff',
-                                }}
-                            >
-                                <Icon
-                                    name={transaction.category.icon as IconProp}
-                                />
-                            </span>
+                    <div className={styles.transactionInfo}>
+                        <div className={styles.transactionName}>
+                            {transaction.name}
+                        </div>
+                        {isFutureTransaction && (
+                            <div className={styles.inDays}>
+                                <span>{transaction.date}</span>
+                                <span className={styles.totals}>
+                                    in {getDaysLeft([transaction])} days
+                                </span>
+                            </div>
                         )}
                     </div>
-                    <div className={styles.transactionName}>
-                        {transaction.name}
+                    <div className={styles.transactionNote}>
+                        {transaction.note}
                     </div>
-                    {isFutureTransaction && (
-                        <div className={styles.inDays}>
-                            <span>{transaction.date}</span>
-                            <span className={styles.totals}>
-                                in {getDaysLeft([transaction])} days
-                            </span>
-                        </div>
-                    )}
 
                     <div
                         className={classNames(

@@ -7,6 +7,9 @@ enum AppDocumentTitles {
     TRANSACTIONS = 'Transactions',
     OVERVIEW = 'Overview',
     BUDGETS = 'Budgets',
+    BUDGET = 'Budget',
+    CATEGORIES_SETTINGS = 'Categories settings',
+    WALLET_SETTINGS = 'Wallet settings',
 }
 
 export { AppDocumentTitles };

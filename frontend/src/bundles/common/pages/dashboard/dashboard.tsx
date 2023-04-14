@@ -356,7 +356,7 @@ const Dashboard: React.FC = () => {
     const categoryDropdown = createCategoryDataArray(categories);
     const { positiveResult, negativeResult } = processTransactions(
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        transactionData ?? transactions,
+        transactionData,
     );
     const walletDropdown = createWalletCategoryDataArray(wallets);
 

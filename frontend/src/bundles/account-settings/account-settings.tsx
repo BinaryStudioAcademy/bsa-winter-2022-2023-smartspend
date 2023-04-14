@@ -24,9 +24,11 @@ const AccountSettings: React.FC = () => {
     return (
         <main className={styles.body}>
             <div className={classNames(styles.container, 'container')}>
-                <div className={styles.tabsContainer}>
-                    {haveName && <UserSettingsTabs tabsData={dataTabs} />}
-                </div>
+                {haveName && (
+                    <div className={styles.tabsContainer}>
+                        <UserSettingsTabs tabsData={dataTabs} />
+                    </div>
+                )}
                 <div className={styles.userProfileContainer}>
                     <RouterOutlet />
                 </div>

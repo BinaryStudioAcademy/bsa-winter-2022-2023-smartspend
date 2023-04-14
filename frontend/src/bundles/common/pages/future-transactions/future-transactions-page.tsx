@@ -459,7 +459,15 @@ const FutureTransactionsPage: React.FC = () => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                    <h1
+                                        className={styles.modalTitle}
+                                    >{`You're about to delete ${
+                                        isSelectedTransactions.length
+                                    } transaction${
+                                        isSelectedTransactions.length > 1
+                                            ? 's'
+                                            : ''
+                                    }`}</h1>
                                 }
                                 Body={
                                     <>

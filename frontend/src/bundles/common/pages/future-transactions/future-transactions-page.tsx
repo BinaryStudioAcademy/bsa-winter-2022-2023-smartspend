@@ -245,7 +245,7 @@ const FutureTransactionsPage: React.FC = () => {
                 {data.icon && (
                     <span
                         style={{
-                            background: `${data.color}`,
+                            background: `var(${data.color})`,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',

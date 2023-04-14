@@ -8,7 +8,11 @@ import { Dropdown } from '~/bundles/common/components/dropdown/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionModalElement } from '~/bundles/common/components/transaction-modal/transaction-modal-element';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useAppSelector,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type Transaction } from '~/bundles/common/types/transaction.type';
@@ -30,9 +34,12 @@ type Properties = {
 };
 
 const TransactionModalBody: React.FC<Properties> = ({
-    categories,
+    // categories,
     handleChangeTransaction,
 }) => {
+    const categoriesSortByType = useAppSelector(
+        (state) => state.categories.categoriesSortByType ?? {},
+    );
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
     });
@@ -85,25 +92,15 @@ const TransactionModalBody: React.FC<Properties> = ({
         },
         [handleChangeTransaction],
     );
-
-    const categoryGroups: Record<string, Category[]> = {};
-
-    for (const category of categories) {
-        if (!categoryGroups[category.type]) {
-            categoryGroups[category.type] = [];
-        }
-        categoryGroups[category.type].push(category);
-    }
-
     // eslint-disable-next-line sonarjs/no-unused-collection
     const data = [];
 
-    if (categoryGroups.income) {
-        data.push({ label: 'Income', options: categoryGroups.income });
+    if (categoriesSortByType.income) {
+        data.push({ label: 'Income', options: categoriesSortByType.income });
     }
 
-    if (categoryGroups.expense) {
-        data.push({ label: 'Expense', options: categoryGroups.expense });
+    if (categoriesSortByType.expense) {
+        data.push({ label: 'Expense', options: categoriesSortByType.expense });
     }
 
     const FormatOptionLabel = useCallback(
@@ -137,11 +134,11 @@ const TransactionModalBody: React.FC<Properties> = ({
                         [
                             {
                                 label: 'Income',
-                                options: categoryGroups.income,
+                                options: categoriesSortByType.income,
                             },
                             {
                                 label: 'Expense',
-                                options: categoryGroups.expense,
+                                options: categoriesSortByType.expense,
                             },
                         ] as unknown as DataType[]
                     }

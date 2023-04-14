@@ -8,7 +8,6 @@ import {
     BaseModal,
     Button,
     CardTotal,
-    Icon,
     Loader,
     Placeholder,
     TransactionTable,
@@ -18,10 +17,8 @@ import {
     AppDocumentTitles,
     AppRoute,
     ButtonSize,
-    ButtonType,
     ButtonVariant,
     CardVariant,
-    FaIcons,
 } from '~/bundles/common/enums/enums';
 import {
     dateToShortStringHelper,
@@ -63,6 +60,7 @@ type DoughnutData = Record<
     }
 >;
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const BudgetDetails = (): JSX.Element => {
     useAppDocumentTitle(AppDocumentTitles.BUDGET);
     const dispatch = useAppDispatch();
@@ -330,7 +328,7 @@ const BudgetDetails = (): JSX.Element => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h1
+                                    <h2
                                         className={styles.modalTitle}
                                     >{`You're about to delete ${
                                         isSelectedTransactions.length
@@ -338,32 +336,30 @@ const BudgetDetails = (): JSX.Element => {
                                         isSelectedTransactions.length > 1
                                             ? 's'
                                             : ''
-                                    }`}</h1>
+                                    }`}</h2>
                                 }
                                 Body={
                                     <>
-                                        <p>
-                                            This change is irreversible. Do you
-                                            really want to delete them?
-                                        </p>
-                                        <Button
-                                            type={ButtonType.BUTTON}
-                                            variant={ButtonVariant.DELETE}
-                                            size={ButtonSize.MEDIUM}
-                                            className={styles.btn}
-                                            onClick={
-                                                handleClickDeleteTransactions
+                                        <h4
+                                            className={
+                                                styles.modalDetailsContainer
                                             }
                                         >
-                                            <Icon name={FaIcons.TRASH} />
-                                            <span className={styles.btnName}>
-                                                Delete
-                                            </span>
-                                        </Button>
+                                            This change is irreversible. Do you
+                                            really want to delete{' '}
+                                            {isSelectedTransactions.length > 1
+                                                ? 'them'
+                                                : 'it'}
+                                            ?
+                                        </h4>
                                     </>
                                 }
-                                submitButtonName={'Delete category'}
-                                hasActionButtons={false}
+                                submitButtonName={`Delete transaction${
+                                    isSelectedTransactions.length > 1 ? 's' : ''
+                                }`}
+                                submitButtonVariant={ButtonVariant.DELETE}
+                                footerContainerClass={styles.modalFooter}
+                                buttonsSize={ButtonSize.MEDIUM}
                             />
                         </div>
                     </div>

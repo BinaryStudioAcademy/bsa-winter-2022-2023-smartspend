@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import DashboardPlaceholder from '~/assets/img/dashboard-placeholder.png';
 import { actions as budgetsActions } from '~/bundles/budgets/store';
-import { type BudgetSliceResponseDto } from '~/bundles/budgets/types/types.js';
 import {
     BaseModal,
     Button,
@@ -69,21 +68,26 @@ const BudgetDetails = (): JSX.Element => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [active, setActive] = useState(false);
-    const [currentBudget, setCurrenBudget] = useState<
-        BudgetSliceResponseDto | undefined
-    >();
     const [spent, setSpent] = useState(0);
-    const { budgets } = useAppSelector((state) => state.budgets);
-    const { currencies } = useAppSelector((state) => state.currencies);
-    const { user } = useAppSelector((state) => state.users);
-    const matchingCurrency = currencies.find(
-        (currency) => currency.shortName === user?.currency,
-    );
     const [isModalShown, setIsModalShown] = useState(false);
-
     const [isSelectedTransactions, setIsSelectedTransactions] = useState<
         string[]
     >([]);
+    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+
+    const { budgets } = useAppSelector((state) => state.budgets);
+    const { currencies } = useAppSelector((state) => state.currencies);
+    const { user } = useAppSelector((state) => state.users);
+    const categories = useAppSelector(
+        (state) => state.categories.categories?.items ?? [],
+    );
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
+    const matchingCurrency = currencies.find(
+        (currency) => currency.shortName === user?.currency,
+    );
+    const wallets = useAppSelector((state) => state.wallets.wallets);
 
     const addIdCheckedTransactions = useCallback((id: string): void => {
         setIsSelectedTransactions((previousState) => {
@@ -95,18 +99,6 @@ const BudgetDetails = (): JSX.Element => {
             return [...previousState, id];
         });
     }, []);
-
-    const categories = useAppSelector(
-        (state) => state.categories.categories?.items ?? [],
-    );
-
-    const transactions = useAppSelector(
-        (state) => state.transactions.transactions?.items ?? [],
-    );
-
-    const wallets = useAppSelector((state) => state.wallets.wallets);
-
-    const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
 
     const handleOpenModalDelete = useCallback(() => {
         setIsDeleteModalShown(true);
@@ -152,30 +144,26 @@ const BudgetDetails = (): JSX.Element => {
         id && onClickDeleteBudget(id);
     }, [id, onClickDeleteBudget]);
 
-    useEffect(() => {
-        setCurrenBudget(budgets.find((budget) => budget.id === id));
-    }, [budgets, id]);
+    const currentBudget = budgets.find((budget) => budget.id === id);
+    const budgetCategories = currentBudget?.categories.map(category => categories.find(it => it.id === category.id));
+    const budgetTransactions = transactions.filter((transaction) => budgetCategories?.find(it => it?.id === transaction.categoryId));
 
     useEffect(() => {
+        void dispatch(budgetsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
-        void dispatch(budgetsActions.loadAll());
         void dispatch(walletsActions.loadAll());
     }, [dispatch]);
 
     useEffect(() => {
-        setSpent(getSpent(transactions));
-    }, [transactions]);
+        setSpent(getSpent(budgetTransactions));
+    }, [budgetTransactions]);
 
     if (!currentBudget) {
-        return (
-            <div className={styles.loaderContainer}>
-                <Loader />
-            </div>
-        );
+        return <Loader />;
     }
 
-    const { amount, startDate, endDate, recurrence, name } = currentBudget;
+    const { amount, startDate, recurrence, endDate, name } = currentBudget;
 
     const { canSpend, moneyLeft } = calculateBudgetDetails({
         amount,
@@ -184,11 +172,11 @@ const BudgetDetails = (): JSX.Element => {
         spent,
     });
 
-    const transactionData = transactions.map((item) => ({
+    const transactionData = budgetTransactions.map((item) => ({
         id: item.id,
         date: item.date,
-        category: categories.find((cat) => cat.id === item.categoryId),
-        name: categories.find((cat) => cat.id === item.categoryId)?.name,
+        category: budgetCategories?.find((cat) => cat?.id === item.categoryId),
+        name: budgetCategories?.find((cat) => cat?.id === item.categoryId)?.name,
         label: item.labelId,
         amount: item.amount,
         currency: matchingCurrency?.symbol as string,
@@ -264,13 +252,6 @@ const BudgetDetails = (): JSX.Element => {
     const doughnutChartExpense = Object.values(doughnutData);
     const doughnutChartWallets = Object.values(doughnutDataWallet);
 
-    const positiveProgressTitle = `You can spend ${canSpending}/Day`;
-    const negativeProgressTitle = `Budget has been exceeded by ${Math.abs(
-        moneyLeft,
-    )} ${matchingCurrency?.symbol}`;
-    const budgetProgressTitle =
-        moneyLeft > 0 ? positiveProgressTitle : negativeProgressTitle;
-
     return (
         <div className={styles.container}>
             <BaseModal
@@ -332,13 +313,11 @@ const BudgetDetails = (): JSX.Element => {
                                 Header={
                                     <h1
                                         className={styles.modalTitle}
-                                    >{`You're about to delete ${
-                                        isSelectedTransactions.length
-                                    } transaction${
-                                        isSelectedTransactions.length > 1
+                                    >{`You're about to delete ${isSelectedTransactions.length
+                                        } transaction${isSelectedTransactions.length > 1
                                             ? 's'
                                             : ''
-                                    }`}</h1>
+                                        }`}</h1>
                                 }
                                 Body={
                                     <>
@@ -383,8 +362,8 @@ const BudgetDetails = (): JSX.Element => {
                     />
                     <CardTotal
                         title={
-                            moneyLeft >= 0
-                                ? InfoCardTypes.LEFT
+                            moneyLeft > 0
+                                ? InfoCardTypes.CAN
                                 : 'Money overspent'
                         }
                         sum={moneyLeft}
@@ -393,7 +372,7 @@ const BudgetDetails = (): JSX.Element => {
                     />
                     <CardTotal
                         title={InfoCardTypes.CAN}
-                        sum={canSpend > 0 ? canSpend : 0}
+                        sum={canSpend}
                         variant={CardVariant.WHITE}
                         currency={matchingCurrency?.symbol as string}
                     />
@@ -401,7 +380,7 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>{budgetProgressTitle}</div>
+                        <div>{`You can spend ${canSpending}/Day`}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={moneyLeft}
@@ -448,7 +427,7 @@ const BudgetDetails = (): JSX.Element => {
                         </div>
                         <div className={styles.transactionTable}>
                             <TransactionTable
-                                transactions={transactionData}
+                                transactions={transactionSortByType}
                                 addIdCheckedTransactions={
                                     addIdCheckedTransactions
                                 }

@@ -76,6 +76,10 @@
     font-size: var(--font-size-level-5-heading);
 }
 
+.transactionNote {
+    color: var(--color-gray-300);
+}
+
 .transaction {
     display: flex;
     justify-content: space-between;
@@ -88,6 +92,7 @@
 .transactionName {
     display: flex;
     align-items: center;
+    font-size: 16px;
     line-height: normal;
 }
 

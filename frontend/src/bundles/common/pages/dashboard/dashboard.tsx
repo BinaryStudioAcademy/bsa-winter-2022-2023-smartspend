@@ -51,6 +51,7 @@ import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import { type TransactionType } from '../../components/transanction-table/types';
+import { walletCardVariants } from '../../constants/wallet-card-variants.constant';
 import {
     calculateLineChartData,
     calculateWalletBalances,
@@ -495,29 +496,39 @@ const Dashboard: React.FC = () => {
         );
     }
 
+    const noTransactionsMessage = 'There nothing yet';
+
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {walletsWithBalances.map(({ id, name, balance }) => (
-                            <Link
-                                to={`/wallet/${id}/transaction`}
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletCard
-                                    title={name}
-                                    size={WalletCardSize.MEDIUM}
-                                    balance_value={balance}
-                                    wallet_type={'Balance'}
-                                    currency={
-                                        matchingCurrency?.symbol as string
-                                    }
-                                />
-                            </Link>
-                        ))}
+                        {walletsWithBalances.map(
+                            ({ id, name, balance }, index) => (
+                                <Link
+                                    to={`/wallet/${id}/transaction`}
+                                    key={id}
+                                    className={styles.walletWrapper}
+                                >
+                                    <WalletCard
+                                        title={name}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={balance}
+                                        wallet_type={'Balance'}
+                                        variant={
+                                            walletCardVariants[
+                                                index %
+                                                    walletCardVariants.length
+                                            ]
+                                        }
+                                        currency={
+                                            matchingCurrency?.symbol as string
+                                        }
+                                    />
+                                </Link>
+                            ),
+                        )}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>
@@ -670,23 +681,37 @@ const Dashboard: React.FC = () => {
                                     title={'Account Balance'}
                                     date={formatRangeGraph(day)}
                                 >
-                                    <LineChart
-                                        dataArr={filterLineChart(
-                                            day,
-                                            lineChartData,
-                                        )}
-                                    />
+                                    {lineChartData.length > 1 ? (
+                                        <LineChart
+                                            dataArr={filterLineChart(
+                                                day,
+                                                lineChartData,
+                                            )}
+                                        />
+                                    ) : (
+                                        <Placeholder
+                                            body={noTransactionsMessage}
+                                        />
+                                    )}
                                 </ChartBox>
                                 <ChartBox
                                     title={'Changes'}
                                     date={formatRangeGraph(day)}
                                 >
-                                    <Chart
-                                        array={filterChart(
-                                            day,
-                                            verticalChartData,
-                                        )}
-                                    />
+                                    {verticalChartData.every(
+                                        (data) => data.data.length === 0,
+                                    ) ? (
+                                        <Placeholder
+                                            body={noTransactionsMessage}
+                                        />
+                                    ) : (
+                                        <Chart
+                                            array={filterChart(
+                                                day,
+                                                verticalChartData,
+                                            )}
+                                        />
+                                    )}
                                 </ChartBox>
                                 <ChartBox
                                     title={'Period Income'}
@@ -704,7 +729,7 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
-                                            body={'There nothing yet'}
+                                            body={noTransactionsMessage}
                                         />
                                     )}
                                 </ChartBox>
@@ -724,7 +749,7 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
-                                            body={'There nothing yet'}
+                                            body={noTransactionsMessage}
                                         />
                                     )}
                                 </ChartBox>

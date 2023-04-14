@@ -4,7 +4,6 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { AccountSettings } from '~/bundles/account-settings/account-settings';
-import { UserProfile } from '~/bundles/account-settings/components/components';
 import { Auth } from '~/bundles/auth/pages/auth';
 import {
     App,
@@ -24,7 +23,6 @@ import { Landing } from '~/bundles/landing/landing';
 import { StyleGuide } from '~/bundles/ui/ui';
 import { store } from '~/framework/store/store';
 
-import { CategoriesSettings } from './bundles/common/pages/categories-settings/categories-settings';
 import { FutureTransactionsPage } from './bundles/common/pages/future-transactions/future-transactions-page';
 import { WalletSettings } from './bundles/common/pages/wallet-settings/wallet-settings';
 
@@ -119,30 +117,20 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                                 ),
                             },
                             {
-                                path: AppRoute.USER,
+                                path: AppRoute.USER_CATEGORIES,
                                 element: (
                                     <PrivateRoute>
                                         <AccountSettings />
                                     </PrivateRoute>
                                 ),
-                                children: [
-                                    {
-                                        path: AppRoute.USER_CATEGORIES,
-                                        element: (
-                                            <PrivateRoute>
-                                                <CategoriesSettings />
-                                            </PrivateRoute>
-                                        ),
-                                    },
-                                    {
-                                        path: AppRoute.USER_PROFILE,
-                                        element: (
-                                            <PrivateRoute>
-                                                <UserProfile />
-                                            </PrivateRoute>
-                                        ),
-                                    },
-                                ],
+                            },
+                            {
+                                path: AppRoute.USER_PROFILE,
+                                element: (
+                                    <PrivateRoute>
+                                        <AccountSettings />
+                                    </PrivateRoute>
+                                ),
                             },
                         ],
                     },

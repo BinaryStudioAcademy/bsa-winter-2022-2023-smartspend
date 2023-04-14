@@ -42,7 +42,7 @@ const updateUser = createAsyncThunk<
     const { userApi, notification } = extra;
 
     await userApi.updateUser(payload);
-    
+
     await dispatch(loadUser());
     notification.success('Account settings has been updated');
 });

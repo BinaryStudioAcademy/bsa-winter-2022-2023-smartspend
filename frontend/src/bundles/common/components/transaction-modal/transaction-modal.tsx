@@ -49,6 +49,9 @@ const TransactionModal: React.FC<Properties> = ({
     const category = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
     );
+    const transactions = useAppSelector(
+        (state) => state.transactions.transactions?.items ?? [],
+    );
     const categoryMenu = category.map((item) => ({
         ...item,
         value: item.id,
@@ -152,6 +155,8 @@ const TransactionModal: React.FC<Properties> = ({
                     categories={categoryMenu}
                     labels={labels}
                     handleChangeTransaction={setTransaction}
+                    transactions={transactions}
+                    transactionId={transactionId}
                 />
             }
             submitButtonName={submitButtonName}

@@ -19,10 +19,11 @@ import styles from '../styles.module.scss';
 
 type Properties = {
     onChange?: React.Dispatch<React.SetStateAction<Transaction>>;
+    initialDate?: Date;
 };
 
-const OneDayCalendar: React.FC<Properties> = ({ onChange }) => {
-    const [day, setDay] = useState<Date>(new Date());
+const OneDayCalendar: React.FC<Properties> = ({ onChange, initialDate }) => {
+    const [day, setDay] = useState<Date>(initialDate ?? new Date());
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
     const handleClick = useCallback((): void => {

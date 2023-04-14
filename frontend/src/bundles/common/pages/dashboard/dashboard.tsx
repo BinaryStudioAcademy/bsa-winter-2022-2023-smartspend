@@ -495,6 +495,8 @@ const Dashboard: React.FC = () => {
         );
     }
 
+    const noTransactionsMessage = 'There nothing yet';
+
     return (
         <div className={styles.container}>
             <div className={styles.dashboard}>
@@ -670,23 +672,37 @@ const Dashboard: React.FC = () => {
                                     title={'Account Balance'}
                                     date={formatRangeGraph(day)}
                                 >
-                                    <LineChart
-                                        dataArr={filterLineChart(
-                                            day,
-                                            lineChartData,
-                                        )}
-                                    />
+                                    {lineChartData.length > 1 ? (
+                                        <LineChart
+                                            dataArr={filterLineChart(
+                                                day,
+                                                lineChartData,
+                                            )}
+                                        />
+                                    ) : (
+                                        <Placeholder
+                                            body={noTransactionsMessage}
+                                        />
+                                    )}
                                 </ChartBox>
                                 <ChartBox
                                     title={'Changes'}
                                     date={formatRangeGraph(day)}
                                 >
-                                    <Chart
-                                        array={filterChart(
-                                            day,
-                                            verticalChartData,
-                                        )}
-                                    />
+                                    {verticalChartData.every(
+                                        (data) => data.data.length === 0,
+                                    ) ? (
+                                        <Placeholder
+                                            body={noTransactionsMessage}
+                                        />
+                                    ) : (
+                                        <Chart
+                                            array={filterChart(
+                                                day,
+                                                verticalChartData,
+                                            )}
+                                        />
+                                    )}
                                 </ChartBox>
                                 <ChartBox
                                     title={'Period Income'}
@@ -704,7 +720,7 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
-                                            body={'There nothing yet'}
+                                            body={noTransactionsMessage}
                                         />
                                     )}
                                 </ChartBox>
@@ -724,7 +740,7 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
-                                            body={'There nothing yet'}
+                                            body={noTransactionsMessage}
                                         />
                                     )}
                                 </ChartBox>

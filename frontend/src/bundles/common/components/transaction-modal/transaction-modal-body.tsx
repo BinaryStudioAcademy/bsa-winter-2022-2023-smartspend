@@ -85,7 +85,6 @@ const TransactionModalBody: React.FC<Properties> = ({
         },
         [handleChangeTransaction],
     );
-
     const categoryGroups: Record<string, Category[]> = {};
 
     for (const category of categories) {
@@ -133,18 +132,7 @@ const TransactionModalBody: React.FC<Properties> = ({
         <div className={styles.body}>
             <TransactionModalElement label="Category">
                 <Dropdown
-                    data={
-                        [
-                            {
-                                label: 'Income',
-                                options: categoryGroups.income,
-                            },
-                            {
-                                label: 'Expense',
-                                options: categoryGroups.expense,
-                            },
-                        ] as unknown as DataType[]
-                    }
+                    data={data as unknown as DataType[]}
                     formatOptionLabel={FormatOptionLabel}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
@@ -156,7 +144,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                     onChange={handleChangeTransaction}
                 />
             </TransactionModalElement>
-            <TransactionModalElement label="Note">
+            <TransactionModalElement label="Note (optional)">
                 <Input
                     inputClassName={styles.note}
                     type={InputType.TEXT}

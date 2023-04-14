@@ -25,6 +25,7 @@ import {
 import { actions as usersActions } from '~/bundles/users/store';
 // import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
 import { storage, StorageKey } from '~/framework/storage/storage';
+import { notification } from '~/services/services';
 
 import styles from '../styles.module.scss';
 import {
@@ -50,8 +51,6 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
         defaultValues: user as UserUpdateRequestDto,
-        // validationSchema: userUpdateRegValidationSchema,
-        // mode: 'onBlur',
     });
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -95,12 +94,17 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
                 userProfile: { ...remainingData },
             };
 
-            if (!storage.getSync(StorageKey.HAVE_NAME)) {
+            const haveName = storage.getSync(StorageKey.HAVE_NAME);
+
+            if (!haveName) {
                 void storage.set(StorageKey.HAVE_NAME, 'true');
                 navigate(AppRoute.DASHBOARD);
             }
 
             await dispatch(usersActions.updateUser(uploadData)).unwrap();
+            if (haveName) {
+                notification.success('Account settings has been updated');
+            }
         },
         [dispatch, navigate],
     );

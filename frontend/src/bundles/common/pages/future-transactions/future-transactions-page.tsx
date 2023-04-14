@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -9,7 +10,6 @@ import { RangeCalendar } from '~/bundles/common/components/calendar/components/c
 import {
     BaseModal,
     Button,
-    CardTotal,
     Icon,
     Input,
     Loader,
@@ -24,7 +24,6 @@ import {
     ButtonSize,
     ButtonType,
     ButtonVariant,
-    CardVariant,
     DataStatus,
     FaIcons,
     InputType,
@@ -245,7 +244,7 @@ const FutureTransactionsPage: React.FC = () => {
                 {data.icon && (
                     <span
                         style={{
-                            background: `${data.color}`,
+                            background: `var(${data.color})`,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -406,32 +405,6 @@ const FutureTransactionsPage: React.FC = () => {
                     </div>
                     <div className={styles.walletTransactions}>
                         <div className={styles.walletTransactionsContainer}>
-                            <div className={styles.cards}>
-                                <CardTotal
-                                    title="Total Wallet Balance"
-                                    sum={currentWallet?.balance as number}
-                                    variant={CardVariant.ORANGE}
-                                    currency={currency}
-                                />
-                                <CardTotal
-                                    title="Total Period Change"
-                                    sum={504}
-                                    variant={CardVariant.BLUE}
-                                    currency={currency}
-                                />
-                                <CardTotal
-                                    title="Total Period Expenses"
-                                    sum={-9700.34}
-                                    variant={CardVariant.WHITE}
-                                    currency={currency}
-                                />
-                                <CardTotal
-                                    title="Total Period Income"
-                                    sum={7600.34}
-                                    variant={CardVariant.VIOLET}
-                                    currency={currency}
-                                />
-                            </div>
                             {transactions.length > 0 ? (
                                 <div className={styles.transactionsContainer}>
                                     <TransactionTable
@@ -459,7 +432,15 @@ const FutureTransactionsPage: React.FC = () => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                    <h1
+                                        className={styles.modalTitle}
+                                    >{`You're about to delete ${
+                                        isSelectedTransactions.length
+                                    } transaction${
+                                        isSelectedTransactions.length > 1
+                                            ? 's'
+                                            : ''
+                                    }`}</h1>
                                 }
                                 Body={
                                     <>

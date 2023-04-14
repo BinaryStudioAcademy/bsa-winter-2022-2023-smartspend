@@ -102,6 +102,33 @@
     margin-top: 20px;
 }
 
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.dropdownColorIcon {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    max-height: 32px;
+    color: white;
+    background: var(--color-blue-200);
+    border-radius: 6px;
+}
+
+.name {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .filters label {
     color: var(--color-gray-200);
 }

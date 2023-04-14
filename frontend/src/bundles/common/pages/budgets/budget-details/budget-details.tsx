@@ -264,6 +264,13 @@ const BudgetDetails = (): JSX.Element => {
     const doughnutChartExpense = Object.values(doughnutData);
     const doughnutChartWallets = Object.values(doughnutDataWallet);
 
+    const positiveProgressTitle = `You can spend ${canSpending}/Day`;
+    const negativeProgressTitle = `Budget has been exceeded by ${Math.abs(
+        moneyLeft,
+    )} ${matchingCurrency?.symbol}`;
+    const budgetProgressTitle =
+        moneyLeft > 0 ? positiveProgressTitle : negativeProgressTitle;
+
     return (
         <div className={styles.container}>
             <BaseModal
@@ -323,7 +330,15 @@ const BudgetDetails = (): JSX.Element => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                    <h1
+                                        className={styles.modalTitle}
+                                    >{`You're about to delete ${
+                                        isSelectedTransactions.length
+                                    } transaction${
+                                        isSelectedTransactions.length > 1
+                                            ? 's'
+                                            : ''
+                                    }`}</h1>
                                 }
                                 Body={
                                     <>
@@ -368,8 +383,8 @@ const BudgetDetails = (): JSX.Element => {
                     />
                     <CardTotal
                         title={
-                            moneyLeft > 0
-                                ? InfoCardTypes.CAN
+                            moneyLeft >= 0
+                                ? InfoCardTypes.LEFT
                                 : 'Money overspent'
                         }
                         sum={moneyLeft}
@@ -378,7 +393,7 @@ const BudgetDetails = (): JSX.Element => {
                     />
                     <CardTotal
                         title={InfoCardTypes.CAN}
-                        sum={canSpend}
+                        sum={canSpend > 0 ? canSpend : 0}
                         variant={CardVariant.WHITE}
                         currency={matchingCurrency?.symbol as string}
                     />
@@ -386,7 +401,7 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>{`You can spend ${canSpending}/Day`}</div>
+                        <div>{budgetProgressTitle}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={moneyLeft}

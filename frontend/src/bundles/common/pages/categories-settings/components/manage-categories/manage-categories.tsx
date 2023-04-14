@@ -80,9 +80,12 @@ const ManageCategories: React.FC<Properties> = ({
                 onClose={handleCloseModal}
                 onSubmit={handleClickDeleteCategories}
                 Header={
-                    <h2
-                        className={styles.modalTitle}
-                    >{`You're about to delete ${selectedCategories.length} categories`}</h2>
+                    <h2 className={styles.modalTitle}>
+                        {selectedCategories.length === 1 &&
+                            `You're about to delete ${selectedCategories.length} category`}
+                        {selectedCategories.length != 1 &&
+                            `You're about to delete ${selectedCategories.length} categories`}
+                    </h2>
                 }
                 Body={
                     <p className={styles.modalDetailsContainer}>

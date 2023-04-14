@@ -54,8 +54,12 @@ const RangeSlider: React.FC<Properties> = ({
                 }
             />
             <div className={styles.rangeValues}>
-                <span>{Number.isFinite(currentRange.min) ? currentRange.min : 0}</span>
-                <span>{Number.isFinite(currentRange.max) ? currentRange.max : 0}</span>
+                <span>
+                    {Number.isFinite(currentRange.min) ? currentRange.min : 0}
+                </span>
+                <span>
+                    {Number.isFinite(currentRange.max) ? currentRange.max : 0}
+                </span>
             </div>
         </div>
     );

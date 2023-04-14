@@ -238,6 +238,7 @@ interface Category {
     label?: string;
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const dispatch = useAppDispatch();
@@ -694,12 +695,18 @@ const Dashboard: React.FC = () => {
                                         (transaction) => transaction.amount > 0,
                                     )}
                                 >
-                                    <DoughnutChart
-                                        categories={filterCategories(
-                                            day,
-                                            positiveResult,
-                                        )}
-                                    />
+                                    {positiveResult.length > 0 ? (
+                                        <DoughnutChart
+                                            categories={filterCategories(
+                                                day,
+                                                positiveResult,
+                                            )}
+                                        />
+                                    ) : (
+                                        <Placeholder
+                                            body={'There nothing yet'}
+                                        />
+                                    )}
                                 </ChartBox>
                                 <ChartBox
                                     title={'Period Expenses'}
@@ -708,12 +715,18 @@ const Dashboard: React.FC = () => {
                                         (transaction) => transaction.amount < 0,
                                     )}
                                 >
-                                    <DoughnutChart
-                                        categories={filterCategories(
-                                            day,
-                                            negativeResult,
-                                        )}
-                                    />
+                                    {negativeResult.length > 0 ? (
+                                        <DoughnutChart
+                                            categories={filterCategories(
+                                                day,
+                                                negativeResult,
+                                            )}
+                                        />
+                                    ) : (
+                                        <Placeholder
+                                            body={'There nothing yet'}
+                                        />
+                                    )}
                                 </ChartBox>
                             </div>
                         ) : (

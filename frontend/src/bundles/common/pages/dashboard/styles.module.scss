@@ -173,8 +173,8 @@
 
 .transactions {
     display: flex;
-
-    // flex-direction: column;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
     height: 100px;
     padding-right: var(--p-1);

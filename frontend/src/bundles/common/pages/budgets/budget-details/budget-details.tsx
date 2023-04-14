@@ -364,7 +364,11 @@ const BudgetDetails = (): JSX.Element => {
                         currency={matchingCurrency?.symbol as string}
                     />
                     <CardTotal
-                        title={InfoCardTypes.LEFT}
+                        title={
+                            moneyLeft > 0
+                                ? InfoCardTypes.CAN
+                                : 'Money overspent'
+                        }
                         sum={moneyLeft}
                         variant={CardVariant.VIOLET}
                         currency={matchingCurrency?.symbol as string}

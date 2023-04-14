@@ -127,6 +127,8 @@ const Dropdown: React.FC<Properties> = ({
             return {
                 value: selectedOption.value,
                 name: selectedOption.name,
+                icon: selectedOption.icon,
+                color: selectedOption.color,
                 image: selectedOption.image,
             };
         } else {
@@ -142,8 +144,8 @@ const Dropdown: React.FC<Properties> = ({
             <Select
                 className={styles.select}
                 onChange={handleChange as HandleMultiChange}
-                options={data}
                 value={getValue(selectedOption)}
+                options={data}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }

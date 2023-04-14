@@ -92,7 +92,7 @@ const TransactionModalBody: React.FC<Properties> = ({
         },
         [handleChangeTransaction],
     );
-// eslint-disable-next-line sonarjs/no-unused-collection 
+    // eslint-disable-next-line sonarjs/no-unused-collection
     const data = [];
 
     if (categoriesSortByType.income) {

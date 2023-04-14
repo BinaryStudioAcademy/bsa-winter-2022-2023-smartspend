@@ -28,7 +28,6 @@
 
 .dropdownCategoryItem {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -44,6 +43,7 @@
 
 .dropdownCategoryIcon {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: 25px;

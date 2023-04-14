@@ -51,8 +51,6 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     const [isChange, setIsChange] = useState(false);
     const { control, handleSubmit, errors, watch, trigger } = useAppForm({
         defaultValues: user as UserUpdateRequestDto,
-        // validationSchema: userUpdateRegValidationSchema,
-        // mode: 'onBlur',
     });
     const [modalOpen, setModalOpen] = useState(false);
 

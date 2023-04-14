@@ -419,9 +419,9 @@ const Dashboard: React.FC = () => {
     }, [maxAmount, minAmount]);
 
     useEffect(() => {
-        void dispatch(walletsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
+        void dispatch(walletsActions.loadAll());
         setCurrentRange({ min: minAmount, max: maxAmount });
     }, [dispatch, maxAmount, minAmount]);
 
@@ -677,7 +677,7 @@ const Dashboard: React.FC = () => {
                                     />
                                 </ChartBox>
                                 <ChartBox
-                                    title={'Period income'}
+                                    title={'Period Income'}
                                     date={formatRangeGraph(day)}
                                     transactions={transactionData.filter(
                                         (transaction) => transaction.amount > 0,

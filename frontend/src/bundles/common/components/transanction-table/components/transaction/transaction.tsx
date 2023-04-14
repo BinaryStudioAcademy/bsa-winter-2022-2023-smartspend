@@ -95,15 +95,17 @@ const Transaction: React.FC<Properties> = ({
                         <div className={styles.transactionName}>
                             {transaction.name}
                         </div>
-                        {isFutureTransaction && (
-                            <div className={styles.inDays}>
-                                <span>{transaction.date}</span>
-                                <span className={styles.totals}>
-                                    in {getDaysLeft([transaction])} days
-                                </span>
-                            </div>
-                        )}
                     </div>
+                    {isFutureTransaction ? (
+                        <div className={styles.inDays}>
+                            <span>{transaction.date}</span>
+                            <span className={styles.totals}>
+                                in {getDaysLeft([transaction])} days
+                            </span>
+                        </div>
+                    ) : (
+                        <div></div>
+                    )}
                     <div className={styles.transactionNote}>
                         {transaction.note}
                     </div>

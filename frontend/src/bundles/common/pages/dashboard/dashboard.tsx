@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-unnecessary-condition
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -53,6 +54,7 @@ import { type TransactionType } from '../../components/transanction-table/types'
 import {
     calculateLineChartData,
     calculateWalletBalances,
+    createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
     filterChart,
@@ -111,73 +113,84 @@ const ChartBox = ({
                 {controls && <div>{controls}</div>}
             </div>
             <div className={styles.chartBox}>{children}</div>
-            <div className={styles.transactions}>
-                {Object.values(transactionsByCategory).map((transaction) => {
-                    return (
-                        <div
-                            key={transaction.transactions[0].id}
-                            className={styles.transactionBody}
-                        >
-                            {transaction.transactions[0] && (
+            {transactions.length > 0 && (
+                <div className={styles.transactions}>
+                    {Object.values(transactionsByCategory).map(
+                        (transaction) => {
+                            return (
                                 <div
-                                    className={classNames(
-                                        styles.columns,
-                                        styles.leftColumn,
-                                    )}
+                                    key={transaction.transactions[0].id}
+                                    className={styles.transactionBody}
                                 >
-                                    <div
-                                        style={{
-                                            background: `var(${transaction.transactions[0].category.color})`,
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            textAlign: 'center',
-                                            height: '25px',
-                                            minWidth: '25px',
-                                            borderRadius: '6px',
-                                            color: '#fff',
-                                        }}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={
-                                                transaction.transactions[0]
-                                                    .category.icon as IconProp
-                                            }
-                                        />
+                                    {transaction.transactions[0] && (
+                                        <div
+                                            className={classNames(
+                                                styles.columns,
+                                                styles.leftColumn,
+                                            )}
+                                        >
+                                            <div
+                                                style={{
+                                                    background: `var(${transaction.transactions[0].category.color})`,
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    textAlign: 'center',
+                                                    height: '25px',
+                                                    minWidth: '25px',
+                                                    borderRadius: '6px',
+                                                    color: '#fff',
+                                                }}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={
+                                                        transaction
+                                                            .transactions[0]
+                                                            .category
+                                                            .icon as IconProp
+                                                    }
+                                                />
+                                            </div>
+                                            <div
+                                                className={
+                                                    styles.transactionName
+                                                }
+                                            >
+                                                {
+                                                    transaction.transactions[0]
+                                                        .category.name
+                                                }
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className={styles.inDays}>
+                                        {transaction.transactions.length}
+                                        {transaction.transactions.length ===
+                                            1 && ' transaction'}
+                                        {transaction.transactions.length != 1 &&
+                                            ' transactions'}
                                     </div>
-                                    <div className={styles.transactionName}>
-                                        {
-                                            transaction.transactions[0].category
-                                                .name
-                                        }
+
+                                    <div
+                                        className={classNames(
+                                            styles.columns,
+                                            styles.rightColumn,
+                                            transaction.transactions[0].amount <
+                                                0
+                                                ? styles.minus
+                                                : styles.plus,
+                                        )}
+                                    >
+                                        {transaction.total.toFixed(2)}
+                                        {matchingCurrency?.symbol as string}
                                     </div>
                                 </div>
-                            )}
-
-                            <div className={styles.inDays}>
-                                {transaction.transactions.length}
-                                {transaction.transactions.length === 1 &&
-                                    ' transaction'}
-                                {transaction.transactions.length != 1 &&
-                                    ' transactions'}
-                            </div>
-
-                            <div
-                                className={classNames(
-                                    styles.columns,
-                                    styles.rightColumn,
-                                    transaction.transactions[0].amount < 0
-                                        ? styles.minus
-                                        : styles.plus,
-                                )}
-                            >
-                                {transaction.total.toFixed(2)}
-                                {matchingCurrency?.symbol as string}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+                            );
+                        },
+                    )}
+                </div>
+            )}
         </div>
     );
 };
@@ -217,6 +230,15 @@ interface TransactionFilter {
     note?: string;
 }
 
+interface Category {
+    id: string;
+    type: string;
+    value: string;
+    text?: string;
+    label?: string;
+}
+
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const Dashboard: React.FC = () => {
     useAppDocumentTitle(AppDocumentTitles.DASHBOARD);
     const dispatch = useAppDispatch();
@@ -240,9 +262,7 @@ const Dashboard: React.FC = () => {
         (state) => state.categories.categories?.items ?? [],
     );
 
-    const categoriesSortByType = useAppSelector(
-        (state) => state.categories.categoriesSortByType ?? {},
-    );
+    const categoryDropdown = createCategoryDataArray(categories);
 
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
@@ -318,15 +338,25 @@ const Dashboard: React.FC = () => {
         [],
     );
 
-    const data = [];
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (categoriesSortByType.income) {
-        data.push({ label: 'Income', options: categoriesSortByType.income });
+    const categoryGroups: Record<string, Category[]> = {};
+
+    /* eslint-disable @typescript-eslint/no-unnecessary-condition*/
+    for (const category of categoryDropdown as Category[]) {
+        if (!categoryGroups[category.type]) {
+            categoryGroups[category.type] = [];
+        }
+        categoryGroups[category.type].push(category);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (categoriesSortByType.expense) {
-        data.push({ label: 'Expense', options: categoriesSortByType.expense });
+    // eslint-disable-next-line sonarjs/no-unused-collection
+    const data = [];
+
+    if (categoryGroups.income) {
+        data.push({ label: 'Income', options: categoryGroups.income });
+    }
+
+    if (categoryGroups.expense) {
+        data.push({ label: 'Expense', options: categoryGroups.expense });
     }
 
     const [filters, setFilters] = useState<Filters>({ value: '', name: '' });
@@ -453,7 +483,7 @@ const Dashboard: React.FC = () => {
 
         setTransactionsData(filteredTransactions);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [wallet, currentRange, filters]);
+    }, [transactions, category, wallet, currentRange, filters]);
 
     const walletsWithBalances = calculateWalletBalances(wallets, transactions);
 
@@ -665,12 +695,18 @@ const Dashboard: React.FC = () => {
                                         (transaction) => transaction.amount > 0,
                                     )}
                                 >
-                                    <DoughnutChart
-                                        categories={filterCategories(
-                                            day,
-                                            positiveResult,
-                                        )}
-                                    />
+                                    {positiveResult.length > 0 ? (
+                                        <DoughnutChart
+                                            categories={filterCategories(
+                                                day,
+                                                positiveResult,
+                                            )}
+                                        />
+                                    ) : (
+                                        <Placeholder
+                                            body={'There nothing yet'}
+                                        />
+                                    )}
                                 </ChartBox>
                                 <ChartBox
                                     title={'Period Expenses'}
@@ -679,12 +715,18 @@ const Dashboard: React.FC = () => {
                                         (transaction) => transaction.amount < 0,
                                     )}
                                 >
-                                    <DoughnutChart
-                                        categories={filterCategories(
-                                            day,
-                                            negativeResult,
-                                        )}
-                                    />
+                                    {negativeResult.length > 0 ? (
+                                        <DoughnutChart
+                                            categories={filterCategories(
+                                                day,
+                                                negativeResult,
+                                            )}
+                                        />
+                                    ) : (
+                                        <Placeholder
+                                            body={'There nothing yet'}
+                                        />
+                                    )}
                                 </ChartBox>
                             </div>
                         ) : (

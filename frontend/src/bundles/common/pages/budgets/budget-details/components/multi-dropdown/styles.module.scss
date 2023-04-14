@@ -8,12 +8,12 @@
 
 .item {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 
 .imageWrapper {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: 25px;

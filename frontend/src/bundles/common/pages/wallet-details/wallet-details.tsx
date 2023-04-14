@@ -496,7 +496,7 @@ const WalletDetails: React.FC = () => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h1
+                                    <h2
                                         className={styles.modalTitle}
                                     >{`You're about to delete ${
                                         isSelectedTransactions.length
@@ -504,11 +504,11 @@ const WalletDetails: React.FC = () => {
                                         isSelectedTransactions.length > 1
                                             ? 's'
                                             : ''
-                                    }`}</h1>
+                                    }`}</h2>
                                 }
                                 Body={
                                     <>
-                                        <p
+                                        <h4
                                             className={
                                                 styles.modalDetailsContainer
                                             }
@@ -519,7 +519,7 @@ const WalletDetails: React.FC = () => {
                                                 ? 'them'
                                                 : 'it'}
                                             ?
-                                        </p>
+                                        </h4>
                                     </>
                                 }
                                 submitButtonName={`Delete transaction${

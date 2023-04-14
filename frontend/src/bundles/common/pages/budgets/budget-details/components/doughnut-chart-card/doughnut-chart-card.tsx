@@ -57,52 +57,54 @@ const DoughnutChartCard: React.FC<Properties> = ({
                     <DoughnutChart categories={categories} />
                 )}
             </div>
-            {categories.map((category) => (
-                <div key={category.name} className={styles.bottomPart}>
-                    <div className={styles.transactionTypeContainer}>
-                        <div className={styles.base}>
-                            <span
-                                className={styles.icon}
-                                style={{ background: `${category.color}` }}
-                            >
-                                <Icon
-                                    name={
-                                        category.icon
-                                            ? (category.icon as IconProp)
-                                            : FaIcons.WALLET
-                                    }
-                                />
-                            </span>
+            <div className={styles.doughnutChart}>
+                {categories.map((category) => (
+                    <div key={category.name} className={styles.bottomPart}>
+                        <div className={styles.transactionTypeContainer}>
+                            <div className={styles.base}>
+                                <span
+                                    className={styles.icon}
+                                    style={{ background: `${category.color}` }}
+                                >
+                                    <Icon
+                                        name={
+                                            category.icon
+                                                ? (category.icon as IconProp)
+                                                : FaIcons.WALLET
+                                        }
+                                    />
+                                </span>
+                            </div>
+                            <p className={styles.transactionType}>
+                                {category.name}
+                            </p>
                         </div>
-                        <p className={styles.transactionType}>
-                            {category.name}
-                        </p>
-                    </div>
-                    <div
-                        className={classNames(
-                            styles.transactionTypeContainer,
-                            styles.right,
-                        )}
-                    >
-                        <p className={styles.transactionNum}>
-                            {category.count}
-                            {category.count === 1 && ' transaction'}
-                            {category.count != 1 && ' transactions'}
-                        </p>
-                        <p
+                        <div
                             className={classNames(
-                                styles.transactionSum,
-                                category.type === 'income'
-                                    ? styles.blue
-                                    : styles.red,
+                                styles.transactionTypeContainer,
+                                styles.right,
                             )}
                         >
-                            {category.total}
-                            {category.currency}
-                        </p>
+                            <p className={styles.transactionNum}>
+                                {category.count}
+                                {category.count === 1 && ' transaction'}
+                                {category.count != 1 && ' transactions'}
+                            </p>
+                            <p
+                                className={classNames(
+                                    styles.transactionSum,
+                                    category.type === 'income'
+                                        ? styles.blue
+                                        : styles.red,
+                                )}
+                            >
+                                {category.total}
+                                {category.currency}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };

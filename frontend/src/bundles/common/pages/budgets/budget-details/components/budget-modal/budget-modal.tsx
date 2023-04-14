@@ -71,10 +71,6 @@ const BudgetModal: React.FC<Properties> = ({
         [user?.currency],
     );
 
-    const [values, setValues] = useState(DEFAULT_VALUES);
-    const [isNameValid, setIsNameValid] = useState('');
-    const [isAmountValid, setIsAmountValid] = useState('');
-
     const { control, errors, handleSubmit, trigger, watch, reset } = useAppForm(
         {
             defaultValues: isEdit ? currentBudget : DEFAULT_VALUES,
@@ -89,9 +85,6 @@ const BudgetModal: React.FC<Properties> = ({
     const handleBudgetSubmit = useCallback(
         (formData: BudgetCreateRequestDto): void => {
             formData.currency = user?.currency as string;
-            formData.name = values.name;
-            formData.amount = values.amount;
-
             if (isEdit) {
                 void dispatch(
                     budgetsActions.update({
@@ -104,16 +97,7 @@ const BudgetModal: React.FC<Properties> = ({
             }
             isReset && reset();
         },
-        [
-            dispatch,
-            id,
-            isEdit,
-            isReset,
-            reset,
-            user?.currency,
-            values.amount,
-            values.name,
-        ],
+        [dispatch, id, isEdit, isReset, reset, user?.currency],
     );
 
     useEffect(() => {
@@ -142,43 +126,8 @@ const BudgetModal: React.FC<Properties> = ({
         },
         [trigger, handleSubmit, handleBudgetSubmit, onClose],
     );
-
     const startDateIso = new Date(control._formValues.startDate);
     const endDateIso = new Date(control._formValues.endDate);
-
-    const handleBalanceInputChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target;
-            const trimmedValue = value.trim();
-            if (trimmedValue === '') {
-                setIsAmountValid('Budget balance is required');
-            } else {
-                setIsAmountValid('');
-            }
-            setValues((previousState) => ({
-                ...previousState,
-                amount: +trimmedValue,
-            }));
-        },
-        [setValues],
-    );
-
-    const handleNameInputChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target;
-            const trimmedValue = value.trim();
-            if (trimmedValue === '') {
-                setIsNameValid('Budget name is required');
-            } else {
-                setIsNameValid('');
-            }
-            setValues((previousState) => ({
-                ...previousState,
-                name: trimmedValue,
-            }));
-        },
-        [setValues],
-    );
 
     return (
         <BaseModal
@@ -194,42 +143,22 @@ const BudgetModal: React.FC<Properties> = ({
                 <div className={styles.formWrapper}>
                     <p className={styles.title}>General Info</p>
                     <div className={styles.wrapperHalf}>
-                        <div>
-                            <Input
-                                labelClassName={styles.label}
-                                control={control}
-                                label={'Budget name'}
-                                name={'name'}
-                                placeholder={'Enter budget name'}
-                                errors={errors}
-                                onChange={handleNameInputChange}
-                                minLength={1}
-                                maxLength={50}
-                            />
-                            {isNameValid && (
-                                <span className={styles.errorInput}>
-                                    {isNameValid}
-                                </span>
-                            )}
-                        </div>
-                        <div>
-                            <Input
-                                labelClassName={styles.label}
-                                control={control}
-                                errors={errors}
-                                label={'Amount'}
-                                name={'amount'}
-                                placeholder={'0.00'}
-                                onChange={handleBalanceInputChange}
-                                minLength={1}
-                                maxLength={10}
-                            />
-                            {isAmountValid && (
-                                <span className={styles.errorInput}>
-                                    {isAmountValid}
-                                </span>
-                            )}
-                        </div>
+                        <Input
+                            labelClassName={styles.label}
+                            control={control}
+                            label={'Budget name'}
+                            name={'name'}
+                            placeholder={'Enter budget name'}
+                            errors={errors}
+                        />
+                        <Input
+                            labelClassName={styles.label}
+                            control={control}
+                            errors={errors}
+                            label={'Amount'}
+                            name={'amount'}
+                            placeholder={'0.00'}
+                        />
                     </div>
                     {/*maybe it will be used in the future}*/}
                     {/*<Controller*/}

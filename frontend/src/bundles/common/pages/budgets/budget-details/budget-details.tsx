@@ -260,6 +260,11 @@ const BudgetDetails = (): JSX.Element => {
 
     const doughnutChartExpense = Object.values(doughnutData);
     const doughnutChartWallets = Object.values(doughnutDataWallet);
+    const textTopProgressBar = `Budget has been exceeded by ${toCustomLocaleString(
+        moneyLeft,
+        shortName,
+        true,
+    )}`;
 
     return (
         <div className={styles.container}>
@@ -383,7 +388,7 @@ const BudgetDetails = (): JSX.Element => {
                     />
                     <CardTotal
                         title={InfoCardTypes.CAN}
-                        sum={canSpend}
+                        sum={moneyLeft >= 0 ? canSpend : -0}
                         variant={CardVariant.WHITE}
                         currency={matchingCurrency?.symbol as string}
                     />
@@ -391,7 +396,11 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>{`You can spend ${canSpending}/Day`}</div>
+                        <div>
+                            {moneyLeft > 0
+                                ? `You can spend ${canSpending}/Day`
+                                : textTopProgressBar}
+                        </div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={moneyLeft}

@@ -3,7 +3,8 @@ const toCustomLocaleString = (
     currency = '$',
     space = false,
 ): string => {
-    const sign = number_ >= 0 ? '+' : '-';
+    // eslint-disable-next-line unicorn/no-nested-ternary
+    const sign = number_ > 0 ? '+' : number_ < 0 ? '-' : '';
     const absNumber = Math.abs(number_);
     return (
         sign +

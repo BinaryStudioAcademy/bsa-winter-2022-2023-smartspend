@@ -1,6 +1,7 @@
 import { Button, Input } from '~/bundles/common/components/components.js';
 import {
     AppDocumentTitles,
+    ButtonSize,
     ButtonType,
     InputType,
 } from '~/bundles/common/enums/enums.js';
@@ -68,7 +69,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     eyeHidden
                 />
             </p>
-            <Button className={styles.button} type={ButtonType.SUBMIT}>
+            <Button
+                size={ButtonSize.CUSTOM}
+                className={styles.button}
+                type={ButtonType.SUBMIT}
+            >
                 Log In
             </Button>
         </form>

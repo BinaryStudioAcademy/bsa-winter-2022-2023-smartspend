@@ -104,7 +104,7 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
             }
 
             await dispatch(usersActions.updateUser(uploadData)).unwrap();
-            if(haveName) {
+            if (haveName) {
                 notification.success('Account settings has been updated');
             }
         },

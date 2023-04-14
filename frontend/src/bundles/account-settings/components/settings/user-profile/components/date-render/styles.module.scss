@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.calendar_wrapper button {
+    justify-content: space-between;
+}
+
 .calendar {
     height: 48px;
     color: var(--color-blue-600);

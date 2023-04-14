@@ -4,6 +4,7 @@
     display: flex;
     flex-grow: 2;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
     min-height: 300px;
     padding: var(--p-2) var(--p-4);

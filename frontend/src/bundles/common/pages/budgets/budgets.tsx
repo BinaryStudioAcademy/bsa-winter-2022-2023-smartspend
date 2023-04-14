@@ -8,6 +8,7 @@ import {
     Loader,
 } from '~/bundles/common/components/components.js';
 import {
+    AppDocumentTitles,
     ButtonVariant,
     DataStatus,
     FaIcons,
@@ -30,8 +31,7 @@ const Budgets: React.FC = () => {
     const { budgets, dataStatus } = useAppSelector((state) => state.budgets);
 
     const { user } = useAppSelector((state) => state.users);
-
-    useAppDocumentTitle('Budgets');
+    useAppDocumentTitle(AppDocumentTitles.BUDGETS);
     const [active, setActive] = useState(false);
 
     const handleCancel = useCallback(() => {

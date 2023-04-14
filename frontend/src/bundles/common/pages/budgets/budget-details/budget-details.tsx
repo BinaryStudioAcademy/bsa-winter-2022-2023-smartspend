@@ -15,6 +15,7 @@ import {
 } from '~/bundles/common/components/components';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types/transaction.type.js';
 import {
+    AppDocumentTitles,
     AppRoute,
     ButtonSize,
     ButtonType,
@@ -28,6 +29,7 @@ import {
 } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppSelector,
     useCallback,
     useEffect,
@@ -62,6 +64,7 @@ type DoughnutData = Record<
 >;
 
 const BudgetDetails = (): JSX.Element => {
+    useAppDocumentTitle(AppDocumentTitles.BUDGET);
     const dispatch = useAppDispatch();
     const { id } = useParams();
     const navigate = useNavigate();

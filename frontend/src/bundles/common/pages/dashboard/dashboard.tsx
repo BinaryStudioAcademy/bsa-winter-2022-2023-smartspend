@@ -659,7 +659,7 @@ const Dashboard: React.FC = () => {
                                     />
                                 </ChartBox>
                                 <ChartBox
-                                    title={'Period income'}
+                                    title={'Period Income'}
                                     date={formatRangeGraph(day)}
                                     transactions={transactionData.filter(
                                         (transaction) => transaction.amount > 0,

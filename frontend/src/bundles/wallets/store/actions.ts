@@ -51,4 +51,14 @@ const update = createAsyncThunk<
     await dispatch(loadAll());
 });
 
-export { create, loadAll, remove, update };
+const getOne = createAsyncThunk<
+    WalletGetAllItemResponseDto,
+    string,
+    AsyncThunkConfig
+>(`${sliceName}/load-one`, async (id, { extra }) => {
+    const { walletsApi } = extra;
+
+    return await walletsApi.getById(id);
+});
+
+export { create, getOne, loadAll, remove, update };

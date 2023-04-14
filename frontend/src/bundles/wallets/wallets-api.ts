@@ -33,6 +33,19 @@ class WalletsApi extends HttpApi {
         return await response.json<WalletGetAllItemResponseDto[]>();
     }
 
+    public async getById(id: string): Promise<WalletGetAllItemResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(`${WalletsApiPath.ROOT}${id}`, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<WalletGetAllItemResponseDto>();
+    }
+
     public async createWallet(
         payload: WalletCreateRequestDto,
     ): Promise<WalletGetAllItemResponseDto> {

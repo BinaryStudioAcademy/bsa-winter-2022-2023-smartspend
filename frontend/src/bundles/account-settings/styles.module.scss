@@ -11,6 +11,7 @@
 
 .container {
     display: flex;
+    justify-content: center;
     width: 1192px;
     padding-top: var(--p-5);
 }
@@ -27,7 +28,7 @@
 }
 
 .userProfileContainer {
-    width: 100%;
+    width: 80%;
     height: fit-content;
     background-color: var(--color-white-100);
     border-radius: var(--b-5);

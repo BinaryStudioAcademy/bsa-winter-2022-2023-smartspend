@@ -61,8 +61,8 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                             className={styles.chevronIcon}
                             icon={
                                 isShowFutureTransaction
-                                    ? FaIcons.CHEVRON_DOWN
-                                    : FaIcons.CHEVRON_UP
+                                    ? FaIcons.CHEVRON_UP
+                                    : FaIcons.CHEVRON_DOWN
                             }
                             onClick={handleToggleShowFutureTransactions}
                         />
@@ -70,7 +70,10 @@ const FutureTransactions: React.FC<FutureTransactionsProperties> = ({
                     </div>
                     <div className={styles.transactionCount}>
                         {futureTransactions.length}
-                        <span className={styles.smHide}> transaction(s)</span>
+                        <span className={styles.smHide}>
+                            {futureTransactions.length === 1 && ' transaction'}
+                            {futureTransactions.length != 1 && ' transactions'}
+                        </span>
                     </div>
                     {futureTransactions.length > 0 ? (
                         <div

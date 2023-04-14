@@ -55,7 +55,9 @@
 .formButton {
     width: 149px;
     margin-top: var(--m-4);
+    padding: var(--p-2) var(--p-4);
     font-weight: var(--font-weight-400);
+    font-size: var(--font-size-1-button-text);
 }
 
 .modalTitle {

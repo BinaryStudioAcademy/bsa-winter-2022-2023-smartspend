@@ -39,12 +39,11 @@ const updateUser = createAsyncThunk<
     uploadPayload,
     AsyncThunkConfig
 >(`${sliceName}/update`, async (payload, { extra, dispatch }) => {
-    const { userApi, notification } = extra;
+    const { userApi } = extra;
 
     await userApi.updateUser(payload);
 
     await dispatch(loadUser());
-    notification.success('Account settings has been updated');
 });
 
 const deleteUser = createAsyncThunk<

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { BaseModal, Button } from '~/bundles/common/components/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
-import { TransactionImage } from '~/bundles/common/components/transaction-modal/transaction-image';
+// import { TransactionImage } from '~/bundles/common/components/transaction-modal/transaction-image';
 import { TransactionModalBody } from '~/bundles/common/components/transaction-modal/transaction-modal-body';
 import { ButtonSize } from '~/bundles/common/enums/button-size.enum';
 import { ButtonType } from '~/bundles/common/enums/button-type.enum';
@@ -15,11 +15,9 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type Transaction } from '~/bundles/common/types/transaction.type';
-import { actions as currenciesActions } from '~/bundles/currencies/store/';
 
 import styles from './styles.module.scss';
 
@@ -60,7 +58,7 @@ const TransactionModal: React.FC<Properties> = ({
     const [transaction, setTransaction] =
         useState<Transaction>(DEFAULT_TRANSACTION);
 
-    const [imageFile, setImageFile] = useState<File | undefined>();
+    // const [imageFile, setImageFile] = useState<File | undefined>();
 
     const handleCancelDelete = useCallback(() => {
         setIsModalDeleteShown(false);
@@ -70,13 +68,13 @@ const TransactionModal: React.FC<Properties> = ({
         setIsModalDeleteShown(true);
     }, []);
 
-    const handleFileChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>): void => {
-            const file = event.target.files?.[0];
-            setImageFile(file);
-        },
-        [],
-    );
+    // const handleFileChange = useCallback(
+    //     (event: React.ChangeEvent<HTMLInputElement>): void => {
+    //         const file = event.target.files?.[0];
+    //         setImageFile(file);
+    //     },
+    //     [],
+    // );
 
     const handleDelete = useCallback(() => {
         void dispatch(
@@ -86,7 +84,7 @@ const TransactionModal: React.FC<Properties> = ({
     }, [dispatch, handleCancel, transactionId]);
 
     const submitButtonName =
-        type === TransactionModalType.CHANGE ? 'Save' : 'Add';
+        type === TransactionModalType.CHANGE ? 'Save' : 'Add transaction';
 
     const handleSubmit = useCallback(() => {
         const expenseCategories = new Set(
@@ -144,11 +142,6 @@ const TransactionModal: React.FC<Properties> = ({
     //     value: item.id,
     // }));
 
-    useEffect(() => {
-        void dispatch(loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
-
     return (
         <BaseModal
             isShown={active}
@@ -162,19 +155,23 @@ const TransactionModal: React.FC<Properties> = ({
                 />
             }
             submitButtonName={submitButtonName}
+            buttonsSize={ButtonSize.MEDIUM}
+            // onCloseVariant={}
+            submitButtonVariant={ButtonVariant.PRIMARY}
+            footerContainerClass={styles.mainButtonsWrapper}
         >
             <div className={styles.buttonsContainer}>
-                <TransactionImage
+                {/* <TransactionImage
                     file={imageFile}
                     handleFileChange={handleFileChange}
-                />
+                /> */}
                 {type === TransactionModalType.CHANGE && (
                     <>
                         <Button
                             onClick={handleModalDelete}
                             className={styles.delete}
                             type={ButtonType.BUTTON}
-                            size={ButtonSize.SMALL}
+                            size={ButtonSize.MEDIUM}
                             variant={ButtonVariant.SECONDARY}
                         >
                             Delete Transaction

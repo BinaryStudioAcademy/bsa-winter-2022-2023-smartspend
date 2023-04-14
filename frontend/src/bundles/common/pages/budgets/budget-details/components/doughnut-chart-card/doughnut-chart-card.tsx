@@ -8,7 +8,6 @@ import {
 } from '~/bundles/common/components/components';
 import { IconSize } from '~/bundles/common/enums/enums';
 import { FaIcons } from '~/bundles/common/enums/fa-icons.enum';
-import { dateToShortStringHelper } from '~/bundles/common/helpers/helpers';
 import { type DoughnutChartCartVariant } from '~/bundles/landing/enums/enums';
 
 import styles from './styles.module.scss';
@@ -32,18 +31,11 @@ type Properties = {
     }[];
 };
 
-const DoughnutChartCard: React.FC<Properties> = ({
-    title,
-    date,
-    categories,
-}) => {
+const DoughnutChartCard: React.FC<Properties> = ({ title, categories }) => {
     return (
         <div className={styles.container}>
             <div className={styles.topPart}>
                 <p className={styles.title}>{title}</p>
-                <span className={styles.date}>
-                    {dateToShortStringHelper([{ date: date }])[0].date}
-                </span>
             </div>
             <div className={styles.chartPart}>
                 {categories.length === 0 ? (

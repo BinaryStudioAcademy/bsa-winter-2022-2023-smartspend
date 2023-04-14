@@ -34,6 +34,7 @@
 }
 
 .wrapperHalf > div {
+    position: relative;
     width: auto;
 }
 
@@ -48,6 +49,18 @@
 
 .label span {
     font-size: 16px;
+}
+
+.errorInput {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: var(--color-warning);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-6-heading);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-label-span);
 }
 
 .modalFooter > div {

@@ -7,6 +7,11 @@ type UserUpdateRequestDto = {
     sex: Gender;
     dateOfBirth: string;
     language: string;
+    createdAt: string;
+    id: string;
+    imageId: string;
+    updatedAt: string;
+    userId: string;
     currency: string;
 };
 

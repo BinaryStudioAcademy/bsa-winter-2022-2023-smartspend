@@ -16,9 +16,7 @@ const minDate = new Date(
     currentDate.getDate(),
 );
 
-type UserUpdate = Omit<UserUpdateRequestDto, 'sex' | 'language' | 'currency'>;
-
-const userUpdateReg = joi.object<UserUpdate, true>({
+const userUpdateReg = joi.object<UserUpdateRequestDto, true>({
     email: joi
         .string()
         .pattern(emailRegExp)
@@ -111,13 +109,23 @@ const userUpdateReg = joi.object<UserUpdate, true>({
             if (value >= yesterday) {
                 return helpers.error('any.required');
             }
+            return value;
         })
         .messages({
             'string.base': UserValidationMessage.DATE_FORMAT_WRONG,
+            'string.valid': UserValidationMessage.DATE_FORMAT_WRONG,
             'string.format': UserValidationMessage.DATE_FORMAT_WRONG,
             'string.min': UserValidationMessage.DATE_MINIMUM,
             'any.required': UserValidationMessage.DATE_REQUIRE,
         }),
+    createdAt: joi.string(),
+    id: joi.string(),
+    imageId: joi.string().allow(null),
+    updatedAt: joi.string(),
+    userId: joi.string(),
+    language: joi.string().allow(null),
+    currency: joi.string().allow(null),
+    sex: joi.string(),
 });
 
 export { userUpdateReg };

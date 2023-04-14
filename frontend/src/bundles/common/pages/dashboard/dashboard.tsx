@@ -45,9 +45,7 @@ import {
 import { actions as categoriesActions } from '~/bundles/common/stores/categories';
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/types.js';
-import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
-import { actions as userActions } from '~/bundles/users/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import { type TransactionType } from '../../components/transanction-table/types';
@@ -93,17 +91,11 @@ const ChartBox = ({
     controls,
     transactions = [],
 }: ChartBoxProperties): JSX.Element => {
-    const dispatch = useAppDispatch();
     const transactionsByCategory = groupTransactionsByCategory(transactions);
 
     const { currencies } = useAppSelector((state) => state.currencies);
 
     const { user } = useAppSelector((state) => state.users);
-
-    useEffect(() => {
-        void dispatch(userActions.loadUser());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
 
     const matchingCurrency = currencies.find(
         (currency) => currency.shortName === user?.currency,
@@ -231,9 +223,6 @@ const Dashboard: React.FC = () => {
     );
 
     const { currencies } = useAppSelector((state) => state.currencies);
-    const currenciesDataStatus = useAppSelector(
-        (state) => state.currencies.dataStatus,
-    );
 
     const { user } = useAppSelector((state) => state.users);
     const matchingCurrency = currencies.find(
@@ -243,14 +232,8 @@ const Dashboard: React.FC = () => {
     const transactions = useAppSelector(
         (state) => state.transactions.transactions?.items ?? [],
     );
-    const transactionsDataStatus = useAppSelector(
-        (state) => state.transactions.dataStatus,
-    );
     const categories = useAppSelector(
         (state) => state.categories.categories?.items ?? [],
-    );
-    const categoriesDataStatus = useAppSelector(
-        (state) => state.categories.dataStatus,
     );
 
     const { control, errors } = useAppForm<FormValues>({
@@ -293,7 +276,8 @@ const Dashboard: React.FC = () => {
                 );
             }
         },
-        [wallets],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
     );
 
     const [category, setCategory] = useState<DataType | null>();
@@ -343,7 +327,8 @@ const Dashboard: React.FC = () => {
             note: item.note,
         })) as unknown as TransactionType[];
         setTransactionData(newTransactionData);
-    }, [categories, currencies, transactionsData]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [transactionsData]);
 
     const lineChartData = calculateLineChartData(
         transactionsData ?? transactions,
@@ -356,7 +341,7 @@ const Dashboard: React.FC = () => {
     const categoryDropdown = createCategoryDataArray(categories);
     const { positiveResult, negativeResult } = processTransactions(
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        transactionData ?? transactions,
+        transactionData ?? [],
     );
     const walletDropdown = createWalletCategoryDataArray(wallets);
 
@@ -430,16 +415,11 @@ const Dashboard: React.FC = () => {
 
         setTransactionsData(filteredTransactions);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [transactions, wallet, category, currentRange, filters]);
+    }, [wallet, currentRange, filters]);
 
     const walletsWithBalances = calculateWalletBalances(wallets, transactions);
 
-    if (
-        walletsDataStatus === DataStatus.PENDING &&
-        currenciesDataStatus === DataStatus.PENDING &&
-        transactionsDataStatus === DataStatus.PENDING &&
-        categoriesDataStatus === DataStatus.PENDING
-    ) {
+    if (walletsDataStatus === DataStatus.PENDING) {
         return (
             <div className={styles.loaderContainer}>
                 <Loader />
@@ -614,7 +594,8 @@ const Dashboard: React.FC = () => {
                                 currency={matchingCurrency?.symbol as string}
                             />
                         </div>
-                        {transactions.length > 0 ? (
+                        {/*  eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+                        {transactions.length > 0 && transactionData ? (
                             <div className={styles.charts}>
                                 <ChartBox
                                     title={'Account Balance'}

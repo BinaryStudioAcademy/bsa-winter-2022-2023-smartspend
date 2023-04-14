@@ -113,73 +113,84 @@ const ChartBox = ({
                 {controls && <div>{controls}</div>}
             </div>
             <div className={styles.chartBox}>{children}</div>
-            <div className={styles.transactions}>
-                {Object.values(transactionsByCategory).map((transaction) => {
-                    return (
-                        <div
-                            key={transaction.transactions[0].id}
-                            className={styles.transactionBody}
-                        >
-                            {transaction.transactions[0] && (
+            {transactions.length > 0 && (
+                <div className={styles.transactions}>
+                    {Object.values(transactionsByCategory).map(
+                        (transaction) => {
+                            return (
                                 <div
-                                    className={classNames(
-                                        styles.columns,
-                                        styles.leftColumn,
-                                    )}
+                                    key={transaction.transactions[0].id}
+                                    className={styles.transactionBody}
                                 >
-                                    <div
-                                        style={{
-                                            background: `var(${transaction.transactions[0].category.color})`,
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            textAlign: 'center',
-                                            height: '25px',
-                                            minWidth: '25px',
-                                            borderRadius: '6px',
-                                            color: '#fff',
-                                        }}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={
-                                                transaction.transactions[0]
-                                                    .category.icon as IconProp
-                                            }
-                                        />
+                                    {transaction.transactions[0] && (
+                                        <div
+                                            className={classNames(
+                                                styles.columns,
+                                                styles.leftColumn,
+                                            )}
+                                        >
+                                            <div
+                                                style={{
+                                                    background: `var(${transaction.transactions[0].category.color})`,
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    textAlign: 'center',
+                                                    height: '25px',
+                                                    minWidth: '25px',
+                                                    borderRadius: '6px',
+                                                    color: '#fff',
+                                                }}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={
+                                                        transaction
+                                                            .transactions[0]
+                                                            .category
+                                                            .icon as IconProp
+                                                    }
+                                                />
+                                            </div>
+                                            <div
+                                                className={
+                                                    styles.transactionName
+                                                }
+                                            >
+                                                {
+                                                    transaction.transactions[0]
+                                                        .category.name
+                                                }
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className={styles.inDays}>
+                                        {transaction.transactions.length}
+                                        {transaction.transactions.length ===
+                                            1 && ' transaction'}
+                                        {transaction.transactions.length != 1 &&
+                                            ' transactions'}
                                     </div>
-                                    <div className={styles.transactionName}>
-                                        {
-                                            transaction.transactions[0].category
-                                                .name
-                                        }
+
+                                    <div
+                                        className={classNames(
+                                            styles.columns,
+                                            styles.rightColumn,
+                                            transaction.transactions[0].amount <
+                                                0
+                                                ? styles.minus
+                                                : styles.plus,
+                                        )}
+                                    >
+                                        {transaction.total.toFixed(2)}
+                                        {matchingCurrency?.symbol as string}
                                     </div>
                                 </div>
-                            )}
-
-                            <div className={styles.inDays}>
-                                {transaction.transactions.length}
-                                {transaction.transactions.length === 1 &&
-                                    ' transaction'}
-                                {transaction.transactions.length != 1 &&
-                                    ' transactions'}
-                            </div>
-
-                            <div
-                                className={classNames(
-                                    styles.columns,
-                                    styles.rightColumn,
-                                    transaction.transactions[0].amount < 0
-                                        ? styles.minus
-                                        : styles.plus,
-                                )}
-                            >
-                                {transaction.total.toFixed(2)}
-                                {matchingCurrency?.symbol as string}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+                            );
+                        },
+                    )}
+                </div>
+            )}
         </div>
     );
 };

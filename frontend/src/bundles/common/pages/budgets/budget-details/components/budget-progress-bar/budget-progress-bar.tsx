@@ -19,7 +19,9 @@ const BudgetProgressBar: React.FC<ProgressProperties> = ({
                 className={styles.budgetProgressBarSpent}
                 style={{ width: `${percentageSpent}%` }}
             />
-            <div className={styles.percentage}>{percentageToShow}%</div>
+            <div className={styles.percentage}>
+                {Math.abs(Number(percentageToShow))}%
+            </div>
             <div
                 className={styles.budgetProgressBarRemaining}
                 style={{ width: `${percentageRemaining}%` }}

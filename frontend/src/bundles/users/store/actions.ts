@@ -6,6 +6,7 @@ import {
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { type UserGetAllResponseDto } from '~/bundles/users/users.js';
+import { StorageKey } from '~/framework/storage/storage.js';
 
 import { name as sliceName } from './slice.js';
 
@@ -39,12 +40,11 @@ const updateUser = createAsyncThunk<
     uploadPayload,
     AsyncThunkConfig
 >(`${sliceName}/update`, async (payload, { extra, dispatch }) => {
-    const { userApi, notification } = extra;
+    const { userApi } = extra;
 
     await userApi.updateUser(payload);
 
     await dispatch(loadUser());
-    notification.success('Account settings has been updated');
 });
 
 const deleteUser = createAsyncThunk<

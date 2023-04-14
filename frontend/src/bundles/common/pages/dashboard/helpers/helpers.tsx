@@ -237,72 +237,71 @@ interface ProcessedTransactions {
 type GradientMap = Record<string, string>;
 
 const processTransactions = (
-    transactions: TransactionType[]
-  ): ProcessedTransactions => {
+    transactions: TransactionType[],
+): ProcessedTransactions => {
     const gradientMap: GradientMap = {};
     let negativeTotal = 0;
     const categoryTransactions: Record<string, TransactionType[]> = {};
-  
+
     for (const current of transactions) {
-      const categoryId = current.category.id;
-      let transactions = categoryTransactions[categoryId];
-  
-      if (!transactions) {
-        transactions = [];
-        categoryTransactions[categoryId] = transactions;
-      }
-  
-      transactions.push(current);
+        const categoryId = current.category.id;
+        let transactions = categoryTransactions[categoryId];
+
+        if (!transactions) {
+            transactions = [];
+            categoryTransactions[categoryId] = transactions;
+        }
+
+        transactions.push(current);
     }
-  
+
     const positiveResult: ProcessedTransaction[] = [];
     const negativeResult: ProcessedTransaction[] = [];
-  
+
     for (const categoryId in categoryTransactions) {
-      const transactions = categoryTransactions[categoryId];
-      let gradient = gradientMap[categoryId];
-  
-      if (!gradient) {
-        gradient = gradientDoughnut.find(
-          (color) => color.name === transactions[0].category?.color
-        )?.value as string;
-        gradientMap[categoryId] = gradient;
-      }
-  
-      const total = transactions.reduce(
-        (accumulator, current) => +accumulator + +current.amount,
-        0
-      );
-  
-      if (total >= 0) {
-        positiveResult.push({
-          date: transactions[0].date.toString(),
-          total,
-          color: gradient,
-        });
-      } else {
-        negativeTotal += total;
-        negativeResult.push({
-          date: transactions[0].date.toString(),
-          total,
-          color: gradientDoughnut.find(
-            (color) => color.name === transactions[0].category?.color
-          )?.value as string,
-        });
-      }
+        const transactions = categoryTransactions[categoryId];
+        let gradient = gradientMap[categoryId];
+
+        if (!gradient) {
+            gradient = gradientDoughnut.find(
+                (color) => color.name === transactions[0].category?.color,
+            )?.value as string;
+            gradientMap[categoryId] = gradient;
+        }
+
+        const total = transactions.reduce(
+            (accumulator, current) => +accumulator + +current.amount,
+            0,
+        );
+
+        if (total >= 0) {
+            positiveResult.push({
+                date: transactions[0].date.toString(),
+                total,
+                color: gradient,
+            });
+        } else {
+            negativeTotal += total;
+            negativeResult.push({
+                date: transactions[0].date.toString(),
+                total,
+                color: gradientDoughnut.find(
+                    (color) => color.name === transactions[0].category?.color,
+                )?.value as string,
+            });
+        }
     }
-  
+
     if (negativeTotal !== 0 && negativeResult.length === 0) {
-      negativeResult.push({
-        date: '',
-        total: negativeTotal,
-        color:
-          'linear-gradient(95.5deg, #ff0000 0%, #ff6666 100%)',
-      });
+        negativeResult.push({
+            date: '',
+            total: negativeTotal,
+            color: 'linear-gradient(95.5deg, #ff0000 0%, #ff6666 100%)',
+        });
     }
-  
+
     return { positiveResult, negativeResult };
-  };
+};
 type TransactionTypes = 'income' | 'expense';
 
 const getTotalPeriodAmount = (

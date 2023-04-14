@@ -247,6 +247,7 @@ const WalletDetails: React.FC = () => {
                         style={{
                             background: `var(${data.color})`,
                             display: 'flex',
+                            flexShrink: 0,
                             justifyContent: 'center',
                             alignItems: 'center',
                             textAlign: 'center',

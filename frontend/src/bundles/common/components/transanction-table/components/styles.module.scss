@@ -30,13 +30,13 @@
 .inDays {
     display: flex;
     flex-direction: column;
+    align-self: center;
     gap: 5px;
-    margin-top: var(--p-2);
-    margin-left: var(--m-6);
 }
 
 .columns {
     display: flex;
+    justify-content: end;
     align-items: center;
     padding-left: var(--m-1);
 }
@@ -92,10 +92,9 @@
 }
 
 .transactionBody {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 4px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: auto;
     width: 100%;
 }
 

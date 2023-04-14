@@ -104,12 +104,12 @@
 
 .item {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 
 .dropdownColorIcon {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: 32px;

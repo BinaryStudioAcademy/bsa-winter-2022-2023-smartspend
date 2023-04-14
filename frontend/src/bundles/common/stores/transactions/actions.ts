@@ -15,7 +15,9 @@ const loadTransactions = createAsyncThunk<
     undefined,
     AsyncThunkConfig
 >(`${sliceName}/load-transactions`, async (_, { extra }) => {
-    const { transactionsApi } = extra;
+    const { transactionsApi, categoriesApi } = extra;
+
+    await categoriesApi.loadCategories();
 
     return await transactionsApi.loadTransactions();
 });

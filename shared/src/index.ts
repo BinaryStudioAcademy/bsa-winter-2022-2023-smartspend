@@ -73,6 +73,7 @@ export {
     type WalletGetAllItemResponseDto,
     type WalletGetAllResponseDto,
     createWallet,
+    updateWallet,
     WalletsApiPath,
     WalletValidationMessage,
 } from './bundles/wallets/wallets.js';

@@ -1,4 +1,4 @@
-import { create, loadAll, remove, update } from './actions.js';
+import { create, getOne, loadAll, remove, update } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
@@ -7,6 +7,7 @@ const allActions = {
     create,
     remove,
     update,
+    getOne,
 };
 
 export { allActions as actions };

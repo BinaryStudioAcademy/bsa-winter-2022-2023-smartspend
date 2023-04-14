@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { updateWallet } from 'shared/build';
 
 import dumpIcon from '~/assets/img/dump-icon.svg';
 import {
@@ -24,12 +25,9 @@ const FormContainer: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { wallets } = useAppSelector((state) => state.wallets);
+    const { wallet: currentWallet } = useAppSelector((state) => state.wallets);
     const [isActive, setIsActive] = useState<boolean>(false);
     const { currencies } = useAppSelector((state) => state.currencies);
-    const [currentWallet, setCurrentWallet] = useState<
-        WalletGetAllItemResponseDto | undefined
-    >();
     const [isModalShown, setIsModalShown] = useState(false);
 
     const { user } = useAppSelector((state) => state.users);
@@ -47,6 +45,7 @@ const FormContainer: React.FC = () => {
 
     const { control, errors } = useAppForm({
         defaultValues: { name: '', balance: 0, currencyId: '' },
+        validationSchema: updateWallet,
     });
 
     const handleNameInputChange = useCallback(
@@ -123,11 +122,11 @@ const FormContainer: React.FC = () => {
     );
 
     useEffect(() => {
-        setCurrentWallet(wallets.find((wallet) => wallet.id === id));
-    }, [id, wallets]);
+        void dispatch(walletsActions.getOne(id as string));
+    }, [dispatch, id]);
 
     useEffect(() => {
-        currentWallet && setFields(currentWallet);
+        setFields(currentWallet);
     }, [currentWallet]);
 
     return (
@@ -138,14 +137,14 @@ const FormContainer: React.FC = () => {
                 onSubmit={handleDeleteWalet}
                 Header={
                     <h1 className={styles.modalTitle}>
-                        Delete wallet &quot;{currentWallet?.name}&quot;
+                        Delete wallet &quot;{currentWallet.name}&quot;
                     </h1>
                 }
                 Body={
                     <div className={styles.modalDetailsContainer}>
                         <p className={styles.modalSubTitle}>
                             Are you sure you want to delete the wallet &quot;
-                            {currentWallet?.name}&quot;. You will lose all your
+                            {currentWallet.name}&quot;. You will lose all your
                             transactions, budgets and overview inside of this
                             wallet.
                         </p>
@@ -167,6 +166,7 @@ const FormContainer: React.FC = () => {
                         errors={errors}
                         placeholder="Wallet name"
                         onChange={handleNameInputChange}
+                        maxLength={50}
                     />
                 </div>
                 <div className={styles.input_balance}>
@@ -179,6 +179,7 @@ const FormContainer: React.FC = () => {
                         errors={errors}
                         placeholder="Initial balance"
                         onChange={handleBalanceInputChange}
+                        maxLength={10}
                     />
                 </div>
             </div>

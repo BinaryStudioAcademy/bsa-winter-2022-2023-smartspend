@@ -7,4 +7,7 @@ export {
     type WalletGetAllItemResponseDto,
     type WalletGetAllResponseDto,
 } from './types/types.js';
-export { createWallet } from './validation-schemas/validation-schemas.js';
+export {
+    createWallet,
+    updateWallet,
+} from './validation-schemas/validation-schemas.js';

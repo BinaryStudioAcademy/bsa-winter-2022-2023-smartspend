@@ -28,6 +28,7 @@ type Properties<T extends FieldValues> = {
     value?: string | number;
     maxLength?: number;
     minLength?: number;
+    max?: number;
 };
 
 const Input = <T extends FieldValues>({
@@ -45,6 +46,7 @@ const Input = <T extends FieldValues>({
     value,
     maxLength,
     minLength,
+    max,
 }: Properties<T>): JSX.Element => {
     const [passwordShown, setPasswordShown] = useState(false);
     const { field } = useFormController({ name, control });
@@ -101,6 +103,7 @@ const Input = <T extends FieldValues>({
                     value={value}
                     maxLength={maxLength}
                     minLength={minLength}
+                    max={max}
                 />
             )}
             {!onChange && (

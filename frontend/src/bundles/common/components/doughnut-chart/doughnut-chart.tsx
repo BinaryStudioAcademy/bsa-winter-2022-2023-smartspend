@@ -60,7 +60,7 @@ const DoughnutChart: React.FC<Properties> = ({
                 enabled: tooltipDisplay,
             },
         },
-        borderWidth: 0,
+        borderWidth: 1,
     };
 
     //test in center - features

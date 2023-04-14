@@ -57,27 +57,13 @@ const Budgets: React.FC = () => {
                         </div>
                     ) : (
                         <div className={styles.cards}>
-                            {budgets.map(
-                                ({
-                                    id,
-                                    name,
-                                    amount,
-                                    startDate,
-                                    endDate,
-                                    recurrence,
-                                }) => (
-                                    <BudgetCard
-                                        key={id}
-                                        id={id}
-                                        title={name}
-                                        amount={amount}
-                                        currency={user?.currency as string}
-                                        recurrence={recurrence}
-                                        startDate={startDate}
-                                        endDate={endDate as string}
-                                    />
-                                ),
-                            )}
+                            {budgets.map((budget) => (
+                                <BudgetCard
+                                    key={budget.id}
+                                    budget={budget}
+                                    currency={user?.currency as string}
+                                />
+                            ))}
                             <div
                                 className={styles.cardCreate}
                                 onClickCapture={handleModal}

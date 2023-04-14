@@ -26,15 +26,16 @@ const RenderMultiDropdown = ({
         void dispatch(loadCategories());
     }, [dispatch]);
 
-    const categories = useAppSelector(
-        (state) => state.categories.categories?.items ?? [],
+    const { categoriesSortByType } = useAppSelector(
+        (state) => state.categories,
     );
+
     const budgets = useAppSelector((state) => state.budgets.budgets);
     const currentBudget = budgets.find((budget) => budget.id === id);
     const initialState = currentBudget?.categories;
     const mutableInitialState =
         initialState?.map((item) => ({ ...item, value: item.id })) ?? [];
-    const newDataMenu = categories.map((item) => ({
+    const newDataMenu = categoriesSortByType?.expense.map((item) => ({
         ...item,
         value: item.id,
     }));

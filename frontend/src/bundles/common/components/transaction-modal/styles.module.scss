@@ -21,6 +21,32 @@
     margin-bottom: var(--mg-1-local);
 }
 
+.dropdownCategoryItem {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dropdownCategoryName {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    font-size: 16px;
+    line-height: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.dropdownCategoryIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    color: var(--color-white-100);
+    border-radius: 6px;
+}
+
 .imageButton {
     display: flex;
     justify-content: center;

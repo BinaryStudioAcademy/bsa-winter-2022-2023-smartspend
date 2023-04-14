@@ -1,5 +1,6 @@
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppSelector,
     useCallback,
     useEffect,
@@ -11,6 +12,7 @@ import { actions as transactionsActions } from '~/bundles/common/stores/transact
 import { Button } from '../../components/button/button';
 import { BaseModal, Icon } from '../../components/components';
 import {
+    AppDocumentTitles,
     ButtonSize,
     ButtonType,
     ButtonVariant,
@@ -24,6 +26,7 @@ import { ManageCategories } from './components/manage-categories/manage-categori
 import styles from './styles.module.scss';
 
 const CategoriesSettings: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.CATEGORIES_SETTINGS);
     const dispatch = useAppDispatch();
 
     const [isCreateModalShown, setIsCreateModalShown] = useState(false);
@@ -125,11 +128,6 @@ const CategoriesSettings: React.FC = () => {
                 isShown={isCreateModalShown}
                 onClose={handleCloseModal}
                 onSubmit={handleCloseModal}
-                Header={
-                    <h2 className="visually-hidden">
-                        {'Create a new category'}
-                    </h2>
-                }
                 Body={
                     <FormCategory
                         onClose={handleCloseModal}

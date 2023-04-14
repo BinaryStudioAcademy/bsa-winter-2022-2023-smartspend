@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
 
 import { Calendar } from '~/bundles/common/components/calendar/calendar';
-import { Input } from '~/bundles/common/components/components';
+import { Icon, Input } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionModalElement } from '~/bundles/common/components/transaction-modal/transaction-modal-element';
@@ -33,7 +34,7 @@ type Properties = {
 };
 
 const TransactionModalBody: React.FC<Properties> = ({
-    categories,
+    // categories,
     handleChangeTransaction,
 }) => {
     const categoriesSortByType = useAppSelector(
@@ -42,8 +43,9 @@ const TransactionModalBody: React.FC<Properties> = ({
     const { control, errors } = useAppForm({
         defaultValues: DEFAULT_TRANSACTION,
     });
+    const [amountValue, setAmountValue] = useState<number>();
     const [selectedSingleCategory, setSelectedSingleCategory] =
-        useState<DataType>(categories[0]);
+        useState<DataType>();
 
     const handleNoteChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -57,13 +59,22 @@ const TransactionModalBody: React.FC<Properties> = ({
     );
 
     const handleAmountChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) =>
-            handleChangeTransaction((previousState) => {
-                return {
-                    ...previousState,
-                    amount: +event.target.value,
-                };
-            }),
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const inputString = event.target.value;
+            const formattedValue = inputString;
+            const newAmount = Number.parseFloat(formattedValue);
+            if (!Number.isNaN(newAmount) && newAmount >= 0) {
+                setAmountValue(newAmount);
+                handleChangeTransaction((previousState) => {
+                    return {
+                        ...previousState,
+                        amount: newAmount,
+                    };
+                });
+            } else {
+                setAmountValue('' as unknown as number);
+            }
+        },
         [handleChangeTransaction],
     );
 
@@ -81,7 +92,7 @@ const TransactionModalBody: React.FC<Properties> = ({
         },
         [handleChangeTransaction],
     );
-
+// eslint-disable-next-line sonarjs/no-unused-collection 
     const data = [];
 
     if (categoriesSortByType.income) {
@@ -92,11 +103,46 @@ const TransactionModalBody: React.FC<Properties> = ({
         data.push({ label: 'Expense', options: categoriesSortByType.expense });
     }
 
+    const FormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.dropdownCategoryItem}>
+                {data.icon && (
+                    <span
+                        className={styles.dropdownCategoryIcon}
+                        style={{
+                            background: `var(${data.color})`,
+                        }}
+                    >
+                        <Icon name={data.icon as IconProp} />
+                    </span>
+                )}
+                {data.name && (
+                    <span className={styles.dropdownCategoryName}>
+                        {data.name}
+                    </span>
+                )}
+            </div>
+        ),
+        [],
+    );
+
     return (
         <div className={styles.body}>
             <TransactionModalElement label="Category">
                 <Dropdown
-                    data={data as unknown as DataType[]}
+                    data={
+                        [
+                            {
+                                label: 'Income',
+                                options: categoriesSortByType.income,
+                            },
+                            {
+                                label: 'Expense',
+                                options: categoriesSortByType.expense,
+                            },
+                        ] as unknown as DataType[]
+                    }
+                    formatOptionLabel={FormatOptionLabel}
                     selectedOption={selectedSingleCategory}
                     handleChange={handleDropdownChangeCategory}
                 />
@@ -121,11 +167,12 @@ const TransactionModalBody: React.FC<Properties> = ({
             <TransactionModalElement label="Amount">
                 <Input
                     inputClassName={styles.amount}
-                    type={InputType.NUMBER}
+                    type={InputType.TEXT}
                     placeholder="0.00"
                     name="amount"
                     control={control}
                     errors={errors}
+                    value={amountValue === 0 ? '' : amountValue}
                     onChange={handleAmountChange}
                 />
             </TransactionModalElement>

@@ -11,7 +11,7 @@ import {
 
 import styles from '../styles.module.scss';
 
-interface Properties {
+type Properties = {
     data: DataType[];
     selectedOption: DataType | null | undefined;
     handleChange: HandleSingleChange;
@@ -21,7 +21,7 @@ interface Properties {
     labelClassName?: string;
     name?: string;
     placeholder?: string;
-}
+};
 
 const Dropdown: React.FC<Properties> = ({
     data,
@@ -144,8 +144,8 @@ const Dropdown: React.FC<Properties> = ({
             <Select
                 className={styles.select}
                 onChange={handleChange as HandleMultiChange}
-                options={data}
                 value={getValue(selectedOption)}
+                options={data}
                 formatOptionLabel={
                     formatOptionLabel ?? defaultFormatOptionLabel
                 }

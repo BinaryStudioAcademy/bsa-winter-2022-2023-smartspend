@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { type CategoryType } from 'shared/build';
 
@@ -151,7 +152,7 @@ const FormCategory: React.FC<Properties> = ({
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
                 {data.name ? (
-                    <span className={styles.inputLabel}>{data.name}</span>
+                    <span className={styles.input}>{data.name}</span>
                 ) : (
                     <span className={styles.inputLabel}>Choose type</span>
                 )}
@@ -245,7 +246,12 @@ const FormCategory: React.FC<Properties> = ({
                         />
                     </div>
                     {isCreateModalShown && (
-                        <div className={styles.dropdownModal}>
+                        <div
+                            className={classNames(
+                                styles.dropdownModal,
+                                styles.dropdownModalType,
+                            )}
+                        >
                             <Dropdown
                                 data={categoriesType}
                                 selectedOption={selectedType}

@@ -17,9 +17,9 @@ const RenderSex = ({
     field: { onChange: (value: string) => void; value: string | undefined };
 }): JSX.Element => {
     const userSex = sex.find((it) => it.value === value);
-    const [selectedSingleSex, setSelectedSingleSex] = useState<DataType>(
-        userSex ?? sex[0],
-    );
+    const [selectedSingleSex, setSelectedSingleSex] = useState<
+        DataType | undefined
+    >(userSex);
 
     const handleDropdownChangeSex = useCallback(
         (selectedOption: DataType | null) => {

@@ -85,7 +85,9 @@ const DoughnutChartCard: React.FC<Properties> = ({
                         )}
                     >
                         <p className={styles.transactionNum}>
-                            {category.count} transaction
+                            {category.count}
+                            {category.count === 1 && ' transaction'}
+                            {category.count != 1 && ' transactions'}
                         </p>
                         <p
                             className={classNames(

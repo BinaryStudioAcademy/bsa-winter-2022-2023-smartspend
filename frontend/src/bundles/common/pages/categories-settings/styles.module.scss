@@ -9,6 +9,12 @@
     border-radius: 25px;
 }
 
+@media screen and (max-width: $sm) {
+    .section {
+        padding: 0;
+    }
+}
+
 .wrapper {
     flex-grow: 1;
     max-width: 920px;

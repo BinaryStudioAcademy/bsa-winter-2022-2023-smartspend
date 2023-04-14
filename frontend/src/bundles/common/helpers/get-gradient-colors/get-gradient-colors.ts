@@ -11,8 +11,19 @@ const gradientColors = [
     'linear-gradient(95.77deg, #6989fe 100%, #3c64f4 85%)',
 ];
 
+function getUniqueRandomNumbers(count: number): number[] {
+    const numbers = [...Array.from({ length: 10 }).keys()];
+
+    for (let index = numbers.length - 1; index > 0; index--) {
+        const index_ = Math.floor(Math.random() * (index + 1));
+        [numbers[index], numbers[index_]] = [numbers[index_], numbers[index]];
+    }
+
+    return numbers.slice(0, count);
+}
+
 const getGradientColors = (gradientString: string | undefined): string[] => {
-    const colorStrings: string[] = (gradientString ?? gradientColors[Math.floor(Math.random() * 10)])
+    const colorStrings: string[] = (gradientString ?? gradientColors[getUniqueRandomNumbers(10)[0]])
         .split(',')
         .map((part: string) => part.trim());
     const colors: string[] = [];

@@ -243,22 +243,16 @@ const FutureTransactionsPage: React.FC = () => {
 
                 {data.icon && (
                     <span
+                        className={styles.dropdownCategoryIcon}
                         style={{
                             background: `var(${data.color})`,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            height: '25px',
-                            width: '25px',
-                            borderRadius: '6px',
-                            color: '#fff',
                         }}
                     >
-                        <FontAwesomeIcon icon={data.icon as IconProp} />
+                        <Icon name={data.icon as IconProp} />
                     </span>
                 )}
-                {data.icon && <span className={styles.name}>{data.name}</span>}
+
+                {data.name && <span className={styles.name}>{data.name}</span>}
             </div>
         ),
         [categoriesDropdown],

@@ -127,6 +127,8 @@ const Dropdown: React.FC<Properties> = ({
             return {
                 value: selectedOption.value,
                 name: selectedOption.name,
+                icon: selectedOption.icon,
+                color: selectedOption.color,
                 image: selectedOption.image,
             };
         } else {

@@ -95,6 +95,8 @@ function createCategoryDataArray(
     return categories.map((category) => ({
         value: category.id,
         name: category.name,
+        color: category.color,
+        icon: category.icon,
     }));
 }
 

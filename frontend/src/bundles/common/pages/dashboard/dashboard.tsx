@@ -17,6 +17,7 @@ import {
     Chart,
     DoughnutChart,
     Dropdown,
+    Icon,
     Input,
     LineChart,
     Loader,
@@ -52,7 +53,6 @@ import { type TransactionType } from '../../components/transanction-table/types'
 import {
     calculateLineChartData,
     calculateWalletBalances,
-    createCategoryDataArray,
     createWalletCategoryDataArray,
     filterCategories,
     filterChart,
@@ -232,6 +232,10 @@ const Dashboard: React.FC = () => {
         (state) => state.categories.categories?.items ?? [],
     );
 
+    const categoriesSortByType = useAppSelector(
+        (state) => state.categories.categoriesSortByType ?? {},
+    );
+
     const { control, errors } = useAppForm<FormValues>({
         defaultValues: { name: '', category: '', wallet: '' },
     });
@@ -292,6 +296,36 @@ const Dashboard: React.FC = () => {
         [],
     );
 
+    const iconFormatOptionLabel = useCallback(
+        (data: DataType): JSX.Element => (
+            <div className={styles.item}>
+                {data.icon && (
+                    <span
+                        className={styles.dropdownColorIcon}
+                        style={{
+                            background: `var(${data.color})`,
+                        }}
+                    >
+                        <Icon name={data.icon as IconProp} />
+                    </span>
+                )}
+                {data.name && <span className={styles.name}>{data.name}</span>}
+            </div>
+        ),
+        [],
+    );
+
+    const data = [];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (categoriesSortByType.income) {
+        data.push({ label: 'Income', options: categoriesSortByType.income });
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (categoriesSortByType.expense) {
+        data.push({ label: 'Expense', options: categoriesSortByType.expense });
+    }
+
     const [filters, setFilters] = useState<Filters>({ value: '', name: '' });
 
     const handleChange = useCallback(
@@ -330,7 +364,7 @@ const Dashboard: React.FC = () => {
     const verticalChartData = groupTransactionsByDate(
         transactionsData ?? transactions,
     );
-    const categoryDropdown = createCategoryDataArray(categories);
+
     const { positiveResult, negativeResult } = processTransactions(
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         transactionData ?? transactions,
@@ -497,12 +531,13 @@ const Dashboard: React.FC = () => {
                                 placeholder={'Select...'}
                             />
                             <Dropdown
-                                data={categoryDropdown}
+                                data={data as unknown as DataType[]}
                                 handleChange={handleDropdownByCategory}
                                 selectedOption={category}
                                 label="By category"
                                 labelClassName={styles.dropdownLabel}
                                 placeholder={'Select...'}
+                                formatOptionLabel={iconFormatOptionLabel}
                             />
                             <Input
                                 labelClassName={styles.filterLabel}

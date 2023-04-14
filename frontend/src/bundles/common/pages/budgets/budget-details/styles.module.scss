@@ -8,7 +8,8 @@
 }
 
 .loaderContainer {
-    height: 100vh;
+    height: 160px;
+    margin: auto;
 }
 
 .contentWrapper {
@@ -19,12 +20,6 @@
     height: max-content;
     margin: 0 auto;
 }
-
-// .calendarWrapper {
-//     display: flex;
-//     justify-content: flex-end;
-//     margin-top: calc(var(--m-1) + var(--m-3));
-// }
 
 .buttonsContainer {
     display: flex;

@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
 
 interface ProgressProperties {
@@ -13,17 +15,22 @@ const BudgetProgressBar: React.FC<ProgressProperties> = ({
     const percentageRemaining = 100 - percentageSpent;
     const percentageToShow = Math.min(percentageSpent, 100).toFixed(1);
 
+    const color = classNames(
+        styles.budgetProgressBarRemaining,
+        Number(percentageToShow) >= 0 ? '' : styles.redGradient,
+    );
+
     return (
         <div className={styles.budgetProgressBar}>
             <div
                 className={styles.budgetProgressBarSpent}
-                style={{ width: `${percentageSpent}%` }}
+                style={{
+                    width: `${percentageSpent > 0 ? percentageSpent : 0}%`,
+                }}
             />
-            <div className={styles.percentage}>
-                {Math.abs(Number(percentageToShow))}%
-            </div>
+            <div className={styles.percentage}>{Number(percentageToShow)}%</div>
             <div
-                className={styles.budgetProgressBarRemaining}
+                className={color}
                 style={{ width: `${percentageRemaining}%` }}
             />
         </div>

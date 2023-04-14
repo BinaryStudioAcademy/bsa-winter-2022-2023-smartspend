@@ -204,7 +204,7 @@ const BudgetModal: React.FC<Properties> = ({
                                 errors={errors}
                                 onChange={handleNameInputChange}
                                 minLength={1}
-                                maxLength={10}
+                                maxLength={50}
                             />
                             {isNameValid && (
                                 <span className={styles.errorInput}>

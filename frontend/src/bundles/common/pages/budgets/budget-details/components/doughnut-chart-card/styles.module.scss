@@ -19,8 +19,10 @@
 }
 
 .title {
+    margin-bottom: 0;
     font-weight: var(--font-weight-500);
-    letter-spacing: var(--letter-spacing-button-text);
+    font-size: var(--font-size-level-4-heading);
+    font-style: normal;
 }
 
 .date {

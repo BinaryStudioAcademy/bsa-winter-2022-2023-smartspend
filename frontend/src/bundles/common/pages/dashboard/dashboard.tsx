@@ -51,6 +51,7 @@ import { WalletCardSize } from '~/bundles/landing/enums/enums.js';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 
 import { type TransactionType } from '../../components/transanction-table/types';
+import { walletCardVariants } from '../../constants/wallet-card-variants.constant';
 import {
     calculateLineChartData,
     calculateWalletBalances,
@@ -501,23 +502,31 @@ const Dashboard: React.FC = () => {
                 <div className={styles.contentWrapper}>
                     <h2 className={styles.title}>Wallets</h2>
                     <div className={styles.wallets}>
-                        {walletsWithBalances.map(({ id, name, balance }) => (
-                            <Link
-                                to={`/wallet/${id}/transaction`}
-                                key={id}
-                                className={styles.walletWrapper}
-                            >
-                                <WalletCard
-                                    title={name}
-                                    size={WalletCardSize.MEDIUM}
-                                    balance_value={balance}
-                                    wallet_type={'Balance'}
-                                    currency={
-                                        matchingCurrency?.symbol as string
-                                    }
-                                />
-                            </Link>
-                        ))}
+                        {walletsWithBalances.map(
+                            ({ id, name, balance }, index) => (
+                                <Link
+                                    to={`/wallet/${id}/transaction`}
+                                    key={id}
+                                    className={styles.walletWrapper}
+                                >
+                                    <WalletCard
+                                        title={name}
+                                        size={WalletCardSize.MEDIUM}
+                                        balance_value={balance}
+                                        wallet_type={'Balance'}
+                                        variant={
+                                            walletCardVariants[
+                                                index %
+                                                    walletCardVariants.length
+                                            ]
+                                        }
+                                        currency={
+                                            matchingCurrency?.symbol as string
+                                        }
+                                    />
+                                </Link>
+                            ),
+                        )}
                         <WalletButton onClick={handleModal}>
                             Add New Wallet
                         </WalletButton>

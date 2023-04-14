@@ -25,7 +25,6 @@ import {
 import { actions as usersActions } from '~/bundles/users/store';
 // import { userUpdateRegValidationSchema } from '~/bundles/users/users.js';
 import { storage, StorageKey } from '~/framework/storage/storage';
-import { notification } from '~/services/services';
 
 import styles from '../styles.module.scss';
 import {
@@ -86,25 +85,23 @@ const SettingsForm: React.FC<Properties> = ({ user }) => {
     }, []);
 
     const onSubmit = useCallback(
-        async (formData: UserUpdateRequestDto): Promise<void> => {
-            const { email, ...remainingData } = formData;
+        (formData: UserUpdateRequestDto): void => {
+            const { email, dateOfBirth, ...remainingData } = formData;
+            const newDate = new Date(dateOfBirth);
+            newDate.setUTCHours(newDate.getUTCHours() + 12);
+            const newDateString = newDate.toISOString();
 
             const uploadData: uploadPayload = {
                 email,
-                userProfile: { ...remainingData },
+                userProfile: { ...remainingData, dateOfBirth: newDateString },
             };
 
-            const haveName = storage.getSync(StorageKey.HAVE_NAME);
-
-            if (!haveName) {
+            if (!storage.getSync(StorageKey.HAVE_NAME)) {
                 void storage.set(StorageKey.HAVE_NAME, 'true');
                 navigate(AppRoute.DASHBOARD);
             }
 
-            await dispatch(usersActions.updateUser(uploadData)).unwrap();
-            if (haveName) {
-                notification.success('Account settings has been updated');
-            }
+            void dispatch(usersActions.updateUser(uploadData));
         },
         [dispatch, navigate],
     );

@@ -45,7 +45,6 @@ import { actions as categoriesActions } from '~/bundles/common/stores/categories
 import { actions as transactionsActions } from '~/bundles/common/stores/transactions';
 import { type DataType } from '~/bundles/common/types/dropdown.type.js';
 import { type RangeLimits } from '~/bundles/common/types/range-slider.type.js';
-import { actions as currenciesActions } from '~/bundles/currencies/store';
 import { actions as walletsActions } from '~/bundles/wallets/store';
 import { type WalletGetAllItemResponseDto } from '~/bundles/wallets/wallets';
 
@@ -231,13 +230,6 @@ const WalletDetails: React.FC = () => {
         setCurrentWallet(wallets.find((wallet) => wallet.id === id));
     }, [id, wallets]);
 
-    useEffect(() => {
-        void dispatch(walletsActions.loadAll());
-        void dispatch(transactionsActions.loadTransactions());
-        void dispatch(categoriesActions.loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
-
     const formatOptionLabel = useCallback(
         (data: DataType): JSX.Element => (
             <div className={styles.item}>
@@ -289,7 +281,7 @@ const WalletDetails: React.FC = () => {
         void dispatch(walletsActions.loadAll());
         void dispatch(transactionsActions.loadTransactions());
         void dispatch(categoriesActions.loadCategories());
-        void dispatch(currenciesActions.loadAll());
+        // void dispatch(currenciesActions.loadAll());
     }, [dispatch]);
 
     useEffect(() => {

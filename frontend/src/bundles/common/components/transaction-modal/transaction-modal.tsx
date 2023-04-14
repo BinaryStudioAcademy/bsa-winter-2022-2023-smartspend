@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { BaseModal, Button } from '~/bundles/common/components/components';
@@ -15,11 +15,9 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks';
-import { loadCategories } from '~/bundles/common/stores/categories/actions';
 import { actions as transactionActions } from '~/bundles/common/stores/transactions/';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type Transaction } from '~/bundles/common/types/transaction.type';
-import { actions as currenciesActions } from '~/bundles/currencies/store/';
 
 import styles from './styles.module.scss';
 
@@ -143,11 +141,6 @@ const TransactionModal: React.FC<Properties> = ({
     //     ...item,
     //     value: item.id,
     // }));
-
-    useEffect(() => {
-        void dispatch(loadCategories());
-        void dispatch(currenciesActions.loadAll());
-    }, [dispatch]);
 
     return (
         <BaseModal

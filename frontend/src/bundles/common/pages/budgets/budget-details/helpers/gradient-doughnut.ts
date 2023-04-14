@@ -39,6 +39,14 @@ const gradientDoughnut = [
         name: '--gradient-10',
         value: 'linear-gradient(95.77deg, #6989fe 100%, #3c64f4 85%)',
     },
+    {
+        name: '--gradient-11',
+        value: 'linear-gradient(95.77deg, #e64583 -1.67%, #dc2430 85%)',
+    },
+    {
+        name: '--gradient-12',
+        value: 'linear-gradient(95.77deg, #9aacbd 100%, #132238 85%)',
+    },
 ];
 
 export { gradientDoughnut };

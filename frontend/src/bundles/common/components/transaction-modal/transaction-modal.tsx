@@ -195,10 +195,10 @@ const TransactionModal: React.FC<Properties> = ({
                             Body={
                                 <p className={styles.modalDetailsContainer}>
                                     This change is irreversible. Do you really
-                                    want to delete them?
+                                    want to delete it?
                                 </p>
                             }
-                            submitButtonName={'Delete Budget'}
+                            submitButtonName={'Delete Transaction'}
                             submitButtonVariant={ButtonVariant.DELETE}
                             footerContainerClass={styles.modalFooter}
                             buttonsSize={ButtonSize.MEDIUM}

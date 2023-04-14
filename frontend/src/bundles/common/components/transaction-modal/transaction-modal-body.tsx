@@ -153,7 +153,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                     onChange={handleChangeTransaction}
                 />
             </TransactionModalElement>
-            <TransactionModalElement label="Note">
+            <TransactionModalElement label="Note (optional)">
                 <Input
                     inputClassName={styles.note}
                     type={InputType.TEXT}

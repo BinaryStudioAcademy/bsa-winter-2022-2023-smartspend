@@ -3,7 +3,7 @@
 .body {
     display: grid;
     grid-template-columns: repeat(4, minmax(min-content, 1fr));
-    gap: 20px;
+    gap: 10px;
     width: 100%;
     padding: var(--p-5) 0 var(--p-5) var(--p-1);
 }
@@ -13,11 +13,16 @@
     margin-bottom: var(--m-2);
 }
 
+.amount::-webkit-inner-spin-button,
+.amount::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
 .buttonsContainer {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 100%;
     margin-bottom: var(--mg-1-local);
 }
 
@@ -45,6 +50,13 @@
     height: 25px;
     color: var(--color-white-100);
     border-radius: 6px;
+}
+
+.mainButtonsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
 .imageButton {
@@ -114,6 +126,13 @@
         grid-template-rows: auto auto;
         grid-template-columns: 60% 40%;
     }
+
+    .mainButtonsWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
 }
 
 @media (max-width: $md) {
@@ -128,5 +147,10 @@
     .body {
         grid-template-rows: repeat(4, minmax(min-content, 1fr));
         padding: var(--p-5) var(--p-2);
+    }
+
+    .mainButtonsWrapper {
+        flex-wrap: wrap-reverse;
+        justify-content: center;
     }
 }

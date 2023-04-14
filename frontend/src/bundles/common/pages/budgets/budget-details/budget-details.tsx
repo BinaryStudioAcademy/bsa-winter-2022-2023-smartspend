@@ -376,8 +376,8 @@ const BudgetDetails = (): JSX.Element => {
                     />
                     <CardTotal
                         title={
-                            moneyLeft > 0
-                                ? InfoCardTypes.CAN
+                            moneyLeft >= 0
+                                ? InfoCardTypes.LEFT
                                 : 'Money overspent'
                         }
                         sum={moneyLeft}

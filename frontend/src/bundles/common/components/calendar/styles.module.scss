@@ -5,6 +5,7 @@
 }
 
 .calendar {
+    min-width: 212px;
     height: 48px;
     color: var(--color-blue-600);
     font-weight: var(--font-weight-400);
@@ -82,7 +83,17 @@
     border: 1px solid var(--color-blue-300);
 }
 
+@media (max-width: $lg) {
+    .calendar {
+        min-width: 100%;
+    }
+}
+
 @media (max-width: $md) {
+    .calendar {
+        min-width: 100%;
+    }
+
     .range_display {
         width: 100%;
     }

@@ -180,31 +180,24 @@ const CategoryItem: React.FC<Properties> = ({
             <BaseModal
                 isShown={isDeleteModalShown}
                 onClose={handleCloseModal}
-                onSubmit={handleCloseModal}
-                Header={<h2>{`You're about to delete ${name} categories`}</h2>}
+                onSubmit={handleClickDelete}
+                Header={
+                    <h1 className={styles.modalTitle}>
+                        You are about to delete category
+                    </h1>
+                }
                 Body={
                     <>
-                        <p>
+                        <p className={styles.modalDetailsContainer}>
                             This change is irreversible. Do you really want to
-                            delete them?
+                            delete it?
                         </p>
-                        <Button
-                            type={ButtonType.BUTTON}
-                            variant={ButtonVariant.DELETE}
-                            size={ButtonSize.MEDIUM}
-                            disabled={false}
-                            className={styles.btn}
-                            onClick={handleClickDelete}
-                        >
-                            <Icon name={FaIcons.TRASH} />
-                            <span className={styles.btnName}>
-                                Delete category
-                            </span>
-                        </Button>
                     </>
                 }
                 submitButtonName={'Delete category'}
-                hasActionButtons={false}
+                submitButtonVariant={ButtonVariant.DELETE}
+                footerContainerClass={styles.modalFooter}
+                buttonsSize={ButtonSize.MEDIUM}
             />
         </div>
     );

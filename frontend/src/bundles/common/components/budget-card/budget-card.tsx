@@ -71,7 +71,9 @@ const BudgetCard: React.FC<Properties> = ({
                 <div className={styles.cardBody}>
                     <p className={styles.bodyAmount}>
                         {toCustomLocaleString(moneyLeft, currency, true)}
-                        <span className={styles.textSpan}>left</span>
+                        <span className={styles.textSpan}>
+                            {+value > 0 ? 'left' : 'overspent'}
+                        </span>
                     </p>
                     <p className={styles.text}>
                         from {toCustomLocaleString(amount, currency, true)}

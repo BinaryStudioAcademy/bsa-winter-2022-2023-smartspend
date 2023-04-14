@@ -97,6 +97,7 @@ function createCategoryDataArray(
         name: category.name,
         color: category.color,
         icon: category.icon,
+        type: category.type,
     }));
 }
 

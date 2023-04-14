@@ -193,17 +193,17 @@ const BudgetModal: React.FC<Properties> = ({
                             </div>
                             {control._formValues.recurrence ===
                                 recurrences[0].value && (
-                                    <div>
-                                        <span className={styles.label}>
-                                            End date
-                                        </span>
-                                        <RenderEndDate
-                                            name="endDate"
-                                            control={control}
-                                            error={errors}
-                                        />
-                                    </div>
-                                )}
+                                <div>
+                                    <span className={styles.label}>
+                                        End date
+                                    </span>
+                                    <RenderEndDate
+                                        name="endDate"
+                                        control={control}
+                                        error={errors}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

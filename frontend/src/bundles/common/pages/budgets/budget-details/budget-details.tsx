@@ -145,8 +145,12 @@ const BudgetDetails = (): JSX.Element => {
     }, [id, onClickDeleteBudget]);
 
     const currentBudget = budgets.find((budget) => budget.id === id);
-    const budgetCategories = currentBudget?.categories.map(category => categories.find(it => it.id === category.id));
-    const budgetTransactions = transactions.filter((transaction) => budgetCategories?.find(it => it?.id === transaction.categoryId));
+    const budgetCategories = currentBudget?.categories.map((category) =>
+        categories.find((it) => it.id === category.id),
+    );
+    const budgetTransactions = transactions.filter((transaction) =>
+        budgetCategories?.find((it) => it?.id === transaction.categoryId),
+    );
 
     useEffect(() => {
         void dispatch(budgetsActions.loadAll());
@@ -176,7 +180,8 @@ const BudgetDetails = (): JSX.Element => {
         id: item.id,
         date: item.date,
         category: budgetCategories?.find((cat) => cat?.id === item.categoryId),
-        name: budgetCategories?.find((cat) => cat?.id === item.categoryId)?.name,
+        name: budgetCategories?.find((cat) => cat?.id === item.categoryId)
+            ?.name,
         label: item.labelId,
         amount: item.amount,
         currency: matchingCurrency?.symbol as string,
@@ -313,11 +318,13 @@ const BudgetDetails = (): JSX.Element => {
                                 Header={
                                     <h1
                                         className={styles.modalTitle}
-                                    >{`You're about to delete ${isSelectedTransactions.length
-                                        } transaction${isSelectedTransactions.length > 1
+                                    >{`You're about to delete ${
+                                        isSelectedTransactions.length
+                                    } transaction${
+                                        isSelectedTransactions.length > 1
                                             ? 's'
                                             : ''
-                                        }`}</h1>
+                                    }`}</h1>
                                 }
                                 Body={
                                     <>

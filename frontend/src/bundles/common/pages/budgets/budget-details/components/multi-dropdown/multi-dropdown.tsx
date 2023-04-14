@@ -27,7 +27,7 @@ const RenderMultiDropdown = ({
     }, [dispatch]);
 
     const { categoriesSortByType } = useAppSelector(
-        (state) => state.categories ?? [],
+        (state) => state.categories,
     );
 
     const budgets = useAppSelector((state) => state.budgets.budgets);

@@ -125,11 +125,6 @@ const CategoriesSettings: React.FC = () => {
                 isShown={isCreateModalShown}
                 onClose={handleCloseModal}
                 onSubmit={handleCloseModal}
-                Header={
-                    <h2 className="visually-hidden">
-                        {'Create a new category'}
-                    </h2>
-                }
                 Body={
                     <FormCategory
                         onClose={handleCloseModal}

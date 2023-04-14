@@ -157,9 +157,9 @@ const BudgetDetails = (): JSX.Element => {
     }, [budgets, id]);
 
     useEffect(() => {
-        void dispatch(budgetsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
+        void dispatch(budgetsActions.loadAll());
         void dispatch(walletsActions.loadAll());
     }, [dispatch]);
 

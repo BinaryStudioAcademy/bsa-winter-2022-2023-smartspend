@@ -401,9 +401,9 @@ const Dashboard: React.FC = () => {
     }, [maxAmount, minAmount]);
 
     useEffect(() => {
-        void dispatch(walletsActions.loadAll());
         void dispatch(categoriesActions.loadCategories());
         void dispatch(transactionsActions.loadTransactions());
+        void dispatch(walletsActions.loadAll());
         setCurrentRange({ min: minAmount, max: maxAmount });
     }, [dispatch, maxAmount, minAmount]);
 

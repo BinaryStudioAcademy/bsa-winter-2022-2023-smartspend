@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -9,7 +10,6 @@ import { RangeCalendar } from '~/bundles/common/components/calendar/components/c
 import {
     BaseModal,
     Button,
-    CardTotal,
     Icon,
     Input,
     Loader,
@@ -24,7 +24,6 @@ import {
     ButtonSize,
     ButtonType,
     ButtonVariant,
-    CardVariant,
     DataStatus,
     FaIcons,
     InputType,

@@ -264,6 +264,13 @@ const BudgetDetails = (): JSX.Element => {
     const doughnutChartExpense = Object.values(doughnutData);
     const doughnutChartWallets = Object.values(doughnutDataWallet);
 
+    const positiveProgressTitle = `You can spend ${canSpending}/Day`;
+    const negativeProgressTitle = `Budget has been exceeded by ${Math.abs(
+        moneyLeft,
+    )} ${matchingCurrency?.symbol}`;
+    const budgetProgressTitle =
+        moneyLeft > 0 ? positiveProgressTitle : negativeProgressTitle;
+
     return (
         <div className={styles.container}>
             <BaseModal
@@ -394,13 +401,7 @@ const BudgetDetails = (): JSX.Element => {
                 <div className={styles.progressWrapper}>
                     <div>Budget progress</div>
                     <div className={styles.progressContent}>
-                        <div>
-                            {moneyLeft > 0
-                                ? `You can spend ${canSpending}/Day`
-                                : `Budget has been exceeded by ${Math.abs(
-                                      moneyLeft,
-                                  )} ${matchingCurrency?.symbol}`}
-                        </div>
+                        <div>{budgetProgressTitle}</div>
                         <BudgetProgressBar
                             totalBudget={amount}
                             spentSoFar={moneyLeft}

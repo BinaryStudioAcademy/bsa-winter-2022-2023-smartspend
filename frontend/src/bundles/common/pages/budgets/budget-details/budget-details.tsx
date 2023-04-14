@@ -320,7 +320,12 @@ const BudgetDetails = (): JSX.Element => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h2>{`You're about to delete ${isSelectedTransactions.length} transaction(s)`}</h2>
+                                    <h2>
+                                        {isSelectedTransactions.length === 1 &&
+                                            `You're about to delete ${isSelectedTransactions.length} transaction`}
+                                        {isSelectedTransactions.length != 1 &&
+                                            `You're about to delete ${isSelectedTransactions.length} transactions`}
+                                    </h2>
                                 }
                                 Body={
                                     <>

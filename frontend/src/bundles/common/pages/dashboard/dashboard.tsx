@@ -163,7 +163,11 @@ const ChartBox = ({
                             )}
 
                             <div className={styles.inDays}>
-                                {transaction.transactions.length} transaction(s)
+                                {transaction.transactions.length}
+                                {transaction.transactions.length === 1 &&
+                                    ' transaction'}
+                                {transaction.transactions.length != 1 &&
+                                    ' transactions'}
                             </div>
 
                             <div

@@ -5,7 +5,6 @@ import { Dropdown } from '~/bundles/common/components/components';
 import {
     useAppSelector,
     useCallback,
-    useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
@@ -28,12 +27,13 @@ const RenderCurrency = ({
         [currencies],
     );
 
-    const userCurrency = mutableCurrencies.filter(
+    const userCurrency = mutableCurrencies.find(
         (currencies) => currencies.value === value,
     );
 
-    const [selectedSingleCurrency, setSelectedSingleCurrency] =
-        useState<DataType>(userCurrency[0] ?? mutableCurrencies[0]);
+    const [selectedSingleCurrency, setSelectedSingleCurrency] = useState<
+        DataType | undefined
+    >(userCurrency);
 
     const handleDropdownChangeCurrency = useCallback(
         (selectedOption: DataType | null) => {
@@ -53,9 +53,9 @@ const RenderCurrency = ({
         [handleDropdownChangeCurrency, onChange],
     );
 
-    useEffect(() => {
-        setSelectedSingleCurrency(userCurrency[0] ?? mutableCurrencies[0]);
-    }, [mutableCurrencies, userCurrency]);
+    // useEffect(() => {
+    //     setSelectedSingleCurrency(userCurrency[0] ?? mutableCurrencies[0]);
+    // }, [mutableCurrencies, userCurrency]);
 
     return (
         <Dropdown

@@ -95,7 +95,6 @@ const DoughnutChartCard: React.FC<Properties> = ({
                                     : styles.red,
                             )}
                         >
-                            {category.type === 'income' ? '+' : '-'}
                             {category.total}
                             {category.currency}
                         </p>

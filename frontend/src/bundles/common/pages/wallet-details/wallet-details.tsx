@@ -11,7 +11,6 @@ import {
     BaseModal,
     Button,
     CardTotal,
-    Icon,
     Input,
     Loader,
     MultiDropdown,
@@ -22,8 +21,8 @@ import {
 } from '~/bundles/common/components/components.js';
 import { type TransactionType } from '~/bundles/common/components/transanction-table/types';
 import {
+    AppDocumentTitles,
     ButtonSize,
-    ButtonType,
     ButtonVariant,
     CardVariant,
     DataStatus,
@@ -34,6 +33,7 @@ import {
 import { findMinMaxAmount } from '~/bundles/common/helpers/helpers.js';
 import {
     useAppDispatch,
+    useAppDocumentTitle,
     useAppForm,
     useAppSelector,
     useCallback,
@@ -59,6 +59,7 @@ const DEFAULT_INPUT: { note: string } = {
 };
 
 const WalletDetails: React.FC = () => {
+    useAppDocumentTitle(AppDocumentTitles.TRANSACTIONS);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { id } = useParams();
@@ -502,37 +503,38 @@ const WalletDetails: React.FC = () => {
                                 onClose={handleCloseModalDelete}
                                 onSubmit={handleClickDeleteTransactions}
                                 Header={
-                                    <h2>
-                                        {isSelectedTransactions.length === 1 &&
-                                            `You're about to delete ${isSelectedTransactions.length} transaction`}
-                                        {isSelectedTransactions.length != 1 &&
-                                            `You're about to delete ${isSelectedTransactions.length} transactions`}
-                                    </h2>
+                                    <h1
+                                        className={styles.modalTitle}
+                                    >{`You're about to delete ${
+                                        isSelectedTransactions.length
+                                    } transaction${
+                                        isSelectedTransactions.length > 1
+                                            ? 's'
+                                            : ''
+                                    }`}</h1>
                                 }
                                 Body={
                                     <>
-                                        <p>
-                                            This change is irreversible. Do you
-                                            really want to delete them?
-                                        </p>
-                                        <Button
-                                            type={ButtonType.BUTTON}
-                                            variant={ButtonVariant.DELETE}
-                                            size={ButtonSize.MEDIUM}
-                                            className={styles.btn}
-                                            onClick={
-                                                handleClickDeleteTransactions
+                                        <p
+                                            className={
+                                                styles.modalDetailsContainer
                                             }
                                         >
-                                            <Icon name={FaIcons.TRASH} />
-                                            <span className={styles.btnName}>
-                                                Delete
-                                            </span>
-                                        </Button>
+                                            This change is irreversible. Do you
+                                            really want to delete{' '}
+                                            {isSelectedTransactions.length > 1
+                                                ? 'them'
+                                                : 'it'}
+                                            ?
+                                        </p>
                                     </>
                                 }
-                                submitButtonName={'Delete category'}
-                                hasActionButtons={false}
+                                submitButtonName={`Delete transaction${
+                                    isSelectedTransactions.length > 1 ? 's' : ''
+                                }`}
+                                submitButtonVariant={ButtonVariant.DELETE}
+                                footerContainerClass={styles.modalFooter}
+                                buttonsSize={ButtonSize.MEDIUM}
                             />
                         </div>
                     </div>

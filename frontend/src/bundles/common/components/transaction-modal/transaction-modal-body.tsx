@@ -1,18 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { type IconProp } from '@fortawesome/fontawesome-svg-core';
-import React from 'react';
+import { type TransactionGetAllItemResponseDto } from 'shared/build';
 
-import { Calendar } from '~/bundles/common/components/calendar/calendar';
 import { Icon, Input } from '~/bundles/common/components/components';
 import { Dropdown } from '~/bundles/common/components/dropdown/components';
 import { DEFAULT_TRANSACTION } from '~/bundles/common/components/transaction-modal/constants/constants';
 import { TransactionModalElement } from '~/bundles/common/components/transaction-modal/transaction-modal-element';
 import { InputType } from '~/bundles/common/enums/input-type.enum';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks';
+import {
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from '~/bundles/common/hooks/hooks';
 import { useAppForm } from '~/bundles/common/hooks/use-app-form/use-app-form.hook';
 import { type DataType } from '~/bundles/common/types/dropdown.type';
 import { type Transaction } from '~/bundles/common/types/transaction.type';
 
+import { OneDayCalendar } from '../calendar/components/components';
 import styles from './styles.module.scss';
 
 interface Category {
@@ -27,18 +32,49 @@ type Properties = {
     categories: Category[];
     labels: DataType[];
     handleChangeTransaction: React.Dispatch<React.SetStateAction<Transaction>>;
+    transactions?: TransactionGetAllItemResponseDto[];
+    transactionId?: string;
 };
 
 const TransactionModalBody: React.FC<Properties> = ({
     categories,
     handleChangeTransaction,
+    transactions,
+    transactionId,
 }) => {
+    const findTransaction = useMemo(
+        () =>
+            transactions?.find(
+                (transaction) => transaction.id === transactionId,
+            ),
+        [transactionId, transactions],
+    );
+    const findCategory = categories.find(
+        (category) => category.id === findTransaction?.categoryId,
+    );
+    const initialAmount = findTransaction
+        ? Math.abs(findTransaction.amount)
+        : 0;
+    const existingData = findTransaction && {
+        categoryId: findCategory?.id as string,
+        date: new Date(findTransaction.date),
+        note: findTransaction.note,
+        labelId: findTransaction.labelId,
+        amount: initialAmount,
+        currencyId: findTransaction.currencyId as string,
+        walletsId: findTransaction.walletsId,
+    };
+
     const { control, errors } = useAppForm({
-        defaultValues: DEFAULT_TRANSACTION,
+        defaultValues: existingData ?? DEFAULT_TRANSACTION,
     });
-    const [amountValue, setAmountValue] = useState<number>();
-    const [selectedSingleCategory, setSelectedSingleCategory] =
-        useState<DataType>();
+
+    const [amountValue, setAmountValue] = useState<number | undefined>(
+        initialAmount,
+    );
+    const [selectedSingleCategory, setSelectedSingleCategory] = useState<
+        DataType | undefined
+    >(findCategory);
 
     const handleNoteChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -128,6 +164,22 @@ const TransactionModalBody: React.FC<Properties> = ({
         [],
     );
 
+    useEffect(() => {
+        if (findTransaction) {
+            const mutableTransaction: Transaction = {
+                categoryId: findCategory?.id as string,
+                date: new Date(findTransaction.date),
+                note: findTransaction.note,
+                labelId: findTransaction.labelId,
+                amount: initialAmount,
+                currencyId: findTransaction.currencyId as string,
+                walletsId: findTransaction.walletsId,
+            };
+            handleChangeTransaction(mutableTransaction);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [findTransaction]);
+
     return (
         <div className={styles.body}>
             <TransactionModalElement label="Category">
@@ -139,8 +191,10 @@ const TransactionModalBody: React.FC<Properties> = ({
                 />
             </TransactionModalElement>
             <TransactionModalElement label="Date">
-                <Calendar
-                    isRangeCalendar={false}
+                <OneDayCalendar
+                    initialDate={
+                        findTransaction && new Date(findTransaction.date)
+                    }
                     onChange={handleChangeTransaction}
                 />
             </TransactionModalElement>
@@ -153,6 +207,7 @@ const TransactionModalBody: React.FC<Properties> = ({
                     control={control}
                     errors={errors}
                     onChange={handleNoteChange}
+                    value={findTransaction?.note}
                 />
             </TransactionModalElement>
             <TransactionModalElement label="Amount">

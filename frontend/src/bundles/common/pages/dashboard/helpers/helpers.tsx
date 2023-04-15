@@ -236,64 +236,57 @@ interface ProcessedTransactions {
 
 type GradientMap = Record<string, string>;
 
-const findOrCreateItem = ({
-    result,
-    date,
-    amount,
-    gradient,
-}: {
-    result: ProcessedTransaction[];
-    date: string;
-    amount: number;
-    gradient: string;
-}): void => {
-    const existing = result.find((item) => item.date.toString() === date);
-
-    if (existing) {
-        existing.total += amount;
-    } else {
-        result.push({
-            date: date,
-            total: amount,
-            color: gradient,
-        });
-    }
-};
-
 const processTransactions = (
     transactions: TransactionType[],
 ): ProcessedTransactions => {
     const gradientMap: GradientMap = {};
     let negativeTotal = 0;
-    const positiveResult: ProcessedTransaction[] = [];
-    const negativeResult: ProcessedTransaction[] = [];
+    const categoryTransactions: Record<string, TransactionType[]> = {};
 
     for (const current of transactions) {
         const categoryId = current.category.id;
+        let transactions = categoryTransactions[categoryId];
+
+        if (!transactions) {
+            transactions = [];
+            categoryTransactions[categoryId] = transactions;
+        }
+
+        transactions.push(current);
+    }
+
+    const positiveResult: ProcessedTransaction[] = [];
+    const negativeResult: ProcessedTransaction[] = [];
+
+    for (const categoryId in categoryTransactions) {
+        const transactions = categoryTransactions[categoryId];
         let gradient = gradientMap[categoryId];
 
         if (!gradient) {
             gradient = gradientDoughnut.find(
-                (color) => color.name === current.category?.color,
+                (color) => color.name === transactions[0].category?.color,
             )?.value as string;
             gradientMap[categoryId] = gradient;
         }
 
-        if (current.amount >= 0) {
-            findOrCreateItem({
-                result: positiveResult,
-                date: current.date.toString(),
-                amount: current.amount,
-                gradient,
+        const total = transactions.reduce(
+            (accumulator, current) => +accumulator + +current.amount,
+            0,
+        );
+
+        if (total >= 0) {
+            positiveResult.push({
+                date: transactions[0].date.toString(),
+                total,
+                color: gradient,
             });
         } else {
-            negativeTotal += current.amount;
-            findOrCreateItem({
-                result: negativeResult,
-                date: current.date.toString(),
-                amount: current.amount,
-                gradient: gradientDoughnut.find(
-                    (color) => color.name === current.category?.color,
+            negativeTotal += total;
+            negativeResult.push({
+                date: transactions[0].date.toString(),
+                total,
+                color: gradientDoughnut.find(
+                    (color) => color.name === transactions[0].category?.color,
                 )?.value as string,
             });
         }

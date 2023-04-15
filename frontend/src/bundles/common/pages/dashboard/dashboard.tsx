@@ -33,6 +33,7 @@ import {
     CardVariant,
     DataStatus,
     FaIcons,
+    IconSize,
 } from '~/bundles/common/enums/enums.js';
 import {
     formatRangeGraph,
@@ -690,6 +691,9 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
+                                            icon={FaIcons.MONEY_CHECK_DOLLAR}
+                                            iconSize={IconSize.ONE_HUNDRED}
+                                            margin={'30px auto'}
                                             body={noTransactionsMessage}
                                         />
                                     )}
@@ -702,6 +706,9 @@ const Dashboard: React.FC = () => {
                                         (data) => data.data.length === 0,
                                     ) ? (
                                         <Placeholder
+                                            icon={FaIcons.MONEY_CHECK_DOLLAR}
+                                            iconSize={IconSize.ONE_HUNDRED}
+                                            margin={'30px auto'}
                                             body={noTransactionsMessage}
                                         />
                                     ) : (
@@ -729,7 +736,12 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
-                                            body={noTransactionsMessage}
+                                            icon={FaIcons.MONEY_CHECK_DOLLAR}
+                                            iconSize={IconSize.ONE_HUNDRED}
+                                            margin={'30px auto'}
+                                            body={
+                                                'You have no income transactions yet'
+                                            }
                                         />
                                     )}
                                 </ChartBox>
@@ -749,7 +761,12 @@ const Dashboard: React.FC = () => {
                                         />
                                     ) : (
                                         <Placeholder
-                                            body={noTransactionsMessage}
+                                            icon={FaIcons.MONEY_CHECK_DOLLAR}
+                                            iconSize={IconSize.ONE_HUNDRED}
+                                            margin={'30px auto'}
+                                            body={
+                                                'You have no expense transactions yet'
+                                            }
                                         />
                                     )}
                                 </ChartBox>

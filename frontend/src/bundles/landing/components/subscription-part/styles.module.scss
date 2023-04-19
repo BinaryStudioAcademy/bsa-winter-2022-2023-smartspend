@@ -1,0 +1,97 @@
+@import "@assets/utils";
+
+.body {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--color-blue-100);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 30px;
+    padding: 90px var(--p-3);
+}
+
+.title {
+    width: 600px;
+    margin-top: 0;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-1-heading);
+    line-height: var(--line-height-level-2-heading);
+}
+
+.form {
+    display: flex;
+    column-gap: 20px;
+}
+
+.inputLabel {
+    height: 100%;
+    height: calc(100% + 4px);
+    margin: 0;
+}
+
+.input {
+    width: 288px;
+    padding: 0.5rem;
+    border: double 2px var(--color-turquoise-600);
+    border-radius: 6px;
+}
+
+.input:focus {
+    background-image: none;
+    border-color: var(--color-turquoise-600);
+    box-shadow: #00d7bd80 0 0 10px 0, #03bfd933 0 0 0 4px;
+}
+
+.input::placeholder {
+    font-weight: 400;
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    gap: var(--m-3);
+    height: 40px;
+}
+
+@media (max-width: $xl) {
+    .container {
+        padding: var(--p-6) var(--p-3);
+    }
+}
+
+.button {
+    font-weight: var(--font-weight-400);
+}
+
+@media (max-width: $lg) {
+    .container {
+        padding: var(--p-5) var(--p-3);
+    }
+
+    .button {
+        font-weight: var(--font-weight-400);
+    }
+}
+
+@media (max-width: $md) {
+    .title {
+        width: auto;
+        font-size: var(--font-size-level-2-heading);
+        line-height: var(--line-height-level-3-heading);
+        text-align: center;
+    }
+}
+
+@media (max-width: $sm) {
+    .formContainer {
+        flex-direction: column;
+        height: auto;
+    }
+}

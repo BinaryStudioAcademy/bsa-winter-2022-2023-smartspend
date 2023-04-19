@@ -1,0 +1,49 @@
+.button {
+    background-clip: content-box, border-box;
+    background-origin: border-box;
+    border: solid 2px transparent;
+    border-radius: var(--b-5);
+}
+
+.button:hover {
+    cursor: default;
+}
+
+.button.primary {
+    background-image: linear-gradient(
+            var(--color-white-transparent),
+            var(--color-white-transparent)
+        ),
+        var(--gradient-8);
+    box-shadow: 2px 1000px 1px var(--color-blue-600) inset;
+}
+
+.button.secondary {
+    background-image: linear-gradient(
+            var(--color-white-transparent),
+            var(--color-white-transparent)
+        ),
+        var(--gradient-3);
+    box-shadow: 2px 1000px 1px var(--color-blue-100) inset;
+}
+
+.buttonText {
+    font-weight: var(--font-weight-400);
+    letter-spacing: var(--letter-spacing-button-text);
+    background-size: 100%;
+    /* stylelint-disable */
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    /* stylelint-enable */
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+.buttonText.primary {
+    background-image: var(--gradient-8);
+}
+
+.buttonText.secondary {
+    background-image: var(--gradient-3);
+}

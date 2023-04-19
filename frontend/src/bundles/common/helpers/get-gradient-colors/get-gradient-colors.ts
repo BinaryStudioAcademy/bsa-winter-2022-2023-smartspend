@@ -1,4 +1,8 @@
-const getGradientColors = (gradientString: string): string[] => {
+const getGradientColors = (gradientString: string | undefined): string[] => {
+    if (!gradientString) {
+        return ['#fecc66', '#f83062'];
+    }
+
     const colorStrings: string[] = gradientString
         .split(',')
         .map((part: string) => part.trim());

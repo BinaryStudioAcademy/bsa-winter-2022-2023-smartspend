@@ -1,0 +1,39 @@
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.box {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.box:hover {
+    border-color: var(--color-blue-600);
+}
+
+.boxChecked {
+    background-color: var(--color-pink-100);
+    border-color: var(--color-pink-100);
+}
+
+.checkboxCheck {
+    width: 12px;
+    height: 7px;
+    border: none;
+    border-top: 2px solid var(--color-white-100);
+    border-right: 2px solid var(--color-white-100);
+    transform: rotate(45deg) scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+.boxChecked .checkboxCheck {
+    transform: rotate(135deg) scale(0.8);
+}

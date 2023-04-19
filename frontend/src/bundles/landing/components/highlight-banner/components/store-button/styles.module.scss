@@ -1,0 +1,55 @@
+@import "@assets/utils";
+
+.button {
+    width: 180px;
+    height: 70px;
+    padding: 0;
+    color: var(--color-white-100);
+    background-color: var(--color-blue-600);
+    border-radius: var(--b-2);
+}
+
+.button:hover {
+    color: var(--color-white-100);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    width: 100%;
+    margin: 0 0 var(--m-1);
+    font-weight: 400;
+    font-size: 11px;
+    text-align: start;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body {
+    margin: 0;
+    font-size: var(--font-size-1-button-text);
+}
+
+@media (max-width: $sm) {
+    .title {
+        font-size: 10px;
+    }
+
+    .body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0;
+    }
+}

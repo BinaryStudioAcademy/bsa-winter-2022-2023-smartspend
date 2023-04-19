@@ -1,0 +1,399 @@
+@import "@assets/utils";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+    font-family: var(--font-family);
+}
+
+.loaderContainer {
+    height: 160px;
+    margin: auto;
+}
+
+.dashboard {
+    background: var(--color-blue-100);
+}
+
+.contentWrapper {
+    max-width: 1192px;
+    margin: 0 auto;
+    padding: var(--p-3) var(--p-3) 0 var(--p-3);
+}
+
+.buttonWrapper {
+    justify-self: center;
+    align-self: center;
+    font-weight: var(--font-weight-400);
+}
+
+.resetButton {
+    padding: 0;
+}
+
+.filtertBody {
+    margin: var(--m-2) 0 var(--m-3);
+}
+
+.filterLabel {
+    margin: 0;
+}
+
+.dropdownLabel {
+    color: var(--color-gray-200);
+}
+
+.wallets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
+}
+
+.filtersDashboard {
+    background-color: var(--color-white-100);
+}
+
+.barsDashboard {
+    flex-grow: 1;
+}
+
+.bars {
+    margin: var(--m-4) 0 var(--m-6);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
+    column-gap: 4px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.slider {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 0 var(--p-2);
+}
+
+.slider > * {
+    width: 100%;
+}
+
+.filtersContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.dropdownColorIcon {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    max-height: 32px;
+    color: white;
+    background: var(--color-blue-200);
+    border-radius: 6px;
+}
+
+.name {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.filters label {
+    color: var(--color-gray-200);
+}
+
+.title {
+    margin: 0;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-sub-heading);
+    line-height: var(--line-height-sub-heading);
+}
+
+.overview {
+    margin-top: var(--m-6);
+    margin-bottom: 0;
+}
+
+.totals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.charts {
+    display: grid;
+    grid-template-rows: repeat(2, 355px);
+    grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+    justify-content: center;
+    gap: 15px;
+    margin-top: var(--m-3);
+}
+
+.chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--p-3);
+    background-color: var(--color-white-100);
+    border-radius: var(--b-4);
+}
+
+.transactions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 100px;
+    padding-right: var(--p-1);
+    overflow: auto;
+}
+
+.transactions::-webkit-scrollbar {
+    display: none;
+    width: 2px;
+}
+
+.transactions:hover::-webkit-scrollbar {
+    display: initial;
+}
+
+.transactions::-webkit-scrollbar-thumb {
+    width: 2px;
+    background-color: var(--color-gray-300);
+    border-radius: 2px;
+}
+
+.transactions::-webkit-scrollbar-track {
+    width: 2px;
+    background-color: var(--color-white-60);
+}
+
+.chartBox {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.chartTitle {
+    margin: var(--m-1) 0 4px 0;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+    font-style: normal;
+}
+
+.chartDate {
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-caption);
+    font-family: var(--font-family);
+    line-height: var(--line-height-caption);
+}
+
+.walletButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 160px;
+    background: var(--color-white-100);
+    border-radius: var(--b-4);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.walletWrapper {
+    overflow: hidden;
+    text-decoration: none;
+    transition: box-shadow 0.2s;
+}
+
+.walletButton:hover,
+.walletWrapper:hover {
+    box-shadow: 0 2px 12px rgb(56 109 246 / 12%);
+}
+
+.button > svg {
+    position: relative;
+    left: 0.5px;
+}
+
+.walletButtonTitle {
+    color: var(--color-blue-600);
+}
+
+.smallCalendar {
+    display: none;
+}
+
+.walletIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--color-white-100);
+    font-weight: var(--font-weight-400);
+    line-height: 0;
+    background: var(--color-blue-500);
+    border-radius: var(--b-5);
+}
+
+.walletIcon > svg {
+    position: relative;
+    left: 0.5px;
+    width: 12px;
+    height: 12px;
+}
+
+.walletIcon:hover {
+    opacity: 0.7;
+}
+
+.transactionBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    color: var(--color-navy-900);
+}
+
+.transactionName {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    overflow: hidden;
+    line-height: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.columns {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 150px;
+}
+
+.leftColumn {
+    display: flex;
+    justify-content: start;
+}
+
+.rightColumn {
+    justify-content: end;
+    font-size: var(--font-size-level-5-heading);
+}
+
+.plus {
+    color: var(--color-blue-600);
+}
+
+.plus::before {
+    content: "+";
+}
+
+.minus {
+    color: var(--color-warning);
+}
+
+@media (max-width: $md) {
+    .wallets {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .walletWrapper {
+        display: flex;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .walletButton {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .filters {
+        display: block;
+        justify-content: center;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .largeCalendar {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (min-width: $md) and (max-width: $lg) {
+    .charts {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    }
+
+    .filters {
+        justify-content: center;
+    }
+}
+
+@media (max-width: $sm) {
+    .wallets {
+        grid-template-columns: 1fr;
+    }
+
+    .charts {
+        grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .largeCalendar {
+        display: flex;
+        justify-content: center;
+    }
+}

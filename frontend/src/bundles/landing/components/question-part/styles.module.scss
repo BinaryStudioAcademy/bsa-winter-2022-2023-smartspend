@@ -1,0 +1,29 @@
+@import "@assets/utils";
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-white-100);
+}
+
+.title {
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-1-heading);
+    line-height: var(--line-height-level-1-heading);
+    text-align: center;
+}
+
+@media (max-width: $lg) {
+    .title {
+        font-size: var(--font-size-level-2-heading);
+        line-height: var(--line-height-level-3-heading);
+    }
+}
+
+@media (max-width: $sm) {
+    .title {
+        margin: var(--m-4) 0;
+    }
+}

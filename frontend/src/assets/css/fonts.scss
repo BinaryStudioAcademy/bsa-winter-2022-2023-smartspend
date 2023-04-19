@@ -1,0 +1,63 @@
+@font-face {
+    font-weight: normal;
+    font-family: Rubik;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/rubik/Rubik-Regular.eot");
+    src: url("../fonts/rubik/Rubik-Regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/rubik/Rubik-Regular.woff2") format("woff2"),
+        url("../fonts/rubik/Rubik-Regular.woff") format("woff"),
+        url("../fonts/rubik/Rubik-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-weight: normal;
+    font-family: Rubik;
+    font-style: italic;
+    font-display: swap;
+    src: url("../fonts/rubik/Rubik-Italic.eot");
+    src: url("../fonts/rubik/Rubik-Italic.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/rubik/Rubik-Italic.woff2") format("woff2"),
+        url("../fonts/rubik/Rubik-Italic.woff") format("woff"),
+        url("../fonts/rubik/Rubik-Italic.ttf") format("truetype");
+}
+
+@font-face {
+    font-weight: 500;
+    font-family: Rubik;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/rubik/Rubik-Medium.eot");
+    src: url("../fonts/rubik/Rubik-Medium.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/rubik/Rubik-Medium.woff2") format("woff2"),
+        url("../fonts/rubik/Rubik-Medium.woff") format("woff"),
+        url("../fonts/rubik/Rubik-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-weight: 600;
+    font-family: Rubik;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/rubik/Rubik-SemiBold.eot");
+    src: url("../fonts/rubik/Rubik-SemiBold.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/rubik/Rubik-SemiBold.woff2") format("woff2"),
+        url("../fonts/rubik/Rubik-SemiBold.woff") format("woff"),
+        url("../fonts/rubik/Rubik-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-weight: normal;
+    font-family: Verdana;
+    font-style: normal;
+    src: url("Verdana.eot");
+    src: local("Verdana"),
+        url("../fonts/Verdana/Verdana.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Verdana/Verdana.woff2") format("woff2"),
+        url("../fonts/Verdana/Verdana.woff") format("woff"),
+        url("../fonts/Verdana/Verdana.ttf") format("truetype");
+}

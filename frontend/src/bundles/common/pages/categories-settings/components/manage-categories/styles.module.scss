@@ -1,0 +1,60 @@
+.manageWrapper {
+    margin: 20px 0;
+    padding: 12px 0;
+}
+
+.title {
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(-line-height-level-3-heading);
+}
+
+.wrapperAllBtn {
+    display: flex;
+    flex: 0 1 auto;
+    flex-flow: wrap;
+    margin: 0 -0.5rem;
+}
+
+.wrapperBtn {
+    padding: var(--p-2);
+}
+
+.btn {
+    width: 100%;
+}
+
+.btnName {
+    padding-left: 10px;
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.modalDetailsContainer {
+    margin-bottom: var(--m-2);
+    padding: 0 var(--p-6);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: var(--m-4);
+}

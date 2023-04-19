@@ -1,0 +1,16 @@
+.sliderWrapper {
+    position: relative;
+    top: calc(25% - 4px);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.rangeValues {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-caption);
+}

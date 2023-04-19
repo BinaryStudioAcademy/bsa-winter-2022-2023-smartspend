@@ -1,0 +1,132 @@
+@import "@assets/utils";
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    max-width: 600px;
+}
+
+.formWrapper > * {
+    margin-bottom: 20px;
+}
+
+.wrapperHalf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.dates {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-top: 25px;
+}
+
+.startDate {
+    justify-self: start;
+    align-self: start;
+}
+
+.wrapperHalf > div {
+    position: relative;
+    width: auto;
+}
+
+.label {
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: 16px;
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-label-span);
+}
+
+.label span {
+    font-size: 16px;
+}
+
+.errorInput {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: var(--color-warning);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-6-heading);
+    font-family: var(--font-family);
+    font-style: normal;
+    line-height: var(--line-height-label-span);
+}
+
+.modalFooter > div {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    gap: 9.24%;
+    width: 100%;
+}
+
+.modalFooter {
+    display: flex;
+    gap: 5.97%;
+}
+
+.modalFooter > button,
+.modalFooter > div > button {
+    width: 150px;
+    height: 40px;
+    white-space: nowrap;
+}
+
+.header {
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-sub-heading);
+}
+
+.title {
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+}
+
+.calendar {
+    margin-top: 20px;
+}
+
+.delete {
+    width: 150px;
+    white-space: nowrap;
+}
+
+@media (max-width: $sm) {
+    .modalFooter > div,
+    .modalFooter {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--m-3);
+        margin: 0;
+    }
+
+    .modalFooter > button,
+    .modalFooter > div > button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .wrapperHalf {
+        grid-template-columns: 1fr;
+    }
+
+    .dates {
+        flex-direction: column;
+    }
+
+    .dates > div {
+        width: 100%;
+    }
+}

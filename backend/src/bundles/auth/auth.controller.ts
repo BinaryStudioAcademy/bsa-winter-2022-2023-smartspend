@@ -15,6 +15,7 @@ import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type ILogger } from '~/common/logger/logger.js';
 
+import { getToken } from '../../common/helpers/helpers.js';
 import { type AuthService } from './auth.service.js';
 import { AuthApiPath } from './enums/enums.js';
 
@@ -53,12 +54,24 @@ class AuthController extends Controller {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: AuthApiPath.AUTHENTICATED_USER,
+            method: 'GET',
+            handler: (options) =>
+                this.loadUser(
+                    options as ApiHandlerOptions<{
+                        token: string;
+                    }>,
+                ),
+        });
     }
 
     /**
      * @swagger
      * /auth/sign-up:
      *    post:
+     *      tags: [Auth]
      *      description: Sign up user into the system
      *      requestBody:
      *        description: User auth data
@@ -72,6 +85,8 @@ class AuthController extends Controller {
      *                  type: string
      *                  format: email
      *                password:
+     *                  type: string
+     *                repeatPassword:
      *                  type: string
      *      responses:
      *        201:
@@ -90,9 +105,11 @@ class AuthController extends Controller {
             body: UserSignUpRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const token = await this.authService.signUp(options.body);
+
         return {
             status: HttpCode.CREATED,
-            payload: await this.authService.signUp(options.body),
+            payload: token,
         };
     }
 
@@ -100,6 +117,7 @@ class AuthController extends Controller {
      * @swagger
      * /auth/sign-in:
      *    post:
+     *      tags: [Auth]
      *      description: Sign in user into the system
      *      requestBody:
      *        description: User auth data
@@ -135,6 +153,44 @@ class AuthController extends Controller {
         return {
             status: HttpCode.OK,
             payload: token,
+        };
+    }
+
+    /**
+     * @swagger
+     * /auth/authenticated-user:
+     *    get:
+     *      tags: [Auth]
+     *      description: Load authenticated user data
+     *      parameters:
+     *        - in: query
+     *          name: token
+     *          schema:
+     *            type: integer
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  message:
+     *                    type: object
+     *                    $ref: '#/components/schemas/User'
+     */
+
+    private async loadUser(
+        options: ApiHandlerOptions<{
+            token: string;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        const { token: bearerToken } = options;
+        const token = getToken(bearerToken);
+        const user = await this.authService.getUserByToken(token);
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }

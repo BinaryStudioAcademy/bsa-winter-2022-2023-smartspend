@@ -1,0 +1,151 @@
+@import "@assets/utils";
+
+:root {
+    --border: 1px;
+}
+
+.container {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    padding: 0 10px;
+    font-size: 14px;
+    background: var(--color-white-100);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.container:hover {
+    background: var(--color-blue-100);
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.item {
+    display: flex;
+    flex-flow: wrap;
+    margin: 0 -0.5rem;
+}
+
+.base {
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: 0.5rem;
+}
+
+.checkbox {
+    display: flex;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    max-height: 32px;
+    color: white;
+    background-color: #7b93a4;
+    border-radius: 6px;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+}
+
+@media screen and (max-width: $sm) {
+    .content {
+        display: block;
+    }
+}
+
+.name {
+    flex: 0.75;
+    color: var(--color-blue-600);
+}
+
+.count {
+    flex: 1.5;
+    color: var(--color-gray-200);
+}
+
+.iconBtn {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 0 8px;
+    font-size: 16px;
+    line-height: 34px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.iconBtn:hover,
+.iconBtn:active,
+.iconBtn:focus {
+    border: none;
+}
+
+.btnEdit {
+    color: var(--color-pink-100);
+}
+
+.btnEdit:hover,
+.btnEdit:active,
+.btnEdit:focus {
+    color: #5063e4;
+}
+
+.btn {
+    width: 100%;
+}
+
+.btnName {
+    padding-left: 10px;
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.modalDetailsContainer {
+    margin-bottom: var(--m-2);
+    padding: 0 var(--p-6);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: var(--m-4);
+}

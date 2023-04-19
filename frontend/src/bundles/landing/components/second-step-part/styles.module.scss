@@ -1,0 +1,84 @@
+@import "@assets/utils";
+
+.body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-blue-600);
+}
+
+.container {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--m-5);
+    width: 100%;
+    height: 730px;
+}
+
+.bigBlueBorderCircle {
+    position: absolute;
+    bottom: 90px;
+    left: 30px;
+    width: 270px;
+    height: 270px;
+    border: solid 4px var(--color-blue-500);
+    border-radius: 50%;
+}
+
+.smallBlueBorderCircle {
+    position: absolute;
+    right: -35px;
+    bottom: 140px;
+    width: 140px;
+    height: 140px;
+    border: solid 4px var(--color-blue-500);
+    border-radius: 50%;
+}
+
+.bigBlueCircle {
+    position: absolute;
+    top: 120px;
+    left: 400px;
+    width: 160px;
+    height: 160px;
+    background-color: var(--color-blue-500);
+    border-radius: 50%;
+}
+
+.lightBlueCircle {
+    position: absolute;
+    top: 100px;
+    left: 650px;
+    width: 27px;
+    height: 27px;
+    background-image: var(--gradient-8);
+    border-radius: 50%;
+}
+
+@media (max-width: $lg) {
+    .container > div:last-child {
+        width: auto;
+    }
+}
+
+@media (max-width: $md) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-5) var(--p-3);
+    }
+
+    .container > div:nth-child(5) {
+        order: 1;
+    }
+}
+
+@media (max-width: $sm) {
+    .smallBlueBorderCircle {
+        display: none;
+    }
+}

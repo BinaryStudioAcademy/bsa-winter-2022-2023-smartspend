@@ -1,0 +1,223 @@
+@import "@assets/utils";
+
+.group {
+    margin: var(--m-4) 0;
+    padding: var(--p-4);
+    background-color: var(--color-white-100);
+    border-radius: 25px;
+    box-shadow: 0 2px 12px #e7edfe;
+}
+
+.dateRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--m-1);
+    padding: var(--p-2);
+    font-weight: var(--font-weight-500);
+}
+
+.date {
+    padding-left: var(--p-1);
+    color: var(--color-navy-900);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+}
+
+.transactionInfo {
+    display: flex;
+}
+
+.inDays {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    gap: 5px;
+}
+
+.columns {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-left: var(--m-1);
+}
+
+.leftColumn {
+    justify-content: start;
+}
+
+.plus {
+    color: var(--color-blue-600);
+}
+
+.plus::before {
+    content: "+";
+}
+
+.minus {
+    color: var(--color-warning);
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.totals {
+    color: var(--color-blue-300);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-5-heading);
+}
+
+.rowTitle {
+    margin-left: var(--m-5);
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-5-heading);
+}
+
+.transactionNote {
+    color: var(--color-gray-300);
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: var(--font-size-level-6-heading);
+    border-radius: 10px;
+}
+
+.transactionName {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: normal;
+}
+
+.transactionBody {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: auto;
+    width: 100%;
+}
+
+.transactionBody:hover {
+    cursor: pointer;
+}
+
+.hover:hover {
+    background: var(--color-blue-100);
+}
+
+.transaction div {
+    padding: var(--p-1);
+    text-align: center;
+}
+
+.chevronIcon {
+    color: var(--color-blue-600);
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+.checkbox:focus {
+    border-color: inherit;
+    outline: none;
+    box-shadow: none;
+}
+
+.checked {
+    background: var(--color-blue-100);
+}
+
+.unchecked {
+    background: initial;
+}
+
+.futureTransactionsHide {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease, height 0.5s ease, transform 0.5s ease;
+}
+
+.futureTransactionsShow {
+    height: auto;
+    opacity: 1;
+    transition: opacity 0.5s ease, height 0.5s ease, transform 0.5s ease;
+}
+
+.futureTitle {
+    padding: var(--p-2);
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+}
+
+.noTransaction {
+    justify-content: center;
+    margin-top: var(--m-4);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+}
+
+.footerContainerClass {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footerContainerClass div > button:last-child {
+    padding: 8px 24px;
+    color: var(--color-warning);
+    background: white;
+    border: 2px solid var(--color-warning);
+}
+
+.footerContainerClass div > button:last-child:hover {
+    color: var(--color-red-300);
+    border: 2px solid var(--color-red-300);
+}
+
+.modalDetailsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modalDetails {
+    width: 280px;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
+}
+
+@media (max-width: $sm) {
+    .inDays {
+        gap: 0;
+        font-size: x-small;
+    }
+
+    .smHide {
+        display: none;
+    }
+}

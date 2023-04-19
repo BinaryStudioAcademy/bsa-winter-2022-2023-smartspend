@@ -16,6 +16,17 @@ type EnvironmentSchema = {
         SECRET: string;
         EXPIRES_IN: string;
     };
+    EMAIL: {
+        GMAIL_DOMAIN: string;
+        GMAIL_PASSWORD: string;
+        DASHBOARD_LINK: string;
+        APP_LOGO_LINK: string;
+    };
+    GYAZO: {
+        FILE_SIZE: number;
+        UPLOAD_API_URL: string;
+        ACCESS_TOKEN: string;
+    };
 };
 
 export { type EnvironmentSchema };

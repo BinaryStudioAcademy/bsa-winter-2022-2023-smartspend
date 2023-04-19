@@ -1,24 +1,40 @@
+import { type PartialModelObject } from 'objection';
+import { type UserProfileResponseDto } from 'shared/build';
+
 import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type IRepository } from '~/common/interfaces/interfaces.js';
 
-class UserRepository implements IRepository {
+import { type UserProfileModel } from './user-profile.model.js';
+
+class UserRepository implements Omit<IRepository, 'update' | 'delete'> {
     private userModel: typeof UserModel;
 
     public constructor(userModel: typeof UserModel) {
         this.userModel = userModel;
     }
 
-    public async find(email: string): Promise<UserEntity | undefined> {
-        const user = await this.userModel
-            .query()
-            .select()
-            .where({ email })
-            .first();
+    public async find(data: object): Promise<UserEntity | undefined> {
+        const user = await this.userModel.query().select().where(data).first();
         if (!user) {
             return undefined;
         }
         return UserEntity.initialize(user);
+    }
+
+    public async getCurrentUserDetails(
+        userId: string,
+    ): Promise<UserProfileResponseDto | undefined> {
+        const user = await this.userModel
+            .query()
+            .findById(userId)
+            .withGraphFetched('userProfile');
+
+        if (!user) {
+            return undefined;
+        }
+
+        return { email: user.email, ...user.userProfile };
     }
 
     public async findAll(): Promise<UserEntity[]> {
@@ -29,7 +45,6 @@ class UserRepository implements IRepository {
 
     public async create(entity: UserEntity): Promise<UserEntity> {
         const { email, passwordSalt, passwordHash } = entity.toNewObject();
-
         const item = await this.userModel
             .query()
             .insert({
@@ -43,12 +58,50 @@ class UserRepository implements IRepository {
         return UserEntity.initialize(item);
     }
 
-    public update(): ReturnType<IRepository['update']> {
-        return Promise.resolve(null);
+    public async updateUserProfile(
+        id: string,
+        data: PartialModelObject<
+            UserModel & { userProfile?: PartialModelObject<UserProfileModel> }
+        >,
+    ): Promise<UserEntity | undefined> {
+        const user = await this.userModel
+            .query()
+            .findById(id)
+            .withGraphFetched('userProfile');
+
+        if (!user) {
+            return undefined;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!user.userProfile) {
+            await user
+                .$relatedQuery('userProfile')
+                .insert({ ...data.userProfile })
+                .returning('*')
+                .execute();
+        }
+
+        await user
+            .$relatedQuery('userProfile')
+            .update({ ...data.userProfile })
+            .returning('*')
+            .execute();
+
+        await user.$query().update(data).returning('*').execute();
+
+        return UserEntity.initialize(user);
     }
 
-    public delete(): ReturnType<IRepository['delete']> {
-        return Promise.resolve(true);
+    public async deleteUser(id: string): Promise<boolean> {
+        const item = await this.userModel
+            .query()
+            .where({ id })
+            .del()
+            .returning('id')
+            .execute();
+        const deletedUser = UserEntity.initialize(item[0]);
+        return !!deletedUser;
     }
 }
 

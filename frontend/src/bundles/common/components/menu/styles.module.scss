@@ -1,0 +1,196 @@
+@import "@assets/utils";
+
+.menu {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.menuList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--m-5);
+    padding-left: 0;
+    list-style: none;
+}
+
+.menuLink {
+    position: relative;
+    color: var(--color-gray-100);
+    font-size: var(--font-size-caption);
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.menuLink::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-7);
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.active::after {
+    transform: scaleX(1);
+}
+
+.active {
+    color: var(--color-white-100);
+    transition: transform 0.2s ease-in-out;
+}
+
+//  Burger Menu
+
+.button {
+    display: none;
+}
+
+@media (any-hover: hover) {
+    .menuLink:hover {
+        color: var(--color-white-100);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .menuLink:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+@media (max-width: $xl) {
+    .menuList {
+        gap: var(--m-4);
+    }
+}
+
+@media (max-width: $lg) {
+    .menuList {
+        gap: var(--m-3);
+    }
+}
+
+@media (max-width: $md) {
+    .button {
+        position: fixed;
+        top: 31px;
+        right: 140px;
+        z-index: 3;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        width: 30px;
+        height: 18px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .line {
+        top: 50%;
+        transform: scale(0) translate(0, -50%);
+    }
+
+    .line,
+    .button::before,
+    .button::after {
+        position: absolute;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: var(--gradient-6);
+        transition: all 0.5s ease 0s;
+    }
+
+    .button::before {
+        content: "";
+        top: 50%;
+        transform: rotate(-45deg) translate(0, -50%);
+    }
+
+    .button::after {
+        content: "";
+        bottom: 50%;
+        transform: rotate(45deg) translate(0, 50%);
+    }
+
+    .button.hide .line {
+        transform: scale(1) translate(0, -50%);
+    }
+
+    .button.hide::before {
+        top: 0;
+        transform: rotate(0) translate(0, 0);
+    }
+
+    .button.hide::after {
+        bottom: 0;
+        transform: rotate(0) translate(0, 0);
+    }
+
+    .menuList {
+        position: absolute;
+        top: 0;
+        right: 50%;
+        flex-direction: column;
+        gap: var(--m-4);
+        width: 100%;
+        margin: 0;
+        padding: var(--p-5) 0;
+        background-color: var(--color-blue-600);
+        transform: translate(50%, 0);
+        transition: top 0.5s;
+        transition: translate top 0.5s ease-in-out;
+    }
+
+    .menuList.hide {
+        top: -100%;
+        transition: translate top 0.5s ease-in-out;
+    }
+
+    .menu {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 100px 30px 30px;
+        background-color: rgb(41 42 43 / 70.7%);
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .menu.hide {
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .menu::before {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        width: 100%;
+        height: 80px;
+        background-color: var(--color-blue-600);
+        content: "";
+    }
+
+    .menuLink {
+        font-size: var(--font-size-level-2-heading);
+    }
+
+    .menuLink::after {
+        bottom: -8px;
+    }
+}

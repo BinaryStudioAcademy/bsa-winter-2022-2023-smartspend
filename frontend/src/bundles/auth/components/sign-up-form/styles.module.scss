@@ -1,0 +1,101 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--m-5);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100%;
+    max-height: 100px;
+    margin: 0;
+}
+
+.inputWrapper label > span:first-child {
+    color: var(--color-white-100);
+    font-size: var(--font-size-level-6-heading);
+}
+
+.inputPages {
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-10);
+}
+
+.inputPages:hover {
+    box-shadow: rgb(105 137 254 / 50%) 0 0 10px 0,
+        rgb(60 100 244 / 20%) 0 0 0 4px;
+}
+
+.inputPages:focus {
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--gradient-5);
+    border: var(--border) solid transparent;
+    box-shadow: rgb(0 215 189 / 50%) 0 0 10px 0, rgb(3 191 217 / 20%) 0 0 0 4px;
+}
+
+.inputPages[type="password"],
+.inputPages[type="text"] {
+    padding-right: var(--p-6);
+}
+
+.imgWrapper {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 18px;
+    height: 16px;
+    transform: translateY(-60%);
+}
+
+.formButton {
+    width: 149px;
+    margin-top: var(--m-4);
+    padding: var(--p-2) var(--p-4);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-1-button-text);
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.footerContainerClass {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.modalDetailsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modalDetails {
+    width: 280px;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
+}

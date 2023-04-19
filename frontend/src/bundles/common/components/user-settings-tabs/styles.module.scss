@@ -1,0 +1,108 @@
+@import "@assets/utils";
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: var(--font-family);
+    background-color: var(--color-blue-100);
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    height: 55px;
+    color: var(--color-blue-600);
+    text-decoration: none;
+    border-radius: var(--b-2) 0 0 var(--b-2);
+    transition: color 0.1s, background-color 0.3s;
+}
+
+.title {
+    padding: 0 var(--p-4) 0 var(--p-2);
+    overflow: hidden;
+    line-height: 25px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.tab:hover {
+    color: var(--color-blue-500);
+    background-color: var(--color-white-100);
+}
+
+.active {
+    color: var(--color-blue-500);
+    background-color: var(--color-white-100);
+}
+
+.icon {
+    display: none;
+}
+
+@media (max-width: $lg) {
+    .title {
+        white-space: normal;
+    }
+}
+
+@media (max-width: $md) {
+    .tabs {
+        z-index: 999;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100vw;
+        height: 50px;
+        padding: var(--p-1);
+        background-color: var(--color-blue-300);
+    }
+
+    .tab {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: var(--font-size-caption);
+        transition: none;
+    }
+
+    .tab .icon {
+        display: block;
+        margin-top: 2px;
+        padding: 0;
+        font-size: x-large;
+    }
+
+    .active {
+        background-color: transparent;
+    }
+
+    .tabs .active {
+        color: var(--color-blue-500);
+        font-weight: var(--font-weight-600);
+        background-color: var(--color-white-100);
+        border-radius: var(--b-2);
+    }
+
+    .title {
+        display: block;
+        padding: 0;
+        line-height: normal;
+        text-align: center;
+    }
+}
+
+@media (max-width: $sm) {
+    .tabs {
+        height: 50px;
+        column-gap: var(--m-2);
+    }
+
+    .title {
+        font-size: var(--font-size-level-6-heading);
+        text-align: center;
+    }
+}

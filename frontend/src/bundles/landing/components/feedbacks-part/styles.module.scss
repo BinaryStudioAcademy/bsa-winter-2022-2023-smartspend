@@ -1,0 +1,90 @@
+@import "@assets/utils";
+
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    width: 100%;
+    background-color: var(--color-white-100);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    height: 620px;
+}
+
+.carouselContainer {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, minmax(288px, 360px));
+    gap: var(--m-5);
+    padding-bottom: 60px;
+}
+
+.bulletClass {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gray-100);
+    border-radius: 50%;
+}
+
+.bulletActive {
+    background-color: #01d0c6;
+}
+
+.horizontalClass {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.carouselContainer > div {
+    width: 100%;
+}
+
+.title {
+    margin-top: 0;
+    color: var(--color-navy-900);
+    font-size: var(--font-size-level-1-heading);
+    line-height: var(--line-height-level-1-heading);
+}
+
+@media (max-width: $xl) {
+    .container {
+        justify-content: center;
+        height: auto;
+        padding: var(--p-6) var(--p-3);
+    }
+}
+
+@media (max-width: $lg) {
+    .container {
+        padding: var(--p-5) var(--p-3);
+    }
+
+    .carouselContainer {
+        grid-template-columns: repeat(2, minmax(288px, 414px));
+    }
+
+    .title {
+        font-size: var(--font-size-level-2-heading);
+        line-height: var(--line-height-level-3-heading);
+    }
+}
+
+@media (max-width: $md) {
+    .title {
+        text-align: center;
+    }
+
+    .carouselContainer {
+        grid-template-columns: minmax(288px, 414px);
+    }
+}

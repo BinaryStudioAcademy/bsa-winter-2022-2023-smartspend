@@ -1,0 +1,69 @@
+@import "@assets/utils";
+
+.links_container {
+    display: flex;
+    justify-content: center;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--m-5);
+    padding-left: 0;
+    list-style: none;
+}
+
+.menuLink {
+    position: relative;
+    color: var(--color-gray-100);
+    font-size: var(--font-size-caption);
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.menuLink::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-7);
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.active::after {
+    transform: scaleX(1);
+}
+
+.active {
+    color: var(--color-white-100);
+    transition: transform 0.2s ease-in-out;
+}
+
+@media (any-hover: hover) {
+    .menuLink:hover {
+        color: var(--color-white-100);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .menuLink:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+@media (max-width: $sm) {
+    .links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        align-items: center;
+        gap: var(--m-2);
+    }
+}

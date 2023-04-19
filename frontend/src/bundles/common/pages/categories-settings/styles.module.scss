@@ -1,0 +1,51 @@
+@import "@assets/utils";
+
+.section {
+    display: flex;
+    max-width: 920px;
+    padding: var(--p-3) calc(var(--p-5) + var(--p-2));
+    background: var(--color-white-100);
+    border-radius: 25px;
+}
+
+@media screen and (max-width: $sm) {
+    .section {
+        padding: 0;
+    }
+}
+
+.wrapper {
+    flex-grow: 1;
+    max-width: 920px;
+    background-color: var(--color-white-100);
+    border-radius: var(--b-2);
+}
+
+.content {
+    padding: var(--p-2) var(--p-2) var(--p-3);
+}
+
+.mobileBtn {
+    display: none;
+}
+
+@media screen and (max-width: $md) {
+    .mobileBtn {
+        display: block;
+    }
+}
+
+.title {
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+    line-height: var(-line-height-level-3-heading);
+}
+
+.btn {
+    width: 100%;
+}
+
+.btnName {
+    padding-left: 10px;
+}

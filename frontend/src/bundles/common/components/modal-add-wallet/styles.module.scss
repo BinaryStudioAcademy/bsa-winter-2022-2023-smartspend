@@ -1,0 +1,61 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    width: 310px;
+    height: 250px;
+    padding: 0 var(--p-3) var(--p-3) var(--p-3);
+}
+
+.title {
+    margin: var(--m-4) 0;
+    padding-left: var(--p-3);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-appearance: none;
+}
+
+.input::placeholder {
+    color: var(--color-gray-200);
+}
+
+.modal:nth-child(n + 1) {
+    font-size: 16px;
+}
+
+.label {
+    color: var(--color-gray-200);
+}
+
+.label:hover {
+    cursor: pointer;
+}
+
+.button {
+    height: 34px;
+    margin-top: var(--m-4);
+    color: var(--color-blue-300);
+    font: var(--font-family);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-4-heading);
+    background-color: var(--color-disable);
+    border: none;
+    border-radius: var(--b-2);
+    transition: background-color 0.6s ease, color 0.2s ease;
+}
+
+.active {
+    color: var(--color-white-100);
+    background: var(--gradient-6);
+}
+
+.dropdownLabel {
+    color: var(--color-blue-300);
+}

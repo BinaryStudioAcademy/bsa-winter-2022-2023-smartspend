@@ -1,0 +1,94 @@
+@import "@assets/utils";
+
+.budgets {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 100%;
+    margin-top: 80px;
+    padding: var(--p-3) 0 calc(var(--p-4) + var(--p-1));
+    background-color: var(--color-blue-100);
+}
+
+.container {
+    flex: 1 1 auto;
+}
+
+.loaderContainer {
+    position: relative;
+    top: -50px;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    margin: 0;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-sub-heading);
+    line-height: var(--line-height-sub-heading);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+}
+
+.cardCreate {
+    display: block;
+    justify-self: center;
+    width: 100%;
+    height: 240px;
+    padding: calc(var(--p-3) + var(--p-1)) var(--p-4)
+        calc(var(--p-3) + var(--p-1));
+    background-color: var(--color-white-100);
+    background-image: none;
+    border-radius: var(--b-5);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.cardCreate:hover {
+    background-color: var(--color-white-100);
+    background-image: none;
+    box-shadow: 0 2px 12px rgb(56 109 246 / 12%);
+}
+
+.createText {
+    margin: var(--m-2) 0 0 0;
+    color: var(--color-blue-600);
+    line-height: var(--line-height-level-2-body-semi-bold);
+}
+
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.button > svg {
+    position: relative;
+    left: 0.5px;
+}
+
+@media (max-width: $md) {
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: $sm) {
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    }
+}

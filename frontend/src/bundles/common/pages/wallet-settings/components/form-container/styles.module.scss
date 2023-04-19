@@ -1,0 +1,90 @@
+@import "@assets/utils";
+
+.inputs_container {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.buttons_container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--m-5);
+}
+
+.button_delete_icon {
+    margin-right: var(--m-3);
+}
+
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 580px;
+    padding: 0 70px;
+    color: var(--color-blue-600);
+    text-align: center;
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+}
+
+.modalDetailsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 580px;
+    margin: 0 auto 15px;
+    padding: 0 80px;
+}
+
+.modalSubTitle {
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: $lg) {
+    .buttons_container {
+        margin-top: var(--m-3);
+    }
+}
+
+@media (max-width: $md) {
+    .inputs_container {
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+    }
+
+    .input_balance {
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .input_currency {
+        grid-row: 3;
+        grid-column: 1;
+    }
+
+    .buttons_container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

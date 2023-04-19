@@ -5,7 +5,9 @@ import {
     isRejected,
 } from '@reduxjs/toolkit';
 
-import { notification } from '~/services/notification/notification.service';
+import { actions as authActions } from '~/bundles/auth/store';
+import { ExceptionMessage } from '~/bundles/common/enums/enums';
+import { notification } from '~/services/services.js';
 
 const handleError: Middleware = () => {
     return (next: Dispatch) => {
@@ -13,6 +15,12 @@ const handleError: Middleware = () => {
             const result = next(action);
 
             if (isRejected(result) && !result.meta.rejectedWithValue) {
+                if (
+                    result.error.message ===
+                    ExceptionMessage.EMAIL_ALREADY_EXISTS
+                ) {
+                    return next(authActions.toggleSignUpModalOpen());
+                }
                 const error =
                     result.error.message ??
                     'Something went wrong. Please try again later.';

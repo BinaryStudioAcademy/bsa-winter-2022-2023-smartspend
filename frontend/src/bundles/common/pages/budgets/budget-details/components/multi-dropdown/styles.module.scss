@@ -1,0 +1,55 @@
+.multiDropdown {
+    width: 225px;
+}
+
+.multiDropdown > div > div {
+    border-radius: 0.5rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.imageWrapper {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-left: var(--m-1);
+    color: var(--color-white-100);
+    border-radius: 6px;
+}
+
+.image {
+    width: 25px;
+    height: 25px;
+    margin: 0 var(--m-1);
+    border-radius: 50%;
+}
+
+.name {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.text {
+    margin: 0 var(--m-2);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+}
+
+.checkbox {
+    margin-right: var(--m-2);
+    transform: scale(1.5);
+}
+
+.dropdownLabel {
+    color: var(--color-gray-200);
+    font-size: 16px;
+}

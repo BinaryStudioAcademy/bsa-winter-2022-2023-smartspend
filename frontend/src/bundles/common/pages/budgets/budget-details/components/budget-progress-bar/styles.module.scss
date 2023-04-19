@@ -1,0 +1,31 @@
+.budgetProgressBar {
+    width: 100%;
+    max-width: 800px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.budgetProgressBarSpent {
+    float: left;
+    height: 100%;
+    background: var(--gradient-5);
+}
+
+.redGradient {
+    background: var(--gradient-11);
+}
+
+.budgetProgressBarRemaining {
+    float: right;
+    height: 100%;
+    background-color: var(--color-disable);
+}
+
+.percentage {
+    position: absolute;
+    padding: 12px;
+    color: var(--color-white-100);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-3-heading);
+}

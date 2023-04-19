@@ -1,0 +1,110 @@
+.card {
+    flex: 1 1 auto;
+    justify-self: center;
+    width: 100%;
+    height: 240px;
+    padding: calc(var(--p-3) + var(--p-1)) var(--p-4)
+        calc(var(--p-2) + var(--p-5));
+    text-decoration: none;
+    background-color: var(--color-white-100);
+    border-radius: var(--b-5);
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 2px 12px rgb(56 109 246 / 12%);
+}
+
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--m-3);
+    height: 100%;
+}
+
+.cardHeader,
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--m-2);
+}
+
+.headerTitle {
+    margin: 0;
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-4-heading);
+}
+
+.headerSubtext {
+    margin: 0;
+    color: var(--color-gray-300);
+}
+
+.bodyAmount {
+    display: flex;
+    margin: 0;
+    color: var(--color-blue-500);
+    font-weight: var(--font-weight-600);
+    font-size: var(--font-size-sub-heading);
+}
+
+.text,
+.textSpan {
+    margin: 0;
+    color: var(--color-gray-300);
+    font-weight: var(--font-weight-400);
+    font-size: medium;
+}
+
+.textSpan {
+    margin-left: 5px;
+}
+
+.cardFooter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--m-1);
+    width: 100%;
+}
+
+.budgetProgressBar {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.footerProgress {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: var(--gradient-6);
+}
+
+.budgetProgressBarSpent {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    background-color: var(--color-blue-100);
+}
+
+.redGradient {
+    background-color: transparent;
+    background-image: var(--gradient-11);
+}
+
+.footerText {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footerSpan {
+    color: var(--color-gray-300);
+    font-size: var(--font-size-caption);
+}

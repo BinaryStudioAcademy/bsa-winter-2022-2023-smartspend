@@ -1,0 +1,88 @@
+@import "@assets/utils";
+
+.body {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-blue-100);
+}
+
+.container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 680px;
+}
+
+.chartCardsContainer {
+    position: relative;
+}
+
+.chartCardTop,
+.chartCardBottom {
+    position: absolute;
+    display: block;
+    max-width: 420px;
+}
+
+.chartCardTop {
+    right: 150px;
+    bottom: -20px;
+}
+
+.chartCardBottom {
+    top: 0;
+    right: -40px;
+}
+
+@media (max-width: $xl) {
+    .chartCardTop {
+        right: 100px;
+        bottom: -20px;
+    }
+}
+
+@media (max-width: $lg) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--p-5) var(--p-3);
+    }
+
+    .chartCardsContainer {
+        position: inherit;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(2, minmax(288px, 420px));
+        gap: 20px;
+    }
+
+    .chartCardTop,
+    .chartCardBottom {
+        position: inherit;
+    }
+
+    .chartCardTop > div,
+    .chartCardBottom > div {
+        display: flex;
+        width: 100%;
+    }
+}
+
+@media (max-width: $md) {
+    .chartCardsContainer {
+        grid-template-rows: 1fr;
+        grid-template-columns: minmax(288px, 420px);
+    }
+}
+
+@media (max-width: $sm) {
+    .chartCardsContainer {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: minmax(288px, 420px);
+    }
+}

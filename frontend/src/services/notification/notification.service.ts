@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { NotificationType } from '~/bundles/common/enums/notification-type.enum';
+import { NotificationType } from '~/bundles/common/enums/enums.js';
 
 const DEFAULT_MESSAGE = 'Unexpected error';
 
@@ -34,6 +34,4 @@ class Notification {
     }
 }
 
-const notification = new Notification();
-
-export { notification };
+export { Notification };

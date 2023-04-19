@@ -1,0 +1,114 @@
+@import "@assets/utils";
+
+.calendar_wrapper {
+    position: relative;
+}
+
+.calendar {
+    min-width: 212px;
+    height: 48px;
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-calendar);
+    border: 1px solid var(--color-blue-200);
+}
+
+.range_wrapper {
+    display: flex;
+    padding: var(--p-1);
+    background-color: var(--color-gray);
+    border-radius: var(--b-1);
+}
+
+.range_display {
+    width: 270px;
+}
+
+.modal_one_day {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    z-index: 10000;
+    margin-left: var(--m-2);
+}
+
+.modal_range {
+    position: absolute;
+    top: 40px;
+    left: 1px;
+    z-index: 10000;
+}
+
+.icon {
+    padding-left: var(--p-3);
+}
+
+.arrow_left {
+    padding-right: var(--p-4);
+    padding-left: var(--p-4);
+    color: var(--color-blue-500);
+    cursor: pointer;
+}
+
+.arrow_right {
+    padding-right: var(--p-4);
+    padding-left: var(--p-4);
+    color: var(--color-blue-500);
+    cursor: pointer;
+}
+
+.button {
+    position: absolute;
+    right: 1px;
+    bottom: -35px;
+    z-index: 10000;
+    margin-top: var(--m-2);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-disable);
+    cursor: default;
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+.calendar:hover {
+    border: 1px solid var(--color-blue-300);
+}
+
+@media (max-width: $lg) {
+    .calendar {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: $md) {
+    .calendar {
+        min-width: 100%;
+    }
+
+    .range_display {
+        width: 100%;
+    }
+
+    .arrow_left {
+        display: none;
+    }
+
+    .arrow_right {
+        display: none;
+    }
+}
+
+@media (max-width: $sm) {
+    .icon {
+        display: none;
+    }
+}

@@ -1,6 +1,7 @@
 :root {
     --border: 2px;
     --transition-time: 0.3s;
+    --color-delete-hover: #f95656;
 }
 
 .button {
@@ -12,7 +13,7 @@
     font-family: var(--font-family);
     letter-spacing: var(--letter-spacing-button-text);
     border: none;
-    border-radius: var(--px-2);
+    border-radius: var(--b-2);
     cursor: pointer;
 }
 
@@ -85,7 +86,7 @@
 }
 
 .plain {
-    color: var(--color-pink-100);
+    color: var(--color-blue-500);
     background: none;
 }
 
@@ -102,5 +103,22 @@
 
 .round {
     color: var(--color-white-100);
-    background-color: var(--color-pink-100);
+    background-color: var(--color-blue-500);
+}
+
+.delete {
+    color: var(--color-warning);
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--color-warning);
+    border: var(--border) solid transparent;
+}
+
+.delete:hover {
+    color: var(--color-red-300);
+    background: linear-gradient(var(--color-white-100), var(--color-white-100))
+            padding-box,
+        var(--color-red-300);
+    border: var(--border) solid transparent;
+    transition: all var(--transition-time);
 }

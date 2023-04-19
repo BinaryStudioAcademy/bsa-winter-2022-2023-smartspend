@@ -1,0 +1,300 @@
+@import "@assets/utils";
+
+.app {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow-x: hidden;
+    font-family: var(--font-family);
+}
+
+.body {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 80px;
+    background: var(--color-blue-100);
+}
+
+.btn {
+    width: 100%;
+}
+
+.bodyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonsDate {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 115px;
+}
+
+.buttonsDate button > div {
+    background-color: var(--color-white-100);
+}
+
+.buttonsDate button {
+    height: 40px;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdownCategoryIcon {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    color: var(--color-white-100);
+    border-radius: 6px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: var(--m-2);
+}
+
+.button {
+    background: transparent;
+    border: var(--border) solid;
+}
+
+.button:hover {
+    background: transparent;
+    border: var(--border) solid;
+    transition: all var(--transition-time);
+}
+
+.calendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 319px;
+    background: red;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100vw;
+    min-height: 160px;
+    background: var(--color-white-100);
+}
+
+.filtersContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.filterText {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.applyFilters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: var(--p-2);
+    column-gap: 4px;
+}
+
+.rangeFilter {
+    display: flex;
+    flex-direction: column;
+    height: 76px;
+}
+
+.applyFilters > * {
+    color: var(--color-gray-200);
+    font-weight: var(--font-weight-400);
+    font-size: var(--font-size-level-2-body);
+}
+
+.dropdown > * {
+    color: var(--color-gray-200);
+}
+
+.fakeFilter {
+    height: 48px;
+    margin-top: 5px;
+    color: black;
+    text-align: center;
+    background: lightcoral;
+}
+
+.reset {
+    margin: 0;
+    padding-top: var(--p-1);
+    color: var(--color-pink-100);
+    font-weight: var(--font-weight-500);
+    font-size: 18px;
+    font-family: var(--font-family);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.slider {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 0 var(--p-2);
+}
+
+.slider > * {
+    width: 100%;
+}
+
+.walletTransactions {
+    width: 100%;
+}
+
+.walletTransactionsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 19px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+
+.transactionsContainer {
+    width: 100%;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    margin: 0 var(--m-2);
+    overflow: hidden;
+    color: var(--color-blue-600);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.text {
+    margin: 0 var(--m-2);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+}
+
+.checkbox {
+    margin-right: var(--m-2);
+    transform: scale(1.5);
+}
+
+.transactionButton {
+    justify-content: space-between;
+    align-items: center;
+    width: 215px;
+    height: 40px;
+    padding: 0 var(--p-4);
+}
+
+.modalTitle {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-blue-600);
+    font-size: var(--font-size-level-2-heading);
+    line-height: var(--line-height-level-2-heading);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.modalDetailsContainer {
+    margin-bottom: var(--m-2);
+    padding: 0 var(--p-6);
+    color: var(--color-blue-600);
+    font-weight: var(--font-weight-500);
+    font-size: var(--font-size-level-2-body);
+    line-height: var(--line-height-caption);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: var(--m-4);
+}
+
+@media (max-width: $xl) {
+    .filters,
+    .buttonsDate,
+    .walletTransactionsContainer {
+        padding: 20px;
+    }
+}
+
+@media (max-width: $lg) {
+    .buttonsContainer {
+        justify-content: center;
+    }
+
+    .buttonsDate {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cards {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .applyFilters {
+        gap: 20px;
+    }
+}
+
+@media (max-width: $sm) {
+    .applyFilters {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (min-width: $lg) {
+    .buttonsContainer {
+        margin-right: var(--m-2);
+    }
+}

@@ -1,67 +1,51 @@
-import reactLogo from '~/assets/img/react.svg';
-import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+import {
+    Header,
+    RouterOutlet,
+} from '~/bundles/common/components/components.js';
+import { dataTabs } from '~/bundles/common/config/header-tabs.config.js';
 import {
     useAppDispatch,
+    UseAppPwaHook,
     useAppSelector,
     useEffect,
-    useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { actions as userActions } from '~/bundles/users/store';
+import { iconProvider } from '~/bundles/common/icon-provider';
+import { actions as currenciesActions } from '~/bundles/currencies/store';
+import { actions as usersActions } from '~/bundles/users/store';
+import { storage, StorageKey } from '~/framework/storage/storage';
+
+library.add(iconProvider);
 
 const App: React.FC = () => {
-    const { pathname } = useLocation();
+    const token = storage.getSync(StorageKey.TOKEN);
+    const { user } = useAppSelector((state) => state.users);
     const dispatch = useAppDispatch();
-    const { users, dataStatus } = useAppSelector(({ users }) => ({
-        users: users.users,
-        dataStatus: users.dataStatus,
-    }));
 
-    const isRoot = pathname === AppRoute.ROOT;
+    const Modal = UseAppPwaHook(token);
 
     useEffect(() => {
-        if (isRoot) {
-            void dispatch(userActions.loadAll());
+        if (!user && token) {
+            void dispatch(usersActions.loadUser());
         }
-    }, [isRoot, dispatch]);
+    }, [dispatch, token, user]);
+
+    useEffect(() => {
+        if (token) {
+            void dispatch(currenciesActions.loadAll());
+        }
+    }, [dispatch, token]);
 
     return (
         <>
-            <img src={reactLogo} className="App-logo" width="30" alt="logo" />
-
-            <ul className="App-navigation-list">
-                <li>
-                    <Link to={AppRoute.ROOT}>Root</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.SIGN_IN}>Sign in</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.SIGN_UP}>Sign up</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.UI}>Base page</Link>
-                </li>
-                <li>
-                    <Link to={AppRoute.DASHBOARD}>Dashboard</Link>
-                </li>
-            </ul>
-            <p>Current path: {pathname}</p>
-
-            <div>
-                <RouterOutlet />
-            </div>
-            {isRoot && (
-                <>
-                    <h2>Users:</h2>
-                    <h3>Status: {dataStatus}</h3>
-                    <ul>
-                        {users.map((it) => (
-                            <li key={it.id}>{it.email}</li>
-                        ))}
-                    </ul>
-                </>
-            )}
+            <Header
+                firstName={user?.firstName ?? user?.email}
+                lastName={user?.lastName}
+                dataTabs={dataTabs}
+            />
+            <RouterOutlet />
+            {Modal}
         </>
     );
 };
